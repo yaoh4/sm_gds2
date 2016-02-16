@@ -1,5 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,14 +15,14 @@ public class HomeAction extends BaseAction {
 	static Logger logger = LogManager.getLogger(BaseAction.class);
 	
 	/**
-	 * Entry point. Invoked when user logs into the application.
+	 * Entry point to the application. Invoked when the user logs in.
 	 * 
 	 * @return forward string
 	 */
 	public String execute() throws Exception {
-        String forward = SUCCESS;
+       
         
-        return forward;
+        return ApplicationConstants.SUCCESS;
 	}
 
 }

@@ -26,9 +26,14 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 
 	static Logger logger = LogManager.getLogger(BaseAction.class);
 	
-	protected HttpServletRequest request;
-	protected HttpServletResponse response;
-	protected Map<String, Object> session;
+	@SuppressWarnings("unused")
+	private HttpServletRequest request;
+	
+	@SuppressWarnings("unused")
+	private HttpServletResponse response;
+	
+	@SuppressWarnings("unused")
+	private Map<String, Object> session;
 	
 	
 	@Override
