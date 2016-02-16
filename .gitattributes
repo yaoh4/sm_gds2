@@ -41,6 +41,8 @@ WebContent/WEB-INF/lib/javassist-3.20.0-GA.jar -text
 WebContent/WEB-INF/lib/jboss-logging-3.3.0.Final.jar -text
 WebContent/WEB-INF/lib/json-lib-2.3-jdk15.jar -text
 WebContent/WEB-INF/lib/juli-6.0.18.jar -text
+WebContent/WEB-INF/lib/log4j-api-2.5.jar -text
+WebContent/WEB-INF/lib/log4j-core-2.5.jar -text
 WebContent/WEB-INF/lib/mvel2-2.0.11.jar -text
 WebContent/WEB-INF/lib/ognl-3.0.6.jar -text
 WebContent/WEB-INF/lib/org.apache.felix.framework-4.0.3.jar -text
