@@ -1,4 +1,5 @@
 * text=auto !eol
+WebContent/WEB-INF/applicationContext.xml -text
 WebContent/WEB-INF/lib/activation.jar -text
 WebContent/WEB-INF/lib/antlr-2.7.7.jar -text
 WebContent/WEB-INF/lib/aopalliance-1.0.jar -text
@@ -52,6 +53,7 @@ WebContent/WEB-INF/lib/org.apache.felix.shell.tui-1.4.1.jar -text
 WebContent/WEB-INF/lib/org.osgi.compendium-4.0.0.jar -text
 WebContent/WEB-INF/lib/org.osgi.core-4.1.0.jar -text
 WebContent/WEB-INF/lib/oro-2.0.8.jar -text
+WebContent/WEB-INF/lib/oscache-2.4.1.jar -text
 WebContent/WEB-INF/lib/oval-1.31.jar -text
 WebContent/WEB-INF/lib/plexus-container-default-1.0-alpha-10.jar -text
 WebContent/WEB-INF/lib/plexus-utils-1.2.jar -text
@@ -98,7 +100,23 @@ WebContent/WEB-INF/lib/xmlpull-1.1.3.1.jar -text
 WebContent/WEB-INF/lib/xpp3_min-1.1.4c.jar -text
 WebContent/WEB-INF/lib/xstream-1.4.2.jar -text
 WebContent/WEB-INF/lib/xwork-core-2.3.24.1.jar -text
+WebContent/WEB-INF/web.xml -text
+WebContent/index.jsp -text
+build/build.xml -text
+build/env.properties -text
+build/user.properties -text
+lib/tomcat/catalina-ant.jar -text
+lib/tomcat/jasper.jar -text
+lib/tomcat/jsp-api.jar -text
+lib/tomcat/ojdbc6.jar -text
+lib/tomcat/servlet-api.jar -text
+lib/tomcat/tomcat-coyote.jar -text
+lib/tomcat/tomcat-juli.jar -text
+lib/tomcat/tomcat-util.jar -text
 properties/db-connection.properties -text
+properties/local/gds.properties -text
+properties/local/log4j.properties -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BaseAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
+src/struts.xml -text
