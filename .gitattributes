@@ -100,3 +100,4 @@ WebContent/WEB-INF/lib/xstream-1.4.2.jar -text
 WebContent/WEB-INF/lib/xwork-core-2.3.24.1.jar -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BaseAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
