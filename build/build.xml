@@ -146,7 +146,6 @@
             </fileset>
 	 		<fileset dir="${env.properties.dir}">
 	 	     <include name="${app.name}.properties"/>
-	 		 <include name="log4j.properties"/>
 	 	    </fileset>
      </copy>
      <copy todir="${java.classes.dir}">
@@ -154,6 +153,9 @@
               <include name="*.*"/>
               <exclude name="db-connection.properties"/>
             </fileset>
+     		<fileset dir="${env.properties.dir}">
+     		  <include name="log4j2.xml"/>
+     		</fileset>
             <fileset dir="${webcontent.dir}" includes="template/*/*.*"/>
      </copy>
 

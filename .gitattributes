@@ -115,7 +115,7 @@ lib/tomcat/tomcat-juli.jar -text
 lib/tomcat/tomcat-util.jar -text
 properties/db-connection.properties -text
 properties/local/gds.properties -text
-properties/local/log4j.properties -text
+properties/local/log4j2.xml -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BaseAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
