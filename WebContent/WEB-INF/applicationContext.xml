@@ -119,14 +119,5 @@
 		<aop:scoped-proxy />
 	</bean> -->
 
-	<bean id="cacheAdministrator"
-		class="com.opensymphony.oscache.general.GeneralCacheAdministrator"
-		destroy-method="destroy">
-		<constructor-arg index="0">
-			<props>
-				<prop key="cache.memory">true</prop>
-			</props>
-		</constructor-arg>
-	</bean>
 	
 </beans>

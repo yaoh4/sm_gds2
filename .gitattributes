@@ -119,4 +119,7 @@ properties/local/log4j2.xml -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BaseAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDAO.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/services/LookupService.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/LookupServiceImpl.java -text
 src/struts.xml -text
