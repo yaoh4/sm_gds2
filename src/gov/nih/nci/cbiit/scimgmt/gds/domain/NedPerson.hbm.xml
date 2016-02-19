@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson" table="NED_PERSON" mutable="false">
+		<cache usage="read-only" />
+        <id name="nedId" type="string">
+            <column name="UNIQUEIDENTIFIER" length="30" />
+            <generator class="assigned" />
+        </id>
+        <property name="id" type="java.lang.Integer" insert="false" update="false">
+            <column name="ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="building" type="string">
+            <column name="BUILDINGNAME" length="768" />
+        </property>
+        <property name="c" type="string">
+            <column name="C" length="6" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="3072" />
+        </property>
+        <property name="facsimiletelephone" type="string">
+            <column name="FACSIMILETELEPHONE" length="90" />
+        </property>
+        <property name="generationqualif" type="string">
+            <column name="GENERATIONQUALIF" length="15" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="GIVENNAME" length="192" not-null="true" />
+        </property>
+        <property name="initials" type="string">
+            <column name="INITIALS" length="15" />
+        </property>
+        <property name="l" type="string">
+            <column name="L" length="384" />
+        </property>
+        <property name="email" type="string">
+            <column name="MAIL" length="768" />
+        </property>
+        <property name="manager" type="string">
+            <column name="MANAGER" length="30" />
+        </property>
+        <property name="middleName" type="string">
+            <column name="MIDDLENAME" length="192" />
+        </property>
+        <property name="mobiletelephonenum" type="string">
+            <column name="MOBILETELEPHONENUM" length="90" />
+        </property>
+        <property name="nihbadgetitle" type="string">
+            <column name="NIHBADGETITLE" length="120" />
+        </property>
+        <property name="nihcommongenqualif" type="string">
+            <column name="NIHCOMMONGENQUALIF" length="15" />
+        </property>
+        <property name="preferredName" type="string">
+            <column name="NIHCOMMONGIVENNAME" length="192" />
+        </property>
+        <property name="nihcommonmiddlenam" type="string">
+            <column name="NIHCOMMONMIDDLENAM" length="192" />
+        </property>
+        <property name="nihcommonsn" type="string">
+            <column name="NIHCOMMONSN" length="192" />
+        </property>
+        <property name="nihcreatetimestamp" type="date">
+            <column name="NIHCREATETIMESTAMP" length="7" />
+        </property>
+        <property name="nihcreatorsname" type="string">
+            <column name="NIHCREATORSNAME" length="30" />
+        </property>
+        <property name="nihdeliveryaddress" type="string">
+            <column name="NIHDELIVERYADDRESS" length="765" />
+        </property>
+        <property name="nihdirentryeffectivedate" type="date">
+            <column name="NIHDIRENTRYEFFECTIVEDATE" length="7" />
+        </property>
+        <property name="nihdirentryexpirationdate" type="date">
+            <column name="NIHDIRENTRYEXPIRATIONDATE" length="7" />
+        </property>
+        <property name="nihdirentrynoprint" type="string">
+            <column name="NIHDIRENTRYNOPRINT" length="3" />
+        </property>
+        <property name="nihdirentryunlist" type="string">
+            <column name="NIHDIRENTRYUNLIST" length="3" />
+        </property>
+        <property name="nihhhsuniquemail" type="string">
+            <column name="NIHHHSUNIQUEMAIL" length="765" />
+        </property>
+        <property name="nihidbadgeexpdate" type="date">
+            <column name="NIHIDBADGEEXPDATE" length="7" />
+        </property>
+        <property name="nihidbadgeissuerea" type="string">
+            <column name="NIHIDBADGEISSUEREA" length="60" />
+        </property>
+        <property name="nihidbadgereqdate" type="date">
+            <column name="NIHIDBADGEREQDATE" length="7" />
+        </property>
+        <property name="nihipd" type="string">
+            <column name="NIHIPD" length="144" />
+        </property>
+        <property name="nihlibraryauth" type="string">
+            <column name="NIHLIBRARYAUTH" length="3" />
+        </property>
+        <property name="nihmailstop" type="string">
+            <column name="NIHMAILSTOP" length="120" />
+        </property>
+        <property name="adUserId" type="string">
+            <column name="NIHMDSLINKTOADNIH" length="60" />
+        </property>
+        <property name="nihmdslinktohelp" type="string">
+            <column name="NIHMDSLINKTOHELP" length="36" />
+        </property>
+        <property name="nihmdslinktoph" type="string">
+            <column name="NIHMDSLINKTOPH" length="96" />
+        </property>
+        <property name="nihmixcasecommonsn" type="string">
+            <column name="NIHMIXCASECOMMONSN" length="192" />
+        </property>
+        <property name="nihmixcasesn" type="string" insert="false" update="false">
+            <column name="NIHMIXCASESN" length="192" />
+        </property>
+        <property name="nihmodifiersname" type="string">
+            <column name="NIHMODIFIERSNAME" length="30" />
+        </property>
+        <property name="nihmodifytimestamp" type="date">
+            <column name="NIHMODIFYTIMESTAMP" length="7" />
+        </property>
+        <property name="nihorgacronym" type="string">
+            <column name="NIHORGACRONYM" length="192" />
+        </property>
+        <property name="nihorgname" type="string">
+            <column name="NIHORGNAME" length="192" />
+        </property>
+        <property name="orgPath" type="string">
+            <column name="NIHORGPATH" length="768" />
+        </property>
+        <property name="nihouacronym" type="string">
+            <column name="NIHOUACRONYM" length="192" />
+        </property>
+        <property name="nihouname" type="string">
+            <column name="NIHOUNAME" length="192" />
+        </property>
+        <property name="nihphysicaladdress" type="string">
+            <column name="NIHPHYSICALADDRESS" length="765" />
+        </property>
+        <property name="nihphyspostalcode" type="string">
+            <column name="NIHPHYSPOSTALCODE" length="120" />
+        </property>
+        <property name="nihSac" type="string">
+            <column name="NIHSAC" length="90" />
+        </property>
+        <property name="nihsite" type="string">
+            <column name="NIHSITE" length="45" />
+        </property>
+        <property name="nihssodomain" type="string">
+            <column name="NIHSSODOMAIN" length="45" />
+        </property>
+        <property name="nihssousername" type="string">
+            <column name="NIHSSOUSERNAME" length="60" />
+        </property>
+        <property name="nihsuffixqualifier" type="string">
+            <column name="NIHSUFFIXQUALIFIER" length="60" />
+        </property>
+        <property name="nihsummerstatus" type="string">
+            <column name="NIHSUMMERSTATUS" length="3" />
+        </property>
+        <property name="nihtty" type="string">
+            <column name="NIHTTY" length="90" />
+        </property>
+        <property name="nihuidquality" type="yes_no">
+            <column name="NIHUIDQUALITY" precision="1" scale="0" />
+        </property>
+        <property name="nihuidvalidationts" type="date">
+            <column name="NIHUIDVALIDATIONTS" length="7" />
+        </property>
+        <property name="nihuidvalidator" type="string">
+            <column name="NIHUIDVALIDATOR" length="30" />
+        </property>
+        <property name="nihuniquemail" type="string">
+            <column name="NIHUNIQUEMAIL" length="768" />
+        </property>
+        <property name="orgStatus" type="string">
+            <column name="ORGANIZATIONALSTAT" length="768" />
+        </property>
+        <property name="pagertelephonenum" type="string">
+            <column name="PAGERTELEPHONENUM" length="90" />
+        </property>
+        <property name="personaltitle" type="string">
+            <column name="PERSONALTITLE" length="48" />
+        </property>
+        <property name="postaladdress" type="string">
+            <column name="POSTALADDRESS" length="765" />
+        </property>
+        <property name="postalcode" type="string">
+            <column name="POSTALCODE" length="120" />
+        </property>
+        <property name="room" type="string">
+            <column name="ROOMNUMBER" length="768" />
+        </property>
+        <property name="secretary" type="string">
+            <column name="SECRETARY" length="30" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="NIHMIXCASESN" length="192" not-null="true" />
+        </property>
+        <property name="st" type="string">
+            <column name="ST" length="384" />
+        </property>
+        <property name="street" type="string">
+            <column name="STREET" length="384" />
+        </property>
+        <property name="phone" type="string">
+            <column name="TELEPHONENUMBER" length="90" />
+        </property>
+        <property name="title" type="string">
+            <column name="TITLE" length="192" />
+        </property>
+        <property name="nihprimarysmtp" type="string">
+            <column name="NIHPRIMARYSMTP" length="768" />
+        </property>
+        <property name="nihdupuid" type="string">
+            <column name="NIHDUPUID" length="765" />
+        </property>
+        <property name="nihidbadgeless6mos" type="string">
+            <column name="NIHIDBADGELESS6MOS" length="3" />
+        </property>
+        <property name="nihnomiddlename" type="string">
+            <column name="NIHNOMIDDLENAME" length="3" />
+        </property>
+        <property name="nihidbadgereqexpdt" type="date">
+            <column name="NIHIDBADGEREQEXPDT" length="7" />
+        </property>
+        <property name="nihidbadgereqtype" type="string">
+            <column name="NIHIDBADGEREQTYPE" length="30" />
+        </property>
+        <property name="nihpoc" type="string">
+            <column name="NIHPOC" length="30" />
+        </property>
+        <property name="inactiveDate" type="date">
+            <column name="INACTIVE_DATE" length="7" />
+        </property>
+        <property name="createdDate" type="date">
+            <column name="CREATED_DATE" length="7" not-null="true" />
+        </property>
+        <property name="roles" type="string" lazy="false">
+			<formula>get_roles(NIHMDSLINKTOADNIH)</formula>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -44,6 +44,7 @@ WebContent/WEB-INF/lib/json-lib-2.3-jdk15.jar -text
 WebContent/WEB-INF/lib/juli-6.0.18.jar -text
 WebContent/WEB-INF/lib/log4j-api-2.5.jar -text
 WebContent/WEB-INF/lib/log4j-core-2.5.jar -text
+WebContent/WEB-INF/lib/mail.jar -text
 WebContent/WEB-INF/lib/mvel2-2.0.11.jar -text
 WebContent/WEB-INF/lib/ognl-3.0.6.jar -text
 WebContent/WEB-INF/lib/org.apache.felix.framework-4.0.3.jar -text
@@ -118,7 +119,14 @@ properties/local/log4j2.xml -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BaseAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/dao/MailTemplateDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDAO.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.hbm.xml -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/NedPerson.hbm.xml -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/NedPerson.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/LookupService.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/services/MailService.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/LookupServiceImpl.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/MailServiceImpl.java -text
 src/struts.xml -text

@@ -40,40 +40,20 @@
   		<property name="dataSource">
   		 <ref bean="dataSource"/>
   		</property>
-  	    <!-- Must references all OR mapping files.
+  	    <!-- Must references all OR mapping files.-->
   		<property name="mappingResources">
   			<list>
-                <value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/AppLookupT.hbm.xml</value>
-                <value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/AppPropertiesT.hbm.xml</value>				
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/GwbLinksT.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmAuditHistoryVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmAuditHistoryT.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmAuditsVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmAuditsT.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmPortfolioVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmPortfolioRolesVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmAuditAccountsVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmAuditAccountRolesVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmAuditAccountActivityVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmAuditAccountActivityT.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmPortfolioNotesT.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmOrganizationVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmDiscrepancyTypesT.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EraBusinessRolesMv.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmI2ePortfolioVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/I2eActiveUserRolesVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmI2eAuditAccountsVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmI2eAuditAccountsT.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/EmI2eAuditAccountRolesVw.hbm.xml</value>
-  				<value>gov/nih/nci/cbiit/scimgmt/entmaint/hibernate/NciPeopleVw.hbm.xml</value>  				
+  				<value>gov/nih/nci/cbiit/scimgmt/gds/domain/NedPerson.hbm.xml</value>
+				<value>gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.hbm.xml</value>
 			</list>
-  		</property> -->
+  		</property>
   		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
 				<prop key="hibernate.connection.release_mode">after_transaction</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
 			</props>
 		</property>
     </bean>
@@ -114,10 +94,22 @@
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="allServices" />
 	</aop:config>  
 	
-	<!-- <bean id="nciUser" class="gov.nih.nci.cbiit.scimgmt.entmaint.security.NciUser"
-		scope="session">
+	<!-- ===== -->
+	<!-- Beans -->
+	<!-- ===== -->
+	<bean id="loggedOnUser" class="gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson" scope="session">
 		<aop:scoped-proxy />
-	</bean> -->
+	</bean>
+	
+	<bean id="velocityEngineFactory"
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+	</bean>
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value>mailfwd.nih.gov</value>
+		</property>
+	</bean>
 
 	
 </beans>
