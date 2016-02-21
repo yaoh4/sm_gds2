@@ -1,15 +1,18 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDAO;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.AppLookupT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.AppPropertiesT;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 /**
@@ -28,32 +31,80 @@ public class LookupServiceImpl implements LookupService {
 	private PropertyListDAO propertyListDAO;
 
 	
+	/**
+	 * Get lookup list for a given discriminator. Retrieve 
+	 * from the cache if present, else from the DB
+	 */
 	@Cacheable(key = "#listName")
-	public List< ? extends Object> getList(String listName) {
+	public List<AppLookupT> getLookupList(String listName) {
 	  	
-	  	return search(listName);
+		logger.info("Loading Lookup list from DB");
+		return propertyListDAO.searchLookup(listName);
 	  	
 	}
 	
 	
-	@CacheEvict
-	public void clearList(String listName) {
+	
+	/**
+	 * Loads the lookup lists from the DB and stores in
+	 * cache. Invoked during application initialization.
+	 */
+	public void loadLookupLists() {
 		
-		//Do nothing, invocation of this method will cause
-		//the cache to be cleared.
+		String prevDiscriminator = "";
+		List<AppLookupT> lookupList = null;
+		List<AppLookupT> allLookups = propertyListDAO.getAllLookupLists();
+		
+		for(AppLookupT appLookupT: allLookups) {
+			String discriminator = appLookupT.getDiscriminator();
+			if(!prevDiscriminator.equalsIgnoreCase(discriminator)) {
+				
+				//Put this list in the cache
+				updateLookupList(discriminator, lookupList);
+				
+				prevDiscriminator = discriminator;
+				
+				//Setup the next list
+				lookupList = new ArrayList();
+				
+			}
+			lookupList.add(appLookupT);
+			
+		}
+	}
+
+
+	/**
+	 * Update the given lookup list in the cache.
+	 * @param listName
+	 * @param lookupList
+	 * @return
+	 */
+	@CachePut(key="#listName")
+	public List<AppLookupT> updateLookupList(String listName, List<AppLookupT> lookupList) {
+		return lookupList;
 	}
 	
 	
 	/**
-	 * Retrieve the lookup list from DB
-	 * 
-	 * @param listName
+	 * Retrieves the properties from DB. Invoked during
+	 * application initialization
+	 */
+	public List<AppPropertiesT> loadPropertiesList() {
+		
+		logger.info("Loading Properties list from DB");
+		return propertyListDAO.getPropertiesList();
+	}
+	
+	
+	/**
+	 * Retrieves the value of a given property from DB. Invoked
+	 * to refresh a specific key. Not for use by the application.
+	 * @param key
 	 * @return
 	 */
-	private List<? extends Object> search(String listName) {
-		
-		return propertyListDAO.retrieve(listName);
+	public String getProperty(String key) {
+		return propertyListDAO.searchProperty(key);
 	}
-
 
 }

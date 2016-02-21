@@ -113,14 +113,21 @@ lib/tomcat/servlet-api.jar -text
 lib/tomcat/tomcat-coyote.jar -text
 lib/tomcat/tomcat-juli.jar -text
 lib/tomcat/tomcat-util.jar -text
+properties/application.properties -text
 properties/db-connection.properties -text
 properties/local/gds.properties -text
 properties/local/log4j2.xml -text
+properties/messages.properties -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BaseAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/MailTemplateDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDAO.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/AppLookupT.hbm.xml -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/AppLookupT.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/AppPropertiesT.hbm.xml -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/AppPropertiesT.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/AppPropertiesTId.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.hbm.xml -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/NedPerson.hbm.xml -text
@@ -129,4 +136,5 @@ src/gov/nih/nci/cbiit/scimgmt/gds/services/LookupService.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/MailService.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/LookupServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/MailServiceImpl.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/util/GdsProperties.java -text
 src/struts.xml -text
