@@ -90,7 +90,7 @@
 	</tx:advice>
 
 	<aop:config>
-		<aop:pointcut id="allServices" expression="execution(* gov.nih.nci.cbiit.scimgmt.entmaint.services.impl.*.*(..))" />
+		<aop:pointcut id="allServices" expression="execution(* gov.nih.nci.cbiit.scimgmt.gds.services.impl.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="allServices" />
 	</aop:config>  
 	
