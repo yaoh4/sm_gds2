@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Feb 21, 2016 12:03:16 AM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="gov.nih.nci.cbiit.scimgmt.gds.domain.AppPropertiesT" table="APP_PROPERTIES_T" schema="NCI">
+    <class name="gov.nih.nci.cbiit.scimgmt.gds.domain.AppPropertiesT" table="APP_PROPERTIES_T" >
         <composite-id name="id" class="gov.nih.nci.cbiit.scimgmt.gds.domain.AppPropertiesTId">
             <key-property name="appName" type="string">
                 <column name="APP_NAME" length="150" />
