@@ -11,7 +11,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Component;
 
-import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDAO;
+import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.AppLookupT;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.AppPropertiesT;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
@@ -30,7 +30,7 @@ public class LookupServiceImpl implements LookupService {
 	private static final Logger logger = LogManager.getLogger(LookupServiceImpl.class);
 	
 	@Autowired
-	private PropertyListDAO propertyListDAO;
+	private PropertyListDao propertyListDAO;
 
 	
 	/**
