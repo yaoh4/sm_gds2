@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDAO;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.AppLookupT;
@@ -21,6 +22,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
  * @author menons2
  *
  */
+@Component
 @EnableCaching
 public class LookupServiceImpl implements LookupService {
 	
