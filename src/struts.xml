@@ -28,23 +28,37 @@
 		</result-types>
 		
 		<interceptors>
-			<interceptor name="logger"
-				class="com.opensymphony.xwork2.interceptor.LoggingInterceptor" />
+			<interceptor name="logger" class="com.opensymphony.xwork2.interceptor.LoggingInterceptor" />
+			<interceptor name="userInterceptor" class="gov.nih.nci.cbiit.scimgmt.gds.interceptor.UserInterceptor" />
+			
 			<interceptor-stack name="defaultLoginStack">
-				<interceptor-ref name="logger" />			
+				<interceptor-ref name="logger" />						
 				<interceptor-ref name="defaultStack" />	
+				<interceptor-ref name="userInterceptor" />					
 			</interceptor-stack>	
 		</interceptors>
 		<default-interceptor-ref name="defaultLoginStack" />   				
 				
-		
-        <!-- 	<global-results>
-			<result name="error" type="tiles">tiles.error.details</result>
+		<global-results>
+			<result name="notAuthorized" type="tiles">gds.notauthorized</result>
+			<result name="error" type="tiles">gds.error</result>
 		</global-results>
-   
+		
 		<global-exception-mappings>
-			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
-		</global-exception-mappings>-->
+		    <exception-mapping exception="java.lang.Exception" result="error"/>			
+		</global-exception-mappings>	
+		
+		<action name="GdsHome"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
+			 <result name="success" type="tiles">gds.home</result>
+		</action>
+		
+		<action name="AddNewSubmission"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">gds.home</result>
+		</action>		
+		
+		<action name="SendErrorMessage" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ErrorMessageAction">
+			<result type="redirectAction" name="success">Home</result>
+		</action>		
 		
 	</package>
 	

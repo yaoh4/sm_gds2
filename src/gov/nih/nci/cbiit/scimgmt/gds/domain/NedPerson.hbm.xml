@@ -243,8 +243,8 @@
         <property name="createdDate" type="date">
             <column name="CREATED_DATE" length="7" not-null="true" />
         </property>
-        <property name="roles" type="string" lazy="false">
+         <!-- <property name="roles" type="string" lazy="false">
 			<formula>get_roles(NIHMDSLINKTOADNIH)</formula>
-		</property>
+		</property>   -->
 	</class>
 </hibernate-mapping>
