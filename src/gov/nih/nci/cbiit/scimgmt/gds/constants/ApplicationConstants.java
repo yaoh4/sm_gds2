@@ -6,8 +6,5 @@ package gov.nih.nci.cbiit.scimgmt.gds.constants;
  */
 public interface ApplicationConstants {
 
-	 /*forwards */
-    public static String SUCCESS = "success";
-    public static String INPUT = "input";
     
 }

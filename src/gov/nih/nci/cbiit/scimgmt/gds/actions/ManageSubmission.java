@@ -1,7 +1,5 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
-import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +20,7 @@ public class ManageSubmission extends BaseAction {
 	public String execute() throws Exception {
        
         
-        return ApplicationConstants.SUCCESS;
+        return SUCCESS;
 	}
 
 }
