@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MailTemplateDao {
-	static final Logger log = LogManager.getLogger(MailTemplateDao.class.getName());
+	static final Logger logger = LogManager.getLogger(MailTemplateDao.class.getName());
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -24,17 +24,17 @@ public class MailTemplateDao {
 	 * @return the mail template
 	 */
 	public MailTemplate findById(final Long id) {
-		log.info("getting MailTemplate instance with id: " + id);
+		logger.info("getting MailTemplate instance with id: " + id);
 		try {
 			final MailTemplate instance = sessionFactory.getCurrentSession().get(MailTemplate.class, id);
 			if (instance == null) {
-				log.info("get successful, no instance found");
+				logger.info("get successful, no instance found");
 			} else {
-				log.info("get successful, instance found");
+				logger.info("get successful, instance found");
 			}
 			return instance;
 		} catch (final RuntimeException re) {
-			log.error("get failed", re);
+			logger.error("get failed", re);
 			throw re;
 		}
 	}
@@ -47,7 +47,7 @@ public class MailTemplateDao {
 	 * @return the mail template
 	 */
 	public MailTemplate findByShortIdentifier(final String shortIdentifier) {
-		log.info("finding MailTemplate instance by shortIdentifier '" + shortIdentifier + "'");
+		logger.info("finding MailTemplate instance by shortIdentifier '" + shortIdentifier + "'");
 		try {
 			final Criteria crit = sessionFactory.getCurrentSession().createCriteria(MailTemplate.class);
 			crit.add(Restrictions.eq("shortIdentifier", shortIdentifier));
@@ -56,7 +56,7 @@ public class MailTemplateDao {
 
 			return result;
 		} catch (final RuntimeException re) {
-			log.error("find by example failed", re);
+			logger.error("find by example failed", re);
 			throw re;
 		}
 	}

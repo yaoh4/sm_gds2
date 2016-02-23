@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MailServiceImpl implements MailService {
-	static final Logger log = LogManager.getLogger(MailServiceImpl.class.getName());
+	static final Logger logger = LogManager.getLogger(MailServiceImpl.class.getName());
 	@Autowired
 	private JavaMailSender mailSender;
 	@Autowired
@@ -123,7 +123,7 @@ public class MailServiceImpl implements MailService {
 
 		if (template != null) {
 			if (!template.getActive()) {
-				log.info("Sending mail is turned off for template: " + identifier);
+				logger.info("Sending mail is turned off for template: " + identifier);
 				return;
 			}
 			final VelocityContext vc = new VelocityContext(params);
@@ -142,8 +142,8 @@ public class MailServiceImpl implements MailService {
 				try {
 					velocityEngine.evaluate(vc, body, identifier, template.getBody());
 					velocityEngine.evaluate(vc, subjectWriter, identifier, template.getSubject());
-					log.info("evaluating email template: " + body.toString());
-					log.info("sending message....." + identifier + " with params..... " + params);
+					logger.info("evaluating email template: " + body.toString());
+					logger.info("sending message....." + identifier + " with params..... " + params);
 
 					final MimeMessageHelper helper = new MimeMessageHelper(mailSender.createMimeMessage(), true,
 							"UTF-8");
@@ -184,22 +184,22 @@ public class MailServiceImpl implements MailService {
 						}
 					}
 
-					log.info("invoking mailSender");
+					logger.info("invoking mailSender");
 					mailSender.send(helper.getMimeMessage());
-					log.info("done invoking mailSender");
+					logger.info("done invoking mailSender");
 
 				} catch (final VelocityException e) {
-					log.error("VelocityException", e);
+					logger.error("VelocityException", e);
 				} catch (final IOException e) {
-					log.error("IOException", e);
+					logger.error("IOException", e);
 				} catch (final MessagingException e) {
-					log.error("MessagingException", e);
+					logger.error("MessagingException", e);
 				}
 			} else {
-				log.error("required parameter 'to' not found");
+				logger.error("required parameter 'to' not found");
 			}
 		} else {
-			log.error("No message with identifier '" + identifier + "' found");
+			logger.error("No message with identifier '" + identifier + "' found");
 		}
 	}
 
@@ -213,14 +213,14 @@ public class MailServiceImpl implements MailService {
 	 */
 	@Override
 	public void sendErrorMessage(final String exceptionStack, String message, final NedPerson loggedOnUser) {
-		log.info("Sending error message");
+		logger.info("Sending error message");
 		final Map<String, Object> params = new HashMap<String, Object>();
 		String[] to = null;
 		final String errorReportingEmail = "yuri.dinh@nih.gov";//Properties.getProperty("mail.error.addresses", null);
 		final String from = "yuri.dinh@nih.gov";//Properties.getProperty("email.from", null);
 		final String fromDisplay = "yuri.dinh@nih.gov";//Properties.getProperty("email.from.display", null);
 
-		log.info("errorReportingEmail: " + errorReportingEmail);
+		logger.info("errorReportingEmail: " + errorReportingEmail);
 		if (StringUtils.isNotBlank(errorReportingEmail)) {
 			to = parse(errorReportingEmail);
 		}
@@ -238,7 +238,7 @@ public class MailServiceImpl implements MailService {
 		if (to != null && to.length > 0) {
 			send("ERROR_REPORT", params);
 		} else {
-			log.error("Unable to send error message: no TO: addresses found");
+			logger.error("Unable to send error message: no TO: addresses found");
 		}
 	}
 }
