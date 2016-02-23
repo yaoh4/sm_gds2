@@ -187,7 +187,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmission.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/MailTemplateDao.java -text
-src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDAO.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/UserRoleDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/AppLookupT.hbm.xml -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/AppLookupT.java -text

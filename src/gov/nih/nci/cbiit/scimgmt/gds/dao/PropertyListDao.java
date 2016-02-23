@@ -24,10 +24,10 @@ import org.apache.logging.log4j.Logger;
  * 
  */
 @Component
-public class PropertyListDAO {
+public class PropertyListDao {
 
 		
-		private static final Logger logger = LogManager.getLogger(PropertyListDAO.class);
+		private static final Logger logger = LogManager.getLogger(PropertyListDao.class);
 		
 		@Autowired
 		private SessionFactory sessionFactory;
