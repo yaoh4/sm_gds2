@@ -16,10 +16,10 @@
 		</ul>
 		<ul id="helpReportUrl">
 			<li>
-				<a style="list-style-type: disc; color:  #317DAD; margin: 10px;" href="#" onclick="window.open('<s:property value="%{helpUrl}"/>')">Help</a>
+				<a href="#" onclick="window.open('<s:property value="%{helpUrl}"/>')">Help</a>
 			</li>
 			<li class="last">
-				<a style="list-style-type: disc; color:  #317DAD; margin: 10px;" href="#" onclick="window.open('<s:property value="%{reportUrl}"/>')">Report</a>
+				<a  href="#" onclick="window.open('<s:property value="%{reportUrl}"/>')">Report</a>
 			</li>
 		</ul>
 	</div>

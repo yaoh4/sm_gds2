@@ -1,8 +1,8 @@
 package gov.nih.nci.cbiit.scimgmt.gds.interceptor;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
-import gov.nih.nci.cbiit.scimgmt.gds.services.UserService;
-import gov.nih.nci.cbiit.scimgmt.gds.services.impl.UserServiceImpl;
+import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.ValidationAware;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
 /**
@@ -26,10 +25,10 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 @SuppressWarnings("serial")
 public class UserInterceptor extends AbstractInterceptor implements StrutsStatics  {
 
-	private static final Logger log = LogManager.getLogger(UserServiceImpl.class);
+	private static final Logger log = LogManager.getLogger(UserInterceptor.class);
 
 	@Autowired
-	private UserService userService;
+	private UserRoleService userRoleService;
 
 	@Autowired
 	private NedPerson loggedOnUser;	
@@ -63,16 +62,16 @@ public class UserInterceptor extends AbstractInterceptor implements StrutsStatic
 
 			if (StringUtils.isNotBlank(remoteUser)) {
 
-				nedPerson = userService.findNedPersonByUserId(remoteUser);
+				nedPerson = userRoleService.findNedPersonByUserId(remoteUser);
 
 				if (nedPerson == null) {
 					log.error("NedPerson could not be found for userId:  " + remoteUser);
-					return "notAuthorized";
+					return ApplicationConstants.NOT_AUTHORIZED;
 				}
 
 				if (!hasValidRole(nedPerson)) {
 					log.error("Insufficient privileges for user " + remoteUser);
-					return "notAuthorized";
+					return ApplicationConstants.NOT_AUTHORIZED;
 				}
 				BeanUtils.copyProperties(nedPerson, loggedOnUser);					
 			}

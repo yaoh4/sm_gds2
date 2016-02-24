@@ -77,6 +77,6 @@
 	</session-config>
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
-		<location>/WEB-INF/jsp/error/ErrorDetails.jsp</location>
+		<location>/jsp/error/exception.jsp</location>
 	</error-page>
 </web-app>

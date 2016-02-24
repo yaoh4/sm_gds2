@@ -40,24 +40,24 @@
 		<default-interceptor-ref name="defaultLoginStack" />   				
 				
 		<global-results>
-			<result name="notAuthorized" type="tiles">gds.notauthorized</result>
-			<result name="error" type="tiles">gds.error</result>
+			<result name="notAuthorized" type="tiles">notAuthorized</result>
+			<result name="error" type="tiles">error</result>
 		</global-results>
 		
 		<global-exception-mappings>
 		    <exception-mapping exception="java.lang.Exception" result="error"/>			
 		</global-exception-mappings>	
 		
-		<action name="GdsHome"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
-			 <result name="success" type="tiles">gds.home</result>
+		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
+			 <result name="success" type="tiles">home</result>
 		</action>
 		
-		<action name="AddNewSubmission"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
-			 <result name="success" type="tiles">gds.home</result>
+		<action name="addNewSubmission"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">home</result>
 		</action>		
 		
-		<action name="SendErrorMessage" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ErrorMessageAction">
-			<result type="redirectAction" name="success">Home</result>
+		<action name="sendErrorMessage" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ErrorMessageAction">
+			<result type="redirectAction" name="success">home</result>
 		</action>		
 		
 	</package>

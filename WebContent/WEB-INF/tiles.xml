@@ -19,18 +19,18 @@
 	<!-- Page Definitions -->
 	<!-- **************** -->
 
-	<definition name="gds.home" extends="base.definition">		
+	<definition name="home" extends="base.definition">		
 		<put-attribute name="navtab" value="home" type="string" />		
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
-		<put-attribute name="body" value="/jsp/content/gdsHome.jsp" />		
+		<put-attribute name="body" value="/jsp/content/home.jsp" />		
 	</definition>		
 
-	<definition name="gds.error" extends="base.definition">
+	<definition name="error" extends="base.definition">
 		<put-attribute name="title" type="string" value="GDS Tracking System- Error Details" />
 		<put-attribute name="body" value="/jsp/error/exception.jsp" />
 	</definition>
 
-	<definition name="gds.notauthorized" extends="base.definition">
+	<definition name="notAuthorized" extends="base.definition">
 		<put-attribute name="title" type="string" value="GDS Tracking System - User Login Error" />
 		<put-attribute name="body" value="/jsp/error/notAuthorized.jsp" />
 	</definition>

@@ -1,13 +1,17 @@
 package  gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import gov.nih.nci.cbiit.scimgmt.gds.services.MailService;
+
 import java.text.DateFormat;
 import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This class is responsible for sending Error Email to the the application support.
+ * @author tembharend
  */
 @SuppressWarnings("serial")
 public class ErrorMessageAction extends BaseAction {
@@ -16,6 +20,9 @@ public class ErrorMessageAction extends BaseAction {
 	
 	private String exceptionStack;
 	private String message;
+	
+	@Autowired
+	protected MailService mailService;	
 	
 	/**
 	 * Sends error e-mails.

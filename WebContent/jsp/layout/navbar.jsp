@@ -1,18 +1,18 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<s:url namespace="/" id="gdsHome" action="GdsHome" />
-<s:url namespace="/" id="newSubmission" action="AddNewSubmission" />
+<s:url namespace="/" id="home" action="home" />
+<s:url namespace="/" id="newSubmission" action="addNewSubmission" />
 
 <div id="navbar">
 	<ul>
 		<s:if test="%{'home' eq #attr['navtab']}">
-			<li><s:a href="%{gdsHome}" cssClass="selected">
+			<li><s:a href="%{home}" cssClass="selected">
 					<span>Search</span>
 				</s:a></li>
 		</s:if>
 		<s:else>
-			<li><s:a href="%{gdsHome}">
+			<li><s:a href="%{home}">
 					<span>Search</span>
 				</s:a></li>
 		</s:else>

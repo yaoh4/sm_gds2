@@ -13,8 +13,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />  
 <meta charset="utf-8" />
 <title><tiles:insertAttribute name="title" /></title>
-<sj:head jqueryui="true" jquerytheme="gdstheme" customBasepath="templates/themes"
-	defaultIndicator="myDefaultIndicator" />
 <link href="stylesheets/styles.css" rel="stylesheet" type="text/css" media="screen"/>
 <s:head />
 

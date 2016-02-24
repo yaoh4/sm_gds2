@@ -1,6 +1,5 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
-<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>	
 
 <div class="content">
 	<div class="inside">

@@ -26,7 +26,7 @@
 					<s:textarea cols="90" rows="10" name="message"
 						cssStyle="width: 665px;" />
 					<br /> <br />
-					<s:submit value="Send Details" action="SendErrorMessage" />
+					<s:submit value="Send Details" action="sendErrorMessage" />
 				</fieldset>
 				<br>
 				<s:if
