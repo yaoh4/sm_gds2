@@ -7,8 +7,7 @@
 <div class="content">
 	<div class="inside">
 		<fieldset>
-			<h2>You are not authorized to view this page.  
-			If you have any questions about the GDS Tracking System program, please send an email to <s:a href="mailto:%{gdsContactEmail}"><s:property value="gdsContactEmail"/></s:a>.</h2>
+			<h2><s:property value="%{notAuthorizedErrorMessage}"/> <s:a href="mailto:%{gdsContactEmail}"><s:property value="gdsContactEmail"/></s:a>.</h2>
 		</fieldset>
 	</div>
 </div>
