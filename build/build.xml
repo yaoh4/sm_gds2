@@ -153,6 +153,7 @@
             <fileset dir="${properties.dir}">
               <include name="*.*"/>
               <exclude name="db-connection.properties"/>
+              <exclude name="application.properties"/>
             </fileset>
      		<fileset dir="${env.properties.dir}">
      		  <include name="log4j2.xml"/>

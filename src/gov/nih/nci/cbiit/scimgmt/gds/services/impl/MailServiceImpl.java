@@ -4,6 +4,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.dao.MailTemplateDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.services.MailService;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsProperties;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +28,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailServiceImpl implements MailService {
 	static final Logger logger = LogManager.getLogger(MailServiceImpl.class.getName());
+	static final String TO = "to";
+	static final String ATTACHMENTS = "attachments";
+	static final String CC = "cc";
+	static final String BCC = "bcc";
+	static final String FROM = "from";
+	static final String LOGGED_ON_USER = "loggedOnUser";
+	static final String MESSAGE = "message";
+	static final String EXCEPTION_STACK = "exceptionStack";
+	static final String FROM_DISPLAY = "fromDisplay";
+	
 	@Autowired
 	private JavaMailSender mailSender;
 	@Autowired
@@ -35,10 +46,50 @@ public class MailServiceImpl implements MailService {
 	private VelocityEngine velocityEngine;
 	@Autowired
 	private NedPerson loggedOnUser;
+	@Autowired
+	private GdsProperties gdsProperties;
 
-	@SuppressWarnings("unused")
-	private String applicationUrl;
+	/**
+	 * Send error message.
+	 * 
+	 * @param exceptionStack
+	 *            the exception stack
+	 * @param userErrorMessage
+	 *            the user error message
+	 * @param loggedOnUser
+	 *            the logged on user
+	 */
+	@Override
+	public void sendErrorMessage(final String exceptionStack, String message, final NedPerson loggedOnUser) {
+		logger.info("Sending error message");
+		final Map<String, Object> params = new HashMap<String, Object>();
+		String[] to = null;
+		final String errorReportingEmail = gdsProperties.getProperty("error.email");
+		final String from = gdsProperties.getProperty("email.from");
+		final String fromDisplay = gdsProperties.getProperty("email.from.display");
 
+		logger.info("errorReportingEmail: " + errorReportingEmail);
+		if (StringUtils.isNotBlank(errorReportingEmail)) {
+			to = parse(errorReportingEmail);
+		}
+
+		if (message == null || message.isEmpty()) {
+			message = "Exception Report";
+		}
+		params.put(LOGGED_ON_USER, loggedOnUser);
+		params.put(MESSAGE, message);
+		params.put(EXCEPTION_STACK, exceptionStack);
+		params.put(TO, to);
+		params.put(FROM, from);
+		params.put(FROM_DISPLAY, fromDisplay);
+
+		if (to != null && to.length > 0) {
+			send("ERROR_REPORT", params);
+		} else {
+			logger.error("Unable to send error message: no TO: addresses found");
+		}
+	}
+	
 	/**
 	 * Gets the mail template given a short identifier
 	 * 
@@ -66,56 +117,17 @@ public class MailServiceImpl implements MailService {
 	}
 
 	/**
-	 * <p>
 	 * Very simple mail sender method using Velocity templates pulled from a
 	 * database.
-	 * </p>
-	 * <p>
 	 * The message template is retrieved from the database using the short
 	 * identifier.
-	 * </p>
-	 * <p>
 	 * The subject and body are evaluated by the Velocity Engine, and all
 	 * parameter substitutions are performed.
-	 * </p>
-	 * <p>
 	 * The Map of parameters provided should include all the values expected by
 	 * the subject and body, but no error checking is done to confirm this.
-	 * </p>
-	 * <p>
-	 * No errors are thrown if the send fails, velocity evaluation fails, or the
-	 * requested template is not found, but it will be logged.
-	 * </p>
-	 * <p>
-	 * If no 'to' parameter is provided the send will log an error message and
-	 * exit.
-	 * </p>
-	 * <p>
-	 * Potential error conditions:
-	 * </p>
-	 * 
-	 * <ul>
-	 * <li>The specified template isn't found.</li>
-	 * <li>The 'to' parameter is not provided.</li>
-	 * <li>Velocity evaluation fails.</li>
-	 * <li>Mail sending fails.</li>
-	 * <li>Attachment can't be attached.</li>
-	 * </ul>
-	 * <p>
-	 * Parameters (not including those required by the template):
-	 * </p>
-	 * <ul>
-	 * <li>to - a String[] of addresses to send the message to {required}</li>
-	 * <li>cc, bcc - String[] of addresses for the cc and bcc fields,
-	 * respectively {optional}</li>
-	 * <li>attachments - a Map<String, File> containing names and Files of all
-	 * attachments</li>
-	 * </ul>
 	 * 
 	 * @param identifier
-	 *            the identifier
 	 * @param params
-	 *            the params
 	 */
 	private void send(final String identifier, final Map<String, Object> params) {
 
@@ -149,7 +161,7 @@ public class MailServiceImpl implements MailService {
 							"UTF-8");
 					String subject = subjectWriter.toString();
 
-					final String env = "dev";//Properties.getProperty("app.environment", "dev");
+					final String env = gdsProperties.getProperty("environment");
 
 					if (env.toLowerCase().startsWith("prod")) {
 						helper.setTo(to);
@@ -163,8 +175,7 @@ public class MailServiceImpl implements MailService {
 					} else {
 						subject = "[" + env.toUpperCase() + "] " + subject;
 						subject += " {TO: " + StringUtils.join(to, ',') + "} {CC: " + StringUtils.join(cc, ',') + "}";
-						final String[] overrideAddrs = StringUtils
-								.split("yuri.dinh@nih.gov"/*Properties.getProperty("mail.override.addresses")*/);
+						final String[] overrideAddrs = {loggedOnUser.getEmail()};
 						helper.setTo(overrideAddrs);
 					}
 
@@ -203,42 +214,5 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * gov.nih.nci.cbiit.scimgmt.telework.service.MailService#sendErrorMessage
-	 * (java.lang.String, java.lang.String,
-	 * gov.nih.nci.cbiit.scimgmt.telework.domain.NedPerson)
-	 */
-	@Override
-	public void sendErrorMessage(final String exceptionStack, String message, final NedPerson loggedOnUser) {
-		logger.info("Sending error message");
-		final Map<String, Object> params = new HashMap<String, Object>();
-		String[] to = null;
-		final String errorReportingEmail = "yuri.dinh@nih.gov";//Properties.getProperty("mail.error.addresses", null);
-		final String from = "yuri.dinh@nih.gov";//Properties.getProperty("email.from", null);
-		final String fromDisplay = "yuri.dinh@nih.gov";//Properties.getProperty("email.from.display", null);
 
-		logger.info("errorReportingEmail: " + errorReportingEmail);
-		if (StringUtils.isNotBlank(errorReportingEmail)) {
-			to = parse(errorReportingEmail);
-		}
-
-		if (message == null || message.isEmpty()) {
-			message = "Exception Report";
-		}
-		params.put(LOGGED_ON_USER, loggedOnUser);
-		params.put(MESSAGE, message);
-		params.put(EXCEPTION_STACK, exceptionStack);
-		params.put(TO, to);
-		params.put(FROM, from);
-		params.put(FROM_DISPLAY, fromDisplay);
-
-		if (to != null && to.length > 0) {
-			send("ERROR_REPORT", params);
-		} else {
-			logger.error("Unable to send error message: no TO: addresses found");
-		}
-	}
 }

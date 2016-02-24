@@ -34,7 +34,7 @@
             <column name="LAST_CHANGED_BY" length="50" />
         </property>
         <property name="active" type="yes_no" generated="never" lazy="false">
-            <column name="ACTIVE" length="1" not-null="true" />
+            <column name="ACTIVE_FLAG" length="1" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

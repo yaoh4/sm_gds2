@@ -45,7 +45,7 @@ public class GdsProperties extends Properties {
 					
 		String confDirLocation = System.getProperty("conf.dir");
 		logger.info("=====> conf.dir=" + confDirLocation);	
-		this.load(new FileInputStream(confDirLocation + "/application.properties"));
+		this.load(new FileInputStream(confDirLocation + "/gds/application.properties"));
 		this.load(new FileInputStream(confDirLocation + "/gds/gds.properties"));
 		
 		//Override with properties from DB when present
