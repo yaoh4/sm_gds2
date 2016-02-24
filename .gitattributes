@@ -27,6 +27,7 @@ WebContent/WEB-INF/lib/core-0.6.2.jar -text
 WebContent/WEB-INF/lib/displaytag-1.2.jar -text
 WebContent/WEB-INF/lib/dom4j-1.6.1.jar -text
 WebContent/WEB-INF/lib/dwr-1.1.1.jar -text
+WebContent/WEB-INF/lib/ehcache-spring-annotations-1.2.0.jar -text
 WebContent/WEB-INF/lib/ezmorph-1.0.6.jar -text
 WebContent/WEB-INF/lib/freemarker-2.3.22.jar -text
 WebContent/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar -text
