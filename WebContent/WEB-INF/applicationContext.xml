@@ -20,7 +20,7 @@
             http://www.springframework.org/schema/task/spring-task.xsd">
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
 
-	<context:component-scan base-package="gov.nih.nci.cbiit" />
+	<context:component-scan base-package="gov.nih.nci.cbiit.scimgmt.gds" />
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -28,6 +28,7 @@
 		<property name="locations">
 			<list>
 				<value>file:${conf.dir}/gds/gds.properties</value>
+				<value>file:${conf.dir}/gds/application.properties</value>
 				<value>file:${conf.dir}/gds/db-connection.properties</value>
 			</list>
 		</property>
@@ -59,14 +60,6 @@
     </bean>
     
     <bean id="debug" class="org.springframework.aop.interceptor.DebugInterceptor" />
-
-	<bean id="hibernateDaoSupport"
-		class="org.springframework.orm.hibernate5.support.HibernateDaoSupport"
-		abstract="true">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
 
     
      <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->

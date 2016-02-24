@@ -143,6 +143,7 @@
 	 <copy todir="${conf.dir}/${app.name}">
             <fileset dir="${common.properties.dir}">
              <include name="db-connection.properties"/>
+             <include name="application.properties"/>
             </fileset>
 	 		<fileset dir="${env.properties.dir}">
 	 	     <include name="${app.name}.properties"/>
