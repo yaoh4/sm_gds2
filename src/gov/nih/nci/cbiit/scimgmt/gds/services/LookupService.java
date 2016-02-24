@@ -40,13 +40,4 @@ public interface LookupService {
 	 * application initialization
 	 */
 	public List<AppPropertiesT> loadPropertiesList();
-	
-	
-	/**
-	 * Retrieves the value of a given property from DB. Invoked
-	 * to refresh a specific key. Not for use by the application.
-	 * @param key
-	 * @return
-	 */
-	public String getProperty(String key);
 }

@@ -41,13 +41,12 @@ public class GdsProperties extends Properties {
 	public void init() throws FileNotFoundException, IOException {
 		
 		//Load properties from files
-		this.load(this.getClass().getResourceAsStream("/application.properties"));
 		this.load(this.getClass().getResourceAsStream("/messages.properties"));		
 					
 		String confDirLocation = System.getProperty("conf.dir");
-		logger.info("=====> conf.dir=" + confDirLocation);			
+		logger.info("=====> conf.dir=" + confDirLocation);	
+		this.load(new FileInputStream(confDirLocation + "/application.properties"));
 		this.load(new FileInputStream(confDirLocation + "/gds/gds.properties"));
-			
 		
 		//Override with properties from DB when present
 		//TBD - Is it required to do a null check ?

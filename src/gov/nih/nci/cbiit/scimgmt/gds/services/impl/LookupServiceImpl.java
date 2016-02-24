@@ -90,23 +90,13 @@ public class LookupServiceImpl implements LookupService {
 	
 	/**
 	 * Retrieves the properties from DB. Invoked during
-	 * application initialization
+	 * application initialization and for reloading
+	 * from sysAdmin action.
 	 */
 	public List<AppPropertiesT> loadPropertiesList() {
 		
 		logger.info("Loading Properties list from DB");
 		return propertyListDAO.getPropertiesList();
-	}
-	
-	
-	/**
-	 * Retrieves the value of a given property from DB. Invoked
-	 * to refresh a specific key. Not for use by the application.
-	 * @param key
-	 * @return
-	 */
-	public String getProperty(String key) {
-		return propertyListDAO.searchProperty(key);
 	}
 
 }
