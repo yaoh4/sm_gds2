@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Feb 21, 2016 12:03:16 AM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="gov.nih.nci.cbiit.scimgmt.gds.domain.AppLookupT" table="APP_LOOKUP_T">
+    <class name="gov.nih.nci.cbiit.scimgmt.gds.domain.AppLookupT" table="LOOKUP_T">
         <id name="id" type="long">
             <column name="ID" precision="10" scale="0" />
             <generator class="assigned" />
@@ -34,9 +34,6 @@
         </property>
         <property name="lastChangeUserId" type="string">
             <column name="LAST_CHANGE_USER_ID" length="50" />
-        </property>
-        <property name="applicationName" type="string">
-            <column name="APPLICATION_NAME" length="150" />
         </property>
     </class>
 </hibernate-mapping>
