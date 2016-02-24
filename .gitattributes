@@ -171,4 +171,6 @@ src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/LookupServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/MailServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/UserRoleServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/GdsProperties.java -text
+src/manage.xml -text
+src/search.xml -text
 src/struts.xml -text
