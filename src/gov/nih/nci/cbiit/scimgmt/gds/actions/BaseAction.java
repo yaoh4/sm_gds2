@@ -6,7 +6,6 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
-import gov.nih.nci.cbiit.scimgmt.gds.services.MailService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsProperties;
 
 import java.util.Map;
