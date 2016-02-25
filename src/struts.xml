@@ -58,7 +58,11 @@
 		
 		<action name="sendErrorMessage" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ErrorMessageAction">
 			<result type="redirectAction" name="success">home</result>
-		</action>		
+		</action>	
+		
+		<action name="ChangeUser" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ChangeUserAction">
+			<result name="success" type="redirect-action">home</result>
+		</action>	
 		
 	</package>
 	

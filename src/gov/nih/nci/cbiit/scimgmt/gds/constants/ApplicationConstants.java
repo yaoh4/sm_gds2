@@ -11,7 +11,8 @@ public interface ApplicationConstants {
 	public static final String CONTACT_EMAIL = "contact.email";
 	public static final String ERROR_EMAIL = "error.email";	
 	public static final String ENVIRONMENT = "environment";
-	
+	public static final String PRODUCTION = "Production";
+		
 	/* Action forwards */
 	public static final String NOT_AUTHORIZED = "notAuthorized";
 	

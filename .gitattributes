@@ -146,6 +146,7 @@ properties/local/gds.properties -text
 properties/local/log4j2.xml -text
 properties/messages.properties -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BaseAction.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/actions/ChangeUserAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ErrorMessageAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmission.java -text
