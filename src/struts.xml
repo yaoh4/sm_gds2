@@ -64,6 +64,10 @@
 			<result name="success" type="redirect-action">home</result>
 		</action>	
 		
+		<action name="SysAdmin" method="execute" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SysAdminAction">
+			<result name="success" type="redirect-action">home</result>
+		</action>
+		
 	</package>
 	
 	<include file="manage.xml"/>

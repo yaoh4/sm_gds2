@@ -151,6 +151,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/actions/ErrorMessageAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmission.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SearchSubmissions.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/actions/SysAdminAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/MailTemplateDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDao.java -text
