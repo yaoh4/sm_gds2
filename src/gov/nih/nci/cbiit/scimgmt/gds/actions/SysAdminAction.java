@@ -2,7 +2,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 
 
-import gov.nih.nci.cbiit.scimgmt.gds.domain.AppPropertiesT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 import org.apache.logging.log4j.LogManager;
@@ -81,8 +81,8 @@ public class SysAdminAction extends BaseAction {
      */
     private void reloadProperties(){
     	logger.info("Initiating Reload properties...");
-    	for (AppPropertiesT a : lookupService.loadPropertiesList()) {
-    		gdsProperties.setProperty(a.getId().getPropKey(), a.getPropValue());
+    	for (PropertiesT a : lookupService.loadPropertiesList()) {
+    		gdsProperties.setProperty(a.getPropKey(), a.getPropValue());
 		}
         logger.info("Reload properties completed");
     }

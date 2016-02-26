@@ -3,8 +3,8 @@
  */
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
-import gov.nih.nci.cbiit.scimgmt.gds.domain.AppLookupT;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.AppPropertiesT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.LookupT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
 
 import java.util.List;
 
@@ -32,13 +32,12 @@ public class PropertyListDao {
 		@Autowired
 		private SessionFactory sessionFactory;
 		
-		public List<AppLookupT> getAllLookupLists() {
+		public List<LookupT> getAllLookupLists() {
 			
 			Session session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(AppLookupT.class);
-			criteria.add(Restrictions.eq("applicationName", "GDS"));
-			criteria.addOrder(Order.asc("discriminator"));
-			List<AppLookupT> lookups = criteria.list();
+			Criteria criteria = session.createCriteria(LookupT.class);
+			criteria.addOrder(Order.asc("displayName"));
+			List<LookupT> lookups = criteria.list();
 					
 			return lookups;
 			
@@ -49,12 +48,11 @@ public class PropertyListDao {
 		 * during application initialization.
 		 * @return
 		 */
-		public List<AppPropertiesT> getPropertiesList() {
+		public List<PropertiesT> getPropertiesList() {
 			
 			Session session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(AppPropertiesT.class);
-			criteria.add(Restrictions.eq("appName", "GDS"));
-			List<AppPropertiesT> properties = criteria.list();
+			Criteria criteria = session.createCriteria(PropertiesT.class);
+			List<PropertiesT> properties = criteria.list();
 					
 			return properties;
 		}
@@ -66,16 +64,15 @@ public class PropertyListDao {
 		 * @param listName
 		 * @return
 		 */
-		public List<AppLookupT> searchLookup(String listName) {
+		public List<LookupT> searchLookup(String listName) {
 			
 			Session session = null;
-			List<AppLookupT> lookups = null;
+			List<LookupT> lookups = null;
 			
 			try {
 			session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(AppLookupT.class);
-			criteria.add(Restrictions.eq("applicationName", "GDS"));
-			criteria.add(Restrictions.eq("discriminator", listName));
+			Criteria criteria = session.createCriteria(LookupT.class);
+			criteria.add(Restrictions.eq("displayName", listName));
 			lookups = criteria.list();
 			} catch (Throwable e) {
 				logger.error("Error retrieving lookup list for discriminator " + listName, e);
@@ -98,10 +95,9 @@ public class PropertyListDao {
 			
 			try {
 				session = sessionFactory.getCurrentSession();
-				Criteria criteria = session.createCriteria(AppLookupT.class);
-				criteria.add(Restrictions.eq("id.appName", "GDS"));
-				criteria.add(Restrictions.eq("id.propKey", key));
-				AppPropertiesT properties = (AppPropertiesT) criteria.uniqueResult();
+				Criteria criteria = session.createCriteria(LookupT.class);
+				criteria.add(Restrictions.eq("propKey", key));
+				PropertiesT properties = (PropertiesT) criteria.uniqueResult();
 				value = properties.getPropValue();
 			} catch (Throwable e) {
 				logger.error("Error retrieving lookup list for key " + key, e);

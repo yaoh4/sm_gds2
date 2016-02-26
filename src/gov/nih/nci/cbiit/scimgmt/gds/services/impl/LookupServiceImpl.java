@@ -12,8 +12,8 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDao;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.AppLookupT;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.AppPropertiesT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.LookupT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 /**
@@ -38,7 +38,7 @@ public class LookupServiceImpl implements LookupService {
 	 * from the cache if present, else from the DB
 	 */
 	@Cacheable(cacheNames="lookupLists", key = "#listName")
-	public List<AppLookupT> getLookupList(String listName) {
+	public List<LookupT> getLookupList(String listName) {
 	  	
 		logger.info("Loading Lookup list from DB");
 		return propertyListDAO.searchLookup(listName);
@@ -53,19 +53,19 @@ public class LookupServiceImpl implements LookupService {
 	 */
 	public void loadLookupLists() {
 		
-		String discriminator = "";
-		String prevDiscriminator = "";
-		List<AppLookupT> lookupList = new ArrayList();
-		List<AppLookupT> allLookups = propertyListDAO.getAllLookupLists();
+		String listName = "";
+		String prevListName = "";
+		List<LookupT> lookupList = new ArrayList();
+		List<LookupT> allLookups = propertyListDAO.getAllLookupLists();
 		
-		for(AppLookupT appLookupT: allLookups) {
-			discriminator = appLookupT.getDiscriminator();
-			if(!prevDiscriminator.isEmpty() && !prevDiscriminator.equalsIgnoreCase(discriminator)) {
+		for(LookupT appLookupT: allLookups) {
+			listName = appLookupT.getDisplayName();
+			if(!prevListName.isEmpty() && !prevListName.equalsIgnoreCase(listName)) {
 				
 				//Put this list in the cache
-				updateLookupList(discriminator, lookupList);
+				updateLookupList(listName, lookupList);
 				
-				prevDiscriminator = discriminator;
+				prevListName = listName;
 				
 				//Setup the next list
 				lookupList = new ArrayList();
@@ -75,7 +75,7 @@ public class LookupServiceImpl implements LookupService {
 			
 		}
 		if(!lookupList.isEmpty()) {
-			updateLookupList(discriminator, lookupList);
+			updateLookupList(listName, lookupList);
 		}
 	}
 
@@ -87,7 +87,7 @@ public class LookupServiceImpl implements LookupService {
 	 * @return
 	 */
 	@CachePut(cacheNames="lookupLists", key="#listName")
-	public List<AppLookupT> updateLookupList(String listName, List<AppLookupT> lookupList) {
+	public List<LookupT> updateLookupList(String listName, List<LookupT> lookupList) {
 		return lookupList;
 	}
 	
@@ -97,7 +97,7 @@ public class LookupServiceImpl implements LookupService {
 	 * application initialization and for reloading
 	 * from sysAdmin action.
 	 */
-	public List<AppPropertiesT> loadPropertiesList() {
+	public List<PropertiesT> loadPropertiesList() {
 		
 		logger.info("Loading Properties list from DB");
 		return propertyListDAO.getPropertiesList();

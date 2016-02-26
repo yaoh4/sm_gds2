@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 26, 2016 2:29:04 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT" table="PROPERTIES_T" schema="GDS">
+        <id name="propKey" type="string">
+            <column name="PROP_KEY" length="120" />
+            <generator class="assigned" />
+        </id>
+        <property name="propValue" type="string">
+            <column name="PROP_VALUE" length="800" not-null="true" />
+        </property>
+        <property name="createdDate" type="date">
+            <column name="CREATED_DATE" length="7" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CREATED_BY" length="120" not-null="true" />
+        </property>
+        <property name="lastChangedDate" type="date">
+            <column name="LAST_CHANGED_DATE" length="7" />
+        </property>
+        <property name="lastChangedBy" type="string">
+            <column name="LAST_CHANGED_BY" length="120" />
+        </property>
+    </class>
+</hibernate-mapping>

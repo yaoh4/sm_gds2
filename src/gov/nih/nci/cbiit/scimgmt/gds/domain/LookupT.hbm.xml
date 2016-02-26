@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 26, 2016 2:29:04 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="gov.nih.nci.cbiit.scimgmt.gds.domain.LookupT" table="LOOKUP_T" schema="GDS">
+        <id name="id" type="long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="code" type="string">
+            <column name="CODE" length="40" not-null="true" />
+        </property>
+        <property name="displayName" type="string">
+            <column name="DISPLAY_NAME" length="120" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="120" />
+        </property>
+        <property name="createdDate" type="date">
+            <column name="CREATED_DATE" length="7" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CREATED_BY" length="120" not-null="true" />
+        </property>
+        <property name="lastChangedDate" type="date">
+            <column name="LAST_CHANGED_DATE" length="7" />
+        </property>
+        <property name="lastChangedBy" type="string">
+            <column name="LAST_CHANGED_BY" length="120" />
+        </property>
+    </class>
+</hibernate-mapping>

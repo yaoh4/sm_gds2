@@ -1,8 +1,8 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services;
 
 
-import gov.nih.nci.cbiit.scimgmt.gds.domain.AppLookupT;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.AppPropertiesT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.LookupT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
 
 import java.util.List;
 
@@ -18,14 +18,14 @@ public interface LookupService {
 	 * @param listName
 	 * @return
 	 */
-	public List<AppLookupT> getLookupList (String listName);
+	public List<LookupT> getLookupList (String listName);
 	
 	
 	/**
 	 * Update the given list in the cache.
 	 * @param listname
 	 */
-	public List<AppLookupT> updateLookupList(String listName, List<AppLookupT> lookupList);
+	public List<LookupT> updateLookupList(String listName, List<LookupT> lookupList);
 	
 	
 	/**
@@ -39,5 +39,5 @@ public interface LookupService {
 	 * Retrieves the properties from DB. Invoked during
 	 * application initialization
 	 */
-	public List<AppPropertiesT> loadPropertiesList();
+	public List<PropertiesT> loadPropertiesList();
 }

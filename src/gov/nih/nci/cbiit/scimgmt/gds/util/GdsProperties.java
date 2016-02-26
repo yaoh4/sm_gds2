@@ -1,7 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.util;
 
 
-import gov.nih.nci.cbiit.scimgmt.gds.domain.AppPropertiesT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 import java.io.FileInputStream;
@@ -50,8 +50,8 @@ public class GdsProperties extends Properties {
 		
 		//Override with properties from DB when present
 		//TBD - Is it required to do a null check ?
-		for (AppPropertiesT a : lookupService.loadPropertiesList()) {
-			setProperty(a.getId().getPropKey(), a.getPropValue());
+		for (PropertiesT a : lookupService.loadPropertiesList()) {
+			setProperty(a.getPropKey(), a.getPropValue());
 		}
 		
 		//Load lookup data from DB
