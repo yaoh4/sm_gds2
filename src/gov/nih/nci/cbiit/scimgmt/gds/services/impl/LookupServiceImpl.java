@@ -37,7 +37,7 @@ public class LookupServiceImpl implements LookupService {
 	 * Get lookup list for a given discriminator. Retrieve 
 	 * from the cache if present, else from the DB
 	 */
-	@Cacheable(key = "#listName")
+	@Cacheable(cacheNames="lookupLists", key = "#listName")
 	public List<AppLookupT> getLookupList(String listName) {
 	  	
 		logger.info("Loading Lookup list from DB");
@@ -82,7 +82,7 @@ public class LookupServiceImpl implements LookupService {
 	 * @param lookupList
 	 * @return
 	 */
-	@CachePut(key="#listName")
+	@CachePut(cacheNames="lookupLists", key="#listName")
 	public List<AppLookupT> updateLookupList(String listName, List<AppLookupT> lookupList) {
 		return lookupList;
 	}
