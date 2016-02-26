@@ -20,6 +20,11 @@
             http://www.springframework.org/schema/task/spring-task.xsd">
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
 
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehcache"/>
+	</bean>
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
+
 	<context:component-scan base-package="gov.nih.nci.cbiit.scimgmt.gds" />
 
 	<bean id="propertyConfigurer"
