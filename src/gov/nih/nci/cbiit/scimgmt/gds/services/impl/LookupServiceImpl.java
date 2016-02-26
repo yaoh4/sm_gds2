@@ -53,13 +53,14 @@ public class LookupServiceImpl implements LookupService {
 	 */
 	public void loadLookupLists() {
 		
+		String discriminator = "";
 		String prevDiscriminator = "";
-		List<AppLookupT> lookupList = null;
+		List<AppLookupT> lookupList = new ArrayList();
 		List<AppLookupT> allLookups = propertyListDAO.getAllLookupLists();
 		
 		for(AppLookupT appLookupT: allLookups) {
-			String discriminator = appLookupT.getDiscriminator();
-			if(!prevDiscriminator.equalsIgnoreCase(discriminator)) {
+			discriminator = appLookupT.getDiscriminator();
+			if(!prevDiscriminator.isEmpty() && !prevDiscriminator.equalsIgnoreCase(discriminator)) {
 				
 				//Put this list in the cache
 				updateLookupList(discriminator, lookupList);
@@ -72,6 +73,9 @@ public class LookupServiceImpl implements LookupService {
 			}
 			lookupList.add(appLookupT);
 			
+		}
+		if(!lookupList.isEmpty()) {
+			updateLookupList(discriminator, lookupList);
 		}
 	}
 
