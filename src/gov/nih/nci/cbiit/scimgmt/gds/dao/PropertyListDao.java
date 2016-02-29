@@ -82,29 +82,5 @@ public class PropertyListDao {
 					
 			return lookups;
 		}
-		
-		
-		/**
-		 * Retrieve the value of the given property key. 
-		 * 
-		 * @param key
-		 * @return
-		 */
-		public String searchProperty(String key) {
-			String value = null;
-			
-			logger.info("Retrieving property from DB for key " + key);
-			try {
-				Criteria criteria = sessionFactory.getCurrentSession().createCriteria(LookupT.class);
-				criteria.add(Restrictions.ilike("propKey", key, MatchMode.EXACT));
-				PropertiesT properties = (PropertiesT) criteria.uniqueResult();
-				value = properties.getPropValue();
-			} catch (Throwable e) {
-				logger.error("Error retrieving lookup list for key " + key, e);
-				throw e;
-			}
-			
-			return value;
-		}
 
 }
