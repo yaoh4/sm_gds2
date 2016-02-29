@@ -23,7 +23,9 @@
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="ehcache"/>
 	</bean>
-	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="/WEB-INF/ehcache.xml"/>
+	</bean>
 
 	<context:component-scan base-package="gov.nih.nci.cbiit.scimgmt.gds" />
 
@@ -51,6 +53,8 @@
   			<list>
   				<value>gov/nih/nci/cbiit/scimgmt/gds/domain/NedPerson.hbm.xml</value>
 				<value>gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.hbm.xml</value>
+				<value>gov/nih/nci/cbiit/scimgmt/gds/domain/LookupT.hbm.xml</value>
+				<value>gov/nih/nci/cbiit/scimgmt/gds/domain/PropertiesT.hbm.xml</value>
 			</list>
   		</property>
   		<property name="hibernateProperties">

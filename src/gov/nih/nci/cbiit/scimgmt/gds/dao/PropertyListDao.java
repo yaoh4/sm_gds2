@@ -9,8 +9,8 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +34,8 @@ public class PropertyListDao {
 		
 		public List<LookupT> getAllLookupLists() {
 			
-			Session session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(LookupT.class);
+			logger.info("Retrieving all lookup lists from DB");
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(LookupT.class);
 			criteria.addOrder(Order.asc("displayName"));
 			List<LookupT> lookups = criteria.list();
 					
@@ -50,8 +50,9 @@ public class PropertyListDao {
 		 */
 		public List<PropertiesT> getPropertiesList() {
 			
-			Session session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(PropertiesT.class);
+			logger.info("Retrieving properties list from DB ");
+			
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PropertiesT.class);
 			List<PropertiesT> properties = criteria.list();
 					
 			return properties;
@@ -59,23 +60,23 @@ public class PropertyListDao {
 		
 		
 		/**
-		 * Retrieve the lookup list for a given discriminator (list name).
+		 * Retrieve the lookup list for a given list name.
 		 * 
 		 * @param listName
 		 * @return
 		 */
 		public List<LookupT> searchLookup(String listName) {
 			
-			Session session = null;
 			List<LookupT> lookups = null;
 			
+			logger.info("Retrieving lookup list from DB for listName " + listName);
+			
 			try {
-			session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(LookupT.class);
-			criteria.add(Restrictions.eq("displayName", listName));
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(LookupT.class);
+			criteria.add(Restrictions.ilike("displayName", listName, MatchMode.EXACT));
 			lookups = criteria.list();
 			} catch (Throwable e) {
-				logger.error("Error retrieving lookup list for discriminator " + listName, e);
+				logger.error("Error retrieving lookup list for listName " + listName, e);
 				throw e;
 			}
 					
@@ -90,13 +91,12 @@ public class PropertyListDao {
 		 * @return
 		 */
 		public String searchProperty(String key) {
-			Session session = null;
 			String value = null;
 			
+			logger.info("Retrieving property from DB for key " + key);
 			try {
-				session = sessionFactory.getCurrentSession();
-				Criteria criteria = session.createCriteria(LookupT.class);
-				criteria.add(Restrictions.eq("propKey", key));
+				Criteria criteria = sessionFactory.getCurrentSession().createCriteria(LookupT.class);
+				criteria.add(Restrictions.ilike("propKey", key, MatchMode.EXACT));
 				PropertiesT properties = (PropertiesT) criteria.uniqueResult();
 				value = properties.getPropValue();
 			} catch (Throwable e) {

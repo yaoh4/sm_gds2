@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
@@ -24,6 +25,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
  */
 @Component
 @EnableCaching
+@CacheConfig(cacheNames = "lookupLists")
 public class LookupServiceImpl implements LookupService {
 	
 	
@@ -31,13 +33,13 @@ public class LookupServiceImpl implements LookupService {
 	
 	@Autowired
 	private PropertyListDao propertyListDAO;
-
+	
 	
 	/**
-	 * Get lookup list for a given discriminator. Retrieve 
+	 * Get lookup list for a given list name. Retrieve 
 	 * from the cache if present, else from the DB
 	 */
-	@Cacheable(cacheNames="lookupLists", key = "#listName")
+	@Cacheable(key = "#listName")
 	public List<LookupT> getLookupList(String listName) {
 	  	
 		logger.info("Loading Lookup list from DB");
@@ -56,6 +58,8 @@ public class LookupServiceImpl implements LookupService {
 		String listName = "";
 		String prevListName = "";
 		List<LookupT> lookupList = new ArrayList();
+		
+		logger.info("Loading lookup data from LOOKUP_T");
 		List<LookupT> allLookups = propertyListDAO.getAllLookupLists();
 		
 		for(LookupT appLookupT: allLookups) {
@@ -86,7 +90,7 @@ public class LookupServiceImpl implements LookupService {
 	 * @param lookupList
 	 * @return
 	 */
-	@CachePut(cacheNames="lookupLists", key="#listName")
+	@CachePut(key="#listName")
 	public List<LookupT> updateLookupList(String listName, List<LookupT> lookupList) {
 		return lookupList;
 	}

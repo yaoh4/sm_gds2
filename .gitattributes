@@ -1,6 +1,7 @@
 * text=auto !eol
 WebContent/META-INF/MANIFEST.MF -text
 WebContent/WEB-INF/applicationContext.xml -text
+WebContent/WEB-INF/ehcache.xml -text
 WebContent/WEB-INF/lib/activation.jar -text
 WebContent/WEB-INF/lib/antlr-2.7.7.jar -text
 WebContent/WEB-INF/lib/aopalliance-1.0.jar -text
