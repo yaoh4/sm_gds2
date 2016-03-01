@@ -25,7 +25,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 @SuppressWarnings("serial")
 public class UserInterceptor extends AbstractInterceptor implements StrutsStatics  {
 
-	private static final Logger log = LogManager.getLogger(UserInterceptor.class);
+	private static final Logger logger = LogManager.getLogger(UserInterceptor.class);
 
 	@Autowired
 	private UserRoleService userRoleService;
@@ -45,18 +45,18 @@ public class UserInterceptor extends AbstractInterceptor implements StrutsStatic
 
 			//get the remoteUser from the SM_USER header (SiteMinder) or Authorization header.
 			String remoteUser = request.getHeader("SM_USER");
-			log.info("User login from Siteminder SM_USER = " + remoteUser);			
+			logger.info("User login from Siteminder SM_USER = " + remoteUser);			
 
 			if (StringUtils.isBlank(remoteUser)) {
 
-				log.info("Remote user from SM_USER is null; trying Authorization header");
+				logger.info("Remote user from SM_USER is null; trying Authorization header");
 				String authUser = request.getHeader("Authorization");
 
 				if (StringUtils.isNotBlank(authUser)) {
 
 					authUser = new String(Base64.decodeBase64(authUser.substring(6)));
 					remoteUser = authUser.substring(0, authUser.indexOf(":"));
-					log.info("User login from Auth Header: " + remoteUser);
+					logger.info("User login from Auth Header: " + remoteUser);
 				}
 			}
 
@@ -65,12 +65,14 @@ public class UserInterceptor extends AbstractInterceptor implements StrutsStatic
 				nedPerson = userRoleService.findNedPersonByUserId(remoteUser);
 
 				if (nedPerson == null) {
-					log.error("NedPerson could not be found for userId:  " + remoteUser);
+					logger.error("NedPerson could not be found for userId:  " + remoteUser);
 					return ApplicationConstants.NOT_AUTHORIZED;
 				}
 
+				//When we do have user roles in the application, in UserInterceptor, 
+				//bypass hasValidRole check for Sysadmin in case sys.admin user doesn't have access in production
 				if (!hasValidRole(nedPerson)) {
-					log.error("Insufficient privileges for user " + remoteUser);
+					logger.error("Insufficient privileges for user " + remoteUser);
 					return ApplicationConstants.NOT_AUTHORIZED;
 				}
 				BeanUtils.copyProperties(nedPerson, loggedOnUser);					

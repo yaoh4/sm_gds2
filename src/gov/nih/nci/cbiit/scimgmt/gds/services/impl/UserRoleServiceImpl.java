@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserRoleServiceImpl implements UserRoleService {
 
-	private static final Logger log = LogManager.getLogger(UserRoleServiceImpl.class);
+	private static final Logger logger = LogManager.getLogger(UserRoleServiceImpl.class);
 
 	@Autowired
 	private UserRoleDao userRoleDao;
@@ -29,7 +29,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 	 * This method retrieves Ned Person from DB for given userId. 
 	 */
 	public NedPerson findNedPersonByUserId(String userId) throws Exception{
-		log.debug("findByAdUserId('" + userId + "')");
+		logger.debug("findByAdUserId('" + userId + "')");
 		return userRoleDao.findNedPersonByUserId(userId);
 	}
 }

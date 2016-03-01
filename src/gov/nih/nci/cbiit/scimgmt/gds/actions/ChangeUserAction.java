@@ -28,19 +28,18 @@ public class ChangeUserAction extends BaseAction {
 	/**
 	 * Change user functionality support only for NON production environment
 	 */
-	public String execute() throws Exception {
+	public String execute() throws Exception {		
 
-		String forward = SUCCESS;
-
-		if (loggedOnUser != null && StringUtils.isNotBlank(user) && !ApplicationConstants.PRODUCTION.equalsIgnoreCase(getEnvironment())) {
+		if (StringUtils.isNotBlank(user) && !ApplicationConstants.PRODUCTION.equalsIgnoreCase(getEnvironment())) {
 			
+			logger.debug("Changing User to: "+user);
 			String loggedOnUserEmail = loggedOnUser.getEmail();
 			NedPerson nedPerson =  userRoleService.findNedPersonByUserId(user);
 			nedPerson.setEmail(loggedOnUserEmail);
 			BeanUtils.copyProperties(nedPerson, loggedOnUser);				
 		}
 		
-		return forward;
+		return SUCCESS;
 	}
 
 	/**

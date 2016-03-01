@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @SuppressWarnings("serial")
 public class ErrorMessageAction extends BaseAction {
 	
-	private static final Logger log = LogManager.getLogger(ErrorMessageAction.class);
+	private static final Logger logger = LogManager.getLogger(ErrorMessageAction.class);
 	
 	private String exceptionStack;
 	private String message;
@@ -28,11 +28,11 @@ public class ErrorMessageAction extends BaseAction {
 	 * Sends error e-mails.
 	 */
 	public String execute() throws Exception {
-		log.error("===================================> Error Report <===================================");
-		log.error("=====> Unexpected error reported by: " + getLoggedOnUser().getFullName() + " at " + DateFormat.getInstance().format(new Date()));
-		log.error("=====> Exception stack: " + exceptionStack);
-		log.error("=====> Reported message: " + message);
-		log.error("===================================> End Error Report <===================================");
+		logger.error("===================================> Error Report <===================================");
+		logger.error("=====> Unexpected error reported by: " + getLoggedOnUser().getFullName() + " at " + DateFormat.getInstance().format(new Date()));
+		logger.error("=====> Exception stack: " + exceptionStack);
+		logger.error("=====> Reported message: " + message);
+		logger.error("===================================> End Error Report <===================================");
 
 		mailService.sendErrorMessage(exceptionStack, message, getLoggedOnUser());
 		return SUCCESS;

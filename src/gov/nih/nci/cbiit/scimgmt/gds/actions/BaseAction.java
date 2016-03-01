@@ -106,7 +106,7 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	 * @return
 	 */
 	public String getNotAuthorizedErrorMessage() {
-		return gdsProperties.getProperty(ApplicationConstants.NOT_AUTHORIZED_MESSAGE);
+		return gdsProperties.getProperty("error.notAuthorized");
 	}	
 	
 }

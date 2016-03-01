@@ -14,10 +14,6 @@ public interface ApplicationConstants {
 	public static final String PRODUCTION = "Production";
 		
 	/* Action forwards */
-	public static final String NOT_AUTHORIZED = "notAuthorized";
-	
-	/*Message Constants */
-	public static final String NOT_AUTHORIZED_MESSAGE = "error.notAuthorized";
-	
-    
+	public static final String NOT_AUTHORIZED = "notAuthorized";	
+	    
 }
