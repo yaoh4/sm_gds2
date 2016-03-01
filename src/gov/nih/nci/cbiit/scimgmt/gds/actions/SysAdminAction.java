@@ -32,7 +32,7 @@ public class SysAdminAction extends BaseAction {
    // URL examples
    // http://localhost/gds/SysAdmin.action?task=RELOAD_PROPERTIES
    // http://localhost/gds/SysAdmin.action?task=REFRESH_LISTS 
-   
+   // TODO in future: Add a JSP page for SysAdmin tasks or a URL which only shows up for sys.admin user next to the help link
     
     /* (non-Javadoc)
      * @see com.opensymphony.xwork2.ActionSupport#execute()
@@ -77,7 +77,7 @@ public class SysAdminAction extends BaseAction {
     }
     
     /**
-     * Calls property init
+     * Reloads the properties which are defined in the database.
      */
     private void reloadProperties(){
     	logger.info("Initiating Reload properties...");
@@ -88,7 +88,7 @@ public class SysAdminAction extends BaseAction {
     }
     
     /**
-     * Calls initializer bean reinit
+     * Refreshes the Lists in cache from the database.
      */
     private void refreshLists(){
     	logger.info("Initiating Refresh lists...");

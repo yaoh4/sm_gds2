@@ -1,5 +1,6 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.MailTemplateDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
@@ -64,9 +65,9 @@ public class MailServiceImpl implements MailService {
 		logger.info("Sending error message");
 		final Map<String, Object> params = new HashMap<String, Object>();
 		String[] to = null;
-		final String errorReportingEmail = gdsProperties.getProperty("error.email");
-		final String from = gdsProperties.getProperty("email.from");
-		final String fromDisplay = gdsProperties.getProperty("email.from.display");
+		final String errorReportingEmail = gdsProperties.getProperty(ApplicationConstants.ERROR_EMAIL);
+		final String from = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM);
+		final String fromDisplay = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM_DISPLAY);
 
 		logger.info("errorReportingEmail: " + errorReportingEmail);
 		if (StringUtils.isNotBlank(errorReportingEmail)) {
@@ -161,7 +162,7 @@ public class MailServiceImpl implements MailService {
 							"UTF-8");
 					String subject = subjectWriter.toString();
 
-					final String env = gdsProperties.getProperty("environment");
+					final String env = gdsProperties.getProperty(ApplicationConstants.ENVIRONMENT);
 
 					if (env.toLowerCase().startsWith("prod")) {
 						helper.setTo(to);
