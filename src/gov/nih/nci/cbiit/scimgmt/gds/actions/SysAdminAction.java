@@ -92,7 +92,7 @@ public class SysAdminAction extends BaseAction {
      */
     private void refreshLists(){
     	logger.info("Initiating Refresh lists...");
-    	lookupService.loadLookupLists();
+    	gdsProperties.loadLookupLists();
         logger.info("Refresh lists completed");
     }
     

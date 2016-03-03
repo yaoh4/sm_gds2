@@ -1,6 +1,6 @@
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
-import gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplateT;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,10 +23,10 @@ public class MailTemplateDao {
 	 *            the id
 	 * @return the mail template
 	 */
-	public MailTemplate findById(final Long id) {
+	public MailTemplateT findById(final Long id) {
 		logger.info("getting MailTemplate instance with id: " + id);
 		try {
-			final MailTemplate instance = sessionFactory.getCurrentSession().get(MailTemplate.class, id);
+			final MailTemplateT instance = sessionFactory.getCurrentSession().get(MailTemplateT.class, id);
 			if (instance == null) {
 				logger.info("get successful, no instance found");
 			} else {
@@ -46,13 +46,13 @@ public class MailTemplateDao {
 	 *            the short identifier
 	 * @return the mail template
 	 */
-	public MailTemplate findByShortIdentifier(final String shortIdentifier) {
+	public MailTemplateT findByShortIdentifier(final String shortIdentifier) {
 		logger.info("finding MailTemplate instance by shortIdentifier '" + shortIdentifier + "'");
 		try {
-			final Criteria crit = sessionFactory.getCurrentSession().createCriteria(MailTemplate.class);
+			final Criteria crit = sessionFactory.getCurrentSession().createCriteria(MailTemplateT.class);
 			crit.add(Restrictions.eq("shortIdentifier", shortIdentifier));
 
-			final MailTemplate result = (MailTemplate) crit.uniqueResult();
+			final MailTemplateT result = (MailTemplateT) crit.uniqueResult();
 
 			return result;
 		} catch (final RuntimeException re) {

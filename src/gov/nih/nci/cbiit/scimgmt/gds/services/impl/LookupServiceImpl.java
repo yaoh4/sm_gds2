@@ -50,37 +50,14 @@ public class LookupServiceImpl implements LookupService {
 	
 	
 	/**
-	 * Loads the lookup lists from the DB and stores in
+	 * Fetch entire lookup lists from the DB and the caller stores in
 	 * cache. Invoked during application initialization.
 	 */
-	public void loadLookupLists() {
-		
-		String listName = "";
-		String prevListName = "";
-		List<LookupT> lookupList = new ArrayList();
+	public List<LookupT> getAllLookupLists() {
 		
 		logger.info("Loading lookup data from LOOKUP_T");
 		List<LookupT> allLookups = propertyListDAO.getAllLookupLists();
-		
-		for(LookupT appLookupT: allLookups) {
-			listName = appLookupT.getDisplayName();
-			if(!prevListName.isEmpty() && !prevListName.equalsIgnoreCase(listName)) {
-				
-				//Put this list in the cache
-				updateLookupList(listName, lookupList);
-				
-				prevListName = listName;
-				
-				//Setup the next list
-				lookupList = new ArrayList();
-				
-			}
-			lookupList.add(appLookupT);
-			
-		}
-		if(!lookupList.isEmpty()) {
-			updateLookupList(listName, lookupList);
-		}
+		return allLookups;
 	}
 
 

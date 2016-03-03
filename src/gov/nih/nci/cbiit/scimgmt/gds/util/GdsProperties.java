@@ -1,22 +1,23 @@
 package gov.nih.nci.cbiit.scimgmt.gds.util;
 
 
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
-import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-
-import javax.annotation.PostConstruct;
-
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+
+import gov.nih.nci.cbiit.scimgmt.gds.domain.LookupT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
+import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 
 
@@ -35,29 +36,63 @@ public class GdsProperties extends Properties {
 	
 	@Autowired
 	LookupService lookupService;
-	
 
-	@PostConstruct
-	public void init() throws FileNotFoundException, IOException {
-		
+	@EventListener
+    public void handleContextRefresh(ContextRefreshedEvent event) {
 		//Load properties from files
-		this.load(this.getClass().getResourceAsStream("/messages.properties"));		
-					
-		String confDirLocation = System.getProperty("conf.dir");
-		logger.info("=====> conf.dir=" + confDirLocation);	
-		this.load(new FileInputStream(confDirLocation + "/gds/application.properties"));
-		this.load(new FileInputStream(confDirLocation + "/gds/gds.properties"));
-		
-		//Override with properties from DB when present
-		//TBD - Is it required to do a null check ?
-		for (PropertiesT a : lookupService.loadPropertiesList()) {
-			setProperty(a.getPropKey(), a.getPropValue());
+		try {
+			this.load(this.getClass().getResourceAsStream("/messages.properties"));
+
+			String confDirLocation = System.getProperty("conf.dir");
+			logger.info("=====> conf.dir=" + confDirLocation);
+			this.load(new FileInputStream(confDirLocation + "/gds/application.properties"));
+			this.load(new FileInputStream(confDirLocation + "/gds/gds.properties"));
+
+			//Override with properties from DB when present
+			//TBD - Is it required to do a null check ?
+			for (PropertiesT a : lookupService.loadPropertiesList()) {
+				setProperty(a.getPropKey(), a.getPropValue());
+			}
+
+			//Load lookup data from DB
+			loadLookupLists();
+			logger.info("Completed loading GdsProperties");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		//Load lookup data from DB
-		lookupService.loadLookupLists();
-		
-		logger.info("Completed loading GdsProperties");
 	}
 	
+	/**
+	 * Loads the lookup lists from the DB and stores in
+	 * cache. Invoked during application initialization.
+	 */
+	public void loadLookupLists() {
+		
+		String listName = "";
+		String prevListName = "";
+		List<LookupT> lookupList = new ArrayList();
+		
+		logger.info("Loading lookup data from LOOKUP_T");
+		List<LookupT> allLookups = lookupService.getAllLookupLists();
+		
+		for(LookupT appLookupT: allLookups) {
+			listName = appLookupT.getDisplayName();
+			if(!prevListName.isEmpty() && !prevListName.equalsIgnoreCase(listName)) {
+				
+				//Put this list in the cache
+				lookupService.updateLookupList(listName, lookupList);
+				
+				prevListName = listName;
+				
+				//Setup the next list
+				lookupList = new ArrayList();
+				
+			}
+			lookupList.add(appLookupT);
+		}
+		if(!lookupList.isEmpty()) {
+			lookupService.updateLookupList(listName, lookupList);
+		}
+	}
 }

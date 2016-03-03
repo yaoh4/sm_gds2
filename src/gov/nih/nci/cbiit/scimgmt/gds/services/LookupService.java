@@ -32,7 +32,7 @@ public interface LookupService {
 	 * Loads the lookup lists from the DB and stores in
 	 * cache. Invoked during application initialization.
 	 */
-	public void loadLookupLists();
+	public List<LookupT> getAllLookupLists();
 	
 	
 	/**

@@ -49,11 +49,15 @@
   		 <ref bean="dataSource"/>
   		</property>
   	    <!-- Must references all OR mapping files.-->
+		<property name="annotatedClasses">
+			<list>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.LookupT</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplateT</value>
+			</list>
+		</property>
   		<property name="mappingResources">
   			<list>
   				<value>gov/nih/nci/cbiit/scimgmt/gds/domain/NedPerson.hbm.xml</value>
-				<value>gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.hbm.xml</value>
-				<value>gov/nih/nci/cbiit/scimgmt/gds/domain/LookupT.hbm.xml</value>
 				<value>gov/nih/nci/cbiit/scimgmt/gds/domain/PropertiesT.hbm.xml</value>
 			</list>
   		</property>

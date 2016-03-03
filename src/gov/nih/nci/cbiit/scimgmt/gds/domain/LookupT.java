@@ -17,8 +17,16 @@ import javax.persistence.TemporalType;
 @Table(name = "LOOKUP_T", schema = "GDS")
 public class LookupT implements java.io.Serializable {
 
+	@Id
 	private long id;
 	private String code;
+	@Override
+	public String toString() {
+		return "LookupT [id=" + id + ", code=" + code + ", displayName=" + displayName + ", description=" + description
+				+ ", createdDate=" + createdDate + ", createdBy=" + createdBy + ", lastChangedDate=" + lastChangedDate
+				+ ", lastChangedBy=" + lastChangedBy + "]";
+	}
+
 	private String displayName;
 	private String description;
 	private Date createdDate;
