@@ -162,7 +162,6 @@ src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/UserRoleDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/LookupT.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplateT.java -text
-src/gov/nih/nci/cbiit/scimgmt/gds/domain/NedPerson.hbm.xml -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/NedPerson.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/PropertiesT.hbm.xml -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/PropertiesT.java -text
