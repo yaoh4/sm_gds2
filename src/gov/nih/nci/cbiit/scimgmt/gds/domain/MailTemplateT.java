@@ -18,7 +18,7 @@ import org.hibernate.annotations.Type;
 @Table(name = "MAIL_TEMPLATE_T")
 public class MailTemplateT implements java.io.Serializable {
 
-	private Integer id;
+	private Long id;
 	private String shortIdentifier;
 	private String description;
 	private String subject;
@@ -32,7 +32,7 @@ public class MailTemplateT implements java.io.Serializable {
 	public MailTemplateT() {
 	}
 
-	public MailTemplateT(Integer id, String subject, String body, Boolean activeFlag, Date createdDate,
+	public MailTemplateT(Long id, String subject, String body, Boolean activeFlag, Date createdDate,
 			String createdBy) {
 		this.id = id;
 		this.subject = subject;
@@ -42,7 +42,7 @@ public class MailTemplateT implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public MailTemplateT(Integer id, String shortIdentifier, String description, String subject, String body,
+	public MailTemplateT(Long id, String shortIdentifier, String description, String subject, String body,
 			Boolean activeFlag, Date createdDate, String createdBy, Date lastChangedDate, String lastChangedBy) {
 		this.id = id;
 		this.shortIdentifier = shortIdentifier;
@@ -59,11 +59,11 @@ public class MailTemplateT implements java.io.Serializable {
 	@Id
 
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

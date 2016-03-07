@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 @Table(name = "DUL_CHECKLIST_SELECTIONS_T")
 public class DulChecklistSelectionsT implements java.io.Serializable {
 
-	private Integer id;
+	private Long id;
 	private StudiesT studiesT;
 	private DulChecklistT dulChecklistT;
 	private Date createdDate;
@@ -30,7 +30,7 @@ public class DulChecklistSelectionsT implements java.io.Serializable {
 	public DulChecklistSelectionsT() {
 	}
 
-	public DulChecklistSelectionsT(Integer id, StudiesT studiesT, DulChecklistT dulChecklistT, Date createdDate,
+	public DulChecklistSelectionsT(Long id, StudiesT studiesT, DulChecklistT dulChecklistT, Date createdDate,
 			String createdBy) {
 		this.id = id;
 		this.studiesT = studiesT;
@@ -39,7 +39,7 @@ public class DulChecklistSelectionsT implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public DulChecklistSelectionsT(Integer id, StudiesT studiesT, DulChecklistT dulChecklistT, Date createdDate,
+	public DulChecklistSelectionsT(Long id, StudiesT studiesT, DulChecklistT dulChecklistT, Date createdDate,
 			String createdBy, Date lastChangedDate, String lastChangedBy) {
 		this.id = id;
 		this.studiesT = studiesT;
@@ -53,11 +53,11 @@ public class DulChecklistSelectionsT implements java.io.Serializable {
 	@Id
 
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 public class LookupT implements java.io.Serializable {
 
 	@Id
-	private long id;
+	private Long id;
 	private String code;
 	@Override
 	public String toString() {
@@ -37,14 +37,14 @@ public class LookupT implements java.io.Serializable {
 	public LookupT() {
 	}
 
-	public LookupT(long id, String code, Date createdDate, String createdBy) {
+	public LookupT(Long id, String code, Date createdDate, String createdBy) {
 		this.id = id;
 		this.code = code;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 	}
 
-	public LookupT(long id, String code, String displayName,
+	public LookupT(Long id, String code, String displayName,
 			String description, Date createdDate, String createdBy,
 			Date lastChangedDate, String lastChangedBy) {
 		this.id = id;
@@ -59,11 +59,11 @@ public class LookupT implements java.io.Serializable {
 
 	@Id
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

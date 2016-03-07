@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 @Table(name = "STUDIES_T")
 public class StudiesT implements java.io.Serializable {
 
-	private Integer id;
+	private Long id;
 	private InstitutionalCertificationsT institutionalCertificationsT;
 	private String studyName;
 	private String institutionName;
@@ -36,7 +36,7 @@ public class StudiesT implements java.io.Serializable {
 	public StudiesT() {
 	}
 
-	public StudiesT(Integer id, InstitutionalCertificationsT institutionalCertificationsT, String studyName,
+	public StudiesT(Long id, InstitutionalCertificationsT institutionalCertificationsT, String studyName,
 			Date createdDate, String createdBy) {
 		this.id = id;
 		this.institutionalCertificationsT = institutionalCertificationsT;
@@ -45,7 +45,7 @@ public class StudiesT implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public StudiesT(Integer id, InstitutionalCertificationsT institutionalCertificationsT, String studyName,
+	public StudiesT(Long id, InstitutionalCertificationsT institutionalCertificationsT, String studyName,
 			String institutionName, String dulVerificationCode, Date createdDate, String createdBy,
 			Date lastChangedDate, String lastChangedBy, Set dulChecklistSelectionsTs) {
 		this.id = id;
@@ -63,11 +63,11 @@ public class StudiesT implements java.io.Serializable {
 	@Id
 
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

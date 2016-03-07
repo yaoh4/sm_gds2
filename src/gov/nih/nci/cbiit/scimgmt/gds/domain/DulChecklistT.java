@@ -20,10 +20,10 @@ import javax.persistence.TemporalType;
 @Table(name = "DUL_CHECKLIST_T")
 public class DulChecklistT implements java.io.Serializable {
 
-	private Integer id;
-	private Integer parentDulId;
+	private Long id;
+	private Long parentDulId;
 	private String displayText;
-	private Integer displayOrderNum;
+	private Long displayOrderNum;
 	private String activeFlag;
 	private Date createdDate;
 	private String createdBy;
@@ -34,7 +34,7 @@ public class DulChecklistT implements java.io.Serializable {
 	public DulChecklistT() {
 	}
 
-	public DulChecklistT(Integer id, String displayText, Integer displayOrderNum, String activeFlag, Date createdDate,
+	public DulChecklistT(Long id, String displayText, Long displayOrderNum, String activeFlag, Date createdDate,
 			String createdBy) {
 		this.id = id;
 		this.displayText = displayText;
@@ -44,7 +44,7 @@ public class DulChecklistT implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public DulChecklistT(Integer id, Integer parentDulId, String displayText, Integer displayOrderNum,
+	public DulChecklistT(Long id, Long parentDulId, String displayText, Long displayOrderNum,
 			String activeFlag, Date createdDate, String createdBy, Date lastChangedDate, String lastChangedBy,
 			Set dulChecklistSelectionsTs) {
 		this.id = id;
@@ -62,20 +62,20 @@ public class DulChecklistT implements java.io.Serializable {
 	@Id
 
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	@Column(name = "PARENT_DUL_ID", precision = 10, scale = 0)
-	public Integer getParentDulId() {
+	public Long getParentDulId() {
 		return this.parentDulId;
 	}
 
-	public void setParentDulId(Integer parentDulId) {
+	public void setParentDulId(Long parentDulId) {
 		this.parentDulId = parentDulId;
 	}
 
@@ -89,11 +89,11 @@ public class DulChecklistT implements java.io.Serializable {
 	}
 
 	@Column(name = "DISPLAY_ORDER_NUM", nullable = false, precision = 10, scale = 0)
-	public Integer getDisplayOrderNum() {
+	public Long getDisplayOrderNum() {
 		return this.displayOrderNum;
 	}
 
-	public void setDisplayOrderNum(Integer displayOrderNum) {
+	public void setDisplayOrderNum(Long displayOrderNum) {
 		this.displayOrderNum = displayOrderNum;
 	}
 

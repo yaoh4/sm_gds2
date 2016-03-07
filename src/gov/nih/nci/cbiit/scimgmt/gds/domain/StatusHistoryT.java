@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 @Table(name = "STATUS_HISTORY_T")
 public class StatusHistoryT implements java.io.Serializable {
 
-	private Integer id;
+	private Long id;
 	private LookupT lookupT;
 	private ProjectsT projectsT;
 	private Date createdDate;
@@ -30,14 +30,14 @@ public class StatusHistoryT implements java.io.Serializable {
 	public StatusHistoryT() {
 	}
 
-	public StatusHistoryT(Integer id, LookupT lookupT, ProjectsT projectsT, Date createdDate) {
+	public StatusHistoryT(Long id, LookupT lookupT, ProjectsT projectsT, Date createdDate) {
 		this.id = id;
 		this.lookupT = lookupT;
 		this.projectsT = projectsT;
 		this.createdDate = createdDate;
 	}
 
-	public StatusHistoryT(Integer id, LookupT lookupT, ProjectsT projectsT, Date createdDate, String createdBy,
+	public StatusHistoryT(Long id, LookupT lookupT, ProjectsT projectsT, Date createdDate, String createdBy,
 			Date lastChangedDate, String lastChangedBy) {
 		this.id = id;
 		this.lookupT = lookupT;
@@ -51,11 +51,11 @@ public class StatusHistoryT implements java.io.Serializable {
 	@Id
 
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

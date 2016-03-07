@@ -20,10 +20,10 @@ import javax.persistence.TemporalType;
 @Table(name = "PLAN_QUESTIONS_T")
 public class PlanQuestionsT implements java.io.Serializable {
 
-	private Integer id;
-	private Integer parentQuestionId;
+	private Long id;
+	private Long parentQuestionId;
 	private String displayText;
-	private Integer displayOrderNum;
+	private Long displayOrderNum;
 	private String activeFlag;
 	private Date createdDate;
 	private String createdBy;
@@ -34,7 +34,7 @@ public class PlanQuestionsT implements java.io.Serializable {
 	public PlanQuestionsT() {
 	}
 
-	public PlanQuestionsT(Integer id, String displayText, String activeFlag, Date createdDate, String createdBy) {
+	public PlanQuestionsT(Long id, String displayText, String activeFlag, Date createdDate, String createdBy) {
 		this.id = id;
 		this.displayText = displayText;
 		this.activeFlag = activeFlag;
@@ -42,7 +42,7 @@ public class PlanQuestionsT implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public PlanQuestionsT(Integer id, Integer parentQuestionId, String displayText, Integer displayOrderNum,
+	public PlanQuestionsT(Long id, Long parentQuestionId, String displayText, Long displayOrderNum,
 			String activeFlag, Date createdDate, String createdBy, Date lastChangedDate, String lastChangedBy,
 			Set planQuestionsAnswersTs) {
 		this.id = id;
@@ -60,20 +60,20 @@ public class PlanQuestionsT implements java.io.Serializable {
 	@Id
 
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	@Column(name = "PARENT_QUESTION_ID", precision = 10, scale = 0)
-	public Integer getParentQuestionId() {
+	public Long getParentQuestionId() {
 		return this.parentQuestionId;
 	}
 
-	public void setParentQuestionId(Integer parentQuestionId) {
+	public void setParentQuestionId(Long parentQuestionId) {
 		this.parentQuestionId = parentQuestionId;
 	}
 
@@ -87,11 +87,11 @@ public class PlanQuestionsT implements java.io.Serializable {
 	}
 
 	@Column(name = "DISPLAY_ORDER_NUM", precision = 10, scale = 0)
-	public Integer getDisplayOrderNum() {
+	public Long getDisplayOrderNum() {
 		return this.displayOrderNum;
 	}
 
-	public void setDisplayOrderNum(Integer displayOrderNum) {
+	public void setDisplayOrderNum(Long displayOrderNum) {
 		this.displayOrderNum = displayOrderNum;
 	}
 

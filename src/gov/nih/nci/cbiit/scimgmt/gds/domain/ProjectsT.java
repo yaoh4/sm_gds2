@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 @Table(name = "PROJECTS_T")
 public class ProjectsT implements java.io.Serializable {
 
-	private Integer id;
+	private Long id;
 	private String projectIdentifierNum;
 	private String projectTitle;
 	private String docAbbreviation;
@@ -39,7 +39,7 @@ public class ProjectsT implements java.io.Serializable {
 	private String parentAccessionNum;
 	private String comments;
 	private String bsiReviewedFlag;
-	private Integer versionNum;
+	private Long versionNum;
 	private Date createdDate;
 	private String createdBy;
 	private Date lastChangedDate;
@@ -53,7 +53,7 @@ public class ProjectsT implements java.io.Serializable {
 	public ProjectsT() {
 	}
 
-	public ProjectsT(Integer id, String projectIdentifierNum, String nihFundedFlag, Integer versionNum,
+	public ProjectsT(Long id, String projectIdentifierNum, String nihFundedFlag, Long versionNum,
 			Date createdDate, String createdBy) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
@@ -63,11 +63,11 @@ public class ProjectsT implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public ProjectsT(Integer id, String projectIdentifierNum, String projectTitle, String docAbbreviation,
+	public ProjectsT(Long id, String projectIdentifierNum, String projectTitle, String docAbbreviation,
 			String programBranch, String nihFundedFlag, String applicationNum, String piFullName, String pocFullName,
 			String institutionName, String piEmailAddress, String pdFullName, Date projectStartDate,
 			Date projectEndDate, Date sciRevApprovalDate, String subStudyFlag, String parentAccessionNum,
-			String comments, String bsiReviewedFlag, Integer versionNum, Date createdDate, String createdBy,
+			String comments, String bsiReviewedFlag, Long versionNum, Date createdDate, String createdBy,
 			Date lastChangedDate, String lastChangedBy, Set statusHistoryTs, Set documentsTs,
 			Set planQuestionsAnswersTs, Set repositoryStatusesTs, Set institutionalCertificationsTs) {
 		this.id = id;
@@ -104,11 +104,11 @@ public class ProjectsT implements java.io.Serializable {
 	@Id
 
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -278,11 +278,11 @@ public class ProjectsT implements java.io.Serializable {
 	}
 
 	@Column(name = "VERSION_NUM", nullable = false, precision = 10, scale = 0)
-	public Integer getVersionNum() {
+	public Long getVersionNum() {
 		return this.versionNum;
 	}
 
-	public void setVersionNum(Integer versionNum) {
+	public void setVersionNum(Long versionNum) {
 		this.versionNum = versionNum;
 	}
 

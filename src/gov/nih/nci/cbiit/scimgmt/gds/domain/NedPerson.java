@@ -19,7 +19,7 @@ import org.hibernate.annotations.Type;
 public class NedPerson implements java.io.Serializable {
 
 	private String nedId;
-	private Integer id;
+	private Long id;
 	private String firstName;
 	private String building;
 	private String c;
@@ -100,14 +100,14 @@ public class NedPerson implements java.io.Serializable {
 	public NedPerson() {
 	}
 
-	public NedPerson(Integer id, String nedId, String firstName, Date createdDate) {
+	public NedPerson(Long id, String nedId, String firstName, Date createdDate) {
 		this.id = id;
 		this.nedId = nedId;
 		this.firstName = firstName;
 		this.createdDate = createdDate;
 	}
 
-	public NedPerson(Integer id, String nedId, String building, String c, String description,
+	public NedPerson(Long id, String nedId, String building, String c, String description,
 			String facsimiletelephone, String generationqualif, String firstName, String initials, String l,
 			String email, String manager, String middlename, String mobiletelephonenum, String nihbadgetitle,
 			String nihcommongenqualif, String preferredName, String nihcommonmiddlenam, String nihcommonsn,
@@ -217,11 +217,11 @@ public class NedPerson implements java.io.Serializable {
 	}
 	
 	@Column(name = "ID", nullable = false, precision = 22, scale = 0)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

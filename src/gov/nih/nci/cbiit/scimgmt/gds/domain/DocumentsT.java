@@ -19,13 +19,13 @@ import javax.persistence.TemporalType;
 @Table(name = "DOCUMENTS_T")
 public class DocumentsT implements java.io.Serializable {
 
-	private Integer id;
+	private Long id;
 	private InstitutionalCertificationsT institutionalCertificationsT;
 	private ProjectsT projectsT;
 	private String docType;
 	private String fileName;
 	private Date uploadedDate;
-	private Integer versionNum;
+	private Long versionNum;
 	private String activeFlag;
 	private Date createdDate;
 	private String createdBy;
@@ -35,8 +35,8 @@ public class DocumentsT implements java.io.Serializable {
 	public DocumentsT() {
 	}
 
-	public DocumentsT(Integer id, InstitutionalCertificationsT institutionalCertificationsT, ProjectsT projectsT,
-			String docType, Date uploadedDate, Integer versionNum, String activeFlag, Date createdDate,
+	public DocumentsT(Long id, InstitutionalCertificationsT institutionalCertificationsT, ProjectsT projectsT,
+			String docType, Date uploadedDate, Long versionNum, String activeFlag, Date createdDate,
 			String createdBy) {
 		this.id = id;
 		this.institutionalCertificationsT = institutionalCertificationsT;
@@ -49,8 +49,8 @@ public class DocumentsT implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public DocumentsT(Integer id, InstitutionalCertificationsT institutionalCertificationsT, ProjectsT projectsT,
-			String docType, String fileName, Date uploadedDate, Integer versionNum, String activeFlag,
+	public DocumentsT(Long id, InstitutionalCertificationsT institutionalCertificationsT, ProjectsT projectsT,
+			String docType, String fileName, Date uploadedDate, Long versionNum, String activeFlag,
 			Date createdDate, String createdBy, Date lastChangedDate, String lastChangedBy) {
 		this.id = id;
 		this.institutionalCertificationsT = institutionalCertificationsT;
@@ -69,11 +69,11 @@ public class DocumentsT implements java.io.Serializable {
 	@Id
 
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -126,11 +126,11 @@ public class DocumentsT implements java.io.Serializable {
 	}
 
 	@Column(name = "VERSION_NUM", nullable = false, precision = 10, scale = 0)
-	public Integer getVersionNum() {
+	public Long getVersionNum() {
 		return this.versionNum;
 	}
 
-	public void setVersionNum(Integer versionNum) {
+	public void setVersionNum(Long versionNum) {
 		this.versionNum = versionNum;
 	}
 

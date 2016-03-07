@@ -18,9 +18,9 @@ import javax.persistence.Table;
 @Table(name = "PLAN_QUESTIONS_ANSWERS_T")
 public class PlanQuestionsAnswersT implements java.io.Serializable {
 
-	private Integer id;
-	private Integer projectId;
-	private Integer questionId;
+	private Long id;
+	private Long projectId;
+	private Long questionId;
 	private Date createdDate;
 	private String createdBy;
 	private Date lastChangedDate;
@@ -31,7 +31,7 @@ public class PlanQuestionsAnswersT implements java.io.Serializable {
 	public PlanQuestionsAnswersT() {
 	}
 
-	public PlanQuestionsAnswersT(Integer id, Integer projectId, Integer questionId, Date createdDate,
+	public PlanQuestionsAnswersT(Long id, Long projectId, Long questionId, Date createdDate,
 			String createdBy) {
 		this.id = id;
 		this.projectId = projectId;
@@ -40,7 +40,7 @@ public class PlanQuestionsAnswersT implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public PlanQuestionsAnswersT(Integer id, Integer projectId, Integer questionId, Date createdDate,
+	public PlanQuestionsAnswersT(Long id, Long projectId, Long questionId, Date createdDate,
 			String createdBy, Date lastChangedDate, String lastChangedBy, 
 			PlanQuestionsT planQuestionsT, ProjectsT projectsT) {
 		this.id = id;
@@ -57,29 +57,29 @@ public class PlanQuestionsAnswersT implements java.io.Serializable {
 	@Id
 	
 	@Column(name = "ID", nullable = false, precision = 10, scale = 0)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	@Column(name = "PROJECT_ID", nullable = false, precision = 10, scale = 0)
-	public Integer getProjectId() {
+	public Long getProjectId() {
 		return this.projectId;
 	}
 
-	public void setProjectId(Integer projectId) {
+	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
 	}
 
 	@Column(name = "QUESTION_ID", nullable = false, precision = 10, scale = 0)
-	public Integer getQuestionId() {
+	public Long getQuestionId() {
 		return this.questionId;
 	}
 
-	public void setQuestionId(Integer questionId) {
+	public void setQuestionId(Long questionId) {
 		this.questionId = questionId;
 	}
 
