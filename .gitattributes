@@ -47,6 +47,8 @@ WebContent/WEB-INF/lib/javassist-3.20.0-GA.jar -text
 WebContent/WEB-INF/lib/jboss-logging-3.3.0.Final.jar -text
 WebContent/WEB-INF/lib/json-lib-2.3-jdk15.jar -text
 WebContent/WEB-INF/lib/juli-6.0.18.jar -text
+WebContent/WEB-INF/lib/junit-4.10.jar -text
+WebContent/WEB-INF/lib/junit-4.12.jar -text
 WebContent/WEB-INF/lib/log4j-api-2.5.jar -text
 WebContent/WEB-INF/lib/log4j-core-2.5.jar -text
 WebContent/WEB-INF/lib/mail.jar -text
@@ -158,6 +160,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/actions/SearchSubmissions.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SysAdminAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/MailTemplateDao.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/dao/ProjectsDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/UserRoleDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/DocumentsT.java -text
@@ -185,3 +188,5 @@ src/gov/nih/nci/cbiit/scimgmt/gds/util/GdsProperties.java -text
 src/manage.xml -text
 src/search.xml -text
 src/struts.xml -text
+test/gov/nih/nci/cbiit/scimgmt/gds/junit/HibernateMappingTest.java -text
+test/gov/nih/nci/cbiit/scimgmt/gds/junit/applicationContext.xml -text

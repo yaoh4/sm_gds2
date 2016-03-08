@@ -63,6 +63,22 @@ public class ProjectsT implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
+	@Override
+	public String toString() {
+		return "ProjectsT [id=" + id + ", projectIdentifierNum=" + projectIdentifierNum + ", projectTitle="
+				+ projectTitle + ", docAbbreviation=" + docAbbreviation + ", programBranch=" + programBranch
+				+ ", nihFundedFlag=" + nihFundedFlag + ", applicationNum=" + applicationNum + ", piFullName="
+				+ piFullName + ", pocFullName=" + pocFullName + ", institutionName=" + institutionName
+				+ ", piEmailAddress=" + piEmailAddress + ", pdFullName=" + pdFullName + ", projectStartDate="
+				+ projectStartDate + ", projectEndDate=" + projectEndDate + ", sciRevApprovalDate="
+				+ sciRevApprovalDate + ", subStudyFlag=" + subStudyFlag + ", parentAccessionNum=" + parentAccessionNum
+				+ ", comments=" + comments + ", bsiReviewedFlag=" + bsiReviewedFlag + ", versionNum=" + versionNum
+				+ ", createdDate=" + createdDate + ", createdBy=" + createdBy + ", lastChangedDate=" + lastChangedDate
+				+ ", lastChangedBy=" + lastChangedBy + ", statusHistoryTs=" + statusHistoryTs + ", documentsTs="
+				+ documentsTs + ", planQuestionsAnswersTs=" + planQuestionsAnswersTs + ", repositoryStatusesTs="
+				+ repositoryStatusesTs + ", institutionalCertificationsTs=" + institutionalCertificationsTs + "]";
+	}
+
 	public ProjectsT(Long id, String projectIdentifierNum, String projectTitle, String docAbbreviation,
 			String programBranch, String nihFundedFlag, String applicationNum, String piFullName, String pocFullName,
 			String institutionName, String piEmailAddress, String pdFullName, Date projectStartDate,
