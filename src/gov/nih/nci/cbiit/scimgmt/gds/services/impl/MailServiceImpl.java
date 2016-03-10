@@ -2,7 +2,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.MailTemplateDao;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplateT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.services.MailService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsProperties;
@@ -97,7 +97,7 @@ public class MailServiceImpl implements MailService {
 	 * @param shortIdentifier
 	 * @return
 	 */
-	private MailTemplateT findByShortIdentifier(final String shortIdentifier) {
+	private MailTemplate findByShortIdentifier(final String shortIdentifier) {
 		return mailTemplateDao.findByShortIdentifier(shortIdentifier);
 	}
 
@@ -132,7 +132,7 @@ public class MailServiceImpl implements MailService {
 	 */
 	private void send(final String identifier, final Map<String, Object> params) {
 
-		final MailTemplateT template = findByShortIdentifier(identifier);
+		final MailTemplate template = findByShortIdentifier(identifier);
 
 		if (template != null) {
 			if (!template.getActiveFlag()) {

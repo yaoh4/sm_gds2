@@ -3,8 +3,8 @@
  */
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
-import gov.nih.nci.cbiit.scimgmt.gds.domain.LookupT;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 
 import java.util.List;
 
@@ -32,12 +32,12 @@ public class PropertyListDao {
 		@Autowired
 		private SessionFactory sessionFactory;
 		
-		public List<LookupT> getAllLookupLists() {
+		public List<Lookup> getAllLookupLists() {
 			
 			logger.info("Retrieving all lookup lists from DB");
-			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(LookupT.class);
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Lookup.class);
 			criteria.addOrder(Order.asc("displayName"));
-			List<LookupT> lookups = criteria.list();
+			List<Lookup> lookups = criteria.list();
 					
 			return lookups;
 			
@@ -48,12 +48,12 @@ public class PropertyListDao {
 		 * during application initialization.
 		 * @return
 		 */
-		public List<PropertiesT> getPropertiesList() {
+		public List<Property> getPropertiesList() {
 			
 			logger.info("Retrieving properties list from DB ");
 			
-			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PropertiesT.class);
-			List<PropertiesT> properties = criteria.list();
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Property.class);
+			List<Property> properties = criteria.list();
 					
 			return properties;
 		}
@@ -65,14 +65,14 @@ public class PropertyListDao {
 		 * @param listName
 		 * @return
 		 */
-		public List<LookupT> searchLookup(String listName) {
+		public List<Lookup> searchLookup(String listName) {
 			
-			List<LookupT> lookups = null;
+			List<Lookup> lookups = null;
 			
 			logger.info("Retrieving lookup list from DB for listName " + listName);
 			
 			try {
-			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(LookupT.class);
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Lookup.class);
 			criteria.add(Restrictions.ilike("displayName", listName, MatchMode.EXACT));
 			lookups = criteria.list();
 			} catch (Throwable e) {

@@ -1,6 +1,5 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -13,8 +12,8 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDao;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.LookupT;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 /**
@@ -40,7 +39,7 @@ public class LookupServiceImpl implements LookupService {
 	 * from the cache if present, else from the DB
 	 */
 	@Cacheable(key = "#listName")
-	public List<LookupT> getLookupList(String listName) {
+	public List<Lookup> getLookupList(String listName) {
 	  	
 		logger.info("Loading Lookup list from DB");
 		return propertyListDAO.searchLookup(listName);
@@ -53,10 +52,10 @@ public class LookupServiceImpl implements LookupService {
 	 * Fetch entire lookup lists from the DB and the caller stores in
 	 * cache. Invoked during application initialization.
 	 */
-	public List<LookupT> getAllLookupLists() {
+	public List<Lookup> getAllLookupLists() {
 		
 		logger.info("Loading lookup data from LOOKUP_T");
-		List<LookupT> allLookups = propertyListDAO.getAllLookupLists();
+		List<Lookup> allLookups = propertyListDAO.getAllLookupLists();
 		return allLookups;
 	}
 
@@ -68,7 +67,7 @@ public class LookupServiceImpl implements LookupService {
 	 * @return
 	 */
 	@CachePut(key="#listName")
-	public List<LookupT> updateLookupList(String listName, List<LookupT> lookupList) {
+	public List<Lookup> updateLookupList(String listName, List<Lookup> lookupList) {
 		return lookupList;
 	}
 	
@@ -78,7 +77,7 @@ public class LookupServiceImpl implements LookupService {
 	 * application initialization and for reloading
 	 * from sysAdmin action.
 	 */
-	public List<PropertiesT> loadPropertiesList() {
+	public List<Property> loadPropertiesList() {
 		
 		logger.info("Loading Properties list from DB");
 		return propertyListDAO.getPropertiesList();

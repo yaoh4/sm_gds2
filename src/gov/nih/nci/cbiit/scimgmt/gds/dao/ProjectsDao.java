@@ -9,11 +9,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 
 /**
- * Dao object for domain model class ProjectsT.
- * @see gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsT
+ * Dao object for domain model class Project.
+ * @see gov.nih.nci.cbiit.scimgmt.gds.domain.Project
  * @author Hibernate Tools
  */
 @Component
@@ -33,8 +33,8 @@ public class ProjectsDao {
 		}
 	}
 
-	public void persist(ProjectsT transientInstance) {
-		logger.debug("persisting ProjectsT instance");
+	public void persist(Project transientInstance) {
+		logger.debug("persisting Project instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			logger.debug("persist successful");
@@ -44,8 +44,8 @@ public class ProjectsDao {
 		}
 	}
 
-	public void delete(ProjectsT persistentInstance) {
-		logger.debug("deleting ProjectsT instance");
+	public void delete(Project persistentInstance) {
+		logger.debug("deleting Project instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			logger.debug("delete successful");
@@ -55,10 +55,12 @@ public class ProjectsDao {
 		}
 	}
 
-	public ProjectsT merge(ProjectsT detachedInstance) {
-		logger.debug("merging ProjectsT instance");
+	public Project merge(Project detachedInstance) {
+		Long id = detachedInstance.getId();
+		logger.debug("merging Project instance");
 		try {
-			ProjectsT result = (ProjectsT) sessionFactory.getCurrentSession().merge(detachedInstance);
+			sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Project.class, id));
+			Project result = (Project) sessionFactory.getCurrentSession().merge(detachedInstance);
 			logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -67,11 +69,11 @@ public class ProjectsDao {
 		}
 	}
 
-	public ProjectsT findById(Long id) {
-		logger.debug("getting ProjectsT instance with id: " + id);
+	public Project findById(Long id) {
+		logger.debug("getting Project instance with id: " + id);
 		try {
-			ProjectsT instance = (ProjectsT) sessionFactory.getCurrentSession()
-					.get("gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsT", id);
+			Project instance = (Project) sessionFactory.getCurrentSession()
+					.get(Project.class, id);
 			if (instance == null) {
 				logger.debug("get successful, no instance found");
 			} else {

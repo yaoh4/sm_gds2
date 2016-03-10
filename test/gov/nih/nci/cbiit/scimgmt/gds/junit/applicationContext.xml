@@ -54,28 +54,28 @@
   	    <!-- Must references all OR mapping files.-->
 		<property name="annotatedClasses">
 			<list>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.LookupT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplateT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Property</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DocumentsT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelectionsT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertificationsT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswersT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatusesT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.StatusHistoryT</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesT</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Document</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestion</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Project</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.StatusHistory</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Study</value>
 			</list>
 		</property>
   		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
 				<prop key="hibernate.connection.release_mode">after_transaction</prop>
-				<prop key="hibernate.show_sql">false</prop>
-				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.cache.use_second_level_cache">false</prop>
 			</props>
 		</property>

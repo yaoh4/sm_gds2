@@ -15,8 +15,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import gov.nih.nci.cbiit.scimgmt.gds.domain.LookupT;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PropertiesT;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 
@@ -50,7 +50,7 @@ public class GdsProperties extends Properties {
 
 			//Override with properties from DB when present
 			//TBD - Is it required to do a null check ?
-			for (PropertiesT a : lookupService.loadPropertiesList()) {
+			for (Property a : lookupService.loadPropertiesList()) {
 				setProperty(a.getPropKey(), a.getPropValue());
 			}
 
@@ -71,13 +71,13 @@ public class GdsProperties extends Properties {
 		
 		String listName = "";
 		String prevListName = "";
-		List<LookupT> lookupList = new ArrayList();
+		List<Lookup> lookupList = new ArrayList();
 		
 		logger.info("Loading lookup data from LOOKUP_T");
-		List<LookupT> allLookups = lookupService.getAllLookupLists();
+		List<Lookup> allLookups = lookupService.getAllLookupLists();
 		
-		for(LookupT appLookupT: allLookups) {
-			listName = appLookupT.getDisplayName();
+		for(Lookup lookup: allLookups) {
+			listName = lookup.getDisplayName();
 			if(!prevListName.isEmpty() && !prevListName.equalsIgnoreCase(listName)) {
 				
 				//Put this list in the cache
@@ -89,7 +89,7 @@ public class GdsProperties extends Properties {
 				lookupList = new ArrayList();
 				
 			}
-			lookupList.add(appLookupT);
+			lookupList.add(lookup);
 		}
 		if(!lookupList.isEmpty()) {
 			lookupService.updateLookupList(listName, lookupList);
