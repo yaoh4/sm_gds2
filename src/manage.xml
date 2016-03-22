@@ -5,7 +5,44 @@
 <struts>
 	
 	<package name="manage" namespace="/manage" extends="default">
-		
-				
+		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
+			 <result name="success" type="tiles">home</result>
+		</action>
+		<action name="newSubmission" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionGeneralInfo</result>
+		</action>
+		<action name="saveGeneralInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionGdsPlan</result>
+		</action>
+		<action name="saveGdsPlan" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionIcList</result>
+		</action>
+		<action name="addIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionIcAndDul</result>
+		</action>
+		<action name="deleteIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionIcList</result>
+		</action>
+		<action name="saveIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionIcList</result>
+		</action>
+		<action name="addStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionIcAndDul</result>
+		</action>
+		<action name="deleteStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionIcAndDul</result>
+		</action>
+		<action name="addDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionIcAndDul</result>
+		</action>
+		<action name="deleteDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionIcAndDul</result>
+		</action>
+		<action name="navigateToBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionBasicStudyInfo</result>
+		</action>
+		<action name="saveBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="tiles">submissionDetail</result>
+		</action>
 	</package>
 </struts>

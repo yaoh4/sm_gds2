@@ -77,6 +77,21 @@ h1#naa_header{
 	text-shadow: #000;
 	border-bottom: none;
 }
+#navbar ul li a:hover, #navbar ul li a:active, #navbar ul li a.selected {
+	background-position: bottom right;
+	border-bottom: none;
+}
+#navbar ul li a:hover, #navbar ul li a:active {
+	filter:alpha(opacity=85);
+	opacity:0.85;
+	border-bottom: none;
+}
+#navbar ul li a:hover span, #navbar ul li a.selected span {
+	background-position: bottom left;
+	color: #fff;
+	cursor: pointer;
+	border-bottom: none; /* Remind IE which cursor to use! */
+}
 .subnav {
 	margin: 0 0 10px 0;
 	font-size: 13px;

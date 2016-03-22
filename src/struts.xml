@@ -52,10 +52,6 @@
 			 <result name="success" type="tiles">home</result>
 		</action>
 		
-		<action name="addNewSubmission"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
-			 <result name="success" type="tiles">home</result>
-		</action>		
-		
 		<action name="sendErrorMessage" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ErrorMessageAction">
 			<result type="redirectAction" name="success">home</result>
 		</action>	

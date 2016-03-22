@@ -34,5 +34,41 @@
 		<put-attribute name="title" type="string" value="GDS Tracking System - User Login Error" />
 		<put-attribute name="body" value="/jsp/error/notAuthorized.jsp" />
 	</definition>
-		
+	
+	<definition name="submissionGeneralInfo" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/submissionGeneralInfo.jsp" />		
+	</definition>	
+	
+	<definition name="submissionGdsPlan" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/submissionGdsPlan.jsp" />		
+	</definition>
+	
+	<definition name="submissionIcList" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/submissionIcList.jsp" />		
+	</definition>
+	
+	<definition name="submissionIcAndDul" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/submissionIcAndDul.jsp" />		
+	</definition>
+	
+	<definition name="submissionBasicStudyInfo" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/submissionBasicStudyInfo.jsp" />		
+	</definition>
+	
+	<definition name="submissionDetail" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/submissionDetail.jsp" />		
+	</definition>
+	
 </tiles-definitions>

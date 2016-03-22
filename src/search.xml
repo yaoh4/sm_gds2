@@ -5,7 +5,8 @@
 <struts>
 	
 	<package name="search" namespace="/search" extends="default">
-		
-		
+		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
+			 <result name="success" type="tiles">home</result>
+		</action>
 	</package>
 </struts>
