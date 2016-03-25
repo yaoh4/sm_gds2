@@ -11,37 +11,37 @@
 		<action name="newSubmission" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionGeneralInfo</result>
 		</action>
-		<action name="saveGeneralInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="saveGeneralInfo" method="saveGeneralInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionGdsPlan</result>
 		</action>
-		<action name="saveGdsPlan" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="saveGdsPlan" method="saveGdsPlan" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionIcList</result>
 		</action>
 		<action name="addIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionIcAndDul</result>
 		</action>
-		<action name="deleteIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="deleteIcAndDul" method="deleteIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionIcList</result>
 		</action>
-		<action name="saveIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="saveIcAndDul" method="saveIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionIcList</result>
 		</action>
-		<action name="addStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="addStudy" method="addStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionIcAndDul</result>
 		</action>
-		<action name="deleteStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="deleteStudy" method="deleteStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionIcAndDul</result>
 		</action>
-		<action name="addDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="addDul" method="addDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionIcAndDul</result>
 		</action>
-		<action name="deleteDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="deleteDul" method="deleteDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionIcAndDul</result>
 		</action>
 		<action name="navigateToBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionBasicStudyInfo</result>
 		</action>
-		<action name="saveBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="saveBasicStudyInfo" method="saveBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionDetail</result>
 		</action>
 	</package>
