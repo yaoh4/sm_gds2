@@ -1,5 +1,5 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
-// Generated Mar 4, 2016 12:46:29 PM by Hibernate Tools 4.0.0
+// Generated Mar 28, 2016 10:25:57 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -31,7 +31,7 @@ public class Study implements java.io.Serializable {
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
-	private Set<DulChecklistSelection> dulChecklistSelections = new HashSet(0);
+	private Set<StudiesDulSet> studiesDulSets = new HashSet<StudiesDulSet>(0);
 
 	public Study() {
 	}
@@ -47,7 +47,7 @@ public class Study implements java.io.Serializable {
 
 	public Study(Long id, InstitutionalCertification institutionalCertification, String studyName,
 			String institutionName, String dulVerificationCode, Date createdDate, String createdBy,
-			Date lastChangedDate, String lastChangedBy, Set dulChecklistSelections) {
+			Date lastChangedDate, String lastChangedBy, Set<StudiesDulSet> studiesDulSets) {
 		this.id = id;
 		this.institutionalCertification = institutionalCertification;
 		this.studyName = studyName;
@@ -57,7 +57,7 @@ public class Study implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
-		this.dulChecklistSelections = dulChecklistSelections;
+		this.studiesDulSets = studiesDulSets;
 	}
 
 	@Id
@@ -147,12 +147,12 @@ public class Study implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "study")
-	public Set<DulChecklistSelection> getDulChecklistSelections() {
-		return this.dulChecklistSelections;
+	public Set<StudiesDulSet> getStudiesDulSets() {
+		return this.studiesDulSets;
 	}
 
-	public void setDulChecklistSelections(Set<DulChecklistSelection> dulChecklistSelections) {
-		this.dulChecklistSelections = dulChecklistSelections;
+	public void setStudiesDulSets(Set<StudiesDulSet> studiesDulSets) {
+		this.studiesDulSets = studiesDulSets;
 	}
 
 }

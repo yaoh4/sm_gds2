@@ -1,5 +1,5 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
-// Generated Mar 4, 2016 12:46:29 PM by Hibernate Tools 4.0.0
+// Generated Mar 28, 2016 10:25:57 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -46,7 +46,7 @@ public class Project implements java.io.Serializable {
 	private String lastChangedBy;
 	private Set<StatusHistory> statusHistories = new HashSet(0);
 	private Set<Document> documents = new HashSet(0);
-	private Set<PlanQuestionsAnswer> planQuestionsAnswers = new HashSet(0);
+	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
 	private Set<RepositoryStatus> repositoryStatuses = new HashSet(0);
 	private Set<InstitutionalCertification> institutionalCertifications = new HashSet(0);
 
@@ -75,7 +75,7 @@ public class Project implements java.io.Serializable {
 				+ ", comments=" + comments + ", bsiReviewedFlag=" + bsiReviewedFlag + ", versionNum=" + versionNum
 				+ ", createdDate=" + createdDate + ", createdBy=" + createdBy + ", lastChangedDate=" + lastChangedDate
 				+ ", lastChangedBy=" + lastChangedBy + ", statusHistories=" + statusHistories + ", documents="
-				+ documents + ", planQuestionsAnswers=" + planQuestionsAnswers + ", repositoryStatuses="
+				+ documents + ", planAnswerSelections=" + planAnswerSelections + ", repositoryStatuses="
 				+ repositoryStatuses + ", institutionalCertifications=" + institutionalCertifications + "]";
 	}
 
@@ -85,7 +85,7 @@ public class Project implements java.io.Serializable {
 			Date projectEndDate, Date sciRevApprovalDate, String subStudyFlag, String parentAccessionNum,
 			String comments, String bsiReviewedFlag, Long versionNum, Date createdDate, String createdBy,
 			Date lastChangedDate, String lastChangedBy, Set statusHistories, Set documents,
-			Set planQuestionsAnswers, Set repositoryStatuses, Set institutionalCertifications) {
+			Set planAnswerSelections, Set repositoryStatuses, Set institutionalCertifications) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
 		this.projectTitle = projectTitle;
@@ -112,7 +112,7 @@ public class Project implements java.io.Serializable {
 		this.lastChangedBy = lastChangedBy;
 		this.statusHistories = statusHistories;
 		this.documents = documents;
-		this.planQuestionsAnswers = planQuestionsAnswers;
+		this.planAnswerSelections = planAnswerSelections;
 		this.repositoryStatuses = repositoryStatuses;
 		this.institutionalCertifications = institutionalCertifications;
 	}
@@ -359,12 +359,12 @@ public class Project implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-	public Set<PlanQuestionsAnswer> getPlanQuestionsAnswers() {
-		return this.planQuestionsAnswers;
+	public Set<PlanAnswerSelection> getPlanAnswerSelection() {
+		return this.planAnswerSelections;
 	}
 
-	public void setPlanQuestionsAnswers(Set<PlanQuestionsAnswer> planQuestionsAnswers) {
-		this.planQuestionsAnswers = planQuestionsAnswers;
+	public void setPlanAnswerSelection(Set<PlanAnswerSelection> planAnswerSelections) {
+		this.planAnswerSelections = planAnswerSelections;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")

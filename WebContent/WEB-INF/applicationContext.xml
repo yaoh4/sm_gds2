@@ -60,11 +60,12 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestion</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Project</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.StatusHistory</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Study</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection</value>
 			</list>
 		</property>
   		<property name="hibernateProperties">
