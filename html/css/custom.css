@@ -1,0 +1,350 @@
+body { 
+	padding-top: 150px; 
+	
+	font-family: 'Source Sans Pro';
+	font-size: 12px;
+  
+  height: 100%;
+	
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  
+  font-family: "Source Sans Pro", 
+  line-height: 1.3;
+  margin-bottom: .5em;
+  margin-top: 1.5em; }
+
+h1 {
+  font-size: 4rem;
+  font-weight: 700; }
+
+h2 {
+  font-size: 3rem;
+  font-weight: 700; }
+
+h3 {
+  font-size: 2rem;
+  font-weight: 700; 
+   display: inline-block;
+ 
+}
+
+h4 {
+  font-size: 1.7rem;
+  font-weight: 700; 
+  margin-top: 0px;
+  margin-bottom: 0px;
+  display: inline;
+  
+}
+
+h5 {
+  font-size: 1.5rem;
+  font-weight: 700; }
+
+h6 {
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  text-transform: uppercase; }
+
+  .login {
+    color: #BB1F40;
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+/********************************************************************/
+/*** Main Navigation ***/
+
+.logo-header {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+.nav {
+	font-family: 'Source Sans Pro';
+	font-weight: 600;
+}
+
+/********************************************************************/
+
+/*** Sub Navigation & PageHeader ***/
+
+
+
+.subnav {
+  height: 35px;
+  border-bottom: none;
+  margin-top:none;
+  margin-bottom: none;
+
+}
+
+.navbar-default2 {
+  margin-top: 50px;
+      background: #123e57;
+      border: none;
+
+
+
+}
+
+.navbar-default2 .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #FFF;
+  background-color: #0E3044;
+}
+.navbar-default2 .navbar-nav > .active > a,
+.navbar-default2 .navbar-nav > .active > a:hover,
+.navbar-default2 .navbar-nav > .active > a:focus {
+  color: #FFF;
+  background-color: #0E3044;
+}
+
+.navbar-default2 .navbar-nav > .disabled > a,
+.navbar-default2 .navbar-nav > .disabled > a:hover,
+.navbar-default2 .navbar-nav > .disabled > a:focus {
+  color: #FFF;
+  background-color: #0E3044;
+}
+
+.navbar-default2 .navbar-nav>li>a {
+    color: #FFF;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navbar-default2 .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default2 .navbar-nav>.active>a:hover, .navbar-default2 .navbar-nav>.active>li  {
+    color: #555;
+    background-color: #FFF;
+    border-bottom: 1px solid #FFF !important;
+   
+}
+
+
+.pageHeader {
+  background-color: #14819B;
+  height: 50px;
+  padding: 15px 15px 15px 15px;
+  margin: 0px auto 0px auto;
+  color: #FFF;
+
+}
+
+.sub-pageHeader {
+  background-color: #337ab7;
+  height: 50px;
+  padding: 15px 15px 15px 15px;
+  margin: 0px auto 0px auto;
+  color: #FFF;
+
+}
+
+
+
+.titleWrapper h3 {
+  margin: 0 0 0 15px;
+}
+
+
+/********************************************************************/
+.site-footer {
+    background: #123e57 url("../images/hexagon_molecular_structure_footer.png") no-repeat -30% 150px;
+    padding: 1em 0;
+    color: white;
+    font-family: 'Source Sans Pro';
+    margin-top: 5em;
+
+}
+.site-footer .row {
+    margin: 1em auto;
+}
+
+.column, .columns {
+    position: relative;
+    padding-left: .9375em;
+    padding-right: .9375em;
+    float: left;
+    margin-left: 80px;
+        margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.columns.footer-nci span {
+    font-size: 16px;
+}
+
+.agencies ul {
+  text-align: center;
+
+}
+
+.agencies li {
+    display: inline-block;
+    background: url("../images/agencies-divider.gif") center right no-repeat;
+    padding-right: 0.5em;
+    margin-right: 0.25em;
+}
+
+.agencies li.last {
+    background: none;
+    padding-right: 0;
+    margin-right: 0;
+}
+
+.tagline {
+    text-align: center;
+}
+
+.columns.footer-nci {
+    font-family: Montserrat,Arial,sans-serif;
+    font-size: 25px;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    line-height: 1em;
+}
+
+.column.small-centered, .columns.small-centered {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    float: none !important;
+}
+.agencies {
+    clear: both;
+}
+
+@media screen and (min-width: 641px)
+.large-12 {
+    position: relative;
+    width: 100%;
+}
+
+.panel.with-nav-tabs .panel-heading{
+    padding: 5px 5px 0 5px;
+    display: inline;
+}
+.panel.with-nav-tabs .nav-tabs{
+	border-bottom: none;
+}
+.panel.with-nav-tabs .nav-justified{
+	margin-bottom: -1px;
+}
+
+.site-footer .back-to-top {
+    z-index: 998;
+    display: none;
+    position: fixed;
+    right: 0.5em;
+    bottom: 1em;
+    color: #2e2e2e;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px 5px 0;
+}
+
+.site-footer a, .site-footer a:hover, .site-footer a:focus {
+    color: white;
+    font-weight: 700;
+
+}
+
+.site-footer .back-to-top:hover:before {
+    background-position: -389px -80px;
+}
+
+.site-footer .back-to-top:before {
+    content: " ";
+    display: block;
+    background: transparent url("../images/nci-sprite.png") no-repeat -311px -80px;
+    height: 51px;
+    width: 51px;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+Pseudo ::after element
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+a {
+    color: #2ba6cb;
+    text-decoration: none;
+    line-height: inherit;
+}
+
+#wrap {
+   min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+  }
+/********************************************************************/
+/********************************************************************/
+/*** PANEL PRIMARY ***/
+.panel {
+    margin-bottom: 1em;
+  }
+
+.project-panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #14819B;
+    border-color: #14819B;
+}
+
+.project-panel-primary {
+    border-color: #14819B;
+}
+
+.status {
+  margin-left: 60%;
+  display: inline;
+  font-size: 12px;
+  color: #FFF;
+
+}
+
+.pheader {
+  
+  display: inline;
+ 
+
+}
+
+a.statusLink:link,  a.statusLink:hover, a.statusLink:visited{
+  font-weight: bold;
+  font-size: 12px;
+  color: #FFF;
+}
+/********************************************************************/
+
+/*buttons for Save Previous and Save & Next*/
+
+.btn {
+ margin-right: 5px;
+}
+
+.pageNav {
+  float: right;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+
+.btn-project-primary {
+    color: #fff;
+    background-color: #14819B;
+    border-color: #116579;
+}
+ 

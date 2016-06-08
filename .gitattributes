@@ -148,6 +148,15 @@ WebContent/stylesheets/styles.css -text
 build/build.xml -text
 build/env.properties -text
 build/user.properties -text
+html/css/bootstrap-theme.css -text
+html/css/bootstrap-theme.css.map -text
+html/css/bootstrap-theme.min.css -text
+html/css/bootstrap-theme.min.css.map -text
+html/css/bootstrap.css -text
+html/css/bootstrap.css.map -text
+html/css/bootstrap.min.css -text
+html/css/bootstrap.min.css.map -text
+html/css/custom.css -text
 lib/tomcat/catalina-ant.jar -text
 lib/tomcat/jasper.jar -text
 lib/tomcat/jsp-api.jar -text
