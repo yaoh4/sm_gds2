@@ -6,7 +6,15 @@
 	
 	<package name="search" namespace="/search" extends="default">
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
-			 <result name="success" type="tiles">home</result>
+			<result name="success" type="redirect-action">searchProject</result>
+		</action>
+		
+		<action name="searchProject" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchProjectAction">
+			 <result name="success" type="tiles">search</result>
+		</action>
+		
+		<action name="viewProject" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ProjectGeneralInfoAction">
+			 <result name="success" type="tiles">projectGeneralInfo</result>
 		</action>
 	</package>
 </struts>

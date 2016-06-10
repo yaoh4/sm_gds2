@@ -9,7 +9,7 @@
 			 <result name="success" type="tiles">home</result>
 		</action>
 		<action name="newSubmission" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
-			 <result name="success" type="tiles">submissionGeneralInfo</result>
+			 <result name="success" type="tiles">projectGeneralInfo</result>
 		</action>
 		<action name="saveGeneralInfo" method="saveGeneralInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionGdsPlan</result>

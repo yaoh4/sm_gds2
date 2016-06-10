@@ -205,3 +205,49 @@ fieldset {
 	font:  10px "Verdana", serif #ccc;
 	text-align: left;
 }
+h2 {
+	font-size: 17px;
+	margin-bottom: 10px;
+	margin-left: 5px;
+	padding: 0 5px;
+	color: #dd6903;	
+	font-weight: normal;
+	text-align: left;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+.search {
+	display: block;
+    width: 850px;
+    margin-bottom: 10px;
+	
+}
+.search label {
+	display: inline-block;
+    margin-left: 20px;
+    margin-right: 0px;
+    text-align: left;	
+}
+.searchButton {
+	background-color: #46B2EE;
+	color: #FFF;
+	border-radius: 3px;
+	border: solid 1px #1873C5;
+	margin-left: 125px;
+	padding: 3px 5px 3px 5px;
+
+}
+label {
+	width: 100px;
+	text-align: right;
+	vertical-align: top; 
+	font:  bold 12px "Arial", serif;
+	border: none;
+	padding:  0;
+	color: #6A6A6A;
+	display: inline-block;
+	clear: both;
+}
+.searchInput {
+	width: 150px;
+	display: inline-block;
+}
