@@ -175,6 +175,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/actions/ChangeUserAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ErrorMessageAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmission.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/actions/ProjectGeneralInfoAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SearchProjectAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SysAdminAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
