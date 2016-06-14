@@ -12,6 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />  
 <meta charset="utf-8" />
 <title><tiles:insertAttribute name="title" /></title>
+<script type="text/javascript" src="<s:url value="/scripts/jquery.js" />"></script>
 <link href="<s:url value="/stylesheets/styles.css" />" rel="stylesheet" type="text/css" media="screen"/>
 <s:head />
 

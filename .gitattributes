@@ -144,6 +144,7 @@ WebContent/jsp/layout/footer.jsp -text
 WebContent/jsp/layout/header.jsp -text
 WebContent/jsp/layout/navbar.jsp -text
 WebContent/scripts/gds.js -text
+WebContent/scripts/jquery.js -text
 WebContent/stylesheets/styles.css -text
 build/build.xml -text
 build/env.properties -text
