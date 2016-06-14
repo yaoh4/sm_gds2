@@ -4,11 +4,13 @@
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.NullPrecedence;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -83,4 +85,21 @@ public class PropertyListDao {
 			return lookups;
 		}
 
+		/**
+		 * Get static data to use for GDS Plan
+		 * 
+		 * @return
+		 */
+		public List<PlanQuestionsAnswer> getAllPlanQuestionsAnswers() {
+			
+			logger.info("Retrieving all plan questions answers from DB");
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PlanQuestionsAnswer.class);
+			criteria.add(Restrictions.eq("activeFlag", true));
+			criteria.addOrder(Order.asc("id"));
+			criteria.addOrder(Order.asc("questionId").nulls(NullPrecedence.FIRST));
+			criteria.addOrder(Order.asc("displayOrderNum"));
+		
+			return criteria.list();
+			
+		}
 }

@@ -2,6 +2,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.services;
 
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 
 import java.util.List;
@@ -40,4 +41,11 @@ public interface LookupService {
 	 * application initialization
 	 */
 	public List<Property> loadPropertiesList();
+	
+	/**
+	 * Loads the static GDS Plan questions and answers from the DB.
+	 * Invoked during application initialization.
+	 */
+	public List<PlanQuestionsAnswer> getAllPlanQuestionsAnswers();
+	
 }

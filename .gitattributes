@@ -146,6 +146,7 @@ WebContent/jsp/layout/base.jsp -text
 WebContent/jsp/layout/footer.jsp -text
 WebContent/jsp/layout/header.jsp -text
 WebContent/jsp/layout/navbar.jsp -text
+WebContent/scripts/UiRule.js -text
 WebContent/scripts/gds.js -text
 WebContent/scripts/jquery.js -text
 WebContent/stylesheets/styles.css -text
@@ -174,15 +175,18 @@ screens/css/bootstrap.css.map -text
 screens/css/bootstrap.min.css -text
 screens/css/bootstrap.min.css.map -text
 screens/css/custom.css -text
+src/UIRule.json -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BaseAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ChangeUserAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ErrorMessageAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmission.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/actions/ProjectGdsPlanAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ProjectGeneralInfoAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SearchProjectAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SysAdminAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/constants/PlanQuestionList.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/MailTemplateDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/ProjectsDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDao.java -text
@@ -203,6 +207,9 @@ src/gov/nih/nci/cbiit/scimgmt/gds/domain/StatusHistory.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/StudiesDulSet.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Study.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/interceptor/UserInterceptor.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/model/MissingData.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/model/UIElement.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/model/UIList.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/LookupService.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/MailService.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/ManageProjectService.java -text
@@ -214,6 +221,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/ManageProjectServiceImpl.java -t
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/SearchProjectServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/UserRoleServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/GdsProperties.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/util/UIRuleUtil.java -text
 src/manage.xml -text
 src/search.xml -text
 src/struts.xml -text

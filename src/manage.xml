@@ -27,9 +27,12 @@
 			 <result name="success" type="tiles">projectGeneralInfo</result>
 		</action>
 		<action name="saveGeneralInfo" method="saveGeneralInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+			 <result name="success" type="redirect-action">editGdsPlan</result>
+		</action>
+		<action name="editGdsPlan" method="execute" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ProjectGdsPlanAction">
 			 <result name="success" type="tiles">submissionGdsPlan</result>
 		</action>
-		<action name="saveGdsPlan" method="saveGdsPlan" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="saveGdsPlan" method="save" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ProjectGdsPlanAction">
 			 <result name="success" type="tiles">submissionIcList</result>
 		</action>
 		<action name="addIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">

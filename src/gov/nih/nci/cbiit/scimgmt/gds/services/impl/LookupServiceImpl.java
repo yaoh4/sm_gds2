@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
@@ -83,4 +84,15 @@ public class LookupServiceImpl implements LookupService {
 		return propertyListDAO.getPropertiesList();
 	}
 
+	/**
+	 * Fetch entire lookup lists from the DB and the caller stores in
+	 * cache. Invoked during application initialization.
+	 */
+	public List<PlanQuestionsAnswer> getAllPlanQuestionsAnswers() {
+		
+		logger.info("Loading lookup data from PLAN_QUESTIONS_ANSWERS_T");
+		List<PlanQuestionsAnswer> allPlanQuestionsAnswers = propertyListDAO.getAllPlanQuestionsAnswers();
+		return allPlanQuestionsAnswers;
+	}
+	
 }

@@ -1,0 +1,109 @@
+{
+	"1": {
+		"list": [
+			{
+				"value":	"2",
+				"operation": "show",
+				"elementId": "4"
+			},
+			{
+				"value":	"3",
+				"operation": "hide",
+				"elementId": "4"
+			},
+			{
+				"value":	"3",
+				"operation": "hide",
+				"elementId": "8"
+			}
+		]
+	},
+	"8": {
+		"list": [
+			{
+				"value":	"10",
+				"operation": "warn",
+				"elementId": "Please remember that all studies, regardless of whether they have been granted an exception must be registered in dbGaP.  If you have not done so already, the GPA must complete this step to maintain compliance with the GDS Policy."
+			},
+			{
+				"value":	"9",
+				"operation": "show",
+				"elementId": "11"
+			},
+			{
+				"value":	"9",
+				"operation": "show",
+				"elementId": "14"
+			},
+			{
+				"value":	"9",
+				"operation": "show",
+				"elementId": "17"
+			},
+			{
+				"value":	"9",
+				"operation": "show",
+				"elementId": "20"
+			},
+			{
+				"value":	"9",
+				"operation": "show",
+				"elementId": "26"
+			},
+			{
+				"value":	"9",
+				"operation": "show",
+				"elementId": "29"
+			},
+			{
+				"value":	"10",
+				"operation": "hide",
+				"elementId": "11"
+			},
+			{
+				"value":	"10",
+				"operation": "hide",
+				"elementId": "14"
+			},
+			{
+				"value":	"10",
+				"operation": "hide",
+				"elementId": "17"
+			},
+			{
+				"value":	"10",
+				"operation": "hide",
+				"elementId": "20"
+			},
+			{
+				"value":	"10",
+				"operation": "hide",
+				"elementId": "26"
+			},
+			{
+				"value":	"10",
+				"operation": "hide",
+				"elementId": "29"
+			}
+		]
+	},
+	"13": {
+		"list": [
+			{
+				"value":	"true",
+				"operation": "disable",
+				"elementId": "19"
+			},
+			{
+				"value":	"true",
+				"operation": "disable",
+				"elementId": "18"
+			},
+			{
+				"value":	"true",
+				"operation": "disable",
+				"elementId": "21"
+			}
+		]
+	}
+}
