@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>GDS</title>
+ 
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+ 
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
+   <link href="css/custom.css" rel="stylesheet">
+
+   
+ 
+
+   
+  </head>
+  <body>
+    <!-- header-->
+     <div class="logo-header"> </div>
+
+<!-- Fixed navbar -->
+
+    <div id="wrap">
+<div class="navbar  navbar-fixed-top" >
+   <div class="container">
+      <div id="logo" class="logoImage">
+        <img src="images/GDSlogo.png" width="250px;"  alt="National Cancer Institute Genomic Data Sharing Tracking System Logo">
+
+        <div id="loginName" style="float:right; padding-top:15px; padding-bottom: 15px; margin-right: 15px;" class="nav navbar-nav">Welcome: <div id="loginID" class="login">Mary Jones</div></div>
+      </div>
+
+
+
+ <!--Main Navigation -->
+     
+        <div id="navbar" class="navbar-header navbar-default">
+          
+         <!--toggle navigation -- not done yet!?-
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"><a href="home.htm">Home</a></span>
+            <span class="icon-bar"><a href="mySubmissions.htm">My Sumbissions</a></span>
+            <span class="icon-bar"><a href="newSubmission.htm">Create New Submission</a></span>
+            <span class="icon-bar"><a href="search.htm">Search</a></span>
+          </button>
+        end Toggle nav-->
+        </div>
+        <div id="mainNav" class="navbar-collapse collapse" style="display:block;">
+          <ul class="nav navbar-nav navbar-main">
+            <li><a href="home.htm">Home</a></li>
+           
+            <li><a href="newSubmission.htm">Create New Submission</a></li>
+             <li><a href="search.htm">Search</a></li>
+           
+              </ul>
+            </li>
+          </ul>
+           
+           </div>
+           </nav>
+          
+    </div> 
+    </div> 
+
+  <div class="navbar navbar-default2 navbar-fixed-top" >   
+
+
+          
+ <!--Sub Navigation -->
+          <div class="container">
+
+          <div class="collapse navbar-collapse main-nav subnav">
+                <ul class="nav navbar-nav ">
+                    <li><a href="general.htm">General Info.</a></li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="dataSharing.htm">Genomic Data Sharing Plan</a></li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="institutional.htm">Institutional Cert.(s) & Data Use Limitation(s)</a></li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="basicStudy.htm">Basic Study Info.</a></li>
+                    <li class="divider-vertical"></li>
+                    <li class="active"><a href="repository">Repository Submission Status</a></li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="submissionDetails.htm">Project Submission Details</a></li>
+                    <li class="divider-vertical"></li>
+                </ul>
+            </div>
+            </div>
+
+             <!--Page Header -->
+      <div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Track Project Submission</h3><div id="verisonNumber" style="display:inline-block;">&nbsp;&nbsp;&nbsp;Version 4 (ID: 123876)</div></div></div>
+          </div>   
+
+            
+        </div>
+
+     
+   
+</div>
+
+
+   <div class="container" >
+  
+   
+        <!-- Page navbar -->
+
+        <div class="pageNav">
+          <!--<div><img src="images/legend.gif" alt="legend for progress icons" width="206px"></div>-->
+          <input name="" type="button" value=" Save " class="saved btn btn-default">
+          <input name="" type="button" value=" « Previous  " class="btn btn-default" onclick="window.location.href='basicStudy.htm'">
+          <input name="" type="button" value=" Save & Next »  " class="btn btn-project-primary" onclick="window.location.href='submissionDetails.htm'">
+
+        </div>
+        <!-- Begin Panel -->
+         <div class="col-md-12">
+            <div class="panel  project-panel-primary">
+                <div class="panel-heading"><div class="pheader"><h4>Repository Submission Status&nbsp;</h4></div>
+                		<div class="status"><a href="#" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;
+                      <a href="images/legend.gif" class="preview" title="Legend"><img src="images/inprogress.png" alt="In Progress" /></a>
+                		</div>       
+               	</div>
+		    <div class="panel-body">
+		                    <p>You have indicated the following [<strong>2</strong>] data repositories for your project.  Please complete the submission details for each repository.</p>
+                        <p>To add additional data repositories, select the type of repository and then click the "Add Repository" button located at the bottom of the form.</p>
+                        <br/>
+        <!-- Begin Panel for each Repository -->
+       <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="pheader"><h5>Database of Genotypes and Phenotypes (dbGaP)</h5></div>
+              
+            </div>
+          <div class="panel-body">
+                        
+                    <div class="form-group row">
+                        <div class="col-xs-3">
+                        <label for="Registration Status">Registration Status</label>
+                        <select class="c-select form-control">
+                        <option selected>Select Status</option>
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Process">In Process</option>
+                        <option value="Completed">Completed</option>
+                          </select>
+                        </div>
+
+                        <div class="col-xs-3">
+                        <label for="Project Submission Status">Project Submission Status</label>
+                          <select class="c-select form-control">
+                          <option selected>Select Status</option>
+                          <option value="Not Started">Not Started</option>
+                          <option value="In Process">In Process</option>
+                          <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+
+                        <div id="repositoryDate" class="col-xs-3">
+                          <label for="Anticipated Submission Date">Anticipated Submission Date</label>
+                            <div class="input-group date">
+                            <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            </div>
+                        </div>
+
+                            <div class="col-xs-3">
+                        <label for="Project Submission Status">Study Released?</label>
+                          <select class="c-select form-control">
+                          <option selected>Select Status</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                          
+                            </select>
+                        </div>
+
+                   </div>
+                  
+                    <div class="form-group row">
+                        <div class="col-xs-3">                  
+                       <label for="Accession Number">Accession Number</label>
+                        <input type="text" class="form-control" id="accessionNumber" ></input>
+                        </div>                   
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-xs-12">                  
+                       <label for="Commentsr">Comments</label>
+                        <textarea class="form-control" id="repositoryComments" rows="3"></textarea>
+                        </div>                   
+                    </div>
+                 
+             </div>  <!--end listed repository -->
+                    
+              
+                 
+                
+		              </div> <!-end form panel-->
+
+                         <!-- Begin Panel for each Repository -->
+       <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="pheader"><h5>Sequence Read Archive (SRA)</h5></div>
+              
+            </div>
+          <div class="panel-body">
+                        
+                    <div class="form-group row">
+                        <div class="col-xs-3">
+                        <label for="Registration Status">Registration Status</label>
+                        <select class="c-select form-control">
+                        <option selected>Select Status</option>
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Process">In Process</option>
+                        <option value="Completed">Completed</option>
+                          </select>
+                        </div>
+
+                        <div class="col-xs-3">
+                        <label for="Project Submission Status">Project Submission Status</label>
+                          <select class="c-select form-control">
+                          <option selected>Select Status</option>
+                          <option value="Not Started">Not Started</option>
+                          <option value="In Process">In Process</option>
+                          <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+
+                        <div id="repositoryDate" class="col-xs-3">
+                          <label for="Anticipated Submission Date">Anticipated Submission Date</label>
+                            <div class="input-group date">
+                            <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            </div>
+                        </div>
+
+                            <div class="col-xs-3">
+                        <label for="Project Submission Status">Study Released?</label>
+                          <select class="c-select form-control">
+                          <option selected>Select Status</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                          
+                            </select>
+                        </div>
+
+                   </div>
+                  
+                    <div class="form-group row">
+                        <div class="col-xs-3">                  
+                       <label for="Accession Number">Accession Number</label>
+                        <input type="text" class="form-control" id="accessionNumber" ></input>
+                        </div>                   
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-xs-12">                  
+                       <label for="Commentsr">Comments</label>
+                        <textarea class="form-control" id="repositoryComments" rows="3"></textarea>
+                        </div>                   
+                    </div>
+                 
+             </div>  <!--end listed repository -->
+                    
+              
+                 
+                
+                  </div> <!-end form panel-->
+
+      
+
+             </div> 
+             </div> 
+            </div><!--end main panel-->
+
+            
+
+        <!--SAVE & NEXT BUTTONS-->
+        <div class="pageNav">
+        	<input name="" type="button" value=" Save " class="saved btn btn-default" id="saved">
+        	<input name="" type="button" value=" « Previous  " class="btn btn-default" onclick="window.location.href='basicStudy.htm'">
+        	<input name="" type="button" value=" Save & Next »  " class="btn btn-project-primary" onclick="window.location.href='submissionDetails.htm'">
+        </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+            <div id="nvcgSlFooter">
+  <div class="contentid-911586 slot-item only-SI">
+    
+
+<div class="row">
+<div class="large-12 columns footer-nci">National Cancer Institute<br> <span>at the National Institutes of Health</span></div>
+</div>
+<div class="row footer-utility">
+
+
+
+<div class="large-3 columns">
+
+
+
+  <ul>
+            <li><h4><a href="home.htm">Home</a></h4></li>
+            <li><h4><a href="mySubmissions.htm">My Sumbissions</a></h4></li>
+            <li><h4><a href="newSubmission.htm">Create New Submission</a></h4></li>
+             <li><h4><a href="search.htm">Search</a></h4></li>
+           
+              </ul>
+</div>
+<div class="large-4 columns">
+<h4>POLICIES</h4>
+<ul>
+<li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
+<li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
+<li><a href="/policies/foia" target="_blank">FOIA</a></li>
+<li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
+
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns agencies">
+<ul>
+<li><a  href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+<li><a href="http://www.nih.gov">National Institutes of Health</a></li>
+<li><a href="/">National Cancer Institute</a></li>
+<li class="last"><a href="http://usa.gov">USA.gov</a></li>
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>®</sup></div>
+</div>
+<a class="back-to-top" href="#top" style="display: inline;">TOP</a>
+  </div>
+</div>
+</div>
+        </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+ <script src="js/tooltipjquery.js" type="text/javascript"></script>
+    
+      <script src="js/theme.js" type="text/javascript"></script>
+
+ 
+ 
+  
+
+ 
+ <script src="js/bootstrap.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+     <script src="controllers/repository.js"></script>
+   
+         
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
+       <script type="text/javascript">
+            $(function () {
+                $('#repositoryDate .input-group.date').datepicker({
+          orientation: "bottom auto",
+          todayHighlight: true
+          });
+                });
+
+
+        </script> 
+
+       
+  </body>
+</html>
+

@@ -1,8 +1,8 @@
 body { 
-	padding-top: 150px; 
+	padding-top: 200px; 
 	
 	font-family: 'Source Sans Pro';
-	font-size: 12px;
+	font-size: 14px;
   
   height: 100%;
 	
@@ -42,7 +42,11 @@ h4 {
 
 h5 {
   font-size: 1.5rem;
-  font-weight: 700; }
+  font-weight: 700; 
+ margin-top: 0px;
+  margin-bottom: 0px;
+  display: inline;
+}
 
 h6 {
   font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
@@ -50,24 +54,97 @@ h6 {
   font-weight: 400;
   text-transform: uppercase; }
 
-  .login {
+.login {
     color: #BB1F40;
     display: inline-block;
     margin-right: 15px;
   }
 
+  label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 400;
+    color:#686868;
+    font-size: 12px;
+    padding-left: 2px;
+}
+
 /********************************************************************/
 /*** Main Navigation ***/
 
+.navbar-fixed-top {
+   
+    background-color: #FFF;
+}
 .logo-header {
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.logoImage {
+  margin: 10px 0px 10px 0px;
+
 }
 
 
 .nav {
 	font-family: 'Source Sans Pro';
 	font-weight: 600;
+
+
+}
+.navbar-default .navbar-nav>li>a {
+    color: #686868;
+    font-size: 14px;
+
+}
+
+.navbar-main {
+     padding-bottom: 2px;
+}
+
+.navbar-main>li>a {
+  color: #686868;
+    font-size: 14px;
+
+
+}
+
+/*When no Subnav is present - like on Search and My Submissions **********************/
+.noSubNav {
+  padding-top: 150px;
+}
+
+.navbar-main>li>a.active {
+    color: #FFF;
+    font-size: 14px;
+    background-color: #123e57;
+}
+
+
+
+.navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+.searchHeader {
+  background-color: #123e57;
+  height: 50px;
+  padding: 15px 15px 15px 15px;
+  margin: 0px auto 0px auto;
+  color: #FFF;
+}
+
+.mainContent {
+  margin-left: 15px;
+}
+
+.searchButton {
+  float: right;
+  margin-right: 0px;
+  margin-bottom: 1em;
 }
 
 /********************************************************************/
@@ -84,13 +161,12 @@ h6 {
 
 }
 
+/*Main Project nav bar*/
+
 .navbar-default2 {
-  margin-top: 50px;
+  margin-top: 100px;
       background: #123e57;
       border: none;
-
-
-
 }
 
 .navbar-default2 .navbar-nav > li > a:hover,
@@ -119,9 +195,58 @@ h6 {
 }
 
 .navbar-default2 .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default2 .navbar-nav>.active>a:hover, .navbar-default2 .navbar-nav>.active>li  {
-    color: #555;
-    background-color: #FFF;
-    border-bottom: 1px solid #FFF !important;
+    
+    background-color: #14819B;
+    
+   
+}
+
+
+/*Sub Project nav bar*/
+
+
+
+
+
+
+.navbar-default3 {
+  margin-top: 100px;
+      background: #123e57;
+      border: none;
+
+
+
+}
+
+.navbar-default3 .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #FFF;
+  background-color: #0E3044;
+}
+.navbar-default3 .navbar-nav > .active > a,
+.navbar-default3 .navbar-nav > .active > a:hover,
+.navbar-default3 .navbar-nav > .active > a:focus {
+  color: #FFF;
+  background-color: #337ab7;
+}
+
+.navbar-default3 .navbar-nav > .disabled > a,
+.navbar-default3 .navbar-nav > .disabled > a:hover,
+.navbar-default3 .navbar-nav > .disabled > a:focus {
+  color: #FFF;
+  background-color: #0E3044;
+}
+
+.navbar-default3 .navbar-nav>li>a {
+    color: #FFF;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navbar-default3 .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default3 .navbar-nav>.active>a:hover, .navbar-default3 .navbar-nav>.active>li  {
+    
+    background-color: #337ab7;
+    
    
 }
 
@@ -133,7 +258,10 @@ h6 {
   margin: 0px auto 0px auto;
   color: #FFF;
 
+
 }
+
+
 
 .sub-pageHeader {
   background-color: #337ab7;
@@ -158,6 +286,7 @@ h6 {
     color: white;
     font-family: 'Source Sans Pro';
     margin-top: 5em;
+    font-size: 14px;
 
 }
 .site-footer .row {
@@ -251,6 +380,7 @@ h6 {
 .site-footer a, .site-footer a:hover, .site-footer a:focus {
     color: white;
     font-weight: 700;
+     
 
 }
 
@@ -278,9 +408,10 @@ Pseudo ::after element
     box-sizing: border-box;
 }
 a {
-    color: #2ba6cb;
+    
     text-decoration: none;
     line-height: inherit;
+    color: #2d699e;
 }
 
 #wrap {
@@ -291,6 +422,33 @@ a {
   /* Pad bottom by footer height */
   padding: 0 0 60px;
   }
+
+
+  .large-3 {
+    margin-left: 300px;
+
+  }
+
+    .large-3 li {
+    padding-bottom: 5px;
+  
+  }
+    .large-3 li a {
+    padding-bottom: 5px;
+     font-size: 1.7rem;
+  font-weight: 700; 
+  margin-top: 0px;
+  margin-bottom: 0px;
+  display: inline;
+  
+  }
+
+
+
+
+   .large-4 {
+    margin-left: 100px;
+  }
 /********************************************************************/
 /********************************************************************/
 /*** PANEL PRIMARY ***/
@@ -299,13 +457,13 @@ a {
   }
 
 .project-panel-primary>.panel-heading {
-    color: #fff;
-    background-color: #14819B;
-    border-color: #14819B;
+    
+    background-color: #e6e6e6;
+    border-color: #adadad;
 }
 
 .project-panel-primary {
-    border-color: #14819B;
+    border-color: #adadad;
 }
 
 .status {
@@ -323,10 +481,10 @@ a {
 
 }
 
-a.statusLink:link,  a.statusLink:hover, a.statusLink:visited{
+a.statusLink:link,  a.statusLink:hover, a.statusLink:visited {
   font-weight: bold;
   font-size: 12px;
-  color: #FFF;
+  
 }
 /********************************************************************/
 
@@ -342,9 +500,119 @@ a.statusLink:link,  a.statusLink:hover, a.statusLink:visited{
   margin-bottom: 1em;
 }
 
-.btn-project-primary {
+.btn-project-primary, .btn-project-primary:focus, .btn-project-primary:hover {
     color: #fff;
     background-color: #14819B;
     border-color: #116579;
 }
- 
+
+.btn-project-primary:focus, .btn-project-primary:hover {
+    background-color: #116579;
+   
+}
+
+/*alignment for Add Repository button on repository.htm page ********************************************/
+.addRepository {
+  margin-top: 25px;
+  margin-left: -25px;
+}
+
+/*******class for legend ******************************************/
+#preview {
+  position:absolute;
+  border:1px solid #ccc;
+  background:#123e57;
+  padding:5px;
+  display:none;
+  color:#fff;
+  }
+
+
+
+/***Repository Trash Icon*****************************/
+.trash {
+  float: right;
+  display: inline;
+}
+
+/***** icon table in Search Results ***/
+.iconTable tr {
+  background-color: transparent !important;
+}
+
+.searchProgess {
+     text-align: center;
+     padding-top: 3px;
+
+}
+
+table.dataTable tbody th, table.dataTable tbody td {
+  padding: 3px;
+}
+
+.radio-inline {
+  font-size: 14px;
+  margin-left: 3px;
+}
+
+.dropmid a li {
+  font-size: 12px;
+  line-height: 13px;
+  margin-left: none;
+
+}
+
+/***HOME PAGE CSS*****************************/
+
+.homePage {
+  margin-left: auto;
+  margin-right: auto
+}
+
+.home {
+  padding-top: 80px;
+}
+
+.welcome {
+  margin: 10px 55px 0px 5px ;
+  float: right;
+}
+
+.firstTile h3 {
+  margin-top: 0px;
+text-decoration: none;
+
+}
+
+
+
+
+
+.hoverDiv {
+  background: #fff;
+  text-decoration: none;
+}
+.hoverDiv:hover {
+background: #f5f5f5;
+text-decoration: none;}
+
+.homePageTable td{
+  padding: 5px 10px 5px 5px;
+}
+
+.recentActivity {
+ padding-left: 15px !important;
+  vertical-align: top;
+}
+
+
+
+
+
+
+
+
+
+
+
+

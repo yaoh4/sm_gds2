@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>Genomic Data Sharing (GDS) Tracking System</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"> 
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+   <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+   <link rel="stylesheet" href="http://cdn.datatables.net/buttons/1.2.0/css/buttons.dataTables.min.css">
+  <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/dataTables.buttons.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.flash.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+  <script src="http://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+  <script src="http://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.html5.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.print.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.colVis.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+ <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
+ 
+<link href="css/table.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/datatable.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/styles.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
+
+<script type="text/javascript" src="scripts/main.js"></script>
+<script type="text/javascript" src="js/datatable.js"></script>
+
+
+</head>
+  <body class="noSubNav">
+    <!-- header-->
+     <div class="logo-header"> </div>
+
+<!-- Fixed navbar -->
+
+    <div id="wrap">
+<div class="navbar  navbar-fixed-top" >
+   <div class="container">
+      <div id="logo" class="logoImage">
+        <img src="images/GDSlogo.png" width="250px;"  alt="National Cancer Institute Genomic Data Sharing Tracking System Logo">
+
+        <div id="loginName" style="float:right; padding-top:15px; padding-bottom: 15px; margin-right: 15px;" class="nav navbar-nav">Welcome: <div id="loginID" class="login">Mary Jones</div></div>
+      </div>
+
+
+
+ <!--Main Navigation -->
+     
+        <div id="navbar" class="navbar-header navbar-default">
+          
+         <!--toggle navigation -- not done yet!?-
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"><a href="home.htm">Home</a></span>
+            <span class="icon-bar"><a href="mySubmissions.htm">My Sumbissions</a></span>
+            <span class="icon-bar"><a href="newSubmission.htm">Create New Submission</a></span>
+            <span class="icon-bar"><a href="search.htm">Search</a></span>
+          </button>
+        end Toggle nav-->
+        </div>
+        <div id="mainNav" class="navbar-collapse collapse" style="display:block;">
+          <ul class="nav navbar-nav navbar-main searchNav">
+            <li><a href="home.htm">Home</a></li>
+            <li><a href="mySubmissions.htm">My Sumbissions</a></li>
+            <li><a href="newSubmission.htm">Create New Submission</a></li>
+             <li><a href="search.htm" class="active">Search</a></li>
+           
+              </ul>
+            </li>
+          </ul>
+           
+           </div>
+           </nav>
+          
+    </div> 
+    </div> 
+
+  <div class="navbar navbar-default2 navbar-fixed-top" >   
+
+
+          
+
+
+             <!--Page Header -->
+      <div class="searchHeader" id="pageHeader"><div class="titleWrapper container"><h3>Project Search</h3></div></div>
+          </div>   
+
+            
+        </div>
+
+     
+   
+</div>
+
+
+   <div class="container">
+    <div class="panel panel-default mainContent" style="width:80%;">
+  <div class="panel-body">
+  <h3 style="margin-top: 0px;">Search Criteria</h3>
+  <div class="form-group row">
+                        <div class="col-xs-4">
+                        <label for="Submission from">Submission from:</label>
+                        <select class="c-select form-control" name="selectFrom" id="selectFrom">
+                        <option selected>My Project Submissions</option>
+                        <option value="Project Submissions from my DOC">Project Submissions from my DOC</option>
+                        <option value="All">All</option>
+                        
+                          </select>
+                        </div>
+ 
+  
+                       
+                        <div class="col-xs-4">
+                        <label for="Program Director">Program Director:</label>
+                        <select  class="c-select form-control" name="directorSelect" id="directorSelect">
+                            <option data-placeholder="true">Select Program Director</option>
+                            <option>Abrams, Natalie Davidovna (0N)</option>
+                            <option>Adjei, Brenda A (F8)</option>  
+                            <option>Agarwal, Rajeev K. (2A)</option>
+                            <option>Agelli, Maria (9U)</option>
+                            <option>Agrawal, Lokesh (0S)</option>
+                            <option>Aguila, H. Nelson (6U)</option>
+                            <option>Agurs-Collins, Tanya (H1)</option>
+                            <option>Ahmed, Mansoor M (X9)</option>
+                            <option>Alexander, Mark (O9)</option>
+                            <option>Alley, Michael C (X3)</option>
+                            <option>Arnold, Julia T (U7)</option>
+                            <option>Arya, Suresh (2Q)</option>
+                            <option>Atienza, Audie A (A2)</option>
+                            <option>Augustson, Erik (T3)</option>
+                            <option>Ault, Grace S (7K)</option>
+                            <option>Belin, Precilla L (8I)</option>
+                            <option>Bernhard, Eric J (J8)</option>
+                            <option>Berny-Lang, Michelle Anne (0Y)</option>
+                            <option>Berrigan, David (6B)</option>
+                            <option>Bhatia, Kishor (3N)</option>
+                            <option>Blake, Kelly D (K5)</option>
+                            <option>Bloch, Michele (6M)</option>
+                            <option>Boja, Emily L (T5)</option>
+                            <option>Breen, Nancy (60)</option>
+                            <option>Breslau, Erica S. (9W)</option>
+                          </select>                        
+                        </div>
+
+
+
+                        <div class="col-xs-4">                  
+                       <label for="Intramural(Z01)/Grant/Contract #:">Intramural(Z01)/Grant/Contract #:</label>
+                        <input type="text" class="form-control" id="grantNumber" ></input>
+                        </div>                   
+                  
+</div><!--end form group--> 
+
+
+<div class="form-group row">
+                        <div class="col-xs-4">                  
+                       <label for="Project/Subproject Title">Project/Subproject Title:</label>
+                        <input type="text" class="form-control" id="projectTitle" ></input>
+                        </div>                   
+                 
+ 
+                        <div class="col-xs-4">                  
+                       <label for="Principal Investigator">Principal Investigator</label>
+                        <input type="text" class="form-control" id="investigator" ></input>
+                        </div>  
+
+                        <div class="col-xs-4">                  
+                       <label for="Accession Number">Accession Number</label>
+                        <input type="text" class="form-control" id="accessionNumber" ></input>
+                        </div>                   
+                  
+</div><!--end form group--> 
+<div class="searchButton"><input name="Search" type="button" value=" Search  " class="btn btn-project-primary" onclick="#">
+  </div>
+
+</div><!--end panel body-->
+</div><!--end panel-->  
+
+<!--BEGIN SEARCH RESULTS -->
+<div class="mainContainer">
+
+<table id="myTable" width="100%"  cellpadding="0px" cellspacing="0" class="outsideT3">
+  <thead>
+  <tr style="background-color: #9BAFF1">
+    
+    <th width="8%" scope="col" >Project ID</th>
+    <th width="5%" scope="col" ><p>Intramural/<br/>Grant/<br>Contract</p></th>
+    <th width="16%" scope="col">Project Title</th>
+    <th width="9%" scope="col" >PI</th>
+    <th width="7%" scope="col" >GDS Plan</th>
+    <th width="7%" scope="col" >Data Sharing Exception</th>
+    <th width="4%" scope="col" >IC</th>
+    <th width="5%" scope="col" >BSI</th>
+     <th width="9%" scope="col" >Repository</th>
+    <th width="17%" scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+ <tr>
+    
+    <td class="tableContent"><strong><a href="#">P23857.v1</strong></a></td>
+    <td class="tableContent" nowrap>1R01CA12356-01</td>
+    <td class="tableContent">Therapeutic Resistance to PI3K-alpha Inhibitors</td>
+    <td class="tableContent"><a href="#">Jones, Mary</a></td>
+   
+    <td class="tableContent">Completed</td>
+    <td class="tableContent">In Progress</br>
+    (Pending)</td>
+    <td class="tableContent">Completed</td>
+    <td class="tableContent">In Progress</td>
+    <td class="tableContent">View Repositories</td>
+
+    <td class="tableContent">
+      <table cellpadding="3px">
+        <tr><td><span class="fa fa-pencil fa-lg" aria-hidden="true" alt="edit icon" style="margin-bottom: 5px;" /></td><td><a href="#">Edit</a></td></tr>
+        <tr><td><span class="fa fa-trash fa-lg" aria-hidden="true" alt="delete icon" style="margin-bottom: 5px;" /></td><td class="top" style="display: inline"><a href="a">Delete</a></td></tr>
+      <tr><td><img src="images/newV.png" height="14px" width="12x" alt="new version icon"></td><td><a href="newProjectVersion.htm">Add new version</a></td></tr>
+      <tr><td><img src="images/subV.png" height="14px" width="12x" alt="add sub-project icon"></td><td nowrap ><a href="parentProjectsearch.htm">Add new sub-project</a></td></tr>
+     </table>
+    </td>
+  </tr>
+<!--main odd row-->
+
+  <tr>
+ 
+    <td class="tableContent"> <a href="#"><strong>P27383.v1</strong></a></td>
+    <td class="tableContent">XX075609723</td>
+    <td class="tableContent">Small Cell Lung Cancer</td>
+    <td class="tableContent"><a href="#">Yang, Jian</a></td>
+
+    <td class="tableContent">Completed  (Exception)</td>
+    <td class="tableContent">Completed   (Approved)</td>
+    <td class="tableContent">Completed</td>
+    <td class="tableContent">Completed</td>
+    <td class="tableContent">View Repositories</td>
+    <td class="tableContent">
+      <table cellpadding="3px">
+        <tr><td><span class="fa fa-pencil fa-lg" aria-hidden="true" alt="edit icon" style="margin-bottom: 5px;" /></td><td><a href="#">Edit</a></td></tr>
+        <tr><td><span class="fa fa-trash fa-lg" aria-hidden="true" alt="delete icon" style="margin-bottom: 5px;" /></td><td class="top" style="display: inline"><a href="a">Delete</a></td></tr>
+      <tr><td><img src="images/newV.png" height="14px" width="12x" alt="new version icon"></td><td><a href="newVersion.htm">Add new version</a></td></tr>
+      <tr><td><img src="images/subV.png" height="14px" width="12x" alt="add sub-project icon"></td><td><a href="parentProjectsearch.htm">Add new sub-project</a></td></tr></table>
+    </td>
+  </tr>
+<!--main row -->
+<tr>
+    
+    <td class="tableContent"><a href="#"><strong>P46474</strong></a></td>
+    <td class="tableContent">2R13CA58586-06</td>
+    <td class="tableContent">Up For A Challenge</td>
+    <td class="tableContent"><a href="#">Lynch, Tom</a></td>
+
+    <td class="tableContent">In Progress</td>
+    <td class="tableContent">Completed </br>(Declined)</br>
+    (Pending)</td>
+    <td class="tableContent">Completed</td>
+    <td class="tableContent">In Progress</td>
+    <td class="tableContent">View Repositories</td>
+    <td class="tableContent">
+      <table cellpadding="3px">
+        <tr><td><span class="fa fa-pencil fa-lg" aria-hidden="true" alt="edit icon" style="margin-bottom: 5px;" /></td><td><a href="#">Edit</a></td></tr>
+        <tr><td><span class="fa fa-trash fa-lg" aria-hidden="true" alt="delete icon" style="margin-bottom: 5px;" /></td><td class="top" style="display: inline"><a href="a">Delete</a></td></tr>
+      <tr><td><img src="images/newV.png" height="14px" width="12x" alt="new version icon"></td><td><a href="newVersion">Add new version</a></td></tr>
+      <tr><td><img src="images/subV.png" height="14px" width="12x" alt="add sub-project icon"></td><td><a href="parentProjectsearch.htm">Add new sub-project</a></td></tr></table>
+    </td>
+  </tr>
+<!--main odd row-->
+  <tr>
+    
+    <td class="tableContent"> <a href="#"><strong>P37474</strong></a></td>
+    <td class="tableContent">Z01BC010620</td>
+    <td class="tableContent">Genomic Sequencing of Ewing Sarcoma</td>
+    <td class="tableContent"><a href="#">Smith, John</a></td>
+  
+    <td class="tableContent">Completed</td>
+    <td class="tableContent">Not Requested</td>
+    <td class="tableContent">Not Started</td>
+    <td class="tableContent">In Progress</td>
+    <td class="tableContent">View Repositories</td>
+    <td class="tableContent">
+      <table cellpadding="3px">
+        <tr><td><span class="fa fa-pencil fa-lg" aria-hidden="true" alt="edit icon" style="margin-bottom: 5px;" /></td><td><a href="#">Edit</a></td></tr>
+        <tr><td><span class="fa fa-trash fa-lg" aria-hidden="true" alt="delete icon" style="margin-bottom: 5px;" /></td><td class="top" style="display: inline"><a href="a">Delete</a></td></tr>
+      <tr><td><img src="images/newV.png" height="14px" width="12x" alt="new version icon"></td><td><a href="newVersion">Add new version</a></td></tr>
+      <tr><td><img src="images/subV.png" height="14px" width="12x" alt="add sub-project icon"></td><td><a href="parentProjectsearch.htm">Add new sub-project</a></td></tr></table>
+    </td>
+  </tr>
+<!--main row -->
+<tr> 
+
+    <td class="tableContent"><strong><a href="#">P57588</strong></a></td>
+    <td class="tableContent">5P01CA34873-03</td>
+    <td class="tableContent">Functionally-defined Therapeutic Targets in Diffuse Intrinsic Pontine Glioma</td>
+    <td class="tableContent"><a href="#">Smith, Armine Karapetian</a></td>
+  
+    <td class="tableContent">Completed</td>
+    <td class="tableContent">Not Requested</td>
+    <td class="tableContent">Not Started</td>
+    <td class="tableContent">In Progress</td>
+    <td class="tableContent">View Repositories</td>
+    <td class="tableContent">
+      <table cellpadding="3px">
+        <tr><td><span class="fa fa-pencil fa-lg" aria-hidden="true" alt="edit icon" style="margin-bottom: 5px;" /></td><td><a href="#">Edit</a></td></tr>
+        <tr><td><span class="fa fa-trash fa-lg" aria-hidden="true" alt="delete icon" style="margin-bottom: 5px;" /></td><td class="top" style="display: inline"><a href="a">Delete</a></td></tr>
+      <tr><td><img src="images/newV.png" height="14px" width="12x" alt="new version icon"></td><td><a href="newVersion.htm">Add new version</a></td></tr>
+      <tr><td><img src="images/subV.png" height="14px" width="12x" alt="add sub-project icon"></td><td><a href="parentProjectsearch.htm">Add new sub-project</a></td></tr></table>
+    </td>
+  </tr> 
+</tbody>
+</table>
+
+</div>
+</div><!--end search mainContainer-->
+
+        
+</div> <!-- /container -->
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+            <div id="nvcgSlFooter">
+  <div class="contentid-911586 slot-item only-SI">
+    
+
+<div class="row">
+<div class="large-12 columns footer-nci">National Cancer Institute<br> <span>at the National Institutes of Health</span></div>
+</div>
+<div class="row footer-utility">
+
+
+
+<div class="large-3 columns">
+
+
+
+  <ul>
+            <li><h4><a href="home.htm">Home</a></h4></li>
+            <li><h4><a href="mySubmissions.htm">My Sumbissions</a></h4></li>
+            <li><h4><a href="newSubmission.htm">Create New Submission</a></h4></li>
+             <li><h4><a href="search.htm">Search</a></h4></li>
+           
+              </ul>
+</div>
+<div class="large-4 columns">
+<h4>POLICIES</h4>
+<ul>
+<li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
+<li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
+<li><a href="/policies/foia" target="_blank">FOIA</a></li>
+<li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
+
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns agencies">
+<ul>
+<li><a  href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+<li><a href="http://www.nih.gov">National Institutes of Health</a></li>
+<li><a href="/">National Cancer Institute</a></li>
+<li class="last"><a href="http://usa.gov">USA.gov</a></li>
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>®</sup></div>
+</div>
+<a class="back-to-top" href="#top" style="display: inline;">TOP</a>
+  </div>
+</div>
+</div>
+        </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+
+
+
+
+
+
+
+
+   
+         
+
+
+       
+  </body>
+</html>
+

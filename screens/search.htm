@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>Genomic Data Sharing (GDS) Tracking System</title>
+  
+
+    <link href="css/bootstrap.min.css" rel="stylesheet"> 
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+   <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+   <link rel="stylesheet" href="http://cdn.datatables.net/buttons/1.2.0/css/buttons.dataTables.min.css">
+  
+
+
+  <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/dataTables.buttons.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.flash.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+  <script src="http://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+  <script src="http://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.html5.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.print.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.colVis.min.js"></script>
+
+  
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+ <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
+ 
+
+<link href="css/datatable.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/styles.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
+ 
+<script type="text/javascript" src="js/main.js"></script>
+
+<script type="text/javascript" src="js/datatable.js"></script>
+<script type="text/javascript" src="controllers/search.js"></script>
+
+
+
+
+
+
+</head>
+  <body class="noSubNav">
+    <!-- header-->
+     <div class="logo-header"> </div>
+
+<!-- Fixed navbar -->
+
+    <div id="wrap">
+<div class="navbar  navbar-fixed-top" >
+   <div class="container">
+      <div id="logo" class="logoImage">
+        <img src="images/GDSlogo.png" width="250px;"  alt="National Cancer Institute Genomic Data Sharing Tracking System Logo">
+
+        <div id="loginName" style="float:right; padding-top:15px; padding-bottom: 15px; margin-right: 15px;" class="nav navbar-nav">Welcome: <div id="loginID" class="login">Mary Jones</div></div>
+      </div>
+
+
+
+ <!--Main Navigation -->
+     
+        <div id="navbar" class="navbar-header navbar-default">
+          
+         <!--toggle navigation -- not done yet!?-
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"><a href="home.htm">Home</a></span>
+            <span class="icon-bar"><a href="mySubmissions.htm">My Sumbissions</a></span>
+            <span class="icon-bar"><a href="newSubmission.htm">Create New Submission</a></span>
+            <span class="icon-bar"><a href="search.htm">Search</a></span>
+          </button>
+        end Toggle nav-->
+        </div>
+        <div id="mainNav" class="navbar-collapse collapse" style="display:block;">
+          <ul class="nav navbar-nav navbar-main searchNav">
+            <li><a href="home.htm">Home</a></li>
+          
+            <li><a href="newSubmission.htm">Create New Submission</a></li>
+             <li><a href="search.htm" class="active">Search</a></li>
+           
+              </ul>
+            </li>
+          </ul>
+           
+           </div>
+           </nav>
+          
+    </div> 
+    </div> 
+
+  <div class="navbar navbar-default2 navbar-fixed-top" >   
+
+
+          
+
+
+             <!--Page Header -->
+      <div class="searchHeader" id="pageHeader"><div class="titleWrapper container"><h3>Project Search</h3></div></div>
+          </div>   
+
+            
+        </div>
+
+     
+   
+</div>
+
+
+   <div class="container">
+    <div class="panel panel-default mainContent" style="width:80%;">
+  <div class="panel-body">
+  <h3 style="margin-top: 0px;">Search Criteria</h3>
+  <div class="form-group row">
+                        <div class="col-xs-4">
+                        <label for="Submission from">Submission from:</label>
+                        <select class="c-select form-control" name="selectFrom" id="selectFrom">
+                        <option selected>My Project Submissions</option>
+                        <option value="Project Submissions from my DOC">Project Submissions from my DOC</option>
+                        <option value="All">All</option>
+                        
+                          </select>
+                        </div>
+ 
+  
+                       
+                        <div class="col-xs-4">
+                        <label for="Program Director">Program Director:</label>
+                        <select  class="c-select form-control" name="directorSelect" id="directorSelect">
+                              <option value="" selected disabled>Select Program Director</option>
+                            <option>Abrams, Natalie Davidovna (0N)</option>
+                            <option>Adjei, Brenda A (F8)</option>  
+                            <option>Agarwal, Rajeev K. (2A)</option>
+                            <option>Agelli, Maria (9U)</option>
+                            <option>Agrawal, Lokesh (0S)</option>
+                            <option>Aguila, H. Nelson (6U)</option>
+                            <option>Agurs-Collins, Tanya (H1)</option>
+                            <option>Ahmed, Mansoor M (X9)</option>
+                            <option>Alexander, Mark (O9)</option>
+                            <option>Alley, Michael C (X3)</option>
+                            <option>Arnold, Julia T (U7)</option>
+                            <option>Arya, Suresh (2Q)</option>
+                            <option>Atienza, Audie A (A2)</option>
+                            <option>Augustson, Erik (T3)</option>
+                            <option>Ault, Grace S (7K)</option>
+                            <option>Belin, Precilla L (8I)</option>
+                            <option>Bernhard, Eric J (J8)</option>
+                            <option>Berny-Lang, Michelle Anne (0Y)</option>
+                            <option>Berrigan, David (6B)</option>
+                            <option>Bhatia, Kishor (3N)</option>
+                            <option>Blake, Kelly D (K5)</option>
+                            <option>Bloch, Michele (6M)</option>
+                            <option>Boja, Emily L (T5)</option>
+                            <option>Breen, Nancy (60)</option>
+                            <option>Breslau, Erica S. (9W)</option>
+                          </select>                        
+                        </div>
+
+
+
+                               
+                  
+</div><!--end form group--> 
+
+<div class="form-group row">
+  <div class="col-xs-4">                  
+  <label for="Choose Type of Submission">Choose Type of Submission:</label></br>
+
+  <label class="radio-inline">
+      <input type="radio" name="optradio" value="extramural">Extramural
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="optradio" value="intramural">Intramural
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="optradio" value="contract">Contract
+    </label>
+  </div>
+  <div class="col-xs-4 desc" id="extramural" >                  
+                       <label for="Grant#:">Grant #</label>
+                        <input type="text" class="form-control" id="grantNumber" placeholder="Example: 1U54CA199092 01"></input>
+                        </div>   
+
+   <div class="col-xs-4 desc" id="intramural">                  
+                       <label for="Intramural Z#:">Intramural Z#:</label>
+                        <input type="text" class="form-control" id="intramural" placeholder="Example: ZIA BC 005148"></input>
+                        </div>   
+                        
+    <div class="col-xs-4 desc" id="contract">                  
+                       <label for="Contract #:">Contract #</label>
+                        <input type="text" class="form-control" id="contractNumber" placeholder="Example: U54CA19909201"></input>
+                        </div>                                            
+</div> <!--end form group-->                                 
+
+
+<div class="form-group row">
+                        <div class="col-xs-4">                  
+                       <label for="Project/Subproject Title">Project/Subproject Title:</label>
+                        <input type="text" class="form-control" id="projectTitle" placeholder="Type a Key Word to Find Title"></input>
+                        </div>                   
+                 
+ 
+                        <div class="col-xs-4">                  
+                       <label for="Principal Investigator">Principal Investigator:</label>
+                        <input type="text" class="form-control" id="investigator" placeholder="Type in First or Last Name"></input>
+                      </div>  
+</div> <!--end form group-->                         
+
+<div class="form-group row">
+                        <div class="col-xs-4">                  
+                       <label for="Accession Number">Accession Number:</label>
+                        <input type="text" class="form-control" id="accessionNumber" placeholder="Example: ASE1578"></input>
+                        </div>                   
+                  
+</div><!--end form group--> 
+<div class="searchButton"><input name="Search" type="button" value=" Search  " class="btn btn-project-primary" onclick="#">
+  </div>
+
+</div><!--end panel body-->
+</div><!--end panel-->  
+
+<!--BEGIN SEARCH RESULTS -->
+
+<div class="mainContent">
+<br/>
+<h3>Search Results</h3>
+<br/>
+<table id="myTable" width="100%"  cellpadding="0px" cellspacing="0" class="table table-striped table-bordered">
+  <thead>
+  <tr>
+    
+    <th width="8%" scope="col" >Project ID</th>
+    <th width="5%" scope="col" >Intramural/<br/>Grant/Contract</th>
+    <th width="16%" scope="col">Project Title</th>
+    <th width="11%" scope="col">Principle Investigator</th>
+    <th width="7%" scope="col" >GDS Plan</th>
+    <th width="9%" scope="col" >Data Sharing<br/>  Exception</th>
+    <th width="4%" scope="col" >IC</th>
+    <th width="5%" scope="col" >BSI</th>
+     <th width="9%" scope="col" >Repositories</th>
+    <th width="6%" scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+ <tr>
+    
+    <td ><strong><a href="#">P23857.v1</strong></a>
+     <a data-toggle="modal" href="#existingSubProjects"></br>
+      <img src="images/details_open.png"></a>&nbsp;Existing Sub-Projects</td>
+    <td  nowrap>1R01CA12356-01</td>
+    <td >Therapeutic Resistance to PI3K-alpha Inhibitors</td>
+    <td nowrap ><a href="#">Jones, Mary</a></td>
+   
+    <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px" /></a>
+      </div>
+    </td>
+    <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
+        <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+      </div>
+    </td>
+    <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+      </div>
+    </td>
+    <td >
+       <div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
+        <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+      </div>
+    </td>
+    <td nowrap><!-- Trigger the modal with a button -->
+<a data-toggle="modal" href="#myModal"><img src="images/details_open.png"></a>&nbsp;View Details
+  </td>
+
+    <td >
+      <div><!--icon div-->
+        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
+        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
+    </div> <!--icon div-->
+
+        
+
+      
+        <div id="ellipsis">
+    <div class="dropbottom">
+        <div class="dropmid">
+            <ul>
+                <li><a href="newProjectVersion.htm">Add New Version</a>
+                </li>
+                <li><a href="parentProjectsearch.htm">Add New Subproject</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>  
+
+    </td>
+  </tr>
+<!--main odd row-->
+
+  <tr>
+ 
+    <td nowrap> <a href="#"><strong>P27383.v1</strong></a><br/>
+      <a data-toggle="modal" href="#existingSubProjects"><img src="images/details_open.png"></a>&nbsp;Existing Sub-Projects
+    </td>
+    <td >XX075609723</td>
+    <td >Small Cell Lung Cancer</td>
+    <td nowrap ><a href="#">Yang, Jian</a></td>
+
+      <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+      </div>
+    </td>
+      <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+      </div>
+    </td>
+      <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+      </div>
+    </td>
+      <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+      </div>
+    </td>
+    <td nowrap><!-- Trigger the modal with a button -->
+<a data-toggle="modal" href="#myModal"><img src="images/details_open.png"></a>&nbsp;View Details
+  </td>
+    <td >
+    <div><!--icon div-->
+        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
+        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
+    </div> <!--icon div-->
+
+        
+
+      
+        
+    </td>
+  </tr>
+<!--main row -->
+<tr>
+    
+    <td ><a href="#"><strong>P46474</strong></a></td>
+    <td >2R13CA58586-06</td>
+    <td >Up For A Challenge</td>
+    <td nowrap ><a href="#">Lynch, Tom</a></td>
+
+    <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
+        <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+      </div>
+    </td>
+      <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Completed">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+      </div>
+    </td>
+     <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Completed">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+      </div>
+    </td>
+    <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
+        <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+      </div>
+    </td>
+   <td nowrap><!-- Trigger the modal with a button -->
+<a data-toggle="modal" href="#myModal"><img src="images/details_open.png"></a>&nbsp;View Details
+  </td>
+    <td >
+      <div><!--icon div-->
+        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
+        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
+    </div> <!--icon div-->
+    </td>
+  </tr>
+<!--main odd row-->
+  <tr>
+    
+    <td > <a href="#"><strong>P37474</strong></a></td>
+    <td >Z01BC010620</td>
+    <td >Genomic Sequencing of Ewing Sarcoma</td>
+    <td nowrap ><a href="#">Smith, John</a></td>
+  
+      <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Completed">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+      </div>
+    </td>
+    <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Pending">
+        <img src="images/pending.png" alt="Pending" width="18px" height="18px"/></a>
+      </div>
+    </td>
+    <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Pending">
+        <img src="images/pending.png" alt="Pending" width="18px" height="18px"/></a>
+      </div>
+    </td>
+    <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
+        <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+      </div>
+    </td>
+    <td nowrap><!-- Trigger the modal with a button -->
+<a data-toggle="modal" href="#myModal"><img src="images/details_open.png"></a>&nbsp;View Details
+  </td>
+    <td >
+      <div><!--icon div-->
+        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
+        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
+    </div> <!--icon div-->
+
+        
+
+      
+        
+    </td>
+  </tr>
+<!--main row -->
+<tr> 
+
+    <td ><strong><a href="#">P57588</strong></a></td>
+    <td >5P01CA34873-03</td>
+    <td >Functionally-defined Therapeutic Targets in Diffuse Intrinsic Pontine Glioma</td>
+    <td nowrap ><a href="#">Smith, Armine Karapetian</a></td>
+  
+     <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+      </div>
+    </td>
+      <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Pending">
+        <img src="images/pending.png" alt="Pending" width="18px" height="18px"/></a>
+      </div>
+    </td>
+    <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Pending">
+        <img src="images/pending.png" alt="Pending" width="18px" height="18px"/></a>
+      </div>
+    </td>
+    <td >
+      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
+        <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+      </div>
+    </td>
+    <td nowrap><!-- Trigger the modal with a button -->
+<a data-toggle="modal" href="#myModal"><img src="images/details_open.png"></a>&nbsp;View Details
+  </td>
+    <td >
+      <div><!--icon div-->
+        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
+        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
+    </div> <!--icon div-->
+
+        
+
+      
+        
+    </td>
+  </tr> 
+</tbody>
+</table>
+
+</div>
+</div><!--end search mainContainer-->
+
+        
+</div> <!-- /container -->
+
+
+
+
+<!-- Modal for Repositories -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Repository Data Submissions</h4>
+      </div>
+      <div class="modal-body">
+        <table width="100%" border="1" cellpadding="3" class="table  table-bordered">     <tbody>
+          <tr style="background:#e6e6e6;">
+            <th>Repositories</th>
+            <th>Registration Status</th>
+            <th>Project Submission Status</th>
+            <th>Study Released Status</th>
+            <th>Accession Number</th>
+          </tr>
+
+          <tr>
+            <td>Sequence Read Archive (SRA)</td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+                <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+                <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td>Yes</td>
+            <td>GSE1578</td>
+          </tr>
+            <tr>
+            <td>Database of Genotypes and Phenotypes (dbGaP)</td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Pending">
+                <img src="images/pending.png" alt="Pending" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Pending">
+                <img src="images/pending.png" alt="Pending" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td>No</td>
+            <td>ASE1578</td>
+          </tr>
+          </tbody></table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal for Sub-Projects -->
+<div id="existingSubProjects" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sub-Projects for Project ID: P27383.v1</h4>
+      </div>
+      <div class="modal-body">
+          <table  width="100%"  cellpadding="0px" cellspacing="0" class="table table-bordered">
+          <thead>
+          <tr class="modalTheader">
+            
+            <th width="8%" scope="col" >Sub-Project ID</th>
+            <th width="16%" scope="col">Sub-project Title</th>
+            <th width="11%" scope="col">Principle Investigator</th>
+            <th width="7%" scope="col" >GDS Plan</th>
+            <th width="9%" scope="col" >Data Sharing<br/>  Exception</th>
+            <th width="4%" scope="col" >IC</th>
+            <th width="5%" scope="col" >BSI</th>
+            <th width="6%" scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+         <tr>
+            
+            <td rowspan="2" nowrap><a href="#"><strong>S27383-345.v1</strong></a></td>
+            
+            <td >Nurses' Health Study</td>
+            <td nowrap ><a href="#">Jones, Mary</a></td>
+           
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+                <img src="images/complete.png" alt="Complete" width="18px" height="18px" /></a>
+              </div>
+            </td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
+                <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+              </div>
+            </td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+                <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td >
+               <div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
+                <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+              </div>
+            </td>
+            
+
+            <td rowspan="2" >
+              <table cellpadding="1px" class="iconTable">
+                <tr>
+                  <td><span class="fa fa-pencil-square-o fa-lg" title="Edit" aria-hidden="true" alt="edit icon" style="margin-bottom: 5px;" /></td>
+                </tr>
+                <tr>
+                  <td><span class="fa fa-trash fa-lg" title="Delete"  aria-hidden="true" alt="delete icon" style="margin-bottom: 5px; color: red;" /></td>
+                </tr>
+              <tr>
+                <td><a href="newProjectVersion.htm"><img src="images/newV.png" height="18px" width="16x" alt="new version icon" title="Add New Version"></a></td>
+              </tr>
+             </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="6"> <!--Repository Table -->
+      <span><a id="imageDivLink1"
+    href="javascript:toggleStudy4('dsd2', 'imageDivLink1');"
+    class="noborder"><img src="images/CriteriaOpen.gif"
+    align="bottom" height="10px" width="10px"></a></span><a
+    href="javascript:toggleStudy4('dsd2', 'imageDivLink1');" style="font-size:12px; font-weight: bold;">&nbsp; Sub-Project Repository Submission Details</a>
+      <div id="dsd2" style="display:none">
+      <table width="100%" border="1" cellpadding="3" class="table  table-bordered repoModalTable">     <tbody>
+          <tr style="background:#e6e6e6;">
+            <th>Repositories</th>
+            <th>Registration Status</th>
+            <th>Project Submission Status</th>
+            <th>Study Released Status</th>
+            <th>Accession Number</th>
+          </tr>
+
+          <tr>
+            <td>Sequence Read Archive (SRA)</td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+                <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+                <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td>Yes</td>
+            <td>GSE1578</td>
+          </tr>
+            <tr>
+            <td>Database of Genotypes and Phenotypes (dbGaP)</td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Pending">
+                <img src="images/pending.png" alt="Pending" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Pending">
+                <img src="images/pending.png" alt="Pending" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td>No</td>
+            <td>ASE1578</td>
+          </tr>
+          </tbody></table>
+        </div>
+
+
+
+
+
+    </td>
+    </tr>
+  <tr>
+    <td rowspan="2" ><strong><a href="#">S27383-746.v1</a></td>
+    <td >Lymphoma Cancer Research</td>
+    <td nowrap ><a href="#">Cole, Jennifer</a></td>
+    <td ><div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete"> <img src="images/complete.png" alt="Complete" width="18px" height="18px" /></a> </div></td>
+   <td ><div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete"> <img src="images/complete.png" alt="Complete" width="18px" height="18px" /></a> </div></td>
+    <td ><div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete"> <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a> </div></td>
+    <td ><div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress"> <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a> </div></td>
+    <td rowspan="2" ><div><!--icon div-->
+        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
+        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
+    </div> <!--icon div-->
+
+        
+
+      
+        <div id="ellipsis">
+    <div class="dropbottom">
+        <div class="dropmid">
+            <ul>
+                <li><a href="newProjectVersion.htm">Add New Version</a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>  </td>
+  </tr>
+  <tr>
+    <td colspan="6">
+      <!--Repository Table -->
+      <span><a id="imageDivLink2"
+    href="javascript:toggleStudy5('dsd3', 'imageDivLink2');"
+    class="noborder"><img src="images/CriteriaOpen.gif"
+    align="bottom" height="10px" width="10px"></a></span><a
+    href="javascript:toggleStudy4('dsd3', 'imageDivLink2');" style="font-size:12px; font-weight: bold;">&nbsp; Sub-Project Repository Submission Details</a>
+      <div id="dsd3" style="display:none">
+      <table width="100%" border="1" cellpadding="3" class="table  table-bordered repoModalTable">     <tbody>
+          <tr style="background:#e6e6e6;">
+            <th>Repositories</th>
+            <th>Registration Status</th>
+            <th>Project Submission Status</th>
+            <th>Study Released Status</th>
+            <th>Accession Number</th>
+          </tr>
+
+          <tr>
+            <td>Sequence Read Archive (SRA)</td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+                <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
+                <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td>Yes</td>
+            <td>GSE1578</td>
+          </tr>
+            <tr>
+            <td>Database of Genotypes and Phenotypes (dbGaP)</td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Pending">
+                <img src="images/pending.png" alt="Pending" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td >
+              <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Pending">
+                <img src="images/pending.png" alt="Pending" width="18px" height="18px"/></a>
+              </div>
+            </td>
+            <td>No</td>
+            <td>ASE1578</td>
+          </tr>
+          </tbody></table>
+        </div>
+
+
+    </td>
+  </tr>
+<!--main odd row-->
+</table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+      
+
+<!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+            <div id="nvcgSlFooter">
+  <div class="contentid-911586 slot-item only-SI">
+    
+
+<div class="row">
+<div class="large-12 columns footer-nci">National Cancer Institute<br> <span>at the National Institutes of Health</span></div>
+</div>
+<div class="row footer-utility">
+
+
+
+<div class="large-3 columns">
+
+
+
+  <ul>
+            <li><h4><a href="home.htm">Home</a></h4></li>
+            <li><h4><a href="mySubmissions.htm">My Sumbissions</a></h4></li>
+            <li><h4><a href="newSubmission.htm">Create New Submission</a></h4></li>
+             <li><h4><a href="search.htm">Search</a></h4></li>
+           
+              </ul>
+</div>
+<div class="large-4 columns">
+<h4>POLICIES</h4>
+<ul>
+<li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
+<li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
+<li><a href="/policies/foia" target="_blank">FOIA</a></li>
+<li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
+
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns agencies">
+<ul>
+<li><a  href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+<li><a href="http://www.nih.gov">National Institutes of Health</a></li>
+<li><a href="/">National Cancer Institute</a></li>
+<li class="last"><a href="http://usa.gov">USA.gov</a></li>
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>®</sup></div>
+</div>
+<a class="back-to-top" href="#top" style="display: inline;">TOP</a>
+  </div>
+</div>
+</div>
+        </footer>
+
+
+ 
+  
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+
+
+
+
+
+
+
+   
+         
+
+
+       
+  </body>
+</html>
+

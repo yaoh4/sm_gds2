@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>Genomic Data Sharing (GDS) Tracking System</title>
+  
+
+    <link href="css/bootstrap.min.css" rel="stylesheet"> 
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+   <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+   <link rel="stylesheet" href="http://cdn.datatables.net/buttons/1.2.0/css/buttons.dataTables.min.css">
+  
+
+
+  <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/dataTables.buttons.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.flash.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+  <script src="http://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+  <script src="http://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.html5.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.print.min.js"></script>
+  <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.colVis.min.js"></script>
+
+  
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+ <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
+ 
+
+<link href="css/datatable.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/styles.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
+ 
+<script type="text/javascript" src="js/main.js"></script>
+
+<script type="text/javascript" src="js/datatable.js"></script>
+
+
+
+
+
+
+</head>
+  <body class="home">
+    <!-- header-->
+     <div class="logo-header"> </div>
+
+<!-- Fixed navbar -->
+
+    <div id="wrap">
+<div class="navbar  navbar-fixed-top" >
+   <div class="container">
+      <div id="logo" class="logoImage">
+        <img src="images/GDSlogo.png" width="250px;"  alt="National Cancer Institute Genomic Data Sharing Tracking System Logo">
+
+        <div id="loginName" class="welcome"><h4>Welcome: <div id="loginID" class="login">Mary Jones</div></h4></div>
+      </div>
+
+</div>
+
+
+<div class="container">
+
+ 
+        </div>
+        
+           </nav>
+          
+    </div> 
+    </div> 
+
+
+
+     
+   
+</div>
+
+   <div class="container">
+
+<div class="homePage">
+
+  <table width="95%" border="0" class="homePageTable">
+  <tr>
+    <td  scope="col">
+      <div>
+      <a href="mySubmissions.htm">
+        <div class="panel panel-default hoverDiv firstTile">
+            
+            <div class="panel-body ">
+              <h3>Go to My Submissions to:</h3>
+                <ul>
+                  <li>View All My Submitted Projects</li>
+                  <li>Sort by "Complete" or "In Progress"</li>
+                </ul>
+              
+            </div>
+        </div></a>
+    </div>
+
+    </td>
+    <td width="55%" rowspan="3" scope="col" class="recentActivity">
+<div>
+        <div class="panel panel-default" style="height:424px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">My Most Recent Activity</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table  homeTable repoModalTable">
+                <tr>
+                <th>ID</th>
+                  <th>Title</th>
+                  <th>Last Modified On:</th>
+                </tr>
+                <tr>
+                  <td nowrap><a href="#">P57588</a></td>
+                    <td>Functionally-defined Therapeutic Targets in Diffuse Intrinsic Pontine Glioma</td>
+                    <td>06/10/2016 09:55am</td>
+                  </tr>
+                  <tr>
+                    <td nowrap><a href="#">S27383-345.v1</a></td>
+                    <td>Nurses' Health Study</td>
+                    <td>05/22/2016 10:55am</td>
+                  </tr>
+                    <tr>
+                    <td><a href="#">S27383-746.v1</a></td>
+                    <td>Lymphoma Cancer Research</td>
+                    <td>05/22/2016 02:30pm</td>
+                  </tr>
+                   <tr>
+                    <td nowrap><a href="#">P46474</a></td>
+                    <td>Up For A Challenge</td>
+                    <td nowrap>03/22/2016 03:33pm</td>
+                  </tr>
+               
+                 <tr>
+                    <td ><a href="#">P27383.v1</a></td>
+                    <td>Small Cell Lung Cancer</td>
+                    <td>03/06/2016 08:39am</td>
+                  </tr>
+
+                  <tr>
+                    <td ><a href="#">P97383.v3</a></td>
+                    <td>Small Cell Lung Cancer</td>
+                    <td>02/02/2016 08:39am</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#">S27383-746.v3</a></td>
+                    <td>Lymphoma Cancer Research</td>
+                    <td>05/22/2016 02:30pm</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#">S27383-746.v2</a></td>
+                    <td>Lymphoma Cancer Research</td>
+                    <td>05/22/2016 02:30pm</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#">S27383-746.v1</a></td>
+                    <td>Lymphoma Cancer Research</td>
+                    <td>05/22/2016 02:30pm</td>
+                  </tr>
+                   </table>
+            </div>
+        </div>
+    </div>
+
+
+    </td>
+  </tr>
+  <tr>
+    <td><div>
+      <a href="#">
+        <div class="panel panel-default hoverDiv firstTile">
+            
+            <div class="panel-body ">
+              <h3>Create a New Submission</h3>
+                <ul>
+                  <li><a href="newSubmission.htm">Create a New Project</a></li>
+                  <li><a href="newSubmission.htm">Create a New Sub-project</a></li>
+
+                </ul>
+              
+            </div>
+        </div></a>
+    </div></td>
+  </tr>
+  <tr>
+    <td> <div>
+      <a href="mySubmissions.htm">
+        <div class="panel panel-default hoverDiv firstTile">
+            
+            <div class="panel-body ">
+              <p><h3>Search for Projects/Sub-projects by:</h3>
+                <ul>
+                  <li>Program Director</li>
+                  <li>Project/Sub-project Title</li>
+                  <li>and more...</li>
+                </ul>
+              </p>
+            </div>
+        </div></a>
+  
+  </div></td>
+  </tr>
+</table>
+
+
+    
+ 
+
+
+
+    
+
+
+ </div> <!--end homePage--> 
+
+        
+</div> <!-- /container -->
+
+
+
+
+
+<!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+            <div id="nvcgSlFooter">
+  <div class="contentid-911586 slot-item only-SI">
+    
+
+<div class="row">
+<div class="large-12 columns footer-nci">National Cancer Institute<br> <span>at the National Institutes of Health</span></div>
+</div>
+<div class="row footer-utility">
+
+
+
+<div class="large-3 columns">
+
+
+
+  <ul>
+            <li><h4><a href="home.htm">Home</a></h4></li>
+            <li><h4><a href="mySubmissions.htm">My Sumbissions</a></h4></li>
+            <li><h4><a href="newSubmission.htm">Create New Submission</a></h4></li>
+             <li><h4><a href="search.htm">Search</a></h4></li>
+           
+              </ul>
+</div>
+<div class="large-4 columns">
+<h4>POLICIES</h4>
+<ul>
+<li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
+<li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
+<li><a href="/policies/foia" target="_blank">FOIA</a></li>
+<li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
+
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns agencies">
+<ul>
+<li><a  href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+<li><a href="http://www.nih.gov">National Institutes of Health</a></li>
+<li><a href="/">National Cancer Institute</a></li>
+<li class="last"><a href="http://usa.gov">USA.gov</a></li>
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>®</sup></div>
+</div>
+<a class="back-to-top" href="#top" style="display: inline;">TOP</a>
+  </div>
+</div>
+</div>
+        </footer>
+
+
+ 
+  
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+
+
+
+
+
+
+
+   
+         
+
+
+       
+  </body>
+</html>
+
