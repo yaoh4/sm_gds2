@@ -5,6 +5,21 @@
 <struts>
 	
 	<package name="manage" namespace="/manage" extends="default">
+	
+		<interceptors>
+			<interceptor-stack name="projectScopeStack">
+				<interceptor-ref name="logger" />
+				<interceptor-ref name="scope" >
+		    		<param name="key">stored</param>
+		    		<param name="session">project</param>
+		    	</interceptor-ref>					
+				<interceptor-ref name="defaultStack" />	
+				<interceptor-ref name="userInterceptor" />					
+			</interceptor-stack>	
+		</interceptors>
+		
+		<default-interceptor-ref name="projectScopeStack" />
+	
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
 			 <result name="success" type="tiles">home</result>
 		</action>
