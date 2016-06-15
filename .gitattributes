@@ -45,7 +45,6 @@ WebContent/WEB-INF/lib/jackson-core-asl-1.9.2.jar -text
 WebContent/WEB-INF/lib/jackson-databind-2.5.4.jar -text
 WebContent/WEB-INF/lib/jackson-mapper-asl-1.9.2.jar -text
 WebContent/WEB-INF/lib/jandex-2.0.0.Final.jar -text
-WebContent/WEB-INF/lib/javassist-3.11.0.GA.jar -text
 WebContent/WEB-INF/lib/javassist-3.20.0-GA.jar -text
 WebContent/WEB-INF/lib/jboss-logging-3.3.0.Final.jar -text
 WebContent/WEB-INF/lib/json-lib-2.3-jdk15.jar -text
