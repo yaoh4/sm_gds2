@@ -2,6 +2,10 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 
 /**
  * Manages Submission creation, updates and deletion.
@@ -14,6 +18,11 @@ public class ManageSubmission extends BaseAction {
 	
 	static Logger logger = LogManager.getLogger(ManageSubmission.class);
 	
+	@Autowired
+	protected ManageProjectService manageProjectService;
+	
+	private Project project;
+	
 	/**
 	 * Execute method, for now used for navigation
 	 * 
@@ -24,6 +33,8 @@ public class ManageSubmission extends BaseAction {
         
         return SUCCESS;
 	}
+	
+	
 
 	/**
 	 * Save General Information
@@ -151,5 +162,50 @@ public class ManageSubmission extends BaseAction {
         
         return SUCCESS;
 	}
+
+
+
+	/**
+	 * @return the selectedProject
+	 */
+	public Project getProject() {
+		return project;
+	}
+
+
+
+	/**
+	 * @param selectedProject the selectedProject to set
+	 */
+	public void setProject(Project project) {
+		this.project = project;
+	}
+	
+	
+	/**
+	 * Retrieve the project based on the projectId indicated in the request
+	 * 
+	 * @return
+	 */
+	public Project retrieveSelectedProject() {
+	
+		String projectId  = getProjectId();
+		if(projectId != null) {
+			return manageProjectService.findById(Long.valueOf(projectId));
+		} 
+		
+		return null;
+	
+	}
+	
+	
+	/**
+	 * Save the project
+	 */
+	public void saveProject(Project project) {
+		manageProjectService.saveOrUpdate(project);
+		
+	}
+	 
 	
 }
