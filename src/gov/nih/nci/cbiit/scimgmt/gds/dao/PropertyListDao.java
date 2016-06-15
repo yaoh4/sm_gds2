@@ -38,7 +38,7 @@ public class PropertyListDao {
 			
 			logger.info("Retrieving all lookup lists from DB");
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Lookup.class);
-			criteria.addOrder(Order.asc("displayName"));
+			criteria.addOrder(Order.asc("discriminator"));
 			List<Lookup> lookups = criteria.list();
 					
 			return lookups;
@@ -75,7 +75,7 @@ public class PropertyListDao {
 			
 			try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Lookup.class);
-			criteria.add(Restrictions.ilike("displayName", listName, MatchMode.EXACT));
+			criteria.add(Restrictions.ilike("discriminator", listName, MatchMode.EXACT));
 			lookups = criteria.list();
 			} catch (Throwable e) {
 				logger.error("Error retrieving lookup list for listName " + listName, e);
