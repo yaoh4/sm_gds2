@@ -48,4 +48,13 @@ public interface LookupService {
 	 */
 	public List<PlanQuestionsAnswer> getAllPlanQuestionsAnswers();
 	
+	/**
+	 * Get Lookup object by list name and code
+	 * 
+	 * @param listName
+	 * @param code
+	 * @return
+	 */
+	public Lookup getLookupByCode(String listName, String code);
+	
 }

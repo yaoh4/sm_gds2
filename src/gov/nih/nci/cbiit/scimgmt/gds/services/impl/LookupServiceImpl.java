@@ -1,7 +1,6 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
 import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +92,22 @@ public class LookupServiceImpl implements LookupService {
 		logger.info("Loading lookup data from PLAN_QUESTIONS_ANSWERS_T");
 		List<PlanQuestionsAnswer> allPlanQuestionsAnswers = propertyListDAO.getAllPlanQuestionsAnswers();
 		return allPlanQuestionsAnswers;
+	}
+	
+	/**
+	 * Get Lookup object by list name and code
+	 * 
+	 * @param listName
+	 * @param code
+	 * @return
+	 */
+	public Lookup getLookupByCode(String listName, String code) {
+		List<Lookup> list = (List<Lookup>) getLookupList(listName);
+		for(Lookup entry: list) {
+			if (entry.getCode().equalsIgnoreCase(code))
+				return entry;
+		}
+		return null;
 	}
 	
 }

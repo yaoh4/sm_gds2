@@ -1,6 +1,6 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 
-// Generated Feb 26, 2016 2:29:04 PM by Hibernate Tools 4.0.0
+// Generated Jun 14, 2016 9:48:11 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -33,6 +33,7 @@ public class Lookup implements java.io.Serializable {
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
+	private String discriminator;
 
 	public Lookup() {
 	}
@@ -46,7 +47,7 @@ public class Lookup implements java.io.Serializable {
 
 	public Lookup(Long id, String code, String displayName,
 			String description, Date createdDate, String createdBy,
-			Date lastChangedDate, String lastChangedBy) {
+			Date lastChangedDate, String lastChangedBy, String discriminator) {
 		this.id = id;
 		this.code = code;
 		this.displayName = displayName;
@@ -55,6 +56,7 @@ public class Lookup implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
+		this.discriminator = discriminator;
 	}
 
 	@Id
@@ -76,7 +78,7 @@ public class Lookup implements java.io.Serializable {
 		this.code = code;
 	}
 
-	@Column(name = "DISPLAY_NAME", length = 120)
+	@Column(name = "DISPLAY_NAME", length = 400)
 	public String getDisplayName() {
 		return this.displayName;
 	}
@@ -85,7 +87,7 @@ public class Lookup implements java.io.Serializable {
 		this.displayName = displayName;
 	}
 
-	@Column(name = "DESCRIPTION", length = 120)
+	@Column(name = "DESCRIPTION", length = 400)
 	public String getDescription() {
 		return this.description;
 	}
@@ -130,6 +132,15 @@ public class Lookup implements java.io.Serializable {
 
 	public void setLastChangedBy(String lastChangedBy) {
 		this.lastChangedBy = lastChangedBy;
+	}
+
+	@Column(name = "DISCRIMINATOR", length = 80)
+	public String getDiscriminator() {
+		return this.discriminator;
+	}
+
+	public void setDiscriminator(String discriminator) {
+		this.discriminator = discriminator;
 	}
 
 }
