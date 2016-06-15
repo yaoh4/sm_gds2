@@ -53,8 +53,10 @@ public class UIRuleUtil {
 		
 		// Based on Plan Answer Selection, compute the initial state of UI.
 		List<String> selectedAnswers = new ArrayList<String> ();
-		for (PlanAnswerSelection selectedAnswer: project.getPlanAnswerSelection()) {
-			selectedAnswers.add(selectedAnswer.getPlanQuestionsAnswer().getId().toString());
+		if(project != null) {
+			for (PlanAnswerSelection selectedAnswer: project.getPlanAnswerSelection()) {
+				selectedAnswers.add(selectedAnswer.getPlanQuestionsAnswer().getId().toString());
+			}
 		}
 				
 		Map<String, UIList> overRideMap = new HashMap<String, UIList> ();
