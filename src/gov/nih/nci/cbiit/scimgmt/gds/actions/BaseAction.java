@@ -33,7 +33,11 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	protected NedPerson loggedOnUser;	
 	
 	@Autowired 
-	protected GdsProperties gdsProperties;
+	protected GdsProperties gdsProperties;	
+	
+	/*Id of the selected project or subproject*/
+	private String projectId;
+	
 	
 	@Override
 	public void setSession(Map<String, Object> session) {
@@ -107,6 +111,20 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	 */
 	public String getNotAuthorizedErrorMessage() {
 		return gdsProperties.getProperty("error.notAuthorized");
+	}
+
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}	
 	
 }
