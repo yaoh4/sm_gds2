@@ -1,10 +1,18 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 
 /**
@@ -21,8 +29,13 @@ public class ManageSubmission extends BaseAction {
 	@Autowired
 	protected ManageProjectService manageProjectService;
 	
+	@Autowired 
+	protected FileUploadService fileUploadService;	
+	
 	private Project project;
 	
+	private Long docId;
+
 	/**
 	 * Execute method, for now used for navigation
 	 * 
@@ -206,6 +219,61 @@ public class ManageSubmission extends BaseAction {
 		manageProjectService.saveOrUpdate(project);
 		
 	}
-	 
+
+	/**
+	 * Delete a file using document id
+	 */
+	public void deleteFile() {
+		logger.debug("deleteFile()");
+		if(docId == null) {
+			return;
+		}
+		fileUploadService.deleteFile(docId);
+		return;
+	}
+	
+	/**
+	 * Retrieve a file using document id
+	 */
+	public void downloadFile() {
+		logger.debug("downloadFile()");
+		if(docId == null) {
+			return;
+		}
+		HttpServletResponse response = ServletActionContext.getResponse();
+		Document doc = fileUploadService.retrieveFile(docId);
+		if (doc == null)
+			return;
+		try {
+            response.setHeader("Content-Disposition", "inline;filename=\"" +doc.getDocTitle()+ "\"");
+            OutputStream out = response.getOutputStream();
+            response.setContentType(doc.getContentType());
+            out.write(doc.getDoc());
+            out.flush();
+            out.close();
+         
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return;
+	}
+
+	/**
+	 * Get docId
+	 * 
+	 * @return
+	 */
+	public Long getDocId() {
+		return docId;
+	}
+
+	/**
+	 * Set docId
+	 * 
+	 * @param docId
+	 */
+	public void setDocId(Long docId) {
+		this.docId = docId;
+	}
 	
 }

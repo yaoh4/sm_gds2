@@ -564,6 +564,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/actions/SearchProjectAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SysAdminAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/PlanQuestionList.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/dao/DocumentsDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/MailTemplateDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/ProjectsDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDao.java -text
@@ -587,11 +588,13 @@ src/gov/nih/nci/cbiit/scimgmt/gds/interceptor/UserInterceptor.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/MissingData.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/UIElement.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/UIList.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/services/FileUploadService.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/LookupService.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/MailService.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/ManageProjectService.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/SearchProjectService.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/UserRoleService.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/FileUploadServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/LookupServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/MailServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/ManageProjectServiceImpl.java -text

@@ -1,13 +1,16 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
-// Generated Mar 4, 2016 12:46:29 PM by Hibernate Tools 4.0.0
+// Generated Jun 14, 2016 9:48:11 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,9 +23,9 @@ import javax.persistence.TemporalType;
 public class Document implements java.io.Serializable {
 
 	private Long id;
-	private InstitutionalCertification institutionalCertification;
-	private Project project;
-	private String docType;
+	private Long institutionalCertificationId;
+	private Long projectId;
+	private Lookup docType;
 	private String fileName;
 	private Date uploadedDate;
 	private Long versionNum;
@@ -31,30 +34,34 @@ public class Document implements java.io.Serializable {
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
+	private byte[] doc;
+	private String contentType;
+	private String docTitle;
 
 	public Document() {
 	}
 
-	public Document(Long id, InstitutionalCertification institutionalCertification, Project project,
-			String docType, Date uploadedDate, Long versionNum, String activeFlag, Date createdDate,
-			String createdBy) {
+	public Document(Long id, Long projectId, Lookup docType, Date uploadedDate, Long versionNum,
+			String activeFlag, Date createdDate, String createdBy, byte[] doc, String contentType) {
 		this.id = id;
-		this.institutionalCertification = institutionalCertification;
-		this.project = project;
+		this.projectId = projectId;
 		this.docType = docType;
 		this.uploadedDate = uploadedDate;
 		this.versionNum = versionNum;
 		this.activeFlag = activeFlag;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
+		this.doc = doc;
+		this.contentType = contentType;
 	}
 
-	public Document(Long id, InstitutionalCertification institutionalCertification, Project project,
-			String docType, String fileName, Date uploadedDate, Long versionNum, String activeFlag,
-			Date createdDate, String createdBy, Date lastChangedDate, String lastChangedBy) {
+	public Document(Long id, Long projectId, Lookup docType,
+			Long institutionalCertificationId, String fileName, Date uploadedDate,
+			Long versionNum, String activeFlag, Date createdDate, String createdBy, Date lastChangedDate,
+			String lastChangedBy, byte[] doc, String contentType, String docTitle) {
 		this.id = id;
-		this.institutionalCertification = institutionalCertification;
-		this.project = project;
+		this.institutionalCertificationId = institutionalCertificationId;
+		this.projectId = projectId;
 		this.docType = docType;
 		this.fileName = fileName;
 		this.uploadedDate = uploadedDate;
@@ -64,10 +71,14 @@ public class Document implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
+		this.doc = doc;
+		this.contentType = contentType;
+		this.docTitle = docTitle;
 	}
 
 	@Id
-
+	@SequenceGenerator(name="doc_seq_gen", sequenceName="DOC_SEQ", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doc_seq_gen")
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
 	public Long getId() {
 		return this.id;
@@ -77,32 +88,32 @@ public class Document implements java.io.Serializable {
 		this.id = id;
 	}
 
+
+	@Column(name = "PROJECT_ID", nullable = false)
+	public Long getProjectId() {
+		return this.projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
+	
+	@Column(name = "CERTIFICATION_ID")
+	public Long getInstitutionalCertificationId() {
+		return this.institutionalCertificationId;
+	}
+
+	public void setInstitutionalCertificationId(Long institutionalCertificationId) {
+		this.institutionalCertificationId = institutionalCertificationId;
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CERTIFICATION_ID", nullable = false)
-	public InstitutionalCertification getInstitutionalCertification() {
-		return this.institutionalCertification;
-	}
-
-	public void setInstitutionalCertification(InstitutionalCertification institutionalCertification) {
-		this.institutionalCertification = institutionalCertification;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PROJECT_ID", nullable = false)
-	public Project getProject() {
-		return this.project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
-	@Column(name = "DOC_TYPE", nullable = false, length = 120)
-	public String getDocType() {
+	@JoinColumn(name = "DOC_TYPE_ID", nullable = false)
+	public Lookup getDocType() {
 		return this.docType;
 	}
 
-	public void setDocType(String docType) {
+	public void setDocType(Lookup docType) {
 		this.docType = docType;
 	}
 
@@ -179,6 +190,33 @@ public class Document implements java.io.Serializable {
 
 	public void setLastChangedBy(String lastChangedBy) {
 		this.lastChangedBy = lastChangedBy;
+	}
+
+	@Column(name = "DOC", nullable = false)
+	public byte[] getDoc() {
+		return this.doc;
+	}
+
+	public void setDoc(byte[] doc) {
+		this.doc = doc;
+	}
+
+	@Column(name = "CONTENT_TYPE", nullable = false, length = 40)
+	public String getContentType() {
+		return this.contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	@Column(name = "DOC_TITLE", length = 200)
+	public String getDocTitle() {
+		return this.docTitle;
+	}
+
+	public void setDocTitle(String docTitle) {
+		this.docTitle = docTitle;
 	}
 
 }
