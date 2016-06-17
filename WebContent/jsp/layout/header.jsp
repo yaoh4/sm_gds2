@@ -5,30 +5,40 @@
 
 <tiles:useAttribute id="navtab" name="navtab" />
 
-<div id="headerimg">
+<div class="logo-header"> </div>
 
-	<div id="cross_nav">
+<!-- Fixed navbar -->
+
+<div id="wrap">
+	<div class="navbar  navbar-fixed-top">
+		<div class="container">
+			<div id="logo" class="logoImage">
+				<img src="<s:url value="/images/GDSlogo.png" />" width="250px;"
+					alt="National Cancer Institute Genomic Data Sharing Tracking System Logo">
+
+				<div id="loginName"
+					style="float: right; padding-top: 15px; padding-bottom: 15px; margin-right: 15px;"
+					class="nav navbar-nav">
+					Welcome:
+					<div id="loginID" class="login">
+						<s:if test="loggedOnUser.lastName != null">
+							<s:property value="loggedOnUser.fullName" />
+						</s:if>
+					</div>
+				</div>
+			</div>
+			<s:include value="/jsp/layout/navbar.jsp" />
+		</div>
 		
-		<!-- User Name -->
-		<ul id="name">			
-			<s:if test="loggedOnUser.lastName != null">
-				<li class="last">Name: <strong>
-					<s:property	value="loggedOnUser.fullName" /></strong>
-				</li>
-			</s:if>				
-		</ul>
-		<ul id="helpReportUrl">
-			<li>
-				<a href="#" onclick="window.open('<s:property value="%{helpUrl}"/>')">Help</a>
-			</li>
-			<li class="last">
-				<a  href="#" onclick="window.open('<s:property value="%{reportUrl}"/>')">Report</a>
-			</li>
-		</ul>
+		<div class="navbar navbar-default2 navbar-fixed-top" >   
+
+    		<!--Page Header -->
+      		<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Track Project Submission</h3><div id="verisonNumber" style="display:inline-block;">&nbsp;&nbsp;&nbsp;Version 4 (ID: 123876)</div></div></div>
+      
+			<s:include value="/jsp/layout/subnavbar.jsp" />
+			
+		</div>
+		
 	</div>
 
-	<h1 id="naa_header">GDS Tracking System</h1>
-
-	<s:include value="/jsp/layout/navbar.jsp" />
 </div>
-
