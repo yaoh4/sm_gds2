@@ -9,7 +9,8 @@
 	<!-- *********** -->
 	<definition name="base.definition" template="/jsp/layout/base.jsp">
 	 	<put-attribute name="header" value="/jsp/layout/header.jsp"/>        
-		<put-attribute name="navtab" value="" type="string" />		
+		<put-attribute name="navtab" value="" type="string" />
+		<put-attribute name="subnavtab" value="" type="string" />		
 		<put-attribute name="title" type="string" value="" />
 		<put-attribute name="body" type="template" value="" />
 		<put-attribute name="footer" value="/jsp/layout/footer.jsp"/>
@@ -42,37 +43,50 @@
 	</definition>
 	
 	<definition name="projectGeneralInfo" extends="base.definition">		
-		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="navtab" value="newSubmission" type="string" />
+		<put-attribute name="subnavtab" value="generalInfo" type="string" />	
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/projectGeneralInfo.jsp" />		
 	</definition>
 	
 	<definition name="submissionGdsPlan" extends="base.definition">		
-		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="navtab" value="newSubmission" type="string" />
+		<put-attribute name="subnavtab" value="gdsPlan" type="string" />	
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/submissionGdsPlan.jsp" />		
 	</definition>
 	
 	<definition name="submissionIcList" extends="base.definition">		
-		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="navtab" value="newSubmission" type="string" />
+		<put-attribute name="subnavtab" value="ic" type="string" />		
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/submissionIcList.jsp" />		
 	</definition>
 	
 	<definition name="submissionIcAndDul" extends="base.definition">		
-		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="navtab" value="newSubmission" type="string" />
+		<put-attribute name="subnavtab" value="ic" type="string" />	
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/submissionIcAndDul.jsp" />		
 	</definition>
 	
 	<definition name="submissionBasicStudyInfo" extends="base.definition">		
-		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="navtab" value="newSubmission" type="string" />
+		<put-attribute name="subnavtab" value="bsi" type="string" />	
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/submissionBasicStudyInfo.jsp" />		
 	</definition>
 	
+	<definition name="submissionStatus" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />
+		<put-attribute name="subnavtab" value="repository" type="string" />	
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/submissionDetail.jsp" />		
+	</definition>
+	
 	<definition name="submissionDetail" extends="base.definition">		
-		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="navtab" value="newSubmission" type="string" />
+		<put-attribute name="subnavtab" value="detail" type="string" />	
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/submissionDetail.jsp" />		
 	</definition>
