@@ -20,7 +20,7 @@
 		
 		<default-interceptor-ref name="projectScopeStack" />
 	
-		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
+		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchProjectAction">
 			 <result name="success" type="tiles">home</result>
 		</action>
 		<action name="newSubmission" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">

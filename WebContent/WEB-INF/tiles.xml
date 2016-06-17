@@ -19,8 +19,14 @@
 	<!-- Page Definitions -->
 	<!-- **************** -->
 
-	<definition name="search" extends="base.definition">		
+	<definition name="home" extends="base.definition">		
 		<put-attribute name="navtab" value="home" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/search.jsp" />		
+	</definition>	
+	
+	<definition name="search" extends="base.definition">		
+		<put-attribute name="navtab" value="search" type="string" />		
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/search.jsp" />		
 	</definition>		

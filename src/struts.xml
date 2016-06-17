@@ -48,11 +48,8 @@
 		    <exception-mapping exception="java.lang.Exception" result="error"/>			
 		</global-exception-mappings>	
 		
-		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
-			<result name="success" type="redirect-action">
-				<param name="actionName">searchProject</param>
-            	<param name="namespace">/search</param>
-			</result>			
+		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchProjectAction">
+			 <result name="success" type="tiles">home</result>
 		</action>
 		
 		<action name="sendErrorMessage" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ErrorMessageAction">
