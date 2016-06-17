@@ -56,12 +56,11 @@ $(document).ready(function(){
     });
 });
 
-//for all pages when user doesn't save on form//
 
-//$(function() {
+$(function() {
 
     // Enable on all forms
-    //$('form').areYouSure( {'message':'Your profile details are not saved!'} );
+    $('#submission_status_form').areYouSure();
 
 });
 
