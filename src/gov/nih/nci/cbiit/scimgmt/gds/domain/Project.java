@@ -44,6 +44,7 @@ public class Project implements java.io.Serializable {
 	private String comments;
 	private String bsiReviewedFlag;
 	private Long versionNum;
+	private String certificationCompleteFlag;
 	private Date createdDate;
 	private String createdBy;
 	private Date lastChangedDate;
@@ -305,6 +306,17 @@ public class Project implements java.io.Serializable {
 
 	public void setVersionNum(Long versionNum) {
 		this.versionNum = versionNum;
+	}
+
+	
+	@Column(name = "CERTIFICATION_COMPLETE_FLAG", length = 4)
+	public String getCertificationCompleteFlag() {
+		return certificationCompleteFlag;
+	}
+
+	
+	public void setCertificationCompleteFlag(String certificationCompletetionFlag) {
+		this.certificationCompleteFlag = certificationCompletetionFlag;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

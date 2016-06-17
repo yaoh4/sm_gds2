@@ -219,8 +219,8 @@ public class ManageSubmission extends BaseAction {
 	/**
 	 * Save the project
 	 */
-	public void saveProject(Project project) {
-		manageProjectService.saveOrUpdate(project);
+	public Project saveProject(Project project) {
+		return manageProjectService.saveOrUpdate(project);
 		
 	}
 

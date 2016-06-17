@@ -38,8 +38,8 @@
 		<action name="saveGdsPlan" method="save" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ProjectGdsPlanAction">
 			 <result name="success" type="tiles">submissionIcList</result>
 		</action>
-		<action name="addIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
-			 <result name="success" type="tiles">submissionIcAndDul</result>
+		<action name="editIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
+			 <result name="success" type="tiles">submissionIc</result>
 		</action>
 		<action name="deleteIcAndDul" method="deleteIcAndDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionIcList</result>
