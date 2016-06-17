@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
+import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 
 /**
@@ -31,6 +32,9 @@ public class ManageSubmission extends BaseAction {
 	
 	@Autowired 
 	protected FileUploadService fileUploadService;	
+	
+	@Autowired
+	protected LookupService lookupService;
 	
 	private Project project;
 	

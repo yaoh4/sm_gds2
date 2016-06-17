@@ -38,4 +38,13 @@ public class SearchProjectServiceImpl implements SearchProjectService {
 	public Project findProjectById(Long projectId){
 		 return projectsDAO.findById(projectId);
 	}
+	
+	/**
+	 * This method retrieves Intramural / Grant / Contract List
+	 * @return
+	 */
+	public List<Object> getIntramuralGrantOrContractList(){
+		return projectsDAO.getIntramuralGrantOrContractList();
+	}
+	
 }

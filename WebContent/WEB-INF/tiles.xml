@@ -42,11 +42,11 @@
 		<put-attribute name="body" value="/jsp/error/notAuthorized.jsp" />
 	</definition>
 	
-	<definition name="projectGeneralInfo" extends="base.definition">		
+	<definition name="submissionGeneralInfo" extends="base.definition">		
 		<put-attribute name="navtab" value="newSubmission" type="string" />
 		<put-attribute name="subnavtab" value="generalInfo" type="string" />	
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
-		<put-attribute name="body" value="/jsp/content/projectGeneralInfo.jsp" />		
+		<put-attribute name="body" value="/jsp/content/submissionGeneralInfo.jsp" />		
 	</definition>
 	
 	<definition name="submissionGdsPlan" extends="base.definition">		
@@ -89,6 +89,12 @@
 		<put-attribute name="subnavtab" value="detail" type="string" />	
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/submissionDetail.jsp" />		
+	</definition>
+	
+	<definition name="submissionRepositoryStatus" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/submissionRepositoryStatus.jsp" />		
 	</definition>
 	
 </tiles-definitions>

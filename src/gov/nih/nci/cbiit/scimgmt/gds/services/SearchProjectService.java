@@ -8,5 +8,6 @@ public interface SearchProjectService {
 
 	public List<Long> getAllProjectIds();
 	public Project findProjectById(Long projectId);
+	public List<Object> getIntramuralGrantOrContractList();
 
 }

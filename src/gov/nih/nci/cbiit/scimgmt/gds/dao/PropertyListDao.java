@@ -102,4 +102,19 @@ public class PropertyListDao {
 			return criteria.list();
 			
 		}
+		
+		/**
+		 * Get DOC list
+		 * 
+		 * @return
+		 */
+		public List<?> getDocList(String docList) {
+			
+			logger.info("Retrieving DOC list from DB");
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PlanQuestionsAnswer.class);
+		
+		
+			return criteria.list();
+			
+		}
 }

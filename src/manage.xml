@@ -24,9 +24,12 @@
 			 <result name="success" type="tiles">home</result>
 		</action>
 		<action name="newSubmission" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
-			 <result name="success" type="tiles">projectGeneralInfo</result>
+			 <result name="success" type="tiles">submissionGeneralInfo</result>
 		</action>
-		<action name="saveGeneralInfo" method="saveGeneralInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="saveGeneralInfo" method="save" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+			 <result name="success" type="tiles">submissionGeneralInfo</result>
+		</action>
+		<action name="saveGeneralInfoAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
 			 <result name="success" type="redirect-action">editGdsPlan</result>
 		</action>
 		<action name="editGdsPlan" method="execute" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ProjectGdsPlanAction">
@@ -67,6 +70,12 @@
 		</action>
 		<action name="deleteFile" method="deleteFile" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionGdsPlan</result>
+		</action>
+		<action name="navigateToRepositoryStatus" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
+			 <result name="success" type="tiles">submissionRepositoryStatus</result>
+		</action>		
+		<action name="navigateToIntramuralGrantOrContractSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
+			 <result name="success" type="tiles">intramuralGrantOrContractSearch</result>
 		</action>
 	</package>
 </struts>

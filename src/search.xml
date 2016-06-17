@@ -13,8 +13,8 @@
 			 <result name="success" type="tiles">search</result>
 		</action>
 		
-		<action name="viewProject" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ProjectGeneralInfoAction">
-			 <result name="success" type="tiles">projectGeneralInfo</result>
+		<action name="viewProject" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+			 <result name="success" type="tiles">submissionGeneralInfo</result>
 		</action>
 	</package>
 </struts>

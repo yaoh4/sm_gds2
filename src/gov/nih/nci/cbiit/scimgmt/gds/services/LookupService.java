@@ -57,4 +57,19 @@ public interface LookupService {
 	 */
 	public Lookup getLookupByCode(String listName, String code);
 	
+
+	/**
+	 *  Get docList.  
+	 *  Retrieve from the cache if present, else from the DB
+	 */
+	public List<?> getDocList(String docList);	
+	
+	/**
+	 * Update the given docList in the cache.
+	 * @param docList
+	 * @param lookupList
+	 * @return
+	 */
+	public List<?> updateDocList(String docList, List<?> lookupList);
+	
 }

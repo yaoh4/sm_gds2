@@ -110,4 +110,26 @@ public class LookupServiceImpl implements LookupService {
 		return null;
 	}
 	
+	/**
+	 *  Get docList.  
+	 *  Retrieve from the cache if present, else from the DB
+	 */
+	@Cacheable(key = "#docList")
+	public List<?> getDocList(String docList) {
+	  	
+		logger.info("Loading docList from DB");
+		return propertyListDAO.getDocList(docList);	  	
+	}
+	
+	/**
+	 * Update the given docList in the cache.
+	 * @param docList
+	 * @param lookupList
+	 * @return
+	 */
+	@CachePut(key="#docList")
+	public List<?> updateDocList(String docList, List<?> updatedDocList) {
+		return updatedDocList;
+	}
+	
 }

@@ -112,4 +112,16 @@ public class ProjectsDao {
 		}
 		return allProjectIds;
 	}
+	
+	/**
+	 * This method retrieves Intramural / Grant / Contract List
+	 * @return
+	 */
+	public List<Object> getIntramuralGrantOrContractList(){
+		logger.info("Retrieving Intramural / Grant / Contract List from DB");
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Object.class);
+	
+	
+		return criteria.list();
+	}
 }
