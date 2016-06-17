@@ -1,28 +1,18 @@
+table.dataTable thead th, table.dataTable thead td {
+    padding: 0px 3px 0px 3px; 
+    border-bottom: 1px solid #111;
+    color: #FFF;
+     background:#123e57;
+}
 
-td.details-control {
-
-    background: url('../images/details_open.png') no-repeat center center;
-
-    cursor: pointer;
+.modalTheader th {
+	padding: 0px 3px 0px 3px; 
+    border-bottom: 1px solid #111;
+    color: #FFF;
+     background:#123e57;
 
 }
 
-tr.shown td.details-control {
-
-    background: url('../images/details_close.png') no-repeat center center;
-
-}
-
-td.subproject-control {
-
-    background: url('../images/details_open.png') no-repeat center center;
-
-    cursor: pointer;
-
-}
-
-tr.shown td.subproject-control {
-
-    background: url('../images/details_close.png') no-repeat center center;
-
+.repoModalTable {
+	font-size: 12px;
 }

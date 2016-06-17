@@ -59,37 +59,34 @@ function format2 ( ) {
 }
 //datatable initialization
 $(document).ready(function(){
-	var table = $('#myTable').DataTable( {
+    var table = $('#myTable').DataTable( {
         responsive: true,
         processing: false,
         serverSide: false,
         select: true,
         stateSave: true,
         dom: 'Bfrtip',
+        bFilter: false,
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print','colvis'
+             'csv', 'excel', 'pdf', 'print','colvis'
         ],
         columns: [
-                	{
-                  		"className": 'details-control',
-                  		"orderable": false,
-                  		"data": null,
-                  		"defaultContent": ''
-                  	},
-                  	{ 'data': 'projectId'},
+                    
+                   
+                    { 'data': 'projectId'},
                     { 'data': 'grant'},
                     { 'data': 'title'},
                     { 'data': 'pi'},
-                    { 'data': 'accession'},
                     { 'data': 'gds'},
                     { 'data': 'dse'},
                     { 'data': 'ic'},
                     { 'data': 'bsi'},
+                    { 'data': 'repository'},
                     { 'data': 'action'}
                 ],
-        	});
+            });
     /*
-	$('#myTable tbody').on( 'click', 'tr', function () {
+    $('#myTable tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
         }
@@ -98,51 +95,79 @@ $(document).ready(function(){
             $(this).addClass('selected');
         }
     } );
-	*/
-	 // Add event listener for opening and closing details
-	$('#myTable tbody').on('click', 'td.details-control', function() {
-		var tr = $(this).closest('tr');
-		var row = table.row(tr);
-		if (row.child.isShown()) {
-			// This row is already open - close it
-			row.child.hide();
-			tr.removeClass('shown');
-		}
-		else {
-			// Open this row
-			row.child(format(row.data())).show();
-			tr.addClass('shown');
-		}
-	});
-	
-	 // Add event listener for opening and closing subprojects
-	$('#myTable tbody').on('click', 'td.subproject-control', function() {
-		var tr =$(this).closest('tr');
-		if (tr.hasClass("shown")) {
-			// This row is already open - close it
-			tr.children('.dataTables_wrapper').hide()
-			tr.removeClass('shown');
-		}
-		else {
-			// Open this row
-			if(tr.find( ":hidden" ).length > 0)
-				tr.children('.dataTables_wrapper').show();
-			else {
-				tr.append(format2());
-				 $('#example').DataTable( {
-				        //"ajax": '../scripts/objects.txt',
-				        columns: [
-				                      { 'data': 'name'},
-				                      { 'data': 'position'},
-				                      { 'data': 'office'},
-				                      { 'data': 'extn'},
-				                      { 'data': 'start_date'},
-				                      { 'data': 'salary'}
-				                  ]
-				   } );
-			}
-			tr.addClass('shown');
-		}
+    */
+     // Add event listener for opening and closing details
+    $('#myTable tbody').on('click', 'td.details-control', function() {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child(format(row.data())).show();
+            tr.addClass('shown');
+        }
+    });
+    
+     // Add event listener for opening and closing subprojects
+    $('#myTable tbody').on('click', 'td.subproject-control', function() {
+        var tr =$(this).closest('tr');
+        if (tr.hasClass("shown")) {
+            // This row is already open - close it
+            tr.children('.dataTables_wrapper').hide()
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            if(tr.find( ":hidden" ).length > 0)
+                tr.children('.dataTables_wrapper').show();
+            else {
+                tr.append(format2());
+                 $('#example').DataTable( {
+                        //"ajax": '../scripts/objects.txt',
+                        columns: [
+                                      { 'data': 'name'},
+                                      { 'data': 'position'},
+                                      { 'data': 'office'},
+                                      { 'data': 'extn'},
+                                      { 'data': 'start_date'},
+                                      { 'data': 'salary'}
+                                  ]
+                   } );
+            }
+            tr.addClass('shown');
+        }
 
-	});
+    });
 });
+
+
+function toggleStudy4(showHideDiv, switchImgTag) {
+        var ele = document.getElementById(showHideDiv);
+        var imageEle = document.getElementById(switchImgTag);
+        if(ele.style.display == "block") {
+                ele.style.display = "none";
+    imageEle.innerHTML = '<img src="images/CriteriaOpen.gif" height="10px" width="10px">';
+        }
+        else {
+                ele.style.display = "block";
+                imageEle.innerHTML = '<img src="images/CriteriaClosed.gif" height="10px" width="10px">';
+        }
+} 
+
+
+function toggleStudy5(showHideDiv, switchImgTag) {
+        var ele = document.getElementById(showHideDiv);
+        var imageEle = document.getElementById(switchImgTag);
+        if(ele.style.display == "block") {
+                ele.style.display = "none";
+    imageEle.innerHTML = '<img src="images/CriteriaOpen.gif" height="10px" width="10px">';
+        }
+        else {
+                ele.style.display = "block";
+                imageEle.innerHTML = '<img src="images/CriteriaClosed.gif" height="10px" width="10px">';
+        }
+} 
