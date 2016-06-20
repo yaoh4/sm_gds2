@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.model.UIList;
 import gov.nih.nci.cbiit.scimgmt.gds.util.UIRuleUtil;
 
@@ -23,11 +22,10 @@ import gov.nih.nci.cbiit.scimgmt.gds.util.UIRuleUtil;
  *
  */
 @SuppressWarnings("serial")
-public class ProjectGdsPlanAction extends BaseAction {
+public class GDSPlanSubmissionAction extends ManageSubmission {
 	
-	static Logger logger = LogManager.getLogger(ProjectGdsPlanAction.class);
+	static Logger logger = LogManager.getLogger(GDSPlanSubmissionAction.class);
 	
-	private Project project = new Project();
 	private Map<String, UIList> map = new HashMap<String, UIList> ();
 	protected PlanQuestionList questionList;
 	
@@ -40,7 +38,7 @@ public class ProjectGdsPlanAction extends BaseAction {
 		logger.debug("execute");
         
 		ObjectMapper mapper = new ObjectMapper();
-		map = UIRuleUtil.getUiRuleMap(project);
+		map = UIRuleUtil.getUiRuleMap(getProject());
 		logger.info(JSONUtil.serialize(map));
 		
 		logger.info(questionList.getQuestionById(1L).getDisplayText());
@@ -63,18 +61,10 @@ public class ProjectGdsPlanAction extends BaseAction {
 	/**
 	 * Validate Save General Info
 	 */
-	public void validate() {
+	public void validateSave() {
 		
-		logger.debug("validateSaveGeneralInfo");
+		logger.debug("validateSave()");
 		
-	}
-	
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
 	}
 
 	public Map<String, UIList> getMap() {
