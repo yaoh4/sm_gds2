@@ -17,9 +17,9 @@ import org.springframework.util.CollectionUtils;
  * @author menons2
  *
  */
-public class ICSubmissionAction extends ManageSubmission {
+public class IcSubmissionAction extends ManageSubmission {
 
-	static Logger logger = LogManager.getLogger(ICSubmissionAction.class);
+	static Logger logger = LogManager.getLogger(IcSubmissionAction.class);
 	
 	
 	private InstitutionalCertification instCertification;
