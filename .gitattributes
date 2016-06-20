@@ -591,7 +591,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/actions/ErrorMessageAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/GDSPlanSubmissionAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/GeneralInfoSubmissionAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/HomeAction.java -text
-src/gov/nih/nci/cbiit/scimgmt/gds/actions/ICSubmissionAction.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/actions/IcSubmissionAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmission.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/RepositoryStatusSubmissionAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SearchProjectAction.java -text
