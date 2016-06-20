@@ -23,10 +23,17 @@ public interface ApplicationConstants {
 	 public static final String PROJECT_SUBMISSION_STATUS_LIST = "project_sub_status";
 	 public static final String STUDY_RELEASED_LIST = "study_released";
 	 
+	 /* Type discriminators */ 
+	 public static final String DOC_TYPE = "DOC_TYPE";
+	 public static final String PAGE_TYPE = "PAGE";
+	 public static final String PAGE_STATUS_TYPE = "PAGE_STATUS";
+	 
 	 public static final String DOC_LIST = "docList";
 	 
 	 /* Numeric constants */
 	 public static final Long PLAN_QUESTION_ANSWER_REPOSITORY_ID = 20L;
 	 public static final int  COMMENTS_MAX_ALLOWED_SIZE = 2000;
+	 
+	 
 	     
 }
