@@ -72,24 +72,6 @@ public class ManageSubmission extends BaseAction {
 	}
 
 	/**
-	 * Save Genomic Data Sharing Plan
-	 * 
-	 * @return forward string
-	 */
-	public String saveGdsPlan() throws Exception {
-		logger.debug("saveGdsPlan");
-        
-        return SUCCESS;
-	}
-	
-	/**
-	 * Validate Save GDS Plan
-	 */
-	public void validateSaveGdsPlan() {
-		logger.debug("validateSaveGdsPlan");
-	}
-	
-	/**
 	 * Save Institutional Certificate
 	 * 
 	 * @return forward string

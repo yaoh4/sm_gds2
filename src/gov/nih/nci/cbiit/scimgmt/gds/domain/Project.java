@@ -31,24 +31,32 @@ public class Project implements java.io.Serializable {
 	private String programBranch;
 	private String nihFundedFlag;
 	private String applicationNum;
-	private String piFullName;
-	private String pocFullName;
-	private String institutionName;
+	private String piInstitution;
 	private String piEmailAddress;
-	private String pdFullName;
 	private Date projectStartDate;
 	private Date projectEndDate;
-	private Date sciRevApprovalDate;
-	private String subStudyFlag;
+	private Date sciRevApprovalRcvdDate;
 	private String parentAccessionNum;
 	private String comments;
 	private String bsiReviewedFlag;
 	private Long versionNum;
-	private String certificationCompleteFlag;
 	private Date createdDate;
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
+	private String subprojectFlag;
+	private Long parentProjectId;
+	private String latestVersionFlag;
+	private Long projectGroupId;
+	private Long subprojectGroupId;
+	private Long submissionReasonId;
+	private String certificationCompleteFlag;
+	private String piFirstName;
+	private String piLastName;
+	private String pocFirstName;
+	private String pocLastName;
+	private String pdFirstName;
+	private String pdLastName;
 	private Set<StatusHistory> statusHistories = new HashSet(0);
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
@@ -68,28 +76,37 @@ public class Project implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", projectIdentifierNum=" + projectIdentifierNum + ", projectTitle="
 				+ projectTitle + ", docAbbreviation=" + docAbbreviation + ", programBranch=" + programBranch
-				+ ", nihFundedFlag=" + nihFundedFlag + ", applicationNum=" + applicationNum + ", piFullName="
-				+ piFullName + ", pocFullName=" + pocFullName + ", institutionName=" + institutionName
-				+ ", piEmailAddress=" + piEmailAddress + ", pdFullName=" + pdFullName + ", projectStartDate="
-				+ projectStartDate + ", projectEndDate=" + projectEndDate + ", sciRevApprovalDate="
-				+ sciRevApprovalDate + ", subStudyFlag=" + subStudyFlag + ", parentAccessionNum=" + parentAccessionNum
-				+ ", comments=" + comments + ", bsiReviewedFlag=" + bsiReviewedFlag + ", versionNum=" + versionNum
-				+ ", createdDate=" + createdDate + ", createdBy=" + createdBy + ", lastChangedDate=" + lastChangedDate
-				+ ", lastChangedBy=" + lastChangedBy + ", statusHistories=" + statusHistories + ", documents="
-				+ documents + ", planAnswerSelections=" + planAnswerSelections + ", repositoryStatuses="
-				+ repositoryStatuses + ", institutionalCertifications=" + institutionalCertifications + "]";
+				+ ", nihFundedFlag=" + nihFundedFlag + ", applicationNum=" + applicationNum + ", piInstitution="
+				+ piInstitution + ", piEmailAddress=" + piEmailAddress + ", projectStartDate=" + projectStartDate
+				+ ", projectEndDate=" + projectEndDate + ", sciRevApprovalRcvdDate=" + sciRevApprovalRcvdDate
+				+ ", parentAccessionNum=" + parentAccessionNum + ", comments=" + comments + ", bsiReviewedFlag="
+				+ bsiReviewedFlag + ", versionNum=" + versionNum + ", createdDate=" + createdDate + ", createdBy="
+				+ createdBy + ", lastChangedDate=" + lastChangedDate + ", lastChangedBy=" + lastChangedBy
+				+ ", subprojectFlag=" + subprojectFlag + ", parentProjectId=" + parentProjectId
+				+ ", latestVersionFlag=" + latestVersionFlag + ", projectGroupId=" + projectGroupId
+				+ ", subprojectGroupId=" + subprojectGroupId + ", submissionReasonId=" + submissionReasonId
+				+ ", certificationCompleteFlag=" + certificationCompleteFlag + ", piFirstName=" + piFirstName
+				+ ", piLastName=" + piLastName + ", pocFirstName=" + pocFirstName + ", pocLastName=" + pocLastName
+				+ ", pdFirstName=" + pdFirstName + ", pdLastName=" + pdLastName + ", statusHistories="
+				+ statusHistories + ", documents=" + documents + ", planAnswerSelections=" + planAnswerSelections
+				+ ", repositoryStatuses=" + repositoryStatuses + ", institutionalCertifications="
+				+ institutionalCertifications + "]";
 	}
 
+
 	public Project(Long id, String projectIdentifierNum, String projectTitle, String docAbbreviation,
-			String programBranch, String nihFundedFlag, String applicationNum, String piFullName, String pocFullName,
-			String institutionName, String piEmailAddress, String pdFullName, Date projectStartDate,
-			Date projectEndDate, Date sciRevApprovalDate, String subStudyFlag, String parentAccessionNum,
-			String comments, String bsiReviewedFlag, Long versionNum, Date createdDate, String createdBy,
-			Date lastChangedDate, String lastChangedBy, Set statusHistories, Set documents,
+			String programBranch, String nihFundedFlag, String applicationNum, String piInstitution,
+			String piEmailAddress, Date projectStartDate, Date projectEndDate, Date sciRevApprovalRcvdDate,
+			String parentAccessionNum, String comments, String bsiReviewedFlag, Long versionNum, Date createdDate,
+			String createdBy, Date lastChangedDate, String lastChangedBy, String subprojectFlag,
+			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
+			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
+			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, Set statusHistories, Set documents,
 			Set planAnswerSelections, Set repositoryStatuses, Set institutionalCertifications) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
@@ -98,15 +115,11 @@ public class Project implements java.io.Serializable {
 		this.programBranch = programBranch;
 		this.nihFundedFlag = nihFundedFlag;
 		this.applicationNum = applicationNum;
-		this.piFullName = piFullName;
-		this.pocFullName = pocFullName;
-		this.institutionName = institutionName;
+		this.piInstitution = piInstitution;
 		this.piEmailAddress = piEmailAddress;
-		this.pdFullName = pdFullName;
 		this.projectStartDate = projectStartDate;
 		this.projectEndDate = projectEndDate;
-		this.sciRevApprovalDate = sciRevApprovalDate;
-		this.subStudyFlag = subStudyFlag;
+		this.sciRevApprovalRcvdDate = sciRevApprovalRcvdDate;
 		this.parentAccessionNum = parentAccessionNum;
 		this.comments = comments;
 		this.bsiReviewedFlag = bsiReviewedFlag;
@@ -115,6 +128,19 @@ public class Project implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
+		this.subprojectFlag = subprojectFlag;
+		this.parentProjectId = parentProjectId;
+		this.latestVersionFlag = latestVersionFlag;
+		this.projectGroupId = projectGroupId;
+		this.subprojectGroupId = subprojectGroupId;
+		this.submissionReasonId = submissionReasonId;
+		this.certificationCompleteFlag = certificationCompleteFlag;
+		this.piFirstName = piFirstName;
+		this.piLastName = piLastName;
+		this.pocFirstName = pocFirstName;
+		this.pocLastName = pocLastName;
+		this.pdFirstName = pdFirstName;
+		this.pdLastName = pdLastName;
 		this.statusHistories = statusHistories;
 		this.documents = documents;
 		this.planAnswerSelections = planAnswerSelections;
@@ -188,33 +214,15 @@ public class Project implements java.io.Serializable {
 		this.applicationNum = applicationNum;
 	}
 
-	@Column(name = "PI_FULL_NAME", length = 400)
-	public String getPiFullName() {
-		return this.piFullName;
+	@Column(name = "PI_INSTITUTION", length = 480)
+	public String getPiInstitution() {
+		return this.piInstitution;
 	}
 
-	public void setPiFullName(String piFullName) {
-		this.piFullName = piFullName;
+	public void setPiInstitution(String piInstitution) {
+		this.piInstitution = piInstitution;
 	}
-
-	@Column(name = "POC_FULL_NAME", length = 400)
-	public String getPocFullName() {
-		return this.pocFullName;
-	}
-
-	public void setPocFullName(String pocFullName) {
-		this.pocFullName = pocFullName;
-	}
-
-	@Column(name = "INSTITUTION_NAME", length = 480)
-	public String getInstitutionName() {
-		return this.institutionName;
-	}
-
-	public void setInstitutionName(String institutionName) {
-		this.institutionName = institutionName;
-	}
-
+	
 	@Column(name = "PI_EMAIL_ADDRESS", length = 320)
 	public String getPiEmailAddress() {
 		return this.piEmailAddress;
@@ -222,15 +230,6 @@ public class Project implements java.io.Serializable {
 
 	public void setPiEmailAddress(String piEmailAddress) {
 		this.piEmailAddress = piEmailAddress;
-	}
-
-	@Column(name = "PD_FULL_NAME", length = 400)
-	public String getPdFullName() {
-		return this.pdFullName;
-	}
-
-	public void setPdFullName(String pdFullName) {
-		this.pdFullName = pdFullName;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -254,22 +253,13 @@ public class Project implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "SCI_REV_APPROVAL_DATE", length = 7)
-	public Date getSciRevApprovalDate() {
-		return this.sciRevApprovalDate;
+	@Column(name = "SCI_REV_APPROVAL_RCVD_DATE", length = 7)
+	public Date getSciRevApprovalRcvdDate() {
+		return this.sciRevApprovalRcvdDate;
 	}
 
-	public void setSciRevApprovalDate(Date sciRevApprovalDate) {
-		this.sciRevApprovalDate = sciRevApprovalDate;
-	}
-
-	@Column(name = "SUB_STUDY_FLAG", length = 4)
-	public String getSubStudyFlag() {
-		return this.subStudyFlag;
-	}
-
-	public void setSubStudyFlag(String subStudyFlag) {
-		this.subStudyFlag = subStudyFlag;
+	public void setSciRevApprovalRcvdDate(Date sciRevApprovalRcvdDate) {
+		this.sciRevApprovalRcvdDate = sciRevApprovalRcvdDate;
 	}
 
 	@Column(name = "PARENT_ACCESSION_NUM", length = 120)
@@ -308,17 +298,6 @@ public class Project implements java.io.Serializable {
 		this.versionNum = versionNum;
 	}
 
-	
-	@Column(name = "CERTIFICATION_COMPLETE_FLAG", length = 4)
-	public String getCertificationCompleteFlag() {
-		return certificationCompleteFlag;
-	}
-
-	
-	public void setCertificationCompleteFlag(String certificationCompletetionFlag) {
-		this.certificationCompleteFlag = certificationCompletetionFlag;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATED_DATE", nullable = false, length = 7)
 	public Date getCreatedDate() {
@@ -355,6 +334,124 @@ public class Project implements java.io.Serializable {
 
 	public void setLastChangedBy(String lastChangedBy) {
 		this.lastChangedBy = lastChangedBy;
+	}
+
+	@Column(name = "SUBPROJECT_FLAG", length = 4)
+	public String getSubprojectFlag() {
+		return this.subprojectFlag;
+	}
+
+	public void setSubprojectFlag(String subprojectFlag) {
+		this.subprojectFlag = subprojectFlag;
+	}
+
+	@Column(name = "PARENT_PROJECT_ID", precision = 10, scale = 0)
+	public Long getParentProjectId() {
+		return this.parentProjectId;
+	}
+
+	public void setParentProjectId(Long parentProjectId) {
+		this.parentProjectId = parentProjectId;
+	}
+
+	@Column(name = "LATEST_VERSION_FLAG", length = 4)
+	public String getLatestVersionFlag() {
+		return this.latestVersionFlag;
+	}
+
+	public void setLatestVersionFlag(String latestVersionFlag) {
+		this.latestVersionFlag = latestVersionFlag;
+	}
+
+	@Column(name = "PROJECT_GROUP_ID", nullable = false, precision = 10, scale = 0)
+	public Long getProjectGroupId() {
+		return this.projectGroupId;
+	}
+
+	public void setProjectGroupId(Long projectGroupId) {
+		this.projectGroupId = projectGroupId;
+	}
+
+	@Column(name = "SUBPROJECT_GROUP_ID", precision = 10, scale = 0)
+	public Long getSubprojectGroupId() {
+		return this.subprojectGroupId;
+	}
+
+	public void setSubprojectGroupId(Long subprojectGroupId) {
+		this.subprojectGroupId = subprojectGroupId;
+	}
+
+
+	@Column(name = "SUBMISSION_REASON_ID", nullable = false, precision = 10, scale = 0)
+	public Long getSubmissionReasonId() {
+		return this.submissionReasonId;
+	}
+
+	public void setSubmissionReasonId(Long submissionReasonId) {
+		this.submissionReasonId = submissionReasonId;
+	}
+
+	@Column(name = "CERTIFICATION_COMPLETE_FLAG", length = 1)
+	public String getCertificationCompleteFlag() {
+		return this.certificationCompleteFlag;
+	}
+
+	public void setCertificationCompleteFlag(String certificationCompleteFlag) {
+		this.certificationCompleteFlag = certificationCompleteFlag;
+	}
+
+	@Column(name = "PI_FIRST_NAME", length = 120)
+	public String getPiFirstName() {
+		return this.piFirstName;
+	}
+
+	public void setPiFirstName(String piFirstName) {
+		this.piFirstName = piFirstName;
+	}
+
+	@Column(name = "PI_LAST_NAME", length = 120)
+	public String getPiLastName() {
+		return this.piLastName;
+	}
+
+	public void setPiLastName(String piLastName) {
+		this.piLastName = piLastName;
+	}
+
+	@Column(name = "POC_FIRST_NAME", length = 120)
+	public String getPocFirstName() {
+		return this.pocFirstName;
+	}
+
+	public void setPocFirstName(String pocFirstName) {
+		this.pocFirstName = pocFirstName;
+	}
+
+	@Column(name = "POC_LAST_NAME", length = 120)
+	public String getPocLastName() {
+		return this.pocLastName;
+	}
+
+	public void setPocLastName(String pocLastName) {
+		this.pocLastName = pocLastName;
+	}
+
+	@Column(name = "PD_FIRST_NAME", length = 120)
+	public String getPdFirstName() {
+		return this.pdFirstName;
+	}
+
+	public void setPdFirstName(String pdFirstName) {
+		this.pdFirstName = pdFirstName;
+	}
+
+	@Column(name = "PD_LAST_NAME", length = 120)
+	public String getPdLastName() {
+		return this.pdLastName;
+	}
+
+	public void setPdLastName(String pdLastName) {
+		this.pdLastName = pdLastName;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
