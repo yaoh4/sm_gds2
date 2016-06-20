@@ -26,7 +26,7 @@ public class Study implements java.io.Serializable {
 	private InstitutionalCertification institutionalCertification;
 	private String studyName;
 	private String institutionName;
-	private String dulVerificationCode;
+	private Long dulVerificationId;
 	private Date createdDate;
 	private String createdBy;
 	private Date lastChangedDate;
@@ -46,13 +46,13 @@ public class Study implements java.io.Serializable {
 	}
 
 	public Study(Long id, InstitutionalCertification institutionalCertification, String studyName,
-			String institutionName, String dulVerificationCode, Date createdDate, String createdBy,
+			String institutionName, Long dulVerificationId, Date createdDate, String createdBy,
 			Date lastChangedDate, String lastChangedBy, Set<StudiesDulSet> studiesDulSets) {
 		this.id = id;
 		this.institutionalCertification = institutionalCertification;
 		this.studyName = studyName;
 		this.institutionName = institutionName;
-		this.dulVerificationCode = dulVerificationCode;
+		this.dulVerificationId = dulVerificationId;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 		this.lastChangedDate = lastChangedDate;
@@ -99,13 +99,13 @@ public class Study implements java.io.Serializable {
 		this.institutionName = institutionName;
 	}
 
-	@Column(name = "DUL_VERIFICATION_CODE", length = 8)
-	public String getDulVerificationCode() {
-		return this.dulVerificationCode;
+	@Column(name = "DUL_VERIFICATION_ID", precision = 10, scale = 0)
+	public Long getDulVerificationId() {
+		return this.dulVerificationId;
 	}
 
-	public void setDulVerificationCode(String dulVerificationCode) {
-		this.dulVerificationCode = dulVerificationCode;
+	public void setDulVerificationId(Long dulVerificationId) {
+		this.dulVerificationId = dulVerificationId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

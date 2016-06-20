@@ -26,6 +26,7 @@ public class PlanAnswerSelection implements java.io.Serializable {
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
+	private String otherText;
 
 	public PlanAnswerSelection() {
 	}
@@ -119,4 +120,12 @@ public class PlanAnswerSelection implements java.io.Serializable {
 		this.lastChangedBy = lastChangedBy;
 	}
 
+	@Column(name = "OTHER_TEXT", length = 800)
+	public String getOtherText() {
+		return this.otherText;
+	}
+
+	public void setOtherText(String otherText) {
+		this.otherText = otherText;
+	}
 }
