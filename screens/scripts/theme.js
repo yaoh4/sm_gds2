@@ -56,15 +56,27 @@ $(document).ready(function(){
     });
 });
 
+//for all pages when user doesn't save on form//
 
 $(function() {
 
-    // Enable on all forms
-    $('#submission_status_form').areYouSure();
-
+    $(document).ready(function() {
+    formmodified=0;
+    $('form *').change(function(){
+        formmodified=1;
+    });
+    window.onbeforeunload = confirmExit;
+    function confirmExit() {
+        if (formmodified == 1) {
+            return "New information not saved. Do you wish to leave the page?";
+        }
+    }
+    $("input[name='commit']").click(function() {
+        formmodified = 0;
+    });
 });
 
-
+});
 
 
 

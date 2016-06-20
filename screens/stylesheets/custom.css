@@ -1,5 +1,5 @@
 body { 
-	padding-top: 200px; 
+	padding-top: 225px; 
 	
 	font-family: 'Source Sans Pro';
 	font-size: 14px;
@@ -77,6 +77,10 @@ h6 {
 /********************************************************************/
 /*** Main Navigation ***/
 
+.GDS {
+  margin: 5px 0px 0px 2px;
+}
+
 .navbar-fixed-top {
    
     background-color: #FFF;
@@ -90,6 +94,7 @@ h6 {
   margin: 10px 0px 10px 0px;
 
 }
+
 
 
 .nav {
@@ -168,7 +173,7 @@ h6 {
 /*Main Project nav bar*/
 
 .navbar-default2 {
-  margin-top: 100px;
+  margin-top: 130px;
       background: #123e57;
       border: none;
 }
