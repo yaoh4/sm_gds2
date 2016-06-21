@@ -27,10 +27,10 @@
 		<action name="editIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>
 		</action>
-		<action name="deleteIc" method="deleteIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="deleteIc" method="deleteIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIcList</result>
 		</action>
-		<action name="saveIc" method="saveIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="saveIc" method="saveIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIcList</result>
 		</action>
 		<action name="addStudy" method="addStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
