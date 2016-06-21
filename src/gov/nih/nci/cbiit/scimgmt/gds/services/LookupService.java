@@ -2,6 +2,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.services;
 
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 
@@ -70,6 +71,6 @@ public interface LookupService {
 	 * @param lookupList
 	 * @return
 	 */
-	public List<?> updateDocList(String docList, List<?> lookupList);
+	public List<Organization> updateDocList(String docList, List<Organization> updatedDocList);
 	
 }

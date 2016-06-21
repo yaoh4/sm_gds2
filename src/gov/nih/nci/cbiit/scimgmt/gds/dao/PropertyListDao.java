@@ -4,6 +4,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 
@@ -108,13 +109,11 @@ public class PropertyListDao {
 		 * 
 		 * @return
 		 */
-		public List<?> getDocList(String docList) {
+		public List<Organization> getDocList(String docList) {
 			
 			logger.info("Retrieving DOC list from DB");
-			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PlanQuestionsAnswer.class);
-		
-		
-			return criteria.list();
-			
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Organization.class);
+			List<Organization> orgList = criteria.list();	
+			return orgList;
 		}
 }

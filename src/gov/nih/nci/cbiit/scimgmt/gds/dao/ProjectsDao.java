@@ -13,9 +13,11 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 
 /**
@@ -116,14 +118,21 @@ public class ProjectsDao {
 	}
 	
 	/**
-	 * This method retrieves Intramural / Grant / Contract List
+	 * This method retrieves Grant / Contract List
 	 * @return
 	 */
-	public List<Object> getIntramuralGrantOrContractList(){
-		logger.info("Retrieving Intramural / Grant / Contract List from DB");
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Object.class);
-	
-	
-		return criteria.list();
+	@SuppressWarnings("unchecked")
+	public List<GdsGrantsContracts> getGrantOrContractList(String grantContractNum){
+
+		logger.info("Retrieving  Grant / Contract List from DB for grantContractNum: "+grantContractNum);
+		try {
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsGrantsContracts.class);	
+			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum));
+			return criteria.list();
+
+		}catch (RuntimeException re) {
+			logger.error("Retrieving  Grant / Contract List failed", re);
+			throw re;
+		}
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
@@ -115,7 +116,7 @@ public class LookupServiceImpl implements LookupService {
 	 *  Retrieve from the cache if present, else from the DB
 	 */
 	@Cacheable(key = "#docList")
-	public List<?> getDocList(String docList) {
+	public List<Organization> getDocList(String docList) {
 	  	
 		logger.info("Loading docList from DB");
 		return propertyListDAO.getDocList(docList);	  	
@@ -128,7 +129,7 @@ public class LookupServiceImpl implements LookupService {
 	 * @return
 	 */
 	@CachePut(key="#docList")
-	public List<?> updateDocList(String docList, List<?> updatedDocList) {
+	public List<Organization> updateDocList(String docList, List<Organization> updatedDocList) {
 		return updatedDocList;
 	}
 	

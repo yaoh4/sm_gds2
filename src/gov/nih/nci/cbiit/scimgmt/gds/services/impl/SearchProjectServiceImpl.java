@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.ProjectsDao;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 
@@ -43,8 +44,8 @@ public class SearchProjectServiceImpl implements SearchProjectService {
 	 * This method retrieves Intramural / Grant / Contract List
 	 * @return
 	 */
-	public List<Object> getIntramuralGrantOrContractList(){
-		return projectsDAO.getIntramuralGrantOrContractList();
+	public List<GdsGrantsContracts> getGrantOrContractList(String grantContractNum){
+		return projectsDAO.getGrantOrContractList(grantContractNum);
 	}
 	
 }

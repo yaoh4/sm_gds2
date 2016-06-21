@@ -59,6 +59,7 @@ public class Project implements java.io.Serializable {
 	private String piLastName;
 	private String pocFirstName;
 	private String pocLastName;
+	private String pocEmailAddress;
 	private String pdFirstName;
 	private String pdLastName;
 	private Set<StatusHistory> statusHistories = new HashSet(0);
@@ -438,6 +439,15 @@ public class Project implements java.io.Serializable {
 
 	public void setPocLastName(String pocLastName) {
 		this.pocLastName = pocLastName;
+	}
+
+	@Column(name = "POC_EMAIL_ADDRESS", length = 320)
+	public String getPocEmailAddress() {
+		return pocEmailAddress;
+	}
+
+	public void setPocEmailAddress(String pocEmailAddress) {
+		this.pocEmailAddress = pocEmailAddress;
 	}
 
 	@Column(name = "PD_FIRST_NAME", length = 120)

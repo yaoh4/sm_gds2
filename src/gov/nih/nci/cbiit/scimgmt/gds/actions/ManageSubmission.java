@@ -51,26 +51,6 @@ public class ManageSubmission extends BaseAction {
         return SUCCESS;
 	}
 	
-	
-
-	/**
-	 * Save General Information
-	 * 
-	 * @return forward string
-	 */
-	public String saveGeneralInfo() throws Exception {
-		logger.debug("saveGeneralInfo");
-        
-        return SUCCESS;
-	}
-	
-	/**
-	 * Validate Save General Info
-	 */
-	public void validateSaveGeneralInfo() {
-		logger.debug("validateSaveGeneralInfo");
-	}
-
 	/**
 	 * Save Institutional Certificate
 	 * 
