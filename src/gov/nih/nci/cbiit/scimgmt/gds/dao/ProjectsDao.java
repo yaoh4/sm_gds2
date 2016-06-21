@@ -9,6 +9,7 @@ import javax.naming.InitialContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -83,6 +84,7 @@ public class ProjectsDao {
 			if (instance == null) {
 				logger.debug("get successful, no instance found");
 			} else {
+				Hibernate.initialize(instance.getPlanAnswerSelection());
 				logger.debug("get successful, instance found");
 			}
 			return instance;
