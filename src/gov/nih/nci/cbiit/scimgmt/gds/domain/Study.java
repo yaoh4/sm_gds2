@@ -154,5 +154,9 @@ public class Study implements java.io.Serializable {
 	public void setStudiesDulSets(Set<StudiesDulSet> studiesDulSets) {
 		this.studiesDulSets = studiesDulSets;
 	}
+	
+	public void addStudiesDulSet(StudiesDulSet studiesDulSet) {
+		this.studiesDulSets.add(studiesDulSet);
+	}
 
 }

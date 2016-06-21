@@ -1,8 +1,10 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Mar 4, 2016 12:46:29 PM by Hibernate Tools 4.0.0
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,8 +35,8 @@ public class InstitutionalCertification implements java.io.Serializable {
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
-	private Set<Document> documents = new HashSet(0);
-	private Set<Study> studies = new HashSet(0);
+	private Document document;
+	private List<Study> studies = new ArrayList(0);
 
 	public InstitutionalCertification() {
 	}
@@ -48,7 +50,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 
 	public InstitutionalCertification(Long id, Project project, String gpaApprovalCode,
 			String provisionalFinalCode, String futureProjectUseFlag, String comments, Date createdDate,
-			String createdBy, Date lastChangedDate, String lastChangedBy, Set documents, Set studies) {
+			String createdBy, Date lastChangedDate, String lastChangedBy, Document document, List studies) {
 		this.id = id;
 		this.project = project;
 		this.gpaApprovalCode = gpaApprovalCode;
@@ -59,7 +61,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
-		this.documents = documents;
+		this.document = document;
 		this.studies = studies;
 	}
 
@@ -159,21 +161,26 @@ public class InstitutionalCertification implements java.io.Serializable {
 	}
 
 	@Transient
-	public Set<Document> getDocuments() {
-		return this.documents;
+	public Document getDocument() {
+		return this.document;
 	}
 
-	public void setDocuments(Set<Document> documents) {
-		this.documents = documents;
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "institutionalCertification")
-	public Set<Study> getStudies() {
+	public List<Study> getStudies() {
 		return this.studies;
 	}
 
-	public void setStudies(Set<Study> studies) {
+	public void setStudies(List<Study> studies) {
 		this.studies = studies;
+	}
+	
+	
+	public void addStudy(Study study) {
+		studies.add(study);
 	}
 
 }

@@ -4,12 +4,12 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
@@ -56,11 +56,10 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		InstitutionalCertification instCertification = retrieveIC();
 		if(instCertification != null) {
-					
 			Long docTypeId = lookupService.getLookupByCode(ApplicationConstants.DOC_TYPE, "IC").getId();
 			List<Document> docs = fileUploadService.retrieveFileByDocType(docTypeId.toString(), instCertification.getProject().getId());
 			if(docs != null && !docs.isEmpty()) {
-				instCertification.setDocuments(new HashSet(docs));
+				instCertification.setDocument(docs.get(0));
 			}
 			setInstCertification(instCertification);
 		} else {
@@ -97,10 +96,9 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	
 	public void validateSaveIc() {
+		
 		InstitutionalCertification instCert = getInstCertification();
-		
-		
-		Set<Study> icSet = instCert.getStudies();
+		List<Study> icSet = instCert.getStudies();
 		//Map used to keep track of duplicate DulSets
 		HashMap<String, Integer> validationMap = new HashMap<String, Integer>();
 		int studyIndex = 0;
@@ -111,7 +109,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			Set<StudiesDulSet> studiesDulSets = study.getStudiesDulSets();
 			for(StudiesDulSet dulSet: studiesDulSets) {
 				dulSetIndex++;
-				Set<DulChecklistSelection> dulChecklistSelections = dulSet.getDulChecklistSelections();
+				List<DulChecklistSelection> dulChecklistSelections = dulSet.getDulChecklistSelections();
 				String dulSelection = "";
 				//Loop through all the selections in a set and create a unique String
 				//value to represent the set based on the selections. This value will
@@ -170,6 +168,75 @@ public class IcSubmissionAction extends ManageSubmission {
 		return SUCCESS;
 	}
 	
+	/**
+	 * Add an empty study to the selected IC
+	 */
+	public String addStudy() {
+		//Get the  currently selected IC
+		InstitutionalCertification instCert = getInstCertification();
+		
+		Study study = new Study();
+		study.setInstitutionalCertification(instCert);
+		instCertification.addStudy(study);
+		setInstCertification(instCertification);
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * Add an empty Dul to the selected Study
+	 */
+	public String addDul() {
+		
+		InstitutionalCertification instCert = getInstCertification();
+		String selectedStudyIndex = ServletActionContext.getRequest().getParameter("studyIndex");
+		List<Study> studies = instCert.getStudies();
+		Study study = studies.get(Integer.parseInt(selectedStudyIndex));
+		
+		StudiesDulSet studiesDulSet = new StudiesDulSet();
+		studiesDulSet.setStudy(study);
+		study.addStudiesDulSet(studiesDulSet);
+		instCert.setStudies(studies);
+		setInstCertification(instCert);
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * Remove the specified study from the IC
+	 * @return
+	 */
+	public String removeStudy() {
+		
+		InstitutionalCertification instCert = getInstCertification();
+		String selectedStudyIndex = ServletActionContext.getRequest().getParameter("studyIndex");
+		List<Study> studies = instCert.getStudies();
+		
+		studies.remove(selectedStudyIndex);
+		instCert.setStudies(studies);
+		setInstCertification(instCert);
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * Remove the specified DUL from a selected study on the IC
+	 * @return
+	 */
+	public String removeDul() {
+		
+		InstitutionalCertification instCert = getInstCertification();
+		String parentStudyIndex = ServletActionContext.getRequest().getParameter("studyIndex");
+		String selectedDulIndex = ServletActionContext.getRequest().getParameter("dulIndex");
+		List<Study> studies = instCert.getStudies();
+		
+		studies.get(Integer.parseInt(parentStudyIndex)).getStudiesDulSets().remove(selectedDulIndex);
+		instCert.setStudies(studies);
+		setInstCertification(instCert);
+		
+		return SUCCESS;
+		
+	}
 	
 	
 	/**
