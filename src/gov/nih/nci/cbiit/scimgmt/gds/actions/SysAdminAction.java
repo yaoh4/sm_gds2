@@ -2,6 +2,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
@@ -25,6 +26,9 @@ public class SysAdminAction extends BaseAction {
     
     @Autowired
 	LookupService lookupService;
+    
+    @Autowired
+	PlanQuestionList planQuestionList;
     
     private static final String ADMIN_TASK_RELOAD_PROPERTIES="RELOAD_PROPERTIES";
     private static final String ADMIN_TASK_REFRESH_LISTS="REFRESH_LISTS";
@@ -93,6 +97,7 @@ public class SysAdminAction extends BaseAction {
     private void refreshLists(){
     	logger.info("Initiating Refresh lists...");
     	gdsProperties.loadLookupLists();
+    	planQuestionList.reinit();
         logger.info("Refresh lists completed");
     }
     

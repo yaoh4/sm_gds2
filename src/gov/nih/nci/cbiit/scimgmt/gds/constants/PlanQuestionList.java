@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 
@@ -79,7 +80,23 @@ public class PlanQuestionList {
 		return null;
 	}
 
-
+	/**
+	 * Gets the Answer object by answer id only
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public static PlanQuestionsAnswer getAnswerByAnswerId(Long id) {
+		for (Entry<Long, List<PlanQuestionsAnswer>> e : listMap.entrySet()) {
+			for (PlanQuestionsAnswer i : listMap.get(e.getKey())) {
+				if (i.getId().equals(id)) {
+					return i;
+				}
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * Instantiates a new Plan Questions Answers lists.
 	 */
