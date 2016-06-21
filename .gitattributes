@@ -502,6 +502,7 @@ WebContent/stylesheets/table.css -text
 build/build.xml -text
 build/env.properties -text
 build/user.properties -text
+database/gds_v1.0.sql -text
 lib/tomcat/catalina-ant.jar -text
 lib/tomcat/jasper.jar -text
 lib/tomcat/jsp-api.jar -text
