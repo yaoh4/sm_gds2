@@ -51,98 +51,6 @@ public class ManageSubmission extends BaseAction {
         return SUCCESS;
 	}
 	
-	/**
-	 * Save Institutional Certificate
-	 * 
-	 * @return forward string
-	 */
-	public String saveIcAndDul() throws Exception {
-		logger.debug("saveIcAndDul");
-        
-        return SUCCESS;
-	}
-	
-	/**
-	 * Validate Save Institutional Certificate
-	 */
-	public void validateSaveIcAndDul() {
-		logger.debug("validateSaveIcAndDul");
-	}
-	
-	/**
-	 * Save Basic Study Info
-	 * 
-	 * @return forward string
-	 */
-	public String saveBasicStudyInfo() throws Exception {
-		logger.debug("saveBasicStudyInfo");
-        
-        return SUCCESS;
-	}
-	
-	/**
-	 * Validate Save Basic Study Info
-	 */
-	public void validateSaveBasicStudyInfo() {
-		logger.debug("validateSaveBasicStudyInfos");
-	}
-	
-	/**
-	 * Delete Institutional Certificate
-	 * 
-	 * @return forward string
-	 */
-	public String deleteIcAndDul() throws Exception {
-		logger.debug("deleteIcAndDul");
-        
-        return SUCCESS;
-	}
-	
-	/**
-	 * Add Study to Institutional Certificate
-	 * 
-	 * @return forward string
-	 */
-	public String addStudy() throws Exception {
-		logger.debug("addStudy");
-        
-        return SUCCESS;
-	}
-	
-	/**
-	 * Delete Study from Institutional Certificate
-	 * 
-	 * @return forward string
-	 */
-	public String deleteStudy() throws Exception {
-		logger.debug("deleteStudy");
-        
-        return SUCCESS;
-	}
-	
-	/**
-	 * Add Data Use Limitation to Study
-	 * 
-	 * @return forward string
-	 */
-	public String addDul() throws Exception {
-		logger.debug("addDul");
-        
-        return SUCCESS;
-	}
-	
-	/**
-	 * Delete Data Use Limitation from Study
-	 * 
-	 * @return forward string
-	 */
-	public String deleteDul() throws Exception {
-		logger.debug("deleteDul");
-        
-        return SUCCESS;
-	}
-
-
 
 	/**
 	 * @return the selectedProject
@@ -150,7 +58,6 @@ public class ManageSubmission extends BaseAction {
 	public Project getProject() {
 		return project;
 	}
-
 
 
 	/**
@@ -174,7 +81,6 @@ public class ManageSubmission extends BaseAction {
 		} 
 		
 		return null;
-	
 	}
 	
 	
@@ -186,6 +92,7 @@ public class ManageSubmission extends BaseAction {
 		
 	}
 
+	
 	/**
 	 * Delete a file using document id
 	 */
