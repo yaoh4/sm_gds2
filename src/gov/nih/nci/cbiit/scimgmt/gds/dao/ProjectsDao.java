@@ -87,6 +87,7 @@ public class ProjectsDao {
 				logger.debug("get successful, no instance found");
 			} else {
 				Hibernate.initialize(instance.getPlanAnswerSelection());
+				Hibernate.initialize(instance.getRepositoryStatuses());
 				logger.debug("get successful, instance found");
 			}
 			return instance;

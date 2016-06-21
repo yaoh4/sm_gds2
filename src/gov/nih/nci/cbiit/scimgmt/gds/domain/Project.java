@@ -486,7 +486,7 @@ public class Project implements java.io.Serializable {
 		this.documents = documents;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
 	public Set<PlanAnswerSelection> getPlanAnswerSelection() {
 		return this.planAnswerSelections;
@@ -505,7 +505,8 @@ public class Project implements java.io.Serializable {
 		return null;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
+	@Cascade({CascadeType.ALL})
 	public Set<RepositoryStatus> getRepositoryStatuses() {
 		return this.repositoryStatuses;
 	}
