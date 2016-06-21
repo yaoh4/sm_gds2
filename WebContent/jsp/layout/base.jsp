@@ -9,10 +9,15 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta charset="utf-8" />
 <title><tiles:insertAttribute name="title" /></title>
 <script type="text/javascript" src="<s:url value="/scripts/jquery.js" />"></script>
+<script type="text/javascript" src="<s:url value="/scripts/app.js" />"></script>
+<script type="text/javascript" src="<s:url value="/scripts/main.js" />"></script>
+<script type="text/javascript" src="<s:url value="/scripts/table.js" />"></script>
 <script type="text/javascript" src="<s:url value="/scripts/tooltipjquery.js" />"></script>
 <script type="text/javascript" src="<s:url value="/scripts/theme.js" />"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
@@ -23,6 +28,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
 <link href="<s:url value="/stylesheets/custom.css" />" rel="stylesheet" type="text/css" media="screen" />
+<link href="<s:url value="/stylesheets/table.css" />" rel="stylesheet" type="text/css" media="screen" />
+<link href="<s:url value="/stylesheets/styles.css" />" rel="stylesheet" type="text/css" media="screen" />
+<link href="<s:url value="/stylesheets/displaytag.css" />" rel="stylesheet" type="text/css" media="screen" />
+
 <s:head />
 
 </head>

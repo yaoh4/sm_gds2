@@ -50,11 +50,15 @@ public class IcSubmissionAction extends ManageSubmission {
 						
 		logger.debug("execute");
 		
+		//TODO !!! - Temporary code, remove later
+		//ServletActionContext.getRequest().setAttribute("projectId", "1");
+		setProjectId("1");
+		
 		InstitutionalCertification instCertification = retrieveIC();
 		if(instCertification != null) {
 					
 			Long docTypeId = lookupService.getLookupByCode(ApplicationConstants.DOC_TYPE, "IC").getId();
-			List<Document> docs = fileUploadService.retrieveFileByDocType(docTypeId, instCertification.getProject().getId());
+			List<Document> docs = fileUploadService.retrieveFileByDocType(docTypeId.toString(), instCertification.getProject().getId());
 			if(docs != null && !docs.isEmpty()) {
 				instCertification.setDocuments(new HashSet(docs));
 			}
@@ -94,6 +98,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	public void validateSaveIc() {
 		InstitutionalCertification instCert = getInstCertification();
+		
 		
 		Set<Study> icSet = instCert.getStudies();
 		//Map used to keep track of duplicate DulSets

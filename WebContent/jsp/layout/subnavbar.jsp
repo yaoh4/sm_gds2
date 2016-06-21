@@ -27,7 +27,7 @@
 					<li class="active"><s:a href="javascript: void(0)">Institutional Certification(s)</s:a></li>
 				</s:if>
 				<s:else>
-					<li><s:a href="/gds/manage/saveGdsPlan.action">Institutional Certification(s)</s:a></li>
+					<li><s:a href="/gds/manage/editIc.action">Institutional Certification(s)</s:a></li>
 				</s:else>
 				<li class="divider-vertical"></li>
 				<s:if test="%{'bsi' eq #attr['subnavtab']}">
