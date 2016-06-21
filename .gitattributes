@@ -522,7 +522,9 @@ screens/fonts/glyphicons-halflings-regular.svg -text
 screens/fonts/glyphicons-halflings-regular.ttf -text
 screens/fonts/glyphicons-halflings-regular.woff -text
 screens/fonts/glyphicons-halflings-regular.woff2 -text
+screens/general.htm -text
 screens/general_info.htm -text
+screens/grants.htm -text
 screens/home.htm -text
 screens/images/CriteriaClosed.gif -text
 screens/images/CriteriaOpen.gif -text
@@ -549,6 +551,7 @@ screens/images/pending.png -text
 screens/images/subV.png -text
 screens/modals/errorReport3.htm -text
 screens/modals/searchRepositoryTable.htm -text
+screens/newSubmission.htm -text
 screens/repository.htm -text
 screens/repositorytest.htm -text
 screens/scripts/app.js -text
@@ -563,6 +566,7 @@ screens/scripts/objects.txt -text
 screens/scripts/table.js -text
 screens/scripts/theme.js -text
 screens/scripts/tooltipjquery.js -text
+screens/scripts/validator.js -text
 screens/search.htm -text
 screens/search2.htm -text
 screens/stylesheets/bootstrap-theme.css -text

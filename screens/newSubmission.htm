@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>Genomic Data Sharing (GDS) Tracking System</title>
+  
+
+    <!-- Bootstrap -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
+    <link href="stylesheets/non-responsive.css" rel="stylesheet">
+   
+ 
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
+   <link href="stylesheets/custom.css" rel="stylesheet">
+
+
+
+
+
+</head>
+  <body class="noSubNav">
+    <!-- header-->
+     <div class="logo-header"> </div>
+
+<!-- Fixed navbar -->
+
+    <!-- Fixed navbar -->
+
+    <div id="wrap">
+<div class="navbar  navbar-fixed-top" >
+   <div class="container">
+      <div id="logo" class="logoImage">
+        <img src="images/nci-logo-full.svg" width="450px;"  alt="National Cancer Institute">
+        <div id="loginName" style="float:right; padding-top:15px; padding-bottom: 15px; margin-right: 15px;" class="nav navbar-nav">Welcome: <div id="loginID" class="login">Mary Jones</div></div>
+        <div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
+
+        
+      </div>
+
+
+ <!--Main Navigation -->
+     
+       <nav>
+        <div id="mainNav" class="navbar-collapse collapse" style="display:block;">
+          <ul class="nav navbar-nav navbar-main searchNav">
+            <li><a href="home.htm">Home</a></li>
+          
+            <li><a href="newSubmission.htm" class="active">Create New Submission</a></li>
+             <li><a href="search.htm" >Search</a></li>
+           
+              </ul>
+            </li>
+          </ul>
+           
+           </div>
+           </nav>
+          
+  
+
+
+  <div class="navbar navbar-default2 navbar-fixed-top" >   
+
+
+          
+
+
+             <!--Page Header -->
+      <div class="searchHeader" id="pageHeader"><div class="titleWrapper container"><h3>Create New Submission</h3></div></div>
+          </div>   
+
+            
+        </div>
+
+     
+   
+</div>
+
+
+   <div class="container">
+    
+
+<!--Begin Form -->
+<form id="create_submission" name="create_submission_form" data-toggle="validator" role="form">  
+
+        <div class="pageNav"><!-- Page navbar -->
+       
+         
+      
+          <input name="" type="button" value=" Save &amp; Next &raquo; " class="btn btn-default" onclick="window.location.href='dataSharing.htm'">
+
+        </div>
+
+   
+
+      
+        <!-- Begin Panel -->
+   <div class="col-md-12">
+       <div class="panel  project-panel-primary">
+                
+                    
+          <div class="panel-body">
+            <p class="question">1. Do you want to create a project or a sub-project?</p>
+                <div class="radio">
+                    <label><input type="radio"  name="project" value="1" id="newProj">Project </label>
+                </div>
+
+                <div class="radio">
+                    <label><input type="radio"  name="project" value="project" id="newSubproj">Sub-project </label>
+                </div>
+
+                <div class="radio">
+                    <label><input type="radio"  name="project" value="project" id="newVerProj">New Version of an Existing Project</label>
+                </div>
+
+                <div class="radio">
+                    <label><input type="radio"  name="project" value="project" id="newVerSubProj">New Version of an Existing Project</label>
+                </div>
+
+                          
+              
+
+                
+                <!--If Project is selected Question #2 appears -->
+                <div style="display:none;"  id="whyProject" >
+                  <p>&nbsp;</p>
+                  <p class="question">2. Why is the project being submitted?</p>
+                   <div class="radio">
+                    <label><input type="radio" name="why" value="project" id="GDSPolicy">Required by GDS Policy</label>
+                   </div> 
+
+                  <div class="radio">
+                  <label><input type="radio" name="why" value="sub-Project" id="GWASPolicy">Required by GWAS Policy</label>
+                  </div>
+
+                  <div class="radio">
+                  <label><input type="radio" name="why" value="sub-Project" id="NIHFunded">Optional Submission &ndash; NIH Funded</label>
+                  </div>  
+                  
+                  <div class="radio">
+                  <label><input type="radio" name="why" value="sub-Project" id="nonNIH">Optional Submission &ndash; Non-NIH Funded</label>
+                  </div>  
+                  
+                  
+                </div> 
+                  
+
+          </div><!--end panel body-->
+
+
+        </div><!-end panel-->
+
+
+        <!--BEGIN GEN INFO-->
+
+      <div class="panel  project-panel-primary" id="genInfoPanel" style="display:none;">
+         <div class="panel-heading"><div class="pheader"><h4>General Information&nbsp;</h4></div>
+         </div>  
+
+         <p style="font-size: 12px; margin-left: 15px; margin-top: 5px;">Note: <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Asterisk indicates a required field      
+          
+          <div class="panel-body">
+
+             <div class="form-group row has-feedback">
+                    <div class="col-xs-5">
+                    <label for="Division/Office/Center"><i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp; Division/Office/Center</label>
+                    <select class="c-select form-control" id="DOC">
+                    <option selected disabled hidden value=''></option>
+                    <option value="CCR" class="intramural">CCR</option>
+                    <option>DCB</option>
+                    <option value="DCCPS" class="extramural">DCCPS</option>
+                    <option class="intramural">DCEG</option>
+                    <option>DCP</option>
+                    <option>DCS</option>
+                    <option>DCTD</option>
+                    <option>DEA</option>
+                    <option>OD</option>
+                    <option>OD CBIIT</option>
+                    <option>OD CCG</option>
+                    <option>OD CCT</option>
+                    <option>OD CGH</option>
+                    <option>OD CRCHD</option>
+                    <option>OD CSSI</option>
+                    <option>OD OCC</option>
+                    <option>OD OCPL</option>
+                    <option>OD OHAM</option>
+                    <option>OD OIA</option>
+                    <option>OD OSO</option>
+                    <option>OD OSPA</option>
+                    <option>OD SBIR</option>
+                    <option>OD OM</option>
+                    <option>OD OM ARCCCR</option>
+                    <option>OD OM ARCDCEG</option>
+                    <option>OD OM ARCDCTD</option>
+                    <option>OD OM ARCOD</option>
+                    <option>OD OM ARCOM</option>
+                    <option>OD OM DCP</option>
+                    <option>OD OM DEA</option>
+                    <option>OD OM EO</option>
+                    <option>OD OM ITRC</option>
+                    <option>OD OM OA</option>
+                    <option>OD OM OAO</option>
+                    <option>OD OM OBF</option>
+                    <option>OD OM OEFIA</option>
+                    <option>OD OM OGA</option>
+                    <option>OD OM OGCR</option>
+                    <option>OD OM OMPC</option>
+                    <option>OD OM OSFM</option>
+                    <option>OD OM OWM</option>
+                    <option>OD OM OWMD</option>
+                    <option>OD OM OWPD</option>
+                    <option>OD OM TTC</option>
+                    <option>OD OM WMRC</option>
+                          </select>
+                    </div>
+                  </div>
+
+      <div class="form-group row has-feedback">
+                        <div class="col-xs-5">                  
+                       <label for="Program Branch"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Program Branch</label>
+                        <input type="text" class="form-control" id="programBranch" placeholder="Enter Full Branch Name" ></input>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div>                   
+                    </div>  
+
+      <div class="form-group row">
+                        <div class="col-xs-5">                  
+                       <label for="Intramural (Z01)/Grant/Contract #">Intramural (Z01)/Grant/Contract #</label>
+      <div class="input-group2">
+      <input type="text" class="form-control" disabled placeholder="Click on Search Icon to Find # ">
+      <span class="input-group-btn"><a href="grants.htm" class="js-newWindow" data-popup="width=800,height=800,scrollbars=yes">
+        <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+      </a></span>                 
+                    </div> 
+                  </div>
+                </div>
+
+        <div class="form-group row has-feedback">
+                        <div class="col-xs-10">                  
+                       <label for="Project Title"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project Title</label>
+                        <input type="text" class="form-control" id="projectTitle" placeholder="" >
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div>                   
+                    </div>  
+
+            <div class="row">
+                        <div class="form-group col-xs-5 has-feedback">                  
+                       <label for="First Name of Principal Investigator"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First Name of Principal Investigator</label>
+                        <input type="text" class="form-control" id="fnPI" placeholder="" ></input>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div> 
+                          <div class="form-group col-xs-5 has-feedback">                  
+                       <label for="Last Name of Principal Investigator"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last Name of Principal Investigator</label>
+                        <input type="text" class="form-control" id="lnPI" placeholder="" ></input>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div>                    
+                    </div> 
+
+                   <div class="form-group row has-feedback">
+                        <div class="col-xs-5 ">                  
+                       <label for="Email of Principal Investigator"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email of Principal Investigator</label>
+                        <input type="email" class="form-control" id="PIemail" placeholder="Enter Vaild Email Address" data-error="Email address is invalid"></input>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div>
+                        <div class="help-block with-errors" style="margin-left: 15px"></div> 
+                    </div>  
+
+                        <div class="form-group row has-feedback">
+                        <div class="col-xs-5 ">                  
+                       <label for="Institution of Principal Investigator"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution of Principal Investigator</label>
+                        <input type="text" class="form-control" id="PIInstitute" placeholder="" ></input>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div>               
+                    </div> 
+
+                                <div class="row">
+                        <div class="form-group col-xs-5 has-feedback">                  
+                       <label for="First Name of Principal Investigator">First Name of Primary Contact</label>
+                        <input type="text" class="form-control" id="fnPC" placeholder="Required if No Principal Investigator" ></input>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div> 
+                          <div class="form-group col-xs-5 has-feedback">                  
+                       <label for="Last Name of Primary Contact">Last Name of Primary Contact</label>
+                        <input type="text" class="form-control" id="lnPC" placeholder="Required if No Principal Investigator" ></input>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div>                    
+                    </div> 
+
+                   <div class="form-group row has-feedback">
+                        <div class="col-xs-5">                  
+                       <label for="Email of Principal Investigator">Email of Primary Contact</label>
+                        <input type="email" class="form-control" id="PCemail" placeholder="Enter Vaild Email Address" data-error="Email address is invalid"></input>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div>
+                        <div class="help-block with-errors" style="margin-left: 15px"></div>            
+                    </div>
+
+
+                    <div class="row pdirector ">
+                        <div class="form-group col-xs-5 has-feedback">                  
+                       <label for="First Name of Program Director"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First Name of Program Director</label>
+                        <input type="text" class="form-control" id="fnPD" placeholder="" ></input>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div> 
+                          <div class="form-group col-xs-5 has-feedback">                  
+                       <label for="Last Name of Program Director"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>Last Name of Program Director</label>
+                        <input type="text" class="form-control" id="lnPD" placeholder="" ></input>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true" style="margin-right: 10px;"></span>
+                        </div>                    
+                    </div> 
+                  </div>
+
+                     <div class="row pdates">
+                     <div id="pStartDate" class="form-group col-xs-2 projectDates has-feedback">
+                          <label for="Project Start Date"><i class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project Start Date</label>
+                            <div class="input-group date">
+                            <input type="text" class="form-control" id="submission_cal-1"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            
+                            </div>
+                        </div>
+
+                           <div id="pEndDate" class="form-group col-xs-2 projectDates has-feedback">
+                          <label for="Project End Date"><i class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project End Date</label>
+                            <div class="input-group date">
+                            <input type="text" class="form-control" id="submission_cal-1"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            
+                            </div>
+                        </div>
+                       </div> 
+
+                      <div class="form-group row approvalDate has-feedback">
+                     <div id="approvalDate" class="col-xs-3 projectDates">
+                          <label for="Date Scientific Review Approval Received"><i class="fa fa-asterisk sAsterisk" aria-hidden="true">&nbsp;</i>Date Scientific Review<br/> Approval Received</label>
+                            <div class="input-group date">
+                            <input type="text" class="form-control" id="submission_cal-1"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            
+                            </div>
+                        </div>
+                        </div>   
+
+
+          </div> <!--end panel body-->
+      </div> <!--end panel-->  
+
+      <div class="pageNav"><!-- Page navbar -->
+       
+         
+      
+          <input name="" type="button" value=" Save &amp; Next &raquo; " class="btn btn-default" onclick="window.location.href='dataSharing.htm'">
+
+        </div>
+      </form>
+
+    </div> <!--end 12colspan-->
+
+        
+</div> <!-- /container -->
+
+
+
+
+
+      
+
+<!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+            <div id="nvcgSlFooter">
+  <div class="contentid-911586 slot-item only-SI">
+    
+
+<div class="row">
+<div class="large-12 columns footer-nci">National Cancer Institute<br> <span>at the National Institutes of Health</span></div>
+</div>
+<div class="row footer-utility">
+
+
+
+<div class="large-3 columns">
+
+
+
+  <ul>
+            <li><h4><a href="home.htm">Home</a></h4></li>
+            <li><h4><a href="mySubmissions.htm">My Sumbissions</a></h4></li>
+            <li><h4><a href="newSubmission.htm">Create New Submission</a></h4></li>
+             <li><h4><a href="search.htm">Search</a></h4></li>
+           
+              </ul>
+</div>
+<div class="large-4 columns">
+<h4>POLICIES</h4>
+<ul>
+<li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
+<li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
+<li><a href="/policies/foia" target="_blank">FOIA</a></li>
+<li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
+
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns agencies">
+<ul>
+<li><a  href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+<li><a href="http://www.nih.gov">National Institutes of Health</a></li>
+<li><a href="/">National Cancer Institute</a></li>
+<li class="last"><a href="http://usa.gov">USA.gov</a></li>
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>®</sup></div>
+</div>
+<a class="back-to-top" href="#top" style="display: inline;">TOP</a>
+  </div>
+</div>
+</div>
+        </footer>
+
+
+ 
+  
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+<script src="scripts/tooltipjquery.js" type="text/javascript"></script>
+    
+      <script src="scripts/theme.js" type="text/javascript"></script>
+
+ 
+ 
+  
+
+ 
+ <script src="scripts/bootstrap.min.js"></script>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+   <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+        
+     <script src="controllers/newSubmission.js"></script>
+     <script src="scripts/validator.js"></script>
+   
+   
+         
+
+
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
+       <script type="text/javascript">
+            $(function () {
+                $('#repositoryDate .input-group.date').datepicker({
+          orientation: "bottom auto",
+          todayHighlight: true
+          });
+                });
+
+
+        </script> 
+
+
+
+
+
+
+   
+         
+
+
+       
+  </body>
+</html>
+
