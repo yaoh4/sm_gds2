@@ -6,20 +6,6 @@
 	
 	<package name="manage" namespace="/manage" extends="default">
 	
-		<interceptors>
-			<interceptor-stack name="projectScopeStack">
-				<interceptor-ref name="logger" />
-				<interceptor-ref name="scope" >
-		    		<param name="key">stored</param>
-		    		<param name="session">project</param>
-		    	</interceptor-ref>					
-				<interceptor-ref name="defaultStack" />	
-				<interceptor-ref name="userInterceptor" />					
-			</interceptor-stack>	
-		</interceptors>
-		
-		<default-interceptor-ref name="projectScopeStack" />
-	
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchProjectAction">
 			 <result name="success" type="tiles">home</result>
 		</action>
@@ -70,6 +56,12 @@
 		</action>
 		<action name="deleteFile" method="deleteFile" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionGdsPlan</result>
+		</action>
+		<action name="uploadExceptionMemo" method="uploadExceptionMemo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
+			 <result type="json" name="success"><param name="root">doc</param></result>	
+		</action>
+		<action name="uploadDataSharingPlan" method="uploadDataSharingPlan" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
+			 <result type="json" name="success"><param name="root">doc</param></result>	
 		</action>
 		<action name="navigateToRepositoryStatus" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
 			 <result name="success" type="tiles">submissionRepositoryStatus</result>
