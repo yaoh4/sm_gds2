@@ -612,10 +612,12 @@ src/gov/nih/nci/cbiit/scimgmt/gds/dao/UserRoleDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Document.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/DulChecklist.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/DulChecklistSelection.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/GdsGrantsContracts.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/InstitutionalCertification.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Lookup.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/NedPerson.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/Organization.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/PlanAnswerSelection.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/PlanQuestionsAnswer.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Project.java -text
