@@ -36,6 +36,7 @@ public interface ApplicationConstants {
 	 /* Numeric constants */
 	 public static final Long PLAN_QUESTION_ANSWER_REPOSITORY_ID = 20L;
 	 public static final int  COMMENTS_MAX_ALLOWED_SIZE = 2000;
+	 public static final int  NED_PERSON_NIH_SAC_MIN_SIZE = 4;
 	 
 	 
 	     

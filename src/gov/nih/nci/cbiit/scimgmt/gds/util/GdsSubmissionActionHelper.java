@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.xml.sax.SAXException;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 
@@ -61,13 +64,12 @@ public class GdsSubmissionActionHelper {
 	/**
 	 * This method populates DocDropDownList from Object list
 	 * @param dropDownList
-	 * @param lookupList
+	 * @param docList
 	 */
-	public static void populateDocDropDownList(List<DropDownOption> dropDownList, List<Object> docList){
+	public static void populateDocDropDownList(List<DropDownOption> dropDownList, List<Organization> docList){
 		
-		for(Object lookup : docList ){
-			DropDownOption option = new DropDownOption();
-			//DropDownOption option = new DropDownOption(lookup.getId().toString(), lookup.getDescription());
+		for(Organization org : docList ){
+			DropDownOption option = new DropDownOption(org.getNihorgpath(), org.getNihorgpath());
 			dropDownList.add(option);
 		}
 	}
@@ -92,6 +94,32 @@ public class GdsSubmissionActionHelper {
 		
 		return dropDownList;
 		
+	}
+	
+	/**
+	 * This method returns LoggedOn user's DOC.
+	 * @param docListFromDb
+	 * @param userNihSac
+	 * @return
+	 */
+	public static String getLoggedonUsersDOC(List<Organization> docListFromDb, String userNihSac){
+		String preSelectedDOC = "";
+		do{
+			for(Organization org: docListFromDb){
+				if(userNihSac.equalsIgnoreCase(org.getNihsac())){
+					preSelectedDOC = org.getNihsac();
+					break;
+				}			
+			}
+
+			if(StringUtils.isBlank(preSelectedDOC)){
+				userNihSac = userNihSac.substring(0, userNihSac.length()-1);
+			}
+
+		} while(userNihSac.length() > ApplicationConstants.NED_PERSON_NIH_SAC_MIN_SIZE && StringUtils.isBlank(preSelectedDOC));
+
+		logger.debug("Logged on User's DOC is: "+preSelectedDOC);
+		return preSelectedDOC;
 	}
 
 }
