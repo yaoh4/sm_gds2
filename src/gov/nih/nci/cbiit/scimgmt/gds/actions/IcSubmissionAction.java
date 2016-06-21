@@ -3,13 +3,21 @@
  */
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 
 import org.springframework.util.CollectionUtils;
 
@@ -39,10 +47,17 @@ public class IcSubmissionAction extends ManageSubmission {
 	 * @return forward string Takes the user back to the submissionIc.jsp page.
 	 */
 	public String execute() throws Exception {
+						
 		logger.debug("execute");
 		
 		InstitutionalCertification instCertification = retrieveIC();
 		if(instCertification != null) {
+					
+			Long docTypeId = lookupService.getLookupByCode(ApplicationConstants.DOC_TYPE, "IC").getId();
+			List<Document> docs = fileUploadService.retrieveFileByDocType(docTypeId, instCertification.getProject().getId());
+			if(docs != null && !docs.isEmpty()) {
+				instCertification.setDocuments(new HashSet(docs));
+			}
 			setInstCertification(instCertification);
 		} else {
 			setInstCertification(new InstitutionalCertification());
@@ -77,6 +92,44 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	
+	public void validateSaveIc() {
+		InstitutionalCertification instCert = getInstCertification();
+		
+		Set<Study> icSet = instCert.getStudies();
+		//Map used to keep track of duplicate DulSets
+		HashMap<String, Integer> validationMap = new HashMap<String, Integer>();
+		int studyIndex = 0;
+		//validate the DULs in each Study
+		for(Study study: icSet) {
+			studyIndex++;
+			int dulSetIndex = 0;
+			Set<StudiesDulSet> studiesDulSets = study.getStudiesDulSets();
+			for(StudiesDulSet dulSet: studiesDulSets) {
+				dulSetIndex++;
+				Set<DulChecklistSelection> dulChecklistSelections = dulSet.getDulChecklistSelections();
+				String dulSelection = "";
+				//Loop through all the selections in a set and create a unique String
+				//value to represent the set based on the selections. This value will
+				//be the same for sets that have identical selections
+				for(DulChecklistSelection dulChecklistSelection: dulChecklistSelections) {
+					dulSelection = dulSelection  + dulChecklistSelection.getDulChecklist().getId();
+				}
+				if(validationMap.containsKey(dulSelection)) {
+					Integer dupDulSetIndex = validationMap.get(dulSelection);
+					this.addActionError("Duplicate DULs in rows " + 
+							dulSetIndex + " and " + dupDulSetIndex + " of Study " + studyIndex);
+				} else {
+					validationMap.put(dulSelection, Integer.valueOf(dulSetIndex));
+				}
+			}
+		}
+		
+		if(hasActionErrors()) {
+			setInstCertification(instCert);
+		}
+	}
+	
+	
 	/**
 	 * Saves the IC. Invoked from:
 	 * 1. 'Save Institutional Certification' button on the  Add/Edit Institutional Certification
@@ -87,26 +140,31 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public String saveIc() {
 		Project project = retrieveSelectedProject();
+		boolean matchFound = false;
+		
 		InstitutionalCertification instCert = getInstCertification();
-		if(CollectionUtils.isEmpty(project.getInstitutionalCertifications())) {
-			//We need to add this IC to the project
-			project.getInstitutionalCertifications().add(instCert);
-		} else {
+		if(instCert.getId() != null) {
 			//We need to update an existing IC in the project
 			for(InstitutionalCertification cert: project.getInstitutionalCertifications()) {
 				if(cert.getId().equals(instCert.getId())) {
 					project.getInstitutionalCertifications().remove(cert);
 					project.getInstitutionalCertifications().add(instCert);
+					matchFound = true;
 					break;
 				}
 			}
+			if(!matchFound) {
+				//TBD - Fatal error ??
+			}
+		} else {
+			//The institutional certification is not in the DB, hence add it
+			project.getInstitutionalCertifications().add(instCert);
 		}
-		
 		saveProject(project);
 		
 		return SUCCESS;
-		
 	}
+	
 	
 	
 	/**
