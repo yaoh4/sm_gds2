@@ -515,6 +515,8 @@ properties/db-connection.properties -text
 properties/local/gds.properties -text
 properties/local/log4j2.xml -text
 properties/messages.properties -text
+screens/controllers/general.js -text
+screens/controllers/newSubmission.js -text
 screens/controllers/search.js -text
 screens/controllers/submissionStatus.js -text
 screens/fonts/glyphicons-halflings-regular.eot -text
