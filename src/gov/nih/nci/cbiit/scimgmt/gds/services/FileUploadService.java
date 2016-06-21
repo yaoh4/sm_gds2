@@ -44,7 +44,7 @@ public interface FileUploadService {
 	 * 
 	 * @return document
 	 */
-	public List<Document> retrieveFileByDocType(Long docTypeId, Long projectId);
+	public List<Document> retrieveFileByDocType(String docType, Long projectId);
 
 	/**
 	 * Retrieve the file from DB by docId

@@ -71,12 +71,12 @@ public class DocumentsDao {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Document> findByDocType(Long docTypeId, Long projectId) {
-		logger.debug("getting Document instance with docTypeId: " + docTypeId + " projectId: " + projectId);
+	public List<Document> findByDocType(String docType, Long projectId) {
+		logger.debug("getting Document instance with docType: " + docType + " projectId: " + projectId);
 		try {
 			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Document.class);
 			criteria.createAlias("docType", "docType");
-			criteria.add(Restrictions.eq("docType.id", docTypeId));
+			criteria.add(Restrictions.eq("docType.code", docType));
 			criteria.add(Restrictions.eq("projectId", projectId));
 			criteria.add(Restrictions.eq("activeFlag", "Y"));
 			criteria.addOrder(Order.desc("versionNum"));

@@ -114,9 +114,9 @@ public class FileUploadServiceImpl implements FileUploadService {
 	 * 
 	 * @return document
 	 */
-	public List<Document> retrieveFileByDocType(Long docTypeId, Long projectId) {
+	public List<Document> retrieveFileByDocType(String docType, Long projectId) {
 		
-		List<Document> docs = documentsDao.findByDocType(docTypeId, projectId);
+		List<Document> docs = documentsDao.findByDocType(docType, projectId);
 		return docs;
 	}
 
@@ -189,7 +189,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 	private Document perfromVersionControl(Document doc) {
 		
 		// Retrieve the latest document for this docType if any
-		List<Document> oldDocs = documentsDao.findByDocType(doc.getDocType().getId(), doc.getProjectId());
+		List<Document> oldDocs = documentsDao.findByDocType(doc.getDocType().getCode(), doc.getProjectId());
 		
 		// Preset the version and doc Title to version 1, updated later if necessary
 		doc.setVersionNum(1L);
