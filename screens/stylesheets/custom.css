@@ -693,7 +693,23 @@ float: left;
   display: inline;
 }
 
+/****************/
 
+.searchLabel {
+  margin-left: 70px;
+ display: inline-block;
+  font-weight: 400;
+    color: #686868;
+    font-size: 14px;
+    text-align: right;
+    width: 150px;
+    margin-bottom: 10px;
+}
+.searchFormat {
+  display: inline-block;
+  padding-left: 25px;
+  font-size: 14px;
+}
 
 
 
