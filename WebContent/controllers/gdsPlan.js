@@ -8,10 +8,10 @@ $(document).ready(function () {
 		applyUiRule(this,'3','8','hide');
 	});
 	
-	// If "Will there be any data submitted?" is changed to No,
+	// If "Copy/paste into a text box" is not selected, 
 	// Make sure to hide the text editor.
-	$("#10").change(function () {
-		if ($("#10").is(":checked")) {
+	$('body').click( function(e) {
+		if (!$("#31").is(":checked")) {
 			$("#textEditorDiv").hide();
 		}
 	});

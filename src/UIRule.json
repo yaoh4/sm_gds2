@@ -139,36 +139,6 @@
 				"value":	"9",
 				"operation": "show",
 				"elementId": "dataSharingPlanDiv"
-			},
-			{
-				"value":	"10",
-				"operation": "hide",
-				"elementId": "11"
-			},
-			{
-				"value":	"10",
-				"operation": "hide",
-				"elementId": "14"
-			},
-			{
-				"value":	"10",
-				"operation": "hide",
-				"elementId": "17"
-			},
-			{
-				"value":	"10",
-				"operation": "hide",
-				"elementId": "20"
-			},
-			{
-				"value":	"10",
-				"operation": "hide",
-				"elementId": "26"
-			},
-			{
-				"value":	"10",
-				"operation": "hide",
-				"elementId": "29"
 			}
 		],
 		"style": "display: none"

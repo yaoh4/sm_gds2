@@ -25,8 +25,14 @@ function applyUiRule() {
 			}
 			prevRadio = arguments[0].id;
 			i = i + 3;
+			value = arguments[i];
 			id = '#' + arguments[i+1];
 			op = arguments[i+2];
+			reverse = true;
+			if(element.type == 'checkbox' && element.checked || 
+					element.type != 'checkbox' && element.value == value) {
+				reverse = false;
+			}
 		}
 		//alert("elementId: " + arguments[i+1] + " operation: " + op + " reverse: " + reverse);
 		if (op == "show") {
