@@ -516,6 +516,7 @@ lib/tomcat/tomcat-util.jar -text
 properties/application.properties -text
 properties/db-connection.properties -text
 properties/dev/gds.properties -text
+properties/dev/log4j2.xml -text
 properties/local/gds.properties -text
 properties/local/log4j2.xml -text
 properties/messages.properties -text
