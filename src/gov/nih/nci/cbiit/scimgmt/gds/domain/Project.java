@@ -41,6 +41,7 @@ public class Project implements java.io.Serializable {
 	private Date sciRevApprovalRcvdDate;
 	private String parentAccessionNum;
 	private String comments;
+	private String planComments;
 	private String bsiReviewedFlag;
 	private Long versionNum;
 	private Date createdDate;
@@ -273,6 +274,15 @@ public class Project implements java.io.Serializable {
 		this.comments = comments;
 	}
 
+	@Column(name = "PLAN_COMMENTS", length = 4000)
+	public String getPlanComments() {
+		return this.planComments;
+	}
+
+	public void setPlanComments(String planComments) {
+		this.planComments = planComments;
+	}
+	
 	@Column(name = "BSI_REVIEWED_FLAG", length = 4)
 	public String getBsiReviewedFlag() {
 		return this.bsiReviewedFlag;

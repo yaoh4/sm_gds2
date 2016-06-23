@@ -13,10 +13,90 @@
 			},
 			{
 				"value":	"3",
-				"operation": "hide",
-				"elementId": "8"
+				"operation": "show",
+				"elementId": "11"
+			},
+			{
+				"value":	"3",
+				"operation": "show",
+				"elementId": "14"
+			},
+			{
+				"value":	"3",
+				"operation": "show",
+				"elementId": "17"
+			},
+			{
+				"value":	"3",
+				"operation": "show",
+				"elementId": "20"
+			},
+			{
+				"value":	"3",
+				"operation": "show",
+				"elementId": "26"
+			},
+			{
+				"value":	"3",
+				"operation": "show",
+				"elementId": "29"
+			},
+			{
+				"value":	"3",
+				"operation": "show",
+				"elementId": "dataSharingPlanDiv"
 			}
 		]
+	},
+	"4": {
+		"list": [
+			{
+				"value":	"5",
+				"operation": "show",
+				"elementId": "8"
+			},
+			{
+				"value":	"5",
+				"operation": "show",
+				"elementId": "exceptionMemoDiv"
+			},
+			{
+				"value":	"6",
+				"operation": "hide",
+				"elementId": "8"
+			},
+			{
+				"value":	"6",
+				"operation": "show",
+				"elementId": "11"
+			},
+			{
+				"value":	"6",
+				"operation": "show",
+				"elementId": "14"
+			},
+			{
+				"value":	"6",
+				"operation": "show",
+				"elementId": "17"
+			},
+			{
+				"value":	"6",
+				"operation": "show",
+				"elementId": "20"
+			},
+			{
+				"value":	"6",
+				"operation": "show",
+				"elementId": "26"
+			},
+			{
+				"value":	"6",
+				"operation": "show",
+				"elementId": "29"
+			}
+		],
+		"style": "display: none"
 	},
 	"8": {
 		"list": [
@@ -56,6 +136,11 @@
 				"elementId": "29"
 			},
 			{
+				"value":	"9",
+				"operation": "show",
+				"elementId": "dataSharingPlanDiv"
+			},
+			{
 				"value":	"10",
 				"operation": "hide",
 				"elementId": "11"
@@ -85,25 +170,46 @@
 				"operation": "hide",
 				"elementId": "29"
 			}
-		]
+		],
+		"style": "display: none"
 	},
-	"13": {
+	"11": {
+		"style": "display: none"
+	},
+	"14": {
+		"style": "display: none"
+	},
+	"17": {
+		"style": "display: none"
+	},
+	"20": {
+		"style": "display: none"
+	},
+	"26": {
+		"style": "display: none"
+	},
+	"29": {
 		"list": [
 			{
-				"value":	"true",
-				"operation": "disable",
-				"elementId": "19"
+				"value":	"30",
+				"operation": "show",
+				"elementId": "dataSharingPlanDiv"
 			},
 			{
-				"value":	"true",
-				"operation": "disable",
-				"elementId": "18"
-			},
-			{
-				"value":	"true",
-				"operation": "disable",
-				"elementId": "21"
+				"value":	"31",
+				"operation": "show",
+				"elementId": "textEditorDiv"
 			}
-		]
+		],
+		"style": "display: none"
+	},
+	"exceptionMemoDiv": {
+		"style": "display: none"
+	},
+	"dataSharingPlanDiv": {
+		"style": "display: none"
+	},
+	"textEditorDiv": {
+		"style": "display: none"
 	}
 }

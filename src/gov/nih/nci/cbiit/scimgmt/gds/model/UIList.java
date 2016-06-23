@@ -10,6 +10,15 @@ public class UIList {
 	private List<UIElement> list = new ArrayList<UIElement>();
 	private String style;
 
+	public UIList() {
+		
+	}
+
+	public UIList(UIList copy) {
+		this.style = copy.getStyle();
+		this.list = copy.getList();
+	}
+	
 	public List<UIElement> getList() {
 		return list;
 	}

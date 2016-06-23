@@ -28,13 +28,19 @@ function applyUiRule() {
 			id = '#' + arguments[i+1];
 			op = arguments[i+2];
 		}
-		alert("elementId: " + arguments[i+1] + " operation: " + op + " reverse: " + reverse);
+		//alert("elementId: " + arguments[i+1] + " operation: " + op + " reverse: " + reverse);
 		if (op == "show") {
 			if(reverse) {
+				clearFormElements(id);
+				$(id).find(':input').prop('disabled', false);
 				$(id).hide();
 			}
 			else {
 				$(id).show();
+				//Editor replace
+				if(id == "#textEditorDiv") {
+					CKEDITOR.replace( 'editor1' );
+				}
 			}
 		}
 		if (op == "hide") {
@@ -42,6 +48,8 @@ function applyUiRule() {
 				$(id).show();
 			}
 			else {
+				clearFormElements(id);
+				$(id).find(':input').prop('disabled', false);
 				$(id).hide();
 			}
 		}
@@ -64,4 +72,22 @@ function applyUiRule() {
 		i = i + 2;
 	}
 	
+}
+
+function clearFormElements(id) {
+	$(id).find(':input').each(function() {
+		switch (this.type) {
+		case 'password':
+		case 'text':
+		case 'textarea':
+		case 'file':
+		case 'select-one':
+		case 'select-multiple':
+			$(this).val('');
+			break;
+		case 'checkbox':
+		case 'radio':
+			this.checked = false;
+		}
+	});
 }

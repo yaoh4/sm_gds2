@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.json.JSONUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
@@ -36,6 +37,9 @@ import gov.nih.nci.cbiit.scimgmt.gds.util.UIRuleUtil;
 public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	static Logger logger = LogManager.getLogger(GDSPlanSubmissionAction.class);
+	
+	@Autowired
+	protected UIRuleUtil uIRuleUtil;
 	
 	private Map<String, UIList> uiControlMap = new HashMap<String, UIList> ();
 	
@@ -87,6 +91,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		setUpPageData();
 		
+		//logger.debug("div id 8: " + getMap().get("8").getStyle());
         return SUCCESS;
 	}
 
@@ -109,6 +114,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		logger.debug("Save GDS Plan");
 		
 		setProject(retrieveSelectedProject());
+		
+		// Save comments
+		getProject().setPlanComments(comments);
 		
 		// Save text as documents if any
 		if(StringUtils.isNotBlank(dataSharingPlanEditorText)) {
@@ -137,6 +145,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	public void validateSave() {
 		
 		logger.debug("Validate save GDS Plan");
+		// TODO YURI If Other repository is selected, verify that OtherText is entered.
 		
 		//Comments cannot be greater than 2000 characters.
 		if (!StringUtils.isEmpty(comments)) {
@@ -251,6 +260,15 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	}
 	
 	/**
+	 * Return true if "Why is this project being submitted?" 
+	 * is "Required by GDS Policy"
+	 */
+	public boolean getRequiredByGdsPolicy() {
+		
+		return (getProject().getSubmissionReasonId() == 26 ? true : false);
+	}
+	
+	/**
 	 * This method sets up all data for Genomic Data Sharing Plan page.
 	 * @throws Exception 
 	 */
@@ -263,11 +281,14 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		answerMap.remove(29L);
 		
 		//Get the list of files for display
-		uiControlMap = UIRuleUtil.getUiRuleMap(getProject());
+		uiControlMap = uIRuleUtil.getUiRuleMap(getProject());
 
 		excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", getProject().getId());
 		gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", getProject().getId());
 		
+		// Set comments
+		comments = getProject().getPlanComments();
+				
 		logger.debug(JSONUtil.serialize(uiControlMap));
 		
 		logger.debug(PlanQuestionList.getQuestionById(1L).getDisplayText());

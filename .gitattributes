@@ -113,6 +113,7 @@ WebContent/WEB-INF/lib/xstream-1.4.2.jar -text
 WebContent/WEB-INF/lib/xwork-core-2.3.24.1.jar -text
 WebContent/WEB-INF/tiles.xml -text
 WebContent/WEB-INF/web.xml -text
+WebContent/controllers/gdsPlan.js -text
 WebContent/controllers/search.js -text
 WebContent/controllers/submissionStatus.js -text
 WebContent/fonts/glyphicons-halflings-regular.eot -text
@@ -502,6 +503,7 @@ WebContent/stylesheets/table.css -text
 build/build.xml -text
 build/env.properties -text
 build/user.properties -text
+database/INS_PLAN_QUESTIONS_ANSWERS_DML_20160613.sql -text
 database/gds_v1.0.sql -text
 lib/tomcat/catalina-ant.jar -text
 lib/tomcat/jasper.jar -text
