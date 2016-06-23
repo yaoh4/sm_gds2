@@ -33,7 +33,6 @@ public class Project implements java.io.Serializable {
 	private String projectTitle;
 	private String docAbbreviation;
 	private String programBranch;
-	private String nihFundedFlag;
 	private String applicationNum;
 	private String piInstitution;
 	private String piEmailAddress;
@@ -71,11 +70,10 @@ public class Project implements java.io.Serializable {
 	public Project() {
 	}
 
-	public Project(Long id, String projectIdentifierNum, String nihFundedFlag, Long versionNum,
+	public Project(Long id, String projectIdentifierNum, Long versionNum,
 			Date createdDate, String createdBy) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
-		this.nihFundedFlag = nihFundedFlag;
 		this.versionNum = versionNum;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
@@ -86,7 +84,7 @@ public class Project implements java.io.Serializable {
 	public String toString() {
 		return "Project [id=" + id + ", projectIdentifierNum=" + projectIdentifierNum + ", projectTitle="
 				+ projectTitle + ", docAbbreviation=" + docAbbreviation + ", programBranch=" + programBranch
-				+ ", nihFundedFlag=" + nihFundedFlag + ", applicationNum=" + applicationNum + ", piInstitution="
+				+ ", applicationNum=" + applicationNum + ", piInstitution="
 				+ piInstitution + ", piEmailAddress=" + piEmailAddress + ", projectStartDate=" + projectStartDate
 				+ ", projectEndDate=" + projectEndDate + ", sciRevApprovalRcvdDate=" + sciRevApprovalRcvdDate
 				+ ", parentAccessionNum=" + parentAccessionNum + ", comments=" + comments + ", bsiReviewedFlag="
@@ -105,7 +103,7 @@ public class Project implements java.io.Serializable {
 
 
 	public Project(Long id, String projectIdentifierNum, String projectTitle, String docAbbreviation,
-			String programBranch, String nihFundedFlag, String applicationNum, String piInstitution,
+			String programBranch, String applicationNum, String piInstitution,
 			String piEmailAddress, Date projectStartDate, Date projectEndDate, Date sciRevApprovalRcvdDate,
 			String parentAccessionNum, String comments, String bsiReviewedFlag, Long versionNum, Date createdDate,
 			String createdBy, Date lastChangedDate, String lastChangedBy, String subprojectFlag,
@@ -118,7 +116,6 @@ public class Project implements java.io.Serializable {
 		this.projectTitle = projectTitle;
 		this.docAbbreviation = docAbbreviation;
 		this.programBranch = programBranch;
-		this.nihFundedFlag = nihFundedFlag;
 		this.applicationNum = applicationNum;
 		this.piInstitution = piInstitution;
 		this.piEmailAddress = piEmailAddress;
@@ -201,16 +198,7 @@ public class Project implements java.io.Serializable {
 		this.programBranch = programBranch;
 	}
 
-	@Column(name = "NIH_FUNDED_FLAG", nullable = false, length = 4)
-	public String getNihFundedFlag() {
-		return this.nihFundedFlag;
-	}
-
-	public void setNihFundedFlag(String nihFundedFlag) {
-		this.nihFundedFlag = nihFundedFlag;
-	}
-
-	@Column(name = "APPLICATION_NUM", length = 120)
+	@Column(name = "GRANT_CONTRACT_NUM", length = 120)
 	public String getApplicationNum() {
 		return this.applicationNum;
 	}
@@ -368,6 +356,7 @@ public class Project implements java.io.Serializable {
 		this.latestVersionFlag = latestVersionFlag;
 	}
 
+	
 	@Column(name = "PROJECT_GROUP_ID", nullable = false, precision = 10, scale = 0)
 	public Long getProjectGroupId() {
 		return this.projectGroupId;
@@ -396,7 +385,7 @@ public class Project implements java.io.Serializable {
 		this.submissionReasonId = submissionReasonId;
 	}
 
-	@Column(name = "CERTIFICATION_COMPLETE_FLAG", length = 1)
+	@Column(name = "IC_COMPLETE_FLAG", length = 1)
 	public String getCertificationCompleteFlag() {
 		return this.certificationCompleteFlag;
 	}
