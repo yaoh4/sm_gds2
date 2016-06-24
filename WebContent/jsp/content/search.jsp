@@ -5,7 +5,7 @@
 <div class="content">
 	<div class="inside">
 		<fieldset>
-			<h2>Search Criteria</h2>
+			<h2>Project Search</h2>
 			<span class="search"><label for="number">Project Id:</label>			
 				<s:select cssClass="searchInput" name="projectId" list="%{getAllProjectIds()}" id="projectId"  emptyOption="true"/>				
 			</span>
