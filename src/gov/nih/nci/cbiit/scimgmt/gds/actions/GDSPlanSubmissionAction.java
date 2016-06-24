@@ -1,6 +1,8 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -161,91 +163,107 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 * 
 	 * @return forward string
 	 */
-	public void uploadExceptionMemo() {
+	public String uploadExceptionMemo() {
 		logger.info("uploadExceptionMemo()");
 
+		if (!validateUploadFile(exceptionMemo, exceptionMemoContentType))
+			return SUCCESS;
+		
+		
 		try {
 			doc = fileUploadService.storeFile(new Long(getProjectId()), "EXCEPMEMO", exceptionMemo, exceptionMemoFileName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		
-		excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", getProject().getId());
+				
+			String docString = JSONUtil.serialize(doc);
+			inputStream = new ByteArrayInputStream(docString.getBytes("UTF-8"));
+			
+		} catch (Exception e) {
+			try {
+				inputStream = new ByteArrayInputStream("Error Uploading File".getBytes("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+		}
 		
 		logger.info("===> docId: " + doc.getId());
 		logger.info("===> fileName: " + doc.getFileName());
 		logger.info("===> docTitle: " + doc.getDocTitle());
 		logger.info("===> uploadDate: " + doc.getCreatedDate());
 
-		return;
+		return SUCCESS;
 	}
 	
 	/**
-	 * Validate Upload Exception Memo Document
+	 * Validate Upload File
 	 */
-	public void validateUploadExceptionMemo() {
-		
-		logger.debug("Validate Upload Exception Memo Document");
+	private boolean validateUploadFile(File file, String contentType) {
 
-		if (exceptionMemo == null) {
-			addActionError("Upload file is required");
-		} else if (exceptionMemo.length() == 0) {
-			addActionError("Upload file contains no data (length = 0)");
-		} else if (exceptionMemo.length() > 5000000) {
-			addActionError("Upload file size is larger than maximum file size (5MB)");
-		} else if (!"application/pdf".equals(exceptionMemoContentType)
-				&& !"application/msword".equals(exceptionMemoContentType)
-				&& !"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-						.equals(exceptionMemoContentType)) {
-			addActionError("Upload file must be in Word or PDF format");
+		String errorMessage = "";
+		
+		try {
+			if (file == null) {
+				errorMessage = "Upload file is required";
+
+			} else if (file.length() == 0) {
+				errorMessage = "Upload file contains no data (length = 0)";
+
+			} else if (file.length() > 5000000) {
+				errorMessage = "Upload file size is larger than maximum file size (5MB)";
+
+			} else if (!"application/pdf".equals(contentType)
+					&& !"application/msword".equals(contentType)
+					&& !"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+							.equals(contentType)) {
+				errorMessage = "Upload file must be in Word or PDF format";
+
+			}
+			if(StringUtils.isNotBlank(errorMessage)) {
+				inputStream = new ByteArrayInputStream(errorMessage.getBytes("UTF-8"));
+				return false;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return true;
 	}
+	
 	
 	/**
 	 * Upload Genomic Data Sharing Plan Document
 	 * 
 	 * @return forward string
 	 */
-	public void uploadDataSharingPlan() {
-		logger.info("uploadFile()");
+	public String uploadDataSharingPlan() {
+		logger.info("uploadDataSharingPlan()");
+
+		if (!validateUploadFile(dataSharingPlan, dataSharingPlanContentType))
+			return SUCCESS;
+		
 		
 		try {
-			doc = fileUploadService.storeFile(new Long(getProjectId()), "GDSPLAN", dataSharingPlan,
-					dataSharingPlanFileName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", getProject().getId());
+			doc = fileUploadService.storeFile(new Long(getProjectId()), "GDSPLAN", dataSharingPlan, dataSharingPlanFileName);
 		
+				
+			String docString = JSONUtil.serialize(doc);
+			inputStream = new ByteArrayInputStream(docString.getBytes("UTF-8"));
+			
+		} catch (Exception e) {
+			try {
+				inputStream = new ByteArrayInputStream("Error Uploading File".getBytes("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+		}
+				
 		logger.info("===> docId: " + doc.getId());
 		logger.info("===> fileName: " + doc.getFileName());
 		logger.info("===> docTitle: " + doc.getDocTitle());
 		logger.info("===> uploadDate: " + doc.getCreatedDate());
 
-		return;
+		return SUCCESS;
 	}
 	
-	/**
-	 * Validate Upload Genomic Data Sharing Plan
-	 */
-	public void validateUploadDataSharingPlan() {
-		
-		logger.debug("Validate Upload Genomic Data Sharing Plan Document");
-		
-		if (dataSharingPlan == null) {
-			addActionError("Upload file is required");
-		} else if (dataSharingPlan.length() == 0) {
-			addActionError("Upload file contains no data (length = 0)");
-		} else if (dataSharingPlan.length() > 5000000) {
-			addActionError("Upload file size is larger than maximum file size (5MB)");
-		} else if (!"application/pdf".equals(dataSharingPlanContentType)
-				&& !"application/msword".equals(dataSharingPlanContentType)
-				&& !"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-						.equals(dataSharingPlanContentType)) {
-			addActionError("Upload file must be in Word or PDF format");
-		}
-	}
 	
 	/**
 	 * Return true if answer should be pre-selected 

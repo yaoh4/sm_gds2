@@ -1,5 +1,4 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
-<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 
 <s:form id="gds-form" cssClass="dirty-check" action="saveGdsPlan" namespace="manage" method="post"
@@ -36,7 +35,9 @@
 						value="Upload Exception Memo File" class="saved btn btn-default"
 						id="exceptionMemoUpload"/>
 					<div>
-						<p> View uploaded <s:a href="downloadFile?docId=1">Exception Memo</s:a> in new window </p>
+						<p> View uploaded <s:a href="javascript:openDocument(12)">Data Sharing Plan</s:a> in new window 
+						<s:a href="javascript:removeDocument()">Remove</s:a>
+						</p>
 					</div>
 				</div>
 				<%-- 3. Will there be any data submitted? --%>
@@ -146,14 +147,18 @@
 						name="dataSharingPlanUpload" value="Upload Data Sharing Plan File"
 						class="saved btn btn-default" id="dataSharingPlanUpload">
 					<div>
-						<p> View uploaded <s:a href="downloadFile?docId=1">Data Sharing Plan</s:a> in new window </p>
+						<p> View uploaded <s:a href="javascript:openDocument(11)">Data Sharing Plan</s:a> in new window 
+						<s:a href="javascript:removeDocument(11)">Remove</s:a>
+						</p>
 					</div>
 				</div>
 				<div id="textEditorDiv" style="${map['textEditorDiv'].style}">
 					<textarea name="dataSharingPlanEditorText" id="editor1" rows="10"
 						cols="80"></textarea>
         			<div>
-						<p> View uploaded <s:a href="downloadFile?docId=1">Data Sharing Plan</s:a> in new window </p>
+						<p> View uploaded <s:a href="javascript:openDocument(11)">Data Sharing Plan</s:a> in new window 
+						<s:a href="javascript:removeDocument(11)">Remove</s:a>
+						</p>
 					</div>
 				</div>
 			</fieldset>
@@ -162,10 +167,24 @@
 	
 	<s:submit action="saveGdsPlan" value="Save" />
 </s:form>
-	
+<!-- Modal -->
+<div id="fileModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3 id="fileModalLabel">File Upload Message</h3>
+    </div>
+    <div id="fileModalId" class="modal-body">
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+  </div>
+ </div>
+</div>	
 <br /><br /><br /><br />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="<s:url value="/scripts/ckeditor/ckeditor.js" />"></script>
 <script type="text/javascript" src="<s:url value="/controllers/gdsPlan.js" />"></script>
 <script type="text/javascript" src="<s:url value="/scripts/UiRule.js" />"></script>

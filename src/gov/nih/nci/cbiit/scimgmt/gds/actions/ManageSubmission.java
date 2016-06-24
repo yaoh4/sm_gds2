@@ -1,7 +1,9 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,6 +43,8 @@ public class ManageSubmission extends BaseAction {
 	
 	private Long docId;
 
+	protected InputStream inputStream;
+	
 	/**
 	 * Execute method, for now used for navigation
 	 * 
@@ -101,39 +105,52 @@ public class ManageSubmission extends BaseAction {
 	/**
 	 * Delete a file using document id
 	 */
-	public void deleteFile() {
+	public String deleteFile() {
 		logger.debug("deleteFile()");
-		if(docId == null) {
-			return;
+		try {
+			if (docId == null) {
+				inputStream = new ByteArrayInputStream(
+						"Document Id needs to be provided for delete".getBytes("UTF-8"));
+
+				return SUCCESS;
+			}
+			fileUploadService.deleteFile(docId);
+			inputStream = new ByteArrayInputStream("Document have been deleted.".getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
-		fileUploadService.deleteFile(docId);
-		return;
+		return SUCCESS;
 	}
 	
 	/**
 	 * Retrieve a file using document id
 	 */
-	public void downloadFile() {
+	public String downloadFile() {
 		logger.debug("downloadFile()");
-		if(docId == null) {
-			return;
-		}
-		HttpServletResponse response = ServletActionContext.getResponse();
-		Document doc = fileUploadService.retrieveFile(docId);
-		if (doc == null)
-			return;
 		try {
-            response.setHeader("Content-Disposition", "inline;filename=\"" +doc.getDocTitle()+ "\"");
-            OutputStream out = response.getOutputStream();
-            response.setContentType(doc.getContentType());
-            out.write(doc.getDoc());
-            out.flush();
-            out.close();
-         
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-		return;
+			if (docId == null) {
+				inputStream = new ByteArrayInputStream(
+						"Document Id needs to be provided for download".getBytes("UTF-8"));
+				return SUCCESS;
+			}
+			HttpServletResponse response = ServletActionContext.getResponse();
+			Document doc = fileUploadService.retrieveFile(docId);
+			if (doc == null) {
+				inputStream = new ByteArrayInputStream("Document could not be found".getBytes("UTF-8"));
+				return SUCCESS;
+			}
+
+			response.setHeader("Content-Disposition", "inline;filename=\"" + doc.getDocTitle() + "\"");
+			OutputStream out = response.getOutputStream();
+			response.setContentType(doc.getContentType());
+			out.write(doc.getDoc());
+			out.flush();
+			out.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
 	}
 
 	/**
@@ -152,6 +169,16 @@ public class ManageSubmission extends BaseAction {
 	 */
 	public void setDocId(Long docId) {
 		this.docId = docId;
+	}
+
+
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+
+	public void setInputStream(InputStream inputStream) {
+		this.inputStream = inputStream;
 	}
 	
 }

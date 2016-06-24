@@ -72,6 +72,7 @@ $(document).ready(function () {
 	// Data sharing plan file upload Ajax
 	$("#gds-form").on('click', '#dataSharingPlanUpload', function () {
 
+		var result = "";
 		var $form, fd;
 	    $form = $("#gds-form");
 	    fd = new FormData($form[0]);
@@ -79,21 +80,23 @@ $(document).ready(function () {
 		$.ajax({
 		  	url: 'uploadDataSharingPlan.action',
 		  	type: 'post',
-		    processData: false,
+		  	processData: false,
 		    contentType: false,
 		    data: fd,
-		    dataType: 'html',
 		  	async:   false,
-		  	success: function(result){
-				console.log(result);
-			},
+		  	success: function(msg){
+				result = $.trim(msg);
+			}, 
 			error: function(){}	
 		});
+		
+		openFileModal(result);
 	});
 	
 	// Exception memo file upload Ajax
 	$("#gds-form").on('click', '#exceptionMemoUpload', function () {
-
+		
+		var result = "";
 		var $form, fd;
 	    $form = $("#gds-form");
 	    fd = new FormData($form[0]);
@@ -104,17 +107,50 @@ $(document).ready(function () {
 		  	processData: false,
 		    contentType: false,
 		    data: fd,
-		    dataType: 'html',
 		  	async:   false,
-		  	success: function(result){
-				console.log(result);
-			},
+		  	success: function(msg){
+				result = $.trim(msg);
+			}, 
 			error: function(){}	
 		});
+		
+		openFileModal(result);
 	});
 
 });
 
+function openDocument(id)
+{
+  var url = "/gds/manage/downloadFile.action?docId=" + id;
+  var winName = "document";
+  var features = "menubar=yes,scrollbars=yes,resizable=yes,width=850,height=700";
 
+  var newWin = window.open(url, winName ,features);
+}
 
+function removeDocument(id)
+{
+	var result = "";
+	ans = confirm("Are you sure you want to delete this file?");
+	if (ans) {
+	
+		$.ajax({
+			url: "deleteFile.action",
+			type: "post",
+			data: {docId: id},
+			async:   false,
+			success: function(msg){
+				result = $.trim(msg);
+			}, 
+			error: function(){}		
+		});
+	
+		openFileModal(result);
+	}
+}
+
+function openFileModal(result){
+	$('#fileModalId').html(result);
+	$('#fileModal').modal('show');
+}
 
