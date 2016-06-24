@@ -1,4 +1,13 @@
 {
+	"exceptionMemoDiv": {
+		"style": "display: none"
+	},
+	"dataSharingPlanDiv": {
+		"style": "display: none"
+	},
+	"textEditorDiv": {
+		"style": "display: none"
+	},
 	"1": {
 		"list": [
 			{
@@ -171,15 +180,6 @@
 				"elementId": "textEditorDiv"
 			}
 		],
-		"style": "display: none"
-	},
-	"exceptionMemoDiv": {
-		"style": "display: none"
-	},
-	"dataSharingPlanDiv": {
-		"style": "display: none"
-	},
-	"textEditorDiv": {
 		"style": "display: none"
 	}
 }

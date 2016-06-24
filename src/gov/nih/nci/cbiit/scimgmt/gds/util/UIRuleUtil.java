@@ -87,6 +87,12 @@ public class UIRuleUtil {
 			}
 		}
 		
+		// Also check the special DIVS added other than questions defined in DB.
+		applySpecialDivs(overRideMap, selectedAnswers, "exceptionMemoDiv");
+		applySpecialDivs(overRideMap, selectedAnswers, "dataSharingPlanDiv");
+		applySpecialDivs(overRideMap, selectedAnswers, "textEditorDiv");
+		
+		
 		// If the answer to "Why is this project being submitted?" is NOT
 		// "Required by GDS Policy" or "Required by GWAS Policy", then start from question
 		// "What specimen type does the data submission pertain to?".
@@ -108,6 +114,26 @@ public class UIRuleUtil {
 		}
 		
 		return overRideMap;
+	}
+
+	private void applySpecialDivs(Map<String, UIList> overRideMap, List<String> selectedAnswers, String divs) {
+		
+		for(Entry<String, UIList> rule: ruleMap.entrySet()) {
+			for(UIElement element: rule.getValue().getList()) {
+				if(StringUtils.equals(element.getElementId(), divs)) {
+					if(selectedAnswers.contains(element.getValue())) {
+						UIList newElement = new UIList();
+						if(element.getOperation().equalsIgnoreCase("hide"))
+							newElement.setStyle("display: none");
+						if(element.getOperation().equalsIgnoreCase("show"))
+							newElement.setStyle("display: block");
+						if(ruleMap.containsKey(divs))
+							newElement.setList(ruleMap.get(divs).getList());
+						overRideMap.put(divs, newElement);
+					}
+				}
+			}
+		}
 	}
 	
 }
