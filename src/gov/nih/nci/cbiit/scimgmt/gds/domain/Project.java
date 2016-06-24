@@ -62,6 +62,7 @@ public class Project implements java.io.Serializable {
 	private String pocEmailAddress;
 	private String pdFirstName;
 	private String pdLastName;
+	private Long applId;
 	private Set<StatusHistory> statusHistories = new HashSet(0);
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
@@ -99,7 +100,7 @@ public class Project implements java.io.Serializable {
 				+ ", pdFirstName=" + pdFirstName + ", pdLastName=" + pdLastName + ", statusHistories="
 				+ statusHistories + ", documents=" + documents + ", planAnswerSelections=" + planAnswerSelections
 				+ ", repositoryStatuses=" + repositoryStatuses + ", institutionalCertifications="
-				+ institutionalCertifications + "]";
+				+ institutionalCertifications +  ", applId=" + applId +"]";
 	}
 
 
@@ -111,7 +112,7 @@ public class Project implements java.io.Serializable {
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
 			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, Set statusHistories, Set documents,
-			Set planAnswerSelections, Set repositoryStatuses, Set institutionalCertifications) {
+			Set planAnswerSelections, Set repositoryStatuses, Set institutionalCertifications,Long applId) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
 		this.projectTitle = projectTitle;
@@ -149,6 +150,7 @@ public class Project implements java.io.Serializable {
 		this.planAnswerSelections = planAnswerSelections;
 		this.repositoryStatuses = repositoryStatuses;
 		this.institutionalCertifications = institutionalCertifications;
+		this.applId = applId;
 	}
 
 	@Id
@@ -521,6 +523,15 @@ public class Project implements java.io.Serializable {
 
 	public void setInstitutionalCertifications(Set<InstitutionalCertification> institutionalCertifications) {
 		this.institutionalCertifications = institutionalCertifications;
+	}
+	
+	@Column(name = "APPL_ID", length = 10)
+	public Long getApplId() {
+		return applId;
+	}
+
+	public void setApplId(Long applId) {
+		this.applId = applId;
 	}
 
 }

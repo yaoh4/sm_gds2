@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 @Table(name = "GDS_GRANTS_CONTRACTS_VW")
 public class GdsGrantsContracts {
 	
+	private Long applId;
 	private String grantContractNum;
 	private String applTypeCode;
 	private String activityCode;
@@ -37,11 +38,12 @@ public class GdsGrantsContracts {
 		
 	}
 	
-	public GdsGrantsContracts(String grantContractNum, String applTypeCode, String activityCode, String adminPhsOrgCode,
+	public GdsGrantsContracts(Long applId, String grantContractNum, String applTypeCode, String activityCode, String adminPhsOrgCode,
 			Integer serialNum, Integer supportYear, String suffixCode, String projectTitle, String piFirstName,
 			String piLastName, String piEmailAddress, String piInstitution, String pdFirstName, String pdLastName,
 			Date projectPeriodStartDate, Date projectPeriodEndDate) {
 		super();
+		this.applId = applId;
 		this.grantContractNum = grantContractNum;
 		this.applTypeCode = applTypeCode;
 		this.activityCode = activityCode;
@@ -62,7 +64,7 @@ public class GdsGrantsContracts {
 	
 	@Override
 	public String toString() {
-		return "{\"grantContractNum\":\"" + grantContractNum + "\", \"applTypeCode\":\"" + applTypeCode
+		return "{\"applId\":\"" + applId + "\",\"grantContractNum\":\"" + grantContractNum + "\", \"applTypeCode\":\"" + applTypeCode
 				+ "\",\" activityCode\":\"" + activityCode + "\", \"adminPhsOrgCode\":\"" + adminPhsOrgCode + "\", \"serialNum\":\"" + serialNum
 				+ "\", \"supportYear\":\"" + supportYear + "\", \"suffixCode\":\"" + suffixCode + "\", \"projectTitle\":\"" + projectTitle
 				+ "\", \"piFirstName\":\"" + piFirstName + "\",\" piLastName\":\"" + piLastName + "\",\" piEmailAddress\":\"" + piEmailAddress
@@ -71,6 +73,15 @@ public class GdsGrantsContracts {
 	}
 	
 	@Id
+	@Column(name = "APPL_ID", length = 10)
+	public Long getApplId() {
+		return applId;
+	}
+
+	public void setApplId(Long applId) {
+		this.applId = applId;
+	}
+	
 	@Column(name = "GRANT_CONTRACT_NUM", length = 19)
 	public String getGrantContractNum() {
 		return grantContractNum;

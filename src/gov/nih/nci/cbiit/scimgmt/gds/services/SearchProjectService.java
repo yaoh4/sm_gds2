@@ -10,5 +10,6 @@ public interface SearchProjectService {
 	public List<Long> getAllProjectIds();
 	public Project findProjectById(Long projectId);
 	public List<GdsGrantsContracts> getGrantOrContractList(String grantContractNum);
+	public GdsGrantsContracts getGrantOrContract(Long applId);
 
 }

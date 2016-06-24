@@ -189,6 +189,10 @@
 				window.opener.$("#projectEndDate").prop('readOnly', true);
 			}
 			
+			if (json.applId !== "undefined") {
+				window.opener.$("#applId").val(json.applId);			
+			}
+			
 			window.close();
 			
 		}

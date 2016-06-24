@@ -32,6 +32,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	private String preSelectedDOC;
 	private String grantContractNum;
 	private String selectedTypeOfProject;
+	private String applId;
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();	
 	private List<DropDownOption> projectTypes = new ArrayList<DropDownOption>();
 	private List<DropDownOption> projectSubmissionReasons = new ArrayList<DropDownOption>();	
@@ -89,6 +90,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		else{
 			project = getProject();
 		}
+		project.setApplId(Long.valueOf(applId));
 		project = super.saveProject(project);
 		setProject(project);
 	}
@@ -132,11 +134,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		logger.debug("Setting up page data.");
 		Project project = retrieveSelectedProject();
 		if(project != null){
-			setProject(project);					
+			setProject(project);	
+			loadGeneralInfoFromGranstContractVw();
 		}
 		else{			
 			setProject(new Project());
 		}
+		
 		setUpLists();				
 	}
 	
@@ -163,29 +167,59 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	}
 	
 	/**
+	 * This method retrieves general information data from grantsContractsw if project has grant/contract tied to it.
+	 */
+	public void loadGeneralInfoFromGranstContractVw(){
+		
+		Project project = getProject();		
+		if(project.getApplId() != null){
+			
+			logger.debug("Retreiving Project general information data from grantsContractsw for grantContract with applId: "+project.getApplId());
+			GdsGrantsContracts grantContract = searchProjectService.getGrantOrContract(project.getApplId());
+			if(grantContract != null){
+				getProject().setProjectTitle(grantContract.getProjectTitle());
+				getProject().setPiFirstName(grantContract.getPiFirstName());
+				getProject().setPiLastName(grantContract.getPiLastName());
+				getProject().setPiInstitution(grantContract.getPiInstitution());
+				getProject().setPiEmailAddress(grantContract.getPiEmailAddress());
+				getProject().setPdFirstName(grantContract.getPdFirstName());
+				getProject().setPdLastName(grantContract.getPdLastName());
+				getProject().setProjectEndDate(grantContract.getProjectPeriodStartDate());
+				getProject().setProjectEndDate(grantContract.getProjectPeriodEndDate());
+			}
+		}
+	}
+	
+	/**
 	 * This method copies properties from UI project to DB project object.
 	 * @param transientProject
 	 * @param persistentProject
 	 */
-	public void popoulateProjectProperties(Project transientProject, Project persistentProject){
+	public void popoulateProjectProperties(Project transientProject, Project persistentProject){	
 		
 		logger.debug("Copying transient project properties to persistent project properties.");
 		persistentProject.setSubmissionReasonId(transientProject.getSubmissionReasonId());
 		persistentProject.setDocAbbreviation(transientProject.getDocAbbreviation());
 		persistentProject.setProgramBranch(transientProject.getProgramBranch());
-		persistentProject.setApplicationNum(transientProject.getApplicationNum());
-		persistentProject.setProjectTitle(transientProject.getProjectTitle());
-		persistentProject.setPiFirstName(transientProject.getPiFirstName());
-		persistentProject.setPiLastName(transientProject.getPiLastName());
-		persistentProject.setPiEmailAddress(transientProject.getPiEmailAddress());
-		persistentProject.setPiInstitution(transientProject.getPiInstitution());
 		persistentProject.setPocFirstName(transientProject.getPocFirstName());
 		persistentProject.setPocLastName(transientProject.getPocLastName());
 		persistentProject.setPocEmailAddress(transientProject.getPocEmailAddress());
-		persistentProject.setPdFirstName(transientProject.getPdFirstName());
-		persistentProject.setPdLastName(transientProject.getPdLastName());
-		persistentProject.setProjectStartDate(transientProject.getProjectStartDate());
-		persistentProject.setProjectEndDate(transientProject.getProjectEndDate());
+		
+		Long savedGrantAppId = persistentProject.getApplId();
+		Long currentGrantApplId = transientProject.getApplId();
+		
+		if(savedGrantAppId == null || savedGrantAppId != currentGrantApplId){
+			persistentProject.setApplicationNum(transientProject.getApplicationNum());
+			persistentProject.setProjectTitle(transientProject.getProjectTitle());
+			persistentProject.setPiFirstName(transientProject.getPiFirstName());
+			persistentProject.setPiLastName(transientProject.getPiLastName());
+			persistentProject.setPiEmailAddress(transientProject.getPiEmailAddress());
+			persistentProject.setPiInstitution(transientProject.getPiInstitution());		
+			persistentProject.setPdFirstName(transientProject.getPdFirstName());
+			persistentProject.setPdLastName(transientProject.getPdLastName());
+			persistentProject.setProjectStartDate(transientProject.getProjectStartDate());
+			persistentProject.setProjectEndDate(transientProject.getProjectEndDate());
+		}
 	}
 	
 	/**
@@ -419,5 +453,19 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void setSelectedTypeOfProject(String selectedTypeOfProject) {
 		this.selectedTypeOfProject = selectedTypeOfProject;
+	}
+
+	/**
+	 * @return the applId
+	 */
+	public String getApplId() {
+		return applId;
+	}
+
+	/**
+	 * @param applId the applId to set
+	 */
+	public void setApplId(String applId) {
+		this.applId = applId;
 	}	
 }

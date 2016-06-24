@@ -48,4 +48,13 @@ public class SearchProjectServiceImpl implements SearchProjectService {
 		return projectsDAO.getGrantOrContractList(grantContractNum);
 	}
 	
+	/**
+	 * This method returns grantContract for given applId
+	 * @param applId
+	 * @return
+	 */
+	public GdsGrantsContracts getGrantOrContract(Long applId){
+		return projectsDAO.getGrantOrContract(applId);
+	}
+	
 }

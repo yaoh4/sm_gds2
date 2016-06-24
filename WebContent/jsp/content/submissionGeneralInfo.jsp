@@ -5,6 +5,7 @@
 	<s:form id="general_form" name="general_form" action="viewProject.action" method="post" data-toggle="validator" role="form">
 		<!-- Page navbar -->
 		<s:hidden name="projectId" value="%{project.id}"/>
+		<s:hidden name="applId" value="%{project.applId}"/>
 		<div class="pageNav">
 			<s:submit value=" Save " action="manage/saveGeneralInfo"
 				id="general_saved" cssClass="saved btn btn-default" />
@@ -14,6 +15,12 @@
 				cssClass="btn btn-project-primary" />
 		</div>
 
+		<s:if test="project.applId==null">
+			<s:set name="isNotEditable" value="false" />
+		</s:if>
+		<s:else>
+			<s:set name="isNotEditable" value="true" />
+		</s:else>
 
 		<!-- Begin Panel -->
 		<div class="col-md-12">
@@ -63,7 +70,7 @@
 								(Z01)/Grant/Contract #</label>
 							<div class="input-group2">
 							
-							<s:textfield name="project.applicationNum" cssClass="form-control" disabled="disabled" id="grantsContractNum" placeholder="Click on Search Icon to Find # " value="%{project.applicationNum}"/>
+							<s:textfield name="project.applicationNum" cssClass="form-control" readOnly="true" id="grantsContractNum" placeholder="Click on Search Icon to Find # " value="%{project.applicationNum}"/>
 							<span	class="input-group-btn"><a href="openSearchGrantsContracts.action"
 									class="js-newWindow"
 									data-popup="width=800,height=800,scrollbars=yes">
@@ -80,7 +87,7 @@
 							<label for="Project Title"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project
 								Title</label> 
-								<s:textfield name="project.projectTitle" cssClass="form-control" id="projectTitle" placeholder="" value="%{project.projectTitle}"/>
+								<s:textfield name="project.projectTitle" cssClass="form-control" id="projectTitle" placeholder="" value="%{project.projectTitle}" readonly="isNotEditable"/>
 						</div>
 					</div>
 
@@ -89,13 +96,13 @@
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
-								<s:textfield name="project.piFirstName" cssClass="form-control" id="fnPI" placeholder="" value="%{project.piFirstName}"/>
+								<s:textfield name="project.piFirstName" cssClass="form-control" id="fnPI" placeholder="" value="%{project.piFirstName}" readonly="isNotEditable"/>
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
-								<s:textfield name="project.piLastName" cssClass="form-control" id="lnPI" placeholder="" value="%{project.piLastName}"/>								
+								<s:textfield name="project.piLastName" cssClass="form-control" id="lnPI" placeholder="" value="%{project.piLastName}" readonly="isNotEditable"/>								
 						</div>
 					</div>
 
@@ -105,7 +112,7 @@
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
 								of Principal Investigator</label>
 								<s:textfield name="project.piEmailAddress" cssClass="form-control" id="piEmail" placeholder="Enter Vaild Email Address"
-								data-error="Email address is invalid" value="%{project.piEmailAddress}"/>								
+								data-error="Email address is invalid" value="%{project.piEmailAddress}" readonly="isNotEditable"/>								
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
@@ -115,7 +122,7 @@
 							<label for="Institution of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
 								of Principal Investigator</label>
-								<s:textfield name="project.piInstitution" cssClass="form-control" id="PIInstitute" placeholder="" value="%{project.piInstitution}"/>								
+								<s:textfield name="project.piInstitution" cssClass="form-control" id="PIInstitute" placeholder="" value="%{project.piInstitution}" readonly="isNotEditable"/>								
 						</div>
 					</div>
 
@@ -147,13 +154,13 @@
 							<label for="First Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
 								Name of Program Director</label>
-								<s:textfield name="project.pdFirstName" cssClass="form-control" id="fnPD" placeholder="" value="%{project.pdFirstName}"/>								
+								<s:textfield name="project.pdFirstName" cssClass="form-control" id="fnPD" placeholder="" value="%{project.pdFirstName}" readonly="isNotEditable"/>								
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>Last
 								Name of Program Director</label>
-								<s:textfield name="project.pdLastName" cssClass="form-control" id="lnPD" placeholder="" value="%{project.pdLastName}"/>								
+								<s:textfield name="project.pdLastName" cssClass="form-control" id="lnPD" placeholder="" value="%{project.pdLastName}" readonly="isNotEditable"/>								
 						</div>
 					</div>
 				</div>
@@ -166,7 +173,7 @@
 							Start Date</label>
 						<div class="input-group date">
 						
-						<s:textfield name="project.projectStartDate" cssClass="form-control" id="projectStartDate" value="%{project.projectStartDate}"/>	
+						<s:textfield name="project.projectStartDate" cssClass="form-control" id="projectStartDate" value="%{project.projectStartDate}" readonly="isNotEditable"/>	
 						<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>
@@ -180,7 +187,7 @@
 							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
 							End Date</label>
 						<div class="input-group date">
-						<s:textfield name="project.projectEndDate" cssClass="form-control" id="projectEndDate" value="%{project.projectEndDate}"/>	
+						<s:textfield name="project.projectEndDate" cssClass="form-control" id="projectEndDate" value="%{project.projectEndDate}" readonly="isNotEditable"/>	
 							<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>

@@ -153,4 +153,24 @@ public class ProjectsDao {
 			throw re;
 		}
 	}
+	
+	/**
+	 * This method returns grantContract for given applId
+	 * @param applId
+	 * @return
+	 */
+	public GdsGrantsContracts getGrantOrContract(Long applId){
+
+		logger.info("Retrieving  Grant / Contract from DB for applId: "+applId);
+		try {
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsGrantsContracts.class);	
+			criteria.add(Restrictions.eq("applId", applId));
+			GdsGrantsContracts grantContract = (GdsGrantsContracts) criteria.uniqueResult();
+			return grantContract;
+
+		}catch (RuntimeException re) {
+			logger.error("Retrieving  Grant / Contract failed", re);
+			throw re;
+		}
+	}
 }
