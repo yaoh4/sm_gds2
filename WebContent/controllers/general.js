@@ -40,20 +40,31 @@ $("select").change(function(){
                  $(".asterisk").show();
                
             }
+            else if($(this).attr("value")=="DCB" || $(this).attr("value")=="DCCPS"
+			|| $(this).attr("value")=="DCP" || $(this).attr("value")=="DCTD"
+			|| $(this).attr("value")=="DEA" || $(this).attr("value")=="OD CCG"
+			|| $(this).attr("value")=="OD CCT" || $(this).attr("value")=="OD CGH"
+			|| $(this).attr("value")=="OD CRCHD" || $(this).attr("value")=="OD CSSI"
+			||$(this).attr("value")=="OD OCC" || $(this).attr("value")=="OD OHAM" || $(this).attr("value")=="OD SBIR"){
+               $(".pdirector").show();
+                $(".approvalDate").hide();
+                 $(".pdates").show();
+                 $(".sAsterisk").hide();
+                 $(".asterisk").show();
+                 $(".eAsterisk").show();
+
+            }         
             else{
                 $(".pdates").show();
-                $(".pdirector").show();
-                $(".asterisk").hide();
-                $(".sAsterisk").hide();
-                $(".eAsterisk").hide();
-                $(".asterisk").hide();
+                 $(".pdirector").show();
+                 $(".asterisk").hide();
+                 $(".approvalDate").show();
+                   $(".sAsterisk").hide();
+                    $(".eAsterisk").hide();
+                    $(".asterisk").hide();
             }
         });
     }).change();
 
 
 });
-
-
-
-
