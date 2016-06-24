@@ -31,7 +31,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 
 	private String preSelectedDOC;
 	private String grantContractNum;
-	private String selectedGrantContract;
 	private String selectedTypeOfProject;
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();	
 	private List<DropDownOption> projectTypes = new ArrayList<DropDownOption>();
@@ -107,7 +106,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * 
 	 * @return forward string
 	 */
-	public String openGrantsContractsSearch() throws Exception {		
+	public String openGrantsContractsSearch() throws Exception {
+		grantContractNum = "";
 		return SUCCESS;
 	}
 	
@@ -198,6 +198,16 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		logger.debug("Searching grants / contracts.");
 		grantOrContractList = searchProjectService.getGrantOrContractList(grantContractNum);
 		return SUCCESS;
+	}
+	
+	/**
+	 * Validates Intramural / Grant/ Contract search
+	 */
+	public void validateSearchGrantOrContract(){	
+		
+		if(StringUtils.isEmpty(grantContractNum)){
+			this.addActionError(getText("grantContractNum.required")); 
+		}
 	}
 		
 	/**
@@ -395,20 +405,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void setProjectSubmissionReasons(List<DropDownOption> projectSubmissionReasons) {
 		this.projectSubmissionReasons = projectSubmissionReasons;
-	}
-
-	/**
-	 * @return the selectedGrantContract
-	 */
-	public String getSelectedGrantContract() {
-		return selectedGrantContract;
-	}
-
-	/**
-	 * @param selectedGrantContract the selectedGrantContract to set
-	 */
-	public void setSelectedGrantContract(String selectedGrantContract) {
-		this.selectedGrantContract = selectedGrantContract;
 	}
 	
 	/**

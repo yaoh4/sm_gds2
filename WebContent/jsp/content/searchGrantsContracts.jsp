@@ -34,6 +34,11 @@
 						<h5>Search for Intramural (Z01)/Grant/Contract #</h5>
 					</div>
 				</div>
+				<div>
+				<s:if test="%{!actionErrors.isEmpty}">
+  					 <p style="color:red"><strong>Errors:  <s:actionerror cssStyle="color:red"/> </strong> </p>					
+				</s:if>
+				</div>
 				<!--end panel header-->
 				<div class="panel-body">					
 						<p>
@@ -71,7 +76,7 @@
 								action="search/searchGrantsContractsAction"
 								cssClass="btn btn-default" />
 							<s:submit value="Reset"
-								action="search/searchGrantsContractsAction"
+								action="search/openSearchGrantsContracts"
 								cssClass="btn btn-default" />
 						</div>
 
