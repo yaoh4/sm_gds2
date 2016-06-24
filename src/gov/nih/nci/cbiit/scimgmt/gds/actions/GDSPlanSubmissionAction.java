@@ -89,6 +89,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 
 		logger.debug("execute");
         
+		if(StringUtils.isEmpty(getProjectId())) {
+			throw new Exception();
+		}
 		setProject(retrieveSelectedProject());
 		
 		setUpPageData();

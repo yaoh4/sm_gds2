@@ -13,42 +13,60 @@
 					<li class="active"><s:a href="javascript: void(0)">General Info.</s:a></li>
 				</s:if>
 				<s:else>
-					<li><s:a href="/gds/manage/newSubmission.action">General Info.</s:a></li>
+					<s:url namespace="/manage" var="generalInfoUrl" action="navigateToGeneralInfo">
+						<s:param name="projectId" value="%{projectId}" />
+					</s:url>
+					<li><s:a href="%{generalInfoUrl}">General Info.</s:a></li>
 				</s:else>
 				<li class="divider-vertical"></li>
 				<s:if test="%{'gdsPlan' eq #attr['subnavtab']}">
 					<li class="active"><s:a href="javascript: void(0)">Genomic Data Sharing Plan</s:a></li>
 				</s:if>
 				<s:else>
-					<li><s:a href="/gds/manage/saveGeneralInfo.action">Genomic Data Sharing Plan</s:a></li>
+					<s:url namespace="/manage" var="gdsPlanUrl" action="editGdsPlan">
+						<s:param name="projectId" value="%{projectId}" />
+					</s:url>
+					<li><s:a href="%{gdsPlanUrl}">Genomic Data Sharing Plan</s:a></li>
 				</s:else>
 				<li class="divider-vertical"></li>
 				<s:if test="%{'ic' eq #attr['subnavtab']}">
 					<li class="active"><s:a href="javascript: void(0)">Institutional Certification(s)</s:a></li>
 				</s:if>
 				<s:else>
-					<li><s:a href="/gds/manage/editIc.action">Institutional Certification(s)</s:a></li>
+					<s:url namespace="/manage" var="icUrl" action="editIc">
+						<s:param name="projectId" value="%{projectId}" />
+					</s:url>
+					<li><s:a href="%{icUrl}">Institutional Certification(s)</s:a></li>
 				</s:else>
 				<li class="divider-vertical"></li>
 				<s:if test="%{'bsi' eq #attr['subnavtab']}">
 					<li class="active"><s:a href="javascript: void(0)">Basic Study Info.</s:a></li>
 				</s:if>
 				<s:else>
-					<li><s:a href="/gds/manage/navigateToBasicStudyInfo.action">Basic Study Info.</s:a></li>
+					<s:url namespace="/manage" var="bsiUrl" action="navigateToBasicStudyInfo">
+						<s:param name="projectId" value="%{projectId}" />
+					</s:url>
+					<li><s:a href="%{bsiUrl}">Basic Study Info.</s:a></li>
 				</s:else>
 				<li class="divider-vertical"></li>
 				<s:if test="%{'repository' eq #attr['subnavtab']}">
 					<li class="active"><s:a href="javascript: void(0)">Submission Status</s:a></li>
 				</s:if>
 				<s:else>
-					<li><s:a href="/gds/manage/saveBasicStudyInfo.action">Submission Status</s:a></li>
+					<s:url namespace="/manage" var="submissionStatusUrl" action="navigateToRepositoryStatus">
+						<s:param name="projectId" value="%{projectId}" />
+					</s:url>
+					<li><s:a href="%{submissionStatusUrl}">Submission Status</s:a></li>
 				</s:else>
 				<li class="divider-vertical"></li>
 				<s:if test="%{'detail' eq #attr['subnavtab']}">
 					<li class="active"><s:a href="javascript: void(0)">Submission Details</s:a></li>
 				</s:if>
 				<s:else>
-					<li><s:a href="/gds/manage/saveBasicStudyInfo.action">Submission Details</s:a></li>
+					<s:url namespace="/manage" var="submissionStatusUrl" action="navigateToSubmissionDetail">
+						<s:param name="projectId" value="%{projectId}" />
+					</s:url>
+					<li><s:a href="%{submissionStatusUrl}">Submission Details</s:a></li>
 				</s:else>
 				<li class="divider-vertical"></li>
 			</s:if>
