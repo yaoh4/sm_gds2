@@ -31,7 +31,16 @@
 			 <result name="success" type="tiles">submissionGdsPlan</result>
 		</action>
 		<action name="saveGdsPlan" method="save" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
-			 <result name="success" type="tiles">submissionIcList</result>
+			 <result name="success" type="tiles">submissionGdsPlan</result>
+			 <result name="input" type="tiles">submissionGdsPlan</result>
+		</action>
+		<action name="saveGdsPlanAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
+			 <result name="input" type="tiles">submissionGdsPlan</result>
+			 <result name="success" type="redirect-action">
+			 	<param name="actionName">editIc</param>
+				<param name="projectId">${project.id}</param>
+				<param name="parse">true</param>
+			 </result>
 		</action>
 		<action name="editIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>

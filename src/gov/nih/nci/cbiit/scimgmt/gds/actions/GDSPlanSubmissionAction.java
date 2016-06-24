@@ -69,9 +69,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	private Map<Long, String> otherTextMap = new HashMap<Long, String>();
 	
-	Document doc = null; // json object to be returned for UI refresh after upload
+	private Document doc = null; // json object to be returned for UI refresh after upload
 	
-	String comments;
+	private String comments;
 	
 	/**
 	 * Execute method for Genomic Data Sharing Plan.  
@@ -161,6 +161,27 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 
 	}
 
+	/**
+	 * Save Genomic Data Sharing Plan and Navigate to IC page. 
+	 * Invoked from Genomic Data Sharing Plan Save & Next button.
+	 * 
+	 * @return forward string
+	 */
+	public String saveAndNext() throws Exception {
+		
+		save();
+		
+        return SUCCESS;
+	}
+	
+	/**
+	 * Validate Save & Next Genomic Data Sharing Plan 
+	 */
+	public void validateSaveAndNext() {
+		
+		validateSave();
+	}
+	
 	/**
 	 * Upload Exception Memo Document
 	 * 
