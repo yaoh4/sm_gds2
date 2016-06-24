@@ -97,4 +97,10 @@
 		<put-attribute name="body" value="/jsp/content/submissionRepositoryStatus.jsp" />		
 	</definition>
 	
+	<definition name="createNewSubmission" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/submissionCreateNew.jsp" />		
+	</definition>
+	
 </tiles-definitions>

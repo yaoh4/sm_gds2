@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
 <link href="<s:url value="/stylesheets/custom.css" />" rel="stylesheet" type="text/css" media="screen" />
-<link href="<s:url value="/stylesheets/table.css" />" rel="stylesheet" type="text/css" media="screen" />
+<!-- <link href="<s:url value="/stylesheets/table.css" />" rel="stylesheet" type="text/css" media="screen" />  -->
 <link href="<s:url value="/stylesheets/styles.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/displaytag.css" />" rel="stylesheet" type="text/css" media="screen" />
 

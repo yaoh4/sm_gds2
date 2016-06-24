@@ -9,14 +9,23 @@
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchProjectAction">
 			 <result name="success" type="tiles">home</result>
 		</action>
-		<action name="newSubmission" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="newSubmission" method="createNewSubmission" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+			 <result name="success" type="tiles">createNewSubmission</result>
+		</action>		
+		<action name="navigateToGeneralInfo" method="execute" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
 			 <result name="success" type="tiles">submissionGeneralInfo</result>
-		</action>
+		</action>				
 		<action name="saveGeneralInfo" method="save" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
 			 <result name="success" type="tiles">submissionGeneralInfo</result>
+			 <result name="input" type="tiles">submissionGeneralInfo</result>
 		</action>
 		<action name="saveGeneralInfoAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
-			 <result name="success" type="redirect-action">editGdsPlan</result>
+			 <result name="success" type="redirect-action">
+			 	<param name="actionName">editGdsPlan</param>
+				<param name="projectId">${project.id}</param>
+				<param name="parse">true</param>
+			 </result>
+			 <result name="input" type="tiles">submissionGeneralInfo</result>
 		</action>
 		<action name="editGdsPlan" method="execute" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			 <result name="success" type="tiles">submissionGdsPlan</result>
@@ -68,6 +77,12 @@
 		</action>		
 		<action name="navigateToIntramuralGrantOrContractSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
 			 <result name="success" type="tiles">intramuralGrantOrContractSearch</result>
+		</action>
+		<action name="openSearchGrantsContracts" method="openGrantsContractsSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/searchGrantsContracts.jsp</result>		
+		</action>		
+		<action name="searchGrantsContractsAction" method="searchGrantOrContract" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/searchGrantsContracts.jsp</result>		
 		</action>
 	</package>
 </struts>

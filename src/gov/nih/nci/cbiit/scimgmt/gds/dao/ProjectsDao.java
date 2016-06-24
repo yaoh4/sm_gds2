@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 // Generated Mar 7, 2016 1:12:03 PM by Hibernate Tools 4.0.0
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +13,14 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 
 /**
@@ -32,6 +35,9 @@ public class ProjectsDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	protected NedPerson loggedOnUser;	
 	
 	protected SessionFactory getSessionFactory() {
 		try {
@@ -68,7 +74,17 @@ public class ProjectsDao {
 		Long id = detachedInstance.getId();
 		logger.debug("merging Project instance");
 		try {
-			sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Project.class, id));
+			if(id != null){
+				//Already saved submission				
+				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Project.class, id));
+				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+				detachedInstance.setLastChangedDate(new Date());
+			}
+			else{
+				//New submission
+				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+				detachedInstance.setCreatedDate(new Date());
+			}
 			Project result = (Project) sessionFactory.getCurrentSession().merge(detachedInstance);
 			logger.debug("merge successful");
 			return result;
@@ -128,8 +144,9 @@ public class ProjectsDao {
 		logger.info("Retrieving  Grant / Contract List from DB for grantContractNum: "+grantContractNum);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsGrantsContracts.class);	
-			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum));
-			return criteria.list();
+			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));
+			List<GdsGrantsContracts> grantsListlist = criteria.list();
+			return grantsListlist;
 
 		}catch (RuntimeException re) {
 			logger.error("Retrieving  Grant / Contract List failed", re);

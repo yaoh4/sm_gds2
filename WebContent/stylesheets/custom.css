@@ -1,5 +1,5 @@
 body { 
-	padding-top: 200px; 
+	padding-top: 290px; 
 	
 	font-family: 'Source Sans Pro';
 	font-size: 14px;
@@ -70,12 +70,40 @@ h6 {
     margin-bottom: 5px;
     font-weight: 400;
     color:#686868;
-    font-size: 12px;
+    font-size: 14px;
     padding-left: 2px;
 }
 
+
+.radio label {
+ 
+  font-size: 14px;
+}
+
+.radio, .checkbox {
+    padding-left: 40px;
+}
+
+.question {
+  font-size: 14px;
+  font-weight: 700;
+  color: #686868;
+}
+
+.fa-asterisk {
+  color: #123e57;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+
+
 /********************************************************************/
 /*** Main Navigation ***/
+
+.GDS {
+  margin: 5px 0px 0px 2px;
+}
 
 .navbar-fixed-top {
    
@@ -90,6 +118,7 @@ h6 {
   margin: 10px 0px 10px 0px;
 
 }
+
 
 
 .nav {
@@ -117,13 +146,13 @@ h6 {
 
 /*When no Subnav is present - like on Search and My Submissions **********************/
 .noSubNav {
-  padding-top: 150px;
+  padding-top: 200px;
 }
 
 .navbar-main>li>a.active {
-    color: #FFF;
+    color: #686868;
     font-size: 14px;
-    background-color: #123e57;
+    background-color: #eee;
 }
 
 
@@ -168,7 +197,7 @@ h6 {
 /*Main Project nav bar*/
 
 .navbar-default2 {
-  margin-top: 100px;
+  margin-top: 130px;
       background: #123e57;
       border: none;
 }
@@ -361,7 +390,13 @@ h6 {
 .panel.with-nav-tabs .panel-heading{
     padding: 5px 5px 0 5px;
     display: inline;
+
 }
+
+.panel-heading {
+    padding: 10px 15px 15px;
+    }
+
 .panel.with-nav-tabs .nav-tabs{
 	border-bottom: none;
 }
@@ -425,7 +460,7 @@ a {
   /* Negative indent footer by its height */
   margin: 0 auto -60px;
   /* Pad bottom by footer height */
-  padding: 0 0 60px;
+  padding: 0 0  0px;
   }
 
 
@@ -472,11 +507,23 @@ a {
 }
 
 .status {
-  margin-left: 68%;
+ 
   display: inline;
   font-size: 12px;
   color: #FFF;
+  width: 200px;
 
+}
+
+.statusIcon {
+  display: inline;
+  
+}
+
+.statusWrapper {
+ 
+  display: inline;
+  float: right;
 }
 
 .pheader {
@@ -555,10 +602,7 @@ table.dataTable tbody th, table.dataTable tbody td {
   padding: 3px;
 }
 
-.radio-inline {
-  font-size: 14px;
-  margin-left: 3px;
-}
+
 
 .dropmid a li {
   font-size: 12px;
@@ -611,13 +655,61 @@ text-decoration: none;}
   vertical-align: top;
 }
 
+/********  Create New Submission & Gen Info Styles  ***/
 
 
+.input-group2 {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+    width: 250px;
+  }
 
+.form-horizontal .control-label {
+    text-align: right;
+    vertical-align: text-top;
+    padding-top: 0px;
+    margin-top: -5px;
 
+}
 
+.popPage {
+  margin: 0px 15px 0px 15px;
+  padding: 0px;
+}
 
+.projectDates {
+margin-left: 15px;
+    width: 222px;
+}
 
+.help-block {
+float: left;
+  margin-top: 0px;
+  clear: both;
+}
+
+.statusWrapper {
+  display: inline;
+}
+
+/****************/
+
+.searchLabel {
+  margin-left: 70px;
+ display: inline-block;
+  font-weight: 400;
+    color: #686868;
+    font-size: 14px;
+    text-align: right;
+    width: 150px;
+    margin-bottom: 10px;
+}
+.searchFormat {
+  display: inline-block;
+  padding-left: 25px;
+  font-size: 14px;
+}
 
 
 

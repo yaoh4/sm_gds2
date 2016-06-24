@@ -8,8 +8,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.opensymphony.xwork2.Preparable;
+
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
@@ -22,13 +25,17 @@ import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
  * @author tembharend
  */
 @SuppressWarnings("serial")
-public class GeneralInfoSubmissionAction extends ManageSubmission {
+public class GeneralInfoSubmissionAction extends ManageSubmission implements Preparable{
 
 	private static final Logger logger = LogManager.getLogger(GeneralInfoSubmissionAction.class);	
 
 	private String preSelectedDOC;
 	private String grantContractNum;
+	private String selectedGrantContract;
+	private String selectedTypeOfProject;
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();	
+	private List<DropDownOption> projectTypes = new ArrayList<DropDownOption>();
+	private List<DropDownOption> projectSubmissionReasons = new ArrayList<DropDownOption>();	
 	private List<GdsGrantsContracts> grantOrContractList = new ArrayList<GdsGrantsContracts>();		
 
 	@Autowired
@@ -44,7 +51,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		setUpPageData();
 		return SUCCESS;
 	}
-
+	
 	/**
 	 * Saves Project General Information.
 	 * 
@@ -52,27 +59,77 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String save() throws Exception {  	
 
-		super.saveProject(getProject());
+		logger.debug("Saving Submission General Info.");		
+		saveProject();
+		addActionMessage(getText("project.save.success"));
 		return SUCCESS;
 	}
-
+	
 	/**
 	 * Saves Project General Information and Navigates to next page.
 	 * 
 	 * @return forward string
 	 */
-	public String saveAndNext() throws Exception { 
+	public String saveAndNext() throws Exception {
+		
+		logger.debug("Saving Submission General Info and navigating to GDS plan page.");
+		saveProject();
+		return SUCCESS;
+	}
+	
+	/**
+	 * 
+	 * @throws Exception
+	 */
+	public void saveProject() throws Exception{
+		
+		Project project = retrieveSelectedProject();		
+		if(project != null){
+			popoulateProjectProperties(getProject(),project);
+		}
+		else{
+			project = getProject();
+		}
+		project = super.saveProject(project);
+		setProject(project);
+	}
 
-		super.saveProject(getProject());
+	/**
+	 * If validation fails re-populate request scoped form data. 
+	 */
+	@Override
+	public void prepare() throws Exception {		
+		setUpLists();	
+	}
+	
+	/**
+	 * Opens Grants Contracts Search page.
+	 * 
+	 * @return forward string
+	 */
+	public String openGrantsContractsSearch() throws Exception {		
+		return SUCCESS;
+	}
+	
+	/**
+	 * Opens Create new submission page.
+	 * 
+	 * @return forward string
+	 */
+	public String createNewSubmission() throws Exception {  	
+	
+		logger.debug("Navigating to create new submission.");
+		List<Lookup> projectTypeListFromDb =  lookupService.getLookupList(ApplicationConstants.PROJECT_TYPE_LIST.toUpperCase());
+		GdsSubmissionActionHelper.populateStatusDropDownLists(projectTypes,projectTypeListFromDb);
 		return SUCCESS;
 	}	
-
+	
 	/**
 	 * This method sets up all data for General Info Page.
 	 */
-	@SuppressWarnings("unchecked")
 	public void setUpPageData(){
 
+		logger.debug("Setting up page data.");
 		Project project = retrieveSelectedProject();
 		if(project != null){
 			setProject(project);					
@@ -80,10 +137,55 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		else{			
 			setProject(new Project());
 		}
-
-		List<Organization> docListFromDb = (List<Organization>) lookupService.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());
-		GdsSubmissionActionHelper.populateDocDropDownList(docList,docListFromDb);
-		preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());	
+		setUpLists();				
+	}
+	
+	/**
+	 * This method sets up all the lists for General Info Page.
+	 */
+	@SuppressWarnings("unchecked")
+	public void setUpLists(){
+		
+		logger.debug("Setting up page lists.");
+		if(docList.isEmpty()){
+			
+			List<Organization> docListFromDb = (List<Organization>) lookupService.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());
+			GdsSubmissionActionHelper.populateDocDropDownList(docList,docListFromDb);
+			
+			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());	
+		}
+		
+		if(projectSubmissionReasons.isEmpty()){
+			
+			List<Lookup> projectSubmissionReasonsFromDb =  lookupService.getLookupList(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST.toUpperCase());
+			GdsSubmissionActionHelper.populateStatusDropDownLists(projectSubmissionReasons,projectSubmissionReasonsFromDb);	
+		}		
+	}
+	
+	/**
+	 * This method copies properties from UI project to DB project object.
+	 * @param transientProject
+	 * @param persistentProject
+	 */
+	public void popoulateProjectProperties(Project transientProject, Project persistentProject){
+		
+		logger.debug("Copying transient project properties to persistent project properties.");
+		persistentProject.setSubmissionReasonId(transientProject.getSubmissionReasonId());
+		persistentProject.setDocAbbreviation(transientProject.getDocAbbreviation());
+		persistentProject.setProgramBranch(transientProject.getProgramBranch());
+		persistentProject.setApplicationNum(transientProject.getApplicationNum());
+		persistentProject.setProjectTitle(transientProject.getProjectTitle());
+		persistentProject.setPiFirstName(transientProject.getPiFirstName());
+		persistentProject.setPiLastName(transientProject.getPiLastName());
+		persistentProject.setPiEmailAddress(transientProject.getPiEmailAddress());
+		persistentProject.setPiInstitution(transientProject.getPiInstitution());
+		persistentProject.setPocFirstName(transientProject.getPocFirstName());
+		persistentProject.setPocLastName(transientProject.getPocLastName());
+		persistentProject.setPocEmailAddress(transientProject.getPocEmailAddress());
+		persistentProject.setPdFirstName(transientProject.getPdFirstName());
+		persistentProject.setPdLastName(transientProject.getPdLastName());
+		persistentProject.setProjectStartDate(transientProject.getProjectStartDate());
+		persistentProject.setProjectEndDate(transientProject.getProjectEndDate());
 	}
 	
 	/**
@@ -93,10 +195,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String searchGrantOrContract(){
 
+		logger.debug("Searching grants / contracts.");
 		grantOrContractList = searchProjectService.getGrantOrContractList(grantContractNum);
 		return SUCCESS;
 	}
-
+		
 	/**
 	 * Validates save Project General Information
 	 */
@@ -106,12 +209,27 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		validatePrincipleInvestigator();
 		validatePrimaryContact();	
 	}
+	
+	/**
+	 * Validates save Project General Information
+	 */
+	public void validateSaveAndNext(){	
+
+		validateProjectDetails();
+		validatePrincipleInvestigator();
+		validatePrimaryContact();	
+	}	
 
 	/**
 	 * Validates save Project General Information
 	 */
 	public void validateProjectDetails(){	
 
+		//Validation for SubmissionReason
+		if(getProject().getSubmissionReasonId() == null){
+			this.addActionError(getText("submissionReasonId.required")); 
+		}
+		
 		//Validation for Program/ Branch
 		if(StringUtils.isEmpty(getProject().getProgramBranch())){
 			this.addActionError(getText("programbranch.required")); 
@@ -215,6 +333,14 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		this.docList = docList;
 	}
 
+	public List<DropDownOption> getProjectTypes() {
+		return projectTypes;
+	}
+
+	public void setProjectTypes(List<DropDownOption> projectTypes) {
+		this.projectTypes = projectTypes;
+	}
+
 	/**
 	 * @return the intramuralGrantOrContractList
 	 */
@@ -225,23 +351,77 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	/**
 	 * @param intramuralGrantOrContractList the intramuralGrantOrContractList to set
 	 */
-	public void setGrantOrContractList(List<GdsGrantsContracts> intramuralGrantOrContractList) {
+	public void setGrantOrContractList(List<GdsGrantsContracts> grantOrContractList) {
 		this.grantOrContractList = grantOrContractList;
 	}
 
+	/**
+	 * @return the preSelectedDOC
+	 */
 	public String getPreSelectedDOC() {
 		return preSelectedDOC;
 	}
 
+	/**
+	 * @param preSelectedDOC the preSelectedDOC to set
+	 */
 	public void setPreSelectedDOC(String preSelectedDOC) {
 		this.preSelectedDOC = preSelectedDOC;
 	}
 
+	/**
+	 * @return the grantContractNum
+	 */
 	public String getGrantContractNum() {
 		return grantContractNum;
 	}
 
+	/**
+	 * @param grantContractNum the grantContractNum to set
+	 */
 	public void setGrantContractNum(String grantContractNum) {
 		this.grantContractNum = grantContractNum;
 	}
+
+	/**
+	 * @return the projectSubmissionReasons
+	 */
+	public List<DropDownOption> getProjectSubmissionReasons() {
+		return projectSubmissionReasons;
+	}
+
+	/**
+	 * @param projectSubmissionReasons the projectSubmissionReasons to set
+	 */
+	public void setProjectSubmissionReasons(List<DropDownOption> projectSubmissionReasons) {
+		this.projectSubmissionReasons = projectSubmissionReasons;
+	}
+
+	/**
+	 * @return the selectedGrantContract
+	 */
+	public String getSelectedGrantContract() {
+		return selectedGrantContract;
+	}
+
+	/**
+	 * @param selectedGrantContract the selectedGrantContract to set
+	 */
+	public void setSelectedGrantContract(String selectedGrantContract) {
+		this.selectedGrantContract = selectedGrantContract;
+	}
+	
+	/**
+	 * @return the selectedTypeOfProject
+	 */
+	public String getSelectedTypeOfProject() {
+		return selectedTypeOfProject;
+	}
+
+	/**
+	 * @param selectedTypeOfProject the selectedTypeOfProject to set
+	 */
+	public void setSelectedTypeOfProject(String selectedTypeOfProject) {
+		this.selectedTypeOfProject = selectedTypeOfProject;
+	}	
 }

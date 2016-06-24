@@ -62,13 +62,12 @@ public class GdsGrantsContracts {
 	
 	@Override
 	public String toString() {
-		return "GdsGrantsContracts [grantContractNum=" + grantContractNum + ", applTypeCode=" + applTypeCode
-				+ ", activityCode=" + activityCode + ", adminPhsOrgCode=" + adminPhsOrgCode + ", serialNum=" + serialNum
-				+ ", supportYear=" + supportYear + ", suffixCode=" + suffixCode + ", projectTitle=" + projectTitle
-				+ ", piFirstName=" + piFirstName + ", piLastName=" + piLastName + ", piEmailAddress=" + piEmailAddress
-				+ ", piInstitution=" + piInstitution + ", pdFirstName=" + pdFirstName + ", pdLastName=" + pdLastName
-				+ ", projectPeriodStartDate=" + projectPeriodStartDate + ", projectPeriodEndDate="
-				+ projectPeriodEndDate + "]";
+		return "{\"grantContractNum\":\"" + grantContractNum + "\", \"applTypeCode\":\"" + applTypeCode
+				+ "\",\" activityCode\":\"" + activityCode + "\", \"adminPhsOrgCode\":\"" + adminPhsOrgCode + "\", \"serialNum\":\"" + serialNum
+				+ "\", \"supportYear\":\"" + supportYear + "\", \"suffixCode\":\"" + suffixCode + "\", \"projectTitle\":\"" + projectTitle
+				+ "\", \"piFirstName\":\"" + piFirstName + "\",\" piLastName\":\"" + piLastName + "\",\" piEmailAddress\":\"" + piEmailAddress
+				+ "\",\" piInstitution\":\"" + piInstitution + "\",\" pdFirstName\":\"" + pdFirstName + "\",\" pdLastName\":\"" + pdLastName
+				+ "\",\" projectPeriodStartDate\":\"" + projectPeriodStartDate + "\",\" projectPeriodEndDate\":\"" + projectPeriodEndDate +"\"}";
 	}
 	
 	@Id

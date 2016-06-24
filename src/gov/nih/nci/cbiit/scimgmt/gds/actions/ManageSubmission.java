@@ -5,6 +5,7 @@ import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -76,7 +77,7 @@ public class ManageSubmission extends BaseAction {
 	public Project retrieveSelectedProject() {
 	
 		String projectId  = getProjectId();
-		if(projectId != null) {
+		if(StringUtils.isNotBlank(projectId)) {
 			return manageProjectService.findById(Long.valueOf(projectId));
 		} 
 		
@@ -88,6 +89,10 @@ public class ManageSubmission extends BaseAction {
 	 * Save the project
 	 */
 	public Project saveProject(Project project) {
+		
+		//Temporary hard coding project property. 
+		project.setVersionNum(1l);
+		project.setSubprojectFlag("N");
 		return manageProjectService.saveOrUpdate(project);
 		
 	}

@@ -25,6 +25,8 @@ public interface ApplicationConstants {
 	 public static final String IC_APPROVED_BY_GPA_LIST = "IC_APPROVED_BY_GPA";
 	 public static final String IC_PROV_OR_FINAL_LIST = "IC_PROV_OR_FINAL";
 	 public static final String IC_FOR_FUTURE_USE_LIST = "IC_FOR_FUTURE_USE";
+	 public static final String PROJECT_SUBMISSION_REASON_LIST = "project_sub_reason";
+	 public static final String PROJECT_TYPE_LIST = "project_type";
 	 
 	 /* Type discriminators */ 
 	 public static final String DOC_TYPE = "DOC_TYPE";

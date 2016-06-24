@@ -114,6 +114,7 @@ WebContent/WEB-INF/lib/xwork-core-2.3.24.1.jar -text
 WebContent/WEB-INF/tiles.xml -text
 WebContent/WEB-INF/web.xml -text
 WebContent/controllers/gdsPlan.js -text
+WebContent/controllers/general.js -text
 WebContent/controllers/search.js -text
 WebContent/controllers/submissionStatus.js -text
 WebContent/fonts/glyphicons-halflings-regular.eot -text
@@ -145,8 +146,10 @@ WebContent/images/pending.png -text
 WebContent/images/subV.png -text
 WebContent/index.jsp -text
 WebContent/jsp/content/search.jsp -text
+WebContent/jsp/content/searchGrantsContracts.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfo.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfoView.jsp -text
+WebContent/jsp/content/submissionCreateNew.jsp -text
 WebContent/jsp/content/submissionDetail.jsp -text
 WebContent/jsp/content/submissionGdsPlan.jsp -text
 WebContent/jsp/content/submissionGdsPlanView.jsp -text
@@ -486,6 +489,7 @@ WebContent/scripts/npm.js -text
 WebContent/scripts/table.js -text
 WebContent/scripts/theme.js -text
 WebContent/scripts/tooltipjquery.js -text
+WebContent/scripts/validator.js -text
 WebContent/stylesheets/bootstrap-theme.css -text
 WebContent/stylesheets/bootstrap-theme.css.map -text
 WebContent/stylesheets/bootstrap-theme.min.css -text
@@ -500,6 +504,7 @@ WebContent/stylesheets/displaytag.css -text
 WebContent/stylesheets/non-responsive.css -text
 WebContent/stylesheets/styles.css -text
 WebContent/stylesheets/table.css -text
+WebContent/template/simple/radiomap-br.ftl -text
 build/build.xml -text
 build/env.properties -text
 build/user.properties -text

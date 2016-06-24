@@ -1,7 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
-<s:form action="viewProject" name="viewProjectForm">
+<s:form action="navigateToGeneralInfo" namespace="/manage" name="viewProjectForm">
 <div class="content">
 	<div class="inside">
 		<fieldset>
@@ -10,7 +10,7 @@
 				<s:select cssClass="searchInput" name="projectId" list="%{getAllProjectIds()}" id="projectId"  emptyOption="true"/>				
 			</span>
 			<br/>
-			 <s:submit name="viewProject" action="viewProject" cssClass="searchButton" value="View"/>
+			 <s:submit name="viewProject" action="navigateToGeneralInfo" cssClass="searchButton" value="View"/>
 			
 			<br/>
 		</fieldset>
