@@ -1,5 +1,5 @@
 body { 
-	padding-top: 250px; 
+	padding-top: 290px; 
 	
 	font-family: 'Source Sans Pro';
 	font-size: 14px;
@@ -197,7 +197,7 @@ h6 {
 /*Main Project nav bar*/
 
 .navbar-default2 {
-  margin-top: 100px;
+  margin-top: 130px;
       background: #123e57;
       border: none;
 }
@@ -693,7 +693,7 @@ float: left;
   display: inline;
 }
 
-/****************/
+/*****Pop-up on General Info for Searching Grants***********/
 
 .searchLabel {
   margin-left: 70px;
@@ -711,6 +711,45 @@ float: left;
   font-size: 14px;
 }
 
+/******GDS Data Sharing Page****************************/
+
+.qSpacing {
+  padding-bottom: 15px;
+}
+
+.other {
+    display: inline-block;
+    width: 240px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  }
 
 
+.delete {
+   display: inline-block;
+   margin-left: 10px;
 
+}
+
+.otherWrapper {
+  width: 650px;
+   display: block;
+}
+
+.noteText {
+  font-size: 12px;
+  font-style: italic;
+  padding: 0px;
+  margin: 0px;
+}

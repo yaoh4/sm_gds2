@@ -113,6 +113,7 @@ WebContent/WEB-INF/lib/xstream-1.4.2.jar -text
 WebContent/WEB-INF/lib/xwork-core-2.3.24.1.jar -text
 WebContent/WEB-INF/tiles.xml -text
 WebContent/WEB-INF/web.xml -text
+WebContent/controllers/dataSharing.js -text
 WebContent/controllers/gdsPlan.js -text
 WebContent/controllers/general.js -text
 WebContent/controllers/search.js -text
@@ -140,6 +141,7 @@ WebContent/images/ellipsis.png -text
 WebContent/images/hexagon_molecular_structure_footer.png -text
 WebContent/images/inprogress.png -text
 WebContent/images/legend.gif -text
+WebContent/images/nci-logo-full.svg -text
 WebContent/images/nci-sprite.png -text
 WebContent/images/newV.png -text
 WebContent/images/pending.png -text

@@ -14,9 +14,7 @@
 	<div class="navbar  navbar-fixed-top">
 		<div class="container">
 			<div id="logo" class="logoImage">
-				<img src="<s:url value="/images/GDSlogo.png" />" width="250px;"
-					alt="National Cancer Institute Genomic Data Sharing Tracking System Logo">
-
+				<img src="<s:url value="/images/nci-logo-full.svg" />" width="450px;"  alt="National Cancer Institute">
 				<div id="loginName"
 					style="float: right; padding-top: 15px; padding-bottom: 15px; margin-right: 15px;"
 					class="nav navbar-nav">
@@ -27,6 +25,7 @@
 						</s:if>
 					</div>
 				</div>
+				<div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
 			</div>
 			<s:include value="/jsp/layout/navbar.jsp" />
 		</div>
