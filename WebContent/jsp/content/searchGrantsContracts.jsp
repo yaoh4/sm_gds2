@@ -117,7 +117,7 @@
 						<div style="float: right; display: inline;">
 							<s:submit id="btnConfirm" value="Select"
 								onclick="populateGrantsContractsData()"
-								cssClass="btn btn-project-primary" />
+								cssClass="btn btn-project-primary" disabled="true"/>
 						</div>
 				</div>				
 			</div>
@@ -135,53 +135,53 @@
 				
 			if (json.grantContractNum !== "undefined") {
 				window.opener.$("#grantsContractNum").val(json.grantContractNum);
-				window.opener.$("#grantsContractNum").prop('disabled', true);
+				window.opener.$("#grantsContractNum").prop('readOnly', true);
 			}
 			
 			if (json.projectTitle !== "undefined") {
 				window.opener.$("#projectTitle").val(json.projectTitle);
-				window.opener.$("#projectTitle").prop('disabled', true);
+				window.opener.$("#projectTitle").prop('readOnly', true);
 			}
 			
 			if (json.piFirstName !== "undefined") {
 					window.opener.$("#fnPI").val(json.piFirstName);
-					window.opener.$("#fnPI").prop('disabled', true);
+					window.opener.$("#fnPI").prop('readOnly', true);
 			}
 			
 			if (json.piLastName !== "undefined") {
 				window.opener.$("#lnPI").val(json.piLastName);
-				window.opener.$("#lnPI").prop('disabled', true);
+				window.opener.$("#lnPI").prop('readOnly', true);
 			}
 			
 			if (json.piEmailAddress !== "undefined") {
 				window.opener.$("#piEmail").val(json.piEmailAddress);
-				window.opener.$("#piEmail").prop('disabled', true);
+				window.opener.$("#piEmail").prop('readOnly', true);
 			}
 			
 			
 			if (json.piInstitution !== "undefined") {
 				window.opener.$("#PIInstitute").val(json.piInstitution);
-				window.opener.$("#PIInstitute").prop('disabled', true);
+				window.opener.$("#PIInstitute").prop('readOnly', true);
 			}
 			
 			if (json.pdFirstName !== "undefined") {
 				window.opener.$("#fnPD").val(json.pdFirstName);
-				window.opener.$("#fnPD").prop('disabled', true);	
+				window.opener.$("#fnPD").prop('readOnly', true);	
 			}
 				
 			if (json.pdLastName !== "undefined") {
 				window.opener.$("#lnPD").val(json.pdLastName);
-				window.opener.$("#lnPD").prop('disabled', true);
+				window.opener.$("#lnPD").prop('readOnly', true);
 			}
 			
 			if (json.projectPeriodStartDate !== "undefined") {
 				window.opener.$("#projectStartDate").val(json.projectPeriodStartDate);
-				window.opener.$("#projectStartDate").prop('disabled', true);
+				window.opener.$("#projectStartDate").prop('readOnly', true);
 			}
 			
 			if (json.projectPeriodEndDate !== "undefined") {
 				window.opener.$("#projectEndDate").val(json.projectPeriodEndDate);
-				window.opener.$("#projectEndDate").prop('disabled', true);
+				window.opener.$("#projectEndDate").prop('readOnly', true);
 			}
 			
 			window.close();
@@ -200,7 +200,8 @@
 		<script>
 			$(document).ready(function() {
 				$(':radio').click(function() {
-					$('.alert').show()
+					$('.alert').show();
+					$("#btnConfirm").prop('disabled', false);
 				})
 			});
 			
