@@ -3,7 +3,7 @@ $(function() {
 
 //funtion that is triggered When Controlled is selected in Q6
 
-$('#controlled').click(function() {
+/*$('#controlled').click(function() {
     if( $(this).is(':checked')) {
         $("#controlledText").show();
          $("#dGaP").prop("disabled", true);
@@ -13,12 +13,12 @@ $('#controlled').click(function() {
        $("#dGaP").prop("disabled", false);
        $( "#dGaP" ).prop( "checked", false );
     }
-}); 
+}); */
 
 
 //funtion that  show/hides textEditor and uploader for DSP
 
-$('input[type="radio"]').click(function(){
+/*$('input[type="radio"]').click(function(){
         if($(this).attr("value")=="upload"){
             $("#DSPuploader").show();
     } else {
@@ -35,7 +35,7 @@ $('input[type="radio"]').click(function(){
     }
 
      });
-
+*/
 //function for uploaded history
 
 

@@ -503,6 +503,7 @@ WebContent/stylesheets/custom.css -text
 WebContent/stylesheets/datatable.css -text
 WebContent/stylesheets/non-responsive.css -text
 WebContent/template/simple/radiomap-br.ftl -text
+WebContent/template/simple/radiomap-div.ftl -text
 build/build.xml -text
 build/env.properties -text
 build/user.properties -text
