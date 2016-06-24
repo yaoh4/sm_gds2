@@ -1,5 +1,5 @@
 body { 
-	padding-top: 290px; 
+	padding-top: 250px; 
 	
 	font-family: 'Source Sans Pro';
 	font-size: 14px;
@@ -197,7 +197,7 @@ h6 {
 /*Main Project nav bar*/
 
 .navbar-default2 {
-  margin-top: 130px;
+  margin-top: 100px;
       background: #123e57;
       border: none;
 }
