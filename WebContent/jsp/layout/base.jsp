@@ -12,17 +12,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta charset="utf-8" />
 <title><tiles:insertAttribute name="title" /></title>
-<script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="<s:url value="/scripts/jquery-1.12.3.min.js" />"></script>
+<script src="<s:url value="/scripts/bootstrap-3.3.6.min.js" />"></script>
 <!-- <script type="text/javascript" src="<s:url value="/scripts/tooltipjquery.js" />"></script> -->
 <script type="text/javascript" src="<s:url value="/scripts/theme.js" />"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<s:url value="/scripts/bootstrap-datepicker.js-1.6.1.min.js" />"></script>
+<script src="<s:url value="/scripts/jquery.validate-1.15.0.min.js" />"></script>
 
-<link href="<s:url value="/stylesheets/bootstrap.min.css" />" rel="stylesheet" type="text/css" media="screen" />
+<link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/non-responsive.css" />" rel="stylesheet" type="text/css" media="screen" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.css" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+<link href="<s:url value="/stylesheets/bootstrap-datepicker-1.6.1.min.css" />" rel="stylesheet" type="text/css" media="screen" />
+<link href="<s:url value="/stylesheets/font-awesome.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
 <link href="<s:url value="/stylesheets/custom.css" />" rel="stylesheet" type="text/css" media="screen" />
 
