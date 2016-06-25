@@ -5,7 +5,7 @@
 	<s:form id="general_form" name="general_form" action="viewProject.action" method="post" data-toggle="validator" role="form">
 		<!-- Page navbar -->
 		<s:hidden name="projectId" value="%{project.id}"/>
-		<s:hidden name="applId" value="%{project.applId}"/>
+		<s:hidden name="applId" id="applId" value="%{project.applId}"/>
 		<div class="pageNav">
 			<s:submit value=" Save " action="manage/saveGeneralInfo"
 				id="general_saved" cssClass="saved btn btn-default" />
@@ -87,7 +87,7 @@
 							<label for="Project Title"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project
 								Title</label> 
-								<s:textfield name="project.projectTitle" cssClass="form-control" id="projectTitle" placeholder="" value="%{project.projectTitle}" readonly="isNotEditable"/>
+								<s:textfield name="project.projectTitle" cssClass="form-control" id="projectTitle" placeholder="" value="%{project.projectTitle}" disabled="isNotEditable"/>
 						</div>
 					</div>
 
@@ -96,13 +96,13 @@
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
-								<s:textfield name="project.piFirstName" cssClass="form-control" id="fnPI" placeholder="" value="%{project.piFirstName}" readonly="isNotEditable"/>
+								<s:textfield name="project.piFirstName" cssClass="form-control" id="fnPI" placeholder="" value="%{project.piFirstName}" disabled="isNotEditable"/>
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
-								<s:textfield name="project.piLastName" cssClass="form-control" id="lnPI" placeholder="" value="%{project.piLastName}" readonly="isNotEditable"/>								
+								<s:textfield name="project.piLastName" cssClass="form-control" id="lnPI" placeholder="" value="%{project.piLastName}" disabled="isNotEditable"/>								
 						</div>
 					</div>
 
@@ -112,7 +112,7 @@
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
 								of Principal Investigator</label>
 								<s:textfield name="project.piEmailAddress" cssClass="form-control" id="piEmail" placeholder="Enter Vaild Email Address"
-								data-error="Email address is invalid" value="%{project.piEmailAddress}" readonly="isNotEditable"/>								
+								data-error="Email address is invalid" value="%{project.piEmailAddress}" disabled="isNotEditable"/>								
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
@@ -122,7 +122,7 @@
 							<label for="Institution of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
 								of Principal Investigator</label>
-								<s:textfield name="project.piInstitution" cssClass="form-control" id="PIInstitute" placeholder="" value="%{project.piInstitution}" readonly="isNotEditable"/>								
+								<s:textfield name="project.piInstitution" cssClass="form-control" id="PIInstitute" placeholder="" value="%{project.piInstitution}" disabled="isNotEditable"/>								
 						</div>
 					</div>
 
@@ -154,13 +154,13 @@
 							<label for="First Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
 								Name of Program Director</label>
-								<s:textfield name="project.pdFirstName" cssClass="form-control" id="fnPD" placeholder="" value="%{project.pdFirstName}" readonly="isNotEditable"/>								
+								<s:textfield name="project.pdFirstName" cssClass="form-control" id="fnPD" placeholder="" value="%{project.pdFirstName}" disabled="isNotEditable"/>								
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>Last
 								Name of Program Director</label>
-								<s:textfield name="project.pdLastName" cssClass="form-control" id="lnPD" placeholder="" value="%{project.pdLastName}" readonly="isNotEditable"/>								
+								<s:textfield name="project.pdLastName" cssClass="form-control" id="lnPD" placeholder="" value="%{project.pdLastName}" disabled="isNotEditable"/>								
 						</div>
 					</div>
 				</div>
@@ -173,7 +173,7 @@
 							Start Date</label>
 						<div class="input-group date">
 						
-						<s:textfield name="project.projectStartDate" cssClass="form-control" id="projectStartDate" value="%{project.projectStartDate}" readonly="isNotEditable"/>	
+						<s:textfield name="project.projectStartDate" cssClass="form-control" id="projectStartDate" value="%{project.projectStartDate}" disabled="isNotEditable"/>	
 						<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>
@@ -187,7 +187,7 @@
 							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
 							End Date</label>
 						<div class="input-group date">
-						<s:textfield name="project.projectEndDate" cssClass="form-control" id="projectEndDate" value="%{project.projectEndDate}" readonly="isNotEditable"/>	
+						<s:textfield name="project.projectEndDate" cssClass="form-control" id="projectEndDate" value="%{project.projectEndDate}" disabled="isNotEditable"/>	
 							<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>

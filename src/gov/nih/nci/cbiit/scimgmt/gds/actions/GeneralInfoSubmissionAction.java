@@ -53,6 +53,14 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	}
 	
 	/**
+	 * Validates save Project General Information
+	 */
+	public void validateSave(){	
+
+		validateGeneralInfoSave();
+	}
+	
+	/**
 	 * Saves Project General Information.
 	 * 
 	 * @return forward string
@@ -64,6 +72,14 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		addActionMessage(getText("project.save.success"));
 		return SUCCESS;
 	}
+	
+	/**
+	 * Validates save Project General Information
+	 */
+	public void validateSaveAndNext(){	
+
+		validateGeneralInfoSave();
+	}	
 	
 	/**
 	 * Saves Project General Information and Navigates to next page.
@@ -83,16 +99,20 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void saveProject() throws Exception{
 		
+		if(StringUtils.isNotBlank(applId)){
+			getProject().setApplId(Long.valueOf(applId));
+		}
+		
 		Project project = retrieveSelectedProject();		
 		if(project != null){
-			popoulateProjectProperties(getProject(),project);
+			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(),project);
 		}
 		else{
 			project = getProject();
-		}
-		project.setApplId(Long.valueOf(applId));
+		}		
 		project = super.saveProject(project);
 		setProject(project);
+		loadGeneralInfoFromGranstContractVw();
 	}
 
 	/**
@@ -159,10 +179,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());	
 		}
 		
-		if(projectSubmissionReasons.isEmpty()){
-			
-			List<Lookup> projectSubmissionReasonsFromDb =  lookupService.getLookupList(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST.toUpperCase());
-			GdsSubmissionActionHelper.populateStatusDropDownLists(projectSubmissionReasons,projectSubmissionReasonsFromDb);	
+		if(projectSubmissionReasons.isEmpty()){			
+			projectSubmissionReasons = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST.toUpperCase());	
 		}		
 	}
 	
@@ -184,43 +202,24 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 				getProject().setPiEmailAddress(grantContract.getPiEmailAddress());
 				getProject().setPdFirstName(grantContract.getPdFirstName());
 				getProject().setPdLastName(grantContract.getPdLastName());
-				getProject().setProjectEndDate(grantContract.getProjectPeriodStartDate());
+				getProject().setProjectStartDate(grantContract.getProjectPeriodStartDate());
 				getProject().setProjectEndDate(grantContract.getProjectPeriodEndDate());
 			}
 		}
-	}
+	}	
 	
 	/**
-	 * This method copies properties from UI project to DB project object.
-	 * @param transientProject
-	 * @param persistentProject
+	 * Validates Intramural / Grant/ Contract search
 	 */
-	public void popoulateProjectProperties(Project transientProject, Project persistentProject){	
+	public void validateSearchGrantOrContract(){	
 		
-		logger.debug("Copying transient project properties to persistent project properties.");
-		persistentProject.setSubmissionReasonId(transientProject.getSubmissionReasonId());
-		persistentProject.setDocAbbreviation(transientProject.getDocAbbreviation());
-		persistentProject.setProgramBranch(transientProject.getProgramBranch());
-		persistentProject.setPocFirstName(transientProject.getPocFirstName());
-		persistentProject.setPocLastName(transientProject.getPocLastName());
-		persistentProject.setPocEmailAddress(transientProject.getPocEmailAddress());
-		
-		Long savedGrantAppId = persistentProject.getApplId();
-		Long currentGrantApplId = transientProject.getApplId();
-		
-		if(savedGrantAppId == null || savedGrantAppId != currentGrantApplId){
-			persistentProject.setApplicationNum(transientProject.getApplicationNum());
-			persistentProject.setProjectTitle(transientProject.getProjectTitle());
-			persistentProject.setPiFirstName(transientProject.getPiFirstName());
-			persistentProject.setPiLastName(transientProject.getPiLastName());
-			persistentProject.setPiEmailAddress(transientProject.getPiEmailAddress());
-			persistentProject.setPiInstitution(transientProject.getPiInstitution());		
-			persistentProject.setPdFirstName(transientProject.getPdFirstName());
-			persistentProject.setPdLastName(transientProject.getPdLastName());
-			persistentProject.setProjectStartDate(transientProject.getProjectStartDate());
-			persistentProject.setProjectEndDate(transientProject.getProjectEndDate());
+		if(StringUtils.isEmpty(grantContractNum)){
+			this.addActionError(getText("grantContractNum.required")); 
 		}
-	}
+		else if(grantContractNum.length() < ApplicationConstants.GRANT_CONTRACT_NUM_MIN_SIZE){
+			this.addActionError(getText("grantContractNum.min.size.error")); 
+		}
+	}	
 	
 	/**
 	 * This method searches Intramural / Grant/ Contract Information
@@ -233,35 +232,22 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		grantOrContractList = searchProjectService.getGrantOrContractList(grantContractNum);
 		return SUCCESS;
 	}
-	
-	/**
-	 * Validates Intramural / Grant/ Contract search
-	 */
-	public void validateSearchGrantOrContract(){	
 		
-		if(StringUtils.isEmpty(grantContractNum)){
-			this.addActionError(getText("grantContractNum.required")); 
+	/**
+	 * Validates save Project General Information
+	 */
+	public void validateGeneralInfoSave(){	
+		
+		validateProjectDetails();
+		validatePrincipleInvestigator();
+		validatePrimaryContact();	
+		
+		//If user selected a grant from grantContract search page and then validation failed on general info page while saving
+		//then re-populate the grantContract information.
+		if(hasActionErrors() && StringUtils.isNotBlank(applId)){
+			getProject().setApplId(Long.valueOf(applId));
+			loadGeneralInfoFromGranstContractVw();
 		}
-	}
-		
-	/**
-	 * Validates save Project General Information
-	 */
-	public void validateSave(){	
-
-		validateProjectDetails();
-		validatePrincipleInvestigator();
-		validatePrimaryContact();	
-	}
-	
-	/**
-	 * Validates save Project General Information
-	 */
-	public void validateSaveAndNext(){	
-
-		validateProjectDetails();
-		validatePrincipleInvestigator();
-		validatePrimaryContact();	
 	}	
 
 	/**
@@ -278,32 +264,33 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		if(StringUtils.isEmpty(getProject().getProgramBranch())){
 			this.addActionError(getText("programbranch.required")); 
 		}
+		
+		if(StringUtils.isEmpty(applId)){
+			//Validation for Program/ Branch
+			if(StringUtils.isEmpty(getProject().getProjectTitle())){
+				this.addActionError(getText("projecttitle.required")); 
+			}
 
-		//Validation for Program/ Branch
-		if(StringUtils.isEmpty(getProject().getProjectTitle())){
-			this.addActionError(getText("projecttitle.required")); 
+			//Validation for PD first name.
+			if(StringUtils.isEmpty(getProject().getPdFirstName())){
+				this.addActionError(getText("pd.firstname.required")); 
+			}
+
+			//Validation for PD last name.
+			if(StringUtils.isEmpty(getProject().getPdLastName())){
+				this.addActionError(getText("pd.lastname.required")); 
+			}
+
+			//Validation for Project start date.
+			if(getProject().getProjectStartDate() == null){
+				this.addActionError(getText("project.start.date.required")); 
+			}
+
+			//Validation for Project end date.
+			if(getProject().getProjectEndDate() == null){
+				this.addActionError(getText("project.end.date.required")); 
+			}   
 		}
-
-		//Validation for PD first name.
-		if(StringUtils.isEmpty(getProject().getPdFirstName())){
-			this.addActionError(getText("pd.firstname.required")); 
-		}
-
-		//Validation for PD last name.
-		if(StringUtils.isEmpty(getProject().getPdLastName())){
-			this.addActionError(getText("pd.lastname.required")); 
-		}
-
-		//Validation for Project start date.
-		if(getProject().getProjectStartDate() == null){
-			this.addActionError(getText("project.start.date.required")); 
-		}
-
-		//Validation for Project end date.
-		if(getProject().getProjectEndDate() == null){
-			this.addActionError(getText("project.end.date.required")); 
-		}   
-
 		//Comments cannot be greater than 2000 characters.
 		if(!StringUtils.isEmpty(getProject().getComments())) {
 			if(getProject().getComments().length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
@@ -315,26 +302,29 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	/**
 	 * Validates Principle investigator information.
 	 */
-	public void validatePrincipleInvestigator(){		
+	public void validatePrincipleInvestigator(){	
+		
+		if(StringUtils.isEmpty(applId)){
 
-		//Validation for PI first name and last name.
-		if(!StringUtils.isEmpty(getProject().getPiFirstName()) && StringUtils.isEmpty(getProject().getPiLastName())){
-			this.addActionError(getText("pi.lastname.required")); 
-		}
-		else if(StringUtils.isEmpty(getProject().getPiFirstName()) && !StringUtils.isEmpty(getProject().getPiLastName())){
-			this.addActionError(getText("pi.firstname.required")); 
-		}
+			//Validation for PI first name and last name.
+			if(!StringUtils.isEmpty(getProject().getPiFirstName()) && StringUtils.isEmpty(getProject().getPiLastName())){
+				this.addActionError(getText("pi.lastname.required")); 
+			}
+			else if(StringUtils.isEmpty(getProject().getPiFirstName()) && !StringUtils.isEmpty(getProject().getPiLastName())){
+				this.addActionError(getText("pi.firstname.required")); 
+			}
 
-		//Validation for PI email.
-		if(!StringUtils.isEmpty(getProject().getPiFirstName()) && !StringUtils.isEmpty(getProject().getPiLastName())
-				&& (StringUtils.isEmpty(getProject().getPiEmailAddress()))){
-			this.addActionError(getText("pi.email.required")); 
-		}
+			//Validation for PI email.
+			if(!StringUtils.isEmpty(getProject().getPiFirstName()) && !StringUtils.isEmpty(getProject().getPiLastName())
+					&& (StringUtils.isEmpty(getProject().getPiEmailAddress()))){
+				this.addActionError(getText("pi.email.required")); 
+			}
 
-		//Validation for PI institution.
-		if(!StringUtils.isEmpty(getProject().getPiFirstName()) && !StringUtils.isEmpty(getProject().getPiLastName())
-				&& (StringUtils.isEmpty(getProject().getPiInstitution()))){
-			this.addActionError(getText("pi.institution.required")); 
+			//Validation for PI institution.
+			if(!StringUtils.isEmpty(getProject().getPiFirstName()) && !StringUtils.isEmpty(getProject().getPiLastName())
+					&& (StringUtils.isEmpty(getProject().getPiInstitution()))){
+				this.addActionError(getText("pi.institution.required")); 
+			}
 		}
 	}
 
@@ -343,23 +333,25 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void validatePrimaryContact(){		
 
-		//Validation for Primary Contact. 
-		if(StringUtils.isEmpty(getProject().getPiFirstName()) && StringUtils.isEmpty(getProject().getPiLastName())){
-			if(StringUtils.isEmpty(getProject().getPocFirstName()) && StringUtils.isEmpty(getProject().getPocLastName())){
-				this.addActionError(getText("primarycontact.required")); 
-			}
-			else if(!StringUtils.isEmpty(getProject().getPocFirstName()) && StringUtils.isEmpty(getProject().getPocLastName())){
-				this.addActionError(getText("primarycontact.lastname.required")); 
-			}
-			else if(StringUtils.isEmpty(getProject().getPocFirstName()) && !StringUtils.isEmpty(getProject().getPocLastName())){
-				this.addActionError(getText("primarycontact.firstname.required")); 
-			}
-		}    		
+		if(StringUtils.isEmpty(applId)){
+			//Validation for Primary Contact. 
+			if(StringUtils.isEmpty(getProject().getPiFirstName()) && StringUtils.isEmpty(getProject().getPiLastName())){
+				if(StringUtils.isEmpty(getProject().getPocFirstName()) && StringUtils.isEmpty(getProject().getPocLastName())){
+					this.addActionError(getText("primarycontact.required")); 
+				}
+				else if(!StringUtils.isEmpty(getProject().getPocFirstName()) && StringUtils.isEmpty(getProject().getPocLastName())){
+					this.addActionError(getText("primarycontact.lastname.required")); 
+				}
+				else if(StringUtils.isEmpty(getProject().getPocFirstName()) && !StringUtils.isEmpty(getProject().getPocLastName())){
+					this.addActionError(getText("primarycontact.firstname.required")); 
+				}
+			}    		
 
-		//Validation for Primary contact.
-		if(!StringUtils.isEmpty(getProject().getPocFirstName()) && !StringUtils.isEmpty(getProject().getPocLastName())
-				&& (StringUtils.isEmpty(getProject().getPocEmailAddress()))){
-			this.addActionError(getText("primarycontact.email.required")); 
+			//Validation for Primary contact.
+			if(!StringUtils.isEmpty(getProject().getPocFirstName()) && !StringUtils.isEmpty(getProject().getPocLastName())
+					&& (StringUtils.isEmpty(getProject().getPocEmailAddress()))){
+				this.addActionError(getText("primarycontact.email.required")); 
+			}
 		}
 	}
 

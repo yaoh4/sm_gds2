@@ -22,10 +22,4 @@ $('#pEndDate .input-group.date').datepicker({
           todayHighlight: true
           });      
 
-//date picker for Scientific Review Approval Received   
-
-$('#approvalDate .input-group.date').datepicker({
-          orientation: "bottom auto",
-          todayHighlight: true
-          });
 });

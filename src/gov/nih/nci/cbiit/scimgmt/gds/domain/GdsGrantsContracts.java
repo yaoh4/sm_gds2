@@ -1,5 +1,6 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -34,6 +35,8 @@ public class GdsGrantsContracts {
 	private Date projectPeriodStartDate;
 	private Date projectPeriodEndDate;
 	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	
 	public GdsGrantsContracts(){
 		
 	}
@@ -65,11 +68,12 @@ public class GdsGrantsContracts {
 	@Override
 	public String toString() {
 		return "{\"applId\":\"" + applId + "\",\"grantContractNum\":\"" + grantContractNum + "\", \"applTypeCode\":\"" + applTypeCode
-				+ "\",\" activityCode\":\"" + activityCode + "\", \"adminPhsOrgCode\":\"" + adminPhsOrgCode + "\", \"serialNum\":\"" + serialNum
+				+ "\",\"activityCode\":\"" + activityCode + "\", \"adminPhsOrgCode\":\"" + adminPhsOrgCode + "\", \"serialNum\":\"" + serialNum
 				+ "\", \"supportYear\":\"" + supportYear + "\", \"suffixCode\":\"" + suffixCode + "\", \"projectTitle\":\"" + projectTitle
-				+ "\", \"piFirstName\":\"" + piFirstName + "\",\" piLastName\":\"" + piLastName + "\",\" piEmailAddress\":\"" + piEmailAddress
-				+ "\",\" piInstitution\":\"" + piInstitution + "\",\" pdFirstName\":\"" + pdFirstName + "\",\" pdLastName\":\"" + pdLastName
-				+ "\",\" projectPeriodStartDate\":\"" + projectPeriodStartDate + "\",\" projectPeriodEndDate\":\"" + projectPeriodEndDate +"\"}";
+				+ "\", \"piFirstName\":\"" + piFirstName + "\",\"piLastName\":\"" + piLastName + "\",\"piEmailAddress\":\"" + piEmailAddress
+				+ "\",\"piInstitution\":\"" + piInstitution + "\",\"pdFirstName\":\"" + pdFirstName + "\",\"pdLastName\":\"" + pdLastName
+				+ "\",\"projectPeriodStartDate\":\"" + (projectPeriodStartDate != null ? dateFormat.format(projectPeriodStartDate) : projectPeriodStartDate) 
+				+ "\",\"projectPeriodEndDate\":\"" + (projectPeriodEndDate != null ? dateFormat.format(projectPeriodEndDate) : projectPeriodEndDate)  +"\"}";
 	}
 	
 	@Id
