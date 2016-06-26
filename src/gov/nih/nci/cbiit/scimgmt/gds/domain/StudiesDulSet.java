@@ -28,7 +28,7 @@ public class StudiesDulSet implements java.io.Serializable {
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
-	private List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>(0);
+	private List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
 
 	public StudiesDulSet() {
 	}
@@ -117,6 +117,10 @@ public class StudiesDulSet implements java.io.Serializable {
 
 	public void setDulChecklistSelections(List<DulChecklistSelection> dulChecklistSelections) {
 		this.dulChecklistSelections = dulChecklistSelections;
+	}
+	
+	public void addDulChecklistSelections(DulChecklistSelection dulChecklistSelection) {
+		this.dulChecklistSelections.add(dulChecklistSelection);
 	}
 
 }

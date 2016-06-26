@@ -1,12 +1,14 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services;
 
 
+import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 
 import java.util.List;
+
 
 /**
  * @author menons2
@@ -72,5 +74,20 @@ public interface LookupService {
 	 * @return
 	 */
 	public List<Organization> updateDocList(String docList, List<Organization> updatedDocList);
+	
+	
+	/**
+	 * Fetch the static DUL display text from DUL_CHECKLIST_T to store 
+	 * in cache. Invoked during application initialization.
+	 */
+	public List<DulChecklist> getDulChecklists(String dulChecklistKey);
+	 
+	 
+	 /**
+	  * Update the dulChecklists in the cache.
+	  * @param dulChecklists
+	  * @return
+	  */
+	 public List<DulChecklist> updateDulChecklists(String dulChecklistKey, List<DulChecklist> dulChecklists);
 	
 }

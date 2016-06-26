@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDao;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
@@ -132,5 +133,28 @@ public class LookupServiceImpl implements LookupService {
 	public List<Organization> updateDocList(String docList, List<Organization> updatedDocList) {
 		return updatedDocList;
 	}
+	
+	/**
+	 * Fetch the static DUL display text from DUL_CHECKLIST_T to store 
+	 * in cache. Invoked during application initialization.
+	 */
+	@Cacheable(key = "#dulChecklistKey")
+	public List<DulChecklist> getDulChecklists(String dulChecklistKey) {
+		
+		logger.info("Loading static DUL display text from DUL_CHECKLIST_T");
+		List<DulChecklist> dulChecklists = propertyListDAO.getAllDulChecklists();
+		return dulChecklists;
+	}
+	 
+	 
+	 /**
+	  * Update the dulChecklists in the cache.
+	  * @param dulChecklists
+	  * @return
+	  */
+	@CachePut(key = "#dulChecklistKey")
+	 public List<DulChecklist> updateDulChecklists(String dulChecklistKey, List<DulChecklist> dulChecklists) {
+		 return dulChecklists;
+	 }
 	
 }

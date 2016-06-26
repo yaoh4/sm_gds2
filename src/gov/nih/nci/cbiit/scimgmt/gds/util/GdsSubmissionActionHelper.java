@@ -3,6 +3,8 @@ package gov.nih.nci.cbiit.scimgmt.gds.util;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang3.StringUtils;
@@ -13,8 +15,10 @@ import org.springframework.util.CollectionUtils;
 import org.xml.sax.SAXException;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
+import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
@@ -96,6 +100,48 @@ public class GdsSubmissionActionHelper {
 		return dropDownList;
 		
 	}
+	
+	
+	/**
+	 * Retrieve list of parent dulChecklists to display text for
+	 * radio buttons representing dul sets.
+	 * @return
+	 */
+	public static List<ParentDulChecklist> getDulChecklistsSets() {
+		List<DulChecklist> allDulChecklists = getInstance().lookupService.getDulChecklists("allDuls");
+		
+		Map<Long, ParentDulChecklist> dulChecklistMap = new TreeMap<Long, ParentDulChecklist>();
+		
+		for(DulChecklist dulChecklist: allDulChecklists) {
+			Long parentDulId = dulChecklist.getParentDulId();
+			if(parentDulId == null) {
+				ParentDulChecklist parentDulChecklist = new ParentDulChecklist(dulChecklist);
+				dulChecklistMap.put(dulChecklist.getId(), parentDulChecklist);
+			} else {
+				( (ParentDulChecklist)dulChecklistMap.get(parentDulId)).addDulChecklist(dulChecklist);
+			}
+		}
+		
+		return new ArrayList<ParentDulChecklist>(dulChecklistMap.values());
+	}
+	
+	
+	
+	public static DulChecklist getDulChecklist(Long id) {
+		
+		logger.info("Retrieving dulChecklist for id " + id);
+		if(id != null) {
+			List<DulChecklist> allDulChecklists = getInstance().lookupService.getDulChecklists("allDuls");
+			for(DulChecklist dulChecklist: allDulChecklists) {
+				if(id.equals(dulChecklist.getId())) {
+					return dulChecklist;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
 	
 	/**
 	 * This method returns LoggedOn user's DOC.

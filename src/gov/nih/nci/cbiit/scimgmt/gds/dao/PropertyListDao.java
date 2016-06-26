@@ -3,6 +3,7 @@
  */
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
+import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
@@ -115,5 +116,19 @@ public class PropertyListDao {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Organization.class);
 			List<Organization> orgList = criteria.list();	
 			return orgList;
+		}
+		
+		
+		/**
+		 * Get static DUL display text for IC Submission
+		 * @return
+		 */
+		public List<DulChecklist> getAllDulChecklists() {
+			logger.info("Retrieving all DulChecklists from DUL_CHECKLIST_T");
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(DulChecklist.class);
+			criteria.addOrder(Order.asc("parentDulId").nulls(NullPrecedence.FIRST));
+			criteria.addOrder(Order.asc("displayOrderNum"));
+			
+			return criteria.list();
 		}
 }

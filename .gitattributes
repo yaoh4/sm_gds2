@@ -153,6 +153,7 @@ WebContent/images/newV.png -text
 WebContent/images/pending.png -text
 WebContent/images/subV.png -text
 WebContent/index.jsp -text
+WebContent/jsp/content/manageDuls.jsp -text
 WebContent/jsp/content/search.jsp -text
 WebContent/jsp/content/searchGrantsContracts.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfo.jsp -text
@@ -958,6 +959,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/domain/StudiesDulSet.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Study.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/interceptor/UserInterceptor.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/MissingData.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/model/ParentDulChecklist.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/UIElement.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/UIList.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/FileUploadService.java -text

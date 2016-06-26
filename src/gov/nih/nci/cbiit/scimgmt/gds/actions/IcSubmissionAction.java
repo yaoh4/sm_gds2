@@ -3,6 +3,7 @@
  */
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -13,11 +14,14 @@ import org.apache.struts2.ServletActionContext;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
+import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 
 import org.springframework.util.CollectionUtils;
 
@@ -33,6 +37,9 @@ public class IcSubmissionAction extends ManageSubmission {
 	private InstitutionalCertification instCertification;
 	
 	private String instCertId;
+	
+	private List<ParentDulChecklist> parentDulChecklists = new ArrayList<ParentDulChecklist>();
+	
 	
 	/**
 	 * Retrieves all data associated with the specified IC and redirects the user to the
@@ -50,26 +57,36 @@ public class IcSubmissionAction extends ManageSubmission {
 						
 		logger.debug("execute");
 		
-		//TODO !!! - Temporary code, remove later
-		//ServletActionContext.getRequest().setAttribute("projectId", "1");
-		setProjectId("1");
+		//setProjectId("1");
 		
-		InstitutionalCertification instCertification = retrieveIC();
-		if(instCertification != null) {
+		InstitutionalCertification instCert = retrieveIC();
+		if(instCert != null) {
 			Long docTypeId = lookupService.getLookupByCode(ApplicationConstants.DOC_TYPE, "IC").getId();
 			List<Document> docs = fileUploadService.retrieveFileByDocType(docTypeId.toString(), instCertification.getProject().getId());
 			if(docs != null && !docs.isEmpty()) {
 				instCertification.setDocument(docs.get(0));
 			}
-			setInstCertification(instCertification);
 		} else {
-			setInstCertification(new InstitutionalCertification());
+			instCert = new InstitutionalCertification();
+			Study study = new Study();
+			StudiesDulSet studiesDulSet = new StudiesDulSet();
+			studiesDulSet.setStudy(study);
+			study.addStudiesDulSet(studiesDulSet);
+			study.setInstitutionalCertification(instCert);
+			instCert.addStudy(study);
 		}
         
+		setInstCertification(instCert);
+		prepareDisplay();
         return SUCCESS;
 	}
 	
-		
+	
+	private void prepareDisplay() {
+		setParentDulChecklists(GdsSubmissionActionHelper.getDulChecklistsSets());
+				
+	}
+	
 	
 	/**
 	 * Retrieve the project based on the projectId indicated in the request
@@ -98,34 +115,62 @@ public class IcSubmissionAction extends ManageSubmission {
 	public void validateSaveIc() {
 		
 		InstitutionalCertification instCert = getInstCertification();
-		List<Study> icSet = instCert.getStudies();
-		//Map used to keep track of duplicate DulSets
-		HashMap<String, Integer> validationMap = new HashMap<String, Integer>();
-		int studyIndex = 0;
+		
+		int studyIndex = -1;
 		//validate the DULs in each Study
-		for(Study study: icSet) {
+		for(Study study: instCert.getStudies()) {
+			
 			studyIndex++;
-			int dulSetIndex = 0;
-			Set<StudiesDulSet> studiesDulSets = study.getStudiesDulSets();
-			for(StudiesDulSet dulSet: studiesDulSets) {
+			int dulSetIndex = -1;
+			
+			//Map used to keep track of duplicate DulSets in a study
+			HashMap<String, Integer> validationMap = new HashMap<String, Integer>();
+			
+			for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
 				dulSetIndex++;
-				List<DulChecklistSelection> dulChecklistSelections = dulSet.getDulChecklistSelections();
-				String dulSelection = "";
-				//Loop through all the selections in a set and create a unique String
-				//value to represent the set based on the selections. This value will
-				//be the same for sets that have identical selections
-				for(DulChecklistSelection dulChecklistSelection: dulChecklistSelections) {
-					dulSelection = dulSelection  + dulChecklistSelection.getDulChecklist().getId();
-				}
-				if(validationMap.containsKey(dulSelection)) {
-					Integer dupDulSetIndex = validationMap.get(dulSelection);
-					this.addActionError("Duplicate DULs in rows " + 
-							dulSetIndex + " and " + dupDulSetIndex + " of Study " + studyIndex);
+				
+				String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
+				if(parentDulId == null) {
+					//Error, no DUL selection made for study at index x, dulSet at index y
+					this.addActionError("No DUL selection made for study at index " + studyIndex + " and DulSet at index " + dulSetIndex);
 				} else {
-					validationMap.put(dulSelection, Integer.valueOf(dulSetIndex));
+					String [] selectedDuls = ServletActionContext.getRequest().getParameterValues("dul-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);
+					if(selectedDuls == null) {
+						this.addActionError("No DUL selection made for study at index " + studyIndex + " and DulSet at index " + dulSetIndex);
+					} else {
+						
+						//Represents the duls selected in a dulSet
+						List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
+						
+						String dulSelections = "";
+						for(int i = 0; i < selectedDuls.length; i++) {										
+							
+							dulSelections = dulSelections + selectedDuls[i];
+							
+							//for each selectedDul, create a dulChecklistSelection
+							DulChecklistSelection dulChecklistSelection = new DulChecklistSelection();
+							
+							//get the dulChecklist with the id and attach it to this dulCheckListSelection.
+							DulChecklist dulChecklist = GdsSubmissionActionHelper.getDulChecklist(Long.parseLong(selectedDuls[i]));
+							dulChecklistSelection.setDulChecklist(dulChecklist);
+							dulChecklistSelections.add(dulChecklistSelection);
+						}
+						
+						//Check if this dulSet is already present
+						if(validationMap.containsKey(dulSelections)) {
+							Integer duplicateDulSetIndex = validationMap.get(dulSelections);
+							this.addActionError("Duplicate DULs found in DulSets at index " + duplicateDulSetIndex + " and " + dulSetIndex);
+						} else {
+							validationMap.put(dulSelections, new Integer(dulSetIndex));
+							dulSet.setDulChecklistSelections(dulChecklistSelections);
+						}
+					}		
 				}
+				//All selections in a dulSet retrieved
 			}
+			//All dulSets in a study scanned
 		}
+		//All studies in an ic scanned
 		
 		if(hasActionErrors()) {
 			setInstCertification(instCert);
@@ -328,6 +373,22 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public void setInstCertId(String instCertId) {
 		this.instCertId = instCertId;
+	}
+
+
+	/**
+	 * @return the parentDulChecklists
+	 */
+	public List<ParentDulChecklist> getParentDulChecklists() {
+		return parentDulChecklists;
+	}
+
+
+	/**
+	 * @param parentDulChecklists the parentDulChecklists to set
+	 */
+	public void setParentDulChecklists(List<ParentDulChecklist> parentDulChecklists) {
+		this.parentDulChecklists = parentDulChecklists;
 	}
 
 }

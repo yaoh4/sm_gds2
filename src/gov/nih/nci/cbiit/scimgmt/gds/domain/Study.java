@@ -1,8 +1,10 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Mar 28, 2016 10:25:57 AM by Hibernate Tools 4.0.0
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,13 +27,13 @@ public class Study implements java.io.Serializable {
 	private Long id;
 	private InstitutionalCertification institutionalCertification;
 	private String studyName;
-	private String institutionName;
+	private String institution;
 	private Long dulVerificationId;
 	private Date createdDate;
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
-	private Set<StudiesDulSet> studiesDulSets = new HashSet<StudiesDulSet>(0);
+	private List<StudiesDulSet> studiesDulSets = new ArrayList<StudiesDulSet>();
 
 	public Study() {
 	}
@@ -46,12 +48,12 @@ public class Study implements java.io.Serializable {
 	}
 
 	public Study(Long id, InstitutionalCertification institutionalCertification, String studyName,
-			String institutionName, Long dulVerificationId, Date createdDate, String createdBy,
-			Date lastChangedDate, String lastChangedBy, Set<StudiesDulSet> studiesDulSets) {
+			String institution, Long dulVerificationId, Date createdDate, String createdBy,
+			Date lastChangedDate, String lastChangedBy, List<StudiesDulSet> studiesDulSets) {
 		this.id = id;
 		this.institutionalCertification = institutionalCertification;
 		this.studyName = studyName;
-		this.institutionName = institutionName;
+		this.institution = institution;
 		this.dulVerificationId = dulVerificationId;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
@@ -90,13 +92,13 @@ public class Study implements java.io.Serializable {
 		this.studyName = studyName;
 	}
 
-	@Column(name = "INSTITUTION_NAME", length = 480)
-	public String getInstitutionName() {
-		return this.institutionName;
+	@Column(name = "INSTITUTION", length = 480)
+	public String getInstitution() {
+		return this.institution;
 	}
 
-	public void setInstitutionName(String institutionName) {
-		this.institutionName = institutionName;
+	public void setInstitution(String institution) {
+		this.institution = institution;
 	}
 
 	@Column(name = "DUL_VERIFICATION_ID", precision = 10, scale = 0)
@@ -147,11 +149,11 @@ public class Study implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "study")
-	public Set<StudiesDulSet> getStudiesDulSets() {
+	public List<StudiesDulSet> getStudiesDulSets() {
 		return this.studiesDulSets;
 	}
 
-	public void setStudiesDulSets(Set<StudiesDulSet> studiesDulSets) {
+	public void setStudiesDulSets(List<StudiesDulSet> studiesDulSets) {
 		this.studiesDulSets = studiesDulSets;
 	}
 	

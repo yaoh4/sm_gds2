@@ -1,8 +1,10 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Mar 4, 2016 12:46:29 PM by Hibernate Tools 4.0.0
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +31,7 @@ public class DulChecklist implements java.io.Serializable {
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
-	private Set<DulChecklistSelection> dulChecklistSelections = new HashSet(0);
+	private List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
 
 	public DulChecklist() {
 	}
@@ -46,7 +48,7 @@ public class DulChecklist implements java.io.Serializable {
 
 	public DulChecklist(Long id, Long parentDulId, String displayText, Long displayOrderNum,
 			String activeFlag, Date createdDate, String createdBy, Date lastChangedDate, String lastChangedBy,
-			Set dulChecklistSelections) {
+			List dulChecklistSelections) {
 		this.id = id;
 		this.parentDulId = parentDulId;
 		this.displayText = displayText;
@@ -145,11 +147,11 @@ public class DulChecklist implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "dulChecklist")
-	public Set<DulChecklistSelection> getDulChecklistSelections() {
+	public List<DulChecklistSelection> getDulChecklistSelections() {
 		return this.dulChecklistSelections;
 	}
 
-	public void setDulChecklistSelections(Set<DulChecklistSelection> dulChecklistSelections) {
+	public void setDulChecklistSelections(List<DulChecklistSelection> dulChecklistSelections) {
 		this.dulChecklistSelections = dulChecklistSelections;
 	}
 
