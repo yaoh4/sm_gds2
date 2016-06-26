@@ -182,6 +182,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		if(projectSubmissionReasons.isEmpty()){			
 			projectSubmissionReasons = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST.toUpperCase());	
 		}		
+		
+		//If user is editing already saved project then pre-select saved project's DOC in the DOC dropdown list.
+		if(getProject() != null && StringUtils.isNotBlank(getProject().getDocAbbreviation())){
+			preSelectedDOC = getProject().getDocAbbreviation();
+		}
 	}
 	
 	/**
@@ -289,11 +294,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			//Validation for Project end date.
 			if(getProject().getProjectEndDate() == null){
 				this.addActionError(getText("project.end.date.required")); 
-			}   
+			}
+			
+			if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null && getProject().getProjectStartDate().after(getProject().getProjectEndDate())){
+				this.addActionError(getText("error.daterange.outofsequence"));
+			}	
 		}
 		//Comments cannot be greater than 2000 characters.
-		if(!StringUtils.isEmpty(getProject().getComments())) {
-			if(getProject().getComments().length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
+		if(!StringUtils.isEmpty(getProject().getPlanComments())) {
+			if(getProject().getPlanComments().length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
 				this.addActionError(getText("error.comments.size.exceeded"));  			
 			}
 		}	

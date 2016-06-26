@@ -51,7 +51,7 @@
 							<label for="Division/Office/Center"><i
 								class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;
 								Division/Office/Center</label> 
-								<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue"/>								
+								<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue" value="%{preSelectedDOC}"/>								
 						</div>
 					</div>
 					
@@ -60,7 +60,7 @@
 							<label for="Program Branch"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Program
 								Branch</label> 
-								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name" value="%{project.programBranch}"/>
+								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name" value="%{project.programBranch}" maxLength="30"/>
 						</div>
 					</div>
 
@@ -71,9 +71,7 @@
 							<div class="input-group2">
 							
 							<s:textfield name="project.applicationNum" cssClass="form-control" readOnly="true" id="grantsContractNum" placeholder="Click on Search Icon to Find # " value="%{project.applicationNum}"/>
-							<span	class="input-group-btn"><a href="openSearchGrantsContracts.action"
-									class="js-newWindow"
-									data-popup="width=800,height=800,scrollbars=yes">
+							<span class="input-group-btn"><a href="#" onclick="openGrantsContractsSearchPage()">
 										<button class="btn btn-default" type="button">
 											<i class="fa fa-search" aria-hidden="true"></i>
 										</button>
@@ -87,7 +85,7 @@
 							<label for="Project Title"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project
 								Title</label> 
-								<s:textfield name="project.projectTitle" cssClass="form-control" id="projectTitle" placeholder="" value="%{project.projectTitle}" disabled="isNotEditable"/>
+								<s:textfield name="project.projectTitle" cssClass="form-control" id="projectTitle" placeholder="" value="%{project.projectTitle}" disabled="isNotEditable" maxLength="100"/>
 						</div>
 					</div>
 
@@ -96,13 +94,13 @@
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
-								<s:textfield name="project.piFirstName" cssClass="form-control" id="fnPI" placeholder="" value="%{project.piFirstName}" disabled="isNotEditable"/>
+								<s:textfield name="project.piFirstName" cssClass="form-control" id="fnPI" placeholder="" value="%{project.piFirstName}" disabled="isNotEditable" maxLength="30"/>
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
-								<s:textfield name="project.piLastName" cssClass="form-control" id="lnPI" placeholder="" value="%{project.piLastName}" disabled="isNotEditable"/>								
+								<s:textfield name="project.piLastName" cssClass="form-control" id="lnPI" placeholder="" value="%{project.piLastName}" disabled="isNotEditable" maxLength="30"/>								
 						</div>
 					</div>
 
@@ -112,7 +110,7 @@
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
 								of Principal Investigator</label>
 								<s:textfield name="project.piEmailAddress" cssClass="form-control" id="piEmail" placeholder="Enter Vaild Email Address"
-								data-error="Email address is invalid" value="%{project.piEmailAddress}" disabled="isNotEditable"/>								
+								data-error="Email address is invalid" value="%{project.piEmailAddress}" disabled="isNotEditable" maxLength="80"/>								
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
@@ -122,7 +120,7 @@
 							<label for="Institution of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
 								of Principal Investigator</label>
-								<s:textfield name="project.piInstitution" cssClass="form-control" id="PIInstitute" placeholder="" value="%{project.piInstitution}" disabled="isNotEditable"/>								
+								<s:textfield name="project.piInstitution" cssClass="form-control" id="PIInstitute" placeholder="" value="%{project.piInstitution}" disabled="isNotEditable" maxLength="120"/>								
 						</div>
 					</div>
 
@@ -130,12 +128,12 @@
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="First Name of Principal Investigator">First
 								Name of Primary Contact</label> 
-								<s:textfield name="project.pocFirstName" cssClass="form-control" id="fnPC" placeholder="Required if No Principal Investigator" value="%{project.pocFirstName}"/>								
+								<s:textfield name="project.pocFirstName" cssClass="form-control" id="fnPC" placeholder="Required if No Principal Investigator" value="%{project.pocFirstName}" maxLength="30"/>								
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Primary Contact">Last Name of
 								Primary Contact</label> 
-								<s:textfield name="project.pocLastName" cssClass="form-control" id="lnPC" placeholder="Required if No Principal Investigator" value="%{project.pocLastName}"/>								
+								<s:textfield name="project.pocLastName" cssClass="form-control" id="lnPC" placeholder="Required if No Principal Investigator" value="%{project.pocLastName}" maxLength="30"/>								
 						</div>
 					</div>
 
@@ -143,7 +141,7 @@
 						<div class="col-xs-5">
 							<label for="Email of Principal Investigator">Email of
 								Primary Contact</label>
-						<s:textfield name="project.pocEmailAddress" cssClass="form-control" id="PCemail" placeholder="Enter Vaild Email Address" data-error="Email address is invalid" value="%{project.pocEmailAddress}"/>								
+						<s:textfield name="project.pocEmailAddress" cssClass="form-control" id="PCemail" placeholder="Enter Vaild Email Address" data-error="Email address is invalid" value="%{project.pocEmailAddress}" maxLength="80"/>								
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
@@ -154,13 +152,13 @@
 							<label for="First Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
 								Name of Program Director</label>
-								<s:textfield name="project.pdFirstName" cssClass="form-control" id="fnPD" placeholder="" value="%{project.pdFirstName}" disabled="isNotEditable"/>								
+								<s:textfield name="project.pdFirstName" cssClass="form-control" id="fnPD" placeholder="" value="%{project.pdFirstName}" disabled="isNotEditable" maxLength="30"/>								
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>Last
 								Name of Program Director</label>
-								<s:textfield name="project.pdLastName" cssClass="form-control" id="lnPD" placeholder="" value="%{project.pdLastName}" disabled="isNotEditable"/>								
+								<s:textfield name="project.pdLastName" cssClass="form-control" id="lnPD" placeholder="" value="%{project.pdLastName}" disabled="isNotEditable" maxLength="30"/>								
 						</div>
 					</div>
 				</div>
@@ -194,6 +192,15 @@
 
 						</div>
 					</div>
+
+					<div class="form-group row  col-xs-12" style="padding-left: 45px;">
+
+						<label for="general info comments" class="label_stCom">Comments (2000 Characters):</label><br />
+						<s:textarea cssClass="col-md-12 form-control input " rows="3"
+							name="project.planComments" id="gComments"></s:textarea>
+					</div>
+
+
 				</div>
 			</div>
 			<!--end panel body-->
@@ -229,3 +236,11 @@
          });
      });
 </script> 
+<script>
+	function openGrantsContractsSearchPage() {
+		var url = "/gds/manage/openSearchGrantsContracts.action";
+		var winName = "Intramural (Z01)/Grant/Contract # Search";
+		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+		var newWin = window.open(url, winName, features);
+	}
+</script>
