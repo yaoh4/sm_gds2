@@ -66,36 +66,7 @@
 
 				<div id="exceptionMemoDiv" style="${map['exceptionMemoDiv'].style}" 
 					class="qSpacing" style="margin-left: 30px;">
-					<p class="question">Upload Exception Memo: [to be uploaded by
-						GPA]</p>
-
-					<s:file name="exceptionMemo" id="exceptionMemo" />
-					<label for="exceptionMemo" style="width: auto; display: none;">Upload
-						Exception Memo</label> <input type="button" name="exceptionMemoUpload"
-						value="Upload Exception Memo File" class="saved btn btn-default"
-						id="exceptionMemoUpload"/>
-					<div>
-						<p> View uploaded <s:a href="javascript:openDocument(12)">Data Sharing Plan</s:a> in new window 
-						<s:a href="javascript:removeDocument()">Remove</s:a>
-						</p>
-					</div>
-
-					<table style="width: 60%;" cellpadding="0px" cellspacing="0"
-						class="table table-bordered table-striped"
-						style="margin-left: 10px;">
-						<tr class="modalTheader">
-							<th class="tableHeader" align="center" width="10%">File Name</th>
-							<th class="tableHeader" align="center" width="10%">Date</th>
-							<th class="tableHeader" align="center" width="10%">Uploaded
-								By</th>
-						</tr>
-						<tr>
-							<td><i class="fa fa-file-word-o" aria-hidden="true"></i>
-								&nbsp;<a href="#">DataSharingExceptionMemo_approved.doc</a></td>
-							<td style="white-space: nowrap">Feb 08 2015 06:47:12 PM</td>
-							<td><a href="mailto: jonesm@mail.nih.gov">Mary Jones</a>
-						</tr>
-					</table>
+						<s:include value="/jsp/content/submissionGdsPlanMemo.jsp"/>
 				</div>
 
 				<%-- Will there be any data submitted? --%>
@@ -239,90 +210,22 @@
 				<div id="textEditorDiv" style="${map['textEditorDiv'].style}">
 					<textarea name="dataSharingPlanEditorText" id="editor1" rows="10"
 						cols="80"></textarea>
-        			<div>
-						<p> View uploaded <s:a href="javascript:openDocument(11)">Data Sharing Plan</s:a> in new window 
-						<s:a href="javascript:removeDocument(11)">Remove</s:a>
-						</p>
+					<div class="loadFileHistory">
+						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>
 				</div>
 
 				<!--BEGIN HIDDEN Field for Uploader-->
 				<div class="qSpacing" style="margin-left: 30px; ${map['dataSharingPlanDiv'].style}"
 					id="dataSharingPlanDiv">
-					<p class="question">Upload Exception Memo: [to be uploaded by
-						GPA]</p>
-			
+					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
 					<s:file name="dataSharingPlan" id="dataSharingPlan" />
 					<label for="dataSharingPlan" style="width: auto; display: none;">Upload
 						Data Sharing Plan</label> <input type="button"
 						name="dataSharingPlanUpload" value="Upload Data Sharing Plan File"
 						class="saved btn btn-default" id="dataSharingPlanUpload">
-					<div>
-						<p> View uploaded <s:a href="javascript:openDocument(11)">Data Sharing Plan</s:a> in new window 
-						<s:a href="javascript:removeDocument(11)">Remove</s:a>
-						</p>
-					</div>
-					
-					<table style="width: 80%;" cellpadding="0px" cellspacing="0"
-						class="table table-bordered table-striped"
-						style="margin-left: 10px;">
-						<tr class="modalTheader">
-							<th class="tableHeader" align="center" width="10%">Documnent
-								Title</th>
-							<th class="tableHeader" align="center" width="10%">File
-								Name</th>
-							<th class="tableHeader" align="center" width="10%">Date</th>
-							<th class="tableHeader" align="center" width="10%">Uploaded
-								By</th>
-						</tr>
-						<tr>
-							<td><a href="#">DSP Version 4</a></td>
-							<td>DataSharingExceptionMemo_approved.doc</a></td>
-							<td style="white-space: nowrap">Feb 15 2015 06:47:12 PM</td>
-							<td><a href="mailto: jonesm@mail.nih.gov">Mary Jones</a>
-						</tr>
-					</table>
-				</div>
-
-				<div class="qSpacing">
-					<p class="question" id="expand">
-						History of Uploaded Documents&nbsp;<a href="javascript:void"
-							class="history"><i class="fa fa-plus-square"
-							aria-hidden="true"></i></a>
-					</p>
-					<div id="uploadedHistory" style="display: none;">
-						<table style="width: 80%;" cellpadding="0px" cellspacing="0"
-								class="table table-bordered table-striped"
-								style="margin-left: 10px;">
-							<tr class="modalTheader">
-								<th class="tableHeader" align="center" width="10%">Documnent
-									Title</th>
-								<th class="tableHeader" align="center" width="10%">File
-									Name</th>
-								<th class="tableHeader" align="center" width="10%">Date</th>
-								<th class="tableHeader" align="center" width="10%">Uploaded
-									By</th>
-							</tr>
-							<tr>
-								<td><a href="#">DSP Version 3</a></td>
-								<td>Not Applicable</td>
-								<td style="white-space: nowrap">Feb 08 2015 06:47:12 PM</td>
-								<td><a href="mailto: jonesm@mail.nih.gov">Mary Jones</a>
-							</tr>
-							<tr>
-								<td><a href="#">DSP Version 2</a></td>
-								<td>DataSharingExceptionMemo_approved.doc</td>
-								<td style="white-space: nowrap">Feb 08 2015 06:47:12 PM</td>
-								<td><a href="mailto: jonesm@mail.nih.gov">Mary Jones</a>
-							</tr>
-
-							<tr>
-								<td><a href="#">DSP Version 1</a></td>
-								<td>DataSharingExceptionMemo_approved.doc</td>
-								<td style="white-space: nowrap">Feb 04 2015 03:47:12 PM</td>
-								<td><a href="mailto: jonesm@mail.nih.gov">Mary Jones</a>
-							</tr>
-						</table>
+					<div class="loadFileHistory">
+						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>
 				</div>
 

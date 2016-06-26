@@ -72,6 +72,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	private Document doc = null; // json object to be returned for UI refresh after upload
 	
 	private String comments;
+
 	
 	/**
 	 * Execute method for Genomic Data Sharing Plan.  
@@ -191,22 +192,19 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		logger.info("uploadExceptionMemo()");
 
 		if (!validateUploadFile(exceptionMemo, exceptionMemoContentType))
-			return SUCCESS;
-		
-		
+			return INPUT;
+			
 		try {
 			doc = fileUploadService.storeFile(new Long(getProjectId()), "EXCEPMEMO", exceptionMemo, exceptionMemoFileName);
-		
-				
-			String docString = JSONUtil.serialize(doc);
-			inputStream = new ByteArrayInputStream(docString.getBytes("UTF-8"));
+			excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", new Long(getProjectId()));
 			
 		} catch (Exception e) {
 			try {
 				inputStream = new ByteArrayInputStream("Error Uploading File".getBytes("UTF-8"));
 			} catch (UnsupportedEncodingException e1) {
-				e1.printStackTrace();
+				return INPUT;
 			}
+			return INPUT;
 		}
 		
 		logger.info("===> docId: " + doc.getId());
@@ -260,24 +258,21 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 */
 	public String uploadDataSharingPlan() {
 		logger.info("uploadDataSharingPlan()");
-
-		if (!validateUploadFile(dataSharingPlan, dataSharingPlanContentType))
-			return SUCCESS;
 		
+		if (!validateUploadFile(dataSharingPlan, dataSharingPlanContentType))
+			return INPUT;
 		
 		try {
 			doc = fileUploadService.storeFile(new Long(getProjectId()), "GDSPLAN", dataSharingPlan, dataSharingPlanFileName);
-		
-				
-			String docString = JSONUtil.serialize(doc);
-			inputStream = new ByteArrayInputStream(docString.getBytes("UTF-8"));
+			gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", new Long(getProjectId()));
 			
 		} catch (Exception e) {
 			try {
 				inputStream = new ByteArrayInputStream("Error Uploading File".getBytes("UTF-8"));
 			} catch (UnsupportedEncodingException e1) {
-				e1.printStackTrace();
+				return INPUT;
 			}
+			return INPUT;
 		}
 				
 		logger.info("===> docId: " + doc.getId());
@@ -288,6 +283,35 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		return SUCCESS;
 	}
 	
+	/**
+	 * Delete Genomic Data Sharing Plan Document
+	 * 
+	 * @return forward string
+	 */
+	public String deleteGdsFile() {
+		logger.info("deleteGdsFile()");
+		
+		try {
+			if (getDocId() == null) {
+				inputStream = new ByteArrayInputStream(
+						"Document Id needs to be provided for delete".getBytes("UTF-8"));
+
+				return INPUT;
+			}
+			fileUploadService.deleteFile(getDocId());
+			gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", new Long(getProjectId()));
+			
+		} catch (UnsupportedEncodingException e) {
+			try {
+				inputStream = new ByteArrayInputStream("Error Deleting File".getBytes("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				return INPUT;
+			}
+			return INPUT;
+		}
+
+		return SUCCESS;
+	}
 	
 	/**
 	 * Return true if answer should be pre-selected 
@@ -597,4 +621,5 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+
 }

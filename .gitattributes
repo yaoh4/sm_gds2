@@ -160,6 +160,8 @@ WebContent/jsp/content/submissionBasicStudyInfoView.jsp -text
 WebContent/jsp/content/submissionCreateNew.jsp -text
 WebContent/jsp/content/submissionDetail.jsp -text
 WebContent/jsp/content/submissionGdsPlan.jsp -text
+WebContent/jsp/content/submissionGdsPlanFile.jsp -text
+WebContent/jsp/content/submissionGdsPlanMemo.jsp -text
 WebContent/jsp/content/submissionGdsPlanView.jsp -text
 WebContent/jsp/content/submissionGeneralInfo.jsp -text
 WebContent/jsp/content/submissionGeneralInfoView.jsp -text

@@ -140,7 +140,13 @@ public class ManageSubmission extends BaseAction {
 				return SUCCESS;
 			}
 
-			response.setHeader("Content-Disposition", "inline;filename=\"" + doc.getDocTitle() + "\"");
+			if(StringUtils.isBlank(doc.getFileName())) {
+				response.setHeader("Content-Disposition", "inline;filename=\"" + doc.getDocTitle() + "\"");
+			}
+			else {
+				response.setHeader("Content-Disposition", "inline;filename=\"" + doc.getFileName() + "\"");
+			}
+			
 			OutputStream out = response.getOutputStream();
 			response.setContentType(doc.getContentType());
 			out.write(doc.getDoc());
@@ -150,7 +156,7 @@ public class ManageSubmission extends BaseAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return SUCCESS;
+		return null;
 	}
 
 	/**

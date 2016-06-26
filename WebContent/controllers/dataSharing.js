@@ -40,11 +40,9 @@ $('input[type="radio"]').click(function(){
 
 
 
-
-
-$('#expand a').click(function(){
-    $("#uploadedHistory").slideToggle('500');
-    $(this).find('i').toggleClass('fa-plus-square fa-minus-square')
+$('body').on('click', 'a.history', function() {
+    $(".uploadedHistory").slideToggle('500');
+    $("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
 });
 
 

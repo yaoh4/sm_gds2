@@ -167,7 +167,8 @@ public class FileUploadServiceImpl implements FileUploadService {
 		doc.setContentType(getFileExtension(fileName));
 		doc.setUploadedDate(new Date());
 		doc.setCreatedDate(new Date());
-		doc.setCreatedBy(loggedOnUser.getFullName());
+		doc.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+		doc.setUploadedBy(loggedOnUser.getFullName());
 		
 		// Get doc type object from lookup
 		doc.setDocType(lookupService.getLookupByCode("DOC_TYPE", docType));

@@ -84,14 +84,23 @@
 				<param name="inputName">inputStream</param>   
 			</result>
 		</action>
+		<action name="deleteGdsFile" method="deleteGdsFile" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/submissionGdsPlanFile.jsp</result>
+			<result name="input" type="stream">     
+				<param name="contentType">text/html</param>     
+				<param name="inputName">inputStream</param>   
+			</result>
+		</action>
 		<action name="uploadExceptionMemo" method="uploadExceptionMemo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
-			<result type="stream">     
+			<result name="success" type="dispatcher">/jsp/content/submissionGdsPlanMemo.jsp</result>
+			<result name="input" type="stream">     
 				<param name="contentType">text/html</param>     
 				<param name="inputName">inputStream</param>   
 			</result>	
 		</action>
 		<action name="uploadDataSharingPlan" method="uploadDataSharingPlan" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
-			<result type="stream">     
+			<result name="success" type="dispatcher">/jsp/content/submissionGdsPlanFile.jsp</result>
+			<result name="input" type="stream">     
 				<param name="contentType">text/html</param>     
 				<param name="inputName">inputStream</param>   
 			</result>	

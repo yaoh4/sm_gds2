@@ -89,8 +89,12 @@ $(document).ready(function () {
 			}, 
 			error: function(){}	
 		});
-		
-		openFileModal(result);
+		if(result.startsWith("<p")) {
+			$('div.loadFileHistory').html(result);
+		}
+		else {
+			openFileModal(result);
+		}
 	});
 	
 	// Exception memo file upload Ajax
@@ -113,8 +117,12 @@ $(document).ready(function () {
 			}, 
 			error: function(){}	
 		});
-		
-		openFileModal(result);
+		if(result.startsWith("<p")) {
+			$('div#exceptionMemoDiv').html(result);
+		}
+		else {
+			openFileModal(result);
+		}
 	});
 
 });
@@ -128,24 +136,28 @@ function openDocument(id)
   var newWin = window.open(url, winName ,features);
 }
 
-function removeDocument(id)
+function removeDocument(docId, projectId)
 {
 	var result = "";
 	ans = confirm("Are you sure you want to delete this file?");
 	if (ans) {
 	
 		$.ajax({
-			url: "deleteFile.action",
+			url: "deleteGdsFile.action",
 			type: "post",
-			data: {docId: id},
+			data: {docId: docId, projectId: projectId},
 			async:   false,
 			success: function(msg){
 				result = $.trim(msg);
 			}, 
 			error: function(){}		
 		});
-	
-		openFileModal(result);
+		if(result.startsWith("<p")) {
+			$('div.loadFileHistory').html(result);
+		}
+		else {
+			openFileModal(result);
+		}
 	}
 }
 

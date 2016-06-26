@@ -37,6 +37,7 @@ public class Document implements java.io.Serializable {
 	private byte[] doc;
 	private String contentType;
 	private String docTitle;
+	private String uploadedBy;
 
 	public Document() {
 	}
@@ -58,7 +59,7 @@ public class Document implements java.io.Serializable {
 	public Document(Long id, Long projectId, Lookup docType,
 			Long institutionalCertificationId, String fileName, Date uploadedDate,
 			Long versionNum, String activeFlag, Date createdDate, String createdBy, Date lastChangedDate,
-			String lastChangedBy, byte[] doc, String contentType, String docTitle) {
+			String lastChangedBy, byte[] doc, String contentType, String docTitle, String uploadedBy) {
 		this.id = id;
 		this.institutionalCertificationId = institutionalCertificationId;
 		this.projectId = projectId;
@@ -74,6 +75,7 @@ public class Document implements java.io.Serializable {
 		this.doc = doc;
 		this.contentType = contentType;
 		this.docTitle = docTitle;
+		this.uploadedBy = uploadedBy;
 	}
 
 	@Id
@@ -219,4 +221,14 @@ public class Document implements java.io.Serializable {
 		this.docTitle = docTitle;
 	}
 
+
+	@Column(name = "UPLOADED_BY", length = 80)
+	public String getUploadedBy() {
+		return this.uploadedBy;
+	}
+	
+	public void setUploadedBy(String uploadedBy) {
+		this.uploadedBy = uploadedBy;
+	}
+	
 }
