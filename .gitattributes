@@ -118,6 +118,12 @@ WebContent/controllers/gdsPlan.js -text
 WebContent/controllers/general.js -text
 WebContent/controllers/search.js -text
 WebContent/controllers/submissionStatus.js -text
+WebContent/fonts/FontAwesome.otf -text
+WebContent/fonts/fontawesome-webfont.eot -text
+WebContent/fonts/fontawesome-webfont.svg -text
+WebContent/fonts/fontawesome-webfont.ttf -text
+WebContent/fonts/fontawesome-webfont.woff -text
+WebContent/fonts/fontawesome-webfont.woff2 -text
 WebContent/fonts/glyphicons-halflings-regular.eot -text
 WebContent/fonts/glyphicons-halflings-regular.svg -text
 WebContent/fonts/glyphicons-halflings-regular.ttf -text
@@ -497,7 +503,7 @@ WebContent/stylesheets/bootstrap-datepicker-1.6.1.min.css -text
 WebContent/stylesheets/bootstrap.min.css -text
 WebContent/stylesheets/custom.css -text
 WebContent/stylesheets/datatable.css -text
-WebContent/stylesheets/font-awesome.min.css -text
+WebContent/stylesheets/font-awesome-4.6.3.min.css -text
 WebContent/stylesheets/non-responsive.css -text
 WebContent/template/simple/radiomap-br.ftl -text
 WebContent/template/simple/radiomap-div.ftl -text
