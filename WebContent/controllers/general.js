@@ -23,3 +23,11 @@ $('#pEndDate .input-group.date').datepicker({
           });      
 
 });
+
+//Open grants/Contracts search page:
+function openGrantsContractsSearchPage() {
+	var url = "/gds/manage/openSearchGrantsContracts.action";
+	var winName = "Intramural (Z01)/Grant/Contract # Search";
+	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+	var newWin = window.open(url, winName, features);
+}

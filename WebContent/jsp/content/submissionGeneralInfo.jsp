@@ -228,19 +228,3 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>  
 <script type="text/javascript" src="<s:url value="/controllers/general.js"/>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript">
-     $(function () {
-          $('#repositoryDate .input-group.date').datepicker({
-          orientation: "bottom auto",
-          todayHighlight: true
-         });
-     });
-</script> 
-<script>
-	function openGrantsContractsSearchPage() {
-		var url = "/gds/manage/openSearchGrantsContracts.action";
-		var winName = "Intramural (Z01)/Grant/Contract # Search";
-		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
-		var newWin = window.open(url, winName, features);
-	}
-</script>
