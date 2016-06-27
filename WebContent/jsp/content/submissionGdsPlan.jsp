@@ -152,31 +152,22 @@
 								onClick="applyUiRule(this,${params})" /> <s:label
 								for="%{#ans.id}" value="%{#ans.displayText}" /> 
 							<s:if test="%{#ans.displayText=='Other'}">
-								<label for="otherRepository" style="width: auto; display: none;">Specify</label>
-								<s:textfield id="otherRepository"
-									name="otherText[%{#ans.id}]"
-									placeholder="Specify" />
+								<div id="addRepo" style="display: none">
+									<!--Repo hidden field-->
+									<div id="InputsWrapper" class="otherWrapper">
+										<s:textfield value="" name="otherText[%{#ans.id}]"
+											class="other" placeholder="Name of Repository" /><br />
+									</div>
+
+									<div style="margin-left: 75px; margin-top: 15px;">
+										<button id="addfield" class="btn btn-default">Add
+											Another Repository</button>
+									</div>
+								</div>
 							</s:if>
 						</div>
 					</s:iterator>
 
-					<%-- <div class="checkbox">
-					<label> <input type="checkbox" name="repository"
-						value="other" id="other"> Other
-					</label>
-					<div id="addRepo" style="display: none">
-						<!--Repo hidden field-->
-						<div id="InputsWrapper" class="otherWrapper">
-							<input name="otherRepository" value="" type="text" class="other"
-								type="text" placeholder="Name of Repository"></input><br />
-						</div>
-
-						<div style="margin-left: 75px; margin-top: 15px;">
-							<button id="addfield" class="btn btn-default">Add
-								Another Repository</button>
-						</div>
-
-					</div>--%>
 				</div>
 				<!--end add Repo hidden field-->
 
@@ -231,7 +222,7 @@
 
 				<div>
 					<p class="question">Comments:</p>
-					<textarea class="col-md-10" rows="3"></textarea>
+					<s:textarea class="col-md-10" rows="3" name="comments"></s:textarea>
 				</div>
 			</div>
 			<!--end panel body-->

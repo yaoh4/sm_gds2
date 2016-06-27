@@ -49,7 +49,7 @@ $('body').on('click', 'a.history', function() {
 
 //funtion that shows Other box
 
-$('#other').click(function() {
+$('#25').click(function() {
     if( $(this).is(':checked')) {
         $("#addRepo").show();
     } else {

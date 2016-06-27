@@ -16,6 +16,8 @@ $(document).ready(function () {
 		}
 	});
 	
+	$('body').click();
+	
 	// If user selects Non-human ONLY to "What specimen type does the data submission pertain to?", 
 	// the system will select and grey out the "Unrestricted" option 
 	// and the "Controlled" checkbox will be non-selectable in "What type of access is the data to be made available through?"

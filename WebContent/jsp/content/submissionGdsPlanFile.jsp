@@ -14,11 +14,11 @@
 		</tr>
 		<tr>
 			<td><s:property value="%{gdsPlanFile[0].docTitle}" />
-				<s:if test="%{gdsPlanFile[0].fileName == null}">
+				<s:if test="%{gdsPlanFile[0].fileName == null || gdsPlanFile[0].fileName == ''}">
 					<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
 					<i class="fa fa-search" aria-hidden="true"></i></s:a>
 				</s:if></td>
-			<td><s:if test="%{gdsPlanFile[0].fileName != null}">
+			<td><s:if test="%{gdsPlanFile[0].fileName != null && gdsPlanFile[0].fileName != ''}">
 					<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
 					<s:property value="%{gdsPlanFile[0].fileName}" /></s:a>
 				</s:if></td>
@@ -55,11 +55,11 @@
 					<s:if test="#stat.index != 0">
 						<tr>
 							<td><s:property value="%{#file.docTitle}" />
-								<s:if test="%{#file.fileName == null}">
+								<s:if test="%{#file.fileName == null || #file.fileName == ''}">
 									<s:a href="javascript:openDocument(%{#file.id})">
 										<i class="fa fa-search" aria-hidden="true"></i></s:a>
 								</s:if></td>
-							<td><s:if test="%{#file.fileName != null}">
+							<td><s:if test="%{#file.fileName != null && #file.fileName != ''}">
 									<s:a href="javascript:openDocument(%{#file.id})">
 									<s:property value="%{#file.fileName}" /></s:a>
 								</s:if></td>

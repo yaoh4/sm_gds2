@@ -140,6 +140,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		super.saveProject(getProject());
 		
+		setProject(retrieveSelectedProject());
+		
 		setUpPageData();
 		
         return SUCCESS;
