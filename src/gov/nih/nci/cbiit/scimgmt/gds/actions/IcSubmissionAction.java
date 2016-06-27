@@ -11,6 +11,7 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.json.JSONArray;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
@@ -37,6 +38,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	private InstitutionalCertification instCertification;
 	
 	private String instCertId;
+	
+	private String dulIds;
 	
 	private List<ParentDulChecklist> parentDulChecklists = new ArrayList<ParentDulChecklist>();
 	
@@ -69,9 +72,10 @@ public class IcSubmissionAction extends ManageSubmission {
 		} else {
 			instCert = new InstitutionalCertification();
 			Study study = new Study();
-			StudiesDulSet studiesDulSet = new StudiesDulSet();
+			/*StudiesDulSet studiesDulSet = new StudiesDulSet();
 			studiesDulSet.setStudy(study);
-			study.addStudiesDulSet(studiesDulSet);
+			study.addStudiesDulSet(studiesDulSet);*/
+			setTestData(study);
 			study.setInstitutionalCertification(instCert);
 			instCert.addStudy(study);
 		}
@@ -82,8 +86,59 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	
+	private void setTestData(Study study) {
+		StudiesDulSet studiesDulSet = new StudiesDulSet();
+		DulChecklistSelection dul = new DulChecklistSelection();
+		dul.setDulChecklist(GdsSubmissionActionHelper.getDulChecklist(Long.valueOf("2")));
+		studiesDulSet.addDulChecklistSelection(dul);
+		dul = new DulChecklistSelection();
+		dul.setDulChecklist(GdsSubmissionActionHelper.getDulChecklist(Long.valueOf("3")));
+		studiesDulSet.addDulChecklistSelection(dul);
+		studiesDulSet.setStudy(study);
+		study.addStudiesDulSet(studiesDulSet);
+		
+		studiesDulSet = new StudiesDulSet();
+		dul = new DulChecklistSelection();
+		dul.setDulChecklist(GdsSubmissionActionHelper.getDulChecklist(Long.valueOf("7")));
+		studiesDulSet.addDulChecklistSelection(dul);
+		dul = new DulChecklistSelection();
+		dul.setDulChecklist(GdsSubmissionActionHelper.getDulChecklist(Long.valueOf("8")));
+		studiesDulSet.addDulChecklistSelection(dul);
+		studiesDulSet.setStudy(study);
+		study.addStudiesDulSet(studiesDulSet);
+	}
+	
+	
 	private void prepareDisplay() {
+		//Get display Text
 		setParentDulChecklists(GdsSubmissionActionHelper.getDulChecklistsSets());
+		
+		//Get display data.
+		//We need to show the duls stored for each study
+		
+		ArrayList<String> dulIdList = new ArrayList<String>();
+		int studyIndex = -1;
+		for(Study study: getInstCertification().getStudies()) {
+			studyIndex++;
+			int dulSetIndex = -1;
+			for(StudiesDulSet studiesDulSet: study.getStudiesDulSets() ) {
+				dulSetIndex++;
+				Long parentDulId = null;
+				List<DulChecklistSelection> dulChecklistSelections = studiesDulSet.getDulChecklistSelections();
+				if(!CollectionUtils.isEmpty(dulChecklistSelections)) {
+					for(DulChecklistSelection dulChecklistSelection: dulChecklistSelections) {
+						dulIdList.add("dul" + studyIndex + "-" + dulSetIndex + "-" + dulChecklistSelection.getDulChecklist().getId());
+						if(parentDulId == null) {
+							parentDulId = dulChecklistSelection.getDulChecklist().getParentDulId();
+						}
+					}
+					dulIdList.add("parentDul" + studyIndex + "-" + dulSetIndex + "-" + parentDulId);
+				}
+			}
+		}
+		
+		String dulIds = (new JSONArray(dulIdList)).toString();
+		setDulIds(dulIds);
 				
 	}
 	
@@ -389,6 +444,22 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public void setParentDulChecklists(List<ParentDulChecklist> parentDulChecklists) {
 		this.parentDulChecklists = parentDulChecklists;
+	}
+
+
+	/**
+	 * @return the dulIds
+	 */
+	public String getDulIds() {
+		return dulIds;
+	}
+
+
+	/**
+	 * @param dulIds the dulIds to set
+	 */
+	public void setDulIds(String dulIds) {
+		this.dulIds = dulIds;
 	}
 
 }

@@ -116,6 +116,7 @@ WebContent/WEB-INF/web.xml -text
 WebContent/controllers/dataSharing.js -text
 WebContent/controllers/gdsPlan.js -text
 WebContent/controllers/general.js -text
+WebContent/controllers/icDetails.js -text
 WebContent/controllers/search.js -text
 WebContent/controllers/submissionStatus.js -text
 WebContent/fonts/FontAwesome.otf -text

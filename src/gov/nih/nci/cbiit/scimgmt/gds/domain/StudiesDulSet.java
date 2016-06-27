@@ -119,7 +119,7 @@ public class StudiesDulSet implements java.io.Serializable {
 		this.dulChecklistSelections = dulChecklistSelections;
 	}
 	
-	public void addDulChecklistSelections(DulChecklistSelection dulChecklistSelection) {
+	public void addDulChecklistSelection(DulChecklistSelection dulChecklistSelection) {
 		this.dulChecklistSelections.add(dulChecklistSelection);
 	}
 
