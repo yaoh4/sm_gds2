@@ -870,7 +870,9 @@ screens/images/bg_body_r.png -text
 screens/images/bg_interface.png -text
 screens/images/bg_sh.png -text
 screens/images/calendar_icon.gif -text
+screens/images/callout_black.gif -text
 screens/images/complete.png -text
+screens/images/css-tooltip-gradient-bg.png -text
 screens/images/details_close.png -text
 screens/images/details_open.png -text
 screens/images/ellipsis.png -text
