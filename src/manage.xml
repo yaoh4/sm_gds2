@@ -107,7 +107,19 @@
 		</action>
 		<action name="navigateToRepositoryStatus" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
 			 <result name="success" type="tiles">submissionRepositoryStatus</result>
-		</action>		
+		</action>	
+		<action name="saveRepositoryStatus" method="save" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
+			 <result name="success" type="tiles">submissionRepositoryStatus</result>
+			 <result name="input" type="tiles">submissionRepositoryStatus</result>
+		</action>
+		<action name="saveRepositoryStatusAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
+			 <result name="success" type="redirect-action">
+			 	<param name="actionName">navigateToSubmissionDetail</param>
+				<param name="projectId">${project.id}</param>
+				<param name="parse">true</param>
+			 </result>
+			 <result name="input" type="tiles">submissionGeneralInfo</result>
+		</action>	
 		<action name="navigateToIntramuralGrantOrContractSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
 			 <result name="success" type="tiles">intramuralGrantOrContractSearch</result>
 		</action>

@@ -74,7 +74,7 @@
 						<div class="col-sm-offset-4 col-sm-10 row">
 							<s:submit value="Search"
 								action="search/searchGrantsContractsAction"
-								cssClass="btn btn-default" />
+								cssClass="btn btn-project-primary" />
 							<s:submit value="Reset"
 								action="search/openSearchGrantsContracts"
 								cssClass="btn btn-default" />
@@ -91,6 +91,7 @@
 								<th class="tableHeader" width="50%">Project Title</th>
 								<th class="tableHeader" width="25%">Principal Investigator</th>
 							</tr>
+							<s:if test="%{grantOrContractList.size > 0}">
 							<s:iterator value="grantOrContractList" var="grantsContracts"
 								status="stat">
 
@@ -106,11 +107,21 @@
 										value="%{#grantsContracts.grantContractNum}" /></td>
 								<td class="paddingT"><s:property
 										value="%{#grantsContracts.projectTitle}" /></td>
-								<td class="paddingT"><s:property
-										value="%{#grantsContracts.piLastName}" /> , <s:property
-										value="%{#grantsContracts.piFirstName}" /></td>
+								<td class="paddingT">
+								<s:a href="mailto:%{#grantsContracts.piEmailAddress}?">
+								<s:property	value="%{#grantsContracts.piLastName}" /> , <s:property	value="%{#grantsContracts.piFirstName}" />
+								</s:a>		
+								</td>
 								</tr>
 							</s:iterator>
+							</s:if>
+							<s:else>
+								<tr class="tableContent">
+								<td colspan="4">
+								Nothing found to display.
+								</td>
+								</tr>
+							</s:else>
 						</table>
 
 						<div class="alert alert-warning" style="display: none;">

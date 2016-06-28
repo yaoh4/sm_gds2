@@ -76,6 +76,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public void setUpPageData(){
 		
+		logger.debug("Setting up Repository status page data.");
 		setProject(retrieveSelectedProject());
 		setUpStatusLists();		
 		setUpRepositoryStatuses();	
@@ -86,21 +87,18 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public void setUpStatusLists(){
 		
-		List<Lookup> registrationStatusLookupList = lookupService.getLookupList(ApplicationConstants.PREGISTRATION_STATUS_LIST.toUpperCase());
-		GdsSubmissionActionHelper.populateStatusDropDownLists(registrationStatusList,registrationStatusLookupList);
-
-		List<Lookup> projectSubmissionStatusLookupList = lookupService.getLookupList(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST.toUpperCase());
-		GdsSubmissionActionHelper.populateStatusDropDownLists(projectSubmissionStatusList,projectSubmissionStatusLookupList);
-
-		List<Lookup> studyReleasedLookupList = lookupService.getLookupList(ApplicationConstants.STUDY_RELEASED_LIST.toUpperCase());
-		GdsSubmissionActionHelper.populateStatusDropDownLists(studyReleasedList,studyReleasedLookupList);
+		logger.debug("Setting up Repository status Lists.");
+		registrationStatusList =  GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.REGISTRATION_STATUS_LIST.toUpperCase());	
+		projectSubmissionStatusList =  GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST.toUpperCase());	
+		studyReleasedList =  GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.STUDY_RELEASED_LIST.toUpperCase());
 	}	
 	
 	/**
 	 * This method sets up Repository Statuses.
 	 */
 	public void	setUpRepositoryStatuses(){	
-
+		logger.debug("Setting up Repository statuses.");
+		
 		//List to hold saved repository statuses.
 		List<Long> savedRepositoryStatuses = new ArrayList<Long>();	
 		

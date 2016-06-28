@@ -19,7 +19,7 @@ public interface ApplicationConstants {
 	public static final String NOT_AUTHORIZED = "notAuthorized";	
 	
 	/*List discriminators*/
-	 public static final String PREGISTRATION_STATUS_LIST = "registration_status";
+	 public static final String REGISTRATION_STATUS_LIST = "registration_status";
 	 public static final String PROJECT_SUBMISSION_STATUS_LIST = "project_sub_status";
 	 public static final String STUDY_RELEASED_LIST = "study_released";
 	 public static final String IC_APPROVED_BY_GPA_LIST = "IC_APPROVED_BY_GPA";
