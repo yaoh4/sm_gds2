@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Genomic Data Sharing (GDS) Tracking System</title>
+    
+    <!-- Bootstrap -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/non-responsive.css" rel="stylesheet">
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+    
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
+    <link href="stylesheets/custom.css" rel="stylesheet">
+    
+    
+    
+  </head>
+  <body>
+    <!-- header-->
+    <div class="logo-header"> </div>
+    <!-- Fixed navbar -->
+    <div id="wrap">
+      <div class="navbar  navbar-fixed-top" >
+        <div class="container">
+          <div id="logo" class="logoImage">
+            <img src="images/nci-logo-full.svg" width="450px;"  alt="National Cancer Institute">
+            <div id="loginName" style="float:right; padding-top:15px; padding-bottom: 15px; margin-right: 15px;" class="nav navbar-nav">Welcome: <div id="loginID" class="login">Mary Jones</div></div>
+            <div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
+            
+          </div>
+          <!--Main Navigation -->
+          
+          <nav>
+            <div id="mainNav" class="navbar-header" style="display:block;">
+              <ul class="nav navbar-nav navbar-main">
+                <li><a href="home.htm">Home</a></li>
+                
+                <li><a href="newSubmission.htm">Create New Submission</a></li>
+                <li><a href="search.htm">Search</a></li>
+                
+              </ul>
+            </li>
+          </ul>
+          
+        </div>
+      </nav>
+      
+      
+      <div class="navbar navbar-default2 navbar-fixed-top" >
+        <!--Page Header -->
+        <div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Track Project Submission</h3><div id="verisonNumber" style="display:inline-block;">&nbsp;&nbsp;&nbsp;Version 4 (ID: 123876)</div></div></div>
+        
+        
+        <!--Sub Navigation -->
+        <div class="container ">
+          
+          <div class="navbar-collapse main-nav subnav">
+            <ul class="nav navbar-nav ">
+              <li><a href="general.htm" >General Info.</a></li>
+              <li class="divider-vertical"></li>
+              <li ><a href="dataSharing.htm">Genomic Data Sharing Plan</a></li>
+              <li class="divider-vertical"></li>
+              <li class="active"><a href="institutional.htm">Institutional Certification(s)</a></li>
+              <li class="divider-vertical"></li>
+              <li><a href="basicStudy.htm">Basic Study Info.</a></li>
+              <li class="divider-vertical"></li>
+              <li ><a href="repository">Submission Status</a></li>
+              <li class="divider-vertical"></li>
+              <li><a href="submissionDetails.htm">Submission Details</a></li>
+              <li class="divider-vertical"></li>
+            </ul>
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>
+    
+  </div>
+  <div class="container" >
+    <!--Begin Form -->
+   
+      <div class="pageNav">
+          <input  type="submit" name="save" value=" Save " class="saved btn btn-default" id="submission_saved">
+          <input name="" type="button" value=" « Previous  " class="btn btn-default" onclick="window.location.href='dataSharing.htm'">
+          <input name="" type="button" value=" Save & Next »  " class="btn btn-project-primary" onclick="window.location.href='basicStudy.htm'">
+        </div>
+      
+      
+      <!-- Begin Panel -->
+      <div class="col-md-12">
+        <div class="panel  project-panel-primary">
+          <div class="panel-heading">
+            <div class="pheader"><h4>Institutional Certification Status</h4></div>
+            <div class="statusWrapper">
+              <div class="status"><a href="#" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+              <div class="statusIcon"> 
+                <a href="#" class="tooltip">
+                <img src="images/inprogress.png" alt="In Progress" />
+                <span>
+                <img class="callout" src="images/callout_black.gif" />
+                <strong>Legend:</strong><br />  
+                <img src="images/legend.gif" />
+                
+            </span>
+           </a>
+          </div>
+            </div>
+          </div><!--end header-->
+          
+          
+          <div class="panel-body">
+            <!--Begin Form -->
+
+        <form id="ic_dashboard_form" name="ic_dashboard_form" action="/post" method="post">
+            <div style="float: right;" class="question"><a href="https://gds.nih.gov/Institutional_Certifications.html" target="_blank">Institutional Certifications&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></div><br/>
+          <p class="question" style="display:inline;">Have you received and reviewed all Institutional Certifications?&nbsp; &nbsp; &nbsp;<div style="display:none;" id="addICBtn"><input  type="submit" name="addIC" value="Add Another Institutional Certification" class="saved btn btn-default" id="addIC"></div></p>
+                
+                <div class="radio form-group">
+                    <label><input type="radio"  name="project" value="yes" id="reviewedYes">Yes</label>
+                </div>
+
+                <div class="radio form-group">
+                    <label><input type="radio"  name="project" value="no" id="reviewedNo">No</label>
+                </div>
+          
+              <p>&nbsp;</p>
+
+               <table style="width: 90%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
+                    <tr class="modalTheader">
+                      <th class="tableHeader" align="center" width="60%">Institutional Certification Document</th>
+                      <th class="tableHeader" align="center" width="30%">Date Uploaded</th>
+                      <th class="tableHeader" align="center" width="10%">Actions</th>
+                    </tr>
+                    <tr  data-id="1">
+                      <td style="white-space: nowrap"><i class="fa fa-file-word-o" aria-hidden="true"></i> &nbsp;<a href="#">HepatocellularCarcinoma.doc</a></td>
+                      <td style="white-space: nowrap">Feb 08 2016 06:47:12 PM</td>
+                      <td style="white-space: nowrap">
+
+                        <a href="#icDetails" data-toggle="modal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;&nbsp;&nbsp;
+
+                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
+
+                        <a href="#" class="btnDelete"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a></td>
+                      </tr>
+
+                      <tr  data-id="2">
+                      <td style="white-space: nowrap"><i class="fa fa-file-word-o" aria-hidden="true"></i> &nbsp;<a href="#">EwingSarcoma.doc</a></td>
+                      <td style="white-space: nowrap">Mar 09 2016 06:47:12 PM</td>
+                      <td style="white-space: nowrap">
+                        <a href="#icDetails2" data-toggle="modal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;&nbsp;&nbsp;
+
+                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
+
+                        <a href="#" class="btnDelete"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a></td>
+                      </tr>
+
+                      
+                    </table>
+                  </div>
+              </div> <!--end panel body-->
+              </div> <!--end panel-->
+              
+              <!--SAVE & NEXT BUTTONS-->
+        <div class="pageNav">
+          <input  type="submit" name="save" value=" Save " class="saved btn btn-default" id="submission_saved">
+          <input name="" type="button" value=" « Previous  " class="btn btn-default" onclick="window.location.href='dataSharing.htm'">
+          <input name="" type="button" value=" Save & Next »  " class="btn btn-project-primary" onclick="window.location.href='basicStudy.htm'">
+        </div>
+              
+            </form>
+            </div><!--end column formatting div-->
+            </div> <!-- /container -->
+
+
+              <!-- start: Delete Coupon Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true" title="warning sign"></i>&nbsp;&nbsp;
+                 <h3 class="modal-title" id="myModalLabel">Are You Sure You Want to Delete?</h3>
+
+            </div>
+            <div class="modal-body">
+                 <h5>Deleting the IC will remove all data from the project and any sub-projects, including all data on associated studies and DULs.
+
+</h5>
+
+            </div>
+            <!--/modal-body-collapse -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnDelteYes" href="#">Delete</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+            <!--/modal-footer-collapse -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<!--Modal template for IC details -->
+<div id="icDetails" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Institutional Certification Details for HepatocellularCarcinoma.doc</h4>
+      </div>
+      <div class="modal-body">
+        <p><strong>Approved by GPA:</strong> Yes</p>  
+        <p><strong>Provisional or Final?</strong> Final</p> 
+        <p><strong>Study for use in Future Projects?</strong> Yes</p>
+        <p><strong>Comments:</strong><br/>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ex purus, dapibus nec risus ac, fermentum sollicitudin dolor. Maecenas ante tortor, pellentesque eget neque quis, aliquam accumsan mi. Pellentesque non euismod risus. Quisque nunc diam, pellentesque id leo ac, cursus porttitor nisi. Pellentesque iaculis hendrerit ante sit amet malesuada. Cras ut massa velit. Vestibulum et venenatis velit, ac molestie ligula. Donec lacinia eleifend tincidunt. Ut nec dui quis massa gravida vulputate. Maecenas consectetur massa augue, malesuada molestie augue viverra eu.</p>
+
+        <p>&nbsp;</p>
+
+        <div id="entry1" class="clonedInput">
+                    
+                    <div class="panel-group" id="accordion">
+                      <div class="panel panel-default">
+                        <div class="panel-heading header">
+                          <h4 class="panel-title ">
+                          <a class="study" href="#collapseOne" id="entry1_study" name="entry1_study">
+                            <i class="fa fa-minus-square" aria-hidden="true"></i>&nbsp;
+                            Study #1
+                          </a>
+                          </h4>
+                        </div>
+                        <div id="collapseOne" class="content">
+                          <div class="panel-body">
+
+                           <p><strong>Study Name:</strong> Hepatocellular Carcinoma Study</p>  
+                            <p><strong>Institution:</strong> XYZ Institution</p> 
+                            <p><strong>Data Use Limitation(s) Verified?</strong> Yes</p>
+                            <p><strong>Comments:</strong><br/>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ex purus, dapibus nec risus ac, fermentum sollicitudin dolor. Maecenas ante tortor, pellentesque eget neque quis, aliquam accumsan mi. Pellentesque non euismod risus. Quisque nunc diam, pellentesque id leo ac, cursus porttitor nisi. Pellentesque iaculis hendrerit ante sit amet malesuada. Cras ut massa velit. Vestibulum et venenatis velit, ac molestie ligula. Donec lacinia eleifend tincidunt. Ut nec dui quis massa gravida vulputate. Maecenas consectetur massa augue, malesuada molestie augue viverra eu.</p>
+
+                          <p>&nbsp;</p>
+                          <strong>Data Use Limitation(s)</strong>
+                          <hr>
+                           <div class="form-group row DULtext">
+                              <div class="col-xs-3">1. General Research Use
+                                <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                 </ul>
+                              </div>
+
+                              <div class="col-xs-3">2. Health/Medical/Biomedical
+                                <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                   <li>Collaboration required</li>
+                                 </ul>
+                              </div>
+
+                              <div class="col-xs-3">3. Disease-specific: Ewing Sarcoma
+                                <ul>
+                                   <li>Publication required</li>
+                                   <li>Methods</li>
+                                   <li>Related Disorders</li>
+                                 </ul>
+
+                              </div>
+
+                              <div class="col-xs-3">4. General Research Use
+                              <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                </ul>
+                            </div>
+                          </div>
+
+                                    <div class="form-group row DULtext">
+                              <div class="col-xs-3">5. General Research Use
+                                <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                 </ul>
+                              </div>
+
+                              <div class="col-xs-3">6. Health/Medical/Biomedical
+                                <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                   <li>Collaboration required</li>
+                                 </ul>
+                              </div>
+
+                              <div class="col-xs-3">7. Disease-specific: Ewing Sarcoma
+                                <ul>
+                                   <li>Publication required</li>
+                                   <li>Methods</li>
+                                   <li>Related Disorders</li>
+                                 </ul>
+
+                              </div>
+
+                              <div class="col-xs-3">8. General Research Use
+                              <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                </ul>
+                            </div>
+                          </div>
+
+                                    <div class="form-group row DULtext">
+                              <div class="col-xs-3">9. General Research Use
+                                <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                 </ul>
+                              </div>
+
+                              <div class="col-xs-3">10. Health/Medical/Biomedical
+                                <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                   <li>Collaboration required</li>
+                                 </ul>
+                              </div>
+
+                 
+                          </div>
+
+                           </div><!--end panel body-->
+                        </div><!--end content-->
+                        </div><!--end panel default-->
+                        </div><!--end panel-group-->    
+          </div><!--end entry1-->   
+
+          <div id="entry2" class="clonedInput">
+          <div class="panel-group" id="accordion">
+                      <div class="panel panel-default">
+                        <div class="panel-heading header">
+                          <h4 class="panel-title ">
+                          <a class="study" href="#collapseOne" id="entry1_study" name="entry1_study">
+                            <i class="fa fa-minus-square" aria-hidden="true"></i>&nbsp;
+                            Study #2
+                          </a>
+                          </h4>
+                        </div>
+                        <div id="collapseOne" class="content">
+                          <div class="panel-body">
+
+                            <div id="collapseOne" class="content">
+                          <div class="panel-body">
+
+                           <p><strong>Study Name:</strong> Hepatocellular Carcinoma Study</p>  
+                            <p><strong>Institution:</strong> XYZ Institution</p> 
+                            <p><strong>Data Use Limitation(s) Verified?</strong> Yes</p>
+                            <p><strong>Comments:</strong><br/>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ex purus, dapibus nec risus ac, fermentum sollicitudin dolor. Maecenas ante tortor, pellentesque eget neque quis, aliquam accumsan mi. Pellentesque non euismod risus. Quisque nunc diam, pellentesque id leo ac, cursus porttitor nisi. Pellentesque iaculis hendrerit ante sit amet malesuada. Cras ut massa velit. Vestibulum et venenatis velit, ac molestie ligula. Donec lacinia eleifend tincidunt. Ut nec dui quis massa gravida vulputate. Maecenas consectetur massa augue, malesuada molestie augue viverra eu.</p>
+
+                          <p>&nbsp;</p>
+                          <strong>Data Use Limitation(s)</strong>
+                          <hr>
+                           <div class="form-group row DULtext">
+                              <div class="col-xs-3">1. General Research Use
+                                <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                 </ul>
+                              </div>
+
+                              <div class="col-xs-3">2. Health/Medical/Biomedical
+                                <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                   <li>Collaboration required</li>
+                                 </ul>
+                              </div>
+
+                              <div class="col-xs-3">3. Disease-specific: Ewing Sarcoma
+                                <ul>
+                                   <li>Publication required</li>
+                                   <li>Methods</li>
+                                   <li>Related Disorders</li>
+                                 </ul>
+
+                              </div>
+
+                              <div class="col-xs-3">4. General Research Use
+                              <ul>
+                                  <li>IRB Approval Required</li>
+                                   <li>Publication Required</li>
+                                </ul>
+                            </div>
+                          </div>
+                        </div>
+                           </div><!--end panel body-->
+                        </div><!--end content-->
+                        </div><!--end panel default-->
+                        </div><!--end panel-group-->    
+          </div><!--end entry1--> 
+          <p>&nbsp;</p>                                
+ 
+      </div><!--end modal body-->
+      </div>
+    </div>
+  </div>
+      </div><!--end modal-->    
+            
+            <!-- FOOTER -->
+            <footer class="site-footer">
+              <div class="container">
+                <div id="nvcgSlFooter">
+                  <div class="contentid-911586 slot-item only-SI">
+                    
+                    <div class="row">
+                      <div class="large-12 columns footer-nci">National Cancer Institute<br> <span>at the National Institutes of Health</span></div>
+                    </div>
+                    <div class="row footer-utility">
+                      <div class="large-3 columns">
+                        <ul>
+                          <li><h4><a href="home.htm">Home</a></h4></li>
+                          <li><h4><a href="newSubmission.htm">Create New Submission</a></h4></li>
+                          <li><h4><a href="search.htm">Search</a></h4></li>
+                          
+                        </ul>
+                      </div>
+                      <div class="large-4 columns">
+                        <h4>POLICIES</h4>
+                        <ul>
+                          <li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
+                          <li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
+                          <li><a href="/policies/foia" target="_blank">FOIA</a></li>
+                          <li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="large-12 small-centered columns agencies">
+                        <ul>
+                          <li><a  href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+                          <li><a href="http://www.nih.gov">National Institutes of Health</a></li>
+                          <li><a href="/">National Cancer Institute</a></li>
+                          <li class="last"><a href="http://usa.gov">USA.gov</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>®</sup></div>
+                    </div>
+                    <a class="back-to-top" href="#top" style="display: inline;">TOP</a>
+                  </div>
+                </div>
+              </div>
+            </footer>
+            <!-- Bootstrap core JavaScript
+            ================================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+      
+            
+            <script src="scripts/theme.js" type="text/javascript"></script>
+            
+            
+            
+              <script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+            <script src="scripts/bootstrap.min.js"></script>
+          
+            
+            
+            <script src="controllers/institutional_dashboard.js"></script>
+            <script src="scripts/validator.js"></script>
+            
+            
+            
+            
+           
+           
+            
+          </body>
+        </html>

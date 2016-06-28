@@ -848,6 +848,7 @@ screens/ckeditor/styles.js -text
 screens/controllers/dataSharing.js -text
 screens/controllers/general.js -text
 screens/controllers/institional.js -text
+screens/controllers/institutional_dashboard.js -text
 screens/controllers/newSubmission.js -text
 screens/controllers/search.js -text
 screens/controllers/submissionStatus.js -text
@@ -887,6 +888,7 @@ screens/images/newV.png -text
 screens/images/pending.png -text
 screens/images/subV.png -text
 screens/institutional.htm -text
+screens/institutional_dashboard.htm -text
 screens/modals/errorReport3.htm -text
 screens/modals/searchRepositoryTable.htm -text
 screens/newSubmission.htm -text
