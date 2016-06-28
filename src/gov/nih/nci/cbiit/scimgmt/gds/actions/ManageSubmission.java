@@ -178,9 +178,9 @@ public class ManageSubmission extends BaseAction {
 		}
 		
 		// If the answer to "Will there be any data submitted?" is No.
-		// Don't show IC, BSI, Repository page.
+		// Don't show IC, BSI.
 		if (project.getPlanAnswerSelectionByAnswerId(new Long(10)) != null) {
-			if(page.equalsIgnoreCase("ic") || page.equalsIgnoreCase("bsi") || page.equalsIgnoreCase("repository")) {
+			if(page.equalsIgnoreCase("ic") || page.equalsIgnoreCase("bsi")) {
 				show = false;
 			}
 		}
