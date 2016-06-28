@@ -36,8 +36,23 @@
 		</action>
 		<action name="saveGdsPlanAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			 <result name="input" type="tiles">submissionGdsPlan</result>
-			 <result name="success" type="redirect-action">
+			 <result name="ic" type="redirect-action">
 			 	<param name="actionName">editIc</param>
+				<param name="projectId">${project.id}</param>
+				<param name="parse">true</param>
+			 </result>
+			 <result name="bsi" type="redirect-action">
+			 	<param name="actionName">navigateToBasicStudyInfo</param>
+				<param name="projectId">${project.id}</param>
+				<param name="parse">true</param>
+			 </result>
+			 <result name="repository" type="redirect-action">
+			 	<param name="actionName">navigateToRepositoryStatus</param>
+				<param name="projectId">${project.id}</param>
+				<param name="parse">true</param>
+			 </result>
+			 <result name="success" type="redirect-action">
+			 	<param name="actionName">navigateToSubmissionDetail</param>
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
 			 </result>

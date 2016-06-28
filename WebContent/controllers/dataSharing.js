@@ -168,3 +168,7 @@ $("#gds-form").on('click', '#exceptionMemoUpload', function () {
 });
 
 });
+
+function enableAllCheckbox() {
+	$("#gds-form :checkbox").prop('disabled', false);
+}

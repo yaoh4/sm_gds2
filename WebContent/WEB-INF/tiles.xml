@@ -92,7 +92,8 @@
 	</definition>
 	
 	<definition name="submissionRepositoryStatus" extends="base.definition">		
-		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="navtab" value="newSubmission" type="string" />	
+		<put-attribute name="subnavtab" value="repository" type="string" />		
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/submissionRepositoryStatus.jsp" />		
 	</definition>

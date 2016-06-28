@@ -185,6 +185,15 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		save();
 		
+		if(showPage("ic"))
+			return "ic";
+		
+		if(showPage("bsi"))
+			return "bsi";
+		
+		if(showPage("repository"))
+			return "repository";
+		
         return SUCCESS;
 	}
 	
@@ -473,7 +482,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		for (Long id : newSet) {
 			PlanQuestionsAnswer planQuestionsAnswer = PlanQuestionList.getAnswerByAnswerId(id);
 			newObject = new PlanAnswerSelection();
-			newObject.setCreatedBy(loggedOnUser.getFullName());
+			newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 			newObject.setCreatedDate(new Date());
 			newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 			newObject.setProject(getProject());
@@ -569,8 +578,10 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		if((newSet.contains(new Long(6)) || newSet.contains(new Long(7)))
 				&& oldSet.contains(new Long(5))) {
 			excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", getProject().getId());
-			setDocId(excepMemoFile.get(0).getId());
-			deleteFile();
+			if(excepMemoFile != null && !excepMemoFile.isEmpty()) {
+				setDocId(excepMemoFile.get(0).getId());
+				deleteFile();
+			}
 		}
 	}
 

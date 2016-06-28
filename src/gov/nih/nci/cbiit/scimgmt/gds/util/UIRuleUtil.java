@@ -92,6 +92,11 @@ public class UIRuleUtil {
 		applySpecialDivs(overRideMap, selectedAnswers, "dataSharingPlanDiv");
 		applySpecialDivs(overRideMap, selectedAnswers, "textEditorDiv");
 		
+		// Override "Is there a data sharing exception requested for this project?" to show if
+		// Was this exception approved? was pending. (Since it conflicts with UI rules)
+		if (selectedAnswers.contains("7")) {
+			overRideMap.get("8").setStyle("display: block");
+		}
 		
 		// If the answer to "Why is this project being submitted?" is NOT
 		// "Required by GDS Policy" or "Required by GWAS Policy", then start from question

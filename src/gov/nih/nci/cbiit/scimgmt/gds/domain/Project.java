@@ -506,6 +506,16 @@ public class Project implements java.io.Serializable {
 		return null;
 	}
 	
+	@Transient
+	public Set<PlanAnswerSelection> getPlanAnswerSelectionByQuestionId(Long id) {
+		Set<PlanAnswerSelection> set = new HashSet<PlanAnswerSelection>();
+		for(PlanAnswerSelection sel: getPlanAnswerSelection()) {
+			if(sel.getPlanQuestionsAnswer().getQuestionId().longValue() == id.longValue())
+				set.add(sel);
+		}
+		return set;
+	}
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
 	public Set<RepositoryStatus> getRepositoryStatuses() {

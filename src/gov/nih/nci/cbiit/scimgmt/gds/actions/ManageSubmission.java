@@ -160,6 +160,42 @@ public class ManageSubmission extends BaseAction {
 	}
 
 	/**
+	 * Determine whether a page should be shown
+	 * @param page
+	 * @return
+	 */
+	public boolean showPage(String page) {
+		logger.debug("showPage()");
+		
+		boolean show = true;
+		
+		// If user selects "Non-human" only, the system will NOT display the "Institutional Certifications"
+		if(project.getPlanAnswerSelectionByAnswerId(new Long(12)) == null &&
+				project.getPlanAnswerSelectionByAnswerId(new Long(13)) != null) {
+			if(page.equalsIgnoreCase("ic")) {
+				show = false;
+			}
+		}
+		
+		// If the answer to "Will there be any data submitted?" is No.
+		// Don't show IC, BSI, Repository page.
+		if (project.getPlanAnswerSelectionByAnswerId(new Long(10)) != null) {
+			if(page.equalsIgnoreCase("ic") || page.equalsIgnoreCase("bsi") || page.equalsIgnoreCase("repository")) {
+				show = false;
+			}
+		}
+		
+		// If there are no repository selected, don't show the repository page.
+		if (project.getPlanAnswerSelectionByQuestionId(new Long(20)).isEmpty()) {
+			if(page.equalsIgnoreCase("repository")) {
+				show = false;
+			}
+		}
+		
+		return show;
+	}
+	
+	/**
 	 * Get docId
 	 * 
 	 * @return
