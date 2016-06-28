@@ -22,8 +22,7 @@
 			<th class="tableHeader" align="center" >Uploaded By</th>
 		</tr>
 		<tr>
-			<td><i class="fa fa-file-word-o" aria-hidden="true"></i>
-				&nbsp;<s:a href="javascript:openDocument(%{excepMemoFile[0].id})"><s:property
+			<td><s:a href="javascript:openDocument(%{excepMemoFile[0].id})"><s:property
 				value="%{excepMemoFile[0].fileName}" /></s:a></td>
 			<td style="white-space: nowrap">
 				<s:date name="%{excepMemoFile[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" /></td>
