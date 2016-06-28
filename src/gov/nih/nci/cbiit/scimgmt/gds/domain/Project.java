@@ -500,7 +500,7 @@ public class Project implements java.io.Serializable {
 	@Transient
 	public PlanAnswerSelection getPlanAnswerSelectionByAnswerId(Long id) {
 		for(PlanAnswerSelection sel: getPlanAnswerSelection()) {
-			if(sel.getPlanQuestionsAnswer().getId() == id)
+			if(sel.getPlanQuestionsAnswer().getId().longValue() == id.longValue())
 				return sel;
 		}
 		return null;

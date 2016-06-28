@@ -4,9 +4,12 @@
 
 <s:file name="exceptionMemo" id="exceptionMemo" />
 <label for="exceptionMemo" style="width: auto; display: none;">Upload
-	Exception Memo</label> <input type="button" name="exceptionMemoUpload"
-	value="Upload Exception Memo File" class="saved btn btn-default"
-	id="exceptionMemoUpload"/>
+	Exception Memo</label> 
+	<div style="margin-left: 75px; margin-top: 15px;">
+		<input type="button" name="exceptionMemoUpload"
+		value="Upload Exception Memo File" class="saved btn btn-default"
+		id="exceptionMemoUpload"/>
+	</div>
 						
 <s:if test="%{excepMemoFile.size > 0}">
 	<p></p>

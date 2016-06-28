@@ -30,6 +30,7 @@ public class PlanQuestionsAnswer implements java.io.Serializable {
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
+	private String additionalText;
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet<PlanAnswerSelection>(0);
 
 	public PlanQuestionsAnswer() {
@@ -46,7 +47,7 @@ public class PlanQuestionsAnswer implements java.io.Serializable {
 
 	public PlanQuestionsAnswer(Long id, Long questionId, String displayText, Long displayOrderNum,
 			Boolean activeFlag, Date createdDate, String createdBy, Date lastChangedDate, String lastChangedBy,
-			Set<PlanAnswerSelection> planAnswerSelections) {
+			Set<PlanAnswerSelection> planAnswerSelections, String additionalText) {
 		this.id = id;
 		this.questionId = questionId;
 		this.displayText = displayText;
@@ -57,6 +58,7 @@ public class PlanQuestionsAnswer implements java.io.Serializable {
 		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
 		this.planAnswerSelections = planAnswerSelections;
+		this.additionalText = additionalText;
 	}
 
 	@Id
@@ -150,6 +152,15 @@ public class PlanQuestionsAnswer implements java.io.Serializable {
 
 	public void setPlanAnswerSelections(Set<PlanAnswerSelection> planAnswerSelections) {
 		this.planAnswerSelections = planAnswerSelections;
+	}
+
+	@Column(name = "ADDITIONAL_TEXT", length = 400)
+	public String getAdditionalText() {
+		return additionalText;
+	}
+
+	public void setAdditionalText(String additionalText) {
+		this.additionalText = additionalText;
 	}
 
 }

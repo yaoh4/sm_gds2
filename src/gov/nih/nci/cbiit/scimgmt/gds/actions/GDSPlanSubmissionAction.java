@@ -67,7 +67,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	private Map<Long, List<String>> answerMap = new HashMap<Long, List<String>>();
 	
-	private Map<Long, String> otherTextMap = new HashMap<Long, String>();
+	private Map<Long, List<String>> otherTextMap = new HashMap<Long, List<String>>();
 	
 	private Document doc = null; // json object to be returned for UI refresh after upload
 	
@@ -138,6 +138,26 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		removeRepositoryStatuses();
 		
+		// TODO Remove other files and db objects as necessary
+		
+		// 1. If the answer to "Will there be any data submitted?" is changed from Yes to No.
+		//
+		//  a) The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents.
+		//  b) The system will delete all Institutional Certifications and Data Use Limitations.
+		//  c) The system will delete all uploaded Institutional Certifications documents.
+		//  d) The system will delete answers to following questions: 
+		//   - Has the GPA reviewed the Basic Study Information?
+		//  e) The system will delete  the uploaded Basic Study Info and the History of Uploaded Documents.
+
+		// 2. If the answer to "What specimen type does the data submission pertain to?" 
+		//    is set to Non-human only or is changed from Human to Non-human only
+		//    And
+		//    answer to "What type of access is the data to be made available through?" 
+		//    is set to Unrestricted only or is changed from Controlled to Unrestricted only.
+		//
+		//  a) The system will delete all DUL(s) created that contains DUL type of 
+		//     "Health/Medical/Biomedical", "Disease-specific" and/or "Other".
+
 		super.saveProject(getProject());
 		
 		setProject(retrieveSelectedProject());
@@ -153,7 +173,18 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	public void validateSave() {
 		
 		logger.debug("Validate save GDS Plan");
-		// TODO YURI If Other repository is selected, verify that OtherText is entered.
+		// If Other repository is selected, verify that OtherText is entered.
+		if(answerMap.get(new Long(20)) != null && answerMap.get(new Long(20)).contains("25")) {
+			if(otherTextMap.get(new Long(25)) == null) {
+				this.addActionError(getText("error.other.specify"));
+			} else {
+				otherTextMap.get(new Long(25)).remove("");
+				if(otherTextMap.get(new Long(25)).isEmpty()) {
+					otherTextMap.remove(new Long(25));
+					this.addActionError(getText("error.other.specify"));
+				}
+			}
+		}
 		
 		//Comments cannot be greater than 2000 characters.
 		if (!StringUtils.isEmpty(comments)) {
@@ -162,6 +193,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 		}
 
+		setProject(retrieveSelectedProject());
+		
 	}
 
 	/**
@@ -384,22 +417,33 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
  
 		answerMap.clear();
 		Long prevId = null;
+		Long otherId = null;
 		List<String> ansList = new ArrayList<String>();
+		List<String> otherList = new ArrayList<String>();
 		for (PlanAnswerSelection e: savedList) {
 			Long qId = e.getPlanQuestionsAnswer().getQuestionId();
 			Long aId = e.getPlanQuestionsAnswer().getId();
 			if(prevId != null && prevId != qId) {
 				answerMap.put(prevId, ansList);
+				if(otherId !=  null) {
+					otherTextMap.put(otherId, otherList);
+					otherList = new ArrayList<String>();
+					otherId = null;
+				}
 				ansList = new ArrayList<String>();
 			}
 			prevId = qId;
 			ansList.add(aId.toString());
 			if(StringUtils.isNotBlank(e.getOtherText())) {
-				otherTextMap.put(aId, e.getOtherText());
+				otherId = aId;
+				otherList.add(e.getOtherText());
 			}
 		}
 		if(!ansList.isEmpty()) {
 			answerMap.put(prevId, ansList);
+			if(otherId !=  null) {
+				otherTextMap.put(otherId, otherList);
+			}
 		}
 
 	}
@@ -413,10 +457,15 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		Set<Long> newSet = new HashSet<Long>();
 		Set<Long> origSet = new HashSet<Long>();
 		Set<Long> oldSet = new HashSet<Long>();
+		Set<Long> otherSet = new HashSet<Long>();
 		
 		for (Entry<Long, List<String>> e : answerMap.entrySet()) {
 			for(String entry: e.getValue()) {
 				newSet.add(new Long(entry));
+				List<String> otherList = otherTextMap.get(new Long(entry));
+				if(otherList != null && !otherList.isEmpty()) {
+					otherSet.add(new Long(entry));
+				}
 			}
 		}
 		for (PlanAnswerSelection e: getProject().getPlanAnswerSelection()) {
@@ -427,9 +476,16 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		oldSet.removeAll(newSet); // deleted set
 		
 		newSet.removeAll(origSet); // added set
+		newSet.addAll(otherSet);
 		
 		for(Long id: oldSet) {
 			getProject().getPlanAnswerSelection().remove(getProject().getPlanAnswerSelectionByAnswerId(id));
+		}
+		
+		for(Long id: otherSet) {
+			while(getProject().getPlanAnswerSelectionByAnswerId(id) != null) {
+				getProject().getPlanAnswerSelection().remove(getProject().getPlanAnswerSelectionByAnswerId(id));
+			}
 		}
 		
 		PlanAnswerSelection newObject = null;
@@ -438,12 +494,18 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			newObject = new PlanAnswerSelection();
 			newObject.setCreatedBy(loggedOnUser.getFullName());
 			newObject.setCreatedDate(new Date());
-			if(planQuestionsAnswer.getDisplayText().equalsIgnoreCase("Other")) {
-				newObject.setOtherText(otherTextMap.get(id));
-			}
 			newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 			newObject.setProject(getProject());
-			getProject().getPlanAnswerSelection().add(newObject);
+			if(planQuestionsAnswer.getDisplayText().equalsIgnoreCase("Other")) {
+				PlanAnswerSelection otherObject = null;
+				for(String otherText: otherTextMap.get(id)) {
+					otherObject = new PlanAnswerSelection(newObject);
+					otherObject.setOtherText(otherText);
+					getProject().getPlanAnswerSelection().add(otherObject);
+				}
+			} else {
+				getProject().getPlanAnswerSelection().add(newObject);
+			}
 		}
 
 	}
@@ -605,12 +667,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	}
 
 
-	public Map<Long, String> getOtherText() {
+	public Map<Long, List<String>> getOtherText() {
 		return otherTextMap;
 	}
 
 
-	public void setOtherText(Map<Long, String> otherText) {
+	public void setOtherText(Map<Long, List<String>> otherText) {
 		this.otherTextMap = otherText;
 	}
 

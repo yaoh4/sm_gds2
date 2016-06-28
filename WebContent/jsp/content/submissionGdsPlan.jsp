@@ -132,16 +132,6 @@
 				<div id="20" style="${map['20'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(20).getDisplayText()}" /></p>
-					<%-- <div class="checkbox">
-						<label style="display: inherit"> <input type="checkbox"
-							name="repository" value="bGaP" id="dGaP"> Database of
-							Genotypes and Phenotypes (dbGaP)
-							<div id="controlledText" class="noteText" style="display: none">All
-								controlled access studies must be registered in dbGaP,
-								regardless of whether an exception was granted, or where the
-								data is submitted.</div>
-						</label>
-					</div>--%>
 
 					<s:iterator value="%{getAnswerListByQuestionId(20)}" var="ans"
 						status="stat">
@@ -150,18 +140,32 @@
 							<s:checkbox id="%{#ans.id}" name="answers[20]" 
 								value="%{getSelected(20, #ans.id)}" fieldValue="%{#ans.id}"
 								onClick="applyUiRule(this,${params})" /> <s:label
-								for="%{#ans.id}" value="%{#ans.displayText}" /> 
+								for="%{#ans.id}" value="%{#ans.displayText}" />
+							<div id="controlledText" class="noteText" style="color:#686868;padding-left:20px;">
+									<s:property value="%{#ans.additionalText}" />
+							</div> 
 							<s:if test="%{#ans.displayText=='Other'}">
 								<div id="addRepo" style="display: none">
-									<!--Repo hidden field-->
-									<div id="InputsWrapper" class="otherWrapper">
-										<s:textfield value="" name="otherText[%{#ans.id}]"
-											class="other" placeholder="Name of Repository" /><br />
-									</div>
-
+									<!--Repo hidden field-->				
+									<s:if test="%{otherText[#ans.id].size > 0}">
+										<s:iterator value="%{otherText[#ans.id]}" var="other" status="otherStat">
+											<s:div class="otherWrapper" style="margin-bottom: 15px; margin-top: 15px;">
+												<s:textfield id="field_%{#otherStat.index}" name="otherText[%{#ans.id}]" value="%{#other}"
+													class="other" placeholder="Name of Repository" />
+												<s:if test="#otherStat.index != 0">
+													<span class="fa fa-trash removeclass delete" title="Delete" aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
+												</s:if>
+											</s:div>
+										</s:iterator>
+									</s:if>
+									<s:else>
+										<s:div class="otherWrapper" style="margin-bottom: 15px; margin-top: 15px;">
+											<s:textfield id="field_0" name="otherText[%{#ans.id}]"
+												class="other" placeholder="Name of Repository" />
+										</s:div>
+									</s:else>
 									<div style="margin-left: 75px; margin-top: 15px;">
-										<button id="addfield" class="btn btn-default">Add
-											Another Repository</button>
+										<input id="addfield" type="button" class="btn btn-default" value="Add Another Repository" />
 									</div>
 								</div>
 							</s:if>
@@ -212,9 +216,12 @@
 					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
 					<s:file name="dataSharingPlan" id="dataSharingPlan" />
 					<label for="dataSharingPlan" style="width: auto; display: none;">Upload
-						Data Sharing Plan</label> <input type="button"
-						name="dataSharingPlanUpload" value="Upload Data Sharing Plan File"
-						class="saved btn btn-default" id="dataSharingPlanUpload">
+						Data Sharing Plan</label> 
+					<div style="margin-left: 75px; margin-top: 15px;">
+						<input type="button"
+							name="dataSharingPlanUpload" value="Upload Data Sharing Plan File"
+							class="saved btn btn-default" id="dataSharingPlanUpload">
+					</div>
 					<div class="loadFileHistory">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>

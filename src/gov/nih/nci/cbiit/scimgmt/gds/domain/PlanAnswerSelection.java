@@ -54,6 +54,16 @@ public class PlanAnswerSelection implements java.io.Serializable {
 		this.lastChangedBy = lastChangedBy;
 	}
 
+	public PlanAnswerSelection(PlanAnswerSelection newObject) {
+		this.id = newObject.id;
+		this.planQuestionsAnswer = newObject.planQuestionsAnswer;
+		this.project = newObject.project;
+		this.createdDate = newObject.createdDate;
+		this.createdBy = newObject.createdBy;
+		this.lastChangedDate = newObject.lastChangedDate;
+		this.lastChangedBy = newObject.lastChangedBy;
+	}
+
 	@Id
 	@SequenceGenerator(name="pas_seq_gen", sequenceName="PAS_SEQ", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pas_seq_gen")
@@ -66,7 +76,7 @@ public class PlanAnswerSelection implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ANSWER_ID", nullable = false)
 	public PlanQuestionsAnswer getPlanQuestionsAnswer() {
 		return this.planQuestionsAnswer;
