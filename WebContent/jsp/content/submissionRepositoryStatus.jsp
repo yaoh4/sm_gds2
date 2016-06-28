@@ -38,7 +38,7 @@
 								<div class="col-xs-2">
 									<br /> <s:label for="%{'regStatus_' + #stat.index}">Registration
 										Status</s:label> 
-										<s:select id="%{'regStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByRegistrationStatusId.id"
+									<s:select id="%{'regStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByRegistrationStatusId.id" onChange="enableDisableSubmissionStatus(this.id)" 
 												value="%{#repositoryStatus.lookupTByRegistrationStatusId.id}" cssClass="c-select form-control"  list="registrationStatusList" listKey="optionKey" listValue="optionValue"/>											
 								</div>
 
@@ -46,7 +46,7 @@
 									<s:label for="%{'projStatus_' + #stat.index}">Project<br />
 										Submission Status
 									</s:label> 
-									<s:select id="%{'projStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByDataSubmissionStatusId.id"
+									<s:select id="%{'projStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByDataSubmissionStatusId.id" onChange="enableDisableStudyReleased(this.id)" 
 												value="%{#repositoryStatus.lookupTByDataSubmissionStatusId.id}" cssClass="c-select form-control" disabled="true" list="projectSubmissionStatusList" listKey="optionKey" listValue="optionValue"/>											
 								</div>
 
@@ -62,7 +62,7 @@
 
 								<div class="col-xs-2">
 									<br /> <s:label for="%{'studyRel_' + #stat.index}">Study Released?</s:label>
-									<s:select id="%{'studyRel_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByStudyReleasedId.id"
+									<s:select id="%{'studyRel_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByStudyReleasedId.id" 
 												value="%{#repositoryStatus.lookupTByStudyReleasedId.id}"  cssClass="c-select form-control" disabled="true" list="studyReleasedList" listKey="optionKey" listValue="optionValue"/>											
 								</div>
 

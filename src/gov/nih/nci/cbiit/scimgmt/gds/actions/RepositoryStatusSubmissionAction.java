@@ -114,6 +114,11 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 				if(!savedRepositoryStatuses.contains(planAnswerSelection.getPlanQuestionsAnswer().getId())){
 					
 					RepositoryStatus repositoryStatus = new RepositoryStatus();
+					
+					//Setting default values.
+					repositoryStatus.setLookupTByRegistrationStatusId(lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+					repositoryStatus.setLookupTByDataSubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+					repositoryStatus.setLookupTByStudyReleasedId(lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
 					repositoryStatus.setPlanQuestionAnswerTByRepositoryId(PlanQuestionList.getAnswerById(planAnswerSelection.getPlanQuestionsAnswer().getQuestionId(), planAnswerSelection.getPlanQuestionsAnswer().getId()));;
 					getProject().getRepositoryStatuses().add(repositoryStatus);
 				}

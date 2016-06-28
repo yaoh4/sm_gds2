@@ -1,39 +1,26 @@
 //for submissionStatus.htm page -- 
 
-$(document).ready(function () {
-
-  //rule for Registration Status Dropdown
- 
-$('#regStatus-1').change(function(e){
-if($(this).val() == "Completed" | "Not Applicable"){
-   
-    $("#projStatus-1").attr('disabled',false);
+//This functions hides/shows Submission status drop down box based on selection made in Registration box.
+function enableDisableSubmissionStatus(registrationId){ 
+	var submissionId = registrationId.substring(registrationId.indexOf("_")+1,registrationId.length); 
+	var registrationStatus = $('#'+registrationId+' option:selected').text();
+		
+	if(registrationStatus == "Completed" || registrationStatus == "Not Applicable"){   
+		$("#projStatus_"+submissionId).attr('disabled',false);
+	}
+	else{$("#projStatus_"+submissionId).attr('disabled',true);}	
+	
+	enableDisableStudyReleased("projStatus_"+submissionId);
 }
-else $("#projStatus-1").attr('disabled',true);
-});
 
-//rule for Project Submission Status Dropdown
-
-  $('#projStatus-1').change(function(e){
-if($(this).val() == "Completed" | "Not Applicable"){
-   
-    $("#studyRel-1").attr('disabled',false);
+//This functions hides/shows studyReleased  drop down box based on selection made in Submission status box.
+function enableDisableStudyReleased(submissionStatusId){ 
+	var studyReleasedId = submissionStatusId.substring(submissionStatusId.indexOf("_")+1,submissionStatusId.length);
+	var submissionStatus = $('#'+submissionStatusId+' option:selected').text();
+	
+	if(submissionStatus == "Completed" || submissionStatus == "Not Applicable"){   
+		$("#studyRel_"+studyReleasedId).attr('disabled',false);
+	}
+	else{$("#studyRel_"+studyReleasedId).attr('disabled',true);}
 }
-else $("studyRel-1").attr('disabled',true);
-});
-
-
-
-  //  $('form').on('dirty.areYouSure', function() {
-      // Enable save button only as the form is dirty.
-  //    $(this).find('input[type="submit"]').removeAttr('disabled');
-  //  });
-  //  $('form').on('clean.areYouSure', function() {
-      // Form is clean so nothing to save - disable the save button.
-   //   $(this).find('input[type="submit"]').attr('disabled', 'disabled');
-  //  });
-
-
-
-});
 

@@ -42,6 +42,12 @@ public interface ApplicationConstants {
 	 public static final int  NED_PERSON_NIH_SAC_MIN_SIZE = 4;
 	 public static final int  GRANT_CONTRACT_NUM_MIN_SIZE = 6;
 	 
+	 /* String constants */
+	 public static final String NOT_STARTED = "NOTSTARTED"; 
+	 public static final String NO = "NO"; 
+ 
+	 
+	 
 	 
 	     
 }
