@@ -135,28 +135,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		}
 		
 		populatePlanAnswerSelection();
-		
-		removeRepositoryStatuses();
-		
-		// TODO Remove other files and db objects as necessary
-		
-		// 1. If the answer to "Will there be any data submitted?" is changed from Yes to No.
-		//
-		//  a) The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents.
-		//  b) The system will delete all Institutional Certifications and Data Use Limitations.
-		//  c) The system will delete all uploaded Institutional Certifications documents.
-		//  d) The system will delete answers to following questions: 
-		//   - Has the GPA reviewed the Basic Study Information?
-		//  e) The system will delete  the uploaded Basic Study Info and the History of Uploaded Documents.
-
-		// 2. If the answer to "What specimen type does the data submission pertain to?" 
-		//    is set to Non-human only or is changed from Human to Non-human only
-		//    And
-		//    answer to "What type of access is the data to be made available through?" 
-		//    is set to Unrestricted only or is changed from Controlled to Unrestricted only.
-		//
-		//  a) The system will delete all DUL(s) created that contains DUL type of 
-		//     "Health/Medical/Biomedical", "Disease-specific" and/or "Other".
 
 		super.saveProject(getProject());
 		
@@ -478,6 +456,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		newSet.removeAll(origSet); // added set
 		newSet.addAll(otherSet);
 		
+		// Call method to remove files and DB objects based on old and new user selection
+		performDataCleanup(oldSet, newSet);
+		
 		for(Long id: oldSet) {
 			getProject().getPlanAnswerSelection().remove(getProject().getPlanAnswerSelectionByAnswerId(id));
 		}
@@ -511,10 +492,96 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	}
 	
 	/**
+	 * Method to remove other files and db objects as necessary
+	 * 		
+	 * 		1. If the answer to "Will there be any data submitted?" is changed from Yes to No.
+	 *
+	 * 		 a) The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents.
+	 * 		 b) The system will delete all uploaded Institutional Certifications documents.
+	 * 		 c) The system will delete all Institutional Certifications and Data Use Limitations.
+	 * 		 d) The system will delete answers to following questions: 
+	 * 		  - Has the GPA reviewed the Basic Study Information?
+	 * 		 e) The system will delete  the uploaded Basic Study Info and the History of Uploaded Documents.
+	 *
+	 * 		2. If the answer to "What specimen type does the data submission pertain to?" 
+	 * 		   is set to Non-human only or is changed from Human to Non-human only
+	 * 		   And
+	 * 		   answer to "What type of access is the data to be made available through?" 
+	 * 		   is set to Unrestricted only or is changed from Controlled to Unrestricted only.
+	 *
+	 * 		 a) The system will delete all DUL(s) created that contains DUL type of 
+	 * 		    "Health/Medical/Biomedical", "Disease-specific" and/or "Other".
+	 * 
+	 * 		3. Remove repositories that were deleted
+	 * 
+	 * @param newSet 
+	 * @param oldSet 
+	 */
+	private void performDataCleanup(Set<Long> oldSet, Set<Long> newSet) {
+
+		// If the answer to "Will there be any data submitted?" is changed from Yes to No.
+		if(oldSet.contains(new Long(9)) && newSet.contains(new Long(10))) {
+			// a) The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents.
+			gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", getProject().getId());
+			for(Document document: gdsPlanFile) {
+				setDocId(document.getId());
+				deleteFile();
+			}
+
+			// b) The system will delete all uploaded Institutional Certifications documents.
+			List<Document> icFile = fileUploadService.retrieveFileByDocType("IC", getProject().getId());
+			for(Document document: icFile) {
+				setDocId(document.getId());
+				deleteFile();
+			}
+			
+			// c) The system will delete all Institutional Certifications and Data Use Limitations.
+			getProject().getInstitutionalCertifications().clear();
+			
+			// d) The system will delete answers to Has the GPA reviewed the Basic Study Information?
+			getProject().setBsiReviewedFlag("");
+			
+			// e) The system will delete  the uploaded Basic Study Info and the History of Uploaded Documents.
+			List<Document> bsiFile = fileUploadService.retrieveFileByDocType("BSI", getProject().getId());
+			for(Document document: bsiFile) {
+				setDocId(document.getId());
+				deleteFile();
+			}
+		}
+		
+		
+		// If the answer to "What specimen type does the data submission pertain to?" 
+		// is set to Non-human only or is changed from Human to Non-human only
+		// And
+		// answer to "What type of access is the data to be made available through?" 
+		// is set to Unrestricted only or is changed from Controlled to Unrestricted only.
+		if(newSet.contains(new Long(13)) && !newSet.contains(new Long(12)) &&
+				newSet.contains(new Long(19)) && !newSet.contains(new Long(18))) {
+			// a) The system will delete all DUL(s) created that contains DUL type of 
+			//    "Health/Medical/Biomedical", "Disease-specific" and/or "Other". TODO
+		}
+		
+		// Remove repositories that were deleted
+		removeRepositoryStatuses(oldSet);
+		
+		// If answer to "Was this exception approved?" is changed from "Yes" to "No" or "Pending", 
+		// remove Exception Memo
+		if((newSet.contains(new Long(6)) || newSet.contains(new Long(7)))
+				&& oldSet.contains(new Long(5))) {
+			excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", getProject().getId());
+			setDocId(excepMemoFile.get(0).getId());
+			deleteFile();
+		}
+	}
+
+
+	/**
 	 * Remove Repository that were unchecked.
+	 * 
+	 * @param oldSet 
 	 */
 	@SuppressWarnings("unused")
-	private void removeRepositoryStatuses(){	
+	private void removeRepositoryStatuses(Set<Long> oldSet){	
 
 		if(getProject() != null) {		
 
@@ -522,7 +589,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			List<RepositoryStatus> removedRepositories = new ArrayList<RepositoryStatus>();	
 		
 			for(RepositoryStatus repository: getProject().getRepositoryStatuses()){			
-				if(false) { // Check if any of the repository has been removed.
+				// Check if any of the repository has been removed.
+				if(oldSet.contains(repository.getPlanQuestionAnswerTByRepositoryId().getId())) { 
 					removedRepositories.add(repository);
 				}
 			}

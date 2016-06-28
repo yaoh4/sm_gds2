@@ -24,7 +24,7 @@ insert into GDS.PLAN_QUESTIONS_ANSWERS_T (ID, QUESTION_ID, DISPLAY_TEXT, DISPLAY
 insert into GDS.PLAN_QUESTIONS_ANSWERS_T (ID, QUESTION_ID, DISPLAY_TEXT, DISPLAY_ORDER_NUM, ACTIVE_FLAG, CREATED_DATE, CREATED_BY) values (19, 17, 'Unrestricted', 2, 'Y', sysdate, 'dinhys');
 
 insert into GDS.PLAN_QUESTIONS_ANSWERS_T (ID, QUESTION_ID, DISPLAY_TEXT, DISPLAY_ORDER_NUM, ACTIVE_FLAG, CREATED_DATE, CREATED_BY) values (20, null, 'What repository will the data be submitted to?', 1, 'Y', sysdate, 'dinhys');
-insert into GDS.PLAN_QUESTIONS_ANSWERS_T (ID, QUESTION_ID, DISPLAY_TEXT, DISPLAY_ORDER_NUM, ACTIVE_FLAG, CREATED_DATE, CREATED_BY) values (21, 20, 'Database of Genotypes and Phenotypes (dbGaP)', 1, 'Y', sysdate, 'dinhys');
+insert into GDS.PLAN_QUESTIONS_ANSWERS_T (ID, QUESTION_ID, DISPLAY_TEXT, DISPLAY_ORDER_NUM, ACTIVE_FLAG, CREATED_DATE, CREATED_BY, ADDITIONAL_TEXT) values (21, 20, 'Database of Genotypes and Phenotypes (dbGaP)', 1, 'Y', sysdate, 'dinhys','All controlled access studies must be registered in dbGaP, regardless of whether an exception was granted, or where the data is submitted.');
 insert into GDS.PLAN_QUESTIONS_ANSWERS_T (ID, QUESTION_ID, DISPLAY_TEXT, DISPLAY_ORDER_NUM, ACTIVE_FLAG, CREATED_DATE, CREATED_BY) values (22, 20, 'Sequence Read Archive (SRA)', 2, 'Y', sysdate, 'dinhys');
 insert into GDS.PLAN_QUESTIONS_ANSWERS_T (ID, QUESTION_ID, DISPLAY_TEXT, DISPLAY_ORDER_NUM, ACTIVE_FLAG, CREATED_DATE, CREATED_BY) values (23, 20, 'NCI Genomic Data Commons (GDC)', 3, 'Y', sysdate, 'dinhys');
 insert into GDS.PLAN_QUESTIONS_ANSWERS_T (ID, QUESTION_ID, DISPLAY_TEXT, DISPLAY_ORDER_NUM, ACTIVE_FLAG, CREATED_DATE, CREATED_BY) values (24, 20, 'Gene Expression Omnibus (GEO)', 4, 'Y', sysdate, 'dinhys');
