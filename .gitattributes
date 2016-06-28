@@ -114,7 +114,6 @@ WebContent/WEB-INF/lib/xwork-core-2.3.24.1.jar -text
 WebContent/WEB-INF/tiles.xml -text
 WebContent/WEB-INF/web.xml -text
 WebContent/controllers/dataSharing.js -text
-WebContent/controllers/gdsPlan.js -text
 WebContent/controllers/general.js -text
 WebContent/controllers/icDetails.js -text
 WebContent/controllers/search.js -text

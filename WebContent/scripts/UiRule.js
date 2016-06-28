@@ -2,7 +2,8 @@ var prevRadio;
 function applyUiRule() {
 	var element = arguments[0];
 	var exception = false;
-	if(element.id == 5 && $("#8").is(":visible") && $("#9").is(":checked")) {
+	if((element.id == 2 || element.id == 3 || element.id == 5 || element.id == 6 || element.id == 7)
+			&& $("#11").is(":visible")) {
 		exception = true;
 	}
 	for(var i=1; i<arguments.length; i++) {
@@ -41,7 +42,7 @@ function applyUiRule() {
 		//alert("elementId: " + arguments[i+1] + " operation: " + op + " reverse: " + reverse);
 		if (op == "show") {
 			if(reverse) {
-				if(!exception) {
+				if(!exception || exception && (id != "#11" && id != "#14" && id != "#17" && id != "#20" && id != "#26" && id != "#29")) {
 					clearFormElements(id);
 					$(id).find(':input').prop('disabled', false);
 					$(id).hide();
@@ -57,7 +58,7 @@ function applyUiRule() {
 		}
 		if (op == "hide") {
 			if(reverse) {
-				if(!exception) {
+				if(!exception || exception && (id != "#11" && id != "#14" && id != "#17" && id != "#20" && id != "#26" && id != "#29")) {
 					$(id).show();
 				}
 			}

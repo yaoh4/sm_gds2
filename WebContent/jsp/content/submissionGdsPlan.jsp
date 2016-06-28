@@ -266,7 +266,7 @@
 <script type="text/javascript"
 	src="<s:url value="/controllers/dataSharing.js" />"></script>
 <script type="text/javascript"
-	src="<s:url value="/controllers/gdsPlan.js" />"></script>
+	src="<s:url value="/controllers/gds.js" />"></script>
 <script type="text/javascript"
 	src="<s:url value="/scripts/UiRule.js" />"></script>
 

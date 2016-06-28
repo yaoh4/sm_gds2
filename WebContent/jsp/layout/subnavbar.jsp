@@ -7,7 +7,7 @@
 <div class="container">
 	<div class="navbar-collapse main-nav subnav">
 		<ul class="nav navbar-nav ">
-			<s:if test="%{'newSubmission' eq #attr['navtab']}">
+			<s:if test="%{'newSubmission' eq #attr['navtab'] && project.id != null}">
 			
 				<s:if test="%{'generalInfo' eq #attr['subnavtab']}">
 					<li class="active"><s:a href="javascript: void(0)">General Info.</s:a></li>

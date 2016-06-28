@@ -34,7 +34,15 @@
 
     		<!--Page Header -->
     		<s:if test="%{'newSubmission' eq #attr['navtab']}">
-      			<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Track Project Submission</h3><div id="verisonNumber" style="display:inline-block;">&nbsp;&nbsp;&nbsp;Version 4 (ID: 123876)</div></div></div>
+    			<s:if test="%{project.id == null}">
+    				<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Create New Submission</h3></div></div>
+    			</s:if>
+    			<s:else>
+      				<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Track Project Submission</h3>
+      				<div id="verisonNumber" style="display:inline-block;">&nbsp;&nbsp;&nbsp;Version 
+					<s:property value="%{project.versionNum}" /> (ID: <s:property value="%{project.id}" />)</div>
+      				</div></div>
+				</s:else>
       		</s:if>
       		<s:else>
       			<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>&nbsp;</h3></div></div>
