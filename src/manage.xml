@@ -120,6 +120,12 @@
 				<param name="inputName">inputStream</param>   
 			</result>	
 		</action>
+		<action name="warnGdsPlan" method="performDataCleanup" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
+			<result name="success" type="stream">     
+				<param name="contentType">text/html</param>     
+				<param name="inputName">inputStream</param>   
+			</result>	
+		</action>
 		<action name="navigateToRepositoryStatus" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
 			 <result name="success" type="tiles">submissionRepositoryStatus</result>
 		</action>	

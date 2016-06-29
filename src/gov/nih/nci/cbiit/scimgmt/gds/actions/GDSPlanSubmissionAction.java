@@ -73,6 +73,14 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	private String comments;
 
+	private boolean warnOnly = true;
+	
+	private Set<Long> newSet = new HashSet<Long>();
+		
+	private Set<Long> oldSet = new HashSet<Long>();
+	
+	private Set<Long> otherSet = new HashSet<Long>();
+
 	
 	/**
 	 * Execute method for Genomic Data Sharing Plan.  
@@ -135,6 +143,10 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		}
 		
 		populatePlanAnswerSelection();
+
+		// Call method to remove files and DB objects based on old and new user selection
+		warnOnly = false;
+		performDataCleanup();
 
 		super.saveProject(getProject());
 		
@@ -413,6 +425,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			if(prevId != null && prevId != qId) {
 				answerMap.put(prevId, ansList);
 				if(otherId !=  null) {
+					Collections.sort(otherList);
 					otherTextMap.put(otherId, otherList);
 					otherList = new ArrayList<String>();
 					otherId = null;
@@ -429,6 +442,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		if(!ansList.isEmpty()) {
 			answerMap.put(prevId, ansList);
 			if(otherId !=  null) {
+				Collections.sort(otherList);
 				otherTextMap.put(otherId, otherList);
 			}
 		}
@@ -440,33 +454,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 * @throws Exception 
 	 */
 	private void populatePlanAnswerSelection() throws Exception{
-
-		Set<Long> newSet = new HashSet<Long>();
-		Set<Long> origSet = new HashSet<Long>();
-		Set<Long> oldSet = new HashSet<Long>();
-		Set<Long> otherSet = new HashSet<Long>();
 		
-		for (Entry<Long, List<String>> e : answerMap.entrySet()) {
-			for(String entry: e.getValue()) {
-				newSet.add(new Long(entry));
-				List<String> otherList = otherTextMap.get(new Long(entry));
-				if(otherList != null && !otherList.isEmpty()) {
-					otherSet.add(new Long(entry));
-				}
-			}
-		}
-		for (PlanAnswerSelection e: getProject().getPlanAnswerSelection()) {
-			origSet.add(e.getPlanQuestionsAnswer().getId());
-		}
-		
-		oldSet.addAll(origSet);
-		oldSet.removeAll(newSet); // deleted set
-		
-		newSet.removeAll(origSet); // added set
-		newSet.addAll(otherSet);
-		
-		// Call method to remove files and DB objects based on old and new user selection
-		performDataCleanup(oldSet, newSet);
+		populateSelectedRemovedSets();
 		
 		for(Long id: oldSet) {
 			getProject().getPlanAnswerSelection().remove(getProject().getPlanAnswerSelectionByAnswerId(id));
@@ -501,6 +490,36 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	}
 	
 	/**
+	 * Construct new and old set of answers to be used for warning and
+	 * Plan Answer Selection object removal/creation
+	 */
+	private void populateSelectedRemovedSets() {
+		Set<Long> origSet = new HashSet<Long>();
+		newSet.clear();
+		oldSet.clear();
+		otherSet.clear();
+		
+		for (Entry<Long, List<String>> e : answerMap.entrySet()) {
+			for(String entry: e.getValue()) {
+				newSet.add(new Long(entry));
+				List<String> otherList = otherTextMap.get(new Long(entry));
+				if(otherList != null && !otherList.isEmpty()) {
+					otherSet.add(new Long(entry));
+				}
+			}
+		}
+		for (PlanAnswerSelection e: getProject().getPlanAnswerSelection()) {
+			origSet.add(e.getPlanQuestionsAnswer().getId());
+		}
+		
+		oldSet.addAll(origSet);
+		oldSet.removeAll(newSet); // deleted set
+		
+		newSet.removeAll(origSet); // added set
+		newSet.addAll(otherSet);
+		
+	}
+	/**
 	 * Method to remove other files and db objects as necessary
 	 * 		
 	 * 		1. If the answer to "Will there be any data submitted?" is changed from Yes to No.
@@ -525,36 +544,89 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 * 
 	 * @param newSet 
 	 * @param oldSet 
+	 * @throws Exception 
 	 */
-	private void performDataCleanup(Set<Long> oldSet, Set<Long> newSet) {
+	public String performDataCleanup() throws Exception {
 
+		StringBuffer sb = new StringBuffer();
+		
+		// Called from ajax, so fetch the project
+		if(getProject() == null) {
+			setProject(retrieveSelectedProject());
+		}
+		
+		populateSelectedRemovedSets();
+		
 		// If the answer to "Will there be any data submitted?" is changed from Yes to No.
 		if(oldSet.contains(new Long(9)) && newSet.contains(new Long(10))) {
 			// a) The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents.
-			gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", getProject().getId());
-			for(Document document: gdsPlanFile) {
-				setDocId(document.getId());
-				deleteFile();
+			if(warnOnly) {
+				sb.append("The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents. ");
+			}
+			else {
+				gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", getProject().getId());
+				for(Document document: gdsPlanFile) {
+					setDocId(document.getId());
+					deleteFile();
+				}
 			}
 
 			// b) The system will delete all uploaded Institutional Certifications documents.
-			List<Document> icFile = fileUploadService.retrieveFileByDocType("IC", getProject().getId());
-			for(Document document: icFile) {
-				setDocId(document.getId());
-				deleteFile();
+			if(warnOnly) {
+				sb.append("The system will delete all uploaded Institutional Certifications documents. ");
+			}
+			else {
+				List<Document> icFile = fileUploadService.retrieveFileByDocType("IC", getProject().getId());
+				for(Document document: icFile) {
+					setDocId(document.getId());
+					deleteFile();
+				}
 			}
 			
+			
 			// c) The system will delete all Institutional Certifications and Data Use Limitations.
-			getProject().getInstitutionalCertifications().clear();
+			if(warnOnly) {
+				sb.append("The system will delete all Institutional Certifications and Data Use Limitations. ");
+			}
+			else {
+				getProject().getInstitutionalCertifications().clear();
+			}
 			
 			// d) The system will delete answers to Has the GPA reviewed the Basic Study Information?
-			getProject().setBsiReviewedFlag("");
+			if(warnOnly) {
+				sb.append("The system will delete answers to Has the GPA reviewed the Basic Study Information. ");
+			}
+			else {
+				getProject().setBsiReviewedFlag("");
+			}
 			
-			// e) The system will delete  the uploaded Basic Study Info and the History of Uploaded Documents.
-			List<Document> bsiFile = fileUploadService.retrieveFileByDocType("BSI", getProject().getId());
-			for(Document document: bsiFile) {
-				setDocId(document.getId());
-				deleteFile();
+			// e) The system will delete the uploaded Basic Study Info and the History of Uploaded Documents.
+			if(warnOnly) {
+				sb.append("The system will delete the uploaded Basic Study Info and the History of Uploaded Documents. ");
+			}
+			else {
+				List<Document> bsiFile = fileUploadService.retrieveFileByDocType("BSI", getProject().getId());
+				for(Document document: bsiFile) {
+					setDocId(document.getId());
+					deleteFile();
+				}
+			}
+			
+			// f) Remove repositories that were deleted except dbGaP
+			if(warnOnly) {
+				sb.append("Remove repositories except dbGaP. ");
+			}
+			else {
+				Set<Long> removeSet = new HashSet<Long>();
+				removeSet.addAll(oldSet);
+				removeSet.remove(new Long(21));
+				removeRepositoryStatuses(removeSet);
+			}
+			
+		} else {
+			// Remove ALL repositories that were deleted
+			if(!warnOnly) {
+				removeRepositoryStatuses(oldSet);
 			}
 		}
 		
@@ -568,21 +640,34 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				newSet.contains(new Long(19)) && !newSet.contains(new Long(18))) {
 			// a) The system will delete all DUL(s) created that contains DUL type of 
 			//    "Health/Medical/Biomedical", "Disease-specific" and/or "Other". TODO
+			if(warnOnly) {
+				sb.append("The system will delete all DUL(s) created that contains DUL type of " +
+							"Health/Medical/Biomedical, Disease-specific and/or Other. ");
+			}
 		}
-		
-		// Remove repositories that were deleted
-		removeRepositoryStatuses(oldSet);
 		
 		// If answer to "Was this exception approved?" is changed from "Yes" to "No" or "Pending", 
 		// remove Exception Memo
 		if((newSet.contains(new Long(6)) || newSet.contains(new Long(7)))
 				&& oldSet.contains(new Long(5))) {
-			excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", getProject().getId());
-			if(excepMemoFile != null && !excepMemoFile.isEmpty()) {
-				setDocId(excepMemoFile.get(0).getId());
-				deleteFile();
+			if(warnOnly) {
+				sb.append("The system will delete the uploaded Exception Memo. ");
+			}
+			else {
+				excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", getProject().getId());
+				if(excepMemoFile != null && !excepMemoFile.isEmpty()) {
+					setDocId(excepMemoFile.get(0).getId());
+					deleteFile();
+				}
 			}
 		}
+		
+		if(sb.length() > 0) {
+			sb.append("Would you like to proceed?");
+		}
+		inputStream = new ByteArrayInputStream(sb.toString().getBytes("UTF-8"));
+
+		return SUCCESS;
 	}
 
 

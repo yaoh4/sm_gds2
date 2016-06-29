@@ -172,3 +172,30 @@ $("#gds-form").on('click', '#exceptionMemoUpload', function () {
 function enableAllCheckbox() {
 	$("#gds-form :checkbox").prop('disabled', false);
 }
+
+function warnGdsPlan() {
+
+	var result = "";
+	var $form, fd;
+	$form = $("#gds-form");
+	fd = new FormData($form[0]);
+
+	$.ajax({
+		url : 'warnGdsPlan.action',
+		type : 'post',
+		processData : false,
+		contentType : false,
+		data : fd,
+		async : false,
+		success : function(msg) {
+			result = $.trim(msg);
+		},
+		error : function() {
+		}
+	});
+	
+	if (result == "" || confirm(result)) {
+		return true;
+	}
+	return false;
+}
