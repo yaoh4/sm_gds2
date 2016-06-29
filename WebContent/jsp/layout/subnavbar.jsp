@@ -75,6 +75,7 @@
 				</s:if>
 				
 				<%-- We always show the detail page if its a saved project --%>
+				<!-- Commenting out for this Sprint
 				<s:if test="%{'detail' eq #attr['subnavtab']}">
 					<li class="active"><s:a href="javascript: void(0)">Submission Details</s:a></li>
 				</s:if>
@@ -85,6 +86,7 @@
 					<li><s:a href="%{submissionStatusUrl}">Submission Details</s:a></li>
 				</s:else>
 				<li class="divider-vertical"></li>
+				 -->
 			</s:if>
 		</ul>
 	</div>
