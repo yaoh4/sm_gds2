@@ -218,8 +218,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	}	
 	
 	/**
-	 * If the answer to ‘Why is the project being submitted?’ is changed from:
-	 * Required by GDS Policy or Required by GWAS Policy to Optional Submission – NIH Funded orOptional Submission – non-NIH Funded. 
+	 * If the answer to "Why is the project being submitted?" is changed from:
+	 * Required by GDS Policy or Required by GWAS Policy to "Optional Submission NIH Funded" or "Optional Submission non-NIH Funded". 
 	 * Then delete answers to some gds plan questions.
 	 * @param transientProject
 	 * @param persistentProject

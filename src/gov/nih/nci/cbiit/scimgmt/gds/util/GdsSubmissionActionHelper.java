@@ -223,7 +223,7 @@ public class GdsSubmissionActionHelper {
 	/**
 	 * This method checks if answer to 
 	 * Why is the project being submitted? is changed from:
-	 * Required by GDS Policy or Required by GWAS Policy to Optional Submission - NIH Funded or Optional Submission – non-NIH Funded.
+	 * Required by GDS Policy or Required by GWAS Policy to "Optional Submission NIH Funded" or "Optional Submission non-NIH Funded".
 	 * @param transientProject
 	 * @param persistentProject
 	 * @return
