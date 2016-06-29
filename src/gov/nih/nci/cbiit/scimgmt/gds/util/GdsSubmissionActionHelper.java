@@ -219,4 +219,24 @@ public class GdsSubmissionActionHelper {
 		}		
 		return persistentProject;
 	}
+	
+	/**
+	 * This method checks if answer to 
+	 * Why is the project being submitted? is changed from:
+	 * Required by GDS Policy or Required by GWAS Policy to Optional Submission – NIH Funded orOptional Submission – non-NIH Funded.
+	 * @param transientProject
+	 * @param persistentProject
+	 * @return
+	 */
+	public static boolean isSubmissionUpdated(Project transientProject, Project persistentProject){
+
+		if((transientProject.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_NIHFUND  
+				|| transientProject.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)
+				&& (persistentProject.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY
+				|| persistentProject.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY))
+			return true;
+		else
+			return false;
+		
+	}
 }

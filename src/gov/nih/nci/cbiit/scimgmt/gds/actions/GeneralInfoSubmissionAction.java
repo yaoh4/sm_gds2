@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.opensymphony.xwork2.Preparable;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
@@ -105,7 +108,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		
 		Project project = retrieveSelectedProject();		
 		if(project != null){
-			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(),project);
+			performDataCleanup(getProject(),project);
+			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(),project);		
 		}
 		else{
 			project = getProject();
@@ -212,6 +216,61 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			}
 		}
 	}	
+	
+	/**
+	 * If the answer to ‘Why is the project being submitted?’ is changed from:
+	 * Required by GDS Policy or Required by GWAS Policy to Optional Submission – NIH Funded orOptional Submission – non-NIH Funded. 
+	 * Then delete answers to some gds plan questions.
+	 * @param transientProject
+	 * @param persistentProject
+	 */
+	public void performDataCleanup(Project transientProject, Project persistentProject){
+
+		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){
+
+			logger.debug("Answer to Why is the project being submitted? has been updated for Submission with id. :"+persistentProject.getId());
+			deleteExceptionMemo(persistentProject);
+			deletePlanAnswers(persistentProject);
+		}		
+	}
+	
+	/**
+	 * This method deletes exception memo.
+	 * @param persistentProject
+	 */
+	public void deleteExceptionMemo(Project persistentProject){
+		
+		//The system will delete the uploaded exception memo
+		List<Document> excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", persistentProject.getId());
+		if(excepMemoFile != null && !excepMemoFile.isEmpty()) {
+			setDocId(excepMemoFile.get(0).getId());
+			deleteFile();
+			logger.debug("Deleted the uploaded exception memo.");
+		}		
+	}
+	
+	/**
+	 * The system will delete answers to following questions: 
+	 * 1.Is there a data sharing exception requested for this project?
+	 * 2.Was this exception approved?
+	 * 3.Will there be any data submitted?
+	 * @param persistentProject
+	 */
+	public void deletePlanAnswers(Project persistentProject){
+
+		for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = persistentProject.getPlanAnswerSelection().iterator(); planAnswerSelectionIterator.hasNext();) {
+
+			PlanAnswerSelection planAnswerSelection = planAnswerSelectionIterator.next();
+
+			if(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()
+					|| ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()
+					|| ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){	
+				
+				planAnswerSelectionIterator.remove();
+				logger.debug("Deleted the answer to question with Id: "+planAnswerSelection.getPlanQuestionsAnswer().getQuestionId());
+			}
+		}
+	}
 	
 	/**
 	 * Validates Intramural / Grant/ Contract search

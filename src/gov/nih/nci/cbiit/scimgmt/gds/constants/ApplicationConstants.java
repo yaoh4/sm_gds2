@@ -41,6 +41,13 @@ public interface ApplicationConstants {
 	 public static final int  COMMENTS_MAX_ALLOWED_SIZE = 2000;
 	 public static final int  NED_PERSON_NIH_SAC_MIN_SIZE = 4;
 	 public static final int  GRANT_CONTRACT_NUM_MIN_SIZE = 6;
+	 public static final Long PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID = 1L;
+	 public static final Long PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID = 4L;
+	 public static final Long PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID = 8L;
+	 public static final Long SUBMISSION_REASON_GDSPOLICY = 26L;
+	 public static final Long SUBMISSION_REASON_GWASPOLICY = 27L;
+	 public static final Long SUBMISSION_REASON_NIHFUND = 28L;
+	 public static final Long SUBMISSION_REASON_NONNIHFUND = 29L;
 	 
 	 /* String constants */
 	 public static final String NOT_STARTED = "NOTSTARTED"; 
