@@ -30,7 +30,16 @@ public interface ManageProjectService {
 	 */
 	public Project findById(Long projectId);
 
+	/**
+	 * This method retrieves Intramural / Grant / Contract List
+	 * @return
+	 */
 	public List<GdsGrantsContracts> getGrantOrContractList(String grantContractNum);
 	
+	/**
+	 * This method returns grantContract for given applId
+	 * @param applId
+	 * @return
+	 */
 	public GdsGrantsContracts getGrantOrContract(Long applId);
 }

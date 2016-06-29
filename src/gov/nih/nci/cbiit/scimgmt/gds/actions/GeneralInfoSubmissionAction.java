@@ -14,7 +14,6 @@ import com.opensymphony.xwork2.Preparable;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
@@ -145,8 +144,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	public String createNewSubmission() throws Exception {  	
 	
 		logger.debug("Navigating to create new submission.");
-		List<Lookup> projectTypeListFromDb =  lookupService.getLookupList(ApplicationConstants.PROJECT_TYPE_LIST.toUpperCase());
-		GdsSubmissionActionHelper.populateStatusDropDownLists(projectTypes,projectTypeListFromDb);
+		
+		projectTypes = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_TYPE_LIST.toUpperCase());		
 		return SUCCESS;
 	}	
 	
@@ -361,7 +360,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		}
 		//Comments cannot be greater than 2000 characters.
 		if(!StringUtils.isEmpty(getProject().getComments())) {
-			if(getProject().getPlanComments().length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
+			if(getProject().getComments().length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
 				this.addActionError(getText("error.comments.size.exceeded"));  			
 			}
 		}	

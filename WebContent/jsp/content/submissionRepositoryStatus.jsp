@@ -4,7 +4,6 @@
 <div class="container">
 	<div class="pageNav">	
 			<s:submit value=" Save " action="manage/saveRepositoryStatus" cssClass="saved btn btn-default" />								
-			<s:submit value=" « Previous  " action="manage/navigateToBasicStudyInfo" cssClass="btn btn-default" />
 			<s:submit value=" Save & Next »  " action="manage/saveRepositoryStatusAndNext" cssClass="btn btn-project-primary" />
 	</div>
 	
@@ -90,7 +89,6 @@
 		<!--SAVE & NEXT BUTTONS-->
 		<div class="pageNav">		
 			<s:submit value=" Save " action="manage/saveRepositoryStatus" cssClass="saved btn btn-default" />								
-			<s:submit value=" « Previous  " action="manage/navigateToBasicStudyInfo" cssClass="btn btn-default" />
 			<s:submit value=" Save & Next »  " action="manage/saveRepositoryStatusAndNext" cssClass="btn btn-project-primary" />
 		</div>
 	</s:form>

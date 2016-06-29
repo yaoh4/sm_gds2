@@ -18,6 +18,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
@@ -51,21 +52,7 @@ public class GdsSubmissionActionHelper {
 	public static GdsSubmissionActionHelper getInstance() {
 		return instance;
 	}
-	
-	
-	/**
-	 * This method populates StatusDropDownLists from lookUpList
-	 * @param dropDownList
-	 * @param lookupList
-	 */
-	public static void populateStatusDropDownLists(List<DropDownOption> dropDownList, List<Lookup> lookupList){
 		
-		for(Lookup lookup : lookupList ){
-			DropDownOption option = new DropDownOption(lookup.getId().toString(), lookup.getDescription());
-			dropDownList.add(option);
-		}
-	}
-	
 	/**
 	 * This method populates DocDropDownList from Object list
 	 * @param dropDownList
@@ -140,8 +127,7 @@ public class GdsSubmissionActionHelper {
 		}
 		
 		return null;
-	}
-	
+	}	
 	
 	/**
 	 * This method returns LoggedOn user's DOC.
@@ -236,7 +222,22 @@ public class GdsSubmissionActionHelper {
 				|| persistentProject.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY))
 			return true;
 		else
-			return false;
+			return false;		
+	}
+	
+	/**
+	 * This method checks if any repositories were selected on the GDS plan page.
+	 * @return
+	 */
+	public static boolean isAnyRepositorySelectedInGdsPlan(Project project){
+
+		logger.debug("Checking if any repositories were selected on the GDS plan page.");
 		
+		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelection()){
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){	
+				return true;			
+			}
+		}
+		return false;
 	}
 }
