@@ -171,7 +171,7 @@ public class GdsSubmissionActionHelper {
 		persistentProject.setPocLastName(transientProject.getPocLastName());
 		persistentProject.setPocEmailAddress(transientProject.getPocEmailAddress());
 		persistentProject.setApplicationNum(transientProject.getApplicationNum());
-		persistentProject.setPlanComments(transientProject.getPlanComments());
+		persistentProject.setComments(transientProject.getComments());
 		
 		//Set PI, PD, Title and Dates properties when grant is not tied to this project.
 		if(persistentProject.getApplId() == null && transientProject.getApplId() == null){	

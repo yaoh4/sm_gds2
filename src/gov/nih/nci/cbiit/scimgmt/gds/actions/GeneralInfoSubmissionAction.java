@@ -44,7 +44,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	protected SearchProjectService searchProjectService;
 
 	/**
-	 * Retrieves Project from DB or creates a new Project.
+	 * This method is responsible for loading the General Information page and setting all the UI elements.
 	 * 
 	 * @return forward string
 	 */

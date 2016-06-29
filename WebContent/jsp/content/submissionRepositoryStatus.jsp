@@ -8,6 +8,7 @@
 	</div>
 	
 	<s:form name="submission_status_form" id="submission_status_form" action="navigateToRepositoryStatus" cssClass="form-horizontal">
+		<s:hidden name="projectId" value="%{project.id}"/>
 		<!-- Begin Panel -->
 		<div class="col-md-12">
 			<div class="panel  project-panel-primary">
@@ -28,11 +29,12 @@
 					<s:div class="panel panel-default" id="%{'repositoryStatus_' + #stat.index}">
 						<div class="panel-heading">
 							<div class="pheader">
-								<h5><s:property value="%{#repositoryStatus.planQuestionAnswerTByRepositoryId.displayText}"/></h5>
+								<h5><s:property value="%{#repositoryStatus.planQuestionAnswerTByRepositoryId.displayText}"/></h5>								
 							</div>
 
-						</div>
-						<div class="panel-body">						
+						</div> 
+						<s:hidden name="project.repositoryStatuses[%{#stat.index}].planQuestionAnswerTByRepositoryId.id" value="%{#repositoryStatus.planQuestionAnswerTByRepositoryId.id}"/>
+						<div class="panel-body">		 				
 							<div class="form-group row">
 								<div class="col-xs-2">
 									<br /> <s:label for="%{'regStatus_' + #stat.index}">Registration
@@ -75,7 +77,7 @@
 							<div class="form-group row">
 								<div class="col-xs-12">
 									<s:label for="%{'repositoryComments_' + #stat.index}">Comments (2000 Characters):</s:label>
-									<s:textarea id="%{'repositoryComments_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].accessionNumber" value="%{#repositoryStatus.accessionNumber}" cssClass="form-control input" rows="3"></s:textarea>
+									<s:textarea id="%{'repositoryComments_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].comments" value="%{#repositoryStatus.comments}" cssClass="form-control input" rows="3"></s:textarea>
 								</div>
 							</div>					
 						</div>						

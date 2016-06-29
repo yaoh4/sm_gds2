@@ -1,8 +1,10 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Mar 28, 2016 10:25:57 AM by Hibernate Tools 4.0.0
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,7 +68,7 @@ public class Project implements java.io.Serializable {
 	private Set<StatusHistory> statusHistories = new HashSet(0);
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
-	private Set<RepositoryStatus> repositoryStatuses = new HashSet(0);
+	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private Set<InstitutionalCertification> institutionalCertifications = new HashSet(0);
 
 	public Project() {
@@ -112,7 +114,7 @@ public class Project implements java.io.Serializable {
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
 			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, Set statusHistories, Set documents,
-			Set planAnswerSelections, Set repositoryStatuses, Set institutionalCertifications,Long applId) {
+			Set planAnswerSelections, List repositoryStatuses, Set institutionalCertifications,Long applId) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
 		this.projectTitle = projectTitle;
@@ -518,11 +520,11 @@ public class Project implements java.io.Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
-	public Set<RepositoryStatus> getRepositoryStatuses() {
+	public List<RepositoryStatus> getRepositoryStatuses() {
 		return this.repositoryStatuses;
 	}
 
-	public void setRepositoryStatuses(Set<RepositoryStatus> repositoryStatuses) {
+	public void setRepositoryStatuses(List<RepositoryStatus> repositoryStatuses) {
 		this.repositoryStatuses = repositoryStatuses;
 	}
 

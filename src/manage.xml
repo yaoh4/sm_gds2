@@ -139,7 +139,7 @@
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
 			 </result>
-			 <result name="input" type="tiles">submissionGeneralInfo</result>
+			 <result name="input" type="tiles">submissionRepositoryStatus</result>
 		</action>	
 		<action name="navigateToIntramuralGrantOrContractSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
 			 <result name="success" type="tiles">intramuralGrantOrContractSearch</result>

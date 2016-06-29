@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
@@ -29,7 +31,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	List<DropDownOption> studyReleasedList = new ArrayList<DropDownOption>();
 
 	/**
-	 * Retrieves Project from DB.
+	 * This method is responsible for loading the Repository status page and setting all the UI elements.
 	 * 
 	 * @return forward string
 	 */
@@ -46,7 +48,9 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public String save() throws Exception { 
 
-		super.saveProject(getProject());
+		logger.debug("Saving Submission Repository status.");	
+		saveProject();
+		addActionMessage(getText("project.save.success"));
 		return SUCCESS;
 	}
 
@@ -57,10 +61,36 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public String saveAndNext() throws Exception { 
 
-		super.saveProject(getProject());
+		logger.debug("Saving Submission Repository status and navigating to GDS plan page.");
+		saveProject();
 		return SUCCESS;
 	}	
 
+	/**
+	 * Saves Project.
+	 * 
+	 * @throws Exception
+	 */
+	public void saveProject() throws Exception{
+
+		if(StringUtils.isEmpty(getProjectId())) {
+			throw new Exception(getText("error.projectid.null"));
+		}
+		
+		Project project = retrieveSelectedProject();
+		project.setRepositoryStatuses(getProject().getRepositoryStatuses());	
+		
+		for(RepositoryStatus repositoryStatus : project.getRepositoryStatuses()){
+			repositoryStatus.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+			repositoryStatus.setCreatedDate(new Date());
+			repositoryStatus.setProject(project);
+		}		
+		super.saveProject(project);
+		setProject(project);
+		setUpStatusLists();	
+
+	}
+	
 	/**
 	 * This method sets up all data for Repository Status Page..
 	 * @throws Exception 
@@ -68,8 +98,9 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	public void setUpPageData() throws Exception{
 
 		logger.debug("Setting up Repository status page data.");
+		
 		if(StringUtils.isEmpty(getProjectId())) {
-			throw new Exception();
+			throw new Exception(getText("error.projectid.null"));
 		}
 		setProject(retrieveSelectedProject());
 		setUpStatusLists();		
@@ -107,17 +138,8 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public void setUpDbGapRepositoryStatus(){
 
-		logger.debug("Adding DbGaP Repository status.");
-
-		RepositoryStatus dbGapRepositoryStatus = new RepositoryStatus();
-
-		//Setting default values.
-		dbGapRepositoryStatus.setLookupTByRegistrationStatusId(lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
-		dbGapRepositoryStatus.setLookupTByDataSubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
-		dbGapRepositoryStatus.setLookupTByStudyReleasedId(lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
-		dbGapRepositoryStatus.setPlanQuestionAnswerTByRepositoryId(PlanQuestionList.getAnswerById(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID));;
-		getProject().getRepositoryStatuses().add(dbGapRepositoryStatus);
-
+		logger.debug("Adding DbGaP Repository status.");		
+		getProject().getRepositoryStatuses().add(createNewRepositoryStatus(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID));
 	}
 
 	/**
@@ -141,19 +163,31 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 				if(!savedRepositoryStatuses.contains(planAnswerSelection.getPlanQuestionsAnswer().getId())){
 
-					RepositoryStatus repositoryStatus = new RepositoryStatus();
-
-					//Setting default values.
-					repositoryStatus.setLookupTByRegistrationStatusId(lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
-					repositoryStatus.setLookupTByDataSubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
-					repositoryStatus.setLookupTByStudyReleasedId(lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
-					repositoryStatus.setPlanQuestionAnswerTByRepositoryId(PlanQuestionList.getAnswerById(planAnswerSelection.getPlanQuestionsAnswer().getQuestionId(), planAnswerSelection.getPlanQuestionsAnswer().getId()));;
-					getProject().getRepositoryStatuses().add(repositoryStatus);
+					getProject().getRepositoryStatuses().add(createNewRepositoryStatus(planAnswerSelection.getPlanQuestionsAnswer().getQuestionId(),planAnswerSelection.getPlanQuestionsAnswer().getId()));
 				}
 			}
 		}		
 	}
-
+	
+	/**
+	 * Create a new default repository status.
+	 * @param questionId
+	 * @param id
+	 * @return repositoryStatus
+	 */
+	public RepositoryStatus createNewRepositoryStatus(Long questionId, Long id){
+		
+		logger.debug("Creating a new repository status.");
+		
+		RepositoryStatus repositoryStatus = new RepositoryStatus();
+		//Setting default values.
+		repositoryStatus.setLookupTByRegistrationStatusId(lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+		repositoryStatus.setLookupTByDataSubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+		repositoryStatus.setLookupTByStudyReleasedId(lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));			
+		repositoryStatus.setPlanQuestionAnswerTByRepositoryId(PlanQuestionList.getAnswerById(questionId,id));
+		
+		return repositoryStatus;		
+	}
 
 	/**
 	 * @return the registrationStatusList
