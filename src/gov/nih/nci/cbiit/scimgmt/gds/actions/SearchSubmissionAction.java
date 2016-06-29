@@ -13,9 +13,9 @@ import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
  * @author tembharend
  */
 @SuppressWarnings("serial")
-public class SearchProjectAction extends BaseAction {
+public class SearchSubmissionAction extends BaseAction {
 
-	private static final Logger logger = LogManager.getLogger(SearchProjectAction.class);
+	private static final Logger logger = LogManager.getLogger(SearchSubmissionAction.class);
 
 	@Autowired
 	private SearchProjectService searchProjectService;

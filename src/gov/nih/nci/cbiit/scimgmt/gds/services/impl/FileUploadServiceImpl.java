@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.util.Date;
 import java.util.List;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.DocumentsDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
@@ -244,13 +245,13 @@ public class FileUploadServiceImpl implements FileUploadService {
 	 */
 	private boolean isVersionControlled(String docType) {
 		switch (docType) {
-		case "EXCEPMEMO":
+		case ApplicationConstants.DOC_TYPE_EXCEPMEMO:
 			return false;
-		case "GDSPLAN":
+		case ApplicationConstants.DOC_TYPE_GDSPLAN:
 			return true;
-		case "IC":
+		case ApplicationConstants.DOC_TYPE_IC:
 			return false;
-		case "BSI":
+		case ApplicationConstants.DOC_TYPE_BSI:
 			return true;
 		}
 		return false;

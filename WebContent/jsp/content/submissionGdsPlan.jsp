@@ -228,7 +228,7 @@
 				</div>
 
 				<div>
-					<p class="question">Comments:</p>
+					<p class="question">Comments (2000 Characters):</p>
 					<s:textarea class="col-md-10" rows="3" name="comments"></s:textarea>
 				</div>
 			</div>

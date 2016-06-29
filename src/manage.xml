@@ -6,7 +6,7 @@
 	
 	<package name="manage" namespace="/manage" extends="default">
 	
-		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchProjectAction">
+		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
 			 <result name="success" type="tiles">home</result>
 		</action>
 		<action name="newSubmission" method="createNewSubmission" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">

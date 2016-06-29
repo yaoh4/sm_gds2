@@ -105,7 +105,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		setUpPageData();
 		
-		//logger.debug("div id 8: " + getMap().get("8").getStyle());
         return SUCCESS;
 	}
 
@@ -136,7 +135,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		if(StringUtils.isNotBlank(dataSharingPlanEditorText)) {
 			logger.debug(dataSharingPlanEditorText);
 			try {
-				doc = fileUploadService.storeFile(new Long(getProjectId()), "GDSPLAN", dataSharingPlanEditorText);
+				doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_GDSPLAN, dataSharingPlanEditorText);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -164,13 +163,13 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		logger.debug("Validate save GDS Plan");
 		// If Other repository is selected, verify that OtherText is entered.
-		if(answerMap.get(new Long(20)) != null && answerMap.get(new Long(20)).contains("25")) {
-			if(otherTextMap.get(new Long(25)) == null) {
+		if(answerMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID) != null && answerMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).contains(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID.toString())) {
+			if(otherTextMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID) == null) {
 				this.addActionError(getText("error.other.specify"));
 			} else {
-				otherTextMap.get(new Long(25)).remove("");
-				if(otherTextMap.get(new Long(25)).isEmpty()) {
-					otherTextMap.remove(new Long(25));
+				otherTextMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).remove("");
+				if(otherTextMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).isEmpty()) {
+					otherTextMap.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID);
 					this.addActionError(getText("error.other.specify"));
 				}
 			}
@@ -197,14 +196,14 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		save();
 		
-		if(showPage("ic"))
-			return "ic";
+		if(showPage(ApplicationConstants.PAGE_TYPE_IC))
+			return ApplicationConstants.PAGE_TYPE_IC;
 		
-		if(showPage("bsi"))
-			return "bsi";
+		if(showPage(ApplicationConstants.PAGE_TYPE_BSI))
+			return ApplicationConstants.PAGE_TYPE_BSI;
 		
-		if(showPage("repository"))
-			return "repository";
+		if(showPage(ApplicationConstants.PAGE_TYPE_STATUS))
+			return ApplicationConstants.PAGE_TYPE_STATUS;
 		
         return SUCCESS;
 	}
@@ -229,12 +228,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			return INPUT;
 			
 		try {
-			doc = fileUploadService.storeFile(new Long(getProjectId()), "EXCEPMEMO", exceptionMemo, exceptionMemoFileName);
-			excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", new Long(getProjectId()));
+			doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_EXCEPMEMO, exceptionMemo, exceptionMemoFileName);
+			excepMemoFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, new Long(getProjectId()));
 			
 		} catch (Exception e) {
 			try {
-				inputStream = new ByteArrayInputStream("Error Uploading File".getBytes("UTF-8"));
+				inputStream = new ByteArrayInputStream(getText("error.doc.upload").getBytes("UTF-8"));
 			} catch (UnsupportedEncodingException e1) {
 				return INPUT;
 			}
@@ -258,19 +257,19 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		try {
 			if (file == null) {
-				errorMessage = "Upload file is required";
+				errorMessage = getText("error.doc.required");
 
 			} else if (file.length() == 0) {
-				errorMessage = "Upload file contains no data (length = 0)";
+				errorMessage = getText("error.doc.empty");
 
 			} else if (file.length() > 5000000) {
-				errorMessage = "Upload file size is larger than maximum file size (5MB)";
+				errorMessage = getText("error.doc.size");
 
 			} else if (!"application/pdf".equals(contentType)
 					&& !"application/msword".equals(contentType)
 					&& !"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 							.equals(contentType)) {
-				errorMessage = "Upload file must be in Word or PDF format";
+				errorMessage = getText("error.doc.format");
 
 			}
 			if(StringUtils.isNotBlank(errorMessage)) {
@@ -297,12 +296,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			return INPUT;
 		
 		try {
-			doc = fileUploadService.storeFile(new Long(getProjectId()), "GDSPLAN", dataSharingPlan, dataSharingPlanFileName);
-			gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", new Long(getProjectId()));
+			doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_GDSPLAN, dataSharingPlan, dataSharingPlanFileName);
+			gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, new Long(getProjectId()));
 			
 		} catch (Exception e) {
 			try {
-				inputStream = new ByteArrayInputStream("Error Uploading File".getBytes("UTF-8"));
+				inputStream = new ByteArrayInputStream(getText("error.doc.upload").getBytes("UTF-8"));
 			} catch (UnsupportedEncodingException e1) {
 				return INPUT;
 			}
@@ -328,16 +327,16 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		try {
 			if (getDocId() == null) {
 				inputStream = new ByteArrayInputStream(
-						"Document Id needs to be provided for delete".getBytes("UTF-8"));
+						getText("error.doc.id").getBytes("UTF-8"));
 
 				return INPUT;
 			}
 			fileUploadService.deleteFile(getDocId());
-			gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", new Long(getProjectId()));
+			gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, new Long(getProjectId()));
 			
 		} catch (UnsupportedEncodingException e) {
 			try {
-				inputStream = new ByteArrayInputStream("Error Deleting File".getBytes("UTF-8"));
+				inputStream = new ByteArrayInputStream(getText("error.doc.delete").getBytes("UTF-8"));
 			} catch (UnsupportedEncodingException e1) {
 				return INPUT;
 			}
@@ -365,7 +364,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 */
 	public boolean getRequiredByGdsPolicy() {
 		
-		return (getProject().getSubmissionReasonId() == 26 ? true : false);
+		return (getProject().getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.longValue() ? true : false);
 	}
 	
 	/**
@@ -378,20 +377,17 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		populateAnswersMap();
 		
 		// Always reset the file upload or text radio button selection
-		answerMap.remove(29L);
+		answerMap.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID);
 		
 		//Get the list of files for display
 		uiControlMap = uIRuleUtil.getUiRuleMap(getProject());
 
-		excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", getProject().getId());
-		gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", getProject().getId());
+		excepMemoFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, getProject().getId());
+		gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, getProject().getId());
 		
 		// Set comments
 		comments = getProject().getPlanComments();
-				
-		logger.debug(JSONUtil.serialize(uiControlMap));
-		
-		logger.debug(PlanQuestionList.getQuestionById(1L).getDisplayText());
+
 	}
 	
 	/**
@@ -475,7 +471,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			newObject.setCreatedDate(new Date());
 			newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 			newObject.setProject(getProject());
-			if(planQuestionsAnswer.getDisplayText().equalsIgnoreCase("Other")) {
+			if(planQuestionsAnswer.getDisplayText().equalsIgnoreCase(ApplicationConstants.OTHER)) {
 				PlanAnswerSelection otherObject = null;
 				for(String otherText: otherTextMap.get(id)) {
 					otherObject = new PlanAnswerSelection(newObject);
@@ -558,13 +554,13 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		populateSelectedRemovedSets();
 		
 		// If the answer to "Will there be any data submitted?" is changed from Yes to No.
-		if(oldSet.contains(new Long(9)) && newSet.contains(new Long(10))) {
+		if(oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) && newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID)) {
 			// a) The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents.
 			if(warnOnly) {
 				sb.append("The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents. ");
 			}
 			else {
-				gdsPlanFile = fileUploadService.retrieveFileByDocType("GDSPLAN", getProject().getId());
+				gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, getProject().getId());
 				for(Document document: gdsPlanFile) {
 					setDocId(document.getId());
 					deleteFile();
@@ -576,7 +572,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				sb.append("The system will delete all uploaded Institutional Certifications documents. ");
 			}
 			else {
-				List<Document> icFile = fileUploadService.retrieveFileByDocType("IC", getProject().getId());
+				List<Document> icFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, getProject().getId());
 				for(Document document: icFile) {
 					setDocId(document.getId());
 					deleteFile();
@@ -605,7 +601,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				sb.append("The system will delete the uploaded Basic Study Info and the History of Uploaded Documents. ");
 			}
 			else {
-				List<Document> bsiFile = fileUploadService.retrieveFileByDocType("BSI", getProject().getId());
+				List<Document> bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, getProject().getId());
 				for(Document document: bsiFile) {
 					setDocId(document.getId());
 					deleteFile();
@@ -619,7 +615,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			else {
 				Set<Long> removeSet = new HashSet<Long>();
 				removeSet.addAll(oldSet);
-				removeSet.remove(new Long(21));
+				removeSet.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
 				removeRepositoryStatuses(removeSet);
 			}
 			
@@ -636,8 +632,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		// And
 		// answer to "What type of access is the data to be made available through?" 
 		// is set to Unrestricted only or is changed from Controlled to Unrestricted only.
-		if(newSet.contains(new Long(13)) && !newSet.contains(new Long(12)) &&
-				newSet.contains(new Long(19)) && !newSet.contains(new Long(18))) {
+		if(newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) &&
+				newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_CONTROLLED_ID)) {
 			// a) The system will delete all DUL(s) created that contains DUL type of 
 			//    "Health/Medical/Biomedical", "Disease-specific" and/or "Other". TODO
 			if(warnOnly) {
@@ -648,13 +644,13 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		// If answer to "Was this exception approved?" is changed from "Yes" to "No" or "Pending", 
 		// remove Exception Memo
-		if((newSet.contains(new Long(6)) || newSet.contains(new Long(7)))
-				&& oldSet.contains(new Long(5))) {
+		if((newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) || newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID))
+				&& oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID)) {
 			if(warnOnly) {
 				sb.append("The system will delete the uploaded Exception Memo. ");
 			}
 			else {
-				excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", getProject().getId());
+				excepMemoFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, getProject().getId());
 				if(excepMemoFile != null && !excepMemoFile.isEmpty()) {
 					setDocId(excepMemoFile.get(0).getId());
 					deleteFile();
@@ -676,7 +672,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 * 
 	 * @param oldSet 
 	 */
-	@SuppressWarnings("unused")
 	private void removeRepositoryStatuses(Set<Long> oldSet){	
 
 		if(getProject() != null) {		

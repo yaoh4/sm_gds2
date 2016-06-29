@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
@@ -110,12 +111,12 @@ public class ManageSubmission extends BaseAction {
 		try {
 			if (docId == null) {
 				inputStream = new ByteArrayInputStream(
-						"Document Id needs to be provided for delete".getBytes("UTF-8"));
+						getText("error.doc.id").getBytes("UTF-8"));
 
 				return SUCCESS;
 			}
 			fileUploadService.deleteFile(docId);
-			inputStream = new ByteArrayInputStream("Document have been deleted.".getBytes("UTF-8"));
+			inputStream = new ByteArrayInputStream(getText("document.delete.success").getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -130,13 +131,13 @@ public class ManageSubmission extends BaseAction {
 		try {
 			if (docId == null) {
 				inputStream = new ByteArrayInputStream(
-						"Document Id needs to be provided for download".getBytes("UTF-8"));
+						getText("error.doc.id").getBytes("UTF-8"));
 				return SUCCESS;
 			}
 			HttpServletResponse response = ServletActionContext.getResponse();
 			Document doc = fileUploadService.retrieveFile(docId);
 			if (doc == null) {
-				inputStream = new ByteArrayInputStream("Document could not be found".getBytes("UTF-8"));
+				inputStream = new ByteArrayInputStream(getText("error.doc.notFound").getBytes("UTF-8"));
 				return SUCCESS;
 			}
 
@@ -170,24 +171,24 @@ public class ManageSubmission extends BaseAction {
 		boolean show = true;
 		
 		// If user selects "Non-human" only, the system will NOT display the "Institutional Certifications"
-		if(project.getPlanAnswerSelectionByAnswerId(new Long(12)) == null &&
-				project.getPlanAnswerSelectionByAnswerId(new Long(13)) != null) {
-			if(page.equalsIgnoreCase("ic")) {
+		if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
+				project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) != null) {
+			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_IC)) {
 				show = false;
 			}
 		}
 		
 		// If the answer to "Will there be any data submitted?" is No.
 		// Don't show IC, BSI.
-		if (project.getPlanAnswerSelectionByAnswerId(new Long(10)) != null) {
-			if(page.equalsIgnoreCase("ic") || page.equalsIgnoreCase("bsi")) {
+		if (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
+			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_IC) || page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_BSI)) {
 				show = false;
 			}
 		}
 		
 		// If there are no repository selected, don't show the repository page.
-		if (project.getPlanAnswerSelectionByQuestionId(new Long(20)).isEmpty()) {
-			if(page.equalsIgnoreCase("repository")) {
+		if (project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).isEmpty()) {
+			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_STATUS)) {
 				show = false;
 			}
 		}
