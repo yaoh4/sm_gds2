@@ -360,7 +360,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			}	
 		}
 		//Comments cannot be greater than 2000 characters.
-		if(!StringUtils.isEmpty(getProject().getPlanComments())) {
+		if(!StringUtils.isEmpty(getProject().getComments())) {
 			if(getProject().getPlanComments().length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
 				this.addActionError(getText("error.comments.size.exceeded"));  			
 			}
