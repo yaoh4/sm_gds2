@@ -202,7 +202,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		if(project.getApplId() != null){
 			
 			logger.debug("Retreiving Project general information data from grantsContractsw for grantContract with applId: "+project.getApplId());
-			GdsGrantsContracts grantContract = searchProjectService.getGrantOrContract(project.getApplId());
+			GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(project.getApplId());
 			if(grantContract != null){
 				getProject().setProjectTitle(grantContract.getProjectTitle());
 				getProject().setPiFirstName(grantContract.getPiFirstName());
@@ -293,7 +293,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	public String searchGrantOrContract(){
 
 		logger.debug("Searching grants / contracts.");
-		grantOrContractList = searchProjectService.getGrantOrContractList(grantContractNum);
+		grantOrContractList = manageProjectService.getGrantOrContractList(grantContractNum);
 		return SUCCESS;
 	}
 		

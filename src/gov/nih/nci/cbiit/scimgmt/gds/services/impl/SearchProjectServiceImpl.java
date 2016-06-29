@@ -7,8 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import gov.nih.nci.cbiit.scimgmt.gds.dao.ProjectsDao;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
+import gov.nih.nci.cbiit.scimgmt.gds.dao.ProjectSearchDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 
@@ -21,14 +20,14 @@ public class SearchProjectServiceImpl implements SearchProjectService {
 	private static final Logger logger = LogManager.getLogger(SearchProjectServiceImpl.class);
 	
 	@Autowired
-	private ProjectsDao projectsDAO;
+	private ProjectSearchDao projectSearchDAO;
 	
 	/**
 	 * This method returns all Project Ids
 	 * @return List
 	 */
 	public List<Long> getAllProjectIds(){
-		return projectsDAO.getAllProjectIds();
+		return projectSearchDAO.getAllProjectIds();
 	}
 	
 	/**
@@ -37,24 +36,7 @@ public class SearchProjectServiceImpl implements SearchProjectService {
 	 * @return Project
 	 */
 	public Project findProjectById(Long projectId){
-		 return projectsDAO.findById(projectId);
-	}
-	
-	/**
-	 * This method retrieves Intramural / Grant / Contract List
-	 * @return
-	 */
-	public List<GdsGrantsContracts> getGrantOrContractList(String grantContractNum){
-		return projectsDAO.getGrantOrContractList(grantContractNum);
-	}
-	
-	/**
-	 * This method returns grantContract for given applId
-	 * @param applId
-	 * @return
-	 */
-	public GdsGrantsContracts getGrantOrContract(Long applId){
-		return projectsDAO.getGrantOrContract(applId);
+		 return projectSearchDAO.findById(projectId);
 	}
 	
 }

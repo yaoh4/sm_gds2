@@ -114,27 +114,6 @@ public class ProjectsDao {
 	}
 	
 	/**
-	 * This method returns all Project Ids
-	 * @return List
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Long> getAllProjectIds(){
-		Session session = null;
-		List<Long> allProjectIds = new ArrayList<Long>();
-		try{
-			session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(Project.class, "project");
-			criteria.setProjection( Projections.projectionList().add( Projections.property("project.id"), "project.id"));
-			allProjectIds = criteria.list();
-			
-		} catch (RuntimeException re) {
-			logger.error("get all project ids failed", re);
-			throw re;
-		}
-		return allProjectIds;
-	}
-	
-	/**
 	 * This method retrieves Grant / Contract List
 	 * @return
 	 */
