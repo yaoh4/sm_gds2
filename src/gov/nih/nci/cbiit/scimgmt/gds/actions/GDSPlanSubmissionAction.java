@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,15 +18,18 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.struts2.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.model.UIList;
 import gov.nih.nci.cbiit.scimgmt.gds.util.UIRuleUtil;
 
@@ -635,10 +639,26 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		if(newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) &&
 				newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_CONTROLLED_ID)) {
 			// a) The system will delete all DUL(s) created that contains DUL type of 
-			//    "Health/Medical/Biomedical", "Disease-specific" and/or "Other". TODO
+			//    "Health/Medical/Biomedical", "Disease-specific" and/or "Other". 
 			if(warnOnly) {
 				sb.append("The system will delete all DUL(s) created that contains DUL type of " +
 							"Health/Medical/Biomedical, Disease-specific and/or Other. ");
+			} else {
+				for(InstitutionalCertification ic: getProject().getInstitutionalCertifications()) {
+					for(Study study: ic.getStudies()) {
+						for(StudiesDulSet dul: study.getStudiesDulSets()) {
+							for (Iterator<DulChecklistSelection> dulIterator = dul.getDulChecklistSelections().iterator(); dulIterator.hasNext();) {
+								DulChecklistSelection selection = dulIterator.next();
+								if(selection.getDulChecklist().getParentDulId() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_HEALTH_MEDICAL_BIOMEDICAL_ID ||
+										selection.getDulChecklist().getParentDulId() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_DISEASE_SPECIFIC_ID ||
+										selection.getDulChecklist().getParentDulId() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_OTHER_ID){	
+									
+									dulIterator.remove();
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		

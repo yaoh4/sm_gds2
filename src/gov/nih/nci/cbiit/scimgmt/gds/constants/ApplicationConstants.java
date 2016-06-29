@@ -51,15 +51,22 @@ public interface ApplicationConstants {
 	 public static final Long PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID = 8L;
 	 public static final Long PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID = 9L;
 	 public static final Long PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID = 10L;
+	 public static final Long PLAN_QUESTION_ANSWER_SPECIMEN_ID = 11L;
 	 public static final Long PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID = 12L;
 	 public static final Long PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID = 13L;
+	 public static final Long PLAN_QUESTION_ANSWER_DATA_TYPE_ID = 14L;
+	 public static final Long PLAN_QUESTION_ANSWER_ACCESS_ID = 17L;
 	 public static final Long PLAN_QUESTION_ANSWER_ACCESS_CONTROLLED_ID = 18L;
 	 public static final Long PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID = 19L;
+	 public static final Long PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID = 26L;
 	 public static final Long PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID = 29L;
 	 public static final Long SUBMISSION_REASON_GDSPOLICY = 26L;
 	 public static final Long SUBMISSION_REASON_GWASPOLICY = 27L;
 	 public static final Long SUBMISSION_REASON_NIHFUND = 28L;
 	 public static final Long SUBMISSION_REASON_NONNIHFUND = 29L;
+	 public static final Long IC_STUDY_DUL_CHECKLIST_HEALTH_MEDICAL_BIOMEDICAL_ID = 6L;
+	 public static final Long IC_STUDY_DUL_CHECKLIST_DISEASE_SPECIFIC_ID = 13L;
+	 public static final Long IC_STUDY_DUL_CHECKLIST_OTHER_ID = 21L;
 	 
 	 /* String constants */
 	 public static final String NOT_STARTED = "NOTSTARTED"; 

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
@@ -33,6 +34,9 @@ public class UIRuleUtil {
 
 	private static Map<String, UIList> ruleMap = new HashMap<String, UIList>();
 
+	public static final String EXCEPMEMO_DIV = "exceptionMemoDiv";
+	public static final String GDSFILE_DIV = "dataSharingPlanDiv";
+	public static final String GDSEDITOR_DIV = "textEditorDiv";
 
 	@EventListener
 	public void handleContextRefresh(ContextRefreshedEvent event) {
@@ -88,34 +92,34 @@ public class UIRuleUtil {
 		}
 		
 		// Also check the special DIVS added other than questions defined in DB.
-		applySpecialDivs(overRideMap, selectedAnswers, "exceptionMemoDiv");
-		applySpecialDivs(overRideMap, selectedAnswers, "dataSharingPlanDiv");
-		applySpecialDivs(overRideMap, selectedAnswers, "textEditorDiv");
+		applySpecialDivs(overRideMap, selectedAnswers, EXCEPMEMO_DIV);
+		applySpecialDivs(overRideMap, selectedAnswers, GDSFILE_DIV);
+		applySpecialDivs(overRideMap, selectedAnswers, GDSEDITOR_DIV);
 		
 		// Override "Is there a data sharing exception requested for this project?" to show if
 		// Was this exception approved? was pending. (Since it conflicts with UI rules)
-		if (selectedAnswers.contains("7")) {
-			overRideMap.get("8").setStyle("display: block");
+		if (selectedAnswers.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID.toString())) {
+			overRideMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID.toString()).setStyle("display: block");
 		}
 		
 		// If the answer to "Why is this project being submitted?" is NOT
 		// "Required by GDS Policy" or "Required by GWAS Policy", then start from question
 		// "What specimen type does the data submission pertain to?".
-		if(project.getSubmissionReasonId() != 26 && project.getSubmissionReasonId() != 27) {
+		if(project.getSubmissionReasonId() != ApplicationConstants.SUBMISSION_REASON_GDSPOLICY && project.getSubmissionReasonId() != ApplicationConstants.SUBMISSION_REASON_GWASPOLICY) {
 			UIList newElement = new UIList();
 			newElement.setStyle("display: none");
-			overRideMap.put("1", newElement); // Is there a data sharing exception requested for this project?
-			overRideMap.put("4", newElement); // Was this exception approved?
-			overRideMap.put("exceptionMemoDiv", newElement);
-			overRideMap.put("8", newElement); // Will there be any data submitted?
-			overRideMap.get("11").setStyle("display: block");
-			overRideMap.get("14").setStyle("display: block");
-			overRideMap.get("17").setStyle("display: block");
-			overRideMap.get("20").setStyle("display: block");
-			overRideMap.get("26").setStyle("display: block");
-			overRideMap.get("29").setStyle("display: block");
-			overRideMap.get("dataSharingPlanDiv").setStyle("display: block");
-			overRideMap.put("textEditorDiv", newElement);
+			overRideMap.put(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID.toString(), newElement); // Is there a data sharing exception requested for this project?
+			overRideMap.put(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID.toString(), newElement); // Was this exception approved?
+			overRideMap.put(EXCEPMEMO_DIV, newElement);
+			overRideMap.put(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID.toString(), newElement); // Will there be any data submitted?
+			overRideMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_ID.toString()).setStyle("display: block");
+			overRideMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_TYPE_ID.toString()).setStyle("display: block");
+			overRideMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_ID.toString()).setStyle("display: block");
+			overRideMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.toString()).setStyle("display: block");
+			overRideMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID.toString()).setStyle("display: block");
+			overRideMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID.toString()).setStyle("display: block");
+			overRideMap.get(GDSFILE_DIV).setStyle("display: block");
+			overRideMap.put(GDSEDITOR_DIV, newElement);
 		}
 		
 		return overRideMap;
