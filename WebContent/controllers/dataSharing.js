@@ -169,6 +169,31 @@ $("#gds-form").on('click', '#exceptionMemoUpload', function () {
 
 });
 
+function removeDocument(docId, projectId)
+{
+	var result = "";
+	ans = confirm("Are you sure you want to delete this file?");
+	if (ans) {
+	
+		$.ajax({
+			url: "deleteGdsFile.action",
+			type: "post",
+			data: {docId: docId, projectId: projectId},
+			async:   false,
+			success: function(msg){
+				result = $.trim(msg);
+			}, 
+			error: function(){}		
+		});
+		if(result.startsWith("<p")) {
+			$('div.loadFileHistory').html(result);
+		}
+		else {
+			openFileModal(result);
+		}
+	}
+}
+
 function enableAllCheckbox() {
 	$("#gds-form :checkbox").prop('disabled', false);
 }

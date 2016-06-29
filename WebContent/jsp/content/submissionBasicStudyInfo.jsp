@@ -1,12 +1,122 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
-<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
-<div class="content">
-	<div class="inside">
-		<fieldset>
-			<b>Basic Study Information</b>
-		</fieldset>
+<s:form id="basic-study-form" cssClass="dirty-check"
+	action="saveBasicStudyInfo" namespace="manage" method="post"
+	enctype="multipart/form-data" data-toggle="validator" role="form">
+	<s:hidden name="projectId" value="%{project.id}" />
+	<!-- Page navbar -->
+	<div class="pageNav">
+		<s:submit action="saveBasicStudyInfo" value=" Save "
+			class="saved btn btn-default" />
+		<s:submit action="saveBasicStudyInfoAndNext"
+			value=" Save & Next »  " class="btn btn-project-primary" />
+	</div>
+
+
+	<!-- Begin Panel -->
+	<div class="col-md-12">
+		<div class="panel  project-panel-primary">
+			<div class="panel-heading">
+				<div class="pheader">
+					<h4>Basic Study Information</h4>
+				</div>
+				<!-- <div class="statusWrapper">
+					<div class="status">
+						<a href="#" class="statusLink">Generate Missing Data Report</a>
+						&nbsp; &nbsp;
+					</div>
+					<div class="statusIcon">
+						<a href="#" class="tooltip"> <img src="images/inprogress.png"
+							alt="In Progress" /> <span> <img class="callout"
+								src="images/callout_black.gif" /> <strong>Legend:</strong><br />
+								<img src="images/legend.gif" />
+
+						</span>
+						</a>
+					</div>
+				</div> -->
+			</div>
+
+			<div class="panel-body">
+
+				<div style="float: right;" class="question">
+					<a
+						href="http://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/submission/basic-study-information.pdf"
+						target="_blank">NCI Basic Study Information Form&nbsp;<i
+						class="fa fa-external-link" aria-hidden="true"></i></a>
+				</div>
+				<p style="font-size: 12px; margin-top: 5px;">
+					Note: <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Asterisk
+					indicates a required field
+				</p>
+				<p>&nbsp;</p>
+
+				<div class="qSpacing">
+
+					<p class="question" style="display: inline;">
+						<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Has the GPA
+						reviewed the Basic Study Information?&nbsp; &nbsp; &nbsp;</p>
+
+					<s:radio id="reviewed" list="#{'Y':'Yes','N':'No'}"
+						name="bsiReviewedFlag" value="bsiReviewedFlag"
+						template="radiomap-div.ftl" />
+
+					<p>&nbsp;</p>
+
+
+					<!--  File Upload -->
+					<p class="question">
+						<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Upload File(s):
+					</p>
+					<!--BEGIN Uploader-->
+					<div class="qSpacing" id="bsiDiv">
+						<s:file name="bsi" id="bsi" />
+						<input type="button" name="bsiUpload"
+								value="Upload File"
+								class="saved btn btn-default" id="bsiUpload">
+						<div class="loadFileHistory">
+							<s:include value="/jsp/content/submissionBasicStudyInfoFile.jsp" />
+						</div>
+					</div>
+
+					<div>
+						<p class="question">Comments (2000 Characters):</p>
+						<s:textarea class="col-md-10" rows="3" name="comments"></s:textarea>
+					</div>
+				</div>
+			</div>
+			<!--  panel body -->
+		</div>
+		<!--  Panel -->
+	</div>
+
+	<!--SAVE & NEXT BUTTONS-->
+	<div class="pageNav">
+		<s:submit action="saveBasicStudyInfo" value=" Save "
+			class="saved btn btn-default" />
+		<s:submit escape="false" action="saveBasicStudyInfoAndNext"
+			value=" Save & Next »  " class="btn btn-project-primary" />
+	</div>
+</s:form>
+
+<!-- Modal -->
+<div id="fileModal" class="modal fade bs-example-modal-sm" tabindex="-1"
+	role="dialog" aria-labelledby="fileModalLabel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3 id="fileModalLabel">File Upload Message</h3>
+			</div>
+			<div id="fileModalId" class="modal-body"></div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			</div>
+		</div>
 	</div>
 </div>
 
-<br /><br /><br /><br />
+<script type="text/javascript"
+	src="<s:url value="/scripts/gds.js" />"></script>
+<script type="text/javascript"
+	src="<s:url value="/controllers/basicStudy.js" />"></script>

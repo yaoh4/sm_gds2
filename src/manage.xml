@@ -78,10 +78,13 @@
 		<action name="deleteDul" method="deleteDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>
 		</action>
-		<action name="navigateToBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="navigateToBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
 			 <result name="success" type="tiles">submissionBasicStudyInfo</result>
 		</action>
-		<action name="saveBasicStudyInfo" method="saveBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="saveBasicStudyInfo" method="save" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
+			 <result name="success" type="tiles">submissionBasicStudyInfo</result>
+		</action>
+		<action name="saveBasicStudyInfoAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
 			 <result name="success" type="tiles">submissionDetail</result>
 		</action>
 		<action name="navigateToSubmissionDetail" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
@@ -106,6 +109,13 @@
 				<param name="inputName">inputStream</param>   
 			</result>
 		</action>
+		<action name="deleteBsiFile" method="deleteBsiFile" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/submissionBasicStudyInfoFile.jsp</result>
+			<result name="input" type="stream">     
+				<param name="contentType">text/html</param>     
+				<param name="inputName">inputStream</param>   
+			</result>
+		</action>
 		<action name="uploadExceptionMemo" method="uploadExceptionMemo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			<result name="success" type="dispatcher">/jsp/content/submissionGdsPlanMemo.jsp</result>
 			<result name="input" type="stream">     
@@ -115,6 +125,13 @@
 		</action>
 		<action name="uploadDataSharingPlan" method="uploadDataSharingPlan" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			<result name="success" type="dispatcher">/jsp/content/submissionGdsPlanFile.jsp</result>
+			<result name="input" type="stream">     
+				<param name="contentType">text/html</param>     
+				<param name="inputName">inputStream</param>   
+			</result>	
+		</action>
+		<action name="uploadBasicStudyInfo" method="uploadBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/submissionBasicStudyInfoFile.jsp</result>
 			<result name="input" type="stream">     
 				<param name="contentType">text/html</param>     
 				<param name="inputName">inputStream</param>   

@@ -34,7 +34,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.model.UIList;
 import gov.nih.nci.cbiit.scimgmt.gds.util.UIRuleUtil;
 
 /**
- * Manages Submission creation, updates and deletion.
+ * GDS Plan Page Action Class
  * 
  * @author dinhys
  *
@@ -120,9 +120,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 * The following will be performed.
 	 * 1. Saves user-selected answers for Genomic Data Sharing Plan questions.
 	 * 2. If any repository has been removed, need to remove it from the repository list.
-	 * 2. Update UI Control based on user-selected answers.
-	 * 3. Navigate to Genomic Data Sharing Plan page.
-	 * 4. If Save and next button, navigate to Institutional Certification(s) page.
+	 * 3. Update UI Control based on user-selected answers.
+	 * 4. Navigate to Genomic Data Sharing Plan page.
 	 * 
 	 * @return forward string
 	 */
@@ -186,12 +185,14 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 		}
 
-		setProject(retrieveSelectedProject());
+		if(hasErrors())
+			setProject(retrieveSelectedProject());
 		
 	}
 
 	/**
-	 * Save Genomic Data Sharing Plan and Navigate to IC page. 
+	 * Save Genomic Data Sharing Plan and Navigate to IC page or other
+	 * pages if tabs are hidden
 	 * Invoked from Genomic Data Sharing Plan Save & Next button.
 	 * 
 	 * @return forward string
