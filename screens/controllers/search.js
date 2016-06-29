@@ -8,19 +8,27 @@ $(document).ready(function() {
     });
 
 
+//for legend icon
+
+$('#myTable_wrapper').prepend('<div style="display:inline; float: right;"><img alt="legend for progress icons" src="images/legend-search.gif" /></div>')
+
+
     //for ellipsis on search results
 
-$("#ellipsis").hide();
+$(".ellipsis").hide();
 
 $("#eclick").mouseover(function () {
-    $("#ellipsis").slideDown('slow');
+    $(".ellipsis").slideDown('slow');
 });
 
-$("#ellipsis").mouseleave(function () {
-    $("#ellipsis").slideUp('slow');
+$(".ellipsis").mouseleave(function () {
+    $(".ellipsis").slideUp('slow');
 });
 
 });
+
+
+//delete modal///
 
 
 
