@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <title>Genomic Data Sharing (GDS) Tracking System</title>
@@ -59,31 +60,23 @@
 
 <!-- Fixed navbar -->
 
+    <!-- Fixed navbar -->
+
     <div id="wrap">
 <div class="navbar  navbar-fixed-top" >
    <div class="container">
       <div id="logo" class="logoImage">
-        <img src="images/GDSlogo.png" width="250px;"  alt="National Cancer Institute Genomic Data Sharing Tracking System Logo">
-
+        <img src="images/nci-logo-full.svg" width="450px;"  alt="National Cancer Institute">
         <div id="loginName" style="float:right; padding-top:15px; padding-bottom: 15px; margin-right: 15px;" class="nav navbar-nav">Welcome: <div id="loginID" class="login">Mary Jones</div></div>
-      </div>
+        <div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
 
+        
+      </div>
 
 
  <!--Main Navigation -->
      
-        <div id="navbar" class="navbar-header navbar-default">
-          
-         <!--toggle navigation -- not done yet!?-
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"><a href="home.htm">Home</a></span>
-            <span class="icon-bar"><a href="mySubmissions.htm">My Sumbissions</a></span>
-            <span class="icon-bar"><a href="newSubmission.htm">Create New Submission</a></span>
-            <span class="icon-bar"><a href="search.htm">Search</a></span>
-          </button>
-        end Toggle nav-->
-        </div>
+       <nav>
         <div id="mainNav" class="navbar-collapse collapse" style="display:block;">
           <ul class="nav navbar-nav navbar-main searchNav">
             <li><a href="home.htm">Home</a></li>
@@ -98,8 +91,8 @@
            </div>
            </nav>
           
-    </div> 
-    </div> 
+  
+
 
   <div class="navbar navbar-default2 navbar-fixed-top" >   
 
@@ -139,7 +132,7 @@
                         <div class="col-xs-4">
                         <label for="Program Director">Program Director:</label>
                         <select  class="c-select form-control" name="directorSelect" id="directorSelect">
-                              <option value="" selected disabled>Select Program Director</option>
+                            <option data-placeholder="true">Select Program Director</option>
                             <option>Abrams, Natalie Davidovna (0N)</option>
                             <option>Adjei, Brenda A (F8)</option>  
                             <option>Agarwal, Rajeev K. (2A)</option>
@@ -170,58 +163,29 @@
 
 
 
-                               
+                        <div class="col-xs-4">                  
+                       <label for="Intramural(Z01)/Grant/Contract #:">Intramural(Z01)/Grant/Contract #:</label>
+                        <input type="text" class="form-control" id="grantNumber" ></input>
+                        </div>                   
                   
 </div><!--end form group--> 
-
-<div class="form-group row">
-  <div class="col-xs-4">                  
-  <label for="Choose Type of Submission">Choose Type of Submission:</label></br>
-
-  <label class="radio-inline">
-      <input type="radio" name="optradio" value="extramural">Extramural
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="optradio" value="intramural">Intramural
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="optradio" value="contract">Contract
-    </label>
-  </div>
-  <div class="col-xs-4 desc" id="extramural" >                  
-                       <label for="Grant#:">Grant #</label>
-                        <input type="text" class="form-control" id="grantNumber" placeholder="Example: 1U54CA199092 01"></input>
-                        </div>   
-
-   <div class="col-xs-4 desc" id="intramural">                  
-                       <label for="Intramural Z#:">Intramural Z#:</label>
-                        <input type="text" class="form-control" id="intramural" placeholder="Example: ZIA BC 005148"></input>
-                        </div>   
-                        
-    <div class="col-xs-4 desc" id="contract">                  
-                       <label for="Contract #:">Contract #</label>
-                        <input type="text" class="form-control" id="contractNumber" placeholder="Example: U54CA19909201"></input>
-                        </div>                                            
-</div> <!--end form group-->                                 
 
 
 <div class="form-group row">
                         <div class="col-xs-4">                  
                        <label for="Project/Subproject Title">Project/Subproject Title:</label>
-                        <input type="text" class="form-control" id="projectTitle" placeholder="Type a Key Word to Find Title"></input>
+                        <input type="text" class="form-control" id="projectTitle" ></input>
                         </div>                   
                  
  
                         <div class="col-xs-4">                  
-                       <label for="Principal Investigator">Principal Investigator:</label>
-                        <input type="text" class="form-control" id="investigator" placeholder="Type in First or Last Name"></input>
-                      </div>  
-</div> <!--end form group-->                         
+                       <label for="Principal Investigator">Principal Investigator</label>
+                        <input type="text" class="form-control" id="investigator" ></input>
+                        </div>  
 
-<div class="form-group row">
                         <div class="col-xs-4">                  
-                       <label for="Accession Number">Accession Number:</label>
-                        <input type="text" class="form-control" id="accessionNumber" placeholder="Example: ASE1578"></input>
+                       <label for="Accession Number">Accession Number</label>
+                        <input type="text" class="form-control" id="accessionNumber" ></input>
                         </div>                   
                   
 </div><!--end form group--> 
@@ -245,12 +209,12 @@
     <th width="5%" scope="col" >Intramural/<br/>Grant/Contract</th>
     <th width="16%" scope="col">Project Title</th>
     <th width="11%" scope="col">Principle Investigator</th>
-    <th width="7%" scope="col" >GDS Plan</th>
-    <th width="9%" scope="col" >Data Sharing<br/>  Exception</th>
-    <th width="4%" scope="col" >IC</th>
-    <th width="5%" scope="col" >BSI</th>
+    <th width="9%" scope="col" >GDS Plan</th>
+    <th width="9%" scope="col" >Data<br/> Sharing<br/>  Exception</th>
+    <th width="9%" scope="col" >IC</th>
+    <th width="9%" scope="col" >BSI</th>
      <th width="9%" scope="col" >Repositories</th>
-    <th width="6%" scope="col">Actions</th>
+    <th width="5%" scope="col">Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -258,10 +222,10 @@
     
     <td ><strong><a href="#">P23857.v1</strong></a>
      <a data-toggle="modal" href="#existingSubProjects"></br>
-      <img src="images/details_open.png"></a>&nbsp;Existing Sub-Projects</td>
-    <td  nowrap>1R01CA12356-01</td>
+      <i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Existing Sub-Projects</td>
+    <td  style="white-space: nowrap">1R01CA12356-01</td>
     <td >Therapeutic Resistance to PI3K-alpha Inhibitors</td>
-    <td nowrap ><a href="#">Jones, Mary</a></td>
+    <td style="white-space: nowrap"><a href="#">Jones, Mary</a></td>
    
     <td >
       <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
@@ -283,45 +247,47 @@
         <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
       </div>
     </td>
-    <td nowrap><!-- Trigger the modal with a button -->
-<a data-toggle="modal" href="#myModal"><img src="images/details_open.png"></a>&nbsp;View Details
+    <td style="white-space: nowrap"><!-- Trigger the modal with a button -->
+<a data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Submission Status
   </td>
 
     <td >
-      <div><!--icon div-->
-        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
-        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
-      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
-    </div> <!--icon div-->
+     <div style="white-space: nowrap;"><!--icon div-->
+         &nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
 
+                        <a href="#" class="editor_remove"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>&nbsp;&nbsp;&nbsp;
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"></a>
         
 
-      
-        <div id="ellipsis">
+    </div> <!--icon div-->
+
+    <div class="ellipsis">
     <div class="dropbottom">
-        <div class="dropmid">
-            <ul>
-                <li><a href="newProjectVersion.htm">Add New Version</a>
-                </li>
-                <li><a href="parentProjectsearch.htm">Add New Subproject</a>
-                </li>
-            </ul>
+        <div class="dropmid" style="white-space: nowrap; height: auto;">
+           <a href="newProjectVersion.htm">Add New Version</a><br/>
+               
+               <a href="parentProjectsearch.htm">Add New Subproject</a>
+                
         </div>
     </div>
 </div>  
 
+        
+
+      
+        
     </td>
   </tr>
 <!--main odd row-->
 
   <tr>
  
-    <td nowrap> <a href="#"><strong>P27383.v1</strong></a><br/>
-      <a data-toggle="modal" href="#existingSubProjects"><img src="images/details_open.png"></a>&nbsp;Existing Sub-Projects
+    <td style="white-space: nowrap"> <a href="#"><strong>P27383.v1</strong></a><br/>
+      <a data-toggle="modal" href="#existingSubProjects"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Existing Sub-Projects
     </td>
     <td >XX075609723</td>
     <td >Small Cell Lung Cancer</td>
-    <td nowrap ><a href="#">Yang, Jian</a></td>
+    <td style="white-space: nowrap" ><a href="#">Yang, Jian</a></td>
 
       <td >
       <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
@@ -343,19 +309,29 @@
         <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a>
       </div>
     </td>
-    <td nowrap><!-- Trigger the modal with a button -->
-<a data-toggle="modal" href="#myModal"><img src="images/details_open.png"></a>&nbsp;View Details
+    <td style="white-space: nowrap"><!-- Trigger the modal with a button -->
+<a data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Submission Status
   </td>
     <td >
-    <div><!--icon div-->
-        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
-        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
-      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
-    </div> <!--icon div-->
+    <div style="white-space: nowrap;"><!--icon div-->
+         &nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
 
+                        <a href="#" class="editor_remove"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>&nbsp;&nbsp;&nbsp;
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"></a>
         
 
-      
+    </div> <!--icon div-->
+
+    <div class="ellipsis">
+    <div class="dropbottom">
+        <div class="dropmid" style="white-space: nowrap; height: auto;">
+           <a href="newProjectVersion.htm">Add New Version</a><br/>
+               
+               <a href="parentProjectsearch.htm">Add New Subproject</a>
+                
+        </div>
+    </div>
+</div>  
         
     </td>
   </tr>
@@ -365,7 +341,7 @@
     <td ><a href="#"><strong>P46474</strong></a></td>
     <td >2R13CA58586-06</td>
     <td >Up For A Challenge</td>
-    <td nowrap ><a href="#">Lynch, Tom</a></td>
+    <td style="white-space: nowrap" ><a href="#">Lynch, Tom</a></td>
 
     <td >
       <div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
@@ -387,15 +363,29 @@
         <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
       </div>
     </td>
-   <td nowrap><!-- Trigger the modal with a button -->
-<a data-toggle="modal" href="#myModal"><img src="images/details_open.png"></a>&nbsp;View Details
+   <td style="white-space: nowrap;"><!-- Trigger the modal with a button -->
+<a data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Submission Status
   </td>
     <td >
-      <div><!--icon div-->
-        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
-        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
-      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
+      <div style="white-space: nowrap;"><!--icon div-->
+         &nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
+
+                        <a href="#" class="editor_remove"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>&nbsp;&nbsp;&nbsp;
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"></a>
+        
+
     </div> <!--icon div-->
+
+    <div class="ellipsis">
+    <div class="dropbottom">
+        <div class="dropmid" style="white-space: nowrap; height: auto;">
+           <a href="newProjectVersion.htm">Add New Version</a><br/>
+               
+               <a href="parentProjectsearch.htm">Add New Subproject</a>
+                
+        </div>
+    </div>
+</div>  
     </td>
   </tr>
 <!--main odd row-->
@@ -404,7 +394,7 @@
     <td > <a href="#"><strong>P37474</strong></a></td>
     <td >Z01BC010620</td>
     <td >Genomic Sequencing of Ewing Sarcoma</td>
-    <td nowrap ><a href="#">Smith, John</a></td>
+    <td style="white-space: nowrap" ><a href="#">Smith, John</a></td>
   
       <td >
       <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Completed">
@@ -426,16 +416,29 @@
         <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
       </div>
     </td>
-    <td nowrap><!-- Trigger the modal with a button -->
-<a data-toggle="modal" href="#myModal"><img src="images/details_open.png"></a>&nbsp;View Details
+    <td style="white-space: nowrap"><!-- Trigger the modal with a button -->
+<a data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Submission Status
   </td>
     <td >
-      <div><!--icon div-->
-        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
-        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
-      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
+      <div style="white-space: nowrap;"><!--icon div-->
+         &nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
+
+                        <a href="#" class="editor_remove"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>&nbsp;&nbsp;&nbsp;
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"></a>
+        
+
     </div> <!--icon div-->
 
+    <div class="ellipsis">
+    <div class="dropbottom">
+        <div class="dropmid" style="white-space: nowrap; height: auto;">
+           <a href="newProjectVersion.htm">Add New Version</a><br/>
+               
+               <a href="parentProjectsearch.htm">Add New Subproject</a>
+                
+        </div>
+    </div>
+</div>  
         
 
       
@@ -448,7 +451,7 @@
     <td ><strong><a href="#">P57588</strong></a></td>
     <td >5P01CA34873-03</td>
     <td >Functionally-defined Therapeutic Targets in Diffuse Intrinsic Pontine Glioma</td>
-    <td nowrap ><a href="#">Smith, Armine Karapetian</a></td>
+    <td style="white-space: nowrap" ><a href="#">Smith, Armine Karapetian</a></td>
   
      <td >
       <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
@@ -470,15 +473,29 @@
         <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
       </div>
     </td>
-    <td nowrap><!-- Trigger the modal with a button -->
-<a data-toggle="modal" href="#myModal"><img src="images/details_open.png"></a>&nbsp;View Details
+    <td style="white-space: nowrap"><!-- Trigger the modal with a button -->
+<a data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Submission Status
   </td>
     <td >
-      <div><!--icon div-->
-        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
-        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
-      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
+      <div style="white-space: nowrap;"><!--icon div-->
+         &nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
+
+                        <a href="#" class="editor_remove"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>&nbsp;&nbsp;&nbsp;
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"></a>
+        
+
     </div> <!--icon div-->
+
+    <div class="ellipsis">
+    <div class="dropbottom">
+        <div class="dropmid" style="white-space: nowrap; height: auto;">
+           <a href="newProjectVersion.htm">Add New Version</a><br/>
+               
+               <a href="parentProjectsearch.htm">Add New Subproject</a>
+                
+        </div>
+    </div>
+</div>  
 
         
 
@@ -513,7 +530,7 @@
           <tr style="background:#e6e6e6;">
             <th>Repositories</th>
             <th>Registration Status</th>
-            <th>Project Submission Status</th>
+            <th>Submission Status</th>
             <th>Study Released Status</th>
             <th>Accession Number</th>
           </tr>
@@ -569,8 +586,8 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Sub-Projects for Project ID: P27383.v1</h4>
       </div>
-      <div class="modal-body">
-          <table  width="100%"  cellpadding="0px" cellspacing="0" class="table table-bordered">
+      <div class="modal-body" >
+          <table style="width: 900px;" cellpadding="0px" cellspacing="0" class="table table-bordered">
           <thead>
           <tr class="modalTheader">
             
@@ -578,19 +595,19 @@
             <th width="16%" scope="col">Sub-project Title</th>
             <th width="11%" scope="col">Principle Investigator</th>
             <th width="7%" scope="col" >GDS Plan</th>
-            <th width="9%" scope="col" >Data Sharing<br/>  Exception</th>
-            <th width="4%" scope="col" >IC</th>
-            <th width="5%" scope="col" >BSI</th>
-            <th width="6%" scope="col">Actions</th>
+            <th width="7%" scope="col" >Data<br/> Sharing<br/>  Exception</th>
+            <th width="7%" scope="col" >IC</th>
+            <th width="7%" scope="col" >BSI</th>
+            <th width="10%" scope="col">Actions</th>
           </tr>
           </thead>
           <tbody>
          <tr>
             
-            <td rowspan="2" nowrap><a href="#"><strong>S27383-345.v1</strong></a></td>
+            <td rowspan="2" style="white-space: nowrap"><a href="#"><strong>S27383-345.v1</strong></a></td>
             
             <td >Nurses' Health Study</td>
-            <td nowrap ><a href="#">Jones, Mary</a></td>
+            <td style="white-space: nowrap" ><a href="#">Jones, Mary</a></td>
            
             <td >
               <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
@@ -617,13 +634,28 @@
             <td rowspan="2" >
               <table cellpadding="1px" class="iconTable">
                 <tr>
-                  <td><span class="fa fa-pencil-square-o fa-lg" title="Edit" aria-hidden="true" alt="edit icon" style="margin-bottom: 5px;" /></td>
-                </tr>
-                <tr>
-                  <td><span class="fa fa-trash fa-lg" title="Delete"  aria-hidden="true" alt="delete icon" style="margin-bottom: 5px; color: red;" /></td>
-                </tr>
-              <tr>
-                <td><a href="newProjectVersion.htm"><img src="images/newV.png" height="18px" width="16x" alt="new version icon" title="Add New Version"></a></td>
+                  <td>
+                    <div style="white-space: nowrap;"><!--icon div-->
+         &nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
+
+                        <a href="#" class="editor_remove"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>&nbsp;&nbsp;&nbsp;
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"></a>
+        
+
+    </div> <!--icon div-->
+
+    <div class="ellipsis">
+    <div class="dropbottom">
+        <div class="dropmid" style="white-space: nowrap; height: auto;">
+           <a href="newProjectVersion.htm">Add New Version</a><br/>
+               
+       
+                
+        </div>
+    </div>
+</div>  
+
+                  </td>
               </tr>
              </table>
     </td>
@@ -635,13 +667,13 @@
     href="javascript:toggleStudy4('dsd2', 'imageDivLink1');"
     class="noborder"><img src="images/CriteriaOpen.gif"
     align="bottom" height="10px" width="10px"></a></span><a
-    href="javascript:toggleStudy4('dsd2', 'imageDivLink1');" style="font-size:12px; font-weight: bold;">&nbsp; Sub-Project Repository Submission Details</a>
+    href="javascript:toggleStudy4('dsd2', 'imageDivLink1');" style="font-size:12px; font-weight: bold;">&nbsp; Sub-Project Repository Submission Status</a>
       <div id="dsd2" style="display:none">
       <table width="100%" border="1" cellpadding="3" class="table  table-bordered repoModalTable">     <tbody>
           <tr style="background:#e6e6e6;">
             <th>Repositories</th>
             <th>Registration Status</th>
-            <th>Project Submission Status</th>
+            <th>Submission Status</th>
             <th>Study Released Status</th>
             <th>Accession Number</th>
           </tr>
@@ -694,25 +726,26 @@
     <td ><div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete"> <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></a> </div></td>
     <td ><div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress"> <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a> </div></td>
     <td rowspan="2" ><div><!--icon div-->
-        <span class="fa fa-pencil-square" title="Edit" aria-hidden="true" alt="edit icon" style="font-size: 20px; padding-top:3px; padding-right: 3px;"></span>
-        <span class="fa fa-trash" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
-      <a href="#" id="eclick"><img src="images/ellipsis.png" height="18px" width="16x" alt="open ellipsis" style="padding-bottom: 4px;"></a>
-    </div> <!--icon div-->
+        <div style="white-space: nowrap;"><!--icon div-->
+         &nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
 
+                        <a href="#" class="editor_remove"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>&nbsp;&nbsp;&nbsp;
+      <a href="#" id="eclick"><img src="images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"></a>
         
 
-      
-        <div id="ellipsis">
+    </div> <!--icon div-->
+
+    <div class="ellipsis">
     <div class="dropbottom">
-        <div class="dropmid">
-            <ul>
-                <li><a href="newProjectVersion.htm">Add New Version</a>
-                </li>
+        <div class="dropmid" style="white-space: nowrap; height: auto;">
+           <a href="newProjectVersion.htm">Add New Version</a><br/>
+               
+               <a href="parentProjectsearch.htm">Add New Subproject</a>
                 
-            </ul>
         </div>
     </div>
-</div>  </td>
+</div>  
+        </td>
   </tr>
   <tr>
     <td colspan="6">
@@ -721,13 +754,13 @@
     href="javascript:toggleStudy5('dsd3', 'imageDivLink2');"
     class="noborder"><img src="images/CriteriaOpen.gif"
     align="bottom" height="10px" width="10px"></a></span><a
-    href="javascript:toggleStudy4('dsd3', 'imageDivLink2');" style="font-size:12px; font-weight: bold;">&nbsp; Sub-Project Repository Submission Details</a>
+    href="javascript:toggleStudy4('dsd3', 'imageDivLink2');" style="font-size:12px; font-weight: bold;">&nbsp; Sub-Project Repository Submission Status</a>
       <div id="dsd3" style="display:none">
       <table width="100%" border="1" cellpadding="3" class="table  table-bordered repoModalTable">     <tbody>
           <tr style="background:#e6e6e6;">
             <th>Repositories</th>
             <th>Registration Status</th>
-            <th>Project Submission Status</th>
+            <th>Submission Status</th>
             <th>Study Released Status</th>
             <th>Accession Number</th>
           </tr>
@@ -770,6 +803,7 @@
   </tr>
 <!--main odd row-->
 </table>
+<p>&nbsp;</p>
 
       </div>
       <div class="modal-footer">
@@ -781,7 +815,7 @@
 </div>
 
 
-      
+ 
 
 <!-- FOOTER -->
     <footer class="site-footer">
@@ -831,7 +865,7 @@
 </div>
 </div>
 <div class="row">
-<div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>®</sup></div>
+<div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>Â®</sup></div>
 </div>
 <a class="back-to-top" href="#top" style="display: inline;">TOP</a>
   </div>
