@@ -24,3 +24,9 @@ function enableDisableStudyReleased(submissionStatusId){
 	else{$("#studyRel_"+studyReleasedId).attr('disabled',true);}
 }
 
+ $(function () {
+      $('#repositoryDate .input-group.date').datepicker({
+         orientation: "bottom auto",
+         todayHighlight: true
+      });
+  });

@@ -67,9 +67,13 @@ public interface ApplicationConstants {
 	 public static final Long IC_STUDY_DUL_CHECKLIST_HEALTH_MEDICAL_BIOMEDICAL_ID = 6L;
 	 public static final Long IC_STUDY_DUL_CHECKLIST_DISEASE_SPECIFIC_ID = 13L;
 	 public static final Long IC_STUDY_DUL_CHECKLIST_OTHER_ID = 21L;
+	 public static final Long PROJECT_SUBMISSION_STATUS_INPROGRESS_ID = 12L;
+	 public static final Long PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID = 13L;
+	 public static final Long PROJECT_STUDY_RELEASED_NO_ID = 17L;
 	 
 	 /* String constants */
 	 public static final String NOT_STARTED = "NOTSTARTED"; 
+	 public static final String NOT_APPLICABLE = "NOTAPPL"; 
 	 public static final String NO = "NO"; 
 	 public static final String OTHER = "Other"; 
 	 public static final String DOC_TYPE_EXCEPMEMO = "EXCEPMEMO";
