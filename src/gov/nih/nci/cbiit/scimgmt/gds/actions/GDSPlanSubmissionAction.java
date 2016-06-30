@@ -202,13 +202,13 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		save();
 		
 		if(showPage(ApplicationConstants.PAGE_TYPE_IC))
-			return ApplicationConstants.PAGE_TYPE_IC;
+			return ApplicationConstants.PAGE_TYPE_IC.toLowerCase();
 		
 		if(showPage(ApplicationConstants.PAGE_TYPE_BSI))
-			return ApplicationConstants.PAGE_TYPE_BSI;
+			return ApplicationConstants.PAGE_TYPE_BSI.toLowerCase();
 		
 		if(showPage(ApplicationConstants.PAGE_TYPE_STATUS))
-			return ApplicationConstants.PAGE_TYPE_STATUS;
+			return ApplicationConstants.PAGE_TYPE_STATUS.toLowerCase();
 		
         return SUCCESS;
 	}

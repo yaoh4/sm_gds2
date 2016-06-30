@@ -135,7 +135,9 @@ $("#gds-form").on('click', '#dataSharingPlanUpload', function () {
 		$('div.loadFileHistory').html(result);
 	}
 	else {
-		openFileModal(result);
+		bootbox.alert(result, function() {
+  			return true;
+		});
 	}
 });
 
@@ -163,7 +165,9 @@ $("#gds-form").on('click', '#exceptionMemoUpload', function () {
 		$('div#exceptionMemoDiv').html(result);
 	}
 	else {
-		openFileModal(result);
+		bootbox.alert(result, function() {
+  			return true;
+		});
 	}
 });
 
@@ -172,33 +176,33 @@ $("#gds-form").on('click', '#exceptionMemoUpload', function () {
 function removeDocument(docId, projectId)
 {
 	var result = "";
-	ans = confirm("Are you sure you want to delete this file?");
-	if (ans) {
-	
-		$.ajax({
-			url: "deleteGdsFile.action",
-			type: "post",
-			data: {docId: docId, projectId: projectId},
-			async:   false,
-			success: function(msg){
-				result = $.trim(msg);
-			}, 
-			error: function(){}		
-		});
-		if(result.startsWith("<p")) {
-			$('div.loadFileHistory').html(result);
-		}
-		else {
-			openFileModal(result);
-		}
-	}
+	bootbox.confirm("Are you sure you want to delete this file?", function(ans) {
+		  if (ans) {
+			  $.ajax({
+					url: "deleteGdsFile.action",
+					type: "post",
+					data: {docId: docId, projectId: projectId},
+					async:   false,
+					success: function(msg){
+						result = $.trim(msg);
+					}, 
+					error: function(){}		
+				});
+				if(result.startsWith("<p")) {
+					$('div.loadFileHistory').html(result);
+				}
+				else {
+					openFileModal(result);
+				}
+		  }
+	});
 }
 
 function enableAllCheckbox() {
 	$("#gds-form :checkbox").prop('disabled', false);
 }
 
-function warnGdsPlan() {
+function warnGdsPlan(element) {
 
 	var result = "";
 	var $form, fd;
@@ -219,8 +223,51 @@ function warnGdsPlan() {
 		}
 	});
 	
-	if (result == "" || confirm(result)) {
+	if (result == "") {
 		return true;
 	}
+	bootbox.confirm(result, function(ans) {
+		if (ans) {
+			$('#gds-form').submit();
+			return true;
+		} else {
+			return true;
+		}
+	});
+	return false;
+}
+
+function warnGdsPlanNext(element) {
+
+	var result = "";
+	var $form, fd;
+	$form = $("#gds-form");
+	fd = new FormData($form[0]);
+
+	$.ajax({
+		url : 'warnGdsPlan.action',
+		type : 'post',
+		processData : false,
+		contentType : false,
+		data : fd,
+		async : false,
+		success : function(msg) {
+			result = $.trim(msg);
+		},
+		error : function() {
+		}
+	});
+	
+	if (result == "") {
+		return true;
+	}
+	bootbox.confirm(result, function(ans) {
+		if (ans) {
+			$('#gds-form').attr('action', "saveGdsPlanAndNext").submit();
+			return true;
+		} else {
+			return true;
+		}
+	});
 	return false;
 }

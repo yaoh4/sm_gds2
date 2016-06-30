@@ -32,7 +32,9 @@ $("#basic-study-form").on('click', '#bsiUpload', function () {
 		$('div.loadFileHistory').html(result);
 	}
 	else {
-		openFileModal(result);
+		bootbox.alert(result, function() {
+  			return true;
+		});
 	}
 });
 
@@ -41,24 +43,24 @@ $("#basic-study-form").on('click', '#bsiUpload', function () {
 function removeDocument(docId, projectId)
 {
 	var result = "";
-	ans = confirm("Are you sure you want to delete this file?");
-	if (ans) {
-	
-		$.ajax({
-			url: "deleteBsiFile.action",
-			type: "post",
-			data: {docId: docId, projectId: projectId},
-			async:   false,
-			success: function(msg){
-				result = $.trim(msg);
-			}, 
-			error: function(){}		
-		});
-		if(result.startsWith("<p")) {
-			$('div.loadFileHistory').html(result);
-		}
-		else {
-			openFileModal(result);
-		}
-	}
+	bootbox.confirm("Are you sure you want to delete this file?", function(ans) {
+		  if (ans) {
+			  $.ajax({
+					url: "deleteBsiFile.action",
+					type: "post",
+					data: {docId: docId, projectId: projectId},
+					async:   false,
+					success: function(msg){
+						result = $.trim(msg);
+					}, 
+					error: function(){}		
+				});
+				if(result.startsWith("<p")) {
+					$('div.loadFileHistory').html(result);
+				}
+				else {
+					openFileModal(result);
+				}
+		  }
+	}); 
 }

@@ -1,6 +1,9 @@
 var prevRadio;
+var element;
+var params;
 function applyUiRule() {
-	var element = arguments[0];
+	element = arguments[0];
+	params = arguments;
 	var exception = false;
 	if((element.id == 2 || element.id == 3 || element.id == 5 || element.id == 6 || element.id == 7)
 			&& $("#11").is(":visible")) {
@@ -17,16 +20,25 @@ function applyUiRule() {
 		}
 		if(op == "warn") {
 			if(!reverse) {
-				if(!confirm(arguments[i+1])) {
-					if(element.type == 'checkbox' && element.checked) {
-						element.checked = false;
+				bootbox.confirm(arguments[i+1], function(ans) {
+					if (ans) {
+						prevRadio = element.id;
+						var newParam = [element];
+						for(var j = i + 3; j < params.length; j++) {
+							newParam.push(params[j]);
+						}
+						applyUiRule.apply(this,newParam);
+					} else {
+						if(element.type == 'checkbox' && element.checked) {
+							element.checked = false;
+						}
+						if(element.type == 'radio') {
+							element.checked = "";
+							$('#' + prevRadio).prop("checked", true);
+						}
 					}
-					if(element.type == 'radio') {
-						element.checked = "";
-						$('#' + prevRadio).prop("checked", true);
-					}
-					return;
-				}
+				});
+				return false;
 			}
 			prevRadio = arguments[0].id;
 			i = i + 3;
