@@ -78,7 +78,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		
 		// Save user answer and comments
 		getProject().setBsiReviewedFlag(bsiReviewedFlag);
-		getProject().setComments(comments); // TODO Missing BSI Comment in DB?
+		getProject().setBsiComments(comments); 
 
 		super.saveProject(getProject());
 		
@@ -239,7 +239,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		bsiReviewedFlag = getProject().getBsiReviewedFlag();
 		
 		// Set comments
-		comments = getProject().getPlanComments();
+		comments = getProject().getBsiComments();
 
 	}
 

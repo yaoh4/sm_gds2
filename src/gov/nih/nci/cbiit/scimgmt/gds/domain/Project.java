@@ -43,6 +43,7 @@ public class Project implements java.io.Serializable {
 	private Date sciRevApprovalRcvdDate;
 	private String parentAccessionNum;
 	private String comments;
+	private String bsiComments;
 	private String planComments;
 	private String bsiReviewedFlag;
 	private Long versionNum;
@@ -285,6 +286,15 @@ public class Project implements java.io.Serializable {
 
 	public void setPlanComments(String planComments) {
 		this.planComments = planComments;
+	}
+	
+	@Column(name = "BSI_COMMENTS", length = 4000)
+	public String getBsiComments() {
+		return this.bsiComments;
+	}
+
+	public void setBsiComments(String bsiComments) {
+		this.bsiComments = bsiComments;
 	}
 	
 	@Column(name = "BSI_REVIEWED_FLAG", length = 4)
@@ -545,5 +555,4 @@ public class Project implements java.io.Serializable {
 	public void setApplId(Long applId) {
 		this.applId = applId;
 	}
-
 }
