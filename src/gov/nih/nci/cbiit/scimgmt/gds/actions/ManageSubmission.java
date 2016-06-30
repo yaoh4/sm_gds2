@@ -185,9 +185,8 @@ public class ManageSubmission extends BaseAction {
 				show = false;
 			}
 		}
-		
-		// If there are no repository selected, don't show the repository page.
-		if (project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).isEmpty()) {
+		else if (project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).isEmpty()) {
+			// If there are no repository selected, don't show the repository page.
 			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_STATUS)) {
 				show = false;
 			}
