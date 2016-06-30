@@ -14,10 +14,11 @@
 <title><tiles:insertAttribute name="title" /></title>
 <script src="<s:url value="/scripts/jquery-1.12.3.min.js" />"></script>
 <script src="<s:url value="/scripts/bootstrap-3.3.6.min.js" />"></script>
-<!-- <script type="text/javascript" src="<s:url value="/scripts/tooltipjquery.js" />"></script> -->
-<script type="text/javascript" src="<s:url value="/scripts/theme.js" />"></script>
-<script src="<s:url value="/scripts/bootstrap-datepicker.js-1.6.1.min.js" />"></script>
+<script src="<s:url value="/scripts/bootbox-4.4.0.min.js" />"></script>
+<script src="<s:url value="/scripts/bootstrap-datepicker-1.6.1.min.js" />"></script>
 <script src="<s:url value="/scripts/jquery.validate-1.15.0.min.js" />"></script>
+<script type="text/javascript" src="<s:url value="/scripts/jquery.are-you-sure-1.9.0.js" />"></script>
+<script type="text/javascript" src="<s:url value="/scripts/theme.js" />"></script>
 
 <link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/non-responsive.css" />" rel="stylesheet" type="text/css" media="screen" />

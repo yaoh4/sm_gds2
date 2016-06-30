@@ -2,7 +2,7 @@
 
 <div class="container">
 	<!--Begin Form -->
-	<s:form id="general_form" name="general_form" action="viewProject.action" method="post" data-toggle="validator" role="form">
+	<s:form id="general_form" name="general_form" cssClass="dirty-check" action="viewProject.action" method="post" data-toggle="validator" role="form" >
 		<!-- Page navbar -->
 		<s:hidden name="projectId" value="%{project.id}"/>
 		<s:hidden name="applId" id="applId" value="%{project.applId}"/>
@@ -225,6 +225,4 @@
 <!-- /container -->
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>  
 <script type="text/javascript" src="<s:url value="/controllers/general.js"/>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>

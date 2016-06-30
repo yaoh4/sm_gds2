@@ -7,7 +7,7 @@
 			<s:submit value=" Save & Next »  " action="manage/saveRepositoryStatusAndNext" cssClass="btn btn-project-primary" />
 	</div>
 	
-	<s:form name="submission_status_form" id="submission_status_form" action="navigateToRepositoryStatus" cssClass="form-horizontal">
+	<s:form name="submission_status_form" id="submission_status_form" action="navigateToRepositoryStatus" cssClass="form-horizontal dirty-check">
 		<s:hidden name="projectId" value="%{project.id}"/>
 		<!-- Begin Panel -->
 		<div class="col-md-12">
@@ -97,4 +97,3 @@
 </div>
 <!-- /container -->
 <script type="text/javascript" src="<s:url value="/controllers/submissionStatus.js" />"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script> 

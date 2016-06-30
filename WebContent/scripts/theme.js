@@ -14,51 +14,39 @@
 
 
 // starting the script on page load
-$(document).ready(function(){
+	$(document).ready(function(){
     
-  
-
 //for all pages when user doesn't save on form//
-
-$(function() {
-
-    $(document).ready(function() {
-    formmodified=0;
-    $('form *').change(function(){
-        formmodified=1;
-    });
-    window.onbeforeunload = confirmExit;
-    function confirmExit() {
-        if (formmodified == 1) {
-            return "New information not saved. Do you wish to leave the page?";
-        }
-    }
-    $("input[name='commit']").click(function() {
-        formmodified = 0;
-    });
-});
-
-});
-
+		$('form.dirty-check').areYouSure();
+		/*
+	    formmodified=0;
+	    $('form *').change(function(){
+	        formmodified=1;
+	    });
+	    window.onbeforeunload = confirmExit;
+	    function confirmExit() {
+	        if (formmodified == 1) {
+	            return "New information not saved. Do you wish to leave the page?";
+	        }
+	    }
+	    $("input[name='commit']").click(function() {
+	        formmodified = 0;
+	    });
+	   */ 
 
 //pop up new window
+        $('.js-newWindow').click(function (event) {
+            event.preventDefault();
+
+            var $this = $(this);
+
+            var url = $this.attr("href");
+            var windowName = "popUp";
+            var windowSize = $this.data("popup");
 
 
-        $(document).ready(function(){
-            $('.js-newWindow').click(function (event) {
-                event.preventDefault();
- 
-                var $this = $(this);
- 
-                var url = $this.attr("href");
-                var windowName = "popUp";
-                var windowSize = $this.data("popup");
-
- 
-                window.open(url, windowName, windowSize);
-            });
+            window.open(url, windowName, windowSize);
         });
-
-
+	});
 
  
