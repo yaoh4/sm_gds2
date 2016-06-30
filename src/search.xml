@@ -9,7 +9,11 @@
 			 <result name="success" type="tiles">home</result>
 		</action>
 		
-		<action name="search" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+		<action name="navigateToSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+			 <result name="success" type="tiles">search</result>
+		</action>
+		
+		<action name="search" method="search" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
 			 <result name="success" type="tiles">search</result>
 		</action>
 		

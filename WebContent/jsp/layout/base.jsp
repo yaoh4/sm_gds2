@@ -16,16 +16,19 @@
 <script src="<s:url value="/scripts/bootstrap-3.3.6.min.js" />"></script>
 <script src="<s:url value="/scripts/bootbox-4.4.0.min.js" />"></script>
 <script src="<s:url value="/scripts/bootstrap-datepicker-1.6.1.min.js" />"></script>
+<script src="<s:url value="/scripts/datatables-1.10.12.min.js" />"></script>
 <script src="<s:url value="/scripts/jquery.validate-1.15.0.min.js" />"></script>
-<script type="text/javascript" src="<s:url value="/scripts/jquery.are-you-sure-1.9.0.js" />"></script>
-<script type="text/javascript" src="<s:url value="/scripts/theme.js" />"></script>
+<script src="<s:url value="/scripts/jquery.are-you-sure-1.9.0.js" />"></script>
+<script src="<s:url value="/scripts/theme.js" />"></script>
 
 <link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <!-- <link href="<s:url value="/stylesheets/non-responsive.css" />" rel="stylesheet" type="text/css" media="screen" /> -->
 <link href="<s:url value="/stylesheets/bootstrap-datepicker-1.6.1.min.css" />" rel="stylesheet" type="text/css" media="screen" />
+<link href="<s:url value="/stylesheets/datatables-1.10.12.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/font-awesome-4.6.3.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
 <link href="<s:url value="/stylesheets/custom.css" />" rel="stylesheet" type="text/css" media="screen" />
+<link href="<s:url value="/stylesheets/datatable.css" />" rel="stylesheet" type="text/css" media="screen" />
 
 <s:head />
 

@@ -1,11 +1,12 @@
 package gov.nih.nci.cbiit.scimgmt.gds.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 
 public class SubmissionSearchCriteria {
 
 	private Long submissionFromId;
 	private Long pdNpnId;
-	private Long intraExtraContractId;
 	private String applicationNum;
 	private String projectTitle;
 	private String accessionNumber;
@@ -13,17 +14,27 @@ public class SubmissionSearchCriteria {
 
 	public SubmissionSearchCriteria(){}
 
-	public SubmissionSearchCriteria(Long submissionFromId, Long pdNpnId, Long intraExtraContractId,
+	public SubmissionSearchCriteria(Long submissionFromId, Long pdNpnId, 
 			String applicationNum, String projectTitle, String accessionNumber, String piFirstOrLastName) {
 		this.submissionFromId = submissionFromId;
 		this.pdNpnId = pdNpnId;
-		this.intraExtraContractId = intraExtraContractId;
 		this.applicationNum = applicationNum;
 		this.projectTitle = projectTitle;
 		this.accessionNumber = accessionNumber;
 		this.piFirstOrLastName = piFirstOrLastName;
 	}
 
+	/**
+	 * Checks if no search criteria is provided
+	 * 
+	 * @return true, if is blank
+	 */
+	public boolean isBlank() {
+		return submissionFromId == null && pdNpnId == null && StringUtils.isBlank(applicationNum)
+				&& StringUtils.isBlank(projectTitle) && StringUtils.isBlank(accessionNumber)
+				&& StringUtils.isBlank(piFirstOrLastName);
+	}
+	
 	public Long getSubmissionFromId() {
 		return submissionFromId;
 	}
@@ -38,14 +49,6 @@ public class SubmissionSearchCriteria {
 
 	public void setPdNpnId(Long pdNpnId) {
 		this.pdNpnId = pdNpnId;
-	}
-
-	public Long getIntraExtraContractId() {
-		return intraExtraContractId;
-	}
-
-	public void setIntraExtraContractId(Long intraExtraContractId) {
-		this.intraExtraContractId = intraExtraContractId;
 	}
 
 	public String getApplicationNum() {

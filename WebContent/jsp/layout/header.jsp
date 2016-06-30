@@ -42,13 +42,12 @@
       				<div id="verisonNumber" style="display:inline-block;">&nbsp;&nbsp;&nbsp;Version 
 					<s:property value="%{project.versionNum}" /> (ID: <s:property value="%{project.id}" />)</div>
       				</div></div>
+      				<s:include value="/jsp/layout/subnavbar.jsp" />
 				</s:else>
       		</s:if>
       		<s:else>
-      			<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>&nbsp;</h3></div></div>
+      			<div class="searchHeader" id="pageHeader"><div class="titleWrapper container"><h3>Project Search</h3></div></div>
       		</s:else>
-      		
-			<s:include value="/jsp/layout/subnavbar.jsp" />
 			
 		</div>
 		
