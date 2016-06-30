@@ -45,24 +45,23 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * Validates Repository submission save.
 	 */
 	public void validateSave(){
-		
+
 		boolean allStudyReleased = true;
 		boolean isGdsPlanCompleted = true;
 		boolean isInstitutionalCertificationsCompleted = true;
 		boolean isBasciStudyCompleted = true;		
 
 		for(RepositoryStatus repositoryStatus : getProject().getRepositoryStatuses()){
-			
+
 			//Anticipated submission date validation.
-			if((repositoryStatus.getLookupTByDataSubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID
-					|| repositoryStatus.getLookupTByDataSubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID)
+			if(repositoryStatus.getLookupTByDataSubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID
 					&& repositoryStatus.getAnticipatedSubmissionDate() == null){
 
 				if(!getActionErrors().contains(getText("anticipated.submission.date.required"))){
 					this.addActionError(getText("anticipated.submission.date.required"));
 				}				 				
 			}
-			
+
 			//Comments cannot be greater than 2000 characters.
 			if(!StringUtils.isEmpty(repositoryStatus.getComments())) {
 				if(repositoryStatus.getComments().length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
@@ -71,32 +70,23 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 					}
 				}
 			}
-			
+
 			if(repositoryStatus.getLookupTByStudyReleasedId().getId() == ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID){
 				allStudyReleased = false;
 			}
 		}	
-		
+
 		//The system will validate that the 'Genomic Data Sharing', 'Institutional Certifications' and the 'Basic Study Info' pages are completed, 
 		//when the user marks the 'Study Release' on all repositories to ‘Yes' and then attempts to save the Submission Status page.
 		//Todo:Get the values of isGdsPlanCompleted , isInstitutionalCertificationsCompleted and isBasciStudyCompleted from some service.
-		if(allStudyReleased && (!isGdsPlanCompleted || !isInstitutionalCertificationsCompleted || !isBasciStudyCompleted)){
-			
-			if(!isGdsPlanCompleted){
-				this.addActionError(getText("gdsplan.not.completed.error")); 
-			}
-			
-			if(!isInstitutionalCertificationsCompleted){
-				this.addActionError(getText("ic.not.completed.error")); 
-			}
-			
-			if(!isBasciStudyCompleted){
-				this.addActionError(getText("bsi.not.completed.error")); 
-			}
+		if(allStudyReleased && (!isGdsPlanCompleted || !isInstitutionalCertificationsCompleted || !isBasciStudyCompleted)){	
+
+			this.addActionError(getText("gdsplan.ic.bsi.not.completed.error")); 			
 		}
-		
+
 		if(hasActionErrors()){
 			setUpStatusLists();
+			setProject(retrieveSelectedProject());
 		}
 	}
 
@@ -148,11 +138,10 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		
 		for(RepositoryStatus repositoryStatus : project.getRepositoryStatuses()){
 			repositoryStatus.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
-			repositoryStatus.setCreatedDate(new Date());
 			repositoryStatus.setProject(project);
 		}		
 		super.saveProject(project);
-		setProject(project);
+		setProject(retrieveSelectedProject());
 		setUpStatusLists();	
 
 	}
@@ -205,7 +194,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	public void setUpDbGapRepositoryStatus(){
 
 		logger.debug("Adding DbGaP Repository status.");		
-		getProject().getRepositoryStatuses().add(createNewRepositoryStatus(true,ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID));
+		getProject().getRepositoryStatuses().add(createNewRepositoryStatus(true,ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID,null));
 	}
 
 	/**
@@ -226,10 +215,15 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelection()){
 
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){	
+				
+				//If its an 'Other' repository then set the OtherRepositoryName.
+				String OtherRepositoryName = "";				
+				if(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){
+					OtherRepositoryName = planAnswerSelection.getPlanQuestionsAnswer().getDisplayText() + " - " +planAnswerSelection.getOtherText();
+				}
 
 				if(!savedRepositoryStatuses.contains(planAnswerSelection.getPlanQuestionsAnswer().getId())){
-
-					getProject().getRepositoryStatuses().add(createNewRepositoryStatus(false,planAnswerSelection.getPlanQuestionsAnswer().getQuestionId(),planAnswerSelection.getPlanQuestionsAnswer().getId()));
+					getProject().getRepositoryStatuses().add(createNewRepositoryStatus(false,planAnswerSelection.getPlanQuestionsAnswer().getQuestionId(),planAnswerSelection.getPlanQuestionsAnswer().getId(),OtherRepositoryName));
 				}
 			}
 		}		
@@ -237,15 +231,18 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	
 	/**
 	 * Create a new default repository status.
+	 * @param isDbGap
 	 * @param questionId
 	 * @param id
-	 * @return repositoryStatus
+	 * @param OtherRepositoryName
+	 * @return
 	 */
-	public RepositoryStatus createNewRepositoryStatus(boolean isDbGap, Long questionId, Long id){
+	public RepositoryStatus createNewRepositoryStatus(boolean isDbGap, Long questionId, Long id, String OtherRepositoryName){
 		
 		logger.debug("Creating a new repository status.");
 		
 		RepositoryStatus repositoryStatus = new RepositoryStatus();
+		
 		//Setting default values.
 		repositoryStatus.setLookupTByRegistrationStatusId(lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 		
@@ -258,6 +255,11 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		
 		repositoryStatus.setLookupTByStudyReleasedId(lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));			
 		repositoryStatus.setPlanQuestionAnswerTByRepositoryId(PlanQuestionList.getAnswerById(questionId,id));
+		
+		//Setting other repository name.
+		if(StringUtils.isNotBlank(OtherRepositoryName)){
+			repositoryStatus.getPlanQuestionAnswerTByRepositoryId().setDisplayText(OtherRepositoryName);
+		}
 		
 		return repositoryStatus;		
 	}

@@ -315,8 +315,7 @@ public class Project implements java.io.Serializable {
 		this.versionNum = versionNum;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE", nullable = false, length = 7)
+	@Transient
 	public Date getCreatedDate() {
 		return this.createdDate;
 	}

@@ -10,7 +10,7 @@
 			<s:submit value=" Save " action="manage/saveGeneralInfo"
 				id="general_saved" cssClass="saved btn btn-default" />
 
-			<s:submit value="Save & Next"
+			<s:submit value=" Save & Next »  "
 				action="manage/saveGeneralInfoAndNext" id="general_saved_next"
 				cssClass="btn btn-project-primary" />
 		</div>
@@ -214,7 +214,7 @@
 			<s:submit value=" Save " namespace="/manage" action="saveGeneralInfo"
 				id="general_saved" cssClass="saved btn btn-default" />
 
-			<s:submit value="Save & Next" namespace="/manage"
+			<s:submit value=" Save & Next »  " namespace="/manage"
 				action="saveGeneralInfoAndNext" id="general_saved_next"
 				cssClass="btn btn-project-primary" />
 		</div>

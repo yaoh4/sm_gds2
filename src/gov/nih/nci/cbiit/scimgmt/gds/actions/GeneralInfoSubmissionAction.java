@@ -116,6 +116,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		project = super.saveProject(project);
 		setProject(project);
 		loadGeneralInfoFromGranstContractVw();
+		setProjectId(project.getId().toString());
 	}
 
 	/**

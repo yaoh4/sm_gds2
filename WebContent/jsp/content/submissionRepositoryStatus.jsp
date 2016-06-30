@@ -2,12 +2,11 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 <div class="container">
+<s:form name="submission_status_form" id="submission_status_form" action="navigateToRepositoryStatus" cssClass="form-horizontal dirty-check">
 	<div class="pageNav">	
 			<s:submit value=" Save " action="manage/saveRepositoryStatus" cssClass="saved btn btn-default" />								
 			<s:submit value=" Save & Next »  " action="manage/saveRepositoryStatusAndNext" cssClass="btn btn-project-primary" />
-	</div>
-	
-	<s:form name="submission_status_form" id="submission_status_form" action="navigateToRepositoryStatus" cssClass="form-horizontal dirty-check">
+	</div>	
 		<s:hidden name="projectId" value="%{project.id}"/>
 		<!-- Begin Panel -->
 		<div class="col-md-12">

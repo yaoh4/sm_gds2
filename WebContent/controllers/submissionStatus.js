@@ -8,7 +8,10 @@ function enableDisableSubmissionStatus(registrationId){
 	if(registrationStatus == "Completed" || registrationStatus == "Not Applicable"){   
 		$("#projStatus_"+submissionId).attr('disabled',false);
 	}
-	else{$("#projStatus_"+submissionId).attr('disabled',true);}	
+	else{
+		$("#projStatus_"+submissionId).val('13');
+		$("#projStatus_"+submissionId).attr('disabled',true);
+		}	
 	
 	enableDisableStudyReleased("projStatus_"+submissionId);
 }
@@ -21,7 +24,10 @@ function enableDisableStudyReleased(submissionStatusId){
 	if(submissionStatus == "Completed" || submissionStatus == "Not Applicable"){   
 		$("#studyRel_"+studyReleasedId).attr('disabled',false);
 	}
-	else{$("#studyRel_"+studyReleasedId).attr('disabled',true);}
+	else{
+		$("#studyRel_"+studyReleasedId).val('17');
+		$("#studyRel_"+studyReleasedId).attr('disabled',true);
+		}
 }
 
  $(function () {
@@ -30,3 +36,15 @@ function enableDisableStudyReleased(submissionStatusId){
          todayHighlight: true
       });
   });
+  
+  jQuery(function ($) {        
+  $('form').bind('submit', function () {
+    $(this).find(':input').prop('disabled', false);	
+  });
+});
+
+$(document).ready(function () { 
+	jQuery('#submission_status_form select[name*=lookupTByRegistrationStatusId]').each(function () { 
+    enableDisableSubmissionStatus(this.id);
+	});
+});
