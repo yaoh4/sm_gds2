@@ -144,11 +144,11 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 		}
 		
-		populatePlanAnswerSelection();
-
 		// Call method to remove files and DB objects based on old and new user selection
 		warnOnly = false;
 		performDataCleanup();
+
+		populatePlanAnswerSelection();
 
 		super.saveProject(getProject());
 		
@@ -455,9 +455,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 * @throws Exception 
 	 */
 	private void populatePlanAnswerSelection() throws Exception{
-		
-		populateSelectedRemovedSets();
-		
+				
 		for(Long id: oldSet) {
 			getProject().getPlanAnswerSelection().remove(getProject().getPlanAnswerSelectionByAnswerId(id));
 		}
@@ -561,11 +559,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		// If the answer to "Will there be any data submitted?" is changed from Yes to No.
 		if(oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) && newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID)) {
 			// a) The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents.
+			gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, getProject().getId());
 			if(warnOnly) {
-				sb.append("The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents. ");
+				if(gdsPlanFile != null && !gdsPlanFile.isEmpty())
+					sb.append("Uploaded Data Sharing Plan and History of Uploaded Documents. <br>");
 			}
 			else {
-				gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, getProject().getId());
 				for(Document document: gdsPlanFile) {
 					setDocId(document.getId());
 					deleteFile();
@@ -573,11 +572,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 
 			// b) The system will delete all uploaded Institutional Certifications documents.
+			List<Document> icFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, getProject().getId());
 			if(warnOnly) {
-				sb.append("The system will delete all uploaded Institutional Certifications documents. ");
+				if(icFile != null && !icFile.isEmpty())
+					sb.append("All uploaded Institutional Certification documents. <br>");
 			}
 			else {
-				List<Document> icFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, getProject().getId());
 				for(Document document: icFile) {
 					setDocId(document.getId());
 					deleteFile();
@@ -587,7 +587,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			
 			// c) The system will delete all Institutional Certifications and Data Use Limitations.
 			if(warnOnly) {
-				sb.append("The system will delete all Institutional Certifications and Data Use Limitations. ");
+				if(getProject().getInstitutionalCertifications() != null && !getProject().getInstitutionalCertifications().isEmpty())
+					sb.append("All Institutional Certifications and Data Use Limitations. <br>");
 			}
 			else {
 				getProject().getInstitutionalCertifications().clear();
@@ -595,18 +596,20 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			
 			// d) The system will delete answers to Has the GPA reviewed the Basic Study Information?
 			if(warnOnly) {
-				sb.append("The system will delete answers to Has the GPA reviewed the Basic Study Information. ");
+				if(StringUtils.isNotBlank(getProject().getBsiReviewedFlag()))
+					sb.append("Answer to Has the GPA reviewed the Basic Study Information. <br>");
 			}
 			else {
 				getProject().setBsiReviewedFlag("");
 			}
 			
 			// e) The system will delete the uploaded Basic Study Info and the History of Uploaded Documents.
+			List<Document> bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, getProject().getId());
 			if(warnOnly) {
-				sb.append("The system will delete the uploaded Basic Study Info and the History of Uploaded Documents. ");
+				if(bsiFile != null && !bsiFile.isEmpty())
+					sb.append("Uploaded Basic Study Info and the History of Uploaded Documents. <br>");
 			}
 			else {
-				List<Document> bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, getProject().getId());
 				for(Document document: bsiFile) {
 					setDocId(document.getId());
 					deleteFile();
@@ -614,13 +617,14 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 			
 			// f) Remove repositories that were deleted except dbGaP
+			Set<Long> removeSet = new HashSet<Long>();
+			removeSet.addAll(oldSet);
+			removeSet.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
 			if(warnOnly) {
-				sb.append("Remove repositories except dbGaP. ");
+				if(!removeSet.isEmpty())
+					sb.append("Repositories except dbGaP. <br>");
 			}
 			else {
-				Set<Long> removeSet = new HashSet<Long>();
-				removeSet.addAll(oldSet);
-				removeSet.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
 				removeRepositoryStatuses(removeSet);
 			}
 			
@@ -642,8 +646,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			// a) The system will delete all DUL(s) created that contains DUL type of 
 			//    "Health/Medical/Biomedical", "Disease-specific" and/or "Other". 
 			if(warnOnly) {
-				sb.append("The system will delete all DUL(s) created that contains DUL type of " +
-							"Health/Medical/Biomedical, Disease-specific and/or Other. ");
+				sb.append("All DUL(s) created that contains DUL type of " +
+							"Health/Medical/Biomedical, Disease-specific and/or Other. <br>");
 			} else {
 				for(InstitutionalCertification ic: getProject().getInstitutionalCertifications()) {
 					for(Study study: ic.getStudies()) {
@@ -667,11 +671,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		// remove Exception Memo
 		if((newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) || newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID))
 				&& oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID)) {
+			excepMemoFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, getProject().getId());
 			if(warnOnly) {
-				sb.append("The system will delete the uploaded Exception Memo. ");
+				if(excepMemoFile != null && !excepMemoFile.isEmpty())
+					sb.append("Uploaded Exception Memo. <br>");
 			}
 			else {
-				excepMemoFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, getProject().getId());
 				if(excepMemoFile != null && !excepMemoFile.isEmpty()) {
 					setDocId(excepMemoFile.get(0).getId());
 					deleteFile();
@@ -680,10 +685,13 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		}
 		
 		if(sb.length() > 0) {
-			sb.append("Would you like to proceed?");
+			sb.append("<br> Do you wish to continue?");
+			String warningMessage = getText("gds.warn.message") + "<br><br>" + sb.toString();
+			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
+		} else {
+			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
 		}
-		inputStream = new ByteArrayInputStream(sb.toString().getBytes("UTF-8"));
-
+		
 		return SUCCESS;
 	}
 

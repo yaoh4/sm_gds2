@@ -244,44 +244,6 @@
 	</div>
 </s:form>
 
-<!-- File Modal 
-<div id="fileModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel">
-  <div class="modal-dialog">
-   <div class="modal-content">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true" title="warning sign"></i>&nbsp;&nbsp;
-        <h3 id="fileModalLabel">File Upload Message</h3>
-    </div>
-    <div id="fileModalId" class="modal-body">
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    </div>
-  </div>
- </div>
-</div>	
--->
-<!-- Confirmation Modal 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                 <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true" title="warning sign"></i>&nbsp;&nbsp;
-                 <h3 class="modal-title" id="myModalLabel">Are you sure you want to proceed?</h3>
-            </div>
-            <div id="confirmModalId" class="modal-body">
-                 <h5>Are you sure?</h5>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="btnDeleteYes" href="#">Ok</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
--->
 <script type="text/javascript"
 	src="<s:url value="/scripts/ckeditor/ckeditor.js" />"></script>
 <script type="text/javascript"
