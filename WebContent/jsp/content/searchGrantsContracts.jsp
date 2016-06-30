@@ -10,15 +10,14 @@
 <title>Select Intramural (Z01)/Grant/Contract #</title>
 
 <!-- Bootstrap -->
-<link href="<s:url value="/stylesheets/bootstrap.min.css" />"
+<link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />"
 	rel="stylesheet" type="text/css" media="screen" />
-<link href="<s:url value="/stylesheets/non-responsive.css" />"
+<!-- <link href="<s:url value="/stylesheets/non-responsive.css" />"
+	rel="stylesheet" type="text/css" media="screen" />-->
+<link href="<s:url value="/stylesheets/bootstrap-datepicker-1.6.1.min.css" />"
 	rel="stylesheet" type="text/css" media="screen" />
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+<link href="<s:url value="/stylesheets/font-awesome-4.6.3.min.css" />"
+	rel="stylesheet" type="text/css" media="screen" />
 <link
 	href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic'
 	rel='stylesheet' type='text/css'>
@@ -209,13 +208,9 @@
 		}
 		</script>
 		<script type="text/javascript"
-			src="<s:url value="/scripts/tooltipjquery.js" />"></script>
+			src="<s:url value="/scripts/jquery-1.12.3.min.js" />"></script>
 		<script type="text/javascript"
-			src="<s:url value="/scripts/bootstrap.min.js" />"></script>
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+			src="<s:url value="/scripts/bootstrap-3.3.6.min.js" />"></script>
 
 		<script>
 			$(document).ready(function() {

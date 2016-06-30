@@ -21,7 +21,7 @@
 <script type="text/javascript" src="<s:url value="/scripts/theme.js" />"></script>
 
 <link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
-<link href="<s:url value="/stylesheets/non-responsive.css" />" rel="stylesheet" type="text/css" media="screen" />
+<!-- <link href="<s:url value="/stylesheets/non-responsive.css" />" rel="stylesheet" type="text/css" media="screen" /> -->
 <link href="<s:url value="/stylesheets/bootstrap-datepicker-1.6.1.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/font-awesome-4.6.3.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>

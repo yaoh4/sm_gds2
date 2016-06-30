@@ -507,7 +507,6 @@ WebContent/scripts/tooltipjquery.js -text
 WebContent/scripts/validator.js -text
 WebContent/stylesheets/bootstrap-3.3.6.min.css -text
 WebContent/stylesheets/bootstrap-datepicker-1.6.1.min.css -text
-WebContent/stylesheets/bootstrap.min.css -text
 WebContent/stylesheets/custom.css -text
 WebContent/stylesheets/datatable.css -text
 WebContent/stylesheets/font-awesome-4.6.3.min.css -text
