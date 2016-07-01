@@ -1034,4 +1034,19 @@ border-color:#fff transparent;
   font-size: 12px;
 }
 
+fieldset.gdsErrorMessage {
+	border: 2px solid #E9E9E9;
+	padding: 5px 5px 5px 130px;
+	border-radius: 0.6em;
+	margin: 0px 100px 10px 135px;
+	text-align: left;
+}
+
+fieldset legend.gdsErrorMessageLegend {
+	margin-bottom: 10px;
+	width: 75px;
+	font-size: 1.7rem;
+	font-weight: 700;
+	display: inline;
+}
 
