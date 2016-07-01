@@ -203,6 +203,8 @@
 				window.opener.$("#applId").val(json.applId);			
 			}
 			
+			window.opener.$('#clearGrantsContractsId').prop('disabled', false);	
+			
 			window.close();
 			
 		}

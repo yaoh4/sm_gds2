@@ -70,7 +70,7 @@
 								(Z01)/Grant/Contract #</label>
 							<div class="input-group2">
 							
-							<s:textfield name="project.applicationNum" cssClass="form-control" readOnly="true" id="grantsContractNum" placeholder="Click on Search Icon to Find # " value="%{project.applicationNum}"/>
+							<s:textfield name="project.applicationNum" cssClass="form-control" readOnly="true" id="grantsContractNum" placeholder="Click on Search Icon" value="%{project.applicationNum}"/>
 							<span class="input-group-btn"><a href="#" onclick="openGrantsContractsSearchPage()">
 										<button class="btn btn-default" type="button">
 											<i class="fa fa-search" aria-hidden="true"></i>
@@ -78,7 +78,7 @@
 								</a></span>
 								
 								<span class="input-group-btn"><a href="#" onclick="clearGrantsContracts()" class="btnDelete">
-										<button class="btn btn-default" type="button">
+										<button class="btn btn-default" type="button" id="clearGrantsContractsId">
 											<i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i>
 										</button>
 								</a></span>	 

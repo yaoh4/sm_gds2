@@ -58,7 +58,8 @@ function clearData(){
 	$("#projectStartDate").prop('disabled', false);
 	$("#projectEndDate").val("");
 	$("#projectEndDate").prop('disabled', false);
-	$("#applId").val("");		
+	$("#applId").val("");	
+	$('#clearGrantsContractsId').prop('disabled', true);		
 }
 
 //Warns user when user clicks save.
@@ -132,3 +133,12 @@ function warnGeneralInfoNext(element) {
 	});
 	return false;
 }
+
+ $(function () { 
+	if($('#grantsContractNum').val() != ""){ 
+		$('#clearGrantsContractsId').prop('disabled', false);	
+	}   
+	else{
+		$('#clearGrantsContractsId').prop('disabled', true);	
+	}   
+});

@@ -289,7 +289,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			sb.append("1.Is there a data sharing exception requested for this project? <br />");
 			sb.append("2.Was this exception approved? <br />");
 			sb.append("3.Will there be any data submitted? <br />");
-			sb.append("Amd the system will delete the uploaded exception memo. <br />");
+			sb.append("And the system will delete the uploaded exception memo. <br />");
 		}
 		
 		if(sb.length() > 0) {
