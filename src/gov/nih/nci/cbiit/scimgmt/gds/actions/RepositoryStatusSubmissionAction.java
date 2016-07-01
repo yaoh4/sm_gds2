@@ -77,7 +77,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		}	
 
 		//The system will validate that the 'Genomic Data Sharing', 'Institutional Certifications' and the 'Basic Study Info' pages are completed, 
-		//when the user marks the 'Study Release' on all repositories to ‘Yes' and then attempts to save the Submission Status page.
+		//when the user marks the 'Study Release' on all repositories to 'Yes' and then attempts to save the Submission Status page.
 		//Todo:Get the values of isGdsPlanCompleted , isInstitutionalCertificationsCompleted and isBasciStudyCompleted from some service.
 		if(allStudyReleased && (!isGdsPlanCompleted || !isInstitutionalCertificationsCompleted || !isBasciStudyCompleted)){	
 
