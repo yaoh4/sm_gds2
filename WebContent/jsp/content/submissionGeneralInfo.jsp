@@ -7,11 +7,11 @@
 		<s:hidden name="projectId" value="%{project.id}"/>
 		<s:hidden name="applId" id="applId" value="%{project.applId}"/>
 		<div class="pageNav">
-			<s:submit value=" Save " action="manage/saveGeneralInfo"
+			<s:submit value=" Save " action="manage/saveGeneralInfo" onclick="return warnGeneralInfo()"
 				id="general_saved" cssClass="saved btn btn-default" />
 
 			<s:submit value=" Save & Next »  "
-				action="manage/saveGeneralInfoAndNext" id="general_saved_next"
+				action="manage/saveGeneralInfoAndNext" id="general_saved_next" onclick="return warnGeneralInfoNext()"
 				cssClass="btn btn-project-primary" />
 		</div>
 
@@ -211,11 +211,11 @@
 
 		<!--SAVE & NEXT BUTTONS-->
 		<div class="pageNav">
-			<s:submit value=" Save " namespace="/manage" action="saveGeneralInfo"
+			<s:submit value=" Save " namespace="/manage" action="saveGeneralInfo" onclick="return warnGeneralInfo()"
 				id="general_saved" cssClass="saved btn btn-default" />
 
 			<s:submit value=" Save & Next »  " namespace="/manage"
-				action="saveGeneralInfoAndNext" id="general_saved_next"
+				action="saveGeneralInfoAndNext" id="general_saved_next" onclick="return warnGeneralInfoNext()"
 				cssClass="btn btn-project-primary" />
 		</div>
 

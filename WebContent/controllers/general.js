@@ -23,3 +23,73 @@ function openGrantsContractsSearchPage() {
 	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
 	var newWin = window.open(url, winName, features);
 }
+
+function warnGeneralInfo(element) {
+
+	var result = "";
+	var $form, fd;
+	$form = $("#general_form");
+	fd = new FormData($form[0]);
+
+	$.ajax({
+		url : 'warnGeneralInfo.action',
+		type : 'post',
+		processData : false,
+		contentType : false,
+		data : fd,
+		async : false,
+		success : function(msg) {
+			result = $.trim(msg);
+		},
+		error : function() {
+		}
+	});
+	
+	if (result == "") {
+		return true;
+	}
+	bootbox.confirm(result, function(ans) {
+		if (ans) {
+			$('#general_form').attr('action', "saveGeneralInfo").submit();
+			return true;
+		} else {
+			return true;
+		}
+	});
+	return false;
+}
+
+function warnGeneralInfoNext(element) {
+
+	var result = "";
+	var $form, fd;
+	$form = $("#general_form");
+	fd = new FormData($form[0]);
+
+	$.ajax({
+		url : 'warnGeneralInfo.action',
+		type : 'post',
+		processData : false,
+		contentType : false,
+		data : fd,
+		async : false,
+		success : function(msg) {
+			result = $.trim(msg);
+		},
+		error : function() {
+		}
+	});
+	
+	if (result == "") {
+		return true;
+	}
+	bootbox.confirm(result, function(ans) {
+		if (ans) {
+			$('#general_form').attr('action', "saveGeneralInfoAndNext").submit();
+			return true;
+		} else {
+			return true;
+		}
+	});
+	return false;
+}

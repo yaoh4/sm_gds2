@@ -27,6 +27,12 @@
 			 </result>
 			 <result name="input" type="tiles">submissionGeneralInfo</result>
 		</action>
+		<action name="warnGeneralInfo" method="isSubmissionUpdated" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+			<result name="success" type="stream">     
+				<param name="contentType">text/html</param>     
+				<param name="inputName">inputStream</param>   
+			</result>	
+		</action>
 		<action name="editGdsPlan" method="execute" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			 <result name="success" type="tiles">submissionGdsPlan</result>
 		</action>

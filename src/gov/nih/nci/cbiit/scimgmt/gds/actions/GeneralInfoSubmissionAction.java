@@ -1,5 +1,6 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -270,6 +271,37 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 				logger.debug("Deleted the answer to question with Id: "+planAnswerSelection.getPlanQuestionsAnswer().getQuestionId());
 			}
 		}
+	}
+	
+	/**
+	 * This method serves ajax request coming from onclick of save.
+	 * @return
+	 * @throws Exception
+	 */
+	public String isSubmissionUpdated() throws Exception {
+		
+		StringBuffer sb = new StringBuffer();
+		Project transientProject = getProject();
+		Project persistentProject = retrieveSelectedProject();
+		
+		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){
+			sb.append("The system will delete answers to following questions: <br />");
+			sb.append("1.Is there a data sharing exception requested for this project? <br />");
+			sb.append("2.Was this exception approved? <br />");
+			sb.append("3.Will there be any data submitted? <br />");
+			sb.append("Amd the system will delete the uploaded exception memo. <br />");
+		}
+		
+		if(sb.length() > 0) {
+			sb.append("<br> Do you wish to continue?");
+			String warningMessage = getText("gds.warn.message") + "<br><br>" + sb.toString();
+			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
+		} else {
+			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
+		}
+		
+		return SUCCESS;
+		
 	}
 	
 	/**
