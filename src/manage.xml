@@ -83,9 +83,20 @@
 		</action>
 		<action name="saveBasicStudyInfo" method="save" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
 			 <result name="success" type="tiles">submissionBasicStudyInfo</result>
+			 <result name="input" type="tiles">submissionBasicStudyInfo</result>
 		</action>
 		<action name="saveBasicStudyInfoAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
-			 <result name="success" type="tiles">submissionDetail</result>
+			 <result name="repository" type="redirect-action">
+			 	<param name="actionName">navigateToRepositoryStatus</param>
+				<param name="projectId">${project.id}</param>
+				<param name="parse">true</param>
+			 </result>
+			 <result name="success" type="redirect-action">
+			 	<param name="actionName">navigateToSubmissionDetail</param>
+				<param name="projectId">${project.id}</param>
+				<param name="parse">true</param>
+			 </result>
+			 <result name="input" type="tiles">submissionBasicStudyInfo</result>
 		</action>
 		<action name="navigateToSubmissionDetail" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
 			 <result name="success" type="tiles">submissionDetail</result>

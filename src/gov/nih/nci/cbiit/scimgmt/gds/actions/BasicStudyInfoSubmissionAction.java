@@ -118,6 +118,9 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		
 		save();
 		
+		if(showPage(ApplicationConstants.PAGE_TYPE_STATUS))
+			return ApplicationConstants.PAGE_TYPE_STATUS.toLowerCase();
+		
         return SUCCESS;
 	}
 	
