@@ -1,9 +1,11 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,10 +13,12 @@ import org.apache.logging.log4j.Logger;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
+import gov.nih.nci.cbiit.scimgmt.gds.util.RepositoryStatusComparator;
 
 /**
  * This class is responsible for saving Repository statuses.
@@ -150,6 +154,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * This method sets up all data for Repository Status Page..
 	 * @throws Exception 
 	 */
+	@SuppressWarnings("unchecked")
 	public void setUpPageData() throws Exception{
 
 		logger.debug("Setting up Repository status page data.");
@@ -160,6 +165,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		setProject(retrieveSelectedProject());
 		setUpStatusLists();		
 		setUpRepositoryStatuses();	
+		Collections.sort(getProject().getRepositoryStatuses(),new RepositoryStatusComparator());
 	}
 
 	/**
@@ -175,8 +181,10 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 	/**
 	 * This method sets up Repository Statuses.
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
-	public void	setUpRepositoryStatuses(){	
+	public void	setUpRepositoryStatuses() throws IllegalAccessException, InvocationTargetException{	
 		logger.debug("Setting up Repository statuses.");
 
 		if(GdsSubmissionActionHelper.isAnyRepositorySelectedInGdsPlan(getProject())){
@@ -190,8 +198,10 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 	/**
 	 * If user did not make any selections for Repositories on the GDS plan page then display DbGap repository.
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
-	public void setUpDbGapRepositoryStatus(){
+	public void setUpDbGapRepositoryStatus() throws IllegalAccessException, InvocationTargetException{
 
 		logger.debug("Adding DbGaP Repository status.");		
 		getProject().getRepositoryStatuses().add(createNewRepositoryStatus(true,ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID,null));
@@ -199,8 +209,10 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 	/**
 	 * If user made selections for Repositories on the GDS plan page then display all the selected repositories.
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
-	public void setUpSelectdRepositoryStatuses(){
+	public void setUpSelectdRepositoryStatuses() throws IllegalAccessException, InvocationTargetException{
 
 		logger.debug("Adding Repository statuses selected on GDS plan.");
 
@@ -236,8 +248,10 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @param id
 	 * @param OtherRepositoryName
 	 * @return
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
-	public RepositoryStatus createNewRepositoryStatus(boolean isDbGap, Long questionId, Long id, String OtherRepositoryName){
+	public RepositoryStatus createNewRepositoryStatus(boolean isDbGap, Long questionId, Long id, String OtherRepositoryName) throws IllegalAccessException, InvocationTargetException{
 		
 		logger.debug("Creating a new repository status.");
 		
@@ -253,13 +267,17 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			repositoryStatus.setLookupTByDataSubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 		}
 		
-		repositoryStatus.setLookupTByStudyReleasedId(lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));			
-		repositoryStatus.setPlanQuestionAnswerTByRepositoryId(PlanQuestionList.getAnswerById(questionId,id));
+		repositoryStatus.setLookupTByStudyReleasedId(lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));	
+		
+		PlanQuestionsAnswer planQuestionAnswer = new PlanQuestionsAnswer();
+		BeanUtils.copyProperties(planQuestionAnswer, PlanQuestionList.getAnswerById(questionId,id));		
 		
 		//Setting other repository name.
 		if(StringUtils.isNotBlank(OtherRepositoryName)){
-			repositoryStatus.getPlanQuestionAnswerTByRepositoryId().setDisplayText(OtherRepositoryName);
+			planQuestionAnswer.setDisplayText(OtherRepositoryName);
 		}
+		
+		repositoryStatus.setPlanQuestionAnswerTByRepositoryId(planQuestionAnswer);
 		
 		return repositoryStatus;		
 	}

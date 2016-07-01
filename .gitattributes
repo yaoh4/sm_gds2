@@ -1019,6 +1019,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/UserRoleServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/DropDownOption.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/GdsProperties.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/GdsSubmissionActionHelper.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/util/RepositoryStatusComparator.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/UIRuleUtil.java -text
 src/manage.xml -text
 src/search.xml -text

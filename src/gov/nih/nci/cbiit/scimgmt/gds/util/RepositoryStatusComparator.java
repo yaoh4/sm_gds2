@@ -1,0 +1,34 @@
+package gov.nih.nci.cbiit.scimgmt.gds.util;
+
+
+import java.util.Comparator;
+
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+/**
+ *  A Comparator to order the Repository Status.
+ *  
+ *  @author tembharend
+ */
+@SuppressWarnings("rawtypes")
+public class RepositoryStatusComparator implements Comparator
+{ 		
+	@Override
+	public int compare(Object obj1, Object obj2) {
+
+		RepositoryStatus status1 = (RepositoryStatus)obj1;
+		RepositoryStatus status2 = (RepositoryStatus)obj2;		
+
+		Long cntr1 = status1.getPlanQuestionAnswerTByRepositoryId().getDisplayOrderNum();
+		Long cntr2 = status2.getPlanQuestionAnswerTByRepositoryId().getDisplayOrderNum();
+
+		int diff =  cntr1.compareTo(cntr2);
+		if (diff != 0) {
+			if(diff > 0) {
+				return 1;} 
+			else { return -1;}
+		}
+
+		return  status1.getPlanQuestionAnswerTByRepositoryId().getDisplayText().compareTo(status2.getPlanQuestionAnswerTByRepositoryId().getDisplayText());
+
+	}
+}
