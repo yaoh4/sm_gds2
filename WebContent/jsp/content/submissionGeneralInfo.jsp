@@ -76,6 +76,13 @@
 											<i class="fa fa-search" aria-hidden="true"></i>
 										</button>
 								</a></span>
+								
+								<span class="input-group-btn"><a href="#" onclick="clearGrantsContracts()" class="btnDelete">
+										<button class="btn btn-default" type="button">
+											<i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i>
+										</button>
+								</a></span>	 
+								 
 							</div>
 						</div>
 					</div>

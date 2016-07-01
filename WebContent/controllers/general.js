@@ -24,6 +24,44 @@ function openGrantsContractsSearchPage() {
 	var newWin = window.open(url, winName, features);
 }
 
+//Confirm if user really wants to clear grants/contracts data.
+function clearGrantsContracts(){	
+	var result = "This will clear all the autopopulated grants/contracts data.<br /> Do you wish to continue?";
+	bootbox.confirm(result, function(ans) {
+		if (ans) {
+			clearData();
+			return true;
+		} else {
+			return true;
+		}
+	});
+}
+
+//Clear grants/contracts data.
+function clearData(){
+	$("#grantsContractNum").val("");
+	$("#projectTitle").val("");
+	$("#projectTitle").prop('disabled', false);
+	$("#fnPI").val("");
+	$("#fnPI").prop('disabled', false);
+	$("#lnPI").val("");
+	$("#lnPI").prop('disabled', false);
+	$("#piEmail").val("");
+	$("#piEmail").prop('disabled', false);
+	$("#PIInstitute").val("");
+	$("#PIInstitute").prop('disabled', false);
+	$("#fnPD").val("");
+	$("#fnPD").prop('disabled', false);	
+	$("#lnPD").val("");
+	$("#lnPD").prop('disabled', false);
+	$("#projectStartDate").val("");
+	$("#projectStartDate").prop('disabled', false);
+	$("#projectEndDate").val("");
+	$("#projectEndDate").prop('disabled', false);
+	$("#applId").val("");		
+}
+
+//Warns user when user clicks save.
 function warnGeneralInfo(element) {
 
 	var result = "";
@@ -59,6 +97,7 @@ function warnGeneralInfo(element) {
 	return false;
 }
 
+//Warns user when user clicks save and next.
 function warnGeneralInfoNext(element) {
 
 	var result = "";
