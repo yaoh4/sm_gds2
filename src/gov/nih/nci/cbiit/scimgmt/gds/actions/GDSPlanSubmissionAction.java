@@ -710,7 +710,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 			for(RepositoryStatus repository: getProject().getRepositoryStatuses()){			
 				// Check if any of the repository has been removed.
-				if(oldSet.contains(repository.getPlanQuestionAnswerTByRepositoryId().getId())) { 
+				if(oldSet.contains(repository.getPlanAnswerSelectionTByRepositoryId().getId())) { 
 					removedRepositories.add(repository);
 				}
 			}

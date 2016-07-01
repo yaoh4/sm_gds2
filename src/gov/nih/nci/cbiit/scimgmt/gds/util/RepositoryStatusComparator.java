@@ -18,8 +18,8 @@ public class RepositoryStatusComparator implements Comparator
 		RepositoryStatus status1 = (RepositoryStatus)obj1;
 		RepositoryStatus status2 = (RepositoryStatus)obj2;		
 
-		Long cntr1 = status1.getPlanQuestionAnswerTByRepositoryId().getDisplayOrderNum();
-		Long cntr2 = status2.getPlanQuestionAnswerTByRepositoryId().getDisplayOrderNum();
+		Long cntr1 = status1.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayOrderNum();
+		Long cntr2 = status2.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayOrderNum();
 
 		int diff =  cntr1.compareTo(cntr2);
 		if (diff != 0) {
@@ -28,7 +28,7 @@ public class RepositoryStatusComparator implements Comparator
 			else { return -1;}
 		}
 
-		return  status1.getPlanQuestionAnswerTByRepositoryId().getDisplayText().compareTo(status2.getPlanQuestionAnswerTByRepositoryId().getDisplayText());
+		return  status1.getPlanAnswerSelectionTByRepositoryId().getOtherText().compareTo(status2.getPlanAnswerSelectionTByRepositoryId().getOtherText());
 
 	}
 }

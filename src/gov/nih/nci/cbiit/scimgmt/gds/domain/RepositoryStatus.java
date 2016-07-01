@@ -24,7 +24,7 @@ import javax.persistence.Transient;
 public class RepositoryStatus implements java.io.Serializable {
 
 	private Long id;
-	private PlanQuestionsAnswer planQuestionAnswerTByRepositoryId;
+	private PlanAnswerSelection planAnswerSelectionTByRepositoryId;
 	private Lookup lookupTByDataSubmissionStatusId;
 	private Lookup lookupTByRegistrationStatusId;
 	private Lookup lookupTByStudyReleasedId;
@@ -40,11 +40,11 @@ public class RepositoryStatus implements java.io.Serializable {
 	public RepositoryStatus() {
 	}
 
-	public RepositoryStatus(Long id, PlanQuestionsAnswer planQuestionAnswerTByRepositoryId, Lookup lookupTByDataSubmissionStatusId,
+	public RepositoryStatus(Long id, PlanAnswerSelection planAnswerSelectionTByRepositoryId, Lookup lookupTByDataSubmissionStatusId,
 			Lookup lookupTByRegistrationStatusId, Lookup lookupTByStudyReleasedId, Project project,
 			Date createdDate, String createdBy) {
 		this.id = id;
-		this.planQuestionAnswerTByRepositoryId = planQuestionAnswerTByRepositoryId;
+		this.planAnswerSelectionTByRepositoryId = planAnswerSelectionTByRepositoryId;
 		this.lookupTByDataSubmissionStatusId = lookupTByDataSubmissionStatusId;
 		this.lookupTByRegistrationStatusId = lookupTByRegistrationStatusId;
 		this.lookupTByStudyReleasedId = lookupTByStudyReleasedId;
@@ -53,12 +53,12 @@ public class RepositoryStatus implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public RepositoryStatus(Long id, PlanQuestionsAnswer planQuestionAnswerTByRepositoryId, Lookup lookupTByDataSubmissionStatusId,
+	public RepositoryStatus(Long id, PlanAnswerSelection planAnswerSelectionTByRepositoryId, Lookup lookupTByDataSubmissionStatusId,
 			Lookup lookupTByRegistrationStatusId, Lookup lookupTByStudyReleasedId, Project project,
 			Date anticipatedSubmissionDate, String accessionNumber, String comments, Date createdDate,
 			String createdBy, Date lastChangedDate, String lastChangedBy) {
 		this.id = id;
-		this.planQuestionAnswerTByRepositoryId = planQuestionAnswerTByRepositoryId;
+		this.planAnswerSelectionTByRepositoryId = planAnswerSelectionTByRepositoryId;
 		this.lookupTByDataSubmissionStatusId = lookupTByDataSubmissionStatusId;
 		this.lookupTByRegistrationStatusId = lookupTByRegistrationStatusId;
 		this.lookupTByStudyReleasedId = lookupTByStudyReleasedId;
@@ -86,12 +86,12 @@ public class RepositoryStatus implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "REPOSITORY_ID", nullable = false)
-	public PlanQuestionsAnswer getPlanQuestionAnswerTByRepositoryId() {
-		return this.planQuestionAnswerTByRepositoryId;
+	public PlanAnswerSelection getPlanAnswerSelectionTByRepositoryId() {
+		return this.planAnswerSelectionTByRepositoryId;
 	}
 
-	public void setPlanQuestionAnswerTByRepositoryId(PlanQuestionsAnswer planQuestionAnswerTByRepositoryId) {
-		this.planQuestionAnswerTByRepositoryId = planQuestionAnswerTByRepositoryId;
+	public void setPlanAnswerSelectionTByRepositoryId(PlanAnswerSelection planAnswerSelectionTByRepositoryId) {
+		this.planAnswerSelectionTByRepositoryId = planAnswerSelectionTByRepositoryId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

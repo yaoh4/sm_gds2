@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -184,7 +183,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
 	 */
-	public void	setUpRepositoryStatuses() throws IllegalAccessException, InvocationTargetException{	
+	public void	setUpRepositoryStatuses() {	
 		logger.debug("Setting up Repository statuses.");
 
 		if(GdsSubmissionActionHelper.isAnyRepositorySelectedInGdsPlan(getProject())){
@@ -201,10 +200,18 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
 	 */
-	public void setUpDbGapRepositoryStatus() throws IllegalAccessException, InvocationTargetException{
+	public void setUpDbGapRepositoryStatus() {
 
-		logger.debug("Adding DbGaP Repository status.");		
-		getProject().getRepositoryStatuses().add(createNewRepositoryStatus(true,ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID,null));
+		logger.debug("Adding DbGaP Repository status.");	
+		//ToDo: When answer to question: Will there be any data submitted is No on gds plan page,
+		//dgGap specific planAnswerSelection should be created when saved on gds plan page 
+		//which will be used here to populate planAnswerSelection of below DbGaP Repository.
+		//Update below code when dgGap specific planAnswerSelection is available.
+		PlanAnswerSelection planAnswerSelection = new PlanAnswerSelection();
+		PlanQuestionsAnswer planQuestionAnswer = PlanQuestionList.getAnswerById(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
+		planAnswerSelection.setProject(getProject());
+		planAnswerSelection.setPlanQuestionsAnswer(planQuestionAnswer);
+		getProject().getRepositoryStatuses().add(createNewRepositoryStatus(true,planAnswerSelection));
 	}
 
 	/**
@@ -212,7 +219,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
 	 */
-	public void setUpSelectdRepositoryStatuses() throws IllegalAccessException, InvocationTargetException{
+	public void setUpSelectdRepositoryStatuses() {
 
 		logger.debug("Adding Repository statuses selected on GDS plan.");
 
@@ -220,22 +227,15 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		List<Long> savedRepositoryStatuses = new ArrayList<Long>();	
 
 		for( RepositoryStatus savedRepositoryStatus : getProject().getRepositoryStatuses()){			
-			savedRepositoryStatuses.add(savedRepositoryStatus.getPlanQuestionAnswerTByRepositoryId().getId()); 
+			savedRepositoryStatuses.add(savedRepositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()); 
 		}
-
 		//Iterate through selections made on Gds plan page and add Empty repository status objects to Project if new selections are made/ its a new submission.
 		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelection()){
 
-			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){	
-				
-				//If its an 'Other' repository then set the OtherRepositoryName.
-				String OtherRepositoryName = "";				
-				if(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){
-					OtherRepositoryName = planAnswerSelection.getPlanQuestionsAnswer().getDisplayText() + " - " +planAnswerSelection.getOtherText();
-				}
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){				
 
-				if(!savedRepositoryStatuses.contains(planAnswerSelection.getPlanQuestionsAnswer().getId())){
-					getProject().getRepositoryStatuses().add(createNewRepositoryStatus(false,planAnswerSelection.getPlanQuestionsAnswer().getQuestionId(),planAnswerSelection.getPlanQuestionsAnswer().getId(),OtherRepositoryName));
+				if(!savedRepositoryStatuses.contains(planAnswerSelection.getId())){
+					getProject().getRepositoryStatuses().add(createNewRepositoryStatus(false,planAnswerSelection));
 				}
 			}
 		}		
@@ -244,14 +244,12 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	/**
 	 * Create a new default repository status.
 	 * @param isDbGap
-	 * @param questionId
-	 * @param id
-	 * @param OtherRepositoryName
+	 * @param planAnswerSelection
 	 * @return
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
 	 */
-	public RepositoryStatus createNewRepositoryStatus(boolean isDbGap, Long questionId, Long id, String OtherRepositoryName) throws IllegalAccessException, InvocationTargetException{
+	public RepositoryStatus createNewRepositoryStatus(boolean isDbGap, PlanAnswerSelection planAnswerSelection) {
 		
 		logger.debug("Creating a new repository status.");
 		
@@ -268,16 +266,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		}
 		
 		repositoryStatus.setLookupTByStudyReleasedId(lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));	
-		
-		PlanQuestionsAnswer planQuestionAnswer = new PlanQuestionsAnswer();
-		BeanUtils.copyProperties(planQuestionAnswer, PlanQuestionList.getAnswerById(questionId,id));		
-		
-		//Setting other repository name.
-		if(StringUtils.isNotBlank(OtherRepositoryName)){
-			planQuestionAnswer.setDisplayText(OtherRepositoryName);
-		}
-		
-		repositoryStatus.setPlanQuestionAnswerTByRepositoryId(planQuestionAnswer);
+		repositoryStatus.setPlanAnswerSelectionTByRepositoryId(planAnswerSelection);
 		
 		return repositoryStatus;		
 	}

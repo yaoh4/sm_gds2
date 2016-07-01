@@ -28,11 +28,18 @@
 					<s:div class="panel panel-default" id="%{'repositoryStatus_' + #stat.index}">
 						<div class="panel-heading">
 							<div class="pheader">
-								<h5><s:property value="%{#repositoryStatus.planQuestionAnswerTByRepositoryId.displayText}"/></h5>								
+								<h5>
+								<s:if test="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.otherText != null}" >
+									<s:property value="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText}"/> - <s:property value="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.otherText}"/>
+								 </s:if>
+								 <s:else>
+								 	<s:property value="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText}"/>
+								 </s:else>
+								</h5>					
 							</div>
 
 						</div> 
-						<s:hidden name="project.repositoryStatuses[%{#stat.index}].planQuestionAnswerTByRepositoryId.id" value="%{#repositoryStatus.planQuestionAnswerTByRepositoryId.id}"/>
+						<s:hidden name="project.repositoryStatuses[%{#stat.index}].planAnswerSelectionTByRepositoryId.id" value="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.id}"/>
 						<div class="panel-body">		 				
 							<div class="form-group row">
 								<div class="col-xs-2">
