@@ -2,23 +2,27 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 
-<div class="form-group row col-xs-12" id="DULpanel">
-  <div id="entry1_dul1" class="DULclonedInput">
-    <div class="panel-group">
-      <div class="panel panel-default">
+<s:hidden id="dulIds" name="dulIds"/>
 
-	    <s:hidden id="dulIds" name="dulIds"/>
-																							 
+<div class="form-group row col-xs-12" id="DULpanel">
+<div id="entry1_dul1" class="DULclonedInput">
+  
+		<div class="cloneDULInput" id="cloneDULInput${studiesIdx}">		
+																					 
         <s:iterator status="dulSetStat" var="studiesDulSet" value="instCertification.studies[#studiesStat.index].studiesDulSets">
 		  <s:set name="dulSetIdx" value="#dulSetStat.index" />
 		  <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].id"/>
 		
+		<div id="dulType${studiesIdx}-${dulSetIdx}">
+		
+		<div class="panel-group">
+         <div class="panel panel-default">
 		
 		  <!-- DUL PANEL HEADER -->
 		  <div class="panel-heading">
-            <h4 class="panel-title heading-reference" id="entry1_ID1reference" name="reference">   
-              DUL #1
-            </h4>
+            <h5 class="panel-title heading-reference" id="entry1_ID1reference" name="reference">   
+              Data Use Limitation Type
+            </h5>
           </div>
                                       
 		
@@ -26,8 +30,7 @@
 		  <div>
             <div class="panel-body">
               <div class="entrylist">
-                <label class="label_radio" for="entry1_dul1_radioitem">Data Use Limitation Type</label>
-                
+    
                 <s:iterator status="parentDulStat" var="parentDul" value="parentDulChecklists">
 				  <s:set name="parentIdx" value="#parentDulStat.index"/>
                 
@@ -65,18 +68,21 @@
               </div> <!-- DUL Entry list -->
             </div>  <!--  DUL Panel body -->
 		  </div>
+		  </div>  <!--  End Panel -->
+		  </div>	<!--  END Panel group -->
+		</div>   <!-- End dulType -->
 	    </s:iterator>
-
+</div> <!-- cloned input-->
       
-      </div> <!--  END Panel -->
-    </div> <!--  END Panel group -->
-  </div> <!--  END DUL Cloned Input -->
+  </div>  <!-- End DULClonedInput -->
   
   <div id="addDelButtons2">
-	      <input type="button" id="btnAddDUL" class="btn btn-default" value="Add DUL">
-  </div>																							 
+    <input type="button" id="btnAddDUL" onClick="addDulSet('<s:property value='#studiesIdx'/>')" class="btn btn-default" value="Add DUL">
+  </div> 
+  
+ <!-- <div id="addDelButtons2">
+    <input type="button" id="btnAddDUL" class="btn btn-default" value="Add DUL">
+  </div> -->																							 
   
 </div> <!-- END DULPanel -->
 
-<script type="text/javascript"
-	src="<s:url value="/controllers/icDetails.js" />"></script>

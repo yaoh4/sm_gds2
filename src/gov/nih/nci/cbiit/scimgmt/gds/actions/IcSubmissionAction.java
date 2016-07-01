@@ -3,6 +3,7 @@
  */
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,9 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
@@ -72,11 +76,9 @@ public class IcSubmissionAction extends ManageSubmission {
 		} else {
 			instCert = new InstitutionalCertification();
 			Study study = new Study();
-			/*StudiesDulSet studiesDulSet = new StudiesDulSet();
-			studiesDulSet.setStudy(study);
-			study.addStudiesDulSet(studiesDulSet);*/
-			setTestData(study);
-			study.setInstitutionalCertification(instCert);
+			StudiesDulSet studiesDulSet = new StudiesDulSet();
+			study.addStudiesDulSet(studiesDulSet);
+			//setTestData(study);
 			instCert.addStudy(study);
 		}
         
@@ -270,15 +272,24 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	/**
 	 * Add an empty study to the selected IC
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public String addStudy() {
+	public String addStudy() throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		
 		//Get the  currently selected IC
-		InstitutionalCertification instCert = getInstCertification();
+		String jsonInstCert = 
+			ServletActionContext.getRequest().getParameter("instCert");
+		
+		InstitutionalCertification instCert = mapper.readValue(jsonInstCert, InstitutionalCertification.class);
 		
 		Study study = new Study();
-		study.setInstitutionalCertification(instCert);
-		instCertification.addStudy(study);
-		setInstCertification(instCertification);
+		StudiesDulSet studiesDulSet = new StudiesDulSet();
+		study.addStudiesDulSet(studiesDulSet);
+		instCert.addStudy(study);
+		setInstCertification(instCert);
 		
 		return SUCCESS;
 	}
@@ -292,7 +303,6 @@ public class IcSubmissionAction extends ManageSubmission {
 		String selectedStudyIndex = ServletActionContext.getRequest().getParameter("studyIndex");
 		List<Study> studies = instCert.getStudies();
 		Study study = studies.get(Integer.parseInt(selectedStudyIndex));
-		
 		StudiesDulSet studiesDulSet = new StudiesDulSet();
 		studiesDulSet.setStudy(study);
 		study.addStudiesDulSet(studiesDulSet);

@@ -4,7 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	
-	<package name="manage" namespace="/manage" extends="default">
+	<package name="manage" namespace="/manage" extends="default, json-default">
 	
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
 			 <result name="success" type="tiles">home</result>
@@ -73,13 +73,17 @@
 			 <result name="success" type="tiles">submissionIcList</result>
 		</action>
 		<action name="addStudy" method="addStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
-			 <result name="success" type="tiles">submissionIc</result>
+			 <result type="json" name="success">     
+				<param name="root">studiesDulSet</param>     				
+			</result>
 		</action>
 		<action name="deleteStudy" method="deleteStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>
 		</action>
 		<action name="addDul" method="addDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
-			 <result name="success" type="tiles">submissionIc</result>
+			<result type="json" name="success">     
+				<param name="root">studiesDulSet</param>     				
+			</result>
 		</action>
 		<action name="deleteDul" method="deleteDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>

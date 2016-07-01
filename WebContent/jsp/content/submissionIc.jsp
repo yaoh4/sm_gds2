@@ -9,7 +9,7 @@
       
       <!-- Page navbar -->
       <div class="pageNav">
-        <!--<div><img src="images/legend.gif" alt="legend for progress icons" width="206px"></div>-->
+        <!--<div><img src="<s:url value="/images/legend.gif"/>" alt="legend for progress icons" width="206px"></div>-->
         <input name="" type="button" value=" Save " class="saved btn btn-default">
         
         <input name="" type="button" value=" Save &amp; Next &raquo;  " class="btn btn-project-primary" onclick="window.location.href='dataSharing.htm'">
@@ -26,11 +26,11 @@
               <div class="status"><a href="#" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
               <div class="statusIcon">
                 <a href="#" class="tooltip">
-                  <img src="images/inprogress.png" alt="In Progress" />
+                  <img src="<s:url value="/images/inprogress.png"/>" alt="In Progress" />
                   <span>
-                    <img class="callout" src="images/callout_black.gif" />
+                    <img class="callout" src="<s:url value="/images/callout_black.gif" />" />
                     <strong>Legend:</strong><br />
-                    <img src="images/legend.gif" />
+                    <img src="<s:url value="/images/legend.gif" />" />
                     
                   </span>
                 </a>
@@ -38,7 +38,10 @@
             </div>
           </div>
 
-          <s:hidden name="projectId" value="%{#request.projectId}" />	
+          <s:hidden name="projectId" value="%{#request.projectId}" />
+		  <s:hidden id="instCert" name="instCertification"/>
+		  <s:hidden id="studies" name="instCertification.studies" />
+		
 		
           <div class="panel-body">
 		
@@ -95,19 +98,26 @@
 			
               <div class="form-group row col-xs-12" id="sections">
 			    <div id="entry1" class="clonedInput">
-                  <div class="panel-group" id="accordion">
-				    <div class="panel panel-default">	
-																
+                <!--  <div class="panel-group" id="accordion">
+				    <div class="panel panel-default">	-->
+								
+					  <div class=cloneStudyInput>
+					  								
                       <s:iterator status="studiesStat" var="study" value="instCertification.studies">
 					    <s:set name="studiesIdx" value="#studiesStat.index" />
-					  		
+					    
+					  	<div id="studySection${studiesIdx}" class="studyList">
+					  	
+					  	<div class="panel-group" id="accordion">
+				         <div class="panel panel-default">
+					  	
 					    <!--  STUDY SECTION HEADER  -->
 					  
                         <div class="panel-heading header">
                           <h4 class="panel-title ">
                             <a class="study" href="#collapseOne" id="entry1_study" name="entry1_study">
                               <i class="fa fa-minus-square" aria-hidden="true"></i>&nbsp;
-                              Study #1
+                              Study
                             </a>
                            </h4>
                         </div>	                      		
@@ -164,15 +174,19 @@
 																	
                           </div> <!-- End Panel body -->
 			            </div> <!-- End Collapse 1 -->
+			             </div> <!--  End study panel -->
+                 		 </div> <!--  End panel group -->
+			            </div>  <!--  studySection div -->
+			            
                       </s:iterator>
+                      
+                      </div>  <!--  cloneStudyInput -->
 										
-                    </div> <!--  End study panel -->
-                  </div> <!--  End panel group -->
                 </div> <!--  End cloned input-->	
 							
 								
                 <div id="addDelButtons">
-                      <input type="button" id="btnAdd" value="Add Another Study" class="btn btn-default">
+                      <input type="button" id="btnAdd" value="Add Another Study" onClick="addStudy()"class="btn btn-default">
                 </div>	
 													
               </div> <!--  End Study Section -->	
@@ -190,4 +204,5 @@
     </form>
 	
 </div>
-
+<script type="text/javascript"
+	src="<s:url value="/controllers/institutional.js" />"></script>

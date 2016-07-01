@@ -36,7 +36,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 	private Date lastChangedDate;
 	private String lastChangedBy;
 	private Document document;
-	private List<Study> studies = new ArrayList(0);
+	private List<Study> studies = new ArrayList();
 
 	public InstitutionalCertification() {
 	}
