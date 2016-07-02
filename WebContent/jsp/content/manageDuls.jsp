@@ -20,7 +20,11 @@
 		
 		  <!-- DUL PANEL HEADER -->
 		  <div class="panel-heading">
-            <h5 class="panel-title heading-reference" id="entry1_ID1reference" name="reference">   
+            <h5 class="panel-title heading-reference" id="entry_dulSet_${studiesIdx}_${dulSetIdx}" name="reference">
+             <s:if test="%{dulSetIdx > 0}">
+             	<a href="#" onclick="deleteDulSet(${studiesIdx}, ${dulSetIdx})" class="deleteIcon" style="float: right;">
+                <i class="fa fa-trash" aria-hidden="true"></i></a>
+              </s:if>   
               Data Use Limitation Type
             </h5>
           </div>
@@ -73,16 +77,12 @@
 		</div>   <!-- End dulType -->
 	    </s:iterator>
 </div> <!-- cloned input-->
-      
+ 		   
   </div>  <!-- End DULClonedInput -->
   
-  <div id="addDelButtons2">
-    <input type="button" id="btnAddDUL" onClick="addDulSet('<s:property value='#studiesIdx'/>')" class="btn btn-default" value="Add DUL">
-  </div> 
-  
- <!-- <div id="addDelButtons2">
+  <div id="addDulSetButton_${studiesIdx}">
     <input type="button" id="btnAddDUL" class="btn btn-default" value="Add DUL">
-  </div> -->																							 
+  </div> 																	 
   
 </div> <!-- END DULPanel -->
 

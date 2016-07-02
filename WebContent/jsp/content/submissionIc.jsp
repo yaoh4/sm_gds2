@@ -98,8 +98,6 @@
 			
               <div class="form-group row col-xs-12" id="sections">
 			    <div id="entry1" class="clonedInput">
-                <!--  <div class="panel-group" id="accordion">
-				    <div class="panel panel-default">	-->
 								
 					  <div class=cloneStudyInput>
 					  								
@@ -115,7 +113,11 @@
 					  
                         <div class="panel-heading header">
                           <h4 class="panel-title ">
-                            <a class="study" href="#collapseOne" id="entry1_study" name="entry1_study">
+                            <a class="study" href="#collapseOne" id="entry_study_${studiesIdx}" name="entry1_study">
+                            <s:if test="%{studiesIdx > 0}"> 
+                            	<a href="#" onclick="deleteStudy(${studiesIdx})" class="deleteIcon" style="float: right;">
+                            	<i class="fa fa-trash" aria-hidden="true"></i></a>
+                          </s:if> 
                               <i class="fa fa-minus-square" aria-hidden="true"></i>&nbsp;
                               Study
                             </a>
