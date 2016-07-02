@@ -5,7 +5,8 @@
 <div class="content">
     
     <!--Begin Form -->
-    <form id="institutional_form" name="instititional_form" action="/post" method="post">
+    <form id="institutional_form" name="instititional_form" namespace="manage"
+    enctype="multipart/form-data" action="saveIc" method="post">
       
       <!-- Page navbar -->
       <div class="pageNav">
@@ -51,10 +52,21 @@
             
             <div class="qSpacing">
             
-              <!--  File Upload --> 					
-              <p class="question"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>File Uploader Will go here</p>
-              <div class="radio">	
-			  </div>
+           
+			<!--  File Upload -->
+			<p class="question">
+				<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Upload File(s):
+			</p>
+			<!--BEGIN Uploader-->
+			<div class="qSpacing" id="icDiv">
+				<s:file name="ic" id="ic" />
+				<input type="button" name="icUpload" value="Upload File"
+					class="saved btn btn-default" id="icUpload">
+				<div class="loadFileHistory">
+					<s:include value="/jsp/content/submissionIcFile.jsp" />
+				</div>
+			</div>
+			  
 		
 			  <div class="form-group row">
                 <div class="col-xs-3">

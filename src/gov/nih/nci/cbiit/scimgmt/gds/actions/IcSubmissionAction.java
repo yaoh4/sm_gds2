@@ -3,12 +3,16 @@
  */
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -47,6 +51,15 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	private List<ParentDulChecklist> parentDulChecklists = new ArrayList<ParentDulChecklist>();
 	
+	private File instCertificationFile;
+	
+	private String instCertificationFileName;
+
+	private String instCertificationContentType;
+	
+	private List<Document> instCertificationDocs;
+	
+	private Document doc = null; // json object to be returned for UI refresh after upload
 	
 	/**
 	 * Retrieves all data associated with the specified IC and redirects the user to the
@@ -349,6 +362,107 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	
+	
+	/**
+	 * Upload IC Document
+	 * 
+	 * @return forward string
+	 */
+	public String uploadInstCertification() {
+		logger.info("uploadInstCertification()");
+		
+		if (!validateUploadFile(instCertificationFile, instCertificationContentType))
+			return INPUT;
+		
+		try {
+			doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_IC, instCertificationFile, instCertificationFileName);
+			instCertificationDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
+			
+		} catch (Exception e) {
+			try {
+				inputStream = new ByteArrayInputStream(getText("error.doc.upload").getBytes("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				return INPUT;
+			}
+			return INPUT;
+		}
+				
+		logger.info("===> docId: " + doc.getId());
+		logger.info("===> fileName: " + doc.getFileName());
+		logger.info("===> docTitle: " + doc.getDocTitle());
+		logger.info("===> uploadDate: " + doc.getCreatedDate());
+
+		return SUCCESS;
+	}
+	
+	/**
+	 * Delete Genomic Data Sharing Plan Document
+	 * 
+	 * @return forward string
+	 */
+	public String deleteInstCertificationFile() {
+		logger.info("deleteInstCertificationFile()");
+		
+		try {
+			if (getDocId() == null) {
+				inputStream = new ByteArrayInputStream(
+						getText("error.doc.id").getBytes("UTF-8"));
+
+				return INPUT;
+			}
+			fileUploadService.deleteFile(getDocId());
+			instCertificationDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
+			
+		} catch (UnsupportedEncodingException e) {
+			try {
+				inputStream = new ByteArrayInputStream(getText("error.doc.delete").getBytes("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				return INPUT;
+			}
+			return INPUT;
+		}
+
+		return SUCCESS;
+	}
+	
+	
+	/**
+	 * Validate Upload File
+	 */
+	private boolean validateUploadFile(File file, String contentType) {
+
+		String errorMessage = "";
+		
+		try {
+			if (file == null) {
+				errorMessage = getText("error.doc.required");
+
+			} else if (file.length() == 0) {
+				errorMessage = getText("error.doc.empty");
+
+			} else if (file.length() > 5000000) {
+				errorMessage = getText("error.doc.size");
+
+			} else if (!"application/pdf".equals(contentType)
+					&& !"application/msword".equals(contentType)
+					&& !"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+							.equals(contentType)) {
+				errorMessage = getText("error.doc.format");
+
+			}
+			if(StringUtils.isNotBlank(errorMessage)) {
+				inputStream = new ByteArrayInputStream(errorMessage.getBytes("UTF-8"));
+				return false;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	
+	
 	/**
 	 * Invoked for the Track IC Status page. Invoked from
 	 * 1. ICs tab (if at least one IC is present in the submission (else, user will
@@ -472,4 +586,77 @@ public class IcSubmissionAction extends ManageSubmission {
 		this.dulIds = dulIds;
 	}
 
+
+	/**
+	 * @return the instCertificationFile
+	 */
+	public File getInstCertificationFile() {
+		return instCertificationFile;
+	}
+
+
+	/**
+	 * @param instCertificationFile the instCertificationFile to set
+	 */
+	public void setInstCertificationFile(File instCertificationFile) {
+		this.instCertificationFile = instCertificationFile;
+	}
+
+
+	/**
+	 * @return the instCertificationFileName
+	 */
+	public String getInstCertificationFileName() {
+		return instCertificationFileName;
+	}
+
+
+	/**
+	 * @param instCertificationFileName the instCertificationFileName to set
+	 */
+	public void setInstCertificationFileName(String instCertificationFileName) {
+		this.instCertificationFileName = instCertificationFileName;
+	}
+
+
+	/**
+	 * @return the instCertificationContentType
+	 */
+	public String getInstCertificationContentType() {
+		return instCertificationContentType;
+	}
+
+
+	/**
+	 * @param instCertificationContentType the instCertificationContentType to set
+	 */
+	public void setInstCertificationContentType(String instCertificationContentType) {
+		this.instCertificationContentType = instCertificationContentType;
+	}
+
+
+	/**
+	 * @return the instCertificationDocs
+	 */
+	public List<Document> getInstCertificationDocs() {
+		return instCertificationDocs;
+	}
+
+
+	/**
+	 * @param instCertificationDocs the instCertificationDocs to set
+	 */
+	public void setInstCertificationDocs(List<Document> instCertificationDocs) {
+		this.instCertificationDocs = instCertificationDocs;
+	}
+
+	
+	public Document getDoc() {
+		return doc;
+	}
+
+
+	public void setDoc(Document doc) {
+		this.doc = doc;
+	}
 }
