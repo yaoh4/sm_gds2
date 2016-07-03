@@ -25,36 +25,31 @@ public class DulChecklistSelection implements java.io.Serializable {
 	private Long id;
 	private StudiesDulSet studiesDulSet;
 	private DulChecklist dulChecklist;
-	private Date createdDate;
 	private String createdBy;
-	private Date lastChangedDate;
 	private String lastChangedBy;
 
 	public DulChecklistSelection() {
 	}
 
 	public DulChecklistSelection(Long id, StudiesDulSet studiesDulSet, DulChecklist dulChecklist,
-			Date createdDate, String createdBy) {
+			String createdBy) {
 		this.id = id;
 		this.studiesDulSet = studiesDulSet;
 		this.dulChecklist = dulChecklist;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 	}
 
 	public DulChecklistSelection(Long id, StudiesDulSet studiesDulSet, DulChecklist dulChecklist,
-			Date createdDate, String createdBy, Date lastChangedDate, String lastChangedBy) {
+			String createdBy, String lastChangedBy) {
 		this.id = id;
 		this.studiesDulSet = studiesDulSet;
 		this.dulChecklist = dulChecklist;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
-		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
 	}
 
 	@Id
-	@SequenceGenerator(name="dulcs_seq_gen", sequenceName="DULCS_DOC_SEQ", allocationSize=1)
+	@SequenceGenerator(name="dulcs_seq_gen", sequenceName="DULCS_SEQ", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dulcs_seq_gen")
 	@Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
 	public Long getId() {
@@ -85,16 +80,6 @@ public class DulChecklistSelection implements java.io.Serializable {
 		this.dulChecklist = dulChecklist;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE", nullable = false, length = 7)
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
 	@Column(name = "CREATED_BY", nullable = false, length = 30)
 	public String getCreatedBy() {
 		return this.createdBy;
@@ -102,16 +87,6 @@ public class DulChecklistSelection implements java.io.Serializable {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LAST_CHANGED_DATE", length = 7)
-	public Date getLastChangedDate() {
-		return this.lastChangedDate;
-	}
-
-	public void setLastChangedDate(Date lastChangedDate) {
-		this.lastChangedDate = lastChangedDate;
 	}
 
 	@Column(name = "LAST_CHANGED_BY", length = 120)

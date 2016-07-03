@@ -196,12 +196,17 @@ public class IcSubmissionAction extends ManageSubmission {
 			studyIndex++;
 			int dulSetIndex = -1;
 			
+			study.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+			study.setInstitutionalCertification(instCertification);
+			
 			//Map used to keep track of duplicate DulSets in a study
 			HashMap<String, Integer> validationMap = new HashMap<String, Integer>();
 			List<StudiesDulSet> dulSets = study.getStudiesDulSets();
 			logger.info("No. of dulSets in study at index at " + studyIndex + " = " + dulSets.size());
 			
 			for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
+				dulSet.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+				dulSet.setStudy(study);
 				dulSetIndex++;
 				
 				String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
@@ -226,6 +231,8 @@ public class IcSubmissionAction extends ManageSubmission {
 							
 							//for each selectedDul, create a dulChecklistSelection
 							DulChecklistSelection dulChecklistSelection = new DulChecklistSelection();
+							dulChecklistSelection.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+							dulChecklistSelection.setStudiesDulSet(dulSet);
 							
 							//get the dulChecklist with the id and attach it to this dulCheckListSelection.
 							DulChecklist dulChecklist = GdsSubmissionActionHelper.getDulChecklist(Long.parseLong(selectedDuls[i]));
@@ -282,10 +289,13 @@ public class IcSubmissionAction extends ManageSubmission {
 			if(!matchFound) {
 				//TBD - Fatal error ??
 			}
+			instCert.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
 		} else {
 			//The institutional certification is not in the DB, hence add it
+			instCert.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 			project.getInstitutionalCertifications().add(instCert);
 		}
+		instCert.setProject(project);
 		saveProject(project);
 		
 		return SUCCESS;

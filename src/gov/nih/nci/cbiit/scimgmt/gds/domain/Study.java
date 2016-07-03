@@ -35,9 +35,7 @@ public class Study implements java.io.Serializable {
 	private String studyName;
 	private String institution;
 	private Long dulVerificationId;
-	private Date createdDate;
 	private String createdBy;
-	private Date lastChangedDate;
 	private String lastChangedBy;
 	private List<StudiesDulSet> studiesDulSets = new ArrayList<StudiesDulSet>();
 
@@ -45,25 +43,22 @@ public class Study implements java.io.Serializable {
 	}
 
 	public Study(Long id, InstitutionalCertification institutionalCertification, String studyName,
-			Date createdDate, String createdBy) {
+			String createdBy) {
 		this.id = id;
 		this.institutionalCertification = institutionalCertification;
 		this.studyName = studyName;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 	}
 
 	public Study(Long id, InstitutionalCertification institutionalCertification, String studyName,
-			String institution, Long dulVerificationId, Date createdDate, String createdBy,
-			Date lastChangedDate, String lastChangedBy, List<StudiesDulSet> studiesDulSets) {
+			String institution, Long dulVerificationId, String createdBy,
+			String lastChangedBy, List<StudiesDulSet> studiesDulSets) {
 		this.id = id;
 		this.institutionalCertification = institutionalCertification;
 		this.studyName = studyName;
 		this.institution = institution;
 		this.dulVerificationId = dulVerificationId;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
-		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
 		this.studiesDulSets = studiesDulSets;
 	}
@@ -117,16 +112,6 @@ public class Study implements java.io.Serializable {
 		this.dulVerificationId = dulVerificationId;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE", nullable = false, length = 7)
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
 	public String getCreatedBy() {
 		return this.createdBy;
@@ -134,16 +119,6 @@ public class Study implements java.io.Serializable {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LAST_CHANGED_DATE", length = 7)
-	public Date getLastChangedDate() {
-		return this.lastChangedDate;
-	}
-
-	public void setLastChangedDate(Date lastChangedDate) {
-		this.lastChangedDate = lastChangedDate;
 	}
 
 	@Column(name = "LAST_CHANGED_BY", length = 120)

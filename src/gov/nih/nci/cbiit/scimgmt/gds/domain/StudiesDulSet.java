@@ -30,9 +30,7 @@ public class StudiesDulSet implements java.io.Serializable {
 
 	private Long id;
 	private Study study;
-	private Date createdDate;
 	private String createdBy;
-	private Date lastChangedDate;
 	private String lastChangedBy;
 	private List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
 
@@ -40,20 +38,17 @@ public class StudiesDulSet implements java.io.Serializable {
 	}
 
 	
-	public StudiesDulSet(Long id, Study study, Date createdDate, String createdBy) {
+	public StudiesDulSet(Long id, Study study, String createdBy) {
 		this.id = id;
 		this.study = study;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 	}
 
-	public StudiesDulSet(Long id, Study study, Date createdDate, String createdBy, Date lastChangedDate,
+	public StudiesDulSet(Long id, Study study, String createdBy,
 			String lastChangedBy, List<DulChecklistSelection> dulChecklistSelections) {
 		this.id = id;
 		this.study = study;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
-		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
 		this.dulChecklistSelections = dulChecklistSelections;
 	}
@@ -80,16 +75,6 @@ public class StudiesDulSet implements java.io.Serializable {
 		this.study = study;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE", nullable = false, length = 7)
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
 	public String getCreatedBy() {
 		return this.createdBy;
@@ -97,16 +82,6 @@ public class StudiesDulSet implements java.io.Serializable {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LAST_CHANGED_DATE", length = 7)
-	public Date getLastChangedDate() {
-		return this.lastChangedDate;
-	}
-
-	public void setLastChangedDate(Date lastChangedDate) {
-		this.lastChangedDate = lastChangedDate;
 	}
 
 	@Column(name = "LAST_CHANGED_BY", length = 120)
