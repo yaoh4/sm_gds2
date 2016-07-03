@@ -47,9 +47,7 @@ public class Project implements java.io.Serializable {
 	private String planComments;
 	private String bsiReviewedFlag;
 	private Long versionNum;
-	private Date createdDate;
 	private String createdBy;
-	private Date lastChangedDate;
 	private String lastChangedBy;
 	private String subprojectFlag;
 	private Long parentProjectId;
@@ -76,11 +74,10 @@ public class Project implements java.io.Serializable {
 	}
 
 	public Project(Long id, String projectIdentifierNum, Long versionNum,
-			Date createdDate, String createdBy) {
+		 String createdBy) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
 		this.versionNum = versionNum;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 	}
 
@@ -93,8 +90,8 @@ public class Project implements java.io.Serializable {
 				+ piInstitution + ", piEmailAddress=" + piEmailAddress + ", projectStartDate=" + projectStartDate
 				+ ", projectEndDate=" + projectEndDate + ", sciRevApprovalRcvdDate=" + sciRevApprovalRcvdDate
 				+ ", parentAccessionNum=" + parentAccessionNum + ", comments=" + comments + ", bsiReviewedFlag="
-				+ bsiReviewedFlag + ", versionNum=" + versionNum + ", createdDate=" + createdDate + ", createdBy="
-				+ createdBy + ", lastChangedDate=" + lastChangedDate + ", lastChangedBy=" + lastChangedBy
+				+ bsiReviewedFlag + ", versionNum=" + versionNum + ", createdBy="
+				+ createdBy + ", lastChangedBy=" + lastChangedBy
 				+ ", subprojectFlag=" + subprojectFlag + ", parentProjectId=" + parentProjectId
 				+ ", latestVersionFlag=" + latestVersionFlag + ", projectGroupId=" + projectGroupId
 				+ ", subprojectGroupId=" + subprojectGroupId + ", submissionReasonId=" + submissionReasonId
@@ -110,8 +107,8 @@ public class Project implements java.io.Serializable {
 	public Project(Long id, String projectIdentifierNum, String projectTitle, String docAbbreviation,
 			String programBranch, String applicationNum, String piInstitution,
 			String piEmailAddress, Date projectStartDate, Date projectEndDate, Date sciRevApprovalRcvdDate,
-			String parentAccessionNum, String comments, String bsiReviewedFlag, Long versionNum, Date createdDate,
-			String createdBy, Date lastChangedDate, String lastChangedBy, String subprojectFlag,
+			String parentAccessionNum, String comments, String bsiReviewedFlag, Long versionNum,
+			String createdBy, String lastChangedBy, String subprojectFlag,
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
 			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, Set statusHistories, Set documents,
@@ -131,9 +128,7 @@ public class Project implements java.io.Serializable {
 		this.comments = comments;
 		this.bsiReviewedFlag = bsiReviewedFlag;
 		this.versionNum = versionNum;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
-		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
 		this.subprojectFlag = subprojectFlag;
 		this.parentProjectId = parentProjectId;
@@ -315,15 +310,6 @@ public class Project implements java.io.Serializable {
 		this.versionNum = versionNum;
 	}
 
-	@Transient
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
 	public String getCreatedBy() {
 		return this.createdBy;
@@ -331,16 +317,6 @@ public class Project implements java.io.Serializable {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LAST_CHANGED_DATE", length = 7)
-	public Date getLastChangedDate() {
-		return this.lastChangedDate;
-	}
-
-	public void setLastChangedDate(Date lastChangedDate) {
-		this.lastChangedDate = lastChangedDate;
 	}
 
 	@Column(name = "LAST_CHANGED_BY", length = 120)

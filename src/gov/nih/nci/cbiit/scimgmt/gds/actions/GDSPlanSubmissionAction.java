@@ -248,7 +248,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		logger.info("===> docId: " + doc.getId());
 		logger.info("===> fileName: " + doc.getFileName());
 		logger.info("===> docTitle: " + doc.getDocTitle());
-		logger.info("===> uploadDate: " + doc.getCreatedDate());
+		logger.info("===> uploadDate: " + doc.getUploadedDate());
 
 		return SUCCESS;
 	}
@@ -316,7 +316,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		logger.info("===> docId: " + doc.getId());
 		logger.info("===> fileName: " + doc.getFileName());
 		logger.info("===> docTitle: " + doc.getDocTitle());
-		logger.info("===> uploadDate: " + doc.getCreatedDate());
+		logger.info("===> uploadDate: " + doc.getUploadedDate());
 
 		return SUCCESS;
 	}
@@ -471,7 +471,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			PlanQuestionsAnswer planQuestionsAnswer = PlanQuestionList.getAnswerByAnswerId(id);
 			newObject = new PlanAnswerSelection();
 			newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
-			newObject.setCreatedDate(new Date());
 			newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 			newObject.setProject(getProject());
 			if(planQuestionsAnswer.getDisplayText().equalsIgnoreCase(ApplicationConstants.OTHER)) {

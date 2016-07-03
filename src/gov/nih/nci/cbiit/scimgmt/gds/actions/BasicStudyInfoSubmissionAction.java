@@ -160,7 +160,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		logger.info("===> docId: " + doc.getId());
 		logger.info("===> fileName: " + doc.getFileName());
 		logger.info("===> docTitle: " + doc.getDocTitle());
-		logger.info("===> uploadDate: " + doc.getCreatedDate());
+		logger.info("===> uploadDate: " + doc.getUploadedDate());
 
 		return SUCCESS;
 	}

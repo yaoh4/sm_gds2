@@ -32,9 +32,7 @@ public class RepositoryStatus implements java.io.Serializable {
 	private Date anticipatedSubmissionDate;
 	private String accessionNumber;
 	private String comments;
-	private Date createdDate;
 	private String createdBy;
-	private Date lastChangedDate;
 	private String lastChangedBy;
 
 	public RepositoryStatus() {
@@ -42,21 +40,20 @@ public class RepositoryStatus implements java.io.Serializable {
 
 	public RepositoryStatus(Long id, PlanAnswerSelection planAnswerSelectionTByRepositoryId, Lookup lookupTByDataSubmissionStatusId,
 			Lookup lookupTByRegistrationStatusId, Lookup lookupTByStudyReleasedId, Project project,
-			Date createdDate, String createdBy) {
+			 String createdBy) {
 		this.id = id;
 		this.planAnswerSelectionTByRepositoryId = planAnswerSelectionTByRepositoryId;
 		this.lookupTByDataSubmissionStatusId = lookupTByDataSubmissionStatusId;
 		this.lookupTByRegistrationStatusId = lookupTByRegistrationStatusId;
 		this.lookupTByStudyReleasedId = lookupTByStudyReleasedId;
 		this.project = project;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 	}
 
 	public RepositoryStatus(Long id, PlanAnswerSelection planAnswerSelectionTByRepositoryId, Lookup lookupTByDataSubmissionStatusId,
 			Lookup lookupTByRegistrationStatusId, Lookup lookupTByStudyReleasedId, Project project,
-			Date anticipatedSubmissionDate, String accessionNumber, String comments, Date createdDate,
-			String createdBy, Date lastChangedDate, String lastChangedBy) {
+			Date anticipatedSubmissionDate, String accessionNumber, String comments,
+			String createdBy, String lastChangedBy) {
 		this.id = id;
 		this.planAnswerSelectionTByRepositoryId = planAnswerSelectionTByRepositoryId;
 		this.lookupTByDataSubmissionStatusId = lookupTByDataSubmissionStatusId;
@@ -66,9 +63,7 @@ public class RepositoryStatus implements java.io.Serializable {
 		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 		this.accessionNumber = accessionNumber;
 		this.comments = comments;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
-		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
 	}
 
@@ -162,15 +157,6 @@ public class RepositoryStatus implements java.io.Serializable {
 		this.comments = comments;
 	}
 
-	@Transient
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
 	public String getCreatedBy() {
 		return this.createdBy;
@@ -178,16 +164,6 @@ public class RepositoryStatus implements java.io.Serializable {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LAST_CHANGED_DATE", length = 7)
-	public Date getLastChangedDate() {
-		return this.lastChangedDate;
-	}
-
-	public void setLastChangedDate(Date lastChangedDate) {
-		this.lastChangedDate = lastChangedDate;
 	}
 
 	@Column(name = "LAST_CHANGED_BY", length = 120)

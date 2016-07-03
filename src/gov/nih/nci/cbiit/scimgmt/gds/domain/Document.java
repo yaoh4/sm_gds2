@@ -30,9 +30,7 @@ public class Document implements java.io.Serializable {
 	private Date uploadedDate;
 	private Long versionNum;
 	private String activeFlag;
-	private Date createdDate;
 	private String createdBy;
-	private Date lastChangedDate;
 	private String lastChangedBy;
 	private byte[] doc;
 	private String contentType;
@@ -43,14 +41,13 @@ public class Document implements java.io.Serializable {
 	}
 
 	public Document(Long id, Long projectId, Lookup docType, Date uploadedDate, Long versionNum,
-			String activeFlag, Date createdDate, String createdBy, byte[] doc, String contentType) {
+			String activeFlag, String createdBy, byte[] doc, String contentType) {
 		this.id = id;
 		this.projectId = projectId;
 		this.docType = docType;
 		this.uploadedDate = uploadedDate;
 		this.versionNum = versionNum;
 		this.activeFlag = activeFlag;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 		this.doc = doc;
 		this.contentType = contentType;
@@ -58,8 +55,8 @@ public class Document implements java.io.Serializable {
 
 	public Document(Long id, Long projectId, Lookup docType,
 			Long institutionalCertificationId, String fileName, Date uploadedDate,
-			Long versionNum, String activeFlag, Date createdDate, String createdBy, Date lastChangedDate,
-			String lastChangedBy, byte[] doc, String contentType, String docTitle, String uploadedBy) {
+			Long versionNum, String activeFlag, String createdBy, String lastChangedBy,
+			byte[] doc, String contentType, String docTitle, String uploadedBy) {
 		this.id = id;
 		this.institutionalCertificationId = institutionalCertificationId;
 		this.projectId = projectId;
@@ -68,9 +65,7 @@ public class Document implements java.io.Serializable {
 		this.uploadedDate = uploadedDate;
 		this.versionNum = versionNum;
 		this.activeFlag = activeFlag;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
-		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
 		this.doc = doc;
 		this.contentType = contentType;
@@ -156,16 +151,6 @@ public class Document implements java.io.Serializable {
 		this.activeFlag = activeFlag;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE", nullable = false, length = 7)
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
 	public String getCreatedBy() {
 		return this.createdBy;
@@ -173,16 +158,6 @@ public class Document implements java.io.Serializable {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LAST_CHANGED_DATE", length = 7)
-	public Date getLastChangedDate() {
-		return this.lastChangedDate;
-	}
-
-	public void setLastChangedDate(Date lastChangedDate) {
-		this.lastChangedDate = lastChangedDate;
 	}
 
 	@Column(name = "LAST_CHANGED_BY", length = 120)

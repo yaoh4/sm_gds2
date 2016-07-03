@@ -25,9 +25,7 @@ public class PlanAnswerSelection implements java.io.Serializable {
 	private Long id;
 	private PlanQuestionsAnswer planQuestionsAnswer;
 	private Project project;
-	private Date createdDate;
 	private String createdBy;
-	private Date lastChangedDate;
 	private String lastChangedBy;
 	private String otherText;
 
@@ -35,22 +33,19 @@ public class PlanAnswerSelection implements java.io.Serializable {
 	}
 
 	public PlanAnswerSelection(Long id, PlanQuestionsAnswer planQuestionsAnswer, Project project,
-			Date createdDate, String createdBy) {
+			String createdBy) {
 		this.id = id;
 		this.planQuestionsAnswer = planQuestionsAnswer;
 		this.project = project;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 	}
 
 	public PlanAnswerSelection(Long id, PlanQuestionsAnswer planQuestionsAnswer, Project project,
-			Date createdDate, String createdBy, Date lastChangedDate, String lastChangedBy) {
+			String createdBy, String lastChangedBy) {
 		this.id = id;
 		this.planQuestionsAnswer = planQuestionsAnswer;
 		this.project = project;
-		this.createdDate = createdDate;
 		this.createdBy = createdBy;
-		this.lastChangedDate = lastChangedDate;
 		this.lastChangedBy = lastChangedBy;
 	}
 
@@ -58,9 +53,7 @@ public class PlanAnswerSelection implements java.io.Serializable {
 		this.id = newObject.id;
 		this.planQuestionsAnswer = newObject.planQuestionsAnswer;
 		this.project = newObject.project;
-		this.createdDate = newObject.createdDate;
 		this.createdBy = newObject.createdBy;
-		this.lastChangedDate = newObject.lastChangedDate;
 		this.lastChangedBy = newObject.lastChangedBy;
 	}
 
@@ -96,16 +89,6 @@ public class PlanAnswerSelection implements java.io.Serializable {
 		this.project = project;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE", nullable = false, length = 7)
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
 	public String getCreatedBy() {
 		return this.createdBy;
@@ -113,16 +96,6 @@ public class PlanAnswerSelection implements java.io.Serializable {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LAST_CHANGED_DATE", length = 7)
-	public Date getLastChangedDate() {
-		return this.lastChangedDate;
-	}
-
-	public void setLastChangedDate(Date lastChangedDate) {
-		this.lastChangedDate = lastChangedDate;
 	}
 
 	@Column(name = "LAST_CHANGED_BY", length = 120)

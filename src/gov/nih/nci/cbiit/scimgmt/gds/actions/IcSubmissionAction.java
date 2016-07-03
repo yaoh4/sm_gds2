@@ -405,10 +405,10 @@ public class IcSubmissionAction extends ManageSubmission {
 			return INPUT;
 		}
 				
-		logger.info("===> docId: " + doc.getId());
-		logger.info("===> fileName: " + doc.getFileName());
-		logger.info("===> docTitle: " + doc.getDocTitle());
-		logger.info("===> uploadDate: " + doc.getCreatedDate());
+		logger.info("===> IC docId: " + doc.getId());
+		logger.info("===> IC fileName: " + doc.getFileName());
+		logger.info("===> IC docTitle: " + doc.getDocTitle());
+		logger.info("===> IC uploadDate: " + doc.getUploadedDate());
 
 		return SUCCESS;
 	}
