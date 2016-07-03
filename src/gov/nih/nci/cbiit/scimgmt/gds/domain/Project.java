@@ -538,6 +538,7 @@ public class Project implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	@Cascade({CascadeType.ALL})
 	public Set<InstitutionalCertification> getInstitutionalCertifications() {
 		return this.institutionalCertifications;
 	}

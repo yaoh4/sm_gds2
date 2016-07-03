@@ -11,9 +11,10 @@
 																					 
         <s:iterator status="dulSetStat" var="studiesDulSet" value="instCertification.studies[#studiesStat.index].studiesDulSets">
 		  <s:set name="dulSetIdx" value="#dulSetStat.index" />
-		  <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].id"/>
+		  
+		  <div id="dulType${studiesIdx}-${dulSetIdx}">
 		
-		<div id="dulType${studiesIdx}-${dulSetIdx}">
+		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].id" id="dulSetId%{studiesIdx}-%{dulSetIdx}"/>
 		
 		<div class="panel-group">
          <div class="panel panel-default">

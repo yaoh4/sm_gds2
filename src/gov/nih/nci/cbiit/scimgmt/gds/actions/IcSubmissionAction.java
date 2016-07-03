@@ -51,13 +51,13 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	private List<ParentDulChecklist> parentDulChecklists = new ArrayList<ParentDulChecklist>();
 	
-	private File instCertificationFile;
+	private File ic;
 	
-	private String instCertificationFileName;
+	private String icFileName;
 
-	private String instCertificationContentType;
+	private String icContentType;
 	
-	private List<Document> instCertificationDocs;
+	private List<Document> icFileDocs;
 	
 	private Document doc = null; // json object to be returned for UI refresh after upload
 	
@@ -77,7 +77,7 @@ public class IcSubmissionAction extends ManageSubmission {
 						
 		logger.debug("execute");
 		
-		//setProjectId("1");
+		setProject(retrieveSelectedProject());
 		
 		InstitutionalCertification instCert = retrieveIC();
 		if(instCert != null) {
@@ -185,6 +185,9 @@ public class IcSubmissionAction extends ManageSubmission {
 	public void validateSaveIc() {
 		
 		InstitutionalCertification instCert = getInstCertification();
+		List<Study> studies = instCertification.getStudies();
+		
+		logger.info("No. of Studies in IC = " + studies.size());
 		
 		int studyIndex = -1;
 		//validate the DULs in each Study
@@ -195,6 +198,8 @@ public class IcSubmissionAction extends ManageSubmission {
 			
 			//Map used to keep track of duplicate DulSets in a study
 			HashMap<String, Integer> validationMap = new HashMap<String, Integer>();
+			List<StudiesDulSet> dulSets = study.getStudiesDulSets();
+			logger.info("No. of dulSets in study at index at " + studyIndex + " = " + dulSets.size());
 			
 			for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
 				dulSetIndex++;
@@ -204,7 +209,8 @@ public class IcSubmissionAction extends ManageSubmission {
 					//Error, no DUL selection made for study at index x, dulSet at index y
 					this.addActionError("No DUL selection made for study at index " + studyIndex + " and DulSet at index " + dulSetIndex);
 				} else {
-					String [] selectedDuls = ServletActionContext.getRequest().getParameterValues("dul-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);
+					String selectedDulsParam = "dul-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0];
+					String [] selectedDuls = ServletActionContext.getRequest().getParameterValues(selectedDulsParam);
 					if(selectedDuls == null) {
 						this.addActionError("No DUL selection made for study at index " + studyIndex + " and DulSet at index " + dulSetIndex);
 					} else {
@@ -213,6 +219,7 @@ public class IcSubmissionAction extends ManageSubmission {
 						List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
 						
 						String dulSelections = "";
+						logger.info("No. of Duls selected in dulSet at index " + dulSetIndex + "for study at index" + studyIndex);
 						for(int i = 0; i < selectedDuls.length; i++) {										
 							
 							dulSelections = dulSelections + selectedDuls[i];
@@ -226,6 +233,7 @@ public class IcSubmissionAction extends ManageSubmission {
 							dulChecklistSelections.add(dulChecklistSelection);
 						}
 						
+						logger.info("Value of Duls selected in dulSet at index " + dulSetIndex + "for study at index" + studyIndex + " = " + dulSelections);
 						//Check if this dulSet is already present
 						if(validationMap.containsKey(dulSelections)) {
 							Integer duplicateDulSetIndex = validationMap.get(dulSelections);
@@ -371,12 +379,12 @@ public class IcSubmissionAction extends ManageSubmission {
 	public String uploadInstCertification() {
 		logger.info("uploadInstCertification()");
 		
-		if (!validateUploadFile(instCertificationFile, instCertificationContentType))
+		if (!validateUploadFile(ic, icContentType))
 			return INPUT;
 		
 		try {
-			doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_IC, instCertificationFile, instCertificationFileName);
-			instCertificationDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
+			doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_IC, ic, icFileName);
+			icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
 			
 		} catch (Exception e) {
 			try {
@@ -411,7 +419,7 @@ public class IcSubmissionAction extends ManageSubmission {
 				return INPUT;
 			}
 			fileUploadService.deleteFile(getDocId());
-			instCertificationDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
+			icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
 			
 		} catch (UnsupportedEncodingException e) {
 			try {
@@ -587,70 +595,72 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 
 
-	/**
-	 * @return the instCertificationFile
-	 */
-	public File getInstCertificationFile() {
-		return instCertificationFile;
-	}
-
-
-	/**
-	 * @param instCertificationFile the instCertificationFile to set
-	 */
-	public void setInstCertificationFile(File instCertificationFile) {
-		this.instCertificationFile = instCertificationFile;
-	}
-
-
-	/**
-	 * @return the instCertificationFileName
-	 */
-	public String getInstCertificationFileName() {
-		return instCertificationFileName;
-	}
-
-
-	/**
-	 * @param instCertificationFileName the instCertificationFileName to set
-	 */
-	public void setInstCertificationFileName(String instCertificationFileName) {
-		this.instCertificationFileName = instCertificationFileName;
-	}
-
-
-	/**
-	 * @return the instCertificationContentType
-	 */
-	public String getInstCertificationContentType() {
-		return instCertificationContentType;
-	}
-
-
-	/**
-	 * @param instCertificationContentType the instCertificationContentType to set
-	 */
-	public void setInstCertificationContentType(String instCertificationContentType) {
-		this.instCertificationContentType = instCertificationContentType;
-	}
-
-
-	/**
-	 * @return the instCertificationDocs
-	 */
-	public List<Document> getInstCertificationDocs() {
-		return instCertificationDocs;
-	}
-
-
-	/**
-	 * @param instCertificationDocs the instCertificationDocs to set
-	 */
-	public void setInstCertificationDocs(List<Document> instCertificationDocs) {
-		this.instCertificationDocs = instCertificationDocs;
-	}
-
 	
+	
+	/**
+	 * @return the icFile
+	 */
+	public File getIc() {
+		return ic;
+	}
+
+
+	/**
+	 * @param icFile the icFile to set
+	 */
+	public void setIc(File ic) {
+		this.ic = ic;
+	}
+
+
+	/**
+	 * @return the icFileName
+	 */
+	public String getIcFileName() {
+		return icFileName;
+	}
+
+
+	/**
+	 * @param icFileName the icFileName to set
+	 */
+	public void setIcFileName(String icFileName) {
+		this.icFileName = icFileName;
+	}
+
+
+	/**
+	 * @return the icFileContentType
+	 */
+	public String getIcContentType() {
+		return icContentType;
+	}
+
+
+	/**
+	 * @param icFileContentType the icFileContentType to set
+	 */
+	public void setIcContentType(String icContentType) {
+		this.icContentType = icContentType;
+	}
+
+
+	/**
+	 * @return the icFileDocs
+	 */
+	public List<Document> getIcFileDocs() {
+		return icFileDocs;
+	}
+
+
+	/**
+	 * @param icFileDocs the icFileDocs to set
+	 */
+	public void setIcFileDocs(List<Document> icFileDocs) {
+		this.icFileDocs = icFileDocs;
+	}
+
+
 	public Document getDoc() {
 		return doc;
 	}

@@ -6,7 +6,11 @@
     
     <!--Begin Form -->
     <form id="institutional_form" name="instititional_form" namespace="manage"
-    enctype="multipart/form-data" action="saveIc" method="post">
+    enctype="multipart/form-data" action="saveIc" method="post" role="form">
+    
+    <s:hidden name="projectId" value="%{project.id}"/>
+	<s:hidden id="instCert" name="%{instCertification}"/>
+	<s:hidden id="studies" name="%{instCertification.studies}" />
       
       <!-- Page navbar -->
       <div class="pageNav">
@@ -39,10 +43,6 @@
             </div>
           </div>
 
-          <s:hidden name="projectId" value="%{#request.projectId}" />
-		  <s:hidden id="instCert" name="instCertification"/>
-		  <s:hidden id="studies" name="instCertification.studies" />
-		
 		
           <div class="panel-body">
 		
@@ -212,8 +212,8 @@
 		
 	  <!--SAVE & NEXT BUTTONS-->
       <div class="pageNav">
-          <input name="" type="button" value=" Save Institutional Certification "  id="institutionalCert_saved" class="btn btn-project-primary" onclick="window.location.href='dataSharingDashboard.htm'">
-      </div>
+        <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
+	  </div>
         
     </form>
 	
