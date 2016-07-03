@@ -43,12 +43,30 @@
                       <input type="radio" class="parentDulSet" 
                       		name="parentDul-<s:property value='#studiesStat.index'/>-<s:property value='#dulSetStat.index'/>" 
 							id="parentDul${studiesIdx}-${dulSetIdx}-${parentDul.id}" value="${parentDul.id}">
-                    	&nbsp;&nbsp;${parentDul.displayText}
-                    </label>
+                    	&nbsp;&nbsp;${parentDul.displayText}    
+                    </label>  	  
                   </div>				
-				  <div id="dulSet${studiesIdx}-${dulSetIdx}-${parentDul.id}" class="dulSetDiv" style="display:none;">
+				  <div id="dulSet${studiesIdx}-${dulSetIdx}-${parentDul.id}" class="dulSetDiv indent info" style="display:none;">
+				  
+				    <s:if test="%{#parentDul.id == 13}"> 
+                      <span>
+                      	<input type="text" class="form-control input_other" 
+                      	  id="otherAddText${studiesIdx}-${dulSetIdx}-${parentDul.id}"
+                      	  name="otherAddText-${studiesIdx}-${dulSetIdx}-${parentDul.id}" 
+                      	  placeholder="Please List Specific Disease" >
+                      </span>  
+                                          
+                    </s:if>
+                    <s:if test="%{#parentDul.id == 21}">
+                      <span>
+                      	<input type="text" class="form-control input_other" 
+                      	  id="parentAddText${studiesIdx}-${dulSetIdx}-${parentDul.id}"
+                      	  name="parentAddText-${studiesIdx}-${dulSetIdx}-${parentDul.id}" 
+                      	  placeholder="Please Be Specific" >
+                      </span>
+                    </s:if>
                     
-                    <label for="checkboxitem">(select any that apply)</label>
+                    <label for="checkboxitem">(select any that apply)</label>                 
                     
                     <div class="indent">
 					  <s:iterator status="dulStat" var="dul" value="parentDulChecklists[#parentIdx].dulChecklists">
@@ -61,6 +79,8 @@
 					  			id="dul${studiesIdx}-${dulSetIdx}-${dul.id}" value="${dul.id}">
 					  			&nbsp;&nbsp;${dul.displayText} 
 					  	  </label>
+					  	  
+					  	  
 						</div>			
 						
 					  </s:iterator>			

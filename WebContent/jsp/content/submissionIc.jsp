@@ -103,7 +103,7 @@
 			  <!--  IC comments -->
 	 		  <div class="form-group row  col-xs-12">
                 <label for="comment">Comments:</label><br/>
-                <textarea class="col-md-12 form-control" rows="3" name="comments" ></textarea>
+                <textarea class="col-md-12 form-control" rows="3" name="instCertification.comments" ></textarea>
 			  </div>
 	
 			  <!--Begin STUDY SECTION-->
