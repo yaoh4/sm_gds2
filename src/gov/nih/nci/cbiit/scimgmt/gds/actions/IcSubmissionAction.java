@@ -82,8 +82,6 @@ public class IcSubmissionAction extends ManageSubmission {
 		InstitutionalCertification instCert = retrieveIC();
 		if(instCert != null) {
 			icFileDocs = new ArrayList<Document>();
-			
-			//Long docTypeId = lookupService.getLookupByCode(ApplicationConstants.DOC_TYPE, "IC").getId();
 			List<Document> docs = 
 				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, instCert.getProject().getId());
 			if(docs != null && !docs.isEmpty()) {
@@ -192,6 +190,11 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	
 	public void validateSaveIc() {
+			
+		validateStudyAndDul();
+	}
+	
+	public void validateStudyAndDul() {
 		
 		InstitutionalCertification instCert = getInstCertification();
 		List<Study> studies = instCert.getStudies();
@@ -203,13 +206,18 @@ public class IcSubmissionAction extends ManageSubmission {
 		for(Study study: instCert.getStudies()) {
 			
 			studyIndex++;
+			
+			if(study.getStudyName() == null || study.getStudyName().isEmpty()) {
+				addActionError("Study Name missing for study at index " + studyIndex);
+			}
+			
 			int dulSetIndex = -1;
 			if(study.getId() == null || study.getId().toString().isEmpty()) {
 				study.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 			} else {
 				study.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
 			}
-			study.setInstitutionalCertification(instCertification);
+			study.setInstitutionalCertification(instCert);
 			//Map used to keep track of duplicate DulSets in a study
 			HashMap<String, Integer> validationMap = new HashMap<String, Integer>();
 			List<StudiesDulSet> dulSets = study.getStudiesDulSets();
@@ -265,11 +273,11 @@ public class IcSubmissionAction extends ManageSubmission {
 						//Check if this dulSet is already present
 						if(validationMap.containsKey(dulSelections)) {
 							Integer duplicateDulSetIndex = validationMap.get(dulSelections);
-							this.addActionError("Duplicate DULs found in DulSets at index " + duplicateDulSetIndex + " and " + dulSetIndex);
+							this.addActionError("Duplicate DULs found in DulSets at index " + duplicateDulSetIndex + " and " + dulSetIndex + "for study at index " + studyIndex);
 						} else {
 							validationMap.put(dulSelections, new Integer(dulSetIndex));
-							dulSet.setDulChecklistSelections(dulChecklistSelections);
 						}
+						dulSet.setDulChecklistSelections(dulChecklistSelections);
 					}		
 				}				
 				//All selections in a dulSet retrieved
