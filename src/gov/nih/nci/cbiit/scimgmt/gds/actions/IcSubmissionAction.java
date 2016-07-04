@@ -288,6 +288,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		//All studies in an ic scanned
 		
 		if(hasActionErrors()) {
+			setProject(retrieveSelectedProject());
 			setInstCertification(instCert);
 			prepareDisplay();
 		}
