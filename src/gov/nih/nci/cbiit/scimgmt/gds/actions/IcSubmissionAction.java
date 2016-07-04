@@ -584,7 +584,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public String deleteIc() {
 		
-		Long instCertId = Long.valueOf(arg0)getInstCertId());
+		Long instCertId = Long.valueOf(getInstCertId());
 		
 		Project project = retrieveSelectedProject();
 		if(!CollectionUtils.isEmpty(project.getInstitutionalCertifications())) {

@@ -129,9 +129,10 @@
                         <div class="panel-heading header">
                           <h4 class="panel-title ">
                             <a class="study" href="#collapseOne" id="entry_study_${studiesIdx}" name="entry1_study">
-                            <s:if test="%{studiesIdx > 0}"> 
-                            	<a href="#" onclick="deleteStudy(${studiesIdx})" class="deleteIcon" style="float: right;">
-                            	<i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <s:if test="%{#studiesIdx > 0}"> 
+                              <a href="#" onclick="deleteStudy(${studiesIdx})" class="deleteIcon" style="float: right;">
+                            	<i class="fa fa-trash" aria-hidden="true"></i>
+                              </a>
                           </s:if> 
                               <i class="fa fa-minus-square" aria-hidden="true"></i>&nbsp;
                               Study
