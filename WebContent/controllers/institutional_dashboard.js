@@ -24,12 +24,24 @@ $('input[type="radio"]').click(function() {
 
 $('#btnDelteYes').click(function () {
     var id = $('#myModal').data('id');
+    var projId = $('#projectId').val();
+    
+  $.ajax({
+		url : 'deleteIc.action',
+		type : 'post',
+		data : {instCertId: id, projectId: projId},
+		async : false,
+		success : function(msg) {
+			result = $.trim(msg);
+		},
+		error : function() {
+			alert("Could not delete file");
+		}
+	});
+ 
     $('[data-id=' + id + ']').remove();
     $('#myModal').modal('hide');
 });
-
-
-
 
 
 //funtion for accordion study panels 

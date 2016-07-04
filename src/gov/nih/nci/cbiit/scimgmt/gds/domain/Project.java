@@ -513,7 +513,7 @@ public class Project implements java.io.Serializable {
 		this.repositoryStatuses = repositoryStatuses;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
 	public List<InstitutionalCertification> getInstitutionalCertifications() {
 		return this.institutionalCertifications;

@@ -93,7 +93,7 @@ public class StudiesDulSet implements java.io.Serializable {
 		this.lastChangedBy = lastChangedBy;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "studiesDulSet")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "studiesDulSet", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
 	public List<DulChecklistSelection> getDulChecklistSelections() {
 		return this.dulChecklistSelections;

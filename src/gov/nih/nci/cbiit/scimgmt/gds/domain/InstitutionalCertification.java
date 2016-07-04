@@ -155,7 +155,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 		this.documents.add(document);
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "institutionalCertification")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "institutionalCertification", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
 	public List<Study> getStudies() {
 		return this.studies;
