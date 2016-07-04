@@ -148,7 +148,7 @@
                               <div class="col-xs-3">
                                 <label class="label_sn" for="Study Name">Study Name</label>
                                 <input type="text" class="form-control input_sn" placeholder="Full Name of Study" 
-                              	    id="studyName%{#studiesStat.index}"  
+                              	    id="studyName${studyIdx}"  
                               		name="instCertification.studies[<s:property value='#studiesStat.index'/>].studyName" 
                               		value="${study.studyName}"/>	
                               </div>
@@ -156,7 +156,7 @@
                               <div class="col-xs-3">
                                 <label class="label_in" for="Provisional or Final?">Institution</label>
                                 <input type="text" class="form-control input_in" placeholder="Full Name Institution"
-                              		id="institution%{#studiesStat.index}"
+                              		id="institution${studyIdx}"
 									name="instCertification.studies[<s:property value='#studiesStat.index'/>].institution"
 									value="${study.institution}"/>
                               
