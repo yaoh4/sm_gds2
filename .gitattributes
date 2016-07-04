@@ -117,6 +117,7 @@ WebContent/controllers/basicStudy.js -text
 WebContent/controllers/dataSharing.js -text
 WebContent/controllers/general.js -text
 WebContent/controllers/institutional.js -text
+WebContent/controllers/institutional_dashboard.js -text
 WebContent/controllers/search.js -text
 WebContent/controllers/submissionStatus.js -text
 WebContent/fonts/FontAwesome.otf -text

@@ -43,7 +43,7 @@
 		<action name="saveGdsPlanAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			 <result name="input" type="tiles">submissionGdsPlan</result>
 			 <result name="ic" type="redirect-action">
-			 	<param name="actionName">editIc</param>
+			 	<param name="actionName">listIc</param>
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
 			 </result>
@@ -71,8 +71,23 @@
 			 <result name="success" type="tiles">submissionIcList</result>
 		</action>
 		<action name="saveIc" method="saveIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
-			 <result name="success" type="tiles">submissionIcList</result>
+			<result name="success" type="redirect-action">
+			 	<param name="actionName">listIc</param>
+			 </result>
 			 <result name="input" type="tiles">submissionIc</result>
+			 <param name="projectId">${project.id}</param>
+		</action>
+		<action name="listIc" method="getIcList" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
+			 <result name="success" type="tiles">submissionIcList</result>
+			 <result name="input" type="tiles">submissionIcList</result>
+			  <result name="empty" type="redirect-action">
+			 	<param name="actionName">editIc</param>
+			 </result>
+			 <param name="projectId">${project.id}</param>
+		</action>
+		<action name="saveIcCompletion" method="saveIcCompletion" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
+			 <result name="success" type="tiles">submissionIcList</result>
+			 <result name="input" type="tiles">submissionIcList</result>
 			 <param name="projectId">${project.id}</param>
 		</action>
 		<action name="addStudy" method="addStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">

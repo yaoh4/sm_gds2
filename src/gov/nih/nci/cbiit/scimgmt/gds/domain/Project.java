@@ -68,7 +68,7 @@ public class Project implements java.io.Serializable {
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
-	private Set<InstitutionalCertification> institutionalCertifications = new HashSet(0);
+	private List<InstitutionalCertification> institutionalCertifications = new ArrayList();
 
 	public Project() {
 	}
@@ -112,7 +112,7 @@ public class Project implements java.io.Serializable {
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
 			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, Set statusHistories, Set documents,
-			Set planAnswerSelections, List repositoryStatuses, Set institutionalCertifications,Long applId) {
+			Set planAnswerSelections, List repositoryStatuses, List institutionalCertifications,Long applId) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
 		this.projectTitle = projectTitle;
@@ -515,11 +515,11 @@ public class Project implements java.io.Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	@Cascade({CascadeType.ALL})
-	public Set<InstitutionalCertification> getInstitutionalCertifications() {
+	public List<InstitutionalCertification> getInstitutionalCertifications() {
 		return this.institutionalCertifications;
 	}
 
-	public void setInstitutionalCertifications(Set<InstitutionalCertification> institutionalCertifications) {
+	public void setInstitutionalCertifications(List<InstitutionalCertification> institutionalCertifications) {
 		this.institutionalCertifications = institutionalCertifications;
 	}
 	

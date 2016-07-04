@@ -175,7 +175,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		String instCertId  = "9"; //getInstCertId();
 		if(instCertId != null) {
 			Project project = retrieveSelectedProject();
-			Set<InstitutionalCertification> certs = project.getInstitutionalCertifications();
+			List<InstitutionalCertification> certs = project.getInstitutionalCertifications();
 			if(!CollectionUtils.isEmpty(certs)) {
 				for(InstitutionalCertification cert: certs) {
 					if(cert.getId().toString().equals(instCertId)) {
@@ -525,7 +525,10 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public String getIcList() {
 		setProject(retrieveSelectedProject());
-		
+		List<InstitutionalCertification> icList = getProject().getInstitutionalCertifications();
+		if(CollectionUtils.isEmpty(icList)) {
+			return "empty";
+		}
 		return SUCCESS;
 	}
 	
@@ -537,7 +540,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	 * 
 	 * @return
 	 */
-	public String saveICCompletion() {
+	public String saveIcCompletion() {
 		
 		String certComplete = getProject().getCertificationCompleteFlag();
 		
