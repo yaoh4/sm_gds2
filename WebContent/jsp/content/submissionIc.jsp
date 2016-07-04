@@ -6,11 +6,11 @@
     
     <!--Begin Form -->
     <form id="institutional_form" name="instititional_form" namespace="manage"
-    enctype="multipart/form-data" action="saveIc" method="post" role="form">
-    
+    enctype="multipart/form-data" action="saveIc" method="post" role="form">  
     <s:hidden name="projectId" value="%{project.id}"/>
-	<s:hidden id="instCert" name="%{instCertification}"/>
-	<s:hidden id="studies" name="%{instCertification.studies}" />
+    <s:hidden name="instCertification.id" value="%{instCertification.id}"/>
+	<s:hidden name="instCertification.createdBy" valey="%{instCertification.createdBy}"/>
+	
       
       <!-- Page navbar -->
       <div class="pageNav">
@@ -115,9 +115,12 @@
 					  								
                       <s:iterator status="studiesStat" var="study" value="instCertification.studies">
 					    <s:set name="studiesIdx" value="#studiesStat.index" />
-					    
+					  
+					 <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>   
+					 <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" id="studyId%{studiesIdx}"/> 
+					  					    
 					  	<div id="studySection${studiesIdx}" class="studyList">
-					  	
+				  		
 					  	<div class="panel-group" id="accordion">
 				         <div class="panel panel-default">
 					  	

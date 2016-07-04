@@ -116,6 +116,7 @@ WebContent/WEB-INF/web.xml -text
 WebContent/controllers/basicStudy.js -text
 WebContent/controllers/dataSharing.js -text
 WebContent/controllers/general.js -text
+WebContent/controllers/institutional.js -text
 WebContent/controllers/search.js -text
 WebContent/controllers/submissionStatus.js -text
 WebContent/fonts/FontAwesome.otf -text
@@ -172,6 +173,7 @@ WebContent/jsp/content/submissionGdsPlanView.jsp -text
 WebContent/jsp/content/submissionGeneralInfo.jsp -text
 WebContent/jsp/content/submissionGeneralInfoView.jsp -text
 WebContent/jsp/content/submissionIc.jsp -text
+WebContent/jsp/content/submissionIcFile.jsp -text
 WebContent/jsp/content/submissionIcList.jsp -text
 WebContent/jsp/content/submissionIcListView.jsp -text
 WebContent/jsp/content/submissionRepositoryStatus.jsp -text

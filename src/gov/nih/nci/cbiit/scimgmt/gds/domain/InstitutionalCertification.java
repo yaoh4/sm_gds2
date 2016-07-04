@@ -39,7 +39,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 	private String comments;
 	private String createdBy;
 	private String lastChangedBy;
-	private Document document;
+	private List<Document> documents = new ArrayList();
 	private List<Study> studies = new ArrayList();
 
 	public InstitutionalCertification() {
@@ -53,7 +53,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 
 	public InstitutionalCertification(Long id, Project project, String gpaApprovalCode,
 			String provisionalFinalCode, String futureProjectUseFlag, String comments,
-			String createdBy, String lastChangedBy, Document document, List studies) {
+			String createdBy, String lastChangedBy, List documents, List studies) {
 		this.id = id;
 		this.project = project;
 		this.gpaApprovalCode = gpaApprovalCode;
@@ -62,7 +62,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 		this.comments = comments;
 		this.createdBy = createdBy;
 		this.lastChangedBy = lastChangedBy;
-		this.document = document;
+		this.documents = documents;
 		this.studies = studies;
 	}
 
@@ -143,12 +143,12 @@ public class InstitutionalCertification implements java.io.Serializable {
 	}
 
 	@Transient
-	public Document getDocument() {
-		return this.document;
+	public List<Document> getDocuments() {
+		return documents;
 	}
 
-	public void setDocument(Document document) {
-		this.document = document;
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "institutionalCertification")

@@ -82,9 +82,9 @@ public class IcSubmissionAction extends ManageSubmission {
 		InstitutionalCertification instCert = retrieveIC();
 		if(instCert != null) {
 			Long docTypeId = lookupService.getLookupByCode(ApplicationConstants.DOC_TYPE, "IC").getId();
-			List<Document> docs = fileUploadService.retrieveFileByDocType(docTypeId.toString(), instCertification.getProject().getId());
+			List<Document> docs = fileUploadService.retrieveFileByDocType(docTypeId.toString(), instCert.getProject().getId());
 			if(docs != null && !docs.isEmpty()) {
-				instCertification.setDocument(docs.get(0));
+				instCertification.setDocuments(docs);
 			}
 		} else {
 			instCert = new InstitutionalCertification();
@@ -165,11 +165,11 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	private InstitutionalCertification retrieveIC() {
 	
-		String instCertId  = getInstCertId();
+		String instCertId  = "9"; //getInstCertId();
 		if(instCertId != null) {
 			Project project = retrieveSelectedProject();
 			Set<InstitutionalCertification> certs = project.getInstitutionalCertifications();
-			if(CollectionUtils.isEmpty(certs)) {
+			if(!CollectionUtils.isEmpty(certs)) {
 				for(InstitutionalCertification cert: certs) {
 					if(cert.getId().toString().equals(instCertId)) {
 						return cert;
@@ -185,7 +185,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	public void validateSaveIc() {
 		
 		InstitutionalCertification instCert = getInstCertification();
-		List<Study> studies = instCertification.getStudies();
+		List<Study> studies = instCert.getStudies();
 		
 		logger.info("No. of Studies in IC = " + studies.size());
 		
@@ -195,17 +195,26 @@ public class IcSubmissionAction extends ManageSubmission {
 			
 			studyIndex++;
 			int dulSetIndex = -1;
-			
-			study.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+			if(study.getId() == null || study.getId().toString().isEmpty()) {
+				study.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+			} else {
+				study.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+			}
 			study.setInstitutionalCertification(instCertification);
-			
 			//Map used to keep track of duplicate DulSets in a study
 			HashMap<String, Integer> validationMap = new HashMap<String, Integer>();
 			List<StudiesDulSet> dulSets = study.getStudiesDulSets();
 			logger.info("No. of dulSets in study at index at " + studyIndex + " = " + dulSets.size());
-			
-			for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
-				dulSet.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+			if(CollectionUtils.isEmpty(dulSets)) {
+				addActionError("No DUL selection made for study at index " + studyIndex);
+			}
+			else {
+				for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
+				if(dulSet.getId() == null || dulSet.getId().toString().isEmpty()) {
+					dulSet.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+				} else {
+					dulSet.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());				
+				}
 				dulSet.setStudy(study);
 				dulSetIndex++;
 				
@@ -231,9 +240,12 @@ public class IcSubmissionAction extends ManageSubmission {
 							
 							//for each selectedDul, create a dulChecklistSelection
 							DulChecklistSelection dulChecklistSelection = new DulChecklistSelection();
-							dulChecklistSelection.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+							if(dulChecklistSelection.getId() == null || dulChecklistSelection.getId().toString().isEmpty()) {
+								dulChecklistSelection.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+							} else {
+								dulChecklistSelection.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+							}
 							dulChecklistSelection.setStudiesDulSet(dulSet);
-							
 							//get the dulChecklist with the id and attach it to this dulCheckListSelection.
 							DulChecklist dulChecklist = GdsSubmissionActionHelper.getDulChecklist(Long.parseLong(selectedDuls[i]));
 							dulChecklistSelection.setDulChecklist(dulChecklist);
@@ -250,8 +262,9 @@ public class IcSubmissionAction extends ManageSubmission {
 							dulSet.setDulChecklistSelections(dulChecklistSelections);
 						}
 					}		
-				}
+				}				
 				//All selections in a dulSet retrieved
+				}
 			}
 			//All dulSets in a study scanned
 		}
@@ -259,6 +272,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		if(hasActionErrors()) {
 			setInstCertification(instCert);
+			prepareDisplay();
 		}
 	}
 	
