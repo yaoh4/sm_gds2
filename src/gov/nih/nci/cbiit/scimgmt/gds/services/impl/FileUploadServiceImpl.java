@@ -40,18 +40,37 @@ public class FileUploadServiceImpl implements FileUploadService {
 	private LookupService lookupService;
 	@Autowired
 	protected NedPerson loggedOnUser;
-
+	
+	
 	/**
 	 * Stores user selected file in DB
 	 * 
-	 * @param documents
+	 * @param projectId
+	 * @param docType
 	 * @param file
+	 * @param fileName
 	 * @return
 	 * @throws Exception
 	 */
 	public Document storeFile(Long projectId, String docType, File file, String fileName) throws Exception {
 		
-		Document doc = createDocument(projectId, docType, fileName);
+		return storeFile(projectId, docType, file, fileName, null);
+	}
+
+	/**
+	 * Stores user selected file in DB
+	 * 
+	 * @param projectId
+	 * @param docType
+	 * @param file
+	 * @param fileName
+	 * @param certId
+	 * @return
+	 * @throws Exception
+	 */
+	public Document storeFile(Long projectId, String docType, File file, String fileName, Long certId) throws Exception {
+		
+		Document doc = createDocument(projectId, docType, fileName, certId);
 		
 		//Perform tasks related to version control including removal of old doc if not supported.
 		doc = perfromVersionControl(doc);
@@ -78,7 +97,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 	 */
 	public Document storeFile(Long projectId, String docType, String text) throws Exception {
 		
-		Document doc = createDocument(projectId, docType, "");
+		Document doc = createDocument(projectId, docType, "", null);
 		
 		//Perform tasks related to version control including removal of old doc if not supported.
 		doc = perfromVersionControl(doc);
@@ -157,9 +176,10 @@ public class FileUploadServiceImpl implements FileUploadService {
 	 * @param projectId
 	 * @param docType
 	 * @param fileName
+	 * @param certId
 	 * @return
 	 */
-	private Document createDocument(Long projectId, String docType, String fileName) {
+	private Document createDocument(Long projectId, String docType, String fileName, Long certId) {
 		
 		Document doc = new Document();
 		doc.setProjectId(projectId);
@@ -169,6 +189,9 @@ public class FileUploadServiceImpl implements FileUploadService {
 		doc.setUploadedDate(new Date());
 		doc.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 		doc.setUploadedBy(loggedOnUser.getFullName());
+		if(certId != null) {
+			doc.setInstitutionalCertificationId(certId);
+		}
 		
 		// Get doc type object from lookup
 		doc.setDocType(lookupService.getLookupByCode("DOC_TYPE", docType));

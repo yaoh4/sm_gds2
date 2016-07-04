@@ -7,11 +7,28 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 
 public interface FileUploadService {
 
+	
 	/**
 	 * Stores user selected file in DB
 	 * 
-	 * @param documents
+	 * @param projectId
+	 * @param docType
 	 * @param file
+	 * @param filename
+	 * @param certId
+	 * @return
+	 * @throws Exception 
+	 */
+	public Document storeFile(Long projectId, String docType, File file, String fileName, Long certId) throws Exception;
+	
+	
+	/**
+	 * Stores user selected file in DB
+	 * 
+	 * @param projectId
+	 * @param docType
+	 * @param file
+	 * @param fileName
 	 * @return
 	 * @throws Exception 
 	 */

@@ -81,11 +81,20 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		InstitutionalCertification instCert = retrieveIC();
 		if(instCert != null) {
-			Long docTypeId = lookupService.getLookupByCode(ApplicationConstants.DOC_TYPE, "IC").getId();
-			List<Document> docs = fileUploadService.retrieveFileByDocType(docTypeId.toString(), instCert.getProject().getId());
+			icFileDocs = new ArrayList<Document>();
+			
+			//Long docTypeId = lookupService.getLookupByCode(ApplicationConstants.DOC_TYPE, "IC").getId();
+			List<Document> docs = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, instCert.getProject().getId());
 			if(docs != null && !docs.isEmpty()) {
-				instCertification.setDocuments(docs);
+				for(Document doc: docs) {
+					if(doc.getInstitutionalCertificationId() != null && 
+							doc.getInstitutionalCertificationId().equals(instCert.getId()))
+						icFileDocs.add(doc);
+				}			
 			}
+			
+			instCert.setDocuments(icFileDocs);		
 		} else {
 			instCert = new InstitutionalCertification();
 			Study study = new Study();
@@ -407,7 +416,8 @@ public class IcSubmissionAction extends ManageSubmission {
 			return INPUT;
 		
 		try {
-			doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_IC, ic, icFileName);
+			doc = fileUploadService.storeFile(
+				new Long(getProjectId()), ApplicationConstants.DOC_TYPE_IC, ic, icFileName, getInstCertification().getId());
 			icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
 			
 		} catch (Exception e) {
