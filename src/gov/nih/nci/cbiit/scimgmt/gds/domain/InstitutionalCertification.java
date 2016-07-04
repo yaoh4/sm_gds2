@@ -150,6 +150,10 @@ public class InstitutionalCertification implements java.io.Serializable {
 	public void setDocuments(List<Document> documents) {
 		this.documents = documents;
 	}
+	
+	public void addDocument(Document document) {
+		this.documents.add(document);
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "institutionalCertification")
 	@Cascade({CascadeType.ALL})

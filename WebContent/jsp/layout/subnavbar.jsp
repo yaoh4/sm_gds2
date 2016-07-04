@@ -39,7 +39,7 @@
 						<li class="active"><s:a href="javascript: void(0)">Institutional Certification(s)</s:a></li>
 					</s:if>
 					<s:else>
-						<s:url namespace="/manage" var="icUrl" action="editIc">
+						<s:url namespace="/manage" var="icUrl" action="listIc">
 							<s:param name="projectId" value="%{projectId}" />
 						</s:url>
 						<li><s:a href="%{icUrl}">Institutional Certification(s)</s:a></li>

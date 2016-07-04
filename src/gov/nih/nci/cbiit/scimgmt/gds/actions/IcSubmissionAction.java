@@ -10,7 +10,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -81,18 +80,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		InstitutionalCertification instCert = retrieveIC();
 		if(instCert != null) {
-			icFileDocs = new ArrayList<Document>();
-			List<Document> docs = 
-				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, instCert.getProject().getId());
-			if(docs != null && !docs.isEmpty()) {
-				for(Document doc: docs) {
-					if(doc.getInstitutionalCertificationId() != null && 
-							doc.getInstitutionalCertificationId().equals(instCert.getId()))
-						icFileDocs.add(doc);
-				}			
-			}
-			
-			instCert.setDocuments(icFileDocs);		
+			loadFiles(instCert);
 		} else {
 			instCert = new InstitutionalCertification();
 			Study study = new Study();
@@ -107,6 +95,23 @@ public class IcSubmissionAction extends ManageSubmission {
         return SUCCESS;
 	}
 	
+	
+	private void loadFiles(InstitutionalCertification instCert) {
+		if(instCert != null) {
+			icFileDocs = new ArrayList<Document>();
+			List<Document> docs = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, instCert.getProject().getId());
+			if(docs != null && !docs.isEmpty()) {
+				for(Document doc: docs) {
+					if(doc.getInstitutionalCertificationId() != null && 
+							doc.getInstitutionalCertificationId().equals(instCert.getId()))
+						icFileDocs.add(doc);
+				}			
+			}
+			
+			instCert.setDocuments(icFileDocs);		
+		}
+	}
 	
 	private void setTestData(Study study) {
 		StudiesDulSet studiesDulSet = new StudiesDulSet();
@@ -172,7 +177,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	private InstitutionalCertification retrieveIC() {
 	
-		String instCertId  = "9"; //getInstCertId();
+		String instCertId  = getInstCertId();
 		if(instCertId != null) {
 			Project project = retrieveSelectedProject();
 			List<InstitutionalCertification> certs = project.getInstitutionalCertifications();
@@ -328,7 +333,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			project.getInstitutionalCertifications().add(instCert);
 		}
 		instCert.setProject(project);
-		saveProject(project);
+		setProject(saveProject(project));
 		
 		return SUCCESS;
 	}
@@ -524,11 +529,28 @@ public class IcSubmissionAction extends ManageSubmission {
 	 * @return
 	 */
 	public String getIcList() {
-		setProject(retrieveSelectedProject());
-		List<InstitutionalCertification> icList = getProject().getInstitutionalCertifications();
+		
+		Project project = retrieveSelectedProject();
+		
+		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
+		List<Document> docs = 
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
+			
 		if(CollectionUtils.isEmpty(icList)) {
 			return "empty";
+		} 
+		
+		if(docs != null && !docs.isEmpty()) {
+			for(InstitutionalCertification ic: icList) {
+				for(Document doc: docs) {
+					if(doc.getInstitutionalCertificationId() != null && 
+							doc.getInstitutionalCertificationId().equals(ic.getId()))
+						ic.addDocument(doc);								
+				}	
+			}
 		}
+	
+		setProject(project);
 		return SUCCESS;
 	}
 	

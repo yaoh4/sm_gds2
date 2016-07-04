@@ -7,8 +7,8 @@
     <form id="ic_dashboard_form" name="ic_dashboard_form" namespace = "manage" method="post"
       enctype="multipart/form-data" action="listIc"  role="form">
       <div class="pageNav">
-          <input  type="submit" name="save" value=" Save " class="saved btn btn-default" id="submission_saved">
-          <input name="" type="button" value=" Save & Next »  " class="btn btn-project-primary" onclick="window.location.href='basicStudy.htm'">
+          <s:submit action="saveIcList" value=" Save " class="saved btn btn-project-primary"/>
+          <s:submit action="saveIcListAndNext" value=" Save and Next " class="saved btn btn-project-primary"/>	
       </div>
       
       <s:hidden name="projectId" value="%{project.id}"/>
@@ -67,33 +67,32 @@
                       <th class="tableHeader" align="center" width="10%">Actions</th>
                     </tr>
                     
-                    
-                    <tr  data-id="1">
-                      <td style="white-space: nowrap"><i class="fa fa-file-word-o" aria-hidden="true"></i> &nbsp;<a href="#">HepatocellularCarcinoma.doc</a></td>
-                      <td style="white-space: nowrap">Feb 08 2016 06:47:12 PM</td>
+                   <s:iterator status="icStat" var="ic" value="project.institutionalCertifications">
+					    <s:set name="icIdx" value="#icStat.index" />
+                    <tr  data-id="${icIdx}">
+                      <td style="white-space: nowrap">
+                      	<i class="fa fa-file-word-o" aria-hidden="true"></i>
+                      	<s:a href="javascript:openDocument(%{#ic.documents[0].id})">
+							<s:property value="%{#ic.documents[0].fileName}" />
+						</s:a>
+                      </td>
+                      <td style="white-space: nowrap"> 
+                      	<s:date name="%{#ic.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
+                      </td>
+                      
                       <td style="white-space: nowrap">
 
                         <a href="#icDetails" data-toggle="modal">
                         	<i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>
                         </a>&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
+                        <a href="/gds/manage/editIc.action?instCertId=${ic.id}&projectId=${project.id}">
+                        	<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;
+                        </a>&nbsp;&nbsp;&nbsp;
                         <a href="#" class="btnDelete">
                         	<i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i>
                         </a></td>
                       </tr>
-
-                      <tr  data-id="2">
-                      <td style="white-space: nowrap"><i class="fa fa-file-word-o" aria-hidden="true"></i> &nbsp;<a href="#">EwingSarcoma.doc</a></td>
-                      <td style="white-space: nowrap">Mar 09 2016 06:47:12 PM</td>
-                      <td style="white-space: nowrap">
-                        
-                        <a href="#icDetails2" data-toggle="modal">
-                        	<i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view">
-                        </i></a>&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
-                        <a href="#" class="btnDelete"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a></td>
-                      </tr>
-
+				</s:iterator>
                       
                     </table>
                   </div>
@@ -102,7 +101,8 @@
               
               <!--SAVE & NEXT BUTTONS-->
         <div class="pageNav">
-          <s:submit action="saveIcCompletion" value=" Save and Next " class="saved btn btn-project-primary"/>	  
+          <s:submit action="saveIcList" value=" Save " class="saved btn btn-project-primary"/>
+          <s:submit action="saveIcListAndNext" value=" Save and Next " class="saved btn btn-project-primary"/>	  
         </div>
               
             </form>

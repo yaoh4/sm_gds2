@@ -21,6 +21,8 @@
 <script src="<s:url value="/scripts/jquery.are-you-sure-1.9.0.js" />"></script>
 <script src="<s:url value="/scripts/theme.js" />"></script>
 
+<script src="<s:url value="/scripts/gds.js" />"></script>
+
 <link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <!-- <link href="<s:url value="/stylesheets/non-responsive.css" />" rel="stylesheet" type="text/css" media="screen" /> -->
 <link href="<s:url value="/stylesheets/bootstrap-datepicker-1.6.1.min.css" />" rel="stylesheet" type="text/css" media="screen" />
