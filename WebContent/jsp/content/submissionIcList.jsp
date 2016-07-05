@@ -1,3 +1,5 @@
+<%@ page import="gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper" %>
+
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
@@ -104,7 +106,7 @@
                         <tr>
                           <td><span class="question">Approved by GPA: </span>${ic.gpaApprovalCode}</td>
 						  <td><span class="question">Provisional or Final? </span>${ic.provisionalFinalCode}</td>
-						  <td><span class="question">Study for use in Future Projects? </span>${ic.futureProjectUseFlag}</td>
+						  <td><span class="question">Study for use in Future Projects? </span>${ic.futureProjectUseCode}</td>
                         </tr>
                         <tr>
 						  <td colspan="6">&nbsp;</td>
@@ -162,7 +164,8 @@
                                               <tr>
                                                 <s:iterator status="dulSetStat" var="studiesDulSet" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets">                                                         
                                                   <s:set name="dulSetIdx" value="#dulSetStat.index" />
-                                                  <td colspan="1" class="row">${dulSetStat.index + 1}. ${studiesDulSet.dulChecklistSelections[0].dulChecklist.parentDulId}
+                                                  <s:set name="parentDulText" value="%{@GdsSubmissionActionHelper@getDulChecklist(1)}"/>
+                                                  <td colspan="1" class="row">${dulSetStat.index + 1}. ${parentDulText}
                                                     <ul class="spacing">
                                                     <s:iterator status="dulStat" var="dul" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets[#dulSetStat.index].dulChecklistSelections">
                                                       <li class="bullet" style="display: list-item">${dul.dulChecklist.displayText}</li>
