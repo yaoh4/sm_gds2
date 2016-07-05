@@ -46,8 +46,9 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	
 	/**
 	 * Validates Repository submission save.
+	 * @throws Exception 
 	 */
-	public void validateSave(){
+	public void validateSave() throws Exception{
 
 		boolean allStudyReleased = true;
 		boolean isGdsPlanCompleted = true;
@@ -88,8 +89,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		}
 
 		if(hasActionErrors()){
-			setUpStatusLists();
-			setProject(retrieveSelectedProject());
+			setUpPageData();
 		}
 	}
 
@@ -108,8 +108,9 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 	/**
 	 * Validates Repository submission save.
+	 * @throws Exception 
 	 */
-	public void validateSaveAndNext(){
+	public void validateSaveAndNext() throws Exception{
 		validateSave();
 	}
 	
@@ -140,12 +141,18 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		project.setRepositoryStatuses(getProject().getRepositoryStatuses());	
 		
 		for(RepositoryStatus repositoryStatus : project.getRepositoryStatuses()){
-			repositoryStatus.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 			repositoryStatus.setProject(project);
-		}		
+			if(repositoryStatus.getId() == null) {
+				repositoryStatus.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+			} else {
+				repositoryStatus.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+			}
+			project.getPlanAnswerSelectionById(repositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()).getRepositoryStatuses().clear();
+			project.getPlanAnswerSelectionById(repositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()).getRepositoryStatuses().add(repositoryStatus);
+		}
+
 		super.saveProject(project);
-		setProject(retrieveSelectedProject());
-		setUpStatusLists();	
+		setUpPageData();
 
 	}
 	
@@ -185,7 +192,13 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public void	setUpRepositoryStatuses() {	
 		logger.debug("Setting up Repository statuses.");
-
+	
+		for(PlanAnswerSelection selection: getProject().getPlanAnswerSelection()) {
+			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
+				getProject().getRepositoryStatuses().add(repositoryStatus);
+			}		
+		}
+		
 		if(GdsSubmissionActionHelper.isAnyRepositorySelectedInGdsPlan(getProject())){
 			
 			setUpSelectdRepositoryStatuses();

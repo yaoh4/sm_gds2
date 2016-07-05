@@ -457,31 +457,54 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	private void populatePlanAnswerSelection() throws Exception{
 				
 		for(Long id: oldSet) {
-			getProject().getPlanAnswerSelection().remove(getProject().getPlanAnswerSelectionByAnswerId(id));
+			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelection().iterator(); planAnswerSelectionIterator.hasNext();) {
+				PlanAnswerSelection savedOther = planAnswerSelectionIterator.next();
+				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue())
+					planAnswerSelectionIterator.remove();			
+			}
 		}
 		
 		for(Long id: otherSet) {
-			while(getProject().getPlanAnswerSelectionByAnswerId(id) != null) {
-				getProject().getPlanAnswerSelection().remove(getProject().getPlanAnswerSelectionByAnswerId(id));
+			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelection().iterator(); planAnswerSelectionIterator.hasNext();) {
+				PlanAnswerSelection savedOther = planAnswerSelectionIterator.next();
+				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue() &&
+						StringUtils.isNotBlank(savedOther.getOtherText())) {
+					boolean found = false;
+					for(String otherText: otherTextMap.get(id)) {
+						if(StringUtils.equals(savedOther.getOtherText(), otherText))
+							found = true;
+						break;
+					}
+					if(!found)
+						planAnswerSelectionIterator.remove();
+				}
 			}
 		}
 		
 		PlanAnswerSelection newObject = null;
 		for (Long id : newSet) {
 			PlanQuestionsAnswer planQuestionsAnswer = PlanQuestionList.getAnswerByAnswerId(id);
-			newObject = new PlanAnswerSelection();
-			newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
-			newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
-			newObject.setProject(getProject());
 			if(planQuestionsAnswer.getDisplayText().equalsIgnoreCase(ApplicationConstants.OTHER)) {
-				PlanAnswerSelection otherObject = null;
 				for(String otherText: otherTextMap.get(id)) {
-					otherObject = new PlanAnswerSelection(newObject);
-					otherObject.setOtherText(otherText);
-					getProject().getPlanAnswerSelection().add(otherObject);
+					newObject = getProject().getPlanAnswerSelectionByAnswerIdAndText(id, otherText);
+					if(newObject == null) {
+						newObject = new PlanAnswerSelection();
+						newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+						newObject.setOtherText(otherText);
+						newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
+						newObject.setProject(getProject());
+						getProject().getPlanAnswerSelection().add(newObject);
+					}
 				}
 			} else {
-				getProject().getPlanAnswerSelection().add(newObject);
+				newObject = getProject().getPlanAnswerSelectionByAnswerId(id);
+				if(newObject == null) {
+					newObject = new PlanAnswerSelection();
+					newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+					newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
+					newObject.setProject(getProject());
+					getProject().getPlanAnswerSelection().add(newObject);
+				}
 			}
 		}
 
@@ -615,7 +638,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				}
 			}
 			
-			// f) Remove repositories that were deleted except dbGaP
+			// f) Remove repositories that were deleted except dbGaP, and add dbGap if it is not there.
 			Set<Long> removeSet = new HashSet<Long>();
 			removeSet.addAll(oldSet);
 			removeSet.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
@@ -625,10 +648,18 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 			else {
 				removeRepositoryStatuses(removeSet);
+				newSet.add(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
+				oldSet.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
 			}
 			
+		} else if (newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID)) {
+			// Answer is No, so make sure the dbGap is available.
+			if(!warnOnly) {
+				newSet.add(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
+				oldSet.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
+			}
 		} else {
-			// Remove ALL repositories that were deleted
+			// Answer is Yes or not answered. Remove ALL repositories that were deleted
 			if(!warnOnly) {
 				removeRepositoryStatuses(oldSet);
 			}
@@ -707,10 +738,14 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			// List to hold removed repository status
 			List<RepositoryStatus> removedRepositories = new ArrayList<RepositoryStatus>();	
 		
-			for(RepositoryStatus repository: getProject().getRepositoryStatuses()){			
-				// Check if any of the repository has been removed.
-				if(oldSet.contains(repository.getPlanAnswerSelectionTByRepositoryId().getId())) { 
-					removedRepositories.add(repository);
+			// Remove the deleted repository from PlanAnswerSelection object
+			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelection().iterator(); planAnswerSelectionIterator.hasNext();) {
+				PlanAnswerSelection selection = planAnswerSelectionIterator.next();
+				for(RepositoryStatus rep: selection.getRepositoryStatuses()) {
+					// Check if any of the repository has been removed.
+					if(oldSet.contains(rep.getPlanAnswerSelectionTByRepositoryId().getId())) { 
+						removedRepositories.add(rep);
+					}
 				}
 			}
 

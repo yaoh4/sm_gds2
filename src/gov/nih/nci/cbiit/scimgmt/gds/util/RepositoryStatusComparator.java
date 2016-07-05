@@ -28,7 +28,7 @@ public class RepositoryStatusComparator implements Comparator
 			else { return -1;}
 		}
 
-		return  status1.getPlanAnswerSelectionTByRepositoryId().getOtherText().compareTo(status2.getPlanAnswerSelectionTByRepositoryId().getOtherText());
+		return  (status1.getPlanAnswerSelectionTByRepositoryId().getOtherText() == null? -1: status1.getPlanAnswerSelectionTByRepositoryId().getOtherText().compareTo(status2.getPlanAnswerSelectionTByRepositoryId().getOtherText()));
 
 	}
 }

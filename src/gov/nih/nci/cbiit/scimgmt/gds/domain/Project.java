@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -485,10 +486,33 @@ public class Project implements java.io.Serializable {
 	}
 	
 	@Transient
+	public PlanAnswerSelection getPlanAnswerSelectionById(Long id) {
+		for(PlanAnswerSelection sel: getPlanAnswerSelection()) {
+			if(sel.getId().longValue() == id.longValue())
+				return sel;
+		}
+		return null;
+	}
+	
+	@Transient
 	public PlanAnswerSelection getPlanAnswerSelectionByAnswerId(Long id) {
 		for(PlanAnswerSelection sel: getPlanAnswerSelection()) {
 			if(sel.getPlanQuestionsAnswer().getId().longValue() == id.longValue())
 				return sel;
+		}
+		return null;
+	}
+	
+	@Transient
+	public PlanAnswerSelection getPlanAnswerSelectionByAnswerIdAndText(Long id, String other) {
+		for(PlanAnswerSelection sel: getPlanAnswerSelection()) {
+			if(StringUtils.isEmpty(other) && sel.getPlanQuestionsAnswer().getId().longValue() == id.longValue()) {
+				return sel;
+			}
+			if(StringUtils.isNotEmpty(other) && sel.getPlanQuestionsAnswer().getId().longValue() == id.longValue()
+					&& StringUtils.equals(sel.getOtherText(), other)) {
+				return sel;
+			}
 		}
 		return null;
 	}
@@ -503,8 +527,7 @@ public class Project implements java.io.Serializable {
 		return set;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
-	@Cascade({CascadeType.ALL})
+	@Transient
 	public List<RepositoryStatus> getRepositoryStatuses() {
 		return this.repositoryStatuses;
 	}
