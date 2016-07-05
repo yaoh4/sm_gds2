@@ -91,8 +91,8 @@
                   
                 <div class="col-xs-3">
                   <label for="Project Submission Status">IC Memo for Use in Future Projects?</label>
-                  <s:select name="instCertification.futureProjectUseFlag"
-                    value="instCertification.futureProjectUseFlag"
+                  <s:select name="instCertification.futureProjectUseCode"
+                    value="instCertification.futureProjectUseCode"
                     class="c-select form-control"
                     list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_FOR_FUTURE_USE_LIST)}"
                     listKey="optionKey" listValue="optionValue" id="Study"
@@ -115,11 +115,11 @@
 					  								
                       <s:iterator status="studiesStat" var="study" value="instCertification.studies">
 					    <s:set name="studiesIdx" value="#studiesStat.index" />
-					  
-					 <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>   
-					 <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" id="studyId%{studiesIdx}"/> 
 					  					    
 					  	<div id="studySection${studiesIdx}" class="studyList">
+					  	
+					  	 <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>   
+					     <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" id="studyId%{studiesIdx}"/> 
 				  		
 					  	<div class="panel-group" id="accordion">
 				         <div class="panel panel-default">

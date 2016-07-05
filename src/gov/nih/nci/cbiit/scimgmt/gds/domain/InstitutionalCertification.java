@@ -35,7 +35,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 	private Project project;
 	private String gpaApprovalCode;
 	private String provisionalFinalCode;
-	private String futureProjectUseFlag;
+	private String futureProjectUseCode;
 	private String comments;
 	private String createdBy;
 	private String lastChangedBy;
@@ -52,13 +52,13 @@ public class InstitutionalCertification implements java.io.Serializable {
 	}
 
 	public InstitutionalCertification(Long id, Project project, String gpaApprovalCode,
-			String provisionalFinalCode, String futureProjectUseFlag, String comments,
+			String provisionalFinalCode, String futureProjectUseCode, String comments,
 			String createdBy, String lastChangedBy, List documents, List studies) {
 		this.id = id;
 		this.project = project;
 		this.gpaApprovalCode = gpaApprovalCode;
 		this.provisionalFinalCode = provisionalFinalCode;
-		this.futureProjectUseFlag = futureProjectUseFlag;
+		this.futureProjectUseCode = futureProjectUseCode;
 		this.comments = comments;
 		this.createdBy = createdBy;
 		this.lastChangedBy = lastChangedBy;
@@ -106,13 +106,13 @@ public class InstitutionalCertification implements java.io.Serializable {
 		this.provisionalFinalCode = provisionalFinalCode;
 	}
 
-	@Column(name = "FUTURE_PROJECT_USE_FLAG", length = 4)
-	public String getFutureProjectUseFlag() {
-		return this.futureProjectUseFlag;
+	@Column(name = "FUTURE_PROJECT_USE_CODE", length = 4)
+	public String getFutureProjectUseCode() {
+		return this.futureProjectUseCode;
 	}
 
-	public void setFutureProjectUseFlag(String futureProjectUseFlag) {
-		this.futureProjectUseFlag = futureProjectUseFlag;
+	public void setFutureProjectUseCode(String futureProjectUseCode) {
+		this.futureProjectUseCode = futureProjectUseCode;
 	}
 
 	@Column(name = "COMMENTS", length = 4000)
