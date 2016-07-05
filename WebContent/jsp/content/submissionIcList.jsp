@@ -51,13 +51,12 @@
                 <s:submit action="editIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
               </div>
             </p>
-                
-            <div class="radio form-group">
-              <label><input type="radio"  name="project.certificationCompleteFlag" value="Y" id="reviewedYes">Yes</label>
-            </div>
-            <div class="radio form-group">
-              <label><input type="radio"  name="project.certificationCompleteFlag" value="N" id="reviewedNo">No</label>
-            </div>
+             
+           <div class="radio form-group">   
+              <s:radio id="radioCertComplete" list="#{'Y':'Yes','N':'No'}"
+				name="project.certificationCompleteFlag" value="project.certificationCompleteFlag"
+				template="radiomap-div.ftl" />
+			</div> 
           
             <p>&nbsp;</p>
 

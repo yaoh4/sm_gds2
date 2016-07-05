@@ -164,8 +164,8 @@
                               </div>
                               <div class="col-xs-3" id="DULv">
                                 <label for="Data Use Limitation(s) Verified?" class="label_dulV">Data Use Limitation(s) Verified?</label>
-                                <s:select name="instCertification.studies[<s:property value='#studiesStat.index'/>].dulVerificationId"
-                        			value="study.dulVerificationId"
+                                <s:select name="instCertification.studies[%{#studiesStat.index}].dulVerificationId"
+                        			value="instCertification.studies[#studiesStat.index].dulVerificationId"
                         			class="mn" style="width: 120px;"
                         			list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST)}"
                         			listKey="optionKey" listValue="optionValue" id="dulVerified"

@@ -3,11 +3,16 @@ $(document).ready(function() {
 
 //show/hide button for Add Additional Instititional Certificates	
 
-$('input[type="radio"]').click(function() {
-       if($(this).attr('id') == 'reviewedNo') {
+
+	if ($("#radioCertCompleteN").prop("checked") == true) {
+		$('#addICBtn').show().css('display', 'inline');
+	}
+	
+	
+	$('input[type="radio"]').click(function() {
+       if($(this).attr('id') == 'radioCertCompleteN') {
             $('#addICBtn').show().css('display', 'inline');           
        }
-
        else {
             $('#addICBtn').hide();   
        }
