@@ -91,7 +91,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		}
         
 		setInstCertification(instCert);
-		prepareDisplay();
+		prepareDisplay(instCert);
         return SUCCESS;
 	}
 	
@@ -136,7 +136,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	
-	private void prepareDisplay() {
+	private void prepareDisplay(InstitutionalCertification instCert) {
 		//Get display Text
 		setParentDulChecklists(GdsSubmissionActionHelper.getDulChecklistsSets());
 		
@@ -145,7 +145,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		ArrayList<String> dulIdList = new ArrayList<String>();
 		int studyIndex = -1;
-		for(Study study: getInstCertification().getStudies()) {
+		for(Study study: instCert.getStudies()) {
 			studyIndex++;
 			int dulSetIndex = -1;
 			for(StudiesDulSet studiesDulSet: study.getStudiesDulSets() ) {
@@ -295,7 +295,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		if(hasActionErrors()) {
 			setProject(retrieveSelectedProject());
 			setInstCertification(instCert);
-			prepareDisplay();
+			prepareDisplay(instCert);
 		}
 	}
 	

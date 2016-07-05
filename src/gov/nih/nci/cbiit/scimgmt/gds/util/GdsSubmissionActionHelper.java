@@ -45,9 +45,9 @@ public class GdsSubmissionActionHelper {
    	
    	
    	/**
-	 * Gets the single instance of PrfAppUtil.
+	 * Gets the single instance of GdsSubmissionActionHelper.
 	 * 
-	 * @return single instance of PrfAppUtil
+	 * @return single instance of GdsSubmissionActionHelper
 	 */
 	public static GdsSubmissionActionHelper getInstance() {
 		return instance;

@@ -21,6 +21,15 @@ $('input[type="radio"]').click(function() {
     var id = $(this).closest('tr').data('id');
     $('#myModal').data('id', id).modal('show');
 });
+  
+  
+  $('.icDetails').on('click', function(e) {
+	  e.preventDefault();
+	  var id = $(this).attr("id").replace("icDetails", "contentDivImg");
+	  $("#" + id).toggle();
+  })
+  
+  
 
 $('#btnDelteYes').click(function () {
     var id = $('#myModal').data('id');

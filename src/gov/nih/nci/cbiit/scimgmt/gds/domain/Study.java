@@ -35,6 +35,7 @@ public class Study implements java.io.Serializable {
 	private String studyName;
 	private String institution;
 	private Long dulVerificationId;
+	private String comments;
 	private String createdBy;
 	private String lastChangedBy;
 	private List<StudiesDulSet> studiesDulSets = new ArrayList<StudiesDulSet>();
@@ -110,6 +111,16 @@ public class Study implements java.io.Serializable {
 
 	public void setDulVerificationId(Long dulVerificationId) {
 		this.dulVerificationId = dulVerificationId;
+	}
+
+	@Column(name = "COMMENTS", length = 4000)
+	public String getComments() {
+		return comments;
+	}
+
+	
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
