@@ -5,7 +5,7 @@
 <div class="content">
     
     <!--Begin Form -->
-    <form id="institutional_form" name="instititional_form" namespace="manage"
+    <form id="institutional_form" name="instititional_form" cssClass="dirty-check" namespace="manage"
     enctype="multipart/form-data" action="saveIc" method="post" role="form">  
     <s:hidden name="projectId" value="%{project.id}"/>
     <s:hidden name="instCertification.id" value="%{instCertification.id}"/>
