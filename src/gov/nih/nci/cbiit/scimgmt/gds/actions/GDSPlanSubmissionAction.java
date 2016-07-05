@@ -382,7 +382,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		populateAnswersMap();
 		
 		// Always reset the file upload or text radio button selection
-		answerMap.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID);
+		//answerMap.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID);
 		
 		//Get the list of files for display
 		uiControlMap = uIRuleUtil.getUiRuleMap(getProject());
