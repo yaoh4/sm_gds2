@@ -156,6 +156,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		setUpPageData();
 		
+		addActionMessage(getText("project.save.success"));
+		
         return SUCCESS;
 	}
 	
