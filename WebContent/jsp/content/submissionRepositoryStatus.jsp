@@ -8,6 +8,7 @@
 			<s:submit value=" Save & Next »  " action="manage/saveRepositoryStatusAndNext" cssClass="btn btn-project-primary" />
 	</div>	
 		<s:hidden name="projectId" value="%{project.id}"/>
+		<s:set name="isAnticipatedSubDateDisabled" value="%{isAnticipatedSubDateDisabled()}" />
 		<!-- Begin Panel -->
 		<div class="col-md-12">
 			<div class="panel  project-panel-primary">
@@ -22,6 +23,15 @@
 						repositories for your project. Please complete the submission
 						details for each repository.
 					</p>
+					<br />
+					<div id="repositoryDate" style="width:200px;">
+						<s:label for="%{'anticpated_submission_date'}">Anticipated Submission Date
+						</s:label>
+						<div class="input-group date"> <s:textfield id="%{'anticpated_submission_date'}" name="project.anticipatedSubmissionDate"	value="%{anticipatedSubmissionDate}" disabled="isAnticipatedSubDateDisabled"
+								cssClass="form-control" />
+							<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+						</div>
+					</div>
 					<br />
 					<s:iterator value="project.repositoryStatuses" var="repositoryStatus" status="stat">
 					<!-- Begin Panel for each Repository -->
@@ -55,17 +65,7 @@
 									</s:label> 
 									<s:select id="%{'projStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByDataSubmissionStatusId.id" onChange="enableDisableStudyReleased(this.id)" 
 												value="%{#repositoryStatus.lookupTByDataSubmissionStatusId.id}" cssClass="c-select form-control" disabled="true" list="projectSubmissionStatusList" listKey="optionKey" listValue="optionValue"/>											
-								</div>
-
-								<div id="repositoryDate" class="col-xs-2">
-									<s:label for="%{'anticpated_submission_date_' + #stat.index}">Anticipated<br />
-										Submission Date
-									</s:label>
-									<div class="input-group date">
-										<s:textfield id="%{'anticpated_submission_date_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].anticipatedSubmissionDate" value="%{#repositoryStatus.anticipatedSubmissionDate}" cssClass="form-control" />	
-										<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-									</div>
-								</div>
+								</div>							
 
 								<div class="col-xs-2">
 									<br /> <s:label for="%{'studyRel_' + #stat.index}">Study Released?</s:label>

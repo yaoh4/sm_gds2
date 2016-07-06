@@ -178,7 +178,7 @@
 							Start Date</label>
 						<div class="input-group date">
 						
-						<s:textfield name="project.projectStartDate" cssClass="form-control" id="projectStartDate" value="%{project.projectStartDate}" disabled="isNotEditable"/>	
+						<s:textfield name="project.projectStartDate" cssClass="form-control" id="projectStartDate" value="%{projectStartDate}" disabled="isNotEditable"/>	
 						<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>
@@ -192,7 +192,7 @@
 							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
 							End Date</label>
 						<div class="input-group date">
-						<s:textfield name="project.projectEndDate" cssClass="form-control" id="projectEndDate" value="%{project.projectEndDate}" disabled="isNotEditable"/>	
+						<s:textfield name="project.projectEndDate" cssClass="form-control" id="projectEndDate" value="%{projectEndDate}" disabled="isNotEditable"/>	
 							<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>

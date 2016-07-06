@@ -68,7 +68,9 @@ public interface ApplicationConstants {
 	 public static final Long IC_STUDY_DUL_CHECKLIST_DISEASE_SPECIFIC_ID = 13L;
 	 public static final Long IC_STUDY_DUL_CHECKLIST_OTHER_ID = 21L;
 	 public static final Long PROJECT_SUBMISSION_STATUS_INPROGRESS_ID = 12L;
-	 public static final Long PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID = 13L;
+	 public static final Long PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID = 13L;	 
+	 public static final Long REGISTRATION_STATUS_INPROGRESS_ID = 8L;
+	 public static final Long REGISTRATION_STATUS_NOTSTARTED_ID = 9L;	 
 	 public static final Long PROJECT_STUDY_RELEASED_NO_ID = 17L;
 	 
 	 /* String constants */

@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +32,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 	List<DropDownOption> registrationStatusList = new ArrayList<DropDownOption>();	
 	List<DropDownOption> projectSubmissionStatusList = new ArrayList<DropDownOption>();
-	List<DropDownOption> studyReleasedList = new ArrayList<DropDownOption>();
+	List<DropDownOption> studyReleasedList = new ArrayList<DropDownOption>();	
 
 	/**
 	 * This method is responsible for loading the Repository status page and setting all the UI elements.
@@ -53,17 +54,18 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		boolean allStudyReleased = true;
 		boolean isGdsPlanCompleted = true;
 		boolean isInstitutionalCertificationsCompleted = true;
-		boolean isBasciStudyCompleted = true;		
+		boolean isBasciStudyCompleted = true;	
+		boolean isStatusNotStartedOrInProgress = false;
 
 		for(RepositoryStatus repositoryStatus : getProject().getRepositoryStatuses()){
 
 			//Anticipated submission date validation.
-			if(repositoryStatus.getLookupTByDataSubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID
-					&& repositoryStatus.getAnticipatedSubmissionDate() == null){
+			if((repositoryStatus.getLookupTByDataSubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID
+					|| repositoryStatus.getLookupTByDataSubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID)
+						||(repositoryStatus.getLookupTByRegistrationStatusId().getId() == ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID ||
+							repositoryStatus.getLookupTByRegistrationStatusId().getId() == ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID)){
+				isStatusNotStartedOrInProgress = true;
 
-				if(!getActionErrors().contains(getText("anticipated.submission.date.required"))){
-					this.addActionError(getText("anticipated.submission.date.required"));
-				}				 				
 			}
 
 			//Comments cannot be greater than 2000 characters.
@@ -79,12 +81,16 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 				allStudyReleased = false;
 			}
 		}	
+		
+		
+		if(getProject().getAnticipatedSubmissionDate() == null && isStatusNotStartedOrInProgress){
+			this.addActionError(getText("anticipated.submission.date.required"));
+		}
 
 		//The system will validate that the 'Genomic Data Sharing', 'Institutional Certifications' and the 'Basic Study Info' pages are completed, 
 		//when the user marks the 'Study Release' on all repositories to 'Yes' and then attempts to save the Submission Status page.
 		//Todo:Get the values of isGdsPlanCompleted , isInstitutionalCertificationsCompleted and isBasciStudyCompleted from some service.
 		if(allStudyReleased && (!isGdsPlanCompleted || !isInstitutionalCertificationsCompleted || !isBasciStudyCompleted)){	
-
 			this.addActionError(getText("gdsplan.ic.bsi.not.completed.error")); 			
 		}
 
@@ -149,6 +155,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			}
 			project.getPlanAnswerSelectionById(repositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()).getRepositoryStatuses().clear();
 			project.getPlanAnswerSelectionById(repositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()).getRepositoryStatuses().add(repositoryStatus);
+			project.setAnticipatedSubmissionDate(getProject().getAnticipatedSubmissionDate());
 		}
 
 		super.saveProject(project);
@@ -216,10 +223,6 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	public void setUpDbGapRepositoryStatus() {
 
 		logger.debug("Adding DbGaP Repository status.");	
-		//ToDo: When answer to question: Will there be any data submitted is No on gds plan page,
-		//dgGap specific planAnswerSelection should be created when saved on gds plan page 
-		//which will be used here to populate planAnswerSelection of below DbGaP Repository.
-		//Update below code when dgGap specific planAnswerSelection is available.
 		PlanAnswerSelection planAnswerSelection = new PlanAnswerSelection();
 		PlanQuestionsAnswer planQuestionAnswer = PlanQuestionList.getAnswerById(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
 		planAnswerSelection.setProject(getProject());
@@ -283,6 +286,21 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		
 		return repositoryStatus;		
 	}
+	
+	/**
+	 * This method decides if Anticipated submission date should be disabled.
+	 * @return
+	 */
+	public boolean isAnticipatedSubDateDisabled(){
+		
+		boolean isAnticipatedSubDateDisabled = false; 
+		
+		//The system will disable the Anticipated Submission Date field if the user answered No to question Will there be any data submitted on the Genomica Data Sharing Plan page.
+		if(getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null){
+			isAnticipatedSubDateDisabled = true;
+		}
+		return isAnticipatedSubDateDisabled;		
+	}
 
 	/**
 	 * @return the registrationStatusList
@@ -324,5 +342,11 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public void setStudyReleasedList(List<DropDownOption> studyReleasedList) {
 		this.studyReleasedList = studyReleasedList;
+	}
+
+	//Get Anticipated submission date
+	public String getAnticipatedSubmissionDate() {
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		return format.format(getProject().getAnticipatedSubmissionDate());
 	}
 }
