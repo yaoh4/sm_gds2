@@ -65,6 +65,7 @@ public class Project implements java.io.Serializable {
 	private String pdFirstName;
 	private String pdLastName;
 	private Long applId;
+	private Date anticipatedSubmissionDate;
 	private Set<StatusHistory> statusHistories = new HashSet(0);
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
@@ -553,5 +554,15 @@ public class Project implements java.io.Serializable {
 
 	public void setApplId(Long applId) {
 		this.applId = applId;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "ANTICIPATED_SUBMISSION_DATE", length = 7)
+	public Date getAnticipatedSubmissionDate() {
+		return anticipatedSubmissionDate;
+	}
+
+	public void setAnticipatedSubmissionDate(Date anticipatedSubmissionDate) {
+		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 	}
 }
