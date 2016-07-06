@@ -14,10 +14,7 @@
       
       <!-- Page navbar -->
       <div class="pageNav">
-        <!--<div><img src="<s:url value="/images/legend.gif"/>" alt="legend for progress icons" width="206px"></div>-->
-        <input name="" type="button" value=" Save " class="saved btn btn-default">
-        
-        <input name="" type="button" value=" Save &amp; Next &raquo;  " class="btn btn-project-primary" onclick="window.location.href='dataSharing.htm'">
+        <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
       </div>
 
 

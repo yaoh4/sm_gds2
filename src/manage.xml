@@ -95,6 +95,7 @@
 		<action name="saveIcListAndNext" method="saveIcCompletion" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="redirect-action">
 			 	<param name="actionName">navigateToBasicStudyInfo</param>
+			 	<param name="projectId">${project.id}</param>
 			 </result>
 			 <result name="input" type="tiles">submissionIcList</result>
 			 <param name="projectId">${project.id}</param>
