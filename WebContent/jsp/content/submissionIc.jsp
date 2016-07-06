@@ -112,10 +112,11 @@
 					  								
                       <s:iterator status="studiesStat" var="study" value="instCertification.studies">
 					    <s:set name="studiesIdx" value="#studiesStat.index" />
+					  	
+					  	<s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>
 					  					    
 					  	<div id="studySection${studiesIdx}" class="studyList">
-					  	
-					  	 <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>   
+					      
 					     <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" id="studyId%{studiesIdx}"/> 
 				  		
 					  	<div class="panel-group" id="accordion">
@@ -146,7 +147,7 @@
                               <div class="col-xs-3">
                                 <label class="label_sn" for="Study Name">Study Name</label>
                                 <input type="text" class="form-control input_sn" placeholder="Full Name of Study" 
-                              	    id="studyName${studyIdx}"  
+                              	    id="studyName${studiesIdx}"  
                               		name="instCertification.studies[<s:property value='#studiesStat.index'/>].studyName" 
                               		value="${study.studyName}"/>	
                               </div>
@@ -154,7 +155,7 @@
                               <div class="col-xs-3">
                                 <label class="label_in" for="Provisional or Final?">Institution</label>
                                 <input type="text" class="form-control input_in" placeholder="Full Name Institution"
-                              		id="institution${studyIdx}"
+                              		id="institution${studiesIdx}"
 									name="instCertification.studies[<s:property value='#studiesStat.index'/>].institution"
 									value="${study.institution}"/>
                               
@@ -165,7 +166,7 @@
                         			value="instCertification.studies[#studiesStat.index].dulVerificationId"
                         			class="mn" style="width: 120px;"
                         			list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST)}"
-                        			listKey="optionKey" listValue="optionValue" id="dulVerified"
+                        			listKey="optionKey" listValue="optionValue" id="dulVerificationId%{#studiesIdx}"
                        				emptyOption="true"/>
                               </div>
                             </div> <!--end row-->			
@@ -173,7 +174,7 @@
                               <label for="study comments" class="label_stCom">Comments:</label><br/>
                               <s:textarea id="comments%{#studiesStat.index}" class="col-md-12 form-control input_stCom"  
                               		value="%{#study.comments}"
-									name="instCertification.studies[<s:property value='#studiesStat.index'/>].comments" 
+									name="instCertification.studies[%{#studiesIdx}].comments" 
 									 rows="3"></s:textarea>
                             </div> <!--end row-->
                             <p>&nbsp;</p>

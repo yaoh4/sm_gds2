@@ -135,26 +135,31 @@ function deleteDulSet(studiesIdx, dulSetIdx) {
 
 function addStudy() {
 	
-	var newStudySectionDiv = $( "#studySection0" ).clone(true);
+	var newStudySectionDiv = $( "#studySection0" ).clone(true).val('');
 	var newStudySectionIndex = $(".studyList").length;
 	
 	//Set the correct ids and names
 	newStudySectionDiv.attr("id", "studySection" + newStudySectionIndex);
+	
+	newStudySectionDiv.find("#studyId0").attr("id", "studyId" + newStudySectionIndex);
+	newStudySectionDiv.find("#studyId" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].id");
+	newStudySectionDiv.find("#studyId" + newStudySectionIndex).removeAttr("value");
 		
 	newStudySectionDiv.find("#studyName0").attr("id", "studyName" + newStudySectionIndex);
 	newStudySectionDiv.find("#studyName" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].studyName");
-	newStudySectionDiv.find("#studyName" + newStudySectionIndex).val('');
+	newStudySectionDiv.find("#studyName" + newStudySectionIndex).removeAttr("value");
 	
 	newStudySectionDiv.find("#institution0").attr("id", "institution" + newStudySectionIndex);
 	newStudySectionDiv.find("#institution" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].institution");
-	newStudySectionDiv.find("#institution" + newStudySectionIndex).val('');
+	newStudySectionDiv.find("#institution" + newStudySectionIndex).removeAttr("value");
 	
 	newStudySectionDiv.find("#dulVerificationId0").attr("id", "dulVerificationId" + newStudySectionIndex);
 	newStudySectionDiv.find("#dulVerificationId" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].dulVerificationId");
+	newStudySectionDiv.find("#dulVerificationId" + newStudySectionIndex).val(-1);
 	
 	newStudySectionDiv.find("#comments0").attr("id", "comments" + newStudySectionIndex);
 	newStudySectionDiv.find("#comments" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].comments");
-	newStudySectionDiv.find("#comments" + newStudySectionIndex).val('');
+	newStudySectionDiv.find("#comments" + newStudySectionIndex).val("").removeAttr("value");
 	
 	newStudySectionDiv.find("#entry_study_0").attr("id", "entry_study_" + newStudySectionIndex);
 	
