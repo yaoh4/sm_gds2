@@ -112,11 +112,13 @@
 					  								
                       <s:iterator status="studiesStat" var="study" value="instCertification.studies">
 					    <s:set name="studiesIdx" value="#studiesStat.index" />
-					  	
-					  	<s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>
 					  					    
 					  	<div id="studySection${studiesIdx}" class="studyList">
-					      
+					  	
+					  	 <!--  This is read and passed back to prevent the createdBy field from being overwritten -->
+					     <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>
+					     
+					     <!--  This is read and passed back to so the existing ids are updated and not replaced -->
 					     <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" id="studyId%{studiesIdx}"/> 
 				  		
 					  	<div class="panel-group" id="accordion">
