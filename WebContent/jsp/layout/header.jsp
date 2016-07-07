@@ -10,27 +10,29 @@
 
 <!-- Fixed navbar -->
 
-<div id="wrap">
+<div id="wrap"> <%-- This will be closed after the footer --%>
 	<div class="navbar  navbar-fixed-top">
-		<div class="container">
-			<div id="logo" class="logoImage">
-				<img src="<s:url value="/images/nci-logo-full.svg" />" width="450px;"  alt="National Cancer Institute">
-				<div id="loginName"
-					style="float: right; padding-top: 15px; padding-bottom: 15px; margin-right: 15px;"
-					class="nav navbar-nav">
-					Welcome:
-					<div id="loginID" class="login">
-						<s:if test="loggedOnUser.lastName != null">
-							<s:property value="loggedOnUser.fullName" />
-						</s:if>
+		<div class="row">
+			<div class="container">
+				<div id="logo" class="logoImage">
+					<img src="<s:url value="/images/nci-logo-full.svg" />" width="450px;"  alt="National Cancer Institute">
+					<div id="loginName"
+						style="float: right; padding-top: 15px; padding-bottom: 15px; margin-right: 15px;"
+						class="nav navbar-nav">
+						Welcome:
+						<div id="loginID" class="login">
+							<s:if test="loggedOnUser.lastName != null">
+								<s:property value="loggedOnUser.fullName" />
+							</s:if>
+						</div>
 					</div>
+					<div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
 				</div>
-				<div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
 			</div>
 			<s:include value="/jsp/layout/navbar.jsp" />
-		</div>
+
 		
-		<div class="navbar navbar-default2 navbar-fixed-top" >   
+		 
 
     		<!--Page Header -->
     		<s:if test="%{'newSubmission' eq #attr['navtab']}">
@@ -50,7 +52,5 @@
       		</s:else>
 			
 		</div>
-		
 	</div>
 
-</div>

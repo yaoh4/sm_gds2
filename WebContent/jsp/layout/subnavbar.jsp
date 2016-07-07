@@ -4,6 +4,8 @@
 <tiles:useAttribute id="subnavtab" name="subnavtab" />
 
 <!--Sub Navigation -->
+<div class="navbar navbar-default2 navbar-fixed-top" >  
+<div id="secNav"  class="row">
 <div class="container">
 	<div class="navbar-collapse main-nav subnav">
 		<ul class="nav navbar-nav ">
@@ -11,7 +13,7 @@
 			
 				<%-- We always show the general info if its a saved project --%>
 				<s:if test="%{'generalInfo' eq #attr['subnavtab']}">
-					<li class="active"><s:a href="javascript: void(0)">General Info.</s:a></li>
+					<li class="active"><a href="javascript: void(0)">General Info.</a></li>
 				</s:if>
 				<s:else>
 					<s:url namespace="/manage" var="generalInfoUrl" action="navigateToGeneralInfo">
@@ -23,7 +25,7 @@
 				
 				<%-- We always show the gds plan page if its a saved project --%>
 				<s:if test="%{'gdsPlan' eq #attr['subnavtab']}">
-					<li class="active"><s:a href="javascript: void(0)">Genomic Data Sharing Plan</s:a></li>
+					<li class="active"><a href="javascript: void(0)">Genomic Data Sharing Plan</a></li>
 				</s:if>
 				<s:else>
 					<s:url namespace="/manage" var="gdsPlanUrl" action="editGdsPlan">
@@ -36,7 +38,7 @@
 				<%-- Show IC tab --%>
 				<s:if test="%{showPage('ic')}">
 					<s:if test="%{'ic' eq #attr['subnavtab']}">
-						<li class="active"><s:a href="javascript: void(0)">Institutional Certification(s)</s:a></li>
+						<li class="active"><a href="javascript: void(0)">Institutional Certification(s)</a></li>
 					</s:if>
 					<s:else>
 						<s:url namespace="/manage" var="icUrl" action="listIc">
@@ -49,7 +51,7 @@
 				
 				<s:if test="%{showPage('bsi')}">
 					<s:if test="%{'bsi' eq #attr['subnavtab']}">
-						<li class="active"><s:a href="javascript: void(0)">Basic Study Info.</s:a></li>
+						<li class="active"><a href="javascript: void(0)">Basic Study Info.</a></li>
 					</s:if>
 					<s:else>
 						<s:url namespace="/manage" var="bsiUrl" action="navigateToBasicStudyInfo">
@@ -63,7 +65,7 @@
 				<%-- Show repository tab --%>
 				<s:if test="%{showPage('repository')}">
 					<s:if test="%{'repository' eq #attr['subnavtab']}">
-						<li class="active"><s:a href="javascript: void(0)">Submission Status</s:a></li>
+						<li class="active"><a href="javascript: void(0)">Submission Status</a></li>
 					</s:if>
 					<s:else>
 						<s:url namespace="/manage" var="submissionStatusUrl" action="navigateToRepositoryStatus">
@@ -77,7 +79,7 @@
 				<%-- We always show the detail page if its a saved project --%>
 				<!-- Commenting out for this Sprint
 				<s:if test="%{'detail' eq #attr['subnavtab']}">
-					<li class="active"><s:a href="javascript: void(0)">Submission Details</s:a></li>
+					<li class="active"><a href="javascript: void(0)">Submission Details</a></li>
 				</s:if>
 				<s:else>
 					<s:url namespace="/manage" var="submissionStatusUrl" action="navigateToSubmissionDetail">
@@ -90,4 +92,6 @@
 			</s:if>
 		</ul>
 	</div>
+</div>
+</div>
 </div>
