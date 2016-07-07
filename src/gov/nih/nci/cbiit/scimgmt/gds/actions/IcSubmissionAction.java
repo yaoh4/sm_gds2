@@ -235,7 +235,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			studyIndex++;
 			
 			if(study.getStudyName() == null || study.getStudyName().isEmpty()) {
-				addActionError("Study Name missing for study at index " + studyIndex);
+				addActionError("Study Name missing for study at position " + studyIndex + 1);
 			}
 			
 			int dulSetIndex = -1;
@@ -251,7 +251,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			List<StudiesDulSet> dulSets = study.getStudiesDulSets();
 			logger.info("No. of dulSets in study at index at " + studyIndex + " = " + dulSets.size());
 			if(CollectionUtils.isEmpty(dulSets)) {
-				addActionError("No DUL selection made for study at index " + studyIndex);
+				addActionError("No DUL selection made for study " + study.getStudyName());
 			} else {
 				for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
 					if(dulSet == null) {
@@ -268,7 +268,8 @@ public class IcSubmissionAction extends ManageSubmission {
 					String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
 					if(parentDulId == null) {
 						//Error, no DUL selection made for study at index x, dulSet at index y
-						this.addActionError("No DUL selection made for study at index " + studyIndex + " and DulSet at index " + dulSetIndex);
+						int position = dulSetIndex  +1;
+						this.addActionError("No DUL selection made in DUL Type at position " + position + " for study " + study.getStudyName());
 					} else {
 						
 						//Represents the duls selected in a dulSet
@@ -285,9 +286,9 @@ public class IcSubmissionAction extends ManageSubmission {
 							
 							if(otherAddText == null || otherAddText[0].isEmpty()) {
 								if(ApplicationConstants.PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId[0]))) {
-									this.addActionError("Please enter disease specific info for Disease Specific selection  in study at index + " + studyIndex);
+									this.addActionError("Please enter additional info for Disease Specific DUL selected in study: " + study.getStudyName());
 								} else if(ApplicationConstants.PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
-									this.addActionError("Please enter additional info for Other selection in study at index " + studyIndex);
+									this.addActionError("Please enter additional info for Other DUL selected in study: " + study.getStudyName());
 								}
 							}
 						} 
@@ -297,12 +298,13 @@ public class IcSubmissionAction extends ManageSubmission {
 						if(selectedDuls == null) {
 							if(!ApplicationConstants.PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
 								//This is not an 'Other' DUL set, so we need at least one selection
-								this.addActionError("No DUL selection made for study at index " + studyIndex + " and DulSet at index " + dulSetIndex);
+								int position = dulSetIndex + 1;
+								this.addActionError("No DUL selection made in the DUL Type at position " + position + " for study: " + study.getStudyName());
 							} 
 						} else {
 							//We have at least one selection in this this DUL Set, process them
 							String dulSelections = "";
-							logger.info("No. of Duls selected in dulSet at index " + dulSetIndex + "for study at index" + studyIndex);
+							logger.info("No. of Duls selected in dulSet at index " + dulSetIndex + " for study at index" + studyIndex);
 							for(int i = 0; i < selectedDuls.length; i++) {										
 							
 								dulSelections = dulSelections + selectedDuls[i];
@@ -313,11 +315,13 @@ public class IcSubmissionAction extends ManageSubmission {
 								dulChecklistSelections.add(dulChecklistSelection);
 							}
 						
-							logger.info("Value of Duls selected in dulSet at index " + dulSetIndex + "for study at index" + studyIndex + " = " + dulSelections);
+							logger.info("Value of Duls selected in dulSet at index " + dulSetIndex + " for study at index " + studyIndex + " = " + dulSelections);
 							//Check if this dulSet is already present
 							if(validationMap.containsKey(dulSelections)) {
 								Integer duplicateDulSetIndex = validationMap.get(dulSelections);
-								this.addActionError("Duplicate DULs found in DulSets at index " + duplicateDulSetIndex + " and " + dulSetIndex + "for study at index " + studyIndex);
+								int dupPosition = duplicateDulSetIndex + 1;
+								int position = dulSetIndex + 1;
+								this.addActionError("Duplicate DULs found in DUL Types at position " + dupPosition + " and " + position + " for study: " + study.getStudyName());
 							} else {
 								validationMap.put(dulSelections, new Integer(dulSetIndex));
 							}
