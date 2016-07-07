@@ -65,12 +65,15 @@ $('body').click();
 $("#12").change(function () {
 	if (!$("#12").is(":checked") && $("#13").is(":checked")) {
 		// Non-human only, select and disable "Unrestricted", disable "Controlled" and "dbGaP"
+		$("#18").prop('checked', false ); // De-select Controlled
 		$("#18").prop('disabled', true); // Controlled
 		$("#19").prop('checked', true ); // Select Unrestricted
 		$("#19").prop('disabled', true); // Unrestricted
+		$("#21").prop('checked', false ); // De-select dbGaP
 		$("#21").prop('disabled', true); // dbGaP
 	} else { // They are both checked or None are checked, so enable all
 		$("#18").prop('disabled', false); // Controlled
+		$("#19").prop('checked', false ); // De-select Unrestricted
 		$("#19").prop('disabled', false); // Unrestricted
 		$("#21").prop('disabled', false); // dbGaP
 	}
@@ -78,12 +81,15 @@ $("#12").change(function () {
 $("#13").change(function () {
 	if (!$("#12").is(":checked") && $("#13").is(":checked")) {
 		// Non-human only, select and disable "Unrestricted", disable "Controlled" and "dbGaP"
+		$("#18").prop('checked', false ); // De-select Controlled
 		$("#18").prop('disabled', true); // Controlled
 		$("#19").prop('checked', true ); // Select Unrestricted
 		$("#19").prop('disabled', true); // Unrestricted
+		$("#21").prop('checked', false ); // De-select dbGaP
 		$("#21").prop('disabled', true); // dbGaP
 	} else { // They are both checked or None are checked, so enable all
 		$("#18").prop('disabled', false); // Controlled
+		$("#19").prop('checked', false ); // De-select Unrestricted
 		$("#19").prop('disabled', false); // Unrestricted
 		$("#21").prop('disabled', false); // dbGaP
 	}
@@ -94,10 +100,28 @@ $("#12").change();
 // the system will select and grey out the "Database of Genotypes and Phenotypes (dbGaP)" repository checkbox 
 // in "What repository will the data be submitted to?"
 $("#18").change(function () {
-	if ($("#18").is(":checked")) {
+	if (!$("#18").is(":checked") && $("#19").is(":checked")) {
+		// Unrestricted ONLY is checked.
+		$("#21").prop('checked', false ); // De-select dbGaP
+		$("#21").prop('disabled', true); // dbGaP
+	} else if ($("#18").is(":checked")) {
+		// Controlled is checked.
 		$("#21").prop('checked', true ); // Select dbGaP
 		$("#21").prop('disabled', true); // Disable dbGaP
-	} else { // Deselected so Enable dbGaP
+	} else { // De-selected so Enable dbGaP
+		$("#21").prop('disabled', false); // dbGaP
+	}
+});
+$("#19").change(function () {
+	if (!$("#18").is(":checked") && $("#19").is(":checked")) {
+		// Unrestricted ONLY is checked.
+		$("#21").prop('checked', false ); // De-select dbGaP
+		$("#21").prop('disabled', true); // dbGaP
+	} else if ($("#18").is(":checked")) {
+		// Controlled is checked.
+		$("#21").prop('checked', true ); // Select dbGaP
+		$("#21").prop('disabled', true); // Disable dbGaP
+	} else { // De-selected so Enable dbGaP
 		$("#21").prop('disabled', false); // dbGaP
 	}
 });
@@ -107,7 +131,8 @@ $("#18").change();
 // if user checked NCI Genomic Data Commons (GDC)
 $("#23").change(function () {
 	if ($("#23").is(":checked")) {
-		$("#21").prop('checked', true ); // Select dbGaP
+		if(!$("#21").is(":disabled"))
+			$("#21").prop('checked', true ); // Select dbGaP
 	}
 });
 
