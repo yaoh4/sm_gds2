@@ -25,8 +25,10 @@ public class DulChecklistSelection implements java.io.Serializable {
 	private Long id;
 	private StudiesDulSet studiesDulSet;
 	private DulChecklist dulChecklist;
+	private String otherText;
 	private String createdBy;
 	private String lastChangedBy;
+	
 
 	public DulChecklistSelection() {
 	}
@@ -40,10 +42,11 @@ public class DulChecklistSelection implements java.io.Serializable {
 	}
 
 	public DulChecklistSelection(Long id, StudiesDulSet studiesDulSet, DulChecklist dulChecklist,
-			String createdBy, String lastChangedBy) {
+			String otherText, String createdBy, String lastChangedBy) {
 		this.id = id;
 		this.studiesDulSet = studiesDulSet;
 		this.dulChecklist = dulChecklist;
+		this.otherText = otherText;
 		this.createdBy = createdBy;
 		this.lastChangedBy = lastChangedBy;
 	}
@@ -79,6 +82,18 @@ public class DulChecklistSelection implements java.io.Serializable {
 	public void setDulChecklist(DulChecklist dulChecklist) {
 		this.dulChecklist = dulChecklist;
 	}
+	
+	
+	@Column(name = "OTHER_TEXT", nullable = true, length = 200)
+	public String getOtherText() {
+		return otherText;
+	}
+
+	
+	public void setOtherText(String otherText) {
+		this.otherText = otherText;
+	}
+
 
 	@Column(name = "CREATED_BY", nullable = false, length = 30)
 	public String getCreatedBy() {
@@ -98,4 +113,5 @@ public class DulChecklistSelection implements java.io.Serializable {
 		this.lastChangedBy = lastChangedBy;
 	}
 
+	
 }

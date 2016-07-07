@@ -62,8 +62,8 @@
                     <s:if test="%{#parentDul.id == 21}">
                       <span>
                       	<input type="text" class="form-control input_other" 
-                      	  id="parentAddText${studiesIdx}-${dulSetIdx}-${parentDul.id}"
-                      	  name="parentAddText-${studiesIdx}-${dulSetIdx}-${parentDul.id}" 
+                      	  id="otherAddText${studiesIdx}-${dulSetIdx}-${parentDul.id}"
+                      	  name="otherAddText-${studiesIdx}-${dulSetIdx}-${parentDul.id}" 
                       	  placeholder="Please Be Specific" >
                       </span>
                     </s:if>

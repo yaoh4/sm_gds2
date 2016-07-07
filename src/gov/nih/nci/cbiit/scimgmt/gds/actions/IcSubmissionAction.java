@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -150,16 +151,34 @@ public class IcSubmissionAction extends ManageSubmission {
 			int dulSetIndex = -1;
 			for(StudiesDulSet studiesDulSet: study.getStudiesDulSets() ) {
 				dulSetIndex++;
-				Long parentDulId = null;
+				String parentDulId = null;
 				List<DulChecklistSelection> dulChecklistSelections = studiesDulSet.getDulChecklistSelections();
 				if(!CollectionUtils.isEmpty(dulChecklistSelections)) {
 					for(DulChecklistSelection dulChecklistSelection: dulChecklistSelections) {
-						dulIdList.add("dul" + studyIndex + "-" + dulSetIndex + "-" + dulChecklistSelection.getDulChecklist().getId());
-						if(parentDulId == null) {
-							parentDulId = dulChecklistSelection.getDulChecklist().getParentDulId();
+						
+						String dulId = dulChecklistSelection.getDulChecklist().getId().toString();
+						if(dulChecklistSelection.getDulChecklist().getParentDulId() == null) {
+							//This has no parent, so it represents additional text.
+							//associated with a parent DUL
+							String additionalText = dulChecklistSelection.getOtherText();
+							if(additionalText != null && !additionalText.isEmpty()) {
+								int textlength = additionalText.length();
+								dulIdList.add(textlength + "otherAddText" + studyIndex + "-" + dulSetIndex + "-" + dulId + additionalText);
+								if(parentDulId == null) {
+									parentDulId = dulId;
+								}
+							} 						
+						} else {
+							//This has a parent, so it represents a regular child dul selections
+							dulIdList.add("dul" + studyIndex + "-" + dulSetIndex + "-" + dulId);
+							if(parentDulId == null) {
+								parentDulId = dulChecklistSelection.getDulChecklist().getParentDulId().toString();
+							}
 						}
 					}
-					dulIdList.add("parentDul" + studyIndex + "-" + dulSetIndex + "-" + parentDulId);
+					if(parentDulId != null) {
+						dulIdList.add("parentDul" + studyIndex + "-" + dulSetIndex + "-" + parentDulId);
+					}
 				}
 			}
 		}
@@ -233,8 +252,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			logger.info("No. of dulSets in study at index at " + studyIndex + " = " + dulSets.size());
 			if(CollectionUtils.isEmpty(dulSets)) {
 				addActionError("No DUL selection made for study at index " + studyIndex);
-			}
-			else {
+			} else {
 				for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
 					if(dulSet == null) {
 						continue;
@@ -252,15 +270,33 @@ public class IcSubmissionAction extends ManageSubmission {
 						//Error, no DUL selection made for study at index x, dulSet at index y
 						this.addActionError("No DUL selection made for study at index " + studyIndex + " and DulSet at index " + dulSetIndex);
 					} else {
+						
+						//Represents the duls selected in a dulSet
+						List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
+					
+						String[] otherAddText = ServletActionContext.getRequest().getParameterValues("otherAddText-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);					
+						if(otherAddText != null && !otherAddText[0].isEmpty()) {
+							//Represent this as a row in DulChecklistSelection with the parent dul id
+							DulChecklistSelection dulChecklistSelection = createDulChecklistSelection(parentDulId[0], otherAddText[0]);
+							dulChecklistSelection.setStudiesDulSet(dulSet);						
+							dulChecklistSelections.add(dulChecklistSelection);																
+						} else {
+							if(ApplicationConstants.PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId[0]))) {
+								this.addActionError("Please enter disease specific info for Disease Specific selection  in study at index + " + studyIndex);
+							} else if(ApplicationConstants.PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
+								this.addActionError("Please enter additional info for Other selection in study at index " + studyIndex);
+							}
+						}	
+											
 						String selectedDulsParam = "dul-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0];
 						String [] selectedDuls = ServletActionContext.getRequest().getParameterValues(selectedDulsParam);
 						if(selectedDuls == null) {
-							this.addActionError("No DUL selection made for study at index " + studyIndex + " and DulSet at index " + dulSetIndex);
+							if(!ApplicationConstants.PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
+								//This is not an 'Other' DUL set, so we need at least one selection
+								this.addActionError("No DUL selection made for study at index " + studyIndex + " and DulSet at index " + dulSetIndex);
+							} 
 						} else {
-						
-							//Represents the duls selected in a dulSet
-							List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
-						
+							//We have at least one selection in this this DUL Set, process them
 							String dulSelections = "";
 							logger.info("No. of Duls selected in dulSet at index " + dulSetIndex + "for study at index" + studyIndex);
 							for(int i = 0; i < selectedDuls.length; i++) {										
@@ -268,16 +304,8 @@ public class IcSubmissionAction extends ManageSubmission {
 								dulSelections = dulSelections + selectedDuls[i];
 							
 								//for each selectedDul, create a dulChecklistSelection
-								DulChecklistSelection dulChecklistSelection = new DulChecklistSelection();
-								if(dulChecklistSelection.getId() == null || dulChecklistSelection.getId().toString().isEmpty()) {
-										dulChecklistSelection.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
-								} else {
-									dulChecklistSelection.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
-								}
+								DulChecklistSelection dulChecklistSelection = createDulChecklistSelection(selectedDuls[i], null);
 								dulChecklistSelection.setStudiesDulSet(dulSet);
-								//get the dulChecklist with the id and attach it to this dulCheckListSelection.
-								DulChecklist dulChecklist = GdsSubmissionActionHelper.getDulChecklist(Long.parseLong(selectedDuls[i]));
-								dulChecklistSelection.setDulChecklist(dulChecklist);
 								dulChecklistSelections.add(dulChecklistSelection);
 							}
 						
@@ -289,15 +317,14 @@ public class IcSubmissionAction extends ManageSubmission {
 							} else {
 								validationMap.put(dulSelections, new Integer(dulSetIndex));
 							}
-							dulSet.setDulChecklistSelections(dulChecklistSelections);
-						}		
-					}				
-				//All selections in a dulSet retrieved
-				}
-			}
-			//All dulSets in a study scanned
-		}
-		//All studies in an ic scanned
+						} //End process selected DULs
+						dulSet.setDulChecklistSelections(dulChecklistSelections);
+				 	}//Done retrieving parent DUl and selections for a dulSet	
+				}//End for-loop for iterating through dulSets				
+			} 
+			
+		} //End for-loop for iterating through studies
+		
 		
 		if(hasActionErrors()) {
 			setProject(retrieveSelectedProject());
@@ -307,6 +334,28 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	
+	
+	private DulChecklistSelection createDulChecklistSelection(String dulId, String otherText) {
+		
+		//for each selectedDul, create a dulChecklistSelection
+		DulChecklistSelection dulChecklistSelection = new DulChecklistSelection();
+		if(dulChecklistSelection.getId() == null || dulChecklistSelection.getId().toString().isEmpty()) {
+			dulChecklistSelection.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+		} else {
+			dulChecklistSelection.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+		}
+		
+		//get the dulChecklist with the id and attach it to this dulCheckListSelection.
+		DulChecklist dulChecklist = GdsSubmissionActionHelper.getDulChecklist(Long.parseLong(dulId));
+		dulChecklistSelection.setDulChecklist(dulChecklist);
+		if(otherText != null && !otherText.isEmpty()) {
+			dulChecklistSelection.setOtherText(otherText);
+		}
+		return dulChecklistSelection;
+	}
+	
+			
+			
 	/**
 	 * Saves the IC. Invoked from:
 	 * 1. 'Save Institutional Certification' button on the  Add/Edit Institutional Certification

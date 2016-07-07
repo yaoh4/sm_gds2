@@ -10,12 +10,25 @@ $(document).ready(function () {
 	
 	//Set all selected duls to checked
 	jQuery.each(dulIdArray, function(index, value) {
-		$("#" + value).prop('checked', true);
-		if(value.startsWith("parentDul")) {
+		
+		//if value contains otherAddText, parse out the text
+		//and set the value on the indicated text box
+		if(value.includes("otherAddText")) {
+			//The length of the text is available at the beginning of the value string
+			//Format is <length of text><otherAddText-x-x-x><text>
+			var textsize = value.substr(0, value.indexOf("otherAddText"));
+			var elemId = value.substr(textsize.length, value.length - textsize - textsize.length);
+			var text = value.substr(value.length - textsize);
+			$("#" + elemId).val(text);
+		} else {
+			//this represents value of a checkbox or parent radio
+			$("#" + value).prop('checked', true);
+			if(value.startsWith("parentDul")) {
 			
-			//Show the checkbox set for this parent
-			var divValue = value.replace("parentDul", "dulSet");
-			$("#" + divValue).show();
+				//Show the checkbox set for this parent
+				var divValue = value.replace("parentDul", "dulSet");
+				$("#" + divValue).show();
+			}
 		}
 	});
 		
