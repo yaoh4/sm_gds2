@@ -53,6 +53,8 @@ $("#3").change(function () {
 $('body').click( function(e) {
 	if (!$("#31").is(":checked")) {
 		$("#textEditorDiv").hide();
+	} else if ($("#31").is(":checked")) {
+		CKEDITOR.replace( 'editor1' );
 	}
 });
 
