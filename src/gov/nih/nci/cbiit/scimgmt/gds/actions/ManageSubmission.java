@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
@@ -221,6 +223,22 @@ public class ManageSubmission extends BaseAction {
 
 	public void setInputStream(InputStream inputStream) {
 		this.inputStream = inputStream;
+	}
+	
+	
+	/**
+	 * Get Lookup object by list name and code
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public  String getLookupDisplayNamebyId(Long id) {
+		List<Lookup> list = (List<Lookup>) lookupService.getAllLookupLists();
+		for(Lookup entry: list) {
+			if (entry.getId().equals(id))
+				return entry.getDisplayName();
+		}
+		return null;
 	}
 	
 }

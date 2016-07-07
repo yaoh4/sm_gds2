@@ -104,9 +104,9 @@
                     <div id="contentDivImg${ic.id}" style="display: none">
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tr>
-                          <td><span class="question">Approved by GPA: </span>${ic.gpaApprovalCode}</td>
-						  <td><span class="question">Provisional or Final? </span>${ic.provisionalFinalCode}</td>
-						  <td><span class="question">Study for use in Future Projects? </span>${ic.futureProjectUseCode}</td>
+                          <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(#ic.gpaApprovalCode)}"/></td>
+						  <td><span class="question">Provisional or Final? </span><s:property value="%{getLookupDisplayNamebyId(#ic.provisionalFinalCode)}"/></td>
+						  <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(#ic.futureProjectUseCode)}"/></td>
                         </tr>
                     <!--   <tr>
 						  <td colspan="6">&nbsp;</td>
@@ -134,7 +134,7 @@
                                   <tr>
                                     <td valign="top" class="question" style="padding-top: 7px;">${studyIdx+1})</td>
                                     <td>
-                                      <table class="table-bordered" style="border: 1px solid grey;" width="100%" class="study">
+                                      <table class="table table-bordered table-striped" width="100%" class="study">
                                         <tr>
                                           <td>
                                             <table width="100%" cellspacing="5">
