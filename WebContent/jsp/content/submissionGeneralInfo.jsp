@@ -44,7 +44,6 @@
 								listKey="optionKey" listValue="optionValue" />
 						</div>
 					</div>
-					<p>&nbsp;</p>
 
 					<div class="form-group row has-feedback">
 						<div class="col-xs-5">
