@@ -28,11 +28,11 @@ $(document).ready(function() {
 });
   
   
-//  $('.icDetails').on('click', function(e) {
-//	  e.preventDefault();
-//	  var id = $(this).attr("id").replace("icDetails", "contentDivImg");
-//	  $("#" + id).toggle();
-//  })
+  $('.icDetails').on('click', function(e) {
+	  e.preventDefault();
+	  var id = $(this).attr("id").replace("icDetails", "contentDivImg");
+	  $("#" + id).toggle();
+  })
   
   
 

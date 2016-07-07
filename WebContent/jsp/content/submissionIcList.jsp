@@ -107,15 +107,15 @@
 						  <td><span class="question">Provisional or Final? </span>${ic.provisionalFinalCode}</td>
 						  <td><span class="question">Study for use in Future Projects? </span>${ic.futureProjectUseCode}</td>
                         </tr>
-                        <tr>
+                    <!--   <tr>
 						  <td colspan="6">&nbsp;</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                           <td colspan="6" class="question">Comments:</td>
                         </tr>
                         <tr>
                           <td colspan="6">
-                            <textarea name="ic.comments" id="comments2" style="width: 882px; padding: 4px; opacity: 0.7;"
+                            <textarea name="ic.comments" id="comments2" style="width: 100%; padding: 4px; opacity: 0.7;"
 			                  rows="4" disabled class="normalText">${ic.comments}
 						    </textarea>
 						  </td>
@@ -126,20 +126,20 @@
                         </tr>
                         <tr>
                           <td colspan="6">
-                            <div id="container">                    
+                      <!--       <div id="container">        -->            
                               <s:iterator status="studiesStat" var="study" value="project.institutionalCertifications[#icStat.index].studies">
                                 <s:set name="studyIdx" value="#studiesStat.index" />
                                 <table width="100%">
                                   <tr>
                                     <td valign="top" class="question" style="padding-top: 7px;">${studyIdx+1})</td>
                                     <td>
-                                      <table class="table-bordered" width="100%" class="study">
+                                      <table class="table-bordered" style="border: 1px solid grey;" width="100%" class="study">
                                         <tr>
                                           <td>
                                             <table width="100%" cellspacing="5">
                                               <tr>
                                                 <td><span class="question">Study Name: </span>${study.studyName}</td>
-					                            <td align="left" valign="top">&nbsp;</td>
+					                         <!--    <td align="left" valign="top">&nbsp;</td> -->
 					                            <td><span class="question">Institution: </span>${study.institution}</td>
                                                 <td><span class="question">Data Use Limitation(s) Verified? </span>${study.dulVerificationId}</td>
                                               </tr>
@@ -148,7 +148,7 @@
                                               </tr>
                                               <tr>
                                                 <td colspan="6">
-                                                  <textarea name="comments" id="comments2" style="width: 98%; padding: 4px; opacity: 0.7;"
+                                                  <textarea name="comments" id="comments2" style="width: 100%; padding: 4px; opacity: 0.7;"
                                                     rows="4" disabled >${study.comments}
                                                   </textarea>
                                                 </td>
@@ -163,8 +163,7 @@
                                               <tr>
                                                 <s:iterator status="dulSetStat" var="studiesDulSet" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets">                                                         
                                                   <s:set name="dulSetIdx" value="#dulSetStat.index" />
-                                                  <s:set name="parentDulText" value="%{@GdsSubmissionActionHelper@getDulChecklist(1)}"/>
-                                                  <td colspan="1" class="row">${dulSetStat.index + 1}. ${parentDulText}
+                                                  <td colspan="1" class="row">${dulSetStat.index + 1}. ${studiesDulSet.parentDulChecklist.displayText}
                                                     <ul class="spacing">
                                                     <s:iterator status="dulStat" var="dul" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets[#dulSetStat.index].dulChecklistSelections">
                                                       <li class="bullet" style="display: list-item">${dul.dulChecklist.displayText}</li>
@@ -182,12 +181,10 @@
                                       </td>
                                     </tr>
                                 </table> <!--study end-->
-                               <p>&nbsp;</p>
+                                <p>&nbsp;</p> 
                               </s:iterator> <!-- for studies -->                      
                              
-                            </div> <!-- for container -->
-                          
-                            <p>&nbsp;</p>				        
+                      <!--      </div>  for container -->	        
                           </td> <!-- for colspan 6-->
 					    </tr>
                       </table> <!-- for class tBorder2 -->
