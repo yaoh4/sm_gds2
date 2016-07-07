@@ -26,8 +26,7 @@
 					</p>
 					<br />
 					<div id="repositoryDate" style="width:200px;">
-						<s:label for="%{'anticpated_submission_date'}">Anticipated Submission Date
-						</s:label>
+						<s:label for="anticpated_submission_date" value="Anticipated Submission Date" />
 						<div class="input-group date"> <s:textfield id="%{'anticpated_submission_date'}" name="project.anticipatedSubmissionDate"	value="%{anticipatedSubmissionDate}" disabled="isAnticipatedSubDateDisabled"
 								cssClass="form-control" />
 							<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
@@ -54,28 +53,25 @@
 						<div class="panel-body">		 				
 							<div class="form-group row">
 								<div class="col-xs-2">
-									<br /> <s:label for="%{'regStatus_' + #stat.index}">Registration
-										Status</s:label> 
+									<br /> <s:label for="%{'regStatus_' + #stat.index}" value="Registration Status" /> 
 									<s:select id="%{'regStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByRegistrationStatusId.id" onChange="enableDisableSubmissionStatus(this.id)" 
 												value="%{#repositoryStatus.lookupTByRegistrationStatusId.id}" cssClass="c-select form-control"  list="registrationStatusList" listKey="optionKey" listValue="optionValue"/>											
 								</div>
 
 								<div class="col-xs-2">
-									<s:label for="%{'projStatus_' + #stat.index}">Project<br />
-										Submission Status
-									</s:label> 
+									<s:label for="%{'projStatus_' + #stat.index}" value="Project Submission Status" /> 
 									<s:select id="%{'projStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByDataSubmissionStatusId.id" onChange="enableDisableStudyReleased(this.id)" 
 												value="%{#repositoryStatus.lookupTByDataSubmissionStatusId.id}" cssClass="c-select form-control" disabled="true" list="projectSubmissionStatusList" listKey="optionKey" listValue="optionValue"/>											
 								</div>							
 
 								<div class="col-xs-2">
-									<br /> <s:label for="%{'studyRel_' + #stat.index}">Study Released?</s:label>
+									<br /> <s:label for="%{'studyRel_' + #stat.index}" value="Study Released?" />
 									<s:select id="%{'studyRel_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByStudyReleasedId.id" 
 												value="%{#repositoryStatus.lookupTByStudyReleasedId.id}"  cssClass="c-select form-control" disabled="true" list="studyReleasedList" listKey="optionKey" listValue="optionValue"/>											
 								</div>
 
 								<div class="col-xs-3">
-									<br /> <s:label for="%{'accessionNumber_' + #stat.index}">Accession Number</s:label>
+									<br /> <s:label for="%{'accessionNumber_' + #stat.index}" value="Accession Number" />
 									<s:textfield id="%{'accessionNumber_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].accessionNumber" value="%{#repositoryStatus.accessionNumber}" cssClass="form-control" maxLength="30"/>										
 								</div>
 
@@ -83,7 +79,7 @@
 
 							<div class="form-group row">
 								<div class="col-xs-12">
-									<s:label for="%{'repositoryComments_' + #stat.index}">Comments (2000 Characters):</s:label>
+									<s:label for="%{'repositoryComments_' + #stat.index}" value="Comments (2000 Characters):" />
 									<s:textarea id="%{'repositoryComments_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].comments" value="%{#repositoryStatus.comments}" cssClass="form-control input" rows="3"></s:textarea>
 								</div>
 							</div>					
