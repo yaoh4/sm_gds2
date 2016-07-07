@@ -33,11 +33,18 @@
 						<h5>Search for Intramural (Z01)/Grant/Contract #</h5>
 					</div>
 				</div>
-				<div>
+
 				<s:if test="%{!actionErrors.isEmpty}">
-  					 <p style="color:red"><strong>Errors:  <s:actionerror cssStyle="color:red"/> </strong> </p>					
+					<div class="alert alert-danger">
+						<h3>
+							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error
+							Status
+						</h3>
+						<s:actionerror />
+						<s:fielderror />
+					</div>
 				</s:if>
-				</div>
+
 				<!--end panel header-->
 				<div class="panel-body">					
 						<p>
