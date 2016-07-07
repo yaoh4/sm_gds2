@@ -196,11 +196,11 @@
 						<s:if test="%{requiredByGdsPolicy == false}">
 							(Optional)
 						</s:if>
-						<a data-toggle="popover" id="popover" data-placement="right"
+						<a data-toggle="tooltip" id="popover" data-placement="right"
 							data-trigger="hover" style="font-size: 12px;"
 							title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tortor justo, sodales ut erat eu, malesuada fringilla massa. Quisque sapien felis, vestibulum sed suscipit sit amet,."
-							data-content=""> <span class="fa fa-question-circle fa-1x"
-							aria-hidden="true"></span>
+							data-content=""> <i class="fa fa-question-circle fa-1x"
+							aria-hidden="true"></i>
 						</a>
 					</p>
 					<s:set name="params" value="%{map[29].parameters}" />
@@ -263,10 +263,8 @@
 	src="<s:url value="/controllers/dataSharing.js" />"></script>
 <script type="text/javascript">
 $(function($){
-    $("a").tooltip()
-
-});
-$(function ($) {
-	$("a").popover()
+	$('[data-toggle="tooltip"]').tooltip({
+	    container : 'body'
+	  });
 });
 </script>

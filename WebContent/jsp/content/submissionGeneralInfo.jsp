@@ -199,7 +199,7 @@
 						</div>
 					</div>
 
-					<div class="form-group row  col-xs-12" style="padding-left: 45px;">
+					<div class="form-group row  col-xs-12" style="padding-left: 30px;">
 
 						<label for="general info comments" class="label_stCom">Comments (2000 Characters):</label><br />
 						<s:textarea cssClass="col-md-12 form-control input " rows="3"
