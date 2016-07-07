@@ -217,7 +217,13 @@
 		<script>
 			$(document).ready(function() {
 				$(':radio').click(function() {
-					$('.alert').show();
+					if(window.opener.$("#projectTitle").val() != "" || window.opener.$("#fnPI").val() != ""
+						|| window.opener.$("#lnPI").val() != "" || window.opener.$("#piEmail").val() != ""
+						|| window.opener.$("#PIInstitute").val() != "" || window.opener.$("#fnPD").val() != ""
+						|| window.opener.$("#lnPD").val() != "" || window.opener.$("#projectStartDate").val() != ""
+						|| window.opener.$("#projectEndDate").val() != ""){ 
+						$('.alert').show();
+					}
 					$("#btnConfirm").prop('disabled', false);
 				})
 			});

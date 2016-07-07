@@ -83,7 +83,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		}	
 		
 		
-		if(getProject().getAnticipatedSubmissionDate() == null && isStatusNotStartedOrInProgress){
+		if(getProject().getAnticipatedSubmissionDate() == null && isStatusNotStartedOrInProgress && !isAnticipatedSubDateDisabled()){
 			this.addActionError(getText("anticipated.submission.date.required"));
 		}
 
@@ -296,7 +296,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		boolean isAnticipatedSubDateDisabled = false; 
 		
 		//The system will disable the Anticipated Submission Date field if the user answered No to question Will there be any data submitted on the Genomica Data Sharing Plan page.
-		if(getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null){
+		if(retrieveSelectedProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null){
 			isAnticipatedSubDateDisabled = true;
 		}
 		return isAnticipatedSubDateDisabled;		
