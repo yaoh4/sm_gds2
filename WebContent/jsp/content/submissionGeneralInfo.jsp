@@ -10,9 +10,10 @@
 			<s:submit value=" Save " action="manage/saveGeneralInfo" onclick="return warnGeneralInfo()"
 				id="general_saved" cssClass="saved btn btn-default" />
 
-			<s:submit value=" Save & Next »  "
+			<s:submit type="button" 
 				action="manage/saveGeneralInfoAndNext" id="general_saved_next" onclick="return warnGeneralInfoNext()"
-				cssClass="btn btn-project-primary" />
+				cssClass="btn btn-project-primary">
+				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 
 		<s:if test="project.applId==null">
@@ -219,9 +220,10 @@
 			<s:submit value=" Save " namespace="/manage" action="saveGeneralInfo" onclick="return warnGeneralInfo()"
 				id="general_saved" cssClass="saved btn btn-default" />
 
-			<s:submit value=" Save & Next »  " namespace="/manage"
+			<s:submit type="button" namespace="/manage"
 				action="saveGeneralInfoAndNext" id="general_saved_next" onclick="return warnGeneralInfoNext()"
-				cssClass="btn btn-project-primary" />
+				cssClass="btn btn-project-primary" >
+				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 
 	</s:form>

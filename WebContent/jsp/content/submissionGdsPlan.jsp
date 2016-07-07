@@ -7,7 +7,8 @@
 	<!-- Page navbar -->
 	<div class="pageNav">
 		<s:submit action="saveGdsPlan" onclick="enableAllCheckbox();return warnGdsPlan()" value=" Save " class="saved btn btn-default"/>
-		<s:submit action="saveGdsPlanAndNext" onclick="enableAllCheckbox();return warnGdsPlanNext()" value=" Save & Next »  " class="btn btn-project-primary"/>
+		<s:submit type="button" action="saveGdsPlanAndNext" onclick="enableAllCheckbox();return warnGdsPlanNext()" class="btn btn-project-primary">
+			 Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 	</div>
 
 	<!-- Begin Panel -->
@@ -247,7 +248,8 @@
 	<!--SAVE & NEXT BUTTONS-->
 	<div class="pageNav">
 		<s:submit action="saveGdsPlan" onclick="enableAllCheckbox();return warnGdsPlan()" value=" Save " class="saved btn btn-default"/>
-		<s:submit action="saveGdsPlanAndNext" onclick="enableAllCheckbox();return warnGdsPlanNext()" value=" Save & Next »  " class="btn btn-project-primary"/>
+		<s:submit type="button" action="saveGdsPlanAndNext" onclick="enableAllCheckbox();return warnGdsPlanNext()" class="btn btn-project-primary">
+			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 	</div>
 </s:form>
 

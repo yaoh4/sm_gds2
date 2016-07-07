@@ -8,8 +8,9 @@
 	<div class="pageNav">
 		<s:submit action="saveBasicStudyInfo" value=" Save "
 			class="saved btn btn-default" />
-		<s:submit action="saveBasicStudyInfoAndNext"
-			value=" Save & Next »  " class="btn btn-project-primary" />
+		<s:submit type="button" action="saveBasicStudyInfoAndNext"
+			class="btn btn-project-primary">
+			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 	</div>
 
 
@@ -94,8 +95,9 @@
 	<div class="pageNav">
 		<s:submit action="saveBasicStudyInfo" value=" Save "
 			class="saved btn btn-default" />
-		<s:submit escape="false" action="saveBasicStudyInfoAndNext"
-			value=" Save & Next »  " class="btn btn-project-primary" />
+		<s:submit type="button" action="saveBasicStudyInfoAndNext"
+			class="btn btn-project-primary" >
+			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 	</div>
 </s:form>
 

@@ -5,7 +5,8 @@
 <s:form name="submission_status_form" id="submission_status_form" action="navigateToRepositoryStatus" cssClass="form-horizontal dirty-check">
 	<div class="pageNav">	
 			<s:submit value=" Save " action="manage/saveRepositoryStatus" cssClass="saved btn btn-default" />								
-			<s:submit value=" Save & Next »  " action="manage/saveRepositoryStatusAndNext" cssClass="btn btn-project-primary" />
+			<s:submit type="button" action="manage/saveRepositoryStatusAndNext" cssClass="btn btn-project-primary" >
+			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 	</div>	
 		<s:hidden name="projectId" value="%{project.id}"/>
 		<s:set name="isAnticipatedSubDateDisabled" value="%{isAnticipatedSubDateDisabled()}" />
@@ -97,7 +98,8 @@
 		<!--SAVE & NEXT BUTTONS-->
 		<div class="pageNav">		
 			<s:submit value=" Save " action="manage/saveRepositoryStatus" cssClass="saved btn btn-default" />								
-			<s:submit value=" Save & Next »  " action="manage/saveRepositoryStatusAndNext" cssClass="btn btn-project-primary" />
+			<s:submit type="button" action="manage/saveRepositoryStatusAndNext" cssClass="btn btn-project-primary" >
+			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 	</s:form>
 </div>

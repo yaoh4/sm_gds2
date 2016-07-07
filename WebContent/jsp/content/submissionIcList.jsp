@@ -10,7 +10,8 @@
       enctype="multipart/form-data" action="listIc"  role="form">
       <div class="pageNav">
           <s:submit action="saveIcList" value=" Save " class="saved btn btn-project-primary"/>
-          <s:submit action="saveIcListAndNext" value=" Save and Next " class="saved btn btn-project-primary"/>	
+          <s:submit type="button" action="saveIcListAndNext" class="saved btn btn-project-primary">
+          Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>	
       </div>
       
       <s:hidden name="projectId" id="projectId" value="%{project.id}"/>
@@ -209,7 +210,8 @@
               <!--SAVE & NEXT BUTTONS-->
         <div class="pageNav">
           <s:submit action="saveIcList" value=" Save " class="saved btn btn-project-primary"/>
-          <s:submit action="saveIcListAndNext" value=" Save and Next " class="saved btn btn-project-primary"/>	  
+          <s:submit type="button" action="saveIcListAndNext" class="saved btn btn-project-primary">
+          Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>	  
         </div>
               
             
