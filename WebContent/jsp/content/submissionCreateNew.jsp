@@ -8,8 +8,9 @@
 		<!-- Page navbar -->
 
 		<div class="pageNav">
-			<s:submit value="Next" action="manage/navigateToGeneralInfo"
-				cssClass="btn btn-project-primary" />
+			<s:submit type="button" 
+				action="manage/saveAndNextSubmissionType" cssClass="btn btn-project-primary">
+				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 
 
@@ -43,8 +44,9 @@
 
 		<!--SAVE & NEXT BUTTONS-->
 		<div class="pageNav">
-			<s:submit value="Next" action="manage/navigateToGeneralInfo"
-				cssClass="btn btn-project-primary" />
+			<s:submit type="button" 
+				action="manage/saveAndNextSubmissionType" cssClass="btn btn-project-primary">
+				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 
 	</s:form>

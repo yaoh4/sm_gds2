@@ -25,7 +25,7 @@
 						</s:a></li>
 				</s:if>
 				<s:else>
-					<li><s:a href="/gds/manage/navigateToGeneralInfo.action">
+					<li><s:a href="/gds/manage/newSubmission.action">
 							Create New Submission
 						</s:a></li>
 				</s:else>		

@@ -155,6 +155,27 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	}	
 	
 	/**
+	 * Validates saveAndNextSubmissionType
+	 */
+	public void validateSaveAndNextSubmissionType(){
+		
+		if(StringUtils.isBlank(getSelectedTypeOfProject())){
+			this.addActionError(getText("submission.type.required"));
+			projectTypes = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_TYPE_LIST.toUpperCase());	
+		}
+	}
+	
+	/**
+	 * This method navigates the user to General info page.
+	 * @return
+	 */
+	public String saveAndNextSubmissionType(){
+		
+		return SUCCESS;
+		
+	}
+	
+	/**
 	 * This method sets up all data for General Info Page.
 	 */
 	public void setUpPageData(){
