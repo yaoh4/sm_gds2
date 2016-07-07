@@ -160,13 +160,13 @@ public class IcSubmissionAction extends ManageSubmission {
 						if(dulChecklistSelection.getDulChecklist().getParentDulId() == null) {
 							//This has no parent, so it represents additional text.
 							//associated with a parent DUL
+							if(parentDulId == null) {
+								parentDulId = dulId;
+							}
 							String additionalText = dulChecklistSelection.getOtherText();
 							if(additionalText != null && !additionalText.isEmpty()) {
 								int textlength = additionalText.length();
 								dulIdList.add(textlength + "otherAddText" + studyIndex + "-" + dulSetIndex + "-" + dulId + additionalText);
-								if(parentDulId == null) {
-									parentDulId = dulId;
-								}
 							} 						
 						} else {
 							//This has a parent, so it represents a regular child dul selections
@@ -274,19 +274,23 @@ public class IcSubmissionAction extends ManageSubmission {
 						//Represents the duls selected in a dulSet
 						List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
 					
-						String[] otherAddText = ServletActionContext.getRequest().getParameterValues("otherAddText-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);					
-						if(otherAddText != null && !otherAddText[0].isEmpty()) {
-							//Represent this as a row in DulChecklistSelection with the parent dul id
-							DulChecklistSelection dulChecklistSelection = createDulChecklistSelection(parentDulId[0], otherAddText[0]);
+						if(ApplicationConstants.PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId[0])) 
+							|| ApplicationConstants.PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
+						
+							//These need to have additional text info, so pick that up
+							String[] otherAddText = ServletActionContext.getRequest().getParameterValues("otherAddText-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);					
+							DulChecklistSelection dulChecklistSelection = createDulChecklistSelection(parentDulId[0], otherAddText);
 							dulChecklistSelection.setStudiesDulSet(dulSet);						
-							dulChecklistSelections.add(dulChecklistSelection);																
-						} else {
-							if(ApplicationConstants.PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId[0]))) {
-								this.addActionError("Please enter disease specific info for Disease Specific selection  in study at index + " + studyIndex);
-							} else if(ApplicationConstants.PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
-								this.addActionError("Please enter additional info for Other selection in study at index " + studyIndex);
+							dulChecklistSelections.add(dulChecklistSelection);	
+							
+							if(otherAddText == null || otherAddText[0].isEmpty()) {
+								if(ApplicationConstants.PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId[0]))) {
+									this.addActionError("Please enter disease specific info for Disease Specific selection  in study at index + " + studyIndex);
+								} else if(ApplicationConstants.PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
+									this.addActionError("Please enter additional info for Other selection in study at index " + studyIndex);
+								}
 							}
-						}	
+						} 
 											
 						String selectedDulsParam = "dul-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0];
 						String [] selectedDuls = ServletActionContext.getRequest().getParameterValues(selectedDulsParam);
@@ -335,7 +339,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	
 	
-	private DulChecklistSelection createDulChecklistSelection(String dulId, String otherText) {
+	private DulChecklistSelection createDulChecklistSelection(String dulId, String[] otherText) {
 		
 		//for each selectedDul, create a dulChecklistSelection
 		DulChecklistSelection dulChecklistSelection = new DulChecklistSelection();
@@ -348,8 +352,8 @@ public class IcSubmissionAction extends ManageSubmission {
 		//get the dulChecklist with the id and attach it to this dulCheckListSelection.
 		DulChecklist dulChecklist = GdsSubmissionActionHelper.getDulChecklist(Long.parseLong(dulId));
 		dulChecklistSelection.setDulChecklist(dulChecklist);
-		if(otherText != null && !otherText.isEmpty()) {
-			dulChecklistSelection.setOtherText(otherText);
+		if(otherText != null && !otherText[0].isEmpty()) {
+			dulChecklistSelection.setOtherText(otherText[0]);
 		}
 		return dulChecklistSelection;
 	}
