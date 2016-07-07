@@ -5,8 +5,8 @@
 <div class="content">
     
     <!--Begin Form -->
-    <form id="institutional_form" name="instititional_form" cssClass="dirty-check" namespace="manage"
-    enctype="multipart/form-data" action="saveIc" method="post" role="form">  
+    <s:form id="institutional_form" name="instititional_form" cssClass="dirty-check" namespace="manage"
+    enctype="multipart/form-data" data-toggle="validator" action="saveIc" method="post" role="form">  
     <s:hidden name="projectId" value="%{project.id}"/>
     <s:hidden name="instCertification.id" value="%{instCertification.id}"/>
 	<s:hidden name="instCertification.createdBy" valey="%{instCertification.createdBy}"/>
@@ -166,7 +166,7 @@
                                 <label for="Data Use Limitation(s) Verified?" class="label_dulV">Data Use Limitation(s) Verified?</label>
                                 <s:select name="instCertification.studies[%{#studiesStat.index}].dulVerificationId"
                         			value="instCertification.studies[#studiesStat.index].dulVerificationId"
-                        			class="mn" style="width: 120px;"
+                        			class="DULvSelect" style="width: 120px;"
                         			list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST)}"
                         			listKey="optionKey" listValue="optionValue" id="dulVerificationId%{#studiesIdx}"
                        				emptyOption="true"/>
@@ -219,7 +219,7 @@
         <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
 	  </div>
         
-    </form>
+    </s:form>
 	
 </div>
 <script type="text/javascript"

@@ -12,7 +12,7 @@
         <s:iterator status="dulSetStat" var="studiesDulSet" value="instCertification.studies[#studiesStat.index].studiesDulSets">
 		  <s:set name="dulSetIdx" value="#dulSetStat.index" />
 		   
-		  <div id="dulType${studiesIdx}-${dulSetIdx}">
+		  <div id="dulType${studiesIdx}-${dulSetIdx}" class="dulTypes">
 		  
 		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].createdBy"/>
 		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].id" id="dulSetId%{studiesIdx}-%{dulSetIdx}"/>

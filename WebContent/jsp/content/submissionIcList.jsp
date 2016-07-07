@@ -6,8 +6,8 @@
 <div class="content">
 	
 <!--Begin Form -->
-    <form id="ic_dashboard_form" name="ic_dashboard_form" namespace = "manage" method="post"
-      enctype="multipart/form-data" action="listIc"  role="form">
+    <s:form id="ic_dashboard_form" name="ic_dashboard_form" namespace = "manage" method="post"
+      enctype="multipart/form-data" action="listIc"  role="form"/>
       <div class="pageNav">
           <s:submit action="saveIcList" value=" Save " class="saved btn btn-project-primary"/>
           <s:submit type="button" action="saveIcListAndNext" class="saved btn btn-project-primary">
@@ -61,7 +61,7 @@
           
             <p>&nbsp;</p>
 
-            <table style="width: 90%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
+            <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tr class="modalTheader">
                 <th class="tableHeader" align="center" width="60%">Institutional Certification Document</th>
                 <th class="tableHeader" align="center" width="30%">Date Uploaded</th>

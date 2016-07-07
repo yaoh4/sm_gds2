@@ -30,6 +30,15 @@ $(document).ready(function () {
 				$("#" + divValue).show();
 			}
 		}
+		
+		value  = $("#finalprov option:selected").text();
+		if ( value == 'Provisional') { 
+	        $("#DULv, #DULinfo, #DULpanel").hide();
+	      }
+	      else
+	      {
+	        $("#DULv, #DULinfo, #DULpanel").show();
+	      }
 	});
 		
 });
@@ -286,9 +295,21 @@ var emptyStudy = ""
 
 //toggle for Provisional/Final Dropdown box
 
-    $('#provisional').on('change', function() {
-      if ( this.value == 'Provisional') { 
+    $('#finalprov').on('change', function() {
+    	value  = $("#finalprov option:selected").text();
+      if ( value == 'Provisional') { 
     	  $("#DULv, #DULinfo, #DULpanel").hide();
+    	  
+    		//remove all dulTypes except one
+    		$(".dulTypes").not("#dulType0-0").remove();
+    		
+    		//Hide dul selections (checkboxes) from all parents (radio buttons) 
+    		$(".dulSetDiv").hide();
+    		
+    		//Uncheck all the selections
+    		$(".dulSet").prop('checked', false);
+    		$(".input_other").val('');
+    		$(".DULvSelect").val(-1);
       }
       else
       {
