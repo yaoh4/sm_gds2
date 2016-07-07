@@ -29,12 +29,10 @@
 				<div class="panel-body">
 					<div>
 						<p class="question"><i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp; What would you like to create?</p>
-						<div style="color: #686868;" class="radio form-group has-feedback">
-							<s:radio id="projectTypesId"
+						<s:radio id="projectTypesId"
 								name="selectedTypeOfProject"
-								list="projectTypes" template="radiomap-br.ftl"
-								listKey="optionKey" listValue="optionValue" value="34"/>
-						</div>
+								list="projectTypes" template="radiomap-div.ftl"
+								listKey="optionKey" listValue="optionValue"/>						
 					</div>
 					<p>&nbsp;</p>
 				</div>

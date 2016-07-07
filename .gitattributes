@@ -542,7 +542,6 @@ WebContent/stylesheets/datatables-1.10.12.min.css -text
 WebContent/stylesheets/font-awesome-4.6.3.min.css -text
 WebContent/stylesheets/non-responsive.css -text
 WebContent/stylesheets/styles.css -text
-WebContent/template/simple/radiomap-br.ftl -text
 WebContent/template/simple/radiomap-div.ftl -text
 build/build.xml -text
 build/env.properties -text

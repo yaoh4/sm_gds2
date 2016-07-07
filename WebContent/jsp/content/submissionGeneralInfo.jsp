@@ -38,11 +38,10 @@
 				<div class="panel-body">
 
 					<div>
-						<p class="question"><i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>
-						<div style="color: #686868;" class="radio form-group has-feedback">
-							<s:radio id="submissionReasonId" name="project.submissionReasonId" list="projectSubmissionReasons" template="radiomap-br.ftl"
+						<p class="question"><i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>						
+							<s:radio id="submissionReasonId" name="project.submissionReasonId" list="projectSubmissionReasons" template="radiomap-div.ftl"
 								listKey="optionKey" listValue="optionValue" />
-						</div>
+						
 					</div>
 
 					<div class="form-group row has-feedback">
