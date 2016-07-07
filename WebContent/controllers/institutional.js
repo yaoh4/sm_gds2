@@ -43,6 +43,7 @@ $(".parentDulSet").change(function() {
 	$("#" + dulTypeDivId).find(".dulSetDiv").hide();
 	//Uncheck all the selections
 	$("#" + dulTypeDivId).find(".dulSet").prop('checked', false);
+	$("#" + dulTypeDivId).find(".input_other").val('');
 	
 	//Show the text fields associated with the parent if any
 	
