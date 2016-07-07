@@ -71,10 +71,12 @@
 					</p>
 					<!--BEGIN Uploader-->
 					<div class="qSpacing" id="bsiDiv">
-						<s:file name="bsi" id="bsi" />
-						<input type="button" name="bsiUpload"
+						<s:file name="bsi" id="bsi" cssStyle="margin-top: 2px;"/>
+						<div style="margin-left: 75px; margin-top: 15px;">
+							<input type="button" name="bsiUpload"
 								value="Upload File"
-								class="saved btn btn-default" id="bsiUpload">
+								class="saved btn btn-primary" id="bsiUpload">
+						</div>
 						<div class="loadFileHistory">
 							<s:include value="/jsp/content/submissionBasicStudyInfoFile.jsp" />
 						</div>

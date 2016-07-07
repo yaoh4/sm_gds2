@@ -228,7 +228,7 @@
 					<div style="margin-left: 75px; margin-top: 15px;">
 						<input type="button"
 							name="dataSharingPlanUpload" value="Upload Data Sharing Plan File"
-							class="saved btn btn-default" id="dataSharingPlanUpload">
+							class="saved btn btn-primary" id="dataSharingPlanUpload">
 					</div>
 					<div class="loadFileHistory">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />

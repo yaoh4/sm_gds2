@@ -7,7 +7,7 @@
 	Exception Memo</label> 
 	<div style="margin-left: 75px; margin-top: 15px;">
 		<input type="button" name="exceptionMemoUpload"
-		value="Upload Exception Memo File" class="saved btn btn-default"
+		value="Upload Exception Memo File" class="saved btn btn-primary"
 		id="exceptionMemoUpload"/>
 	</div>
 						

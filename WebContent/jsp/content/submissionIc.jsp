@@ -56,9 +56,11 @@
 			</p>
 			<!--BEGIN Uploader-->
 			<div class="qSpacing" id="icDiv">
-				<s:file name="ic" id="ic" />
-				<input type="button" name="icUpload" value="Upload File"
-					class="saved btn btn-default" id="icUpload">
+				<s:file name="ic" id="ic" cssStyle="margin-top: 2px;" />
+				<div style="margin-left: 75px; margin-top: 15px;">
+					<input type="button" name="icUpload" value="Upload File"
+						class="saved btn btn-primary" id="icUpload">
+				</div>
 				<div class="loadFileHistory">
 					<s:include value="/jsp/content/submissionIcFile.jsp" />
 				</div>
