@@ -594,6 +594,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public String getIcList() {
 		
+		String forward = SUCCESS;
+		
 		Project project = retrieveSelectedProject();
 		
 		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
@@ -601,7 +603,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
 			
 		if(CollectionUtils.isEmpty(icList)) {
-			return "empty";
+			forward =  "empty";
 		} 
 		
 		if(docs != null && !docs.isEmpty()) {
@@ -615,7 +617,8 @@ public class IcSubmissionAction extends ManageSubmission {
 		}
 	
 		setProject(project);
-		return SUCCESS;
+		setProjectId(project.getId().toString());
+		return forward;
 	}
 	
 	
