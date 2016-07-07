@@ -11,78 +11,109 @@
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
     <link href="stylesheets/non-responsive.css" rel="stylesheet">
       <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/umd/popover.js"></script>
+       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+      
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
     <link href="stylesheets/custom.css" rel="stylesheet">
     
-    
+    <script type="text/javascript">
+$(function($){
+    $("a").tooltip()
+
+});
+        $(function ($) {
+            $("a").popover()
+        });
+
+</script>
     
   </head>
   <body>
     <!-- header-->
     <div class="logo-header"> </div>
     <!-- Fixed navbar -->
-    <div id="wrap">
-      <div class="navbar  navbar-fixed-top" >
-        <div class="container">
-          <div id="logo" class="logoImage">
-            <img src="images/nci-logo-full.svg" width="450px;"  alt="National Cancer Institute">
-            <div id="loginName" style="float:right; padding-top:15px; padding-bottom: 15px; margin-right: 15px;" class="nav navbar-nav">Welcome: <div id="loginID" class="login">Mary Jones</div></div>
-            <div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
-            
-          </div>
-          <!--Main Navigation -->
-          
-          <nav>
-            <div id="mainNav" class="navbar-header" style="display:block;">
-              <ul class="nav navbar-nav navbar-main">
-                <li><a href="home.htm">Home</a></li>
-                
-                <li><a href="newSubmission.htm">Create New Submission</a></li>
-                <li><a href="search.htm">Search</a></li>
-                
-              </ul>
-            </li>
-          </ul>
-          
-        </div>
-      </nav>
-      
-      
-      <div class="navbar navbar-default2 navbar-fixed-top" >
-        <!--Page Header -->
-        <div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Track Project Submission</h3><div id="verisonNumber" style="display:inline-block;">&nbsp;&nbsp;&nbsp;Version 4 (ID: 123876)</div></div></div>
-        
-        
-        <!--Sub Navigation -->
-        <div class="container ">
-          
-          <div class="navbar-collapse main-nav subnav">
-            <ul class="nav navbar-nav ">
-              <li><a href="general.htm" >General Info.</a></li>
-              <li class="divider-vertical"></li>
-              <li class="active"><a href="dataSharing.htm">Genomic Data Sharing Plan</a></li>
-              <li class="divider-vertical"></li>
-              <li><a href="institutional.htm">Institutional Certification(s)</a></li>
-              <li class="divider-vertical"></li>
-              <li><a href="basicStudy.htm">Basic Study Info.</a></li>
-              <li class="divider-vertical"></li>
-              <li ><a href="repository">Submission Status</a></li>
-              <li class="divider-vertical"></li>
-              <li><a href="submissionDetails.htm">Submission Details</a></li>
-              <li class="divider-vertical"></li>
-            </ul>
-          </div>
-        </div>
-        
+   <div id="wrap">
+<div class="navbar  navbar-fixed-top" >
+    <div class="row">
+   <div class="container">
+      <div id="logo" class="logoImage">
+        <img src="images/nci-logo-full.svg" width="450px;"  alt="National Cancer Institute">
+        <div id="loginName" style="float:right; padding-top:15px; padding-bottom: 15px; margin-right: 15px;" class="nav navbar-nav">Welcome: <div id="loginID" class="login">Mary Jones</div></div>
+        <div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
+
         
       </div>
+</div>
+
+
+ <!--Main Navigation -->
+      <div id="primNav" class="row">
+          <div  class="container">
+  <nav>
+    <div id="mainNav" class="navbar-header" style="display:block;">
+          <ul class="nav navbar-nav navbar-main">
+            <li><a href="home.htm">Home</a></li>
+           
+            <li class="active"><a href="newSubmission.htm">Create New Submission</a></li>
+             <li><a href="search.htm">Search</a></li>
+           
+              </ul>
+            
+           
     </div>
+  </nav>
+          </div>
+        </div>
+   
+  
+      <div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Track Project Submission</h3><div id="verisonNumber" style="display:inline-block;">&nbsp;&nbsp;&nbsp;Version 4 (ID: 123876)</div></div></div>
+  
+
+  <div class="navbar navbar-default2 navbar-fixed-top" >   
+
+    <!--Page Header -->
+    <div id="secNav"  class="row">
+ <!--Sub Navigation -->
+          <div class="container">
+
     
-  </div>
+
+
+
+          <div class="navbar-collapse main-nav subnav">
+                <ul class="nav navbar-nav ">
+                    <li><a href="general.htm" >General Info.</a></li>
+                    <li class="divider-vertical"></li>
+                    <li class="active"><a href="dataSharing.htm">Genomic Data Sharing Plan</a></li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="institutional.htm">Institutional Certification(s)</a></li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="basicStudy.htm">Basic Study Info.</a></li>
+                    <li class="divider-vertical"></li>
+                    <li ><a href="repository">Submission Status</a></li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="submissionDetails.htm">Submission Details</a></li>
+                    <li class="divider-vertical"></li>
+                </ul>
+            </div>
+            </div>
+        </div>
+      
+
+            
+        </div>
+
+  </div>      
+   
+</div>
+    
+ 
   <div class="container" >
     <!--Begin Form -->
     <form id="general_form" name="general_form" data-toggle="validator" role="form">
@@ -91,7 +122,7 @@
         <!--<div><img src="images/legend.gif" alt="legend for progress icons" width="206px"></div>-->
         <input name="" type="button" value=" Save " class="saved btn btn-default">
         
-        <input name="" type="button" value=" Save &amp; Next &raquo;  " class="btn btn-project-primary" onclick="window.location.href='dataSharing.htm'">
+        <a type="button" value="" class="btn btn-project-primary" onclick="window.location.href='dataSharing.htm'"> Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>  </a>
       </div>
       
       
@@ -112,7 +143,7 @@
           <div style="float: right;" class="question"><a href="http://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/submission/nci-dsp.pdf" target="_blank">Genomic Data Sharing Plan Template&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></div>
 
 
-          <p>&nbsp;</p>
+         
           <form id="dataSharing_form" name="dataSharing_form" action="/post" method="post">
            <div class="qSpacing">
               <p class="question">1. Is there a data sharing exception requested for this project? [ <a href="http://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data#exceptions" target="_blank">View Exception Process&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a> ]</p>
@@ -131,7 +162,7 @@
             </div>
 
           <div class="qSpacing">
-              <p class="question">2. Was this exception approved?</p>
+             <div class="question">2. Was this exception approved? </div>
               <div class="radio">
                 <label>
                   <input type="radio" name="Exception approved?" value="Yes">
@@ -311,9 +342,13 @@
               </div>
             </div>
 
-                <div class="qSpacing">
+            <div class="qSpacing">
               
-              <p class="question">9. How would you like to submit the Data Sharing Plan?</p>
+              <p class="question">9. How would you like to submit the Data Sharing Plan?  <a data-toggle="popover" id="popover" data-placement="right" data-trigger="hover" style="font-size:12px;"
+		   title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tortor justo, sodales ut erat eu, malesuada fringilla massa. Quisque sapien felis, vestibulum sed suscipit sit amet,."
+		   data-content="">
+			<span class="fa fa-question-circle fa-1x" aria-hidden="true"></span>
+		</a></p>
               <div class="radio">
                 <label>
                   <input type="radio" name="submit DSP" value="upload" id="upload">
@@ -342,7 +377,7 @@
               </div>
 
              <!--BEGIN HIDDEN Field for Uploader-->  
-           <div class="qSpacing" style="margin-left: 30px; display:none;" id="DSPuploader">
+            <div class="qSpacing" style="margin-left: 30px; display:none;" id="DSPuploader">
               <p class="question">Upload Exception Memo: [to be uploaded by GPA]</p>
               <p>[Yuri will insert uploader]</p>
               <table style="width: 80%;" cellpadding="0px" cellspacing="0"
@@ -362,7 +397,7 @@
                     </table>
               </div>  
 
-<div class="qSpacing">
+            <div class="qSpacing">
               
               <p class="question" id="expand">History of Uploaded Documents&nbsp;<a href="javascript:void" class="history"><i class="fa fa-plus-square" aria-hidden="true"></i></a></p>
               <div id="uploadedHistory" style="display:none;">
@@ -417,75 +452,97 @@
             <div class="pageNav">
               <input  type="submit" name="save" value=" Save " class="saved btn btn-default" id="general_saved">
               
-              <input name="" type="button" value=" Save &amp; Next &raquo;  " class="btn btn-project-primary" onclick="window.location.href='dataSharing.htm'">
+              <a type="button" value="" class="btn btn-project-primary" onclick="window.location.href='dataSharing.htm'"> Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>  </a>
             </div>
           
           </form>
         </div><!--end column formatting div-->
       </div> <!-- /container -->
           
-          <!-- FOOTER -->
-          <footer class="site-footer">
-            <div class="container">
-              <div id="nvcgSlFooter">
-                <div class="contentid-911586 slot-item only-SI">
-                  
-                  <div class="row">
-                    <div class="large-12 columns footer-nci">National Cancer Institute<br> <span>at the National Institutes of Health</span></div>
-                  </div>
-                  <div class="row footer-utility">
-                    <div class="large-3 columns">
-                      <ul>
-                        <li><h4><a href="home.htm">Home</a></h4></li>
-                        <li><h4><a href="newSubmission.htm">Create New Submission</a></h4></li>
-                        <li><h4><a href="search.htm">Search</a></h4></li>
-                        
-                      </ul>
-                    </div>
-                    <div class="large-4 columns">
-                      <h4>POLICIES</h4>
-                      <ul>
-                        <li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
-                        <li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
-                        <li><a href="/policies/foia" target="_blank">FOIA</a></li>
-                        <li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="large-12 small-centered columns agencies">
-                      <ul>
-                        <li><a  href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
-                        <li><a href="http://www.nih.gov">National Institutes of Health</a></li>
-                        <li><a href="/">National Cancer Institute</a></li>
-                        <li class="last"><a href="http://usa.gov">USA.gov</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>®</sup></div>
-                  </div>
-                  <a class="back-to-top" href="#top" style="display: inline;">TOP</a>
-                </div>
-              </div>
-            </div>
-          </footer>
+         <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+            <div id="nvcgSlFooter">
+  <div class="contentid-911586 slot-item only-SI">
+    
+
+<div class="row">
+    <!--
+<div class="large-12 columns footer-nci">National Cancer Institute<br> <span>at the National Institutes of Health</span></div>
+</div>
+<div class="row footer-utility">
+-->
+
+
+<!--<div class="large-3 columns">
+
+
+
+  <ul>
+            <li><h4><a href="home.htm">Home</a></h4></li>
+            <li><h4><a href="newSubmission.htm">Create New Submission</a></h4></li>
+             <li><h4><a href="search.htm">Search</a></h4></li>
+           
+              </ul>
+</div>
+<div class="large-4 columns">
+<h4>POLICIES</h4>
+<ul>
+<li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
+<li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
+<li><a href="/policies/foia" target="_blank">FOIA</a></li>
+<li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
+
+</ul>
+</div>-->
+</div>
+<div class="row">
+<div class="large-12 small-centered columns agencies">
+<ul>
+<li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
+<li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
+<li><a href="/policies/foia" target="_blank">FOIA</a></li>
+    <li><a href="/policies/foia" target="_blank">User Guide</a></li>
+<li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
+
+</ul>
+<ul>
+<li><a  href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+<li><a href="http://www.nih.gov">National Institutes of Health</a></li>
+<li><a href="/">National Cancer Institute</a></li>
+<li class="last"><a href="http://usa.gov">USA.gov</a></li>
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>®</sup></div>
+</div>
+<a class="back-to-top" href="#top" style="display: inline;">TOP</a>
+  </div>
+</div>
+</div>
+        </footer>
           <!-- Bootstrap core JavaScript
           ================================================== -->
           <!-- Placed at the end of the document so the pages load faster -->
+
+            <script type="text/javascript">
+            $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip({
+                    placement : 'top',
+                    trigger : 'hover'
+                });
+            });
+            </script>
           <script src="scripts/tooltipjquery.js" type="text/javascript"></script>
-          
           <script src="scripts/theme.js" type="text/javascript"></script>
-          
-          
-          
-          
           <script src="scripts/bootstrap.min.js"></script>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
           <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
           
           <script src="controllers/dataSharing.js"></script>
           <script src="scripts/validator.js"></script>
+
         
           
           
@@ -499,6 +556,8 @@
           });
           });
           </script>
+
+
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js" type="text/javascript"></script>
           
           

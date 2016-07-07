@@ -32,12 +32,9 @@
   <script src="http://cdn.datatables.net/buttons/1.2.0/js/buttons.colVis.min.js"></script>
 
   
-
-
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
- 
+
 
 <link href="stylesheets/datatable.css" rel="stylesheet" type="text/css" media="screen">
 <link href="stylesheets/styles.css" rel="stylesheet" type="text/css" media="screen">
@@ -55,15 +52,14 @@
 
 </head>
   <body class="noSubNav">
-    <!-- header-->
+       <!-- header-->
      <div class="logo-header"> </div>
 
 <!-- Fixed navbar -->
 
-    <!-- Fixed navbar -->
-
     <div id="wrap">
 <div class="navbar  navbar-fixed-top" >
+    <div class="row">
    <div class="container">
       <div id="logo" class="logoImage">
         <img src="images/nci-logo-full.svg" width="450px;"  alt="National Cancer Institute">
@@ -72,45 +68,39 @@
 
         
       </div>
+</div>
 
 
  <!--Main Navigation -->
-     
-       <nav>
-        <div id="mainNav" class="navbar-collapse collapse" style="display:block;">
-          <ul class="nav navbar-nav navbar-main searchNav">
+      <div id="primNav" class="row">
+          <div  class="container">
+  <nav>
+    <div id="mainNav" class="navbar-header" style="display:block;">
+          <ul class="nav navbar-nav navbar-main">
             <li><a href="home.htm">Home</a></li>
-          
-            <li><a href="newSubmission.htm">Create New Submission</a></li>
-             <li><a href="search.htm" class="active">Search</a></li>
+           
+            <li ><a href="newSubmission.htm">Create New Submission</a></li>
+             <li class="active"><a href="search.htm">Search</a></li>
            
               </ul>
-            </li>
-          </ul>
+            
            
-           </div>
-           </nav>
-          
+    </div>
+  </nav>
+          </div>
+        </div>
+   
+  
+      <div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Project Search</h3></div></div>
   
 
+ 
 
-  <div class="navbar navbar-default2 navbar-fixed-top" >   
-
-
-          
-
-
-             <!--Page Header -->
-      <div class="searchHeader" id="pageHeader"><div class="titleWrapper container"><h3>Project Search</h3></div></div>
-          </div>   
-
-            
-        </div>
-
-     
+  </div>      
    
 </div>
 
+  
 
    <div class="container">
     <div class="panel panel-default mainContent" style="width:80%;">
@@ -189,7 +179,7 @@
                         </div>                   
                   
 </div><!--end form group--> 
-<div class="searchButton"><input name="Search" type="button" value=" Search  " class="btn btn-project-primary" onclick="#">
+<div class="searchButton"><input name="Search" type="button" value="Search" class="btn btn-project-primary" onclick="#">
   </div>
 
 </div><!--end panel body-->
@@ -221,20 +211,21 @@
  <tr>
     
     <td ><strong><a href="#">P23857.v1</strong></a>
-     <a data-toggle="modal" href="#existingSubProjects"></br>
-      <i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Existing Sub-Projects</td>
+     <a class="btn btn-default" data-toggle="modal" href="#existingSubProjects">
+      <i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>&nbsp;Existing Sub-Projects</a></td>
     <td  style="white-space: nowrap">1R01CA12356-01</td>
     <td >Therapeutic Resistance to PI3K-alpha Inhibitors</td>
     <td style="white-space: nowrap"><a href="#">Jones, Mary</a></td>
    
     <td >
-      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
-        <img src="images/complete.png" alt="Complete" width="18px" height="18px" /></a>
+      <div class="searchProgess">
+      <button title="Tooltip on right" data-placement="right" data-toggle="tooltip" class="btn btn-default mrs" type="button">
+        <img src="images/complete.png" alt="Complete" width="18px" height="18px" /></button>
       </div>
     </td>
     <td >
-      <div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
-        <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+      <div class="searchProgess">
+        <img type="button" src="images/inprogress.png" data-toggle="tooltip" data-content="In progress" alt="In Progress" width="18px" height="18px" />
       </div>
     </td>
     <td >
@@ -248,7 +239,7 @@
       </div>
     </td>
     <td style="white-space: nowrap"><!-- Trigger the modal with a button -->
-<a data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Submission Status
+<a class="btn btn-default" data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>&nbsp;Submission Status</a>
   </td>
 
     <td >
@@ -283,7 +274,7 @@
   <tr>
  
     <td style="white-space: nowrap"> <a href="#"><strong>P27383.v1</strong></a><br/>
-      <a data-toggle="modal" href="#existingSubProjects"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Existing Sub-Projects
+      <a class="btn btn-default" data-toggle="modal" href="#existingSubProjects"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>&nbsp;Existing Sub-Projects</a>
     </td>
     <td >XX075609723</td>
     <td >Small Cell Lung Cancer</td>
@@ -310,7 +301,7 @@
       </div>
     </td>
     <td style="white-space: nowrap"><!-- Trigger the modal with a button -->
-<a data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Submission Status
+<a class="btn btn-default"  data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>&nbsp;Submission Status</a>
   </td>
     <td >
     <div style="white-space: nowrap;"><!--icon div-->
@@ -364,13 +355,13 @@
       </div>
     </td>
    <td style="white-space: nowrap;"><!-- Trigger the modal with a button -->
-<a data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Submission Status
+<a class="btn btn-default" data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>&nbsp;Submission Status</a>
   </td>
     <td >
       <div style="white-space: nowrap;"><!--icon div-->
          &nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;&nbsp;&nbsp;
 
-                        <a href="#" class="editor_remove"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>&nbsp;&nbsp;&nbsp;
+                           <a href="#" class="editor_remove"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>&nbsp;&nbsp;&nbsp;
       <a href="#" id="eclick"><img src="images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"></a>
         
 
@@ -417,7 +408,7 @@
       </div>
     </td>
     <td style="white-space: nowrap"><!-- Trigger the modal with a button -->
-<a data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Submission Status
+<a class="btn btn-default" data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>&nbsp;Submission Status</a>
   </td>
     <td >
       <div style="white-space: nowrap;"><!--icon div-->
@@ -474,7 +465,7 @@
       </div>
     </td>
     <td style="white-space: nowrap"><!-- Trigger the modal with a button -->
-<a data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;Submission Status
+<a class="btn btn-default" data-toggle="modal" href="#myModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>&nbsp;Submission Status</a>
   </td>
     <td >
       <div style="white-space: nowrap;"><!--icon div-->
@@ -818,45 +809,24 @@
  
 
 <!-- FOOTER -->
-    <footer class="site-footer">
+    <footer class="site-footer footer-fixed-bottom">
       <div class="container">
             <div id="nvcgSlFooter">
-  <div class="contentid-911586 slot-item only-SI">
-    
-
+<div class="contentid-911586 slot-item only-SI">
 <div class="row">
-<div class="large-12 columns footer-nci">National Cancer Institute<br> <span>at the National Institutes of Health</span></div>
-</div>
-<div class="row footer-utility">
-
-
-
-<div class="large-3 columns">
-
-
-
-  <ul>
-            <li><h4><a href="home.htm">Home</a></h4></li>
-            <li><h4><a href="mySubmissions.htm">My Sumbissions</a></h4></li>
-            <li><h4><a href="newSubmission.htm">Create New Submission</a></h4></li>
-             <li><h4><a href="search.htm">Search</a></h4></li>
-           
-              </ul>
-</div>
-<div class="large-4 columns">
-<h4>POLICIES</h4>
-<ul>
+<div class="large-12 small-centered columns agencies">
+ <ul class="primaryfooter">
+<li><a href="home.htm">Home</a></li>
+<li><a href="mySubmissions.htm">My Sumbissions</a></li>
+<li><a href="newSubmission.htm">Create New Submission</a></li>
+<li><a href="search.htm">Search</a></li>           
 <li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
 <li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
 <li><a href="/policies/foia" target="_blank">FOIA</a></li>
 <li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
 
 </ul>
-</div>
-</div>
-<div class="row">
-<div class="large-12 small-centered columns agencies">
-<ul>
+<ul class="secondaryfooter">
 <li><a  href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
 <li><a href="http://www.nih.gov">National Institutes of Health</a></li>
 <li><a href="/">National Cancer Institute</a></li>
@@ -865,13 +835,14 @@
 </div>
 </div>
 <div class="row">
-<div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>Â®</sup></div>
+<div class="large-12 small-centered columns tagline">NIH ... Turning Discovery Into Health<sup>®</sup></div>
 </div>
 <a class="back-to-top" href="#top" style="display: inline;">TOP</a>
   </div>
 </div>
 </div>
-        </footer>
+</footer>
+
 
 
  

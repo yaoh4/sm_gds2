@@ -2,7 +2,7 @@
 <html lang="en">
   <title>Genomic Data Sharing (GDS) Tracking System</title>
   
-
+<head>
     <!-- Bootstrap -->
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
 
@@ -21,16 +21,15 @@
 
 </head>
   <body class="noSubNav">
-    <!-- header-->
+       <!-- header-->
      <div class="logo-header"> </div>
 
 <!-- Fixed navbar -->
 
-    <!-- Fixed navbar -->
-
     <div id="wrap">
 <div class="navbar  navbar-fixed-top" >
-   <div class="container">
+    <div class="row">
+    <div class="container">
       <div id="logo" class="logoImage">
         <img src="images/nci-logo-full.svg" width="450px;"  alt="National Cancer Institute">
         <div id="loginName" style="float:right; padding-top:15px; padding-bottom: 15px; margin-right: 15px;" class="nav navbar-nav">Welcome: <div id="loginID" class="login">Mary Jones</div></div>
@@ -38,47 +37,46 @@
 
         
       </div>
+	</div>
 
 
  <!--Main Navigation -->
-     
-       <nav>
-        <div id="mainNav" class="navbar-collapse collapse" style="display:block;">
-          <ul class="nav navbar-nav navbar-main searchNav">
-            <li><a href="home.htm">Home</a></li>
-          
-            <li><a href="newSubmission.htm" class="active">Create New Submission</a></li>
-             <li><a href="search.htm" >Search</a></li>
-           
-              </ul>
-            </li>
-          </ul>
-           
-           </div>
-           </nav>
-          
+      <div id="primNav" class="row">
+          <div  class="container">
+          <nav>
+            <div id="mainNav" class="navbar-header" style="display:block;">
+                  <ul class="nav navbar-nav navbar-main">
+                    <li><a href="home.htm">Home</a></li>
+                   
+                    <li class="active"><a href="newSubmission.htm">Create New Submission</a></li>
+                     <li><a href="search.htm">Search</a></li>
+                   
+                      </ul>
+                    
+                   
+            </div>
+          </nav>
+          </div>
+      </div>
+   
+  
+      <div class="pageHeader" id="pageHeader"><div class="titleWrapper container">
+      <h3>Create New Submission</h3>
+      </div>
+      </div>
   
 
+ 
 
-  <div class="navbar navbar-default2 navbar-fixed-top" >   
-
-
-          
-
-
-             <!--Page Header -->
-      <div class="searchHeader" id="pageHeader"><div class="titleWrapper container"><h3>Create New Submission</h3></div></div>
-          </div>   
-
-            
-        </div>
-
-     
+  </div>      
    
 </div>
 
+ </div>     
+    
 
-   <div class="container">
+
+   <div id="main" class="container">
     
 
 <!--Begin Form -->
@@ -88,7 +86,7 @@
        
          
       
-          <input name="" type="button" value=" Save &amp; Next &raquo; " class="btn btn-default" onclick="window.location.href='dataSharing.htm'">
+          <a type="button" value="" class="btn btn-project-primary" onclick="window.location.href='dataSharing.htm'"> Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>  </a>
 
         </div>
 
@@ -347,7 +345,7 @@
        
          
       
-          <input name="" type="button" value=" Save &amp; Next &raquo; " class="btn btn-default" onclick="window.location.href='dataSharing.htm'">
+         <a type="button" value="" class="btn btn-project-primary" onclick="window.location.href='dataSharing.htm'"> Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>  </a>
 
         </div>
       </form>
@@ -355,53 +353,25 @@
     </div> <!--end 12colspan-->
 
         
-</div> <!-- /container -->
+ <!-- /container -->
 
-
-
-
-
-      
 
 <!-- FOOTER -->
-    <footer class="site-footer">
-      <div class="container">
-            <div id="nvcgSlFooter">
-  <div class="contentid-911586 slot-item only-SI">
-    
-
-<div class="row">
-<div class="large-12 columns footer-nci">National Cancer Institute<br> <span>at the National Institutes of Health</span></div>
-</div>
-<div class="row footer-utility">
-
-
-
-<div class="large-3 columns">
-
-
-
-  <ul>
-            <li><h4><a href="home.htm">Home</a></h4></li>
-            <li><h4><a href="mySubmissions.htm">My Sumbissions</a></h4></li>
-            <li><h4><a href="newSubmission.htm">Create New Submission</a></h4></li>
-             <li><h4><a href="search.htm">Search</a></h4></li>
-           
-              </ul>
-</div>
-<div class="large-4 columns">
-<h4>POLICIES</h4>
-<ul>
-<li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
-<li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
-<li><a href="/policies/foia" target="_blank">FOIA</a></li>
-<li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
+    <footer id="footer" class="site-footer">
+      <div class="container">          
+	 <div class="row">
+		<div class="large-12 small-centered columns agencies">
+    <ul>
+    <li><a href="home.htm">Home</a></li>
+    <li><a href="mySubmissions.htm">My Sumbissions</a></li>
+    <li><a href="newSubmission.htm">Create New Submission</a></li>
+    <li><a href="search.htm">Search</a></li>           
+    <li><a href="http://www.cancer.gov/policies/accessibility" target="_blank">Accessibility</a></li>
+    <li><a href="http://www.cancer.gov/policies/disclaimer" target="_blank">Disclaimer</a></li>
+    <li><a href="/policies/foia" target="_blank">FOIA</a></li>
+    <li><a href="http://www.cancer.gov/policies/privacy-security" target="_blank">Privacy &amp; Security</a></li>
 
 </ul>
-</div>
-</div>
-<div class="row">
-<div class="large-12 small-centered columns agencies">
 <ul>
 <li><a  href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
 <li><a href="http://www.nih.gov">National Institutes of Health</a></li>
@@ -437,9 +407,10 @@
   
 
  
- <script src="scripts/bootstrap.min.js"></script>
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
    <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
         
      <script src="controllers/newSubmission.js"></script>
@@ -448,8 +419,6 @@
    
          
 
-
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
        <script type="text/javascript">
             $(function () {
                 $('#repositoryDate .input-group.date').datepicker({
