@@ -110,7 +110,8 @@ $("#18").change(function () {
 		// Controlled is checked.
 		$("#21").prop('checked', true ); // Select dbGaP
 		$("#21").prop('disabled', true); // Disable dbGaP
-	} else { // De-selected so Enable dbGaP
+	} else { // Control is de-selected and no unrestricted is selected
+		$("#21").prop('checked', false ); // De-select dbGaP
 		$("#21").prop('disabled', false); // dbGaP
 	}
 });
@@ -123,7 +124,8 @@ $("#19").change(function () {
 		// Controlled is checked.
 		$("#21").prop('checked', true ); // Select dbGaP
 		$("#21").prop('disabled', true); // Disable dbGaP
-	} else { // De-selected so Enable dbGaP
+	} else { // Control is de-selected and no unrestricted is selected
+		$("#21").prop('checked', false ); // De-select dbGaP
 		$("#21").prop('disabled', false); // dbGaP
 	}
 });
