@@ -45,6 +45,12 @@ $(document).ready(function () {
       }
 	  
 
+	  //Do not show any sections if no file uploaded.
+	  if( !$.trim( $("#loadIcFileHistory").html() ).length ) {
+		  $(".form-group").hide();
+	  } else {
+		  $(".form-group").show();
+	  } 
 		
 });
 

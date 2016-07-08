@@ -9,8 +9,9 @@
     enctype="multipart/form-data" data-toggle="validator" action="saveIc" method="post" role="form">  
     <s:hidden name="projectId" value="%{project.id}"/>
     <s:hidden name="instCertification.id" value="%{instCertification.id}"/>
-	<s:hidden name="instCertification.createdBy" valey="%{instCertification.createdBy}"/>
-	
+	<s:hidden name="instCertification.createdBy" value="%{instCertification.createdBy}"/>
+	<s:hidden name="docId" value="%{doc.id}" />
+	<s:hidden name="doc.id" value="%{doc.id}" />
       
       <!-- Page navbar -->
       <div class="pageNav">
@@ -51,21 +52,11 @@
             
            
 			<!--  File Upload -->
-			<p class="question">
-				<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Upload File(s):
-			</p>
-			<!--BEGIN Uploader-->
-			<div class="qSpacing" id="icDiv">
-				<s:file name="ic" id="ic" cssStyle="margin-top: 2px;" />
-				<div style="margin-left: 75px; margin-top: 15px;">
-					<input type="button" name="icUpload" value="Upload File"
-						class="saved btn btn-primary" id="icUpload">
-				</div>
-				<div class="loadFileHistory">
-					<s:include value="/jsp/content/submissionIcFile.jsp" />
-				</div>
+			
+			<div id="icDiv" style="${map['icDiv'].style}" 
+					class="qSpacing" style="margin-left: 30px;">
+						<s:include value="/jsp/content/submissionIcFile.jsp"/>
 			</div>
-			  
 		
 			  <div class="form-group row">
                 <div class="col-xs-3">

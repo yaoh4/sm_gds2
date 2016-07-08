@@ -102,6 +102,7 @@ public class ProjectsDao {
 			} else {
 				Hibernate.initialize(instance.getPlanAnswerSelection());
 				Hibernate.initialize(instance.getRepositoryStatuses());
+				Hibernate.initialize(instance.getInstitutionalCertifications());
 				logger.debug("get successful, instance found");
 			}
 			return instance;

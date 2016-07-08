@@ -57,9 +57,11 @@ public class IcSubmissionAction extends ManageSubmission {
 
 	private String icContentType;
 	
-	private List<Document> icFileDocs;
+	private List<Document> icFileDocs = new ArrayList<Document>();
 	
 	private Document doc = null; // json object to be returned for UI refresh after upload
+	
+	
 	
 	/**
 	 * Retrieves all data associated with the specified IC and redirects the user to the
@@ -101,7 +103,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		if(instCert != null) {
 			icFileDocs = new ArrayList<Document>();
 			List<Document> docs = 
-				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, instCert.getProject().getId());
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, retrieveSelectedProject().getId());
 			if(docs != null && !docs.isEmpty()) {
 				for(Document doc: docs) {
 					if(doc.getInstitutionalCertificationId() != null && 
@@ -109,7 +111,9 @@ public class IcSubmissionAction extends ManageSubmission {
 						icFileDocs.add(doc);
 				}			
 			}
-			
+			if(icFileDocs.isEmpty() && doc != null) {
+				icFileDocs.add(doc);
+			}
 			instCert.setDocuments(icFileDocs);		
 		}
 	}
@@ -185,6 +189,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		String dulIds = (new JSONArray(dulIdList)).toString();
 		setDulIds(dulIds);
+		loadFiles(instCert);
 				
 	}
 	
@@ -338,6 +343,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			setProject(retrieveSelectedProject());
 			setInstCertification(instCert);
 			prepareDisplay(instCert);
+			setDocId(getDocId());
 		}
 	}
 	
@@ -398,6 +404,29 @@ public class IcSubmissionAction extends ManageSubmission {
 		}
 		instCert.setProject(project);
 		setProject(saveProject(project));
+		
+		//Update the cert ID in the document that we loaded
+		if(instCert.getId() == null) {
+			List<InstitutionalCertification> certs = retrieveSelectedProject().getInstitutionalCertifications();
+			//get the newest certification
+			instCert = certs.get(certs.size() - 1);
+			//Update the certId in the associated IC doc
+			//if(getDocId() != null) {
+			//	fileUploadService.updateCertId(getDocId(), instCert.getId());
+			//}
+			
+			List<Document> docs = 
+					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, retrieveSelectedProject().getId());
+				if(docs != null && !docs.isEmpty()) {
+					for(Document doc: docs) {
+						if(doc.getInstitutionalCertificationId() == null) {
+							fileUploadService.updateCertId(doc.getId(), instCert.getId());
+							icFileDocs.add(doc);
+						}
+					}			
+				}
+		}
+		
 		
 		return SUCCESS;
 	}
@@ -496,6 +525,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		try {
 			doc = fileUploadService.storeFile(
 				new Long(getProjectId()), ApplicationConstants.DOC_TYPE_IC, ic, icFileName, getInstCertification().getId());
+			setDocId(doc.getId());
 			icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
 			
 		} catch (Exception e) {
@@ -511,36 +541,6 @@ public class IcSubmissionAction extends ManageSubmission {
 		logger.info("===> IC fileName: " + doc.getFileName());
 		logger.info("===> IC docTitle: " + doc.getDocTitle());
 		logger.info("===> IC uploadDate: " + doc.getUploadedDate());
-
-		return SUCCESS;
-	}
-	
-	/**
-	 * Delete Genomic Data Sharing Plan Document
-	 * 
-	 * @return forward string
-	 */
-	public String deleteInstCertificationFile() {
-		logger.info("deleteInstCertificationFile()");
-		
-		try {
-			if (getDocId() == null) {
-				inputStream = new ByteArrayInputStream(
-						getText("error.doc.id").getBytes("UTF-8"));
-
-				return INPUT;
-			}
-			fileUploadService.deleteFile(getDocId());
-			icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
-			
-		} catch (UnsupportedEncodingException e) {
-			try {
-				inputStream = new ByteArrayInputStream(getText("error.doc.delete").getBytes("UTF-8"));
-			} catch (UnsupportedEncodingException e1) {
-				return INPUT;
-			}
-			return INPUT;
-		}
 
 		return SUCCESS;
 	}
@@ -810,4 +810,5 @@ public class IcSubmissionAction extends ManageSubmission {
 	public void setDoc(Document doc) {
 		this.doc = doc;
 	}
+
 }
