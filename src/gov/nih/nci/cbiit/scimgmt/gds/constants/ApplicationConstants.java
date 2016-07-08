@@ -28,6 +28,7 @@ public interface ApplicationConstants {
 	 public static final String IC_DUL_VERIFIED_LIST = "IC_DUL_VERIFIED";
 	 public static final String PROJECT_SUBMISSION_REASON_LIST = "project_sub_reason";
 	 public static final String PROJECT_TYPE_LIST = "project_type";
+	 public static final String SEARCH_SUBMISSION_FROM = "search_from";
 	 
 	 /* Type discriminators */ 
 	 public static final String DOC_TYPE = "DOC_TYPE";
@@ -60,6 +61,7 @@ public interface ApplicationConstants {
 	 public static final Long PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID = 19L;
 	 public static final Long PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID = 26L;
 	 public static final Long PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID = 29L;
+	 public static final Long PLAN_QUESTION_ANSWER_UPLOAD_OPTION_FILE_ID = 30L;
 	 public static final Long SUBMISSION_REASON_GDSPOLICY = 26L;
 	 public static final Long SUBMISSION_REASON_GWASPOLICY = 27L;
 	 public static final Long SUBMISSION_REASON_NIHFUND = 28L;
@@ -72,6 +74,9 @@ public interface ApplicationConstants {
 	 public static final Long REGISTRATION_STATUS_INPROGRESS_ID = 8L;
 	 public static final Long REGISTRATION_STATUS_NOTSTARTED_ID = 9L;	 
 	 public static final Long PROJECT_STUDY_RELEASED_NO_ID = 17L;
+	 public static final Long SEARCH_MY_PROJECT_SUBMISSIONS = 40L;
+	 public static final Long SEARCH_SUBMISSION_FROM_MYDOC = 41L;
+	 public static final Long SEARCH_SUBMISSION_FROM_ALL = 42L;
 	 
 	 /* String constants */
 	 public static final String NOT_STARTED = "NOTSTARTED"; 
