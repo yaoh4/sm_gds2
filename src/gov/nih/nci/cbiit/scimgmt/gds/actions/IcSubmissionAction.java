@@ -8,10 +8,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -381,6 +381,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	public String saveIc() {
 		Project project = retrieveSelectedProject();
 		boolean matchFound = false;
+		Long docId = null;
 		
 		InstitutionalCertification instCert = getInstCertification();
 		if(instCert.getId() != null) {
@@ -401,30 +402,33 @@ public class IcSubmissionAction extends ManageSubmission {
 			//The institutional certification is not in the DB, hence add it
 			instCert.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 			project.getInstitutionalCertifications().add(instCert);
+			//Check if there is an file which doesn't have certId
+			icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
+			for(Document doc: icFileDocs) {
+				if(doc.getInstitutionalCertificationId() == null) {
+					docId = doc.getId();
+					break;
+				}		
+			}
 		}
 		instCert.setProject(project);
-		setProject(saveProject(project));
+		saveProject(project);
+		setProject(retrieveSelectedProject());
 		
-		//Update the cert ID in the document that we loaded
-		if(instCert.getId() == null) {
-			List<InstitutionalCertification> certs = retrieveSelectedProject().getInstitutionalCertifications();
-			//get the newest certification
-			instCert = certs.get(certs.size() - 1);
-			//Update the certId in the associated IC doc
-			//if(getDocId() != null) {
-			//	fileUploadService.updateCertId(getDocId(), instCert.getId());
-			//}
-			
-			List<Document> docs = 
-					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, retrieveSelectedProject().getId());
-				if(docs != null && !docs.isEmpty()) {
-					for(Document doc: docs) {
-						if(doc.getInstitutionalCertificationId() == null) {
-							fileUploadService.updateCertId(doc.getId(), instCert.getId());
-							icFileDocs.add(doc);
-						}
-					}			
+		// Update CertId
+		if(docId != null) {
+			// Get latest CertId
+			class InstitutionalCertificationComparator implements Comparator<InstitutionalCertification> {
+
+				public int compare(InstitutionalCertification e1, InstitutionalCertification e2) {
+					return e2.getId()
+							.compareTo(e1.getId());
 				}
+
+			}
+
+			Collections.sort(getProject().getInstitutionalCertifications(), new InstitutionalCertificationComparator());
+			fileUploadService.updateCertId(docId, getProject().getInstitutionalCertifications().get(0).getId());
 		}
 		
 		

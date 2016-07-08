@@ -52,10 +52,8 @@
             
            
 			<!--  File Upload -->
-			
-			<div id="icDiv" style="${map['icDiv'].style}" 
-					class="qSpacing" style="margin-left: 30px;">
-						<s:include value="/jsp/content/submissionIcFile.jsp"/>
+			<div class="qSpacing" style="margin-left: 30px;" id="icDiv" style="${map['icDiv'].style}">
+				<s:include value="/jsp/content/submissionIcFile.jsp" />
 			</div>
 		
 			  <div class="form-group row">
