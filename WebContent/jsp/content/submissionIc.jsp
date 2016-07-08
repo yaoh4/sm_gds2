@@ -10,7 +10,6 @@
     <s:hidden name="projectId" value="%{project.id}"/>
     <s:hidden name="instCertification.id" value="%{instCertification.id}"/>
 	<s:hidden name="instCertification.createdBy" value="%{instCertification.createdBy}"/>
-	<s:hidden name="docId" value="%{doc.id}" />
 	<s:hidden name="doc.id" value="%{doc.id}" />
       
       <!-- Page navbar -->

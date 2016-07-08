@@ -5,7 +5,7 @@
 	Upload Institutional Certification
 </p>
 <!--BEGIN Uploader-->
-
+<s:hidden name="docId" value="%{doc.id}" />
 <s:file name="ic" id="ic" cssStyle="margin-top: 2px;margin-left: 14px;" />
 <label for="icDoc" style="width: auto; display: none;">Upload
 	Institutional Certification</label> 

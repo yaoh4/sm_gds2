@@ -106,8 +106,8 @@ public class IcSubmissionAction extends ManageSubmission {
 				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, retrieveSelectedProject().getId());
 			if(docs != null && !docs.isEmpty()) {
 				for(Document doc: docs) {
-					if(doc.getInstitutionalCertificationId() != null && 
-							doc.getInstitutionalCertificationId().equals(instCert.getId()))
+					if((getDocId() != null && doc.getId().equals(getDocId())) || (doc.getInstitutionalCertificationId() != null && 
+							doc.getInstitutionalCertificationId().equals(instCert.getId())))
 						icFileDocs.add(doc);
 				}			
 			}
