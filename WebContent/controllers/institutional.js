@@ -31,18 +31,22 @@ $(document).ready(function () {
 			}
 		}
 		
-		value  = $("#finalprov option:selected").text();
-		if ( value == 'Provisional') { 
-	        $("#DULv, #DULinfo, #DULpanel").hide();
-	      }
-	      else
-	      {
-	        $("#DULv, #DULinfo, #DULpanel").show();
-	      }
+		
 	});
+	
+	//Do not show DULs and DUL verified flag if provisional
+	value  = $("#finalprov option:selected").text();
+	  if ( value == 'Provisional') { 
+        $("#DULv, #DULinfo, #DULpanel").hide();
+      }
+      else
+      {
+        $("#DULv, #DULinfo, #DULpanel").show();
+      }
+	  
+
 		
 });
-
 
 $(".parentDulSet").change(function() {
 	
@@ -225,13 +229,7 @@ function deleteStudy(studiesIdx) {
 
 $(document).ready(function () {
 
-	//Show and hide file history
-	$('body').on('click', 'a.history', function() {
-	    $(".uploadedHistory").slideToggle('500');
-	    $("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
-	});
-
-	// Data sharing plan file upload Ajax
+	// IC file upload Ajax
 	$("#institutional_form").on('click', '#icUpload', function () {
 
 		var result = "";
@@ -252,7 +250,8 @@ $(document).ready(function () {
 			error: function(){}	
 		});
 		if(result.startsWith("<p")) {
-			$('div.loadFileHistory').html(result);
+			$('div#icDiv').html(result);
+			$(".form-group").show();
 		}
 		else {
 			bootbox.alert(result, function() {
