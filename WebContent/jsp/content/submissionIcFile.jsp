@@ -13,7 +13,7 @@
 	<input type="button" name="icUpload" value="Upload File"
 		class="saved btn btn-primary" id="icUpload">
 </div>
-<div class="loadIcFileHistory">
+<div id="loadIcFileHistory">
 	<s:if test="%{icFileDocs.size > 0}">
 		<p></p>
 		<table style="width: 80%;" cellpadding="0px" cellspacing="0"
