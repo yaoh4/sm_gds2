@@ -1,6 +1,5 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<p></p>
 
 <s:if test="%{icFileDocs.size > 0}">
 	<table style="width: 80%;" cellpadding="0px" cellspacing="0"

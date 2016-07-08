@@ -629,7 +629,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	 * 
 	 * @return
 	 */
-	public String saveIcCompletion() {
+	public String saveIcList() {
 		
 		String certComplete = getProject().getCertificationCompleteFlag();
 		
@@ -638,9 +638,11 @@ public class IcSubmissionAction extends ManageSubmission {
 		project.setCertificationCompleteFlag(certComplete);
 		
 		setProject(saveProject(project));
-		setProjectId(project.getId().toString());
 		
-		return SUCCESS;
+		addActionMessage(getText("project.save.success"));
+		
+		return getIcList();
+		
 	}
 	
 	

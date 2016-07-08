@@ -31,8 +31,18 @@ $(document).ready(function() {
   $('.icDetails').on('click', function(e) {
 	  e.preventDefault();
 	  var id = $(this).attr("id").replace("icDetails", "contentDivImg");
-	  $("#" + id).toggle();
+	  var expandId = $(this).attr("id").replace("icDetails", "");
+	  $("#" + id).slideToggle('500');
+	  $("#" + expandId + "expand").toggleClass('fa-plus-square fa-minus-square');
   })
+  
+  
+  //Show and hide ic details
+//$('body').on('click', 'a.icDetails', function() {
+	//var id = $(this).attr("id").replace("icDetails", "contentDivImg");
+   // $("#" + id).slideToggle('500');
+   // $("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
+//});
   
   
 

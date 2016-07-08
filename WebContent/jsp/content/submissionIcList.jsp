@@ -6,10 +6,11 @@
 <div class="content">
 	
 <!--Begin Form -->
-    <s:form id="ic_dashboard_form" name="ic_dashboard_form" namespace = "manage" method="post"
-      enctype="multipart/form-data" action="listIc"  role="form"/>
+    <s:form id="ic_dashboard_form" name="ic_dashboard_form" namespace="manage" method="post"
+      enctype="multipart/form-data" action="listIc"  role="form">
+      
       <div class="pageNav">
-          <s:submit action="saveIcList" value=" Save " class="saved btn btn-project-primary"/>
+          <s:submit action="saveIcList" value=" Save " class="saved btn btn-default"/>
           <s:submit type="button" action="saveIcListAndNext" class="saved btn btn-project-primary">
           Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>	
       </div>
@@ -24,7 +25,7 @@
           
           <div class="panel-heading">
             <div class="pheader"><h4>Institutional Certification Status</h4></div>
-            <div class="statusWrapper">
+         <!--  <div class="statusWrapper">
               <div class="status"><a href="#" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
               <div class="statusIcon"> 
                 <a href="#" class="tooltip"><img src="images/inprogress.png" alt="In Progress" />
@@ -35,7 +36,7 @@
                   </span>
                 </a>
               </div>
-            </div>
+            </div> -->
           </div><!--end header-->
           
           
@@ -74,7 +75,6 @@
                 <!--  FILE DISPLAY AND ICONS ROW -->    
                 <tr  data-id="${ic.id}">
                   <td style="white-space: nowrap">
-                    <i class="fa fa-file-word-o" aria-hidden="true"></i>
                     <s:a href="javascript:openDocument(%{#ic.documents[0].id})">
                       <s:property value="%{#ic.documents[0].fileName}" />
                      </s:a>
@@ -86,7 +86,7 @@
                       
                   <td style="white-space: nowrap">
                     <a href="#" class="icDetails" id="icDetails${ic.id}">
-                      <i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>
+                      <i class="expand fa fa-plus-square fa-lg" id="${ic.id}expand" aria-hidden="true" alt="view" title="view"></i>
                     </a>&nbsp;&nbsp;&nbsp;
                     <a href="/gds/manage/editIc.action?instCertId=${ic.id}&projectId=${project.id}">
                       <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;
@@ -111,16 +111,25 @@
                     <!--   <tr>
 						  <td colspan="6">&nbsp;</td>
                         </tr> -->
-                        <tr>
-                          <td colspan="6" class="question">Comments:</td>
-                        </tr>
-                        <tr>
-                          <td colspan="6">
-                            <textarea name="ic.comments" id="comments2" style="width: 100%; padding: 4px; opacity: 0.7;"
-			                  rows="4" disabled class="normalText">${ic.comments}
-						    </textarea>
-						  </td>
-			            </tr>
+                        
+                        <s:if test="%{#ic.comments != null}">
+                          <tr>
+                            <td colspan="6" class="question">Comments:</td>
+                          </tr>
+                          <tr>
+                            <td colspan="6">
+                              <textarea name="ic.comments" id="comments2" style="width: 100%; padding: 4px; opacity: 0.7;"
+			                    rows="4" disabled class="normalText">${ic.comments}
+						      </textarea>
+						    </td>
+			              </tr>
+			            </s:if>
+			            <s:else>
+			              <tr>
+			            	<td><span class="question">Comments:</span> None</td>
+			              </tr>
+			            </s:else>
+			              
                         <tr>
                           <td colspan="3" align="left" valign="top">&nbsp;</td>
                           <td colspan="3">&nbsp;</td>
@@ -144,16 +153,24 @@
 					                            <td><span class="question">Institution: </span>${study.institution}</td>
                                                 <td><span class="question">Data Use Limitation(s) Verified? </span>${study.dulVerificationId}</td>
                                               </tr>
-                                              <tr>
-                                                <td colspan="6" class="question">Comments:</td>
-                                              </tr>
-                                              <tr>
-                                                <td colspan="6">
-                                                  <textarea name="comments" id="comments2" style="width: 100%; padding: 4px; opacity: 0.7;"
-                                                    rows="4" disabled >${study.comments}
-                                                  </textarea>
-                                                </td>
-                                              </tr>
+                                              <s:if test="%{#study.comments != null}">
+                                                <tr>
+                                                  <td colspan="6" class="question">Comments:</td>
+                                                </tr>
+                                                <tr>
+                                                  <td colspan="6">
+                                                    <textarea name="comments" id="comments2" style="width: 100%; padding: 4px; opacity: 0.7;"
+                                                      rows="4" disabled >${study.comments}
+                                                    </textarea>
+                                                  </td>
+                                                </tr>
+                                              </s:if>
+                                              <s:else>
+                                              	<tr>
+                                              	  <td><span class="question">Comments:</span> None</td>
+                                              	</tr>
+                                              </s:else>
+                                              
                                               <tr>
                                                 <td colspan="4" align="left" valign="top">&nbsp;</td>
                                               </tr>
@@ -182,7 +199,7 @@
                                       </td>
                                     </tr>
                                 </table> <!--study end-->
-                                <p>&nbsp;</p> 
+                             <!--    <p>&nbsp;</p> -->
                               </s:iterator> <!-- for studies -->                      
                              
                       <!--      </div>  for container -->	        
@@ -209,14 +226,12 @@
               
               <!--SAVE & NEXT BUTTONS-->
         <div class="pageNav">
-          <s:submit action="saveIcList" value=" Save " class="saved btn btn-project-primary"/>
+          <s:submit action="saveIcList" value=" Save " class="saved btn btn-default"/>
           <s:submit type="button" action="saveIcListAndNext" class="saved btn btn-project-primary">
           Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>	  
         </div>
               
             
-
-
  <!-- start: Delete Coupon Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -243,7 +258,7 @@
 </div>
 <!-- /.modal -->
 
-    </form>
+    </s:form>
 </div><!--end column formatting div-->
 
 

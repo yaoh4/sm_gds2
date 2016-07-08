@@ -24,7 +24,7 @@
           
           <div class="panel-heading">
             <div class="pheader"><h4>Add Institutional Certification(s)</h4></div>
-            <div class="statusWrapper">
+      <!--    <div class="statusWrapper">
               <div class="status"><a href="#" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
               <div class="statusIcon">
                 <a href="#" class="tooltip">
@@ -37,7 +37,7 @@
                   </span>
                 </a>
               </div>
-            </div>
+            </div> -->
           </div>
 
 		
