@@ -86,6 +86,8 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		
 		setUpPageData();
 		
+		addActionMessage(getText("project.save.success"));
+		
         return SUCCESS;
 	}
 	
