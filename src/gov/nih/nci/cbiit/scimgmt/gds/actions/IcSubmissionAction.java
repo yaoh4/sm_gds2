@@ -661,6 +661,15 @@ public class IcSubmissionAction extends ManageSubmission {
 		Long instCertId = Long.valueOf(getInstCertId());
 		
 		Project project = retrieveSelectedProject();
+		
+		// Delete the files for this certId
+		icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
+		for(Document doc: icFileDocs) {
+			if(doc.getInstitutionalCertificationId() == null || doc.getInstitutionalCertificationId().longValue() == instCertId.longValue()) {
+				fileUploadService.deleteFile(doc.getId());
+			}		
+		}
+		
 		if(!CollectionUtils.isEmpty(project.getInstitutionalCertifications())) {
 			for(InstitutionalCertification cert: project.getInstitutionalCertifications()) {
 				if(cert.getId().equals(instCertId)) {
@@ -671,6 +680,8 @@ public class IcSubmissionAction extends ManageSubmission {
 		} else {
 			//fatal error - how can we delete an IC if the project has noen
 		}
+		
+
 		
 		setProject(saveProject(project));
 
