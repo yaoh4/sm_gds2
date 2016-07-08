@@ -30,9 +30,11 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 	private static final Logger logger = LogManager.getLogger(RepositoryStatusSubmissionAction.class);	
 
-	List<DropDownOption> registrationStatusList = new ArrayList<DropDownOption>();	
-	List<DropDownOption> projectSubmissionStatusList = new ArrayList<DropDownOption>();
-	List<DropDownOption> studyReleasedList = new ArrayList<DropDownOption>();	
+	private List<DropDownOption> registrationStatusList = new ArrayList<DropDownOption>();	
+	private List<DropDownOption> projectSubmissionStatusList = new ArrayList<DropDownOption>();
+	private List<DropDownOption> studyReleasedList = new ArrayList<DropDownOption>();
+	
+	private String isDbGap = "N";	
 
 	/**
 	 * This method is responsible for loading the Repository status page and setting all the UI elements.
@@ -161,6 +163,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 		super.saveProject(project);
 		setUpPageData();
+		setIsDbGap("N");
 
 	}
 	
@@ -207,7 +210,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			}		
 		}
 		
-		if(GdsSubmissionActionHelper.isAnyRepositorySelectedInGdsPlan(getProject())){
+		if(GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(getProject())){
 			
 			setUpSelectdRepositoryStatuses();
 		}
@@ -224,11 +227,17 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	public void setUpDbGapRepositoryStatus() {
 
 		logger.debug("Adding DbGaP Repository status.");	
-		PlanAnswerSelection planAnswerSelection = new PlanAnswerSelection();
-		PlanQuestionsAnswer planQuestionAnswer = PlanQuestionList.getAnswerById(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
-		planAnswerSelection.setProject(getProject());
-		planAnswerSelection.setPlanQuestionsAnswer(planQuestionAnswer);
-		getProject().getRepositoryStatuses().add(createNewRepositoryStatus(true,planAnswerSelection));
+		PlanAnswerSelection dbGapPlanAnswerSelection = new PlanAnswerSelection();
+		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelection()){
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DBGAP_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+				dbGapPlanAnswerSelection = planAnswerSelection;
+				break;
+			}
+		}
+		if(!getSavedRepositoryStatuses().contains(dbGapPlanAnswerSelection.getId())){
+			isDbGap = "Y";
+			getProject().getRepositoryStatuses().add(createNewRepositoryStatus(true,dbGapPlanAnswerSelection));
+		}
 	}
 
 	/**
@@ -240,22 +249,33 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 		logger.debug("Adding Repository statuses selected on GDS plan.");
 
+		
+		//Iterate through selections made on Gds plan page and add Empty repository status objects to Project if new selections are made/ its a new submission.
+		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelection()){
+
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){				
+
+				if(!getSavedRepositoryStatuses().contains(planAnswerSelection.getId())){
+					getProject().getRepositoryStatuses().add(createNewRepositoryStatus(false,planAnswerSelection));
+				}
+			}
+		}		
+	}
+	
+	/**
+	 * This method returns saved repository statuses ids.
+	 * @return
+	 */
+	private List<Long> getSavedRepositoryStatuses(){
+
 		//List to hold saved repository statuses.
 		List<Long> savedRepositoryStatuses = new ArrayList<Long>();	
 
 		for( RepositoryStatus savedRepositoryStatus : getProject().getRepositoryStatuses()){			
 			savedRepositoryStatuses.add(savedRepositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()); 
 		}
-		//Iterate through selections made on Gds plan page and add Empty repository status objects to Project if new selections are made/ its a new submission.
-		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelection()){
-
-			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){				
-
-				if(!savedRepositoryStatuses.contains(planAnswerSelection.getId())){
-					getProject().getRepositoryStatuses().add(createNewRepositoryStatus(false,planAnswerSelection));
-				}
-			}
-		}		
+		
+		return savedRepositoryStatuses;
 	}
 	
 	/**
@@ -350,4 +370,12 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 		return format.format(getProject().getAnticipatedSubmissionDate());
 	}
+
+	public String getIsDbGap() {
+		return isDbGap;
+	}
+
+	public void setIsDbGap(String isDbGap) {
+		this.isDbGap = isDbGap;
+	}	
 }

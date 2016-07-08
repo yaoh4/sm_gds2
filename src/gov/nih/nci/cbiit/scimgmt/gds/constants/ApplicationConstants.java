@@ -59,6 +59,7 @@ public interface ApplicationConstants {
 	 public static final Long PLAN_QUESTION_ANSWER_ACCESS_ID = 17L;
 	 public static final Long PLAN_QUESTION_ANSWER_ACCESS_CONTROLLED_ID = 18L;
 	 public static final Long PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID = 19L;
+	 public static final Long PLAN_QUESTION_ANSWER_DBGAP_ID = 21L;
 	 public static final Long PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID = 26L;
 	 public static final Long PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID = 29L;
 	 public static final Long PLAN_QUESTION_ANSWER_UPLOAD_OPTION_FILE_ID = 30L;
@@ -80,7 +81,7 @@ public interface ApplicationConstants {
 	 
 	 /* String constants */
 	 public static final String NOT_STARTED = "NOTSTARTED"; 
-	 public static final String NOT_APPLICABLE = "NOTAPPL"; 
+	 public static final String NOT_APPLICABLE = "NA"; 
 	 public static final String NO = "NO"; 
 	 public static final String OTHER = "Other"; 
 	 public static final String DOC_TYPE_EXCEPMEMO = "EXCEPMEMO";

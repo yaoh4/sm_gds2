@@ -364,9 +364,14 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		
 		//If user selected a grant from grantContract search page and then validation failed on general info page while saving
 		//then re-populate the grantContract information.
-		if(hasActionErrors() && StringUtils.isNotBlank(applId)){
-			getProject().setApplId(Long.valueOf(applId));
-			loadGeneralInfoFromGranstContractVw();
+		if(hasActionErrors()){
+			if(StringUtils.isNotBlank(getProjectId())){
+				getProject().setId(Long.valueOf(getProjectId()));
+			}
+			if(StringUtils.isNotBlank(applId)){
+				getProject().setApplId(Long.valueOf(applId));
+				loadGeneralInfoFromGranstContractVw();
+			}
 		}
 	}	
 

@@ -9,6 +9,8 @@
 			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 	</div>	
 		<s:hidden name="projectId" value="%{project.id}"/>
+		<s:hidden id ="isDbGap" name="isDbGap" value="%{isDbGap}"/>	
+		
 		<s:set name="isAnticipatedSubDateDisabled" value="%{isAnticipatedSubDateDisabled()}" />
 		<!-- Begin Panel -->
 		<div class="col-md-12">

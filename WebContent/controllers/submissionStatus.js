@@ -8,8 +8,10 @@ function enableDisableSubmissionStatus(registrationId){
 	if(registrationStatus == "Completed" || registrationStatus == "Not Applicable"){   
 		$("#projStatus_"+submissionId).attr('disabled',false);
 	}
-	else{
-		$("#projStatus_"+submissionId).val('13');
+	else{ 
+		if($("#isDbGap").val() == "N" && $("#projStatus_"+submissionId).val() != "15"){
+			$("#projStatus_"+submissionId).val('13');
+		}
 		$("#projStatus_"+submissionId).attr('disabled',true);
 		}	
 	
@@ -21,7 +23,7 @@ function enableDisableStudyReleased(submissionStatusId){
 	var studyReleasedId = submissionStatusId.substring(submissionStatusId.indexOf("_")+1,submissionStatusId.length);
 	var submissionStatus = $('#'+submissionStatusId+' option:selected').text();
 	
-	if(submissionStatus == "Completed" || submissionStatus == "Not Applicable"){   
+	if((submissionStatus == "Completed") || (submissionStatus == "Not Applicable" && $("#isDbGap").val() == "N" && $("#"+submissionStatusId).is(':disabled') == false)){   
 		$("#studyRel_"+studyReleasedId).attr('disabled',false);
 	}
 	else{
@@ -47,4 +49,7 @@ $(document).ready(function () {
 	jQuery('#submission_status_form select[name*=lookupTByRegistrationStatusId]').each(function () { 
     enableDisableSubmissionStatus(this.id);
 	});
+	if($("#isDbGap").val() == "Y"){
+		$("#isDbGap").val("N")
+	}
 });

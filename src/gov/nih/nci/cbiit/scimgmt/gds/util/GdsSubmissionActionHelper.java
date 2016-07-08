@@ -229,15 +229,15 @@ public class GdsSubmissionActionHelper {
 	 * This method checks if any repositories were selected on the GDS plan page.
 	 * @return
 	 */
-	public static boolean isAnyRepositorySelectedInGdsPlan(Project project){
+	public static boolean willThereBeAnyDataSubmittedInGdsPlan(Project project){
 
 		logger.debug("Checking if any repositories were selected on the GDS plan page.");
 		
 		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelection()){
-			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){	
-				return true;			
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+				return false;			
 			}
 		}
-		return false;
+		return true;
 	}
 }
