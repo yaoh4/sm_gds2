@@ -105,22 +105,6 @@
 			 <result name="input" type="tiles">submissionIcList</result>
 			 <param name="projectId">${project.id}</param>
 		</action>
-		<action name="addStudy" method="addStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
-			 <result type="json" name="success">     
-				<param name="root">studiesDulSet</param>     				
-			</result>
-		</action>
-		<action name="deleteStudy" method="deleteStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
-			 <result name="success" type="tiles">submissionIc</result>
-		</action>
-		<action name="addDul" method="addDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
-			<result type="json" name="success">     
-				<param name="root">studiesDulSet</param>     				
-			</result>
-		</action>
-		<action name="deleteDul" method="deleteDul" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
-			 <result name="success" type="tiles">submissionIc</result>
-		</action>
 		<action name="navigateToBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
 			 <result name="success" type="tiles">submissionBasicStudyInfo</result>
 		</action>
@@ -166,13 +150,6 @@
 		</action>
 		<action name="deleteBsiFile" method="deleteBsiFile" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
 			<result name="success" type="dispatcher">/jsp/content/submissionBasicStudyInfoFile.jsp</result>
-			<result name="input" type="stream">     
-				<param name="contentType">text/html</param>     
-				<param name="inputName">inputStream</param>   
-			</result>
-		</action>
-		<action name="deleteInstCertificationFile" method="deleteInstCertificationFile" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
-			<result name="success" type="dispatcher">/jsp/content/submissionIcFile.jsp</result>
 			<result name="input" type="stream">     
 				<param name="contentType">text/html</param>     
 				<param name="inputName">inputStream</param>   

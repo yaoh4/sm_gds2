@@ -5,7 +5,6 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,9 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
@@ -434,85 +430,6 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		return SUCCESS;
 	}
-	
-	/**
-	 * Add an empty study to the selected IC
-	 * @throws IOException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
-	 */
-	public String addStudy() throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		
-		//Get the  currently selected IC
-		String jsonInstCert = 
-			ServletActionContext.getRequest().getParameter("instCert");
-		
-		InstitutionalCertification instCert = mapper.readValue(jsonInstCert, InstitutionalCertification.class);
-		
-		Study study = new Study();
-		StudiesDulSet studiesDulSet = new StudiesDulSet();
-		study.addStudiesDulSet(studiesDulSet);
-		instCert.addStudy(study);
-		setInstCertification(instCert);
-		
-		return SUCCESS;
-	}
-	
-	/**
-	 * Add an empty Dul to the selected Study
-	 */
-	public String addDul() {
-		
-		InstitutionalCertification instCert = getInstCertification();
-		String selectedStudyIndex = ServletActionContext.getRequest().getParameter("studyIndex");
-		List<Study> studies = instCert.getStudies();
-		Study study = studies.get(Integer.parseInt(selectedStudyIndex));
-		StudiesDulSet studiesDulSet = new StudiesDulSet();
-		studiesDulSet.setStudy(study);
-		study.addStudiesDulSet(studiesDulSet);
-		instCert.setStudies(studies);
-		setInstCertification(instCert);
-		
-		return SUCCESS;
-	}
-	
-	/**
-	 * Remove the specified study from the IC
-	 * @return
-	 */
-	public String removeStudy() {
-		
-		InstitutionalCertification instCert = getInstCertification();
-		String selectedStudyIndex = ServletActionContext.getRequest().getParameter("studyIndex");
-		List<Study> studies = instCert.getStudies();
-		
-		studies.remove(selectedStudyIndex);
-		instCert.setStudies(studies);
-		setInstCertification(instCert);
-		
-		return SUCCESS;
-	}
-	
-	/**
-	 * Remove the specified DUL from a selected study on the IC
-	 * @return
-	 */
-	public String removeDul() {
-		
-		InstitutionalCertification instCert = getInstCertification();
-		String parentStudyIndex = ServletActionContext.getRequest().getParameter("studyIndex");
-		String selectedDulIndex = ServletActionContext.getRequest().getParameter("dulIndex");
-		List<Study> studies = instCert.getStudies();
-		
-		studies.get(Integer.parseInt(parentStudyIndex)).getStudiesDulSets().remove(selectedDulIndex);
-		instCert.setStudies(studies);
-		setInstCertification(instCert);
-		
-		return SUCCESS;
-		
-	}
-	
 	
 	
 	/**
