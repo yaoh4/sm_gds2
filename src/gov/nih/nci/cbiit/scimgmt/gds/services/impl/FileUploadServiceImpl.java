@@ -228,8 +228,8 @@ public class FileUploadServiceImpl implements FileUploadService {
 		Document unsavedFile = null;
 		if(doc.getDocType().getCode().equals("IC")) {
 			for(Document d : oldDocs) {
-				if (d.getInstitutionalCertificationId() == null || 
-						d.getInstitutionalCertificationId().longValue() == doc.getInstitutionalCertificationId().longValue()) {
+				if (d.getInstitutionalCertificationId() == null || (doc.getInstitutionalCertificationId() != null &&
+						d.getInstitutionalCertificationId().longValue() == doc.getInstitutionalCertificationId().longValue())) {
 					unsavedFile = d;
 					break;
 				}
