@@ -129,6 +129,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 		logger.debug("Saving Submission Repository status and navigating to GDS plan page.");
 		saveProject();
+		addActionMessage(getText("project.save.success"));
 		return SUCCESS;
 	}	
 

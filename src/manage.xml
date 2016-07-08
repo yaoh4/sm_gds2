@@ -61,11 +61,12 @@
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
 			 </result>
-			 <result name="success" type="redirect-action">
+			 <result name="success" type="tiles">submissionGdsPlan</result>
+			 <!--<result name="success" type="redirect-action">
 			 	<param name="actionName">navigateToSubmissionDetail</param>
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
-			 </result>
+			 </result>-->
 		</action>
 		<action name="editIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>
@@ -133,11 +134,12 @@
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
 			 </result>
-			 <result name="success" type="redirect-action">
+			 <result name="success" type="tiles">submissionBasicStudyInfo</result>
+			 <!--<result name="success" type="redirect-action">
 			 	<param name="actionName">navigateToSubmissionDetail</param>
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
-			 </result>
+			 </result>-->
 			 <result name="input" type="tiles">submissionBasicStudyInfo</result>
 		</action>
 		<action name="navigateToSubmissionDetail" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
@@ -219,11 +221,12 @@
 			 <result name="input" type="tiles">submissionRepositoryStatus</result>
 		</action>
 		<action name="saveRepositoryStatusAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
-			 <result name="success" type="redirect-action">
+			 <result name="success" type="tiles">submissionRepositoryStatus</result>
+			 <!--<result name="success" type="redirect-action">
 			 	<param name="actionName">navigateToSubmissionDetail</param>
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
-			 </result>
+			 </result>-->
 			 <result name="input" type="tiles">submissionRepositoryStatus</result>
 		</action>	
 		<action name="navigateToIntramuralGrantOrContractSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">

@@ -36,7 +36,7 @@
 
     		<!--Page Header -->
     		<s:if test="%{'newSubmission' eq #attr['navtab']}">
-    			<s:if test="%{project.id == null}">
+    			<s:if test="%{project == null || project.id == null}">
     				<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Create New Submission</h3></div></div>
     			</s:if>
     			<s:else>
@@ -48,7 +48,7 @@
 				</s:else>
       		</s:if>
       		<s:else>
-      			<div class="searchHeader" id="pageHeader"><div class="titleWrapper container"><h3>Project Search</h3></div></div>
+      			<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Project Search</h3></div></div>
       		</s:else>
 			
 		</div>
