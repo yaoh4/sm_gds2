@@ -34,16 +34,6 @@ $(document).ready(function () {
 		
 	});
 	
-	//Do not show DULs and DUL verified flag if provisional
-	value  = $("#finalprov option:selected").text();
-	  if ( value == 'Provisional') { 
-        $("#DULv, #DULinfo, #DULpanel").hide();
-      }
-      else
-      {
-        $("#DULv, #DULinfo, #DULpanel").show();
-      }
-	  
 
 	  //Do not show any sections if no file uploaded.
 	  if( !$.trim( $("#loadIcFileHistory").html() ).length ) {
@@ -295,33 +285,6 @@ $(document).ready(function () {
 
 
 
-  $(function() { 
-var emptyStudy = ""
-
-//toggle for Provisional/Final Dropdown box
-
-    $('#finalprov').on('change', function() {
-    	value  = $("#finalprov option:selected").text();
-      if ( value == 'Provisional') { 
-    	  $("#DULv, #DULinfo, #DULpanel").hide();
-    	  
-    		//remove all dulTypes except one
-    		$(".dulTypes").not("#dulType0-0").remove();
-    		
-    		//Hide dul selections (checkboxes) from all parents (radio buttons) 
-    		$(".dulSetDiv").hide();
-    		
-    		//Uncheck all the selections
-    		$(".dulSet").prop('checked', false);
-    		$(".input_other").val('');
-    		$(".DULvSelect").val(-1);
-      }
-      else
-      {
-        $("#DULv, #DULinfo, #DULpanel").show();
-      }
-    });
-  });
 
 $( document ).ready(function() {
   emptyStudy = $("#entry1").clone();
