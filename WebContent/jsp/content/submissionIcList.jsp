@@ -124,12 +124,7 @@
 						    </td>
 			              </tr>
 			            </s:if>
-			            <s:else>
-			              <tr>
-			            	<td><span class="question">Comments:</span> None</td>
-			              </tr>
-			            </s:else>
-			              
+			            
                         <tr>
                           <td colspan="3" align="left" valign="top">&nbsp;</td>
                           <td colspan="3">&nbsp;</td>
@@ -151,8 +146,9 @@
                                                 <td><span class="question">Study Name: </span>${study.studyName}</td>
 					                         <!--    <td align="left" valign="top">&nbsp;</td> -->
 					                            <td><span class="question">Institution: </span>${study.institution}</td>
-                                                <td><span class="question">Data Use Limitation(s) Verified? </span>${study.dulVerificationId}</td>
+                                                <td><span class="question">Data Use Limitation(s) Verified? </span></span><s:property value="%{getLookupDisplayNamebyId(#ic.dulVerificationId)}"/></td></td>
                                               </tr>
+                                              
                                               <s:if test="%{#study.comments != null}">
                                                 <tr>
                                                   <td colspan="6" class="question">Comments:</td>
@@ -165,11 +161,6 @@
                                                   </td>
                                                 </tr>
                                               </s:if>
-                                              <s:else>
-                                              	<tr>
-                                              	  <td><span class="question">Comments:</span> None</td>
-                                              	</tr>
-                                              </s:else>
                                               
                                               <tr>
                                                 <td colspan="4" align="left" valign="top">&nbsp;</td>
