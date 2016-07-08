@@ -89,6 +89,9 @@ public interface ApplicationConstants {
 	 
 	 public static final Long PARENT_DUL_ID_DISEASE_SPECIFIC = 13L;
 	 public static final Long PARENT_DUL_ID_OTHER = 21L;
+	 
+	 public static final String PROV_FINAL_ID_PROV = "22";
+	 public static final String PROV_FINAL_ID_FINAL = "23";
 	  
 	 
 	     
