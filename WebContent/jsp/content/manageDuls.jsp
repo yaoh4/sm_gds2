@@ -68,8 +68,9 @@
                       </span>
                     </s:if>
                     
-                    <label for="checkboxitem">(select any that apply)</label>                 
-                    
+                    <s:if test="%{parentDulChecklists[#parentIdx].dulChecklists.size > 0}">
+                       <label for="checkboxitem">(select any that apply)</label>                 
+                    </s:if>
                     <div class="indent">
 					  <s:iterator status="dulStat" var="dul" value="parentDulChecklists[#parentIdx].dulChecklists">
 					
