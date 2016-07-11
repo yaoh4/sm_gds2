@@ -174,7 +174,7 @@
                                                   <s:set name="dulSetIdx" value="#dulSetStat.index" />
                                                   <td colspan="1" class="row">${dulSetStat.index + 1}. ${studiesDulSet.parentDulChecklist.displayText}
                                                     <ul class="spacing">
-                                                    <s:iterator status="dulStat" var="dul" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets[#dulSetStat.index].dulChecklistSelections">
+                                                    <s:iterator status="dulStat" var="dul" value="%{#studiesDulSet.dulChecklistSelections}">
                                                       <li class="bullet" style="display: list-item">${dul.dulChecklist.displayText}</li>
                                                      </s:iterator>    
                                                      </ul>

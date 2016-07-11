@@ -33,9 +33,9 @@ public class InstitutionalCertification implements java.io.Serializable {
 
 	private Long id;
 	private Project project;
-	private String gpaApprovalCode;
-	private String provisionalFinalCode;
-	private String futureProjectUseCode;
+	private Long gpaApprovalCode;
+	private Long provisionalFinalCode;
+	private Long futureProjectUseCode;
 	private String comments;
 	private String createdBy;
 	private String lastChangedBy;
@@ -51,8 +51,8 @@ public class InstitutionalCertification implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public InstitutionalCertification(Long id, Project project, String gpaApprovalCode,
-			String provisionalFinalCode, String futureProjectUseCode, String comments,
+	public InstitutionalCertification(Long id, Project project, Long gpaApprovalCode,
+			Long provisionalFinalCode, Long futureProjectUseCode, String comments,
 			String createdBy, String lastChangedBy, List documents, List studies) {
 		this.id = id;
 		this.project = project;
@@ -89,29 +89,29 @@ public class InstitutionalCertification implements java.io.Serializable {
 	}
 
 	@Column(name = "GPA_APPROVAL_CODE", length = 8)
-	public String getGpaApprovalCode() {
+	public Long getGpaApprovalCode() {
 		return this.gpaApprovalCode;
 	}
 
-	public void setGpaApprovalCode(String gpaApprovalCode) {
+	public void setGpaApprovalCode(Long gpaApprovalCode) {
 		this.gpaApprovalCode = gpaApprovalCode;
 	}
 
 	@Column(name = "PROVISIONAL_FINAL_CODE", length = 4)
-	public String getProvisionalFinalCode() {
+	public Long getProvisionalFinalCode() {
 		return this.provisionalFinalCode;
 	}
 
-	public void setProvisionalFinalCode(String provisionalFinalCode) {
+	public void setProvisionalFinalCode(Long provisionalFinalCode) {
 		this.provisionalFinalCode = provisionalFinalCode;
 	}
 
 	@Column(name = "FUTURE_PROJECT_USE_CODE", length = 4)
-	public String getFutureProjectUseCode() {
+	public Long getFutureProjectUseCode() {
 		return this.futureProjectUseCode;
 	}
 
-	public void setFutureProjectUseCode(String futureProjectUseCode) {
+	public void setFutureProjectUseCode(Long futureProjectUseCode) {
 		this.futureProjectUseCode = futureProjectUseCode;
 	}
 
