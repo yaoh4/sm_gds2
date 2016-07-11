@@ -65,71 +65,23 @@ $('body').click();
 // and the "Controlled" checkbox will be non-selectable in "What type of access is the data to be made available through?"
 // Also for the same condition, the system will grey out the “Database of Genotypes and Phenotypes (dbGaP)” repository checkbox in question #7
 $("#12").change(function () {
-	if (!$("#12").is(":checked") && $("#13").is(":checked")) {
-		// Non-human only, select and disable "Unrestricted", disable "Controlled" and "dbGaP"
-		$("#18").prop('checked', false ); // De-select Controlled
-		$("#18").prop('disabled', true); // Controlled
-		$("#19").prop('checked', true ); // Select Unrestricted
-		$("#19").prop('disabled', true); // Unrestricted
-		$("#21").prop('checked', false ); // De-select dbGaP
-		$("#21").prop('disabled', true); // dbGaP
-	} else { // They are both checked or None are checked, so enable all
-		$("#18").prop('disabled', false); // Controlled
-		$("#19").prop('checked', false ); // De-select Unrestricted
-		$("#19").prop('disabled', false); // Unrestricted
-		$("#21").prop('disabled', false); // dbGaP
-	}
+	humanNonhuman(false);
 });
 $("#13").change(function () {
-	if (!$("#12").is(":checked") && $("#13").is(":checked")) {
-		// Non-human only, select and disable "Unrestricted", disable "Controlled" and "dbGaP"
-		$("#18").prop('checked', false ); // De-select Controlled
-		$("#18").prop('disabled', true); // Controlled
-		$("#19").prop('checked', true ); // Select Unrestricted
-		$("#19").prop('disabled', true); // Unrestricted
-		$("#21").prop('checked', false ); // De-select dbGaP
-		$("#21").prop('disabled', true); // dbGaP
-	} else { // They are both checked or None are checked, so enable all
-		$("#18").prop('disabled', false); // Controlled
-		$("#19").prop('checked', false ); // De-select Unrestricted
-		$("#19").prop('disabled', false); // Unrestricted
-		$("#21").prop('disabled', false); // dbGaP
-	}
+	humanNonhuman(false);
 });
-$("#12").change();
+humanNonhuman(true);
 
 // If user selects "Controlled" access in "What type of access is the data to be made available through?", 
 // the system will select and grey out the "Database of Genotypes and Phenotypes (dbGaP)" repository checkbox 
 // in "What repository will the data be submitted to?"
 $("#18").change(function () {
-	if (!$("#18").is(":checked") && $("#19").is(":checked")) {
-		// Unrestricted ONLY is checked.
-		$("#21").prop('checked', false ); // De-select dbGaP
-		$("#21").prop('disabled', true); // dbGaP
-	} else if ($("#18").is(":checked")) {
-		// Controlled is checked.
-		$("#21").prop('checked', true ); // Select dbGaP
-		$("#21").prop('disabled', true); // Disable dbGaP
-	} else { // Control is de-selected and no unrestricted is selected
-		$("#21").prop('checked', false ); // De-select dbGaP
-		$("#21").prop('disabled', false); // dbGaP
-	}
+	controlledUnrestricted(false);
 });
 $("#19").change(function () {
-	if (!$("#18").is(":checked") && $("#19").is(":checked")) {
-		// Unrestricted ONLY is checked.
-		$("#21").prop('checked', false ); // De-select dbGaP
-		$("#21").prop('disabled', true); // dbGaP
-	} else if ($("#18").is(":checked")) {
-		// Controlled is checked.
-		$("#21").prop('checked', true ); // Select dbGaP
-		$("#21").prop('disabled', true); // Disable dbGaP
-	} else { // Control is de-selected and no unrestricted is selected
-		$("#21").prop('checked', false ); // De-select dbGaP
-		$("#21").prop('disabled', false); // dbGaP
-	}
+	controlledUnrestricted(false);
 });
-$("#18").change();
+controlledUnrestricted(true);
 
 //The system will pre-select Database of Genotypes and Phenotypes (dbGaP), 
 // if user checked NCI Genomic Data Commons (GDC)
@@ -300,3 +252,45 @@ function warnGdsPlanNext(element) {
 	});
 	return false;
 }
+
+//If user selects Non-human ONLY to "What specimen type does the data submission pertain to?", 
+//the system will select and grey out the "Unrestricted" option 
+//and the "Controlled" checkbox will be non-selectable in "What type of access is the data to be made available through?"
+//Also for the same condition, the system will grey out the “Database of Genotypes and Phenotypes (dbGaP)” repository checkbox in question #7
+function humanNonhuman(load) {
+	if (!$("#12").is(":checked") && $("#13").is(":checked")) {
+		// Non-human only, select and disable "Unrestricted", disable "Controlled" and "dbGaP"
+		$("#18").prop('checked', false ); // De-select Controlled
+		$("#18").prop('disabled', true); // Controlled
+		$("#19").prop('checked', true ); // Select Unrestricted
+		$("#19").prop('disabled', true); // Unrestricted
+		$("#21").prop('checked', false ); // De-select dbGaP
+		$("#21").prop('disabled', true); // dbGaP
+	} else { // They are both checked or None are checked, so enable all
+		$("#18").prop('disabled', false); // Controlled
+		if(!load)
+			$("#19").prop('checked', false ); // De-select Unrestricted
+		$("#19").prop('disabled', false); // Unrestricted
+		$("#21").prop('disabled', false); // dbGaP
+	}
+}
+
+//If user selects "Controlled" access in "What type of access is the data to be made available through?", 
+//the system will select and grey out the "Database of Genotypes and Phenotypes (dbGaP)" repository checkbox 
+//in "What repository will the data be submitted to?"
+function controlledUnrestricted(load) {
+	if (!$("#18").is(":checked") && $("#19").is(":checked")) {
+		// Unrestricted ONLY is checked.
+		$("#21").prop('checked', false ); // De-select dbGaP
+		$("#21").prop('disabled', true); // dbGaP
+	} else if ($("#18").is(":checked")) {
+		// Controlled is checked.
+		$("#21").prop('checked', true ); // Select dbGaP
+		$("#21").prop('disabled', true); // Disable dbGaP
+	} else { // Control is de-selected and no unrestricted is selected
+		if(!load)
+			$("#21").prop('checked', false ); // De-select dbGaP
+		$("#21").prop('disabled', false); // dbGaP
+	}
+}
+
