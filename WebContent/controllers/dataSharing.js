@@ -160,7 +160,7 @@ $("#gds-form").on('click', '#dataSharingPlanUpload', function () {
 		}, 
 		error: function(){}	
 	});
-	if(result.startsWith("<p")) {
+	if(result.indexOf("<p") == 0) {
 		$('div.loadFileHistory').html(result);
 	}
 	else {
@@ -190,7 +190,7 @@ $("#gds-form").on('click', '#exceptionMemoUpload', function () {
 		}, 
 		error: function(){}	
 	});
-	if(result.startsWith("<p")) {
+	if(result.indexOf("<p") == 0) {
 		$('div#exceptionMemoDiv').html(result);
 	}
 	else {
@@ -217,7 +217,7 @@ function removeDocument(docId, projectId)
 					}, 
 					error: function(){}		
 				});
-				if(result.startsWith("<p")) {
+				if(result.indexOf("<p") == 0) {
 					$('div.loadFileHistory').html(result);
 				}
 				else {

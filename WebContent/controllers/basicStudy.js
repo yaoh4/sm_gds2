@@ -28,7 +28,7 @@ $("#basic-study-form").on('click', '#bsiUpload', function () {
 		}, 
 		error: function(){}	
 	});
-	if(result.startsWith("<p")) {
+	if(result.indexOf("<p") == 0) {
 		$('div.loadFileHistory').html(result);
 	}
 	else {
@@ -55,7 +55,7 @@ function removeDocument(docId, projectId)
 					}, 
 					error: function(){}		
 				});
-				if(result.startsWith("<p")) {
+				if(result.indexOf("<p") == 0) {
 					$('div.loadFileHistory').html(result);
 				}
 				else {

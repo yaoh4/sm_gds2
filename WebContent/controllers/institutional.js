@@ -23,7 +23,7 @@ $(document).ready(function () {
 		} else {
 			//this represents value of a checkbox or parent radio
 			$("#" + value).prop('checked', true);
-			if(value.startsWith("parentDul")) {
+			if(value.indexOf("parentDul") == 0) {
 			
 				//Show the checkbox set for this parent
 				var divValue = value.replace("parentDul", "dulSet");
@@ -245,7 +245,7 @@ $(document).ready(function () {
 			}, 
 			error: function(){}	
 		});
-		if(result.startsWith("<p")) {
+		if(result.indexOf("<p") == 0) {
 			$('div#icDiv').html(result);
 			$(".form-group").show();
 		}
@@ -273,7 +273,7 @@ $(document).ready(function () {
 						}, 
 						error: function(){}		
 					});
-					if(result.startsWith("<p")) {
+					if(result.indexOf("<p") == 0) {
 						$('div.loadFileHistory').html(result);
 					}
 					else {
