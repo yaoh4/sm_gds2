@@ -11,9 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
-import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
@@ -82,8 +80,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			if(repositoryStatus.getLookupTByStudyReleasedId().getId() == ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID){
 				allStudyReleased = false;
 			}
-		}	
-		
+		}		
 		
 		if(getProject().getAnticipatedSubmissionDate() == null && isStatusNotStartedOrInProgress && !isAnticipatedSubDateDisabled()){
 			this.addActionError(getText("anticipated.submission.date.required"));
@@ -97,7 +94,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		}
 
 		if(hasActionErrors()){
-			setUpPageData();
+			populateRepositoriesAfterValidationFailure();
 		}
 	}
 
@@ -163,8 +160,6 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 		super.saveProject(project);
 		setUpPageData();
-		setIsDbGap("N");
-
 	}
 	
 	/**
@@ -321,6 +316,25 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			isAnticipatedSubDateDisabled = true;
 		}
 		return isAnticipatedSubDateDisabled;		
+	}
+	
+	/**
+	 * When validation fails, copy transient Project's repository statuses to Persistent project's repository statuses.
+	 * @throws Exception
+	 */
+	public void populateRepositoriesAfterValidationFailure() throws Exception{		
+
+		Project transientProject = getProject();
+		setUpPageData();
+		Project persistentProject = getProject();
+		for(int i=0;i<transientProject.getRepositoryStatuses().size();i++){
+			persistentProject.getRepositoryStatuses().get(i).setAccessionNumber(transientProject.getRepositoryStatuses().get(i).getAccessionNumber());
+			persistentProject.getRepositoryStatuses().get(i).setComments(transientProject.getRepositoryStatuses().get(i).getComments());
+			persistentProject.getRepositoryStatuses().get(i).setLookupTByDataSubmissionStatusId(transientProject.getRepositoryStatuses().get(i).getLookupTByDataSubmissionStatusId());
+			persistentProject.getRepositoryStatuses().get(i).setLookupTByRegistrationStatusId(transientProject.getRepositoryStatuses().get(i).getLookupTByRegistrationStatusId());
+			persistentProject.getRepositoryStatuses().get(i).setLookupTByStudyReleasedId(transientProject.getRepositoryStatuses().get(i).getLookupTByStudyReleasedId());				
+		}
+		setProject(persistentProject);	
 	}
 
 	/**

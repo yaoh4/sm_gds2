@@ -9,7 +9,7 @@ function enableDisableSubmissionStatus(registrationId){
 		$("#projStatus_"+submissionId).attr('disabled',false);
 	}
 	else{ 
-		if($("#isDbGap").val() == "N" && $("#projStatus_"+submissionId).val() != "15"){
+		if($("#isDbGap").val() == "N" && $("#projStatus_"+submissionId).is(':disabled') == false){
 			$("#projStatus_"+submissionId).val('13');
 		}
 		$("#projStatus_"+submissionId).attr('disabled',true);
