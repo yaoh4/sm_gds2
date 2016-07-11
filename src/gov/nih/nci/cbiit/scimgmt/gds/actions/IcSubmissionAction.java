@@ -468,43 +468,6 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	
 	/**
-	 * Validate Upload File
-	 */
-	private boolean validateUploadFile(File file, String contentType) {
-
-		String errorMessage = "";
-		
-		try {
-			if (file == null) {
-				errorMessage = getText("error.doc.required");
-
-			} else if (file.length() == 0) {
-				errorMessage = getText("error.doc.empty");
-
-			} else if (file.length() > 5000000) {
-				errorMessage = getText("error.doc.size");
-
-			} else if (!"application/pdf".equals(contentType)
-					&& !"application/msword".equals(contentType)
-					&& !"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-							.equals(contentType)) {
-				errorMessage = getText("error.doc.format");
-
-			}
-			if(StringUtils.isNotBlank(errorMessage)) {
-				inputStream = new ByteArrayInputStream(errorMessage.getBytes("UTF-8"));
-				return false;
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return true;
-	}
-	
-	
-	
-	/**
 	 * Invoked for the Track IC Status page. Invoked from
 	 * 1. ICs tab (if at least one IC is present in the submission (else, user will
 	 * be directed to the Add IC page)
