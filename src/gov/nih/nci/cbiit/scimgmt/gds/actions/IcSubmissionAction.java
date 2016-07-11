@@ -149,35 +149,29 @@ public class IcSubmissionAction extends ManageSubmission {
 		for(Study study: instCert.getStudies()) {
 			studyIndex++;
 			int dulSetIndex = -1;
+			
 			for(StudiesDulSet studiesDulSet: study.getStudiesDulSets() ) {
 				dulSetIndex++;
-				String parentDulId = null;
+				Long parentDulId = studiesDulSet.getParentDulChecklist().getId();
+				dulIdList.add("parentDul" + studyIndex + "-" + dulSetIndex + "-" + parentDulId);
+				
 				List<DulChecklistSelection> dulChecklistSelections = studiesDulSet.getDulChecklistSelections();
 				if(!CollectionUtils.isEmpty(dulChecklistSelections)) {
 					for(DulChecklistSelection dulChecklistSelection: dulChecklistSelections) {
 						
-						String dulId = dulChecklistSelection.getDulChecklist().getId().toString();
-						if(dulChecklistSelection.getDulChecklist().getParentDulId() == null) {
-							//This has no parent, so it represents additional text.
-							//associated with a parent DUL
-							if(parentDulId == null) {
-								parentDulId = dulId;
-							}
+						Long dulId = dulChecklistSelection.getDulChecklist().getId();
+						
+						if(dulId.equals(parentDulId)) {
+							//This represents a parent row, so there should be additional text present	
 							String additionalText = dulChecklistSelection.getOtherText();
 							if(additionalText != null && !additionalText.isEmpty()) {
-								int textlength = additionalText.length();
-								dulIdList.add(textlength + "otherAddText" + studyIndex + "-" + dulSetIndex + "-" + dulId + additionalText);
-							} 						
+							int textlength = additionalText.length();
+							dulIdList.add(textlength + "otherAddText" + studyIndex + "-" + dulSetIndex + "-" + dulId + additionalText);					
 						} else {
-							//This has a parent, so it represents a regular child dul selections
+							//This has a parent, so it represents a regular child dul selection
 							dulIdList.add("dul" + studyIndex + "-" + dulSetIndex + "-" + dulId);
-							if(parentDulId == null) {
-								parentDulId = dulChecklistSelection.getDulChecklist().getParentDulId().toString();
 							}
 						}
-					}
-					if(parentDulId != null) {
-						dulIdList.add("parentDul" + studyIndex + "-" + dulSetIndex + "-" + parentDulId);
 					}
 				}
 			}

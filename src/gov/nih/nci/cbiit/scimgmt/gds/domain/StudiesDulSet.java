@@ -112,17 +112,37 @@ public class StudiesDulSet implements java.io.Serializable {
 		this.dulChecklistSelections.add(dulChecklistSelection);
 	}
 
+	
+	@Transient
+	public String getAdditionalText() {
+		String additionalText = "";
+		
+		if(!CollectionUtils.isEmpty(dulChecklistSelections)) {
+			for(DulChecklistSelection dulSelection: dulChecklistSelections) {
+				Long parentDulId = dulSelection.getDulChecklist().getParentDulId();
+				if( parentDulId == null) {
+					//We have encountered a record without parentId, so it is the parent itself
+					additionalText = dulSelection.getOtherText();
+					break;
+				} 
+			}
+		}
+			
+		return additionalText;
+	}
+
+
 	@Transient
 	public DulChecklist getParentDulChecklist() {
 		DulChecklist parentDulChecklist = null;
 		if(!CollectionUtils.isEmpty(dulChecklistSelections)) {
-			for(DulChecklistSelection dul: dulChecklistSelections) {
-				DulChecklist dulChecklist = dul.getDulChecklist();
-				Long parentDulId = dulChecklist.getParentDulId();
-				if( parentDulId != null) {
-					parentDulChecklist = GdsSubmissionActionHelper.getDulChecklist(parentDulId);
-					break;
-				}
+			DulChecklist dulChecklist = dulChecklistSelections.get(0).getDulChecklist();
+			Long parentDulId = dulChecklist.getParentDulId();
+			if( parentDulId != null) {
+				parentDulChecklist = GdsSubmissionActionHelper.getDulChecklist(parentDulId);
+			} else {
+				//We add a row into the DUL_CHECK;IST_SELECTIONS_T for the parent itself also,
+				parentDulChecklist = dulChecklist;
 			}
 		}
 		
