@@ -105,6 +105,17 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 			}
 		}
 
+		// Answer is required.
+		if(StringUtils.isEmpty(bsiReviewedFlag)) {
+			this.addActionError(getText("bsiReviewedFlag.required"));
+		}
+		
+		// File is required.
+		bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, Long.valueOf(getProjectId()));
+		if(bsiFile == null || bsiFile.isEmpty()) {
+			this.addActionError(getText("error.doc.required"));
+		}
+		
 		if(hasErrors())
 			setProject(retrieveSelectedProject());
 		
