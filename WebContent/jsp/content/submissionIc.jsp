@@ -96,9 +96,9 @@
 			  <!--Begin STUDY SECTION-->
 			
               <div class="form-group row col-xs-12" id="sections">
-			    <div id="entry1" class="clonedInput">
+			   <!-- <div id="entry1" class="clonedInput"> -->
 								
-					  <div class=cloneStudyInput>
+					  <div id="entry${studiesIdx}" class=cloneStudyInput>
 					  								
                       <s:iterator status="studiesStat" var="study" value="instCertification.studies">
 					    <s:set name="studiesIdx" value="#studiesStat.index" />
@@ -170,14 +170,14 @@
 									 rows="3"></s:textarea>
                             </div> <!--end row-->
                             <p>&nbsp;</p>
-                                			
+                                                  
                             <div class="form-group row col-xs-12" id="DULinfo">
                               <p><span class="question">
                                 <H4>Data Use Limitation(s)</h4></span><br/>
                                  You may add up to 10 DULs
                               </p>
                             </div>
-														
+
 							<s:include value="/jsp/content/manageDuls.jsp"/>																
 																	
                           </div> <!-- End Panel body -->
@@ -190,7 +190,7 @@
                       
                       </div>  <!--  cloneStudyInput -->
 										
-                </div> <!--  End cloned input-->	
+           <!--    </div> --> <!--  End cloned input-->	
 							
 								
                 <div id="addDelButtons">

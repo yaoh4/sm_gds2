@@ -34,6 +34,30 @@ $(document).ready(function () {
 		
 	});
 	
+	
+	//TBD - Needs to be fixed
+	//Do not show DULs and DUL verified flag if provisional
+	value  = $("#finalprov1 option:selected").text();
+	  if ( value == 'Provisional') { 
+		//Hide DUL verification dropdown
+    	  $(".DULvSelect").hide();
+    	  
+    	  //Hide the Add DUL message
+    	  $(".DULinfo").hide();
+    	  
+    	  //Hide the DUL container
+    	  //$(".cloneDULinput").hide();
+    	  
+    	  //Hide addDul buttons from all studies
+  	      $(".addDulSetButton").hide();
+    	  
+    	  //remove all dulTypes except the first one
+    	  //$(".dulTypes").not("#dulType0-0").remove();
+    	    
+		 	    
+      }
+      
+	
 
 	  //Do not show any sections if no file uploaded.
 	  if( !$.trim( $("#loadIcFileHistory").html() ).length ) {
@@ -61,9 +85,6 @@ $(".parentDulSet").change(function() {
 	if($(this).is(":checked")) {
 		var dulSetIds = $(this).attr('id').replace("parentDul", "dulSet");
 		$("#" + dulSetIds).show();
-		//Show the additional text associated with the parent radio if present
-		//var parentOtherId = $(this).attr('id').replace("parentDul", "otherAdd");
-		//$("#" + parentOtherId).show();
 	}
 	
 	
@@ -143,11 +164,6 @@ function addDulSet(studiesIdx)  {
 	//Append the new DUL Type
 	newDulTypeDiv.appendTo("#cloneDULInput" + studiesIdx);
 
-	
-	//$.getJSON("addDul.action", {
-	//}, function(response) {
-		//alert(response);
-	//});		
 };
 
 
@@ -201,18 +217,6 @@ function addStudy() {
 	
 	//Add a new DUL Type to cloneDULInput
 	addDulSet(newStudySectionIndex);
-	
-	//newStudySectionDiv.html('<i class="fa fa-minus-square" aria-hidden="true"></i>&nbsp;Study<a href="javascript:void" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
-    
-	//newStudySectionDiv.find(".content").show();
-	//$("#entry_study_" + newStudySectionIndex).append('<a href="#" onclick="deleteStudy(${studiesIdx})" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
-	
-	//alert($("#entry_study_" + newStudySectionIndex).html());
-	
-	//$.getJSON("addStudy.action", {
-	//}, function(response) {
-	//		alert(response);
-	//});	
 };
 
 
@@ -221,7 +225,62 @@ function deleteStudy(studiesIdx) {
 	$("#studySection" + studiesIdx).remove();
 };
 
+//TBD - needs to be fixed
+$(function() { 
+	var emptyStudy = ""
 
+	//toggle for Provisional/Final Dropdown box
+		//User clicked provisional or final
+		//When they click provisonal remove all the DUL Sets, hide all DUL info and all buttons
+		//When they click final add one DUL set to every study, show all DULL info and add button
+
+	    $('#finalprov1').on('change', function() {
+	    	value  = $("#finalprov option:selected").text();
+	      if ( value == 'Provisional') { 
+	    	  
+	    	  //Hide DUL verification dropdown
+	    	  $(".DULvSelect").hide();
+	    	  $(".DULvSelect").val(-1);
+	    	  
+	    	  //Hide the Add DUL message
+	    	  $(".DULinfo").hide();
+	    	  
+	    	  //Hide the DUL container
+	    	  $(".cloneDULinput").hide();
+	    	  
+	    	//Hide addDul buttons from all studies
+	  	    $(".addDulSetButton").hide();
+	    	  
+	    	   //remove all dulTypes
+	    		$(".dulTypes").not("#dulType0-0").remove();
+	    		
+	    		//Hide dul selections (checkboxes) from all parents (radio buttons) 
+	    		//$(".dulSetDiv").hide();
+	    		
+	    		//Uncheck all the selections
+	    		//$(".dulSet").prop('checked', false);
+	    		//$(".input_other").val('');
+	    		//$(".DULvSelect").val(-1);
+	      }
+	      else
+	      {
+	        //$("#DULv, #DULinfo, #DULpanel").show();
+	        
+	        //Show the DUL verification
+	        $(".DULvSelect").show();
+	        
+	        //Show the add DUL message
+	        $(".DULinfo").show();
+	        
+	        //Show the DUL container with one set
+	       // $("#dulType0-0").show();
+	        //$("#cloneDULInput0").show();
+	        
+	        //Show the add buttons
+	        $(".addDulSetButton").show();
+	      }
+	    });
+	  });
 
 $(document).ready(function () {
 
@@ -273,7 +332,7 @@ $(document).ready(function () {
 						}, 
 						error: function(){}		
 					});
-					if(result.indexOf("<p") == 0) {
+					if(result.startsWith("<p")) {
 						$('div.loadFileHistory').html(result);
 					}
 					else {
