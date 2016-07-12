@@ -153,11 +153,12 @@ public class IcSubmissionAction extends ManageSubmission {
 			
 			for(StudiesDulSet studiesDulSet: study.getStudiesDulSets() ) {
 				dulSetIndex++;
-				Long parentDulId = studiesDulSet.getParentDulChecklist().getId();
-				dulIdList.add("parentDul" + studyIndex + "-" + dulSetIndex + "-" + parentDulId);
 				
 				List<DulChecklistSelection> dulChecklistSelections = studiesDulSet.getDulChecklistSelections();
 				if(!CollectionUtils.isEmpty(dulChecklistSelections)) {
+					
+					Long parentDulId = studiesDulSet.getParentDulChecklist().getId();
+					dulIdList.add("parentDul" + studyIndex + "-" + dulSetIndex + "-" + parentDulId);
 					for(DulChecklistSelection dulChecklistSelection: dulChecklistSelections) {
 						
 						Long dulId = dulChecklistSelection.getDulChecklist().getId();
