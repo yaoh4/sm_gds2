@@ -148,15 +148,15 @@ function addDulSet(studiesIdx)  {
 	
 	
 	//Replace ID of the parent radio button additional text for 'disease specific' and 'other' option
-	var newParentAddTextId = "#parentAddText" + studiesIdx + "-" + newDulTypeIndex + "-13";
-	var newParentAddTextName = "#parentAddText-" + studiesIdx + "-" + newDulTypeIndex + "-13";
-	newDulTypeDiv.find("#parentAddText0-0-13").attr("id", newParentAddTextId);
-	newDulTypeDiv.find(newParentAddTextId).attr("name", newParentAddTextName);
+	var newParentAddTextId = "otherAddText" + studiesIdx + "-" + newDulTypeIndex + "-13";
+	var newParentAddTextName = "otherAddText-" + studiesIdx + "-" + newDulTypeIndex + "-13";
+	newDulTypeDiv.find("#otherAddText0-0-13").attr("id", newParentAddTextId);
+	newDulTypeDiv.find("#" + newParentAddTextId).attr("name", newParentAddTextName);
 	
-	newParentAddTextId = "parentAddText" + studiesIdx + "-" + newDulTypeIndex + "-21";
-	newParentAddTextName = "parentAddText-" + studiesIdx + "-" + newDulTypeIndex + "-21";
-	newDulTypeDiv.find("#parentAddText0-0-21").attr("id", newParentAddTextId);
-	newDulTypeDiv.find(newParentAddTextId).attr("name", newParentAddTextName);
+	newParentAddTextId = "otherAddText" + studiesIdx + "-" + newDulTypeIndex + "-21";
+	newParentAddTextName = "otherAddText-" + studiesIdx + "-" + newDulTypeIndex + "-21";
+	newDulTypeDiv.find("#otherAddText0-0-21").attr("id", newParentAddTextId);
+	newDulTypeDiv.find("#" + newParentAddTextId).attr("name", newParentAddTextName);
 	
 	newDulTypeDiv.find("#entry_dulSet_0_0").attr("id", "entry_dulSet_" + studiesIdx + "_" + newDulTypeIndex);
 	
