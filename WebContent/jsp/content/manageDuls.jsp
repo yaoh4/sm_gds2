@@ -14,7 +14,7 @@
 		   
 		  <div id="dulType${studiesIdx}-${dulSetIdx}" class="dulTypes">
 		  
-		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].createdBy"/>
+		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].createdBy" id="dulSetCreatedBy%{studiesIdx}-%{dulSetIdx}"/>
 		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].id" id="dulSetId%{studiesIdx}-%{dulSetIdx}"/>
 		
 		<div class="panel-group">

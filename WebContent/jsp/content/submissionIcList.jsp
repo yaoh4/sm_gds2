@@ -62,7 +62,7 @@
           
             <p>&nbsp;</p>
 
-            <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
+            <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
               <tr class="modalTheader">
                 <th class="tableHeader" align="center" width="60%">Institutional Certification Document</th>
                 <th class="tableHeader" align="center" width="30%">Date Uploaded</th>
@@ -138,7 +138,7 @@
                                   <tr>
                                     <td valign="top" class="question" style="padding-top: 7px;">${studyIdx+1})</td>
                                     <td>
-                                      <table class="table table-bordered table-striped" width="100%" class="study">
+                                      <table class="table table-bordered" width="100%" class="study">
                                         <tr>
                                           <td>
                                             <table width="100%" cellspacing="5">

@@ -116,9 +116,9 @@ public class StudiesDulSet implements java.io.Serializable {
 	@Transient
 	public String getAdditionalText() {
 		String additionalText = "";
-		
-		if(!CollectionUtils.isEmpty(dulChecklistSelections)) {
-			for(DulChecklistSelection dulSelection: dulChecklistSelections) {
+		List<DulChecklistSelection> dulSelections = getDulChecklistSelections();
+		if(!CollectionUtils.isEmpty(dulSelections)) {
+			for(DulChecklistSelection dulSelection: dulSelections) {
 				Long parentDulId = dulSelection.getDulChecklist().getParentDulId();
 				if( parentDulId == null) {
 					//We have encountered a record without parentId, so it is the parent itself
@@ -135,8 +135,9 @@ public class StudiesDulSet implements java.io.Serializable {
 	@Transient
 	public DulChecklist getParentDulChecklist() {
 		DulChecklist parentDulChecklist = null;
-		if(!CollectionUtils.isEmpty(dulChecklistSelections)) {
-			DulChecklist dulChecklist = dulChecklistSelections.get(0).getDulChecklist();
+		List<DulChecklistSelection> dulSelections = getDulChecklistSelections();
+		if(!CollectionUtils.isEmpty(dulSelections)) {
+			DulChecklist dulChecklist = dulSelections.get(0).getDulChecklist();
 			Long parentDulId = dulChecklist.getParentDulId();
 			if( parentDulId != null) {
 				parentDulChecklist = GdsSubmissionActionHelper.getDulChecklist(parentDulId);

@@ -98,8 +98,7 @@ $("#btnAddDUL").click(function() {
 
 function addDulSet(studiesIdx)  {
 
-	//Clone the ist existing DUL
-	var newDulTypeDiv = $( "#dulType0-0" ).clone(true);
+	
 	var newDulTypeIndex = $("#studySection" + studiesIdx).find(".entrylist").length;
 	
 	 // right now you can only add 10 DULs. change '10' below to the max number of times the form can be duplicated
@@ -108,6 +107,9 @@ function addDulSet(studiesIdx)  {
     	return;
 	};
 
+	//Clone the ist existing DUL
+	var newDulTypeDiv = $( "#dulType0-0" ).clone(true);
+	
 	//Set the correct ids and names
 	newDulTypeDiv.attr("id", "dulType" + studiesIdx + "-" + newDulTypeIndex);
 	
@@ -116,6 +118,13 @@ function addDulSet(studiesIdx)  {
 	newDulTypeDiv.find("#dulSetId" + studiesIdx + "-" + newDulTypeIndex).attr("name", dulSetIdElemName);
 	newDulTypeDiv.find("#dulSetId" + studiesIdx + "-" + newDulTypeIndex).attr("value", "");
 	
+	//Set correct id and name for created by
+	newDulTypeDiv.find("#dulSetCreatedBy0-0").attr("id", "dulSetCreatedBy" + studiesIdx + "-" + newDulTypeIndex);
+	var dulSetCreatedByElemName = "instCertification.studies[" + studiesIdx + "].studiesDulSets[" + newDulTypeIndex + "].createdBy";
+	newDulTypeDiv.find("#dulSetCreatedBy" + studiesIdx + "-" + newDulTypeIndex).attr("name", dulSetCreatedByElemName);
+	newDulTypeDiv.find("#dulSetCreatedBy" + studiesIdx + "-" + newDulTypeIndex).attr("value", "");
+	
+	//Set correct id and name for parent radio button
 	var parentDulSetArray = newDulTypeDiv.find(".parentDulSet");
 	jQuery.each(parentDulSetArray, function(index, val) {
 		var parentElemName = "parentDul" + "-" + studiesIdx + "-" + newDulTypeIndex;
@@ -129,6 +138,7 @@ function addDulSet(studiesIdx)  {
 		$(this).attr("id", dulDivElemId);
 	});
 	
+	//Set correct id and name for dul checkboxes
 	var dulSetArray = newDulTypeDiv.find(".dulSet");
 	jQuery.each(dulSetArray, function(index, val) {
 		var dulElemId = $(this).attr('id').replace("dul0-0", "dul" + studiesIdx + "-" + newDulTypeIndex);
