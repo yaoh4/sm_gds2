@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 public class StatusHistory implements java.io.Serializable {
 
 	private Long id;
-	private Lookup lookup;
+	private Lookup status;
 	private Project project;
 	private Date createdDate;
 	private String createdBy;
@@ -30,17 +30,17 @@ public class StatusHistory implements java.io.Serializable {
 	public StatusHistory() {
 	}
 
-	public StatusHistory(Long id, Lookup lookup, Project project, Date createdDate) {
+	public StatusHistory(Long id, Lookup status, Project project, Date createdDate) {
 		this.id = id;
-		this.lookup = lookup;
+		this.status = status;
 		this.project = project;
 		this.createdDate = createdDate;
 	}
 
-	public StatusHistory(Long id, Lookup lookup, Project project, Date createdDate, String createdBy,
+	public StatusHistory(Long id, Lookup status, Project project, Date createdDate, String createdBy,
 			Date lastChangedDate, String lastChangedBy) {
 		this.id = id;
-		this.lookup = lookup;
+		this.status = status;
 		this.project = project;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
@@ -61,12 +61,12 @@ public class StatusHistory implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "STATUS_ID", nullable = false)
-	public Lookup getLookup() {
-		return this.lookup;
+	public Lookup getStatus() {
+		return this.status;
 	}
 
-	public void setLookup(Lookup lookup) {
-		this.lookup = lookup;
+	public void setStatus(Lookup status) {
+		this.status = status;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
