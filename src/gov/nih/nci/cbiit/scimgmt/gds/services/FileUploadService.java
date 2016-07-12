@@ -54,6 +54,15 @@ public interface FileUploadService {
 	public boolean deleteFile(Long docId);
 	
 	/**
+	 * Retrieve a list of files from DB by ProjectId
+	 * 
+	 * @param projectId
+	 * 
+	 * @return document
+	 */
+	public List<Document> retrieveFileByProjectId(Long projectId);
+	
+	/**
 	 * Retrieve a list of files from DB by ProjectId and DocTypeId
 	 * 
 	 * @param docTypeId

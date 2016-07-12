@@ -87,6 +87,27 @@ public class DocumentsDao {
 			throw re;
 		}
 	}
+	
+	/**
+	 * Retrieves a list of Document objects by projectId
+	 * 
+	 * @param docTypeId
+	 * @param projectId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Document> findByProjectId(Long projectId) {
+		logger.debug("getting Document instance with projectId: " + projectId);
+		try {
+			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Document.class);
+			criteria.add(Restrictions.eq("projectId", projectId));
+			List<Document> docs = (List<Document>) criteria.list();
+			return docs;
+		} catch (RuntimeException re) {
+			logger.error("get failed", re);
+			throw re;
+		}
+	}
 
 	/**
 	 * Save or updates the document object.

@@ -546,6 +546,7 @@ WebContent/template/simple/radiomap-div.ftl -text
 build/build.xml -text
 build/env.properties -text
 build/user.properties -text
+database/INS_LOOKUP_T_DML_20160705.sql -text
 database/INS_PLAN_QUESTIONS_ANSWERS_DML_20160613.sql -text
 database/gds_v1.0.sql -text
 lib/tomcat/catalina-ant.jar -text
