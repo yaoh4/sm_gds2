@@ -160,10 +160,17 @@ function addDulSet(studiesIdx)  {
 	
 	newDulTypeDiv.find("#entry_dulSet_0_0").attr("id", "entry_dulSet_" + studiesIdx + "_" + newDulTypeIndex);
 	
-	
-	if(newDulTypeIndex > 0) {
-		newDulTypeDiv.find("#entry_dulSet_" + studiesIdx + "_" + newDulTypeIndex).append('<a href="#" onclick="deleteDulSet(' + studiesIdx + ',' + newDulTypeIndex + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
+	var numItems = $("#studySection" + studiesIdx).find('.dulTypes').length;
+	if(numItems > 1) {
+		var dulSetArray = newDulTypeDiv.find(".dulSet");
+		jQuery.each(dulSetArray, function(index, val) {
+			if($(this).find(".deleteIcon") == null) {
+				$(this).find("#entry_dulSet_" + studiesIdx + "_" + index).prepend('<a href="#" onclick="deleteDulSet(' + studiesIdx + ',' + index + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
+			}
+		});
 	}
+	
+	
 	//Hide the checkboxes
 	newDulTypeDiv.find(".dulSetDiv").hide();
 	
@@ -179,6 +186,14 @@ function addDulSet(studiesIdx)  {
 
 function deleteDulSet(studiesIdx, dulSetIdx) {
 	$("#dulType" + studiesIdx + "-" + dulSetIdx).remove();
+	
+	var numItems = $("#studySection" + studiesIdx).find('.dulTypes').length;
+	if(numItems == 1) {
+		//Use dulTypes class and not id to locate the element because we dont know
+		//which is the DULSet that is left. 
+		$("#studySection" + studiesIdx).find(".dulTypes").find(".deleteIcon").remove();
+	}
+	
 };
 
 
@@ -216,7 +231,16 @@ function addStudy() {
 	
 	newStudySectionDiv.find("#addDulSetButton_0").attr("id", "addDulSetButton_" + newStudySectionIndex);
 	
-	newStudySectionDiv.find("#entry_study_" + newStudySectionIndex).append('<a href="#" onclick="deleteStudy(' + newStudySectionIndex + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
+	
+	var numItems = $(".studyList").length;
+	if(numItems > 1) {
+		var studySetArray = newStudySectionDiv.find(".studyList");
+		jQuery.each(studySetArray, function(index, val) {
+			if($(this).find(".study").find(".deleteIcon") == null) {
+				$(this).find("#entry_study_" + studiesIdx).prepend('<a href="#" onclick="deleteStudy(' + index + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
+			}
+		});
+	}
 	
 	
 	//Empty the class cloneDULInput that contains the DUL Types cloned
@@ -233,6 +257,10 @@ function addStudy() {
 
 function deleteStudy(studiesIdx) {
 	$("#studySection" + studiesIdx).remove();
+	var numItems = $(".studyList").length;
+	if(numItems == 1) {
+		$("#studySection" + studiesIdx).find(".study").find(".deleteIcon").remove();
+	}
 };
 
 //TBD - needs to be fixed

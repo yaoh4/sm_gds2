@@ -225,11 +225,12 @@ public class IcSubmissionAction extends ManageSubmission {
 		int studyIndex = -1;
 		//validate the DULs in each Study
 		for(Study study: instCert.getStudies()) {
+			studyIndex++;
+			
 			if(study == null) {
 				continue;
 			}
 			
-			studyIndex++;
 			
 			if(study.getStudyName() == null || study.getStudyName().isEmpty()) {
 				addActionError("Study Name missing for study at position " + studyIndex + 1);
@@ -251,6 +252,8 @@ public class IcSubmissionAction extends ManageSubmission {
 				addActionError("No DUL selection made for study " + study.getStudyName());
 			} else {
 				for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
+					dulSetIndex++;
+					
 					if(dulSet == null) {
 						continue;
 					}
@@ -260,7 +263,7 @@ public class IcSubmissionAction extends ManageSubmission {
 						dulSet.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());				
 					}
 					dulSet.setStudy(study);
-					dulSetIndex++;
+					
 				
 					String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
 					if(parentDulId == null) {
