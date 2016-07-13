@@ -59,6 +59,4 @@
 <s:include value="/jsp/content/searchResult.jsp"/>
 
 <script type="text/javascript"
-	src="<s:url value="/scripts/datatable.js" />"></script>
-<script type="text/javascript"
 	src="<s:url value="/controllers/search.js" />"></script>

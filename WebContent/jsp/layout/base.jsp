@@ -21,7 +21,7 @@
 <script src="<s:url value="/scripts/jquery.are-you-sure-1.9.0.js" />"></script>
 <script src="<s:url value="/scripts/theme.js" />"></script>
 
-<script src="<s:url value="/scripts/gds.js" />"></script>
+<script src="<s:url value="/controllers/gds.js" />"></script>
 
 <link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <!-- <link href="<s:url value="/stylesheets/non-responsive.css" />" rel="stylesheet" type="text/css" media="screen" /> -->
@@ -31,7 +31,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
 <link href="<s:url value="/stylesheets/custom.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/datatable.css" />" rel="stylesheet" type="text/css" media="screen" />
-<link href="<s:url value="stylesheets/styles.css" />" rel="stylesheet" type="text/css" media="screen">
+<link href="<s:url value="/stylesheets/styles.css" />" rel="stylesheet" type="text/css" media="screen">
 
 <s:head />
 

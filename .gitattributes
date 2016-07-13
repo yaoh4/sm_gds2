@@ -113,8 +113,10 @@ WebContent/WEB-INF/lib/xstream-1.4.2.jar -text
 WebContent/WEB-INF/lib/xwork-core-2.3.24.1.jar -text
 WebContent/WEB-INF/tiles.xml -text
 WebContent/WEB-INF/web.xml -text
+WebContent/controllers/UiRule.js -text
 WebContent/controllers/basicStudy.js -text
 WebContent/controllers/dataSharing.js -text
+WebContent/controllers/gds.js -text
 WebContent/controllers/general.js -text
 WebContent/controllers/institutional.js -text
 WebContent/controllers/institutional_dashboard.js -text
@@ -190,7 +192,6 @@ WebContent/jsp/layout/footer.jsp -text
 WebContent/jsp/layout/header.jsp -text
 WebContent/jsp/layout/navbar.jsp -text
 WebContent/jsp/layout/subnavbar.jsp -text
-WebContent/scripts/UiRule.js -text
 WebContent/scripts/bootbox-4.4.0.min.js -text
 WebContent/scripts/bootstrap-3.3.6.min.js -text
 WebContent/scripts/bootstrap-datepicker-1.6.1.min.js -text
@@ -506,9 +507,7 @@ WebContent/scripts/ckeditor/skins/moono/images/refresh.png -text
 WebContent/scripts/ckeditor/skins/moono/images/spinner.gif -text
 WebContent/scripts/ckeditor/skins/moono/readme.md -text
 WebContent/scripts/ckeditor/styles.js -text
-WebContent/scripts/datatable.js -text
 WebContent/scripts/datatables-1.10.12.min.js -text
-WebContent/scripts/gds.js -text
 WebContent/scripts/jquery-1.12.3.min.js -text
 WebContent/scripts/jquery.are-you-sure-1.9.0.js -text
 WebContent/scripts/jquery.validate-1.15.0.min.js -text

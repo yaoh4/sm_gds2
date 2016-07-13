@@ -258,7 +258,7 @@
 <script type="text/javascript"
 	src="<s:url value="/scripts/gds.js" />"></script>
 <script type="text/javascript"
-	src="<s:url value="/scripts/UiRule.js" />"></script>
+	src="<s:url value="/controllers/UiRule.js" />"></script>
 <script type="text/javascript"
 	src="<s:url value="/controllers/dataSharing.js" />"></script>
 <script type="text/javascript">
