@@ -6,18 +6,27 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.StatusHistory;
+import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
+import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchCriteria;
+import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchResult;
 
 /**
  * Dao object for Searching Project, Subprojects.
@@ -43,24 +52,100 @@ public class ProjectSearchDao {
 			throw new IllegalStateException("Could not locate SessionFactory in JNDI");
 		}
 	}
-
-	public Project findById(Long id) {
-		logger.debug("getting Project instance with id: " + id);
+	
+	/**
+	 * Search Project Submission based on Criteria.
+	 * @param searchCriteria
+	 * @return List<Project>
+	 */
+	@SuppressWarnings("unchecked")
+	public SubmissionSearchResult search(SubmissionSearchCriteria searchCriteria) {
+		logger.debug("searching for project submission : " + searchCriteria);
+		List<Project> list = null;
 		try {
-			Project instance = (Project) sessionFactory.getCurrentSession()
-					.get(Project.class, id);
-			if (instance == null) {
-				logger.debug("get successful, no instance found");
+	  
+			Criteria criteria = null;
+			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class);
+			int totalRecords = 0;
+			
+			// Sort order
+			criteria = addSortOrder(criteria, searchCriteria);
+			
+			// Add user specific search criteria
+			addSearchCriteria(criteria, searchCriteria);
+			
+			// Add pagination and retrieve data
+			if (searchCriteria.getLength() == -1) {
+				list = criteria.list();
 			} else {
-				Hibernate.initialize(instance.getPlanAnswerSelection());
-				Hibernate.initialize(instance.getRepositoryStatuses());
-				logger.debug("get successful, instance found");
+				totalRecords = getTotalResultCount(criteria);
+				criteria.setProjection(null);
+				list =  (List<Project>) criteria.setFirstResult(searchCriteria.getStart())
+						.setMaxResults(searchCriteria.getLength())
+						.list();
 			}
-			return instance;
-		} catch (RuntimeException re) {
-			logger.error("get failed", re);
-			throw re;
+			
+			// Convert list to submission and set total records
+			if(list != null && !list.isEmpty()) {
+				SubmissionSearchResult result = new SubmissionSearchResult();
+				List<Submission> submissions = new ArrayList<Submission>();
+				for(Project p: list) {
+					Submission s = new Submission();
+					BeanUtils.copyProperties(p, s);
+					for(StatusHistory status: p.getStatusHistories()) {
+						s.setGdsPlanStatus(status.getStatus().getDisplayName());
+						s.setBsiStatus(status.getStatus().getDisplayName());
+						s.setIcStatus(status.getStatus().getDisplayName());
+						s.setDataSharingException(status.getStatus().getDisplayName());
+					}
+					submissions.add(s);
+				}
+				result.setData(submissions);
+				if(searchCriteria.getLength() == -1) {
+					result.setRecordsFiltered(submissions.size());
+					result.setRecordsTotal(submissions.size());
+				} else {
+					result.setRecordsFiltered(totalRecords);
+					result.setRecordsTotal(totalRecords);
+				}
+				return result;
+			}
+			
+			return null;
+
+		} catch (Throwable e) {
+			logger.error("Error while searching for project submission ", e);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
+			logger.error("Pass-in parameters: searchCriteria - " + searchCriteria);
+			logger.error("Outgoing parameters: Project List - " + list);
+			
+			throw e;
 		}
+	}
+	
+	/**
+	 * Gets the total result count.
+	 * 
+	 * @param criteria
+	 *            the criteria
+	 * @return the total result count
+	 */
+	private int getTotalResultCount(Criteria criteria) {
+
+		criteria.setProjection(Projections.rowCount());
+		Long rowCount = (Long) criteria.uniqueResult();
+		return rowCount.intValue();
+
+	}
+	
+	/**
+	 * Retrieve Sub-projects based on parent project ID.
+	 * @param parentProjectId
+	 * @return List<Project>
+	 */
+	public List<Project> getSubprojects(Long parentProjectId) {
+		return null;
+		
 	}
 	
 	/**
@@ -84,4 +169,71 @@ public class ProjectSearchDao {
 		return allProjectIds;
 	}
 
+	/**
+	 * Adding user specific search criteria
+	 * 
+	 * @param criteria
+	 * @param searchCriteria
+	 * @return
+	 */
+	private Criteria addSearchCriteria(Criteria criteria, SubmissionSearchCriteria searchCriteria) {
+		logger.debug("adding search criteria for project submission search: " + searchCriteria);
+
+		// My DOC
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getDoc()))) {
+			criteria.add(Restrictions.eq("docAbbreviation", searchCriteria.getDoc()));
+		}
+		
+		// Program Director or My Project Submissions
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
+			criteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+		}
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
+			criteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+		}
+		
+		// Project/Subproject Title partial search
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getProjectTitle()))) {
+			criteria.add(Restrictions.ilike("projectTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
+		}
+		
+		// Principal Investigator first or last name partial search
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPiFirstOrLastName()))) {
+			Disjunction dc = Restrictions.disjunction();
+			dc.add(Restrictions.ilike("piFirstName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("piLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
+			criteria.add(dc);
+		}
+		
+		// Intramural(Z01)/Grant/Contract #
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getApplicationNum()))) {
+			criteria.add(Restrictions.eq("applicationNum", searchCriteria.getApplicationNum().trim()));
+		}
+
+		// Accession Number
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getAccessionNumber()))) {
+			criteria.createAlias("repositoryStatus", "repositoryStatus");
+			criteria.add(Restrictions.eq("repositoryStatus.accessionNumber", searchCriteria.getAccessionNumber().trim()));
+		}
+
+		return criteria;
+	}
+	
+	/**
+	 * Add Sort Order
+	 * 
+	 * @param criteria
+	 * @return
+	 */
+	private Criteria addSortOrder(Criteria criteria, SubmissionSearchCriteria searchCriteria) {
+
+		if(StringUtils.isNotBlank(searchCriteria.getSortBy())) {
+			if(StringUtils.equalsIgnoreCase(searchCriteria.getSortDir(), "asc"))
+				criteria.addOrder(Order.asc(searchCriteria.getSortBy()));
+			else
+				criteria.addOrder(Order.desc(searchCriteria.getSortBy()));
+		}	
+		
+		return criteria;
+	}
 }

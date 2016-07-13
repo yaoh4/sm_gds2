@@ -162,6 +162,10 @@ WebContent/index.jsp -text
 WebContent/jsp/content/manageDuls.jsp -text
 WebContent/jsp/content/search.jsp -text
 WebContent/jsp/content/searchGrantsContracts.jsp -text
+WebContent/jsp/content/searchResult.jsp -text
+WebContent/jsp/content/searchResultRepository.jsp -text
+WebContent/jsp/content/searchResultSubproject.jsp -text
+WebContent/jsp/content/searchSubmission.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfo.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfoFile.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfoView.jsp -text
@@ -1005,7 +1009,9 @@ src/gov/nih/nci/cbiit/scimgmt/gds/domain/Study.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/interceptor/UserInterceptor.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/MissingData.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/ParentDulChecklist.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/model/Submission.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/SubmissionSearchCriteria.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/model/SubmissionSearchResult.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/UIElement.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/UIList.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/FileUploadService.java -text

@@ -29,7 +29,7 @@
 	<definition name="search" extends="base.definition">		
 		<put-attribute name="navtab" value="search" type="string" />		
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
-		<put-attribute name="body" value="/jsp/content/search.jsp" />		
+		<put-attribute name="body" value="/jsp/content/searchSubmission.jsp" />		
 	</definition>		
 
 	<definition name="error" extends="base.definition">

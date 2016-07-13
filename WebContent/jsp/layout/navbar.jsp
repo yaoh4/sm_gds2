@@ -35,7 +35,7 @@
 						</s:a></li>
 				</s:if>
 				<s:else>
-					<li><s:a href="/gds/search/navigateToSearch.action">
+					<li><s:a href="/gds/search/home.action">
 							Search
 						</s:a></li>
 				</s:else>

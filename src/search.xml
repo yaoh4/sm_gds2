@@ -4,7 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	
-	<package name="search" namespace="/search" extends="default">
+	<package name="search" namespace="/search" extends="default, json-default">
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
 			 <result name="success" type="tiles">home</result>
 		</action>
@@ -14,7 +14,22 @@
 		</action>
 		
 		<action name="search" method="search" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
-			 <result name="success" type="tiles">search</result>
+			 <result name="success" type="json">
+				<param name="root">jsonResult</param>
+			 </result>
+			 <result name="input" type="json">
+				<param name="root">jsonResult</param>
+			 </result>
+		</action>
+		
+		<action name="deleteProject" method="deleteProject" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+			<result name="success" type="tiles">search</result>
+			<result name="input" type="tiles">search</result>
+		</action>
+		
+		<action name="getRepoInfo" method="getRepoInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/searchResultRepository.jsp</result>
+			<result name="input" type="dispatcher">/jsp/content/searchResultRepository.jsp</result>
 		</action>
 		
 	</package>

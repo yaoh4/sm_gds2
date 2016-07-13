@@ -7,11 +7,20 @@ public class SubmissionSearchCriteria {
 
 	private Long submissionFromId;
 	private Long pdNpnId;
+	private String pdLastName;
+	private String pdFirstName;
+	private String pdFirstAndLastName;
 	private String applicationNum;
 	private String projectTitle;
 	private String accessionNumber;
 	private String piFirstOrLastName;
-
+	private String doc;
+	// Pagination information
+	private int start;
+    private int length;
+    private String sortBy;
+    private String sortDir;
+    
 	public SubmissionSearchCriteria(){}
 
 	public SubmissionSearchCriteria(Long submissionFromId, Long pdNpnId, 
@@ -30,9 +39,10 @@ public class SubmissionSearchCriteria {
 	 * @return true, if is blank
 	 */
 	public boolean isBlank() {
-		return submissionFromId == null && pdNpnId == null && StringUtils.isBlank(applicationNum)
-				&& StringUtils.isBlank(projectTitle) && StringUtils.isBlank(accessionNumber)
-				&& StringUtils.isBlank(piFirstOrLastName);
+		return (submissionFromId == null
+				/*|| submissionFromId.longValue() == ApplicationConstants.SEARCH_SUBMISSION_FROM_ALL.longValue()*/)
+				&& StringUtils.isBlank(pdFirstAndLastName) && StringUtils.isBlank(applicationNum) && StringUtils.isBlank(projectTitle)
+				&& StringUtils.isBlank(accessionNumber) && StringUtils.isBlank(piFirstOrLastName);
 	}
 	
 	public Long getSubmissionFromId() {
@@ -81,6 +91,77 @@ public class SubmissionSearchCriteria {
 
 	public void setPiFirstOrLastName(String piFirstOrLastName) {
 		this.piFirstOrLastName = piFirstOrLastName;
+	}
+
+	public String getDoc() {
+		return doc;
+	}
+
+	public void setDoc(String doc) {
+		this.doc = doc;
+	}
+
+	public String getPdFirstName() {
+		return pdFirstName;
+	}
+
+	public void setPdFirstName(String pdFirstName) {
+		this.pdFirstName = pdFirstName;
+	}
+
+	public String getPdLastName() {
+		return pdLastName;
+	}
+
+	public void setPdLastName(String pdLastName) {
+		this.pdLastName = pdLastName;
+	}
+
+	public String getPdFirstAndLastName() {
+		return pdFirstAndLastName;
+	}
+
+	public void setPdFirstAndLastName(String pdFirstAndLastName) {
+		this.pdFirstAndLastName = pdFirstAndLastName;
+	}
+
+	@Override
+	public String toString() {
+		return "SubmissionSearchCriteria [submissionFromId=" + submissionFromId + ", pdFirstAndLastName="
+				+ pdFirstAndLastName + ", applicationNum=" + applicationNum + ", projectTitle=" + projectTitle
+				+ ", accessionNumber=" + accessionNumber + ", piFirstOrLastName=" + piFirstOrLastName + "]";
+	}
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public String getSortBy() {
+		return sortBy;
+	}
+
+	public void setSortBy(String sortBy) {
+		this.sortBy = sortBy;
+	}
+
+	public String getSortDir() {
+		return sortDir;
+	}
+
+	public void setSortDir(String sortDir) {
+		this.sortDir = sortDir;
 	}
 
 }

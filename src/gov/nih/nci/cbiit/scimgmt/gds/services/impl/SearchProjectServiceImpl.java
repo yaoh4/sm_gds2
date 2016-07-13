@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.ProjectSearchDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchCriteria;
+import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchResult;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 
 /**
@@ -31,12 +33,26 @@ public class SearchProjectServiceImpl implements SearchProjectService {
 	}
 	
 	/**
-	 * This method retrieves Project from DB based on projectId.
-	 * @param projectId
-	 * @return Project
+	 * Search Project Submission based on Criteria.
+	 * @param criteria
+	 * @return List<Project>
 	 */
-	public Project findProjectById(Long projectId){
-		 return projectSearchDAO.findById(projectId);
+	public SubmissionSearchResult search(SubmissionSearchCriteria criteria) {
+		
+		logger.debug("search");
+		
+		return projectSearchDAO.search(criteria);
+	}
+
+	/**
+	 * Retrieve Sub-projects based on parent project ID.
+	 * @param parentProjectId
+	 * @return List<Project>
+	 */
+	public List<Project> getSubprojects(Long parentProjectId) {
+		logger.debug("getSubprojects");
+		return projectSearchDAO.getSubprojects(parentProjectId);
+		
 	}
 	
 }
