@@ -93,14 +93,11 @@ public interface ApplicationConstants {
 	 public static final String PAGE_TYPE_BSI = "BSI";
 	 public static final String PAGE_TYPE_STATUS = "REPOSITORY";
 	 
-	 public static final Long PARENT_DUL_ID_GENERAL_RESEARCH_USE = 1L;
-	 public static final Long PARENT_DUL_ID_HEALTH_MEDICAL_BIOMEDICAL = 6L;
-	 public static final Long PARENT_DUL_ID_DISEASE_SPECIFIC = 13L;
-	 public static final Long PARENT_DUL_ID_OTHER = 21L;
+	 public static final Long IC_PARENT_DUL_ID_GENERAL_RESEARCH_USE = 1L;
+	 public static final Long IC_PARENT_DUL_ID_HEALTH_MEDICAL_BIOMEDICAL = 6L;
+	 public static final Long IC_PARENT_DUL_ID_DISEASE_SPECIFIC = 13L;
+	 public static final Long IC_PARENT_DUL_ID_OTHER = 21L;
 	 
-	 public static final Long PROV_FINAL_ID_PROV = 22L;
-	 public static final Long PROV_FINAL_ID_FINAL = 23L;
-	  
-	 
-	     
+	 public static final Long IC_PROV_FINAL_ID_PROV = 22L;
+	 public static final Long IC_PROV_FINAL_ID_FINAL = 23L;  
 }
