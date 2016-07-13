@@ -3,6 +3,8 @@
  */
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import com.opensymphony.xwork2.ActionSupport;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -210,12 +212,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	
-	public void validateSaveIc() {
-			
-		validateStudyAndDul();
-	}
 	
-	public void validateStudyAndDul() {
+	public void validateSaveIc() {
 		
 		InstitutionalCertification instCert = getInstCertification();
 		List<Study> studies = instCert.getStudies();
@@ -230,10 +228,9 @@ public class IcSubmissionAction extends ManageSubmission {
 			if(study == null) {
 				continue;
 			}
-			
-			
+					
 			if(study.getStudyName() == null || study.getStudyName().isEmpty()) {
-				addActionError("Study Name missing for study at position " + studyIndex + 1);
+				addActionError(getText("error.ic.study.studyName.required", new String[]{Integer.valueOf(studyIndex + 1).toString()}) );
 			}
 			
 			int dulSetIndex = -1;
@@ -249,7 +246,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			List<StudiesDulSet> dulSets = study.getStudiesDulSets();
 			logger.info("No. of dulSets in study at index at " + studyIndex + " = " + dulSets.size());
 			if(CollectionUtils.isEmpty(dulSets)) {
-				addActionError("No DUL selection made for study " + study.getStudyName());
+				addActionError(getText("error.ic.study.dulTypes.required", new String[]{study.getStudyName()}));
 			} else {
 				for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
 					dulSetIndex++;
@@ -264,42 +261,38 @@ public class IcSubmissionAction extends ManageSubmission {
 					}
 					dulSet.setStudy(study);
 					
-				
 					String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
 					if(parentDulId == null) {
 						//Error, no DUL selection made for study at index x, dulSet at index y
 						int position = dulSetIndex  +1;
-						this.addActionError("No DUL selection made in DUL Type at position " + position + " for study " + study.getStudyName());
+						this.addActionError(getText("error.ic.study.dulTypeSelection.required", new String[]{Integer.valueOf(position).toString(), study.getStudyName()}));
 					} else {
 						
 						//Represents the duls selected in a dulSet
 						List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
-					
+						DulChecklist parentDul = GdsSubmissionActionHelper.getDulChecklist(Long.valueOf(parentDulId[0]));
+						
 						if(ApplicationConstants.PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId[0])) 
 							|| ApplicationConstants.PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
 						
 							//These need to have additional text info, so pick that up
 							String[] otherAddText = ServletActionContext.getRequest().getParameterValues("otherAddText-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);					
-							DulChecklistSelection dulChecklistSelection = createDulChecklistSelection(parentDulId[0], otherAddText);
+							DulChecklistSelection dulChecklistSelection = createDulChecklistSelection(parentDulId[0], otherAddText[0]);
 							dulChecklistSelection.setStudiesDulSet(dulSet);						
 							dulChecklistSelections.add(dulChecklistSelection);	
 							
 							if(otherAddText == null || otherAddText[0].isEmpty()) {
-								if(ApplicationConstants.PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId[0]))) {
-									this.addActionError("Please enter additional info for Disease Specific DUL selected in study: " + study.getStudyName());
-								} else if(ApplicationConstants.PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
-									this.addActionError("Please enter additional info for Other DUL selected in study: " + study.getStudyName());
-								}
+								this.addActionError(getText("error.ic.study.dulType.additionalText.required", new String[]{parentDul.getDisplayText(), study.getStudyName()}));	 
 							}
 						} 
 											
 						String selectedDulsParam = "dul-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0];
 						String [] selectedDuls = ServletActionContext.getRequest().getParameterValues(selectedDulsParam);
+						
 						if(selectedDuls == null) {
 							if(!ApplicationConstants.PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
 								//This is not an 'Other' DUL set, so we need at least one selection
-								int position = dulSetIndex + 1;
-								this.addActionError("No DUL selection made in the DUL Type at position " + position + " for study: " + study.getStudyName());
+								this.addActionError(getText("error.ic.study.dulSelection.required", new String[]{parentDul.getDisplayText(), study.getStudyName()}));
 							} 
 						} else {
 							//We have at least one selection in this this DUL Set, process them
@@ -318,10 +311,7 @@ public class IcSubmissionAction extends ManageSubmission {
 							logger.info("Value of Duls selected in dulSet at index " + dulSetIndex + " for study at index " + studyIndex + " = " + dulSelections);
 							//Check if this dulSet is already present
 							if(validationMap.containsKey(dulSelections)) {
-								Integer duplicateDulSetIndex = validationMap.get(dulSelections);
-								int dupPosition = duplicateDulSetIndex + 1;
-								int position = dulSetIndex + 1;
-								this.addActionError("Duplicate DULs found in DUL Types at position " + dupPosition + " and " + position + " for study: " + study.getStudyName());
+								this.addActionError(getText("error.ic.study.dulSelection.duplicate", new String[]{parentDul.getDisplayText(), study.getStudyName()}));
 							} else {
 								validationMap.put(dulSelections, new Integer(dulSetIndex));
 							}
@@ -344,7 +334,10 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	
 	
-	private DulChecklistSelection createDulChecklistSelection(String dulId, String[] otherText) {
+	
+
+	
+	private DulChecklistSelection createDulChecklistSelection(String dulId, String otherText) {
 		
 		//for each selectedDul, create a dulChecklistSelection
 		DulChecklistSelection dulChecklistSelection = new DulChecklistSelection();
@@ -357,8 +350,8 @@ public class IcSubmissionAction extends ManageSubmission {
 		//get the dulChecklist with the id and attach it to this dulCheckListSelection.
 		DulChecklist dulChecklist = GdsSubmissionActionHelper.getDulChecklist(Long.parseLong(dulId));
 		dulChecklistSelection.setDulChecklist(dulChecklist);
-		if(otherText != null && !otherText[0].isEmpty()) {
-			dulChecklistSelection.setOtherText(otherText[0]);
+		if(otherText != null && !otherText.isEmpty()) {
+			dulChecklistSelection.setOtherText(otherText);
 		}
 		return dulChecklistSelection;
 	}

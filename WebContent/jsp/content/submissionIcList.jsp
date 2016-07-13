@@ -172,16 +172,18 @@
                                               <tr>
                                                 <s:iterator status="dulSetStat" var="studiesDulSet" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets">                                                         
                                                   <s:set name="dulSetIdx" value="#dulSetStat.index" />
+                                                  <tr>
                                                   <td colspan="1" class="row">${dulSetStat.index + 1}. ${studiesDulSet.parentDulChecklist.displayText} - ${studiesDulSet.additionalText}
                                                     <ul class="spacing">
                                                     <s:iterator status="dulStat" var="dul" value="%{#studiesDulSet.dulChecklistSelections}">
-                                                    <!-- Dont show the parent DUL in the header list -->
+                                                    <!-- Dont show the parent DUL in the bullet list -->
                                                     <s:if test="%{#dul.dulChecklist.parentDulId != null}">
                                                       <li class="bullet" style="display: list-item">${dul.dulChecklist.displayText}</li>
                                                     </s:if>
                                                      </s:iterator>    
                                                      </ul>
                                                   </td>
+                                                  </tr>
                                                 </s:iterator> 
                                               </tr>     
                                               
