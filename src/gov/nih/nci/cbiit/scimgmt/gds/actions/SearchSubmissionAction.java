@@ -63,6 +63,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
     
     private List<RepositoryStatus> repoList = new ArrayList<RepositoryStatus>();
     
+    private List<Project> subprojectList = new ArrayList<Project>();
+    
 	/**
 	 * Navigate to Search Project.
 	 * @return forward string
@@ -188,6 +190,30 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		return SUCCESS;
 	}
 	
+	/**
+	 * Retrieve the subprojects based on the parent projectId and also get the repository information for the subproject
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public String getSubprojects() {
+	
+		String parentProjectId  = getProjectId();
+		if(StringUtils.isNotBlank(parentProjectId)) {
+			subprojectList = searchProjectService.getSubprojects(Long.valueOf(parentProjectId));
+			for(Project subproject: subprojectList) {
+				for(PlanAnswerSelection selection: subproject.getPlanAnswerSelection()) {
+					for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
+						subproject.getRepositoryStatuses().add(repositoryStatus);
+					}		
+				}
+				Collections.sort(subproject.getRepositoryStatuses(),new RepositoryStatusComparator());
+				setRepoList(subproject.getRepositoryStatuses());
+			}
+		}
+		
+		return SUCCESS;
+	}
 	
 	/** 
 	 * Validate Delete Project
@@ -400,5 +426,13 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 
 	public void setRepoList(List<RepositoryStatus> repoList) {
 		this.repoList = repoList;
+	}
+
+	public List<Project> getSubprojectList() {
+		return subprojectList;
+	}
+
+	public void setSubprojectList(List<Project> subprojectList) {
+		this.subprojectList = subprojectList;
 	}
 }

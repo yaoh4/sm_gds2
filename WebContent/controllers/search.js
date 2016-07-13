@@ -93,7 +93,8 @@ $(document).ready(function(){
                 {
                 "targets": 0, // First column, view project id
                 "render": function (data, type, row, meta) {
-                    return '<a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a>';
+                    return '<strong><a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a><strong>' +
+                    '<a class="btn btn-default" data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>&nbsp;Existing Sub-Projects</a>';
                 } },
                 {
                 "targets": 3, // PI email and name
@@ -144,12 +145,18 @@ $(document).ready(function(){
 
     $(".ellipsis").hide();
 
-    $("#eclick").mouseover(function () {
+    $(".eclick").mouseover(function () {
     	$(".ellipsis").slideDown('slow');
     });
 
     $(".ellipsis").mouseleave(function () {
     	$(".ellipsis").slideUp('slow');
+    });
+
+    // Sub-Project Repository Submission Status
+    $('body').on('click', 'a.repoExpand', function() {
+        $(this).parent().next("div").slideToggle('500');
+        $(this).children("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
     });
 
 });
@@ -168,33 +175,22 @@ function getRepoInfo(id) {
 		error: function(){}	
 	});
 
-} 
+}
 
-function toggleStudy4(showHideDiv, switchImgTag) {
-        var ele = document.getElementById(showHideDiv);
-        var imageEle = document.getElementById(switchImgTag);
-        if(ele.style.display == "block") {
-                ele.style.display = "none";
-    imageEle.innerHTML = '<img src="images/CriteriaOpen.gif" height="10px" width="10px">';
-        }
-        else {
-                ele.style.display = "block";
-                imageEle.innerHTML = '<img src="images/CriteriaClosed.gif" height="10px" width="10px">';
-        }
-} 
+function getSubprojects(id) {
+	// Get html for modal display
+	$.ajax({
+	  	url: 'getSubprojects.action',
+	  	data: {projectId: id},
+	  	type: 'post',
+	  	async:   false,
+	  	success: function(msg){
+			result = $.trim(msg);
+			$('#existingSubProjects').html(result);
+		}, 
+		error: function(){}	
+	});
 
-
-function toggleStudy5(showHideDiv, switchImgTag) {
-        var ele = document.getElementById(showHideDiv);
-        var imageEle = document.getElementById(switchImgTag);
-        if(ele.style.display == "block") {
-                ele.style.display = "none";
-    imageEle.innerHTML = '<img src="images/CriteriaOpen.gif" height="10px" width="10px">';
-        }
-        else {
-                ele.style.display = "block";
-                imageEle.innerHTML = '<img src="images/CriteriaClosed.gif" height="10px" width="10px">';
-        }
 }
 
 

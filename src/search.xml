@@ -32,5 +32,10 @@
 			<result name="input" type="dispatcher">/jsp/content/searchResultRepository.jsp</result>
 		</action>
 		
+		<action name="getSubprojects" method="getSubprojects" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/searchResultSubproject.jsp</result>
+			<result name="input" type="dispatcher">/jsp/content/searchResultSubproject.jsp</result>
+		</action>
+		
 	</package>
 </struts>

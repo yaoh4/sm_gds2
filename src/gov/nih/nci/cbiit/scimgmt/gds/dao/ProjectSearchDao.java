@@ -143,8 +143,27 @@ public class ProjectSearchDao {
 	 * @param parentProjectId
 	 * @return List<Project>
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Project> getSubprojects(Long parentProjectId) {
-		return null;
+		
+		List<Project> list = null;
+		
+		try {
+			Criteria criteria = null;
+			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class);
+			criteria.add(Restrictions.eq("subprojectFlag", "Y"));
+			criteria.add(Restrictions.eq("parentProjectId", parentProjectId));
+			list =  (List<Project>) criteria.list();
+			return list;
+			
+		} catch (Throwable e) {
+			logger.error("Error while searching for subproject submission ", e);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
+			logger.error("Pass-in parameters: Parent ProjectId - " + parentProjectId);
+			logger.error("Outgoing parameters: Subproject List - " + list);
+			
+			throw e;
+		}
 		
 	}
 	
@@ -179,6 +198,8 @@ public class ProjectSearchDao {
 	private Criteria addSearchCriteria(Criteria criteria, SubmissionSearchCriteria searchCriteria) {
 		logger.debug("adding search criteria for project submission search: " + searchCriteria);
 
+		criteria.add(Restrictions.ne("subprojectFlag", "Y"));
+		
 		// My DOC
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getDoc()))) {
 			criteria.add(Restrictions.eq("docAbbreviation", searchCriteria.getDoc()));

@@ -565,4 +565,33 @@ public class Project implements java.io.Serializable {
 	public void setAnticipatedSubmissionDate(Date anticipatedSubmissionDate) {
 		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 	}
+	
+	/**
+	 * This method is for displaying the pi full name and hyper link for the email.
+	 * @return
+	 */
+	@Transient
+	public String getPiFullName(){
+		String lastName = piLastName;
+		String firstName = piFirstName;
+		String fullName = "";
+		if(lastName != null && lastName.length() > 0){
+			fullName = fullName + lastName;
+		}
+		if(lastName != null && lastName.length() > 0 && firstName != null && firstName.length() > 0){
+			fullName = fullName + ", ";
+		}
+		if(firstName != null && firstName.length() > 0){
+			fullName = fullName + firstName;
+		}
+		String email = piEmailAddress;
+		if(StringUtils.isBlank(fullName)){
+			return "";
+		}else if(email == null || fullName.trim().length() < 1 || email.trim().length() < 1 ){
+			return fullName;
+		}
+		else{
+			return "<a href='mailto:" + email + "'>" + fullName + "</a>";
+		}
+	}
 }

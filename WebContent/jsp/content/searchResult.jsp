@@ -27,6 +27,8 @@
 		<s:include value="/jsp/content/searchResultRepository.jsp"/>
 	</div>
 	
-	<s:include value="/jsp/content/searchResultSubproject.jsp"/>
+	<div id="existingSubProjects" class="modal fade" role="dialog">
+		<s:include value="/jsp/content/searchResultSubproject.jsp"/>
+	</div>
 	
 </s:if>
