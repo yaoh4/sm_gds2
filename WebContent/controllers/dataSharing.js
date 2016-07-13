@@ -21,12 +21,21 @@ $('#25').change(function () {
 }); 
 $('#25').change();
 
+
 //Function that controls the Adding of Additional Repositories
 $("#gds-form").on('click', '#addfield', function () {
+	
 	maxInputs = 10;
 	fieldCount = $(".otherWrapper").length;
+
 	if (fieldCount < maxInputs) // max input box allowed
 	{
+		// If its the second row, add a trash bin next to the first row.
+		if(fieldCount == 1) {
+			$(".otherWrapper").first().append('<span class="fa fa-trash removeclass delete" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;">'
+					+ '</span></div>');
+		}
+		
 		// add input box
 		$(".otherWrapper").last().after('<div class="otherWrapper" style="margin-bottom: 15px; margin-top: 15px;">'
 			+ '<input type="text" class="other" name="otherText[25]" id="field_'
@@ -34,12 +43,20 @@ $("#gds-form").on('click', '#addfield', function () {
 			+ '" placeholder="Name of Repository" />'
 			+ '<span class="fa fa-trash removeclass delete" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;">'
 			+ '</span></div>');
+		
 	}
 });
 
 //Function that controls the Deleting of Additional Repositories
 $("#gds-form").on('click', '.removeclass', function () {//user click on remove text
 	$(this).parent('div').remove(); //remove text box
+	
+	fieldCount = $(".otherWrapper").length;
+	// If this was the second row, remove the trash bin from the first row.
+	if(fieldCount == 1) {
+		$(".otherWrapper").first().children("span").remove();
+	}
+	
 }); 
 
 // If "Is there a data sharing exception requested for this project?" is changed to No,

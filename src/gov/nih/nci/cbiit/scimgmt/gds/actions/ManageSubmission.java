@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
@@ -176,6 +178,23 @@ public class ManageSubmission extends BaseAction {
 		// If user selects "Non-human" only, the system will NOT display the "Institutional Certifications"
 		if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
 				project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) != null) {
+			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_IC)) {
+				show = false;
+			}
+		}
+		
+		// If user selects ONLY the "Other" repository in the "What repository will the data be submitted to?" question GDS plan page, 
+		// the "Institutional Certification" page will not be displayed.
+		Set<PlanAnswerSelection> repoSet = project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
+		boolean otherRepoOnly = true;
+		boolean otherRepoExist = false;
+		for(PlanAnswerSelection repo: repoSet) {
+			if(repo.getPlanQuestionsAnswer().getId().longValue() == ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID.longValue())
+				otherRepoExist = true;
+			if(repo.getPlanQuestionsAnswer().getId().longValue() != ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID.longValue())
+				otherRepoOnly = false;
+		}
+		if(otherRepoExist && otherRepoOnly) {
 			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_IC)) {
 				show = false;
 			}

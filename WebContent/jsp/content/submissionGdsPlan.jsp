@@ -153,7 +153,7 @@
 											<s:div class="otherWrapper" style="margin-bottom: 15px; margin-top: 15px;">
 												<s:textfield id="field_%{#otherStat.index}" name="otherText[%{#ans.id}]" value="%{#other}"
 													class="other" placeholder="Name of Repository" />
-												<s:if test="#otherStat.index != 0">
+												<s:if test="%{otherText[#ans.id].size > 1}">
 													<span class="fa fa-trash removeclass delete" title="Delete" aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;"></span>
 												</s:if>
 											</s:div>
