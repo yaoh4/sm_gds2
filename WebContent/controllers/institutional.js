@@ -138,6 +138,11 @@ function addDulSet(studiesIdx)  {
 	//Set the correct ids and names
 	newDulTypeDiv.attr("id", "dulType" + studiesIdx + "-" + newDulTypeIndex);
 	
+	newDulTypeDiv.find("#dulSetDisplayId" + cloneStudySectionIndex + "-" + cloneDulTypeIndex).attr("id", "dulSetDisplayId" + studiesIdx + "-" + newDulTypeIndex);
+	var dulSetIdElemName = "instCertification.studies[" + studiesIdx + "].studiesDulSets[" + newDulTypeIndex + "].displayId";
+	newDulTypeDiv.find("#dulSetDisplayId" + studiesIdx + "-" + newDulTypeIndex).attr("name", dulSetIdElemName);
+	newDulTypeDiv.find("#dulSetDisplayId" + studiesIdx + "-" + newDulTypeIndex).attr("value", newDulTypeIndex);
+	
 	newDulTypeDiv.find("#dulSetId" + cloneStudySectionIndex + "-" + cloneDulTypeIndex).attr("id", "dulSetId" + studiesIdx + "-" + newDulTypeIndex);
 	var dulSetIdElemName = "instCertification.studies[" + studiesIdx + "].studiesDulSets[" + newDulTypeIndex + "].id";
 	newDulTypeDiv.find("#dulSetId" + studiesIdx + "-" + newDulTypeIndex).attr("name", dulSetIdElemName);
@@ -167,7 +172,7 @@ function addDulSet(studiesIdx)  {
 	var dulSetArray = newDulTypeDiv.find(".dulSet");
 	jQuery.each(dulSetArray, function(index, val) {
 		var dulElemId = $(this).attr('id').replace("dul" + cloneStudySectionIndex + "-" + cloneDulTypeIndex, "dul" + studiesIdx + "-" + newDulTypeIndex);
-		var dulElemName = $(this).attr('name').replace("dul" + cloneStudySectionIndex + "-" + cloneDulTypeIndex, "dul" + "-" + studiesIdx + "-" + newDulTypeIndex);
+		var dulElemName = $(this).attr('name').replace("dul-" + cloneStudySectionIndex + "-" + cloneDulTypeIndex, "dul-" + studiesIdx + "-" + newDulTypeIndex);
 		$(this).attr({id: dulElemId, name: dulElemName});
 	});
 	
@@ -216,8 +221,8 @@ function addDulSet(studiesIdx)  {
 
 
 function deleteDulSet(studiesIdx, dulSetIdx) {
+	$("#dulType" + studiesIdx + "-" + dulSetIdx).find("#dulSetDisplayId" + studiesIdx + "-" + dulSetIdx).val('');
 	$("#dulType" + studiesIdx + "-" + dulSetIdx).remove();
-	
 	var numItems = $("#studySection" + studiesIdx).find('.dulTypes').length;
 	if(numItems == 1) {
 		//Use dulTypes class and not id to locate the element because we dont know
@@ -268,6 +273,10 @@ function addStudy() {
 	
 	//Set the correct ids and names
 	newStudySectionDiv.attr("id", "studySection" + newStudySectionIndex);
+	
+	newStudySectionDiv.find("#studyDisplayId" + cloneStudySectionIndex).attr("id", "studyDisplayId" + newStudySectionIndex);
+	newStudySectionDiv.find("#studyDisplayId" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].displayId");
+	newStudySectionDiv.find("#studyDisplayId" + newStudySectionIndex).attr("value", newStudySectionIndex);
 	
 	newStudySectionDiv.find("#studyId" + cloneStudySectionIndex).attr("id", "studyId" + newStudySectionIndex);
 	newStudySectionDiv.find("#studyId" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].id");
@@ -324,6 +333,8 @@ function addStudy() {
 
 
 function deleteStudy(studiesIdx) {
+	
+	$("#studySection" + studiesIdx).find("#studyDisplayId" + studiesIdx).val('');
 	$("#studySection" + studiesIdx).remove();
 	var numItems = $(".studySections").length;
 	if(numItems == 1) {

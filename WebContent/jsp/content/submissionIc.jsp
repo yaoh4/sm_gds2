@@ -98,12 +98,14 @@
               <div class="form-group row col-xs-12" id="sections">
 			   <!-- <div id="entry1" class="clonedInput"> -->
 								
-					  <div id="entry${studiesIdx}" class=cloneStudyInput>
+					  <div id="entry" class="cloneStudyInput">
 					  								
                       <s:iterator status="studiesStat" var="study" value="instCertification.studies">
 					    <s:set name="studiesIdx" value="#studiesStat.index" />
 					  					    
 					  	<div id="studySection${studiesIdx}" class="studySections">
+					  	
+					  	<s:hidden name="instCertification.studies[%{#studiesStat.index}].displayId" id="studyDisplayId%{studiesIdx}" value="%{#studiesIdx}"/>
 					  	
 					  	 <!--  This is read and passed back to prevent the createdBy field from being overwritten -->
 					     <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>

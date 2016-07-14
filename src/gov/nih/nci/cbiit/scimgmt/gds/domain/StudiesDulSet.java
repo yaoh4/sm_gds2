@@ -37,7 +37,7 @@ public class StudiesDulSet implements java.io.Serializable {
 	private String createdBy;
 	private String lastChangedBy;
 	private List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
-	
+	private String displayId = null;
 
 	public StudiesDulSet() {
 	}
@@ -148,6 +148,17 @@ public class StudiesDulSet implements java.io.Serializable {
 		}
 		
 		return parentDulChecklist;
+	}
+
+
+	@Transient
+	public String getDisplayId() {
+		return displayId;
+	}
+
+
+	public void setDisplayId(String displayId) {
+		this.displayId = displayId;
 	}
 
 }

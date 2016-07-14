@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -148,7 +149,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		ArrayList<String> dulIdList = new ArrayList<String>();
 		int studyIndex = -1;
-		
+			
 		for(Study study: instCert.getStudies()) {
 			studyIndex++;
 			int dulSetIndex = -1;
@@ -216,19 +217,27 @@ public class IcSubmissionAction extends ManageSubmission {
 	public void validateSaveIc() {
 		
 		InstitutionalCertification instCert = getInstCertification();
-		List<Study> studies = instCert.getStudies();
+		//List<Study> studies = instCert.getStudies();
 		
-		logger.info("No. of Studies in IC = " + studies.size());
+		logger.info("No. of Studies in IC = " + instCert.getStudies().size());
 		
 		int studyIndex = -1;
 		//validate the DULs in each Study
-		for(Study study: instCert.getStudies()) {
-			studyIndex++;
+		Iterator<Study> studies = instCert.getStudies().iterator();
+				
+		while(studies.hasNext()) {
+					
+			Study study = studies.next();
+			//for(Study study: instCert.getStudies()) {
 			
-			if(study == null) {
+			
+			if(study == null || StringUtils.isBlank(study.getDisplayId())) {
+				studies.remove();
 				continue;
 			}
+			studyIndex = Long.valueOf(study.getDisplayId()).intValue();
 			
+			boolean atLeastOneDULSelected = false;
 			processStudyAttributes(study, studyIndex);
 			study.setInstitutionalCertification(instCert);
 			
@@ -238,16 +247,21 @@ public class IcSubmissionAction extends ManageSubmission {
 			HashMap<String, Integer> validationMap = new HashMap<String, Integer>();
 			List<StudiesDulSet> dulSets = study.getStudiesDulSets();
 			logger.info("No. of dulSets in study at index " + studyIndex + " = " + dulSets.size());
-			if(CollectionUtils.isEmpty(dulSets)) {
-				//If gpaApprovalCode is 'No' for this IC, we dont need dulTypes
-				addActionError(getText("error.ic.study.dulTypes.required", new String[]{study.getStudyName()}));
-			} else {
-				for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
-					dulSetIndex++;
-					
-					if(dulSet == null) {
+			if(!CollectionUtils.isEmpty(dulSets)) {
+				
+				Iterator<StudiesDulSet> studiesDulSets = study.getStudiesDulSets().iterator();
+				int elemPosIndex = -1;		
+				while(studiesDulSets.hasNext()) {
+				//for(StudiesDulSet dulSet: study.getStudiesDulSets()) {
+					elemPosIndex++;
+					StudiesDulSet dulSet = studiesDulSets.next();
+					if(dulSet == null || StringUtils.isBlank(dulSet.getDisplayId()) 
+							&& elemPosIndex > 0) {
+						studiesDulSets.remove();
 						continue;
 					}
+					dulSetIndex = Long.valueOf(dulSet.getDisplayId()).intValue();
+					
 					if(dulSet.getId() == null || dulSet.getId().toString().isEmpty()) {
 						dulSet.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 					} else {
@@ -256,15 +270,8 @@ public class IcSubmissionAction extends ManageSubmission {
 					dulSet.setStudy(study);
 					
 					String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
-					if(parentDulId == null) {
-						//Error, no DUL selection made for study at index x, dulSet at index y
-						if(!ApplicationConstants.IC_GPA_APPROVAL_ID_NO.equals(instCert.getGpaApprovalCode())) {
-							//If GPA Approval code is NO, then we do not need a DUL
-							int position = dulSetIndex  +1;
-							this.addActionError(getText("error.ic.study.dulTypeSelection.required", new String[]{Integer.valueOf(position).toString(), study.getStudyName()}));
-						}
-					} else {
-						
+					if(parentDulId != null) {
+					
 						//List to represents the duls selected in a dulSet
 						List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
 						DulChecklist parentDul = GdsSubmissionActionHelper.getDulChecklist(Long.valueOf(parentDulId[0]));
@@ -276,7 +283,6 @@ public class IcSubmissionAction extends ManageSubmission {
 							DulChecklistSelection dulChecklistSelection = 
 								processAdditionalText(study, dulSet, dulSetIndex, parentDulId[0], otherAddText[0], validationMap);	
 							dulChecklistSelections.add(dulChecklistSelection);	
-							
 						} 
 											
 						String selectedDulsParam = "dul-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0];
@@ -288,10 +294,16 @@ public class IcSubmissionAction extends ManageSubmission {
 							
 						dulChecklistSelections.addAll(dulSelectionList);
 						dulSet.setDulChecklistSelections(dulChecklistSelections);
-				 	}//Done retrieving parent DUl and selections for a dulSet	
+						
+						if(!dulChecklistSelections.isEmpty()) {
+							atLeastOneDULSelected = true;
+						}
+				 	}//if parentDUL != null	
 				}//End for-loop for iterating through dulSets				
 			} 
-			
+			if(!atLeastOneDULSelected && !ApplicationConstants.IC_GPA_APPROVAL_ID_NO.equals(instCert.getGpaApprovalCode())) {
+				addActionError(getText("error.ic.study.dulTypes.required", new String[]{study.getStudyName()}));
+			}
 		} //End for-loop for iterating through studies
 		
 		if(hasActionErrors()) {

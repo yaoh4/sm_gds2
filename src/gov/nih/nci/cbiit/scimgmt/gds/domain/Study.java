@@ -19,6 +19,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -39,6 +40,7 @@ public class Study implements java.io.Serializable {
 	private String createdBy;
 	private String lastChangedBy;
 	private List<StudiesDulSet> studiesDulSets = new ArrayList<StudiesDulSet>();
+	private String displayId = null;
 
 	public Study() {
 	}
@@ -153,6 +155,15 @@ public class Study implements java.io.Serializable {
 	
 	public void addStudiesDulSet(StudiesDulSet studiesDulSet) {
 		this.studiesDulSets.add(studiesDulSet);
+	}
+
+	@Transient
+	public String getDisplayId() {
+		return displayId;
+	}
+
+	public void setDisplayId(String displayId) {
+		this.displayId = displayId;
 	}
 
 }
