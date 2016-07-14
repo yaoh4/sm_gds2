@@ -172,6 +172,7 @@ public class GdsSubmissionActionHelper {
 	public static Project popoulateProjectProperties(Project transientProject, Project persistentProject){	
 		
 		logger.debug("Copying transient project properties to persistent project properties.");
+		persistentProject.setSubmissionTitle(transientProject.getSubmissionTitle());
 		persistentProject.setSubmissionReasonId(transientProject.getSubmissionReasonId());
 		persistentProject.setDocAbbreviation(transientProject.getDocAbbreviation());
 		persistentProject.setProgramBranch(transientProject.getProgramBranch());

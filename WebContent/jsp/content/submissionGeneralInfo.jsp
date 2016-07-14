@@ -38,11 +38,21 @@
 
 				<div class="panel-body">
 
-					<div>
-						<p class="question"><i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>						
+					<div class="form-group row has-feedback">
+						<div class="col-xs-10">
+							<label for="submissionTitle"><i
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project or Sub-project Submission Title</label> 
+								<s:textfield name="project.submissionTitle" cssClass="form-control" id="submissionTitle" placeholder="" value="%{project.submissionTitle}" maxLength="100"/>
+						</div>
+					</div>
+					
+					<div class="form-group row has-feedback">
+						<div class="col-xs-10">
+						<p class="question"> <br/> <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>						
 							<s:radio id="submissionReasonId" name="project.submissionReasonId" list="projectSubmissionReasons" template="radiomap-div.ftl"
 								listKey="optionKey" listValue="optionValue" />
 						
+						</div>
 					</div>
 
 					<div class="form-group row has-feedback">
@@ -65,8 +75,7 @@
 
 					<div class="form-group row">
 						<div class="col-xs-5">
-							<label for="Intramural (Z01)/Grant/Contract #">Intramural
-								(Z01)/Grant/Contract #</label>
+							<label for="Intramural (Z01)/Grant/Contract #"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Intramural (Z01)/Grant/Contract #</label>
 							<div class="input-group2">
 							
 							<s:textfield name="project.applicationNum" cssClass="form-control" readOnly="true" id="grantsContractNum" placeholder="Click on Search Icon" value="%{project.applicationNum}"/>

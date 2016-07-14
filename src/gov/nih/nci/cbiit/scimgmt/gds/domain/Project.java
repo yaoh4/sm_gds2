@@ -66,6 +66,8 @@ public class Project implements java.io.Serializable {
 	private String pdLastName;
 	private Long applId;
 	private Date anticipatedSubmissionDate;
+	private String submissionTitle;
+	private String dataLinkFlag;
 	private Set<StatusHistory> statusHistories = new HashSet(0);
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
@@ -102,7 +104,7 @@ public class Project implements java.io.Serializable {
 				+ ", pdFirstName=" + pdFirstName + ", pdLastName=" + pdLastName + ", statusHistories="
 				+ statusHistories + ", documents=" + documents + ", planAnswerSelections=" + planAnswerSelections
 				+ ", repositoryStatuses=" + repositoryStatuses + ", institutionalCertifications="
-				+ institutionalCertifications +  ", applId=" + applId +"]";
+				+ institutionalCertifications +  ", applId=" + applId +  ", submissionTitle=" + submissionTitle +  ", dataLinkFlag=" + dataLinkFlag +"]";
 	}
 
 
@@ -114,7 +116,7 @@ public class Project implements java.io.Serializable {
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
 			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, Set statusHistories, Set documents,
-			Set planAnswerSelections, List repositoryStatuses, List institutionalCertifications,Long applId) {
+			Set planAnswerSelections, List repositoryStatuses, List institutionalCertifications,Long applId, String submissionTitle, String dataLinkFlag) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
 		this.projectTitle = projectTitle;
@@ -151,6 +153,9 @@ public class Project implements java.io.Serializable {
 		this.repositoryStatuses = repositoryStatuses;
 		this.institutionalCertifications = institutionalCertifications;
 		this.applId = applId;
+		this.submissionTitle = submissionTitle;
+		this.dataLinkFlag = dataLinkFlag;
+		
 	}
 
 	@Id
@@ -593,5 +598,23 @@ public class Project implements java.io.Serializable {
 		else{
 			return "<a href='mailto:" + email + "'>" + fullName + "</a>";
 		}
+	}
+
+	@Column(name = "PROJECT_SUBMISSION_TITLE", length = 100)
+	public String getSubmissionTitle() {
+		return submissionTitle;
+	}
+
+	public void setSubmissionTitle(String submissionTitle) {
+		this.submissionTitle = submissionTitle;
+	}
+
+	@Column(name = "DATA_LINK_FLAG", length = 1)
+	public String getDataLinkFlag() {
+		return dataLinkFlag;
+	}
+
+	public void setDataLinkFlag(String dataLinkFlag) {
+		this.dataLinkFlag = dataLinkFlag;
 	}
 }

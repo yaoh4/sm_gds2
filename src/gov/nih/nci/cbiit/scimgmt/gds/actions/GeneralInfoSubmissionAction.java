@@ -380,6 +380,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void validateProjectDetails(){	
 
+		//Validation for Program/ Branch
+		if(StringUtils.isEmpty(getProject().getSubmissionTitle())){
+			this.addActionError(getText("submissionTitle.required")); 
+		}
+
 		//Validation for SubmissionReason
 		if(getProject().getSubmissionReasonId() == null){
 			this.addActionError(getText("submissionReasonId.required")); 
