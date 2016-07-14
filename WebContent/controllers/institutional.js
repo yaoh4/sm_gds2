@@ -99,27 +99,52 @@ $("#btnAddDUL").click(function() {
 function addDulSet(studiesIdx)  {
 
 	
-	var newDulTypeIndex = $("#studySection" + studiesIdx).find(".entrylist").length;
+	var dulItems = $("#studySection" + studiesIdx).find(".dulTypes").length;
 	
-	 // right now you can only add 10 DULs. change '10' below to the max number of times the form can be duplicated
-    if (newDulTypeIndex == 10) {
+	 // Right now you can only add 10 DULs. change '10' below to the max number of DULSets that
+	//can be attached to a study
+    if (dulItems == 10) {
     	$('#btnAddDUL').attr('disabled', true).prop('value', "You've reached the limit");
     	return;
 	};
 
-	//Clone the ist existing DUL
-	var newDulTypeDiv = $( "#dulType0-0" ).clone(true);
+	//Get the first available dulSet to select for cloning. It need not
+	//be the first index because deletions may have occurred from top 
+	//because we do not know which ones may have been deleted
+	cloneStudySectionIndex = 0;
+	cloneDulTypeIndex = 0;
+	for(var studySectionIndex=0; studySectionIndex < 500; studySectionIndex++) {
+		for(var dulTypeIndex=0; dulTypeIndex < 10; dulTypeIndex++) {
+			if($("#dulType" + studySectionIndex + "-" + dulTypeIndex).length > 0) {
+				cloneDulTypeIndex = dulTypeIndex;
+				cloneStudySectionIndex = studySectionIndex;
+				break;
+			}
+		}
+	}
+	
+	//Get the first available slot to use for the new dulSet. It need not be 
+	//last index + 1 because deletions may have occurred from the top or middle
+	newDulTypeIndex = 0;
+	for(var dulTypeIndex=0; dulTypeIndex < 10; dulTypeIndex++) {
+		if($("#dulType" + studiesIdx + "-" + dulTypeIndex).length == 0) {
+			newDulTypeIndex = dulTypeIndex;
+			break;
+		}
+	}
+	//Perform the cloning
+	var newDulTypeDiv = $( "#dulType" + cloneStudySectionIndex + "-" + cloneDulTypeIndex).clone(true);
 	
 	//Set the correct ids and names
 	newDulTypeDiv.attr("id", "dulType" + studiesIdx + "-" + newDulTypeIndex);
 	
-	newDulTypeDiv.find("#dulSetId0-0").attr("id", "dulSetId" + studiesIdx + "-" + newDulTypeIndex);
+	newDulTypeDiv.find("#dulSetId" + cloneStudySectionIndex + "-" + cloneDulTypeIndex).attr("id", "dulSetId" + studiesIdx + "-" + newDulTypeIndex);
 	var dulSetIdElemName = "instCertification.studies[" + studiesIdx + "].studiesDulSets[" + newDulTypeIndex + "].id";
 	newDulTypeDiv.find("#dulSetId" + studiesIdx + "-" + newDulTypeIndex).attr("name", dulSetIdElemName);
 	newDulTypeDiv.find("#dulSetId" + studiesIdx + "-" + newDulTypeIndex).attr("value", "");
 	
 	//Set correct id and name for created by
-	newDulTypeDiv.find("#dulSetCreatedBy0-0").attr("id", "dulSetCreatedBy" + studiesIdx + "-" + newDulTypeIndex);
+	newDulTypeDiv.find("#dulSetCreatedBy" + cloneStudySectionIndex + "-" + cloneDulTypeIndex).attr("id", "dulSetCreatedBy" + studiesIdx + "-" + newDulTypeIndex);
 	var dulSetCreatedByElemName = "instCertification.studies[" + studiesIdx + "].studiesDulSets[" + newDulTypeIndex + "].createdBy";
 	newDulTypeDiv.find("#dulSetCreatedBy" + studiesIdx + "-" + newDulTypeIndex).attr("name", dulSetCreatedByElemName);
 	newDulTypeDiv.find("#dulSetCreatedBy" + studiesIdx + "-" + newDulTypeIndex).attr("value", "");
@@ -128,21 +153,21 @@ function addDulSet(studiesIdx)  {
 	var parentDulSetArray = newDulTypeDiv.find(".parentDulSet");
 	jQuery.each(parentDulSetArray, function(index, val) {
 		var parentElemName = "parentDul" + "-" + studiesIdx + "-" + newDulTypeIndex;
-		var parentElemId = $(this).attr('id').replace("parentDul0-0", "parentDul" + studiesIdx + "-" + newDulTypeIndex);
+		var parentElemId = $(this).attr('id').replace("parentDul" + cloneStudySectionIndex + "-" + cloneDulTypeIndex, "parentDul" + studiesIdx + "-" + newDulTypeIndex);
 		$(this).attr({id: parentElemId, name: parentElemName});
 	});
 	
 	var dulSetDivArray = newDulTypeDiv.find(".dulSetDiv");
 	jQuery.each(dulSetDivArray, function(index, val) {
-		var dulDivElemId = $(this).attr('id').replace("dulSet0-0", "dulSet" + studiesIdx + "-" + newDulTypeIndex);
+		var dulDivElemId = $(this).attr('id').replace("dulSet" + cloneStudySectionIndex + "-" + cloneDulTypeIndex, "dulSet" + studiesIdx + "-" + newDulTypeIndex);
 		$(this).attr("id", dulDivElemId);
 	});
 	
 	//Set correct id and name for dul checkboxes
 	var dulSetArray = newDulTypeDiv.find(".dulSet");
 	jQuery.each(dulSetArray, function(index, val) {
-		var dulElemId = $(this).attr('id').replace("dul0-0", "dul" + studiesIdx + "-" + newDulTypeIndex);
-		var dulElemName = $(this).attr('name').replace("dul-0-0", "dul" + "-" + studiesIdx + "-" + newDulTypeIndex);
+		var dulElemId = $(this).attr('id').replace("dul" + cloneStudySectionIndex + "-" + cloneDulTypeIndex, "dul" + studiesIdx + "-" + newDulTypeIndex);
+		var dulElemName = $(this).attr('name').replace("dul" + cloneStudySectionIndex + "-" + cloneDulTypeIndex, "dul" + "-" + studiesIdx + "-" + newDulTypeIndex);
 		$(this).attr({id: dulElemId, name: dulElemName});
 	});
 	
@@ -150,25 +175,15 @@ function addDulSet(studiesIdx)  {
 	//Replace ID of the parent radio button additional text for 'disease specific' and 'other' option
 	var newParentAddTextId = "otherAddText" + studiesIdx + "-" + newDulTypeIndex + "-13";
 	var newParentAddTextName = "otherAddText-" + studiesIdx + "-" + newDulTypeIndex + "-13";
-	newDulTypeDiv.find("#otherAddText0-0-13").attr("id", newParentAddTextId);
+	newDulTypeDiv.find("#otherAddText" + cloneStudySectionIndex + "-" + cloneDulTypeIndex + "-13").attr("id", newParentAddTextId);
 	newDulTypeDiv.find("#" + newParentAddTextId).attr("name", newParentAddTextName);
 	
 	newParentAddTextId = "otherAddText" + studiesIdx + "-" + newDulTypeIndex + "-21";
 	newParentAddTextName = "otherAddText-" + studiesIdx + "-" + newDulTypeIndex + "-21";
-	newDulTypeDiv.find("#otherAddText0-0-21").attr("id", newParentAddTextId);
+	newDulTypeDiv.find("#otherAddText" + cloneStudySectionIndex + "-" + cloneDulTypeIndex + "-21").attr("id", newParentAddTextId);
 	newDulTypeDiv.find("#" + newParentAddTextId).attr("name", newParentAddTextName);
 	
-	newDulTypeDiv.find("#entry_dulSet_0_0").attr("id", "entry_dulSet_" + studiesIdx + "_" + newDulTypeIndex);
-	
-	var numItems = $("#studySection" + studiesIdx).find('.dulTypes').length;
-	if(numItems > 1) {
-		var dulSetArray = newDulTypeDiv.find(".dulSet");
-		jQuery.each(dulSetArray, function(index, val) {
-			if($(this).find(".deleteIcon") == null) {
-				$(this).find("#entry_dulSet_" + studiesIdx + "_" + index).prepend('<a href="#" onclick="deleteDulSet(' + studiesIdx + ',' + index + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
-			}
-		});
-	}
+	newDulTypeDiv.find("#entry_dulSet_" + studiesIdx + "_" + cloneDulTypeIndex).attr("id", "entry_dulSet_" + studiesIdx + "_" + newDulTypeIndex);
 	
 	
 	//Hide the checkboxes
@@ -180,7 +195,23 @@ function addDulSet(studiesIdx)  {
 	
 	//Append the new DUL Type
 	newDulTypeDiv.appendTo("#cloneDULInput" + studiesIdx);
-
+	
+	//If number of DULSets for this study is greater than 1, add trash can to all DULs
+	//Else remove trash can from the lone one.
+	var numItems = $("#cloneDULInput" + studiesIdx).find('.dulTypes').length;
+	var dulSetArray = $("#cloneDULInput" + studiesIdx).find('.dulTypes');
+	if(numItems > 1) {
+		jQuery.each(dulSetArray, function(index, val) {
+			if($(this).find(".deleteIcon").length == 0) {
+				//Get the dulIndex of this element. 
+				var elemIndex = $(this).attr("id").slice($(this).attr("id").lastIndexOf("-") + 1);
+				$(this).find(".dulHeading").prepend('<a href="#" onclick="deleteDulSet(' + studiesIdx + ',' + elemIndex + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
+			}
+		});
+	} else {
+		dulSetArray.find(".deleteIcon").remove();
+	}
+	
 };
 
 
@@ -197,69 +228,106 @@ function deleteDulSet(studiesIdx, dulSetIdx) {
 };
 
 
+
 function addStudy() {
 	
-	var newStudySectionDiv = $( "#studySection0" ).clone(true).val('');
-	var newStudySectionIndex = $(".studyList").length;
+	
+	var studyItems = $(".studySections").length;
+	
+	
+	 // Right now you can  add 500 studies. change '500' below to the max number of studies
+	//that are permitted
+    if (studyItems == 500) {
+    	$('#btnAddDUL').attr('disabled', true).prop('value', "You've reached the limit");
+    	return;
+	};
+
+	//Get the first available study to select for cloning. It need not
+	//be the first index because deletions may have occurred from top 
+	//because we do not know which ones may have been deleted
+	cloneDulTypeIndex = 0;
+	for(var studySectionIndex=0; studySectionIndex < 500; i++) {
+		if($("#studySection" + studySectionIndex).length > 0) {
+			cloneStudySectionIndex = studySectionIndex;
+			break;
+		}
+	}
+	
+	//Get the first available slot to use for the new study. It need not be 
+	//last index + 1 because deletions may have occurred from the top or middle
+	newDulTypeIndex = 0;
+	for(var studySectionIndex=0; studySectionIndex < 10; studySectionIndex++) {
+		if($("#studySection" + studySectionIndex).length == 0) {
+			newStudySectionIndex = studySectionIndex;
+			break;
+		}
+	}
+	
+	//Perform the cloning
+	var newStudySectionDiv = $( "#studySection" + cloneStudySectionIndex).clone(true).val('');
 	
 	//Set the correct ids and names
 	newStudySectionDiv.attr("id", "studySection" + newStudySectionIndex);
 	
-	newStudySectionDiv.find("#studyId0").attr("id", "studyId" + newStudySectionIndex);
+	newStudySectionDiv.find("#studyId" + cloneStudySectionIndex).attr("id", "studyId" + newStudySectionIndex);
 	newStudySectionDiv.find("#studyId" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].id");
 	newStudySectionDiv.find("#studyId" + newStudySectionIndex).removeAttr("value");
 		
-	newStudySectionDiv.find("#studyName0").attr("id", "studyName" + newStudySectionIndex);
+	newStudySectionDiv.find("#studyName" + cloneStudySectionIndex).attr("id", "studyName" + newStudySectionIndex);
 	newStudySectionDiv.find("#studyName" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].studyName");
 	newStudySectionDiv.find("#studyName" + newStudySectionIndex).removeAttr("value");
 	
-	newStudySectionDiv.find("#institution0").attr("id", "institution" + newStudySectionIndex);
+	newStudySectionDiv.find("#institution" + cloneStudySectionIndex).attr("id", "institution" + newStudySectionIndex);
 	newStudySectionDiv.find("#institution" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].institution");
 	newStudySectionDiv.find("#institution" + newStudySectionIndex).removeAttr("value");
 	
-	newStudySectionDiv.find("#dulVerificationId0").attr("id", "dulVerificationId" + newStudySectionIndex);
+	newStudySectionDiv.find("#dulVerificationId" + cloneStudySectionIndex).attr("id", "dulVerificationId" + newStudySectionIndex);
 	newStudySectionDiv.find("#dulVerificationId" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].dulVerificationId");
 	newStudySectionDiv.find("#dulVerificationId" + newStudySectionIndex).val(-1);
 	
-	newStudySectionDiv.find("#comments0").attr("id", "comments" + newStudySectionIndex);
+	newStudySectionDiv.find("#comments" + cloneStudySectionIndex).attr("id", "comments" + newStudySectionIndex);
 	newStudySectionDiv.find("#comments" + newStudySectionIndex).attr("name", "instCertification.studies[" + newStudySectionIndex + "].comments");
 	newStudySectionDiv.find("#comments" + newStudySectionIndex).val("").removeAttr("value");
 	
-	newStudySectionDiv.find("#entry_study_0").attr("id", "entry_study_" + newStudySectionIndex);
+	newStudySectionDiv.find("#entry_study_" + cloneStudySectionIndex).attr("id", "entry_study_" + newStudySectionIndex);
 	
-	newStudySectionDiv.find("#cloneDULInput0").attr("id", "cloneDULInput" + newStudySectionIndex);
+	newStudySectionDiv.find("#cloneDULInput" + cloneStudySectionIndex).attr("id", "cloneDULInput" + newStudySectionIndex);
 	
-	newStudySectionDiv.find("#addDulSetButton_0").attr("id", "addDulSetButton_" + newStudySectionIndex);
+	newStudySectionDiv.find("#addDulSetButton_" + cloneStudySectionIndex).attr("id", "addDulSetButton_" + newStudySectionIndex);
 	
-	
-	var numItems = $(".studyList").length;
-	if(numItems > 1) {
-		var studySetArray = newStudySectionDiv.find(".studyList");
-		jQuery.each(studySetArray, function(index, val) {
-			if($(this).find(".study").find(".deleteIcon") == null) {
-				$(this).find("#entry_study_" + studiesIdx).prepend('<a href="#" onclick="deleteStudy(' + index + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
-			}
-		});
-	}
-	
-	
-	//Empty the class cloneDULInput that contains the DUL Types cloned
+	//Empty the class cloneDULInput that contains the DUL Types that also got cloned
 	newStudySectionDiv.find("#cloneDULInput" + newStudySectionIndex).empty();
 	
 	//Append the new Study to cloneStudyInput
 	newStudySectionDiv.appendTo(".cloneStudyInput");
 	
-	//Add a new DUL Type to cloneDULInput
-	addDulSet(newStudySectionIndex);
+	
+	//Add the trash icon to all studies if there is more than one study, 
+	//else remove trash can from the lone one
+	var numItems = $(".studySections").length;
+	var studySetArray = $(".studySections");
+	if(numItems > 1) {		
+		jQuery.each(studySetArray, function(index, val) {
+			if($(this).find(".studyHeading").find(".deleteIcon").length == 0) {
+				var elemIndex = $(this).attr("id").replace("studySection", "");
+				$(this).find(".studyHeading").prepend('<a href="#" onclick="deleteStudy(' + elemIndex + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
+			}
+		});
+	} else {
+		studySetArray.find(".studyHeading").find(".deleteIcon").remove();
+	}
+		
+	//Add a new DUL Type to this study
+	addDulSet(newStudySectionIndex);	
 };
 
 
 
 function deleteStudy(studiesIdx) {
 	$("#studySection" + studiesIdx).remove();
-	var numItems = $(".studyList").length;
+	var numItems = $(".studySections").length;
 	if(numItems == 1) {
-		$("#studySection" + studiesIdx).find(".study").find(".deleteIcon").remove();
+		$(".studySections").find(".studyHeading").find(".deleteIcon").remove();
 	}
 };
 

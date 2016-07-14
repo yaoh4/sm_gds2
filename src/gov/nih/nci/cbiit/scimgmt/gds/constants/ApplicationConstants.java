@@ -100,4 +100,8 @@ public interface ApplicationConstants {
 	 
 	 public static final Long IC_PROV_FINAL_ID_PROV = 22L;
 	 public static final Long IC_PROV_FINAL_ID_FINAL = 23L;  
+	 
+	 public static final Long IC_GPA_APPROVAL_ID_YES = 18L;
+	 public static final Long IC_GPA_APPROVAL_ID_NO = 19L;
+	 
 }

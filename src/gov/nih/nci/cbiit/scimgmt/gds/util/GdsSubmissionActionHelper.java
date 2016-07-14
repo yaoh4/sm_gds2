@@ -94,12 +94,20 @@ public class GdsSubmissionActionHelper {
 	 * radio buttons representing dul sets.
 	 * @return
 	 */
-	public static List<ParentDulChecklist> getDulChecklistsSets() {
+	public static List<ParentDulChecklist> getDulChecklistsSets(Project project) {
 		List<DulChecklist> allDulChecklists = getInstance().lookupService.getDulChecklists("allDuls");
 		
 		Map<Long, ParentDulChecklist> dulChecklistMap = new TreeMap<Long, ParentDulChecklist>();
-		
+		boolean humanAndUnrestricted = 
+			project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) != null
+			&& project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID) != null;
+				
 		for(DulChecklist dulChecklist: allDulChecklists) {
+			if(humanAndUnrestricted && 
+				(!ApplicationConstants.IC_PARENT_DUL_ID_GENERAL_RESEARCH_USE.equals(dulChecklist.getId()) &&
+				!ApplicationConstants.IC_PARENT_DUL_ID_GENERAL_RESEARCH_USE.equals(dulChecklist.getParentDulId()))) {
+				continue;
+			}
 			Long parentDulId = dulChecklist.getParentDulId();
 			if(parentDulId == null) {
 				ParentDulChecklist parentDulChecklist = new ParentDulChecklist(dulChecklist);

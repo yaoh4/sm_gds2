@@ -141,7 +141,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	private void prepareDisplay(InstitutionalCertification instCert) {
 		//Get display Text
-		setParentDulChecklists(GdsSubmissionActionHelper.getDulChecklistsSets());
+		setParentDulChecklists(GdsSubmissionActionHelper.getDulChecklistsSets(retrieveSelectedProject()));
 		
 		//Get display data.
 		//We need to show the duls stored for each study
@@ -258,8 +258,11 @@ public class IcSubmissionAction extends ManageSubmission {
 					String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
 					if(parentDulId == null) {
 						//Error, no DUL selection made for study at index x, dulSet at index y
-						int position = dulSetIndex  +1;
-						this.addActionError(getText("error.ic.study.dulTypeSelection.required", new String[]{Integer.valueOf(position).toString(), study.getStudyName()}));
+						if(!ApplicationConstants.IC_GPA_APPROVAL_ID_NO.equals(instCert.getGpaApprovalCode())) {
+							//If GPA Approval code is NO, then we do not need a DUL
+							int position = dulSetIndex  +1;
+							this.addActionError(getText("error.ic.study.dulTypeSelection.required", new String[]{Integer.valueOf(position).toString(), study.getStudyName()}));
+						}
 					} else {
 						
 						//List to represents the duls selected in a dulSet
@@ -271,7 +274,7 @@ public class IcSubmissionAction extends ManageSubmission {
 						
 							String[] otherAddText = ServletActionContext.getRequest().getParameterValues("otherAddText-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);					
 							DulChecklistSelection dulChecklistSelection = 
-									processAdditionalText(study, dulSet, dulSetIndex, parentDulId[0], otherAddText[0], validationMap);	
+								processAdditionalText(study, dulSet, dulSetIndex, parentDulId[0], otherAddText[0], validationMap);	
 							dulChecklistSelections.add(dulChecklistSelection);	
 							
 						} 
@@ -281,7 +284,7 @@ public class IcSubmissionAction extends ManageSubmission {
 						
 						//We have at least one selection in this this DUL Set, process them
 						List<DulChecklistSelection> dulSelectionList = 
-							processDulSelections(study, dulSet, dulSetIndex, parentDulId[0], selectedDuls, validationMap);	
+							processDulSelections(instCert, study, dulSet, dulSetIndex, parentDulId[0], selectedDuls, validationMap);	
 							
 						dulChecklistSelections.addAll(dulSelectionList);
 						dulSet.setDulChecklistSelections(dulChecklistSelections);
@@ -332,14 +335,16 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	
-	private List<DulChecklistSelection> processDulSelections(Study study, StudiesDulSet dulSet, 
-			int dulSetIndex, String parentDulId, String[] selectedDuls, HashMap<String, Integer> validationMap) {
+	private List<DulChecklistSelection> processDulSelections(InstitutionalCertification instCert, 
+			Study study, StudiesDulSet dulSet, int dulSetIndex, 
+			String parentDulId, String[] selectedDuls, HashMap<String, Integer> validationMap) {
 		
 		List<DulChecklistSelection> dulSelections = new ArrayList<DulChecklistSelection>();
 		
 		if(selectedDuls == null) {
-			if(!ApplicationConstants.IC_PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId))) {
-				//This is not an 'Other' DUL set, so we need at least one selection
+			if(!ApplicationConstants.IC_PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId))
+				&& !ApplicationConstants.IC_GPA_APPROVAL_ID_NO.equals(instCert.getGpaApprovalCode())) {
+				//This is not an 'Other' DUL set or an IC with GPA Code set to No, so we need at least one selection
 				DulChecklist parentDul = GdsSubmissionActionHelper.getDulChecklist(Long.valueOf(parentDulId));
 				this.addActionError(getText("error.ic.study.dulSelection.required", new String[]{parentDul.getDisplayText(), study.getStudyName()}));
 			} 

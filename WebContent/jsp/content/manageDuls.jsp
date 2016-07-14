@@ -22,7 +22,7 @@
 		
 		  <!-- DUL PANEL HEADER -->
 		  <div class="panel-heading">
-            <h5 class="panel-title heading-reference" id="entry_dulSet_${studiesIdx}_${dulSetIdx}" name="reference">
+            <h5 class="dulHeading panel-title heading-reference" id="entry_dulSet_${studiesIdx}_${dulSetIdx}" name="reference">
              <s:if test="%{#study.studiesDulSets.size > 1}">
              	<a href="#" onclick="deleteDulSet(${studiesIdx}, ${dulSetIdx})" class="deleteIcon" style="float: right;">
                 <i class="fa fa-trash" aria-hidden="true"></i></a>
