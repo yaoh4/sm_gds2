@@ -185,8 +185,23 @@ $(function($){
 
              <div class="qSpacing" style="margin-left: 30px;">
               <p class="question">Upload Exception Memo: [to be uploaded by GPA]</p>
-              <p>[Yuri will insert uploader]</p>
-              <table style="width: 60%;" cellpadding="0px" cellspacing="0"
+             
+       
+   
+ <p class="uploadBox">File Uploader</span></p>
+             <div class="col-lg-6" >
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Choose File to Upload">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Choose File</button> </span>  </div>
+  </div><input type="button" name="dataSharingPlanUpload" value="Upload File" class="saved btn btn-primary upload" id="dataSharingPlanUpload">
+   
+ 
+  
+
+
+   <div class="qSpacing" style="margin-top: 10px; margin-left: 15px;">
+              <table style="width: 95%;" cellpadding="0px" cellspacing="0"
                     class="table table-bordered table-striped" style="margin-left: 10px;">
                     <tr class="modalTheader">
                       <th class="tableHeader" align="center" width="10%">File Name</th>
@@ -200,6 +215,9 @@ $(function($){
                       </tr>
                     </table>
               </div>
+
+
+
 
 
               <div class="qSpacing">
@@ -379,9 +397,15 @@ $(function($){
              <!--BEGIN HIDDEN Field for Uploader-->  
             <div class="qSpacing" style="margin-left: 30px; display:none;" id="DSPuploader">
               <p class="question">Upload Exception Memo: [to be uploaded by GPA]</p>
-              <p>[Yuri will insert uploader]</p>
-              <table style="width: 80%;" cellpadding="0px" cellspacing="0"
-                    class="table table-bordered table-striped" style="margin-left: 10px;">
+              <p class="uploadBox">File Uploader</span></p>
+             <div class="col-lg-6" >
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Choose File to Upload">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Choose File</button> </span>  </div>
+  </div><input type="button" name="dataSharingPlanUpload" value="Upload File" class="saved btn btn-primary upload" id="dataSharingPlanUpload">
+              <table style="width: 95%; margin-left: 15px; margin-top: 10px;" cellpadding="0px" cellspacing="0"
+                    class="table table-bordered table-striped">
                     <tr class="modalTheader">
                       <th class="tableHeader" align="center" width="10%">Documnent Title</th>
                       <th class="tableHeader" align="center" width="10%">File Name</th>
@@ -397,11 +421,11 @@ $(function($){
                     </table>
               </div>  
 
-            <div class="qSpacing">
+            <div class="qSpacing" style="margin-left: 15px;">
               
               <p class="question" id="expand">History of Uploaded Documents&nbsp;<a href="javascript:void" class="history"><i class="fa fa-plus-square" aria-hidden="true"></i></a></p>
               <div id="uploadedHistory" style="display:none;">
-                <table style="width: 80%;" cellpadding="0px" cellspacing="0"
+                <table style="width: 95%;" cellpadding="0px" cellspacing="0"
                     class="table table-bordered table-striped" style="margin-left: 10px;">
                     <tr class="modalTheader">
                       <th class="tableHeader" align="center" width="10%">Documnent Title</th>
