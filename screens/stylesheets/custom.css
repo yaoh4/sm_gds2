@@ -126,6 +126,22 @@ a .fa:hover {
 
 }
 
+.upload {
+  display: inline;
+}
+
+.uploadBox {
+
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-top: 0px;
+    margin-bottom: 5px;
+  
+}
+
+table {
+    background-color: #FFF;
+}
 /********************************************************************/
 /*** Main Navigation ***/
 
