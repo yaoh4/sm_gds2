@@ -4,7 +4,7 @@ body {
    margin: 0;
   padding-bottom: 6rem;
   font-family: 'Source Sans Pro';
-  font-size: 16px;
+  font-size: 14px;
   
   height: 100%;
   
@@ -117,11 +117,13 @@ vertical-align: top;
 
 
 a .fa {
-color: #000;
+color: #2d699e;
 }
 
 a .fa:hover {
- color: #2d699e
+ 
+ color: #00467f;
+
 }
 
 /********************************************************************/
@@ -698,11 +700,24 @@ td.sorting {padding: 12px 12px !important;}
 
 i.fa.fa-eye.fa-lg {color:#00467f;}
 i.fa.fa-trash {color:#990000;}
-i.fa.fa-pencil-square {color:#00467f;}
+i.fa.fa-pencil-square {color: #2d699e;}
 
 i.fa.fa-eye.fa-lg:hover {color:#000000;}
-i.fa.fa-trash:hover {color:#000000;}
-i.fa.fa-pencil-square:hover {color:#000000;}
+i.fa.fa-trash:hover {color:#00467f;}
+i.fa.fa-pencil-square:hover {color:#00467f;}
+i.fa.fa-folder-open {font-size: 16px;}
+
+.badge {background-color: #2d699e;}
+.badge:hover {background-color: #00467f;}
+
+
+
+
+.ellipsisR img:last-child{display:none}
+.ellipsisR:hover img:first-child{display:none}
+.ellipsisR:hover img:last-child{display:inline-block}
+
+
 /***HOME PAGE CSS*****************************/
 
 .homePage {
