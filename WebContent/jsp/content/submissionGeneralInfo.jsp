@@ -89,8 +89,7 @@
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project
-								Title</label> 
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Intramural/Grant/Contract Project Title</label> 
 								<s:textfield name="project.projectTitle" cssClass="form-control" id="projectTitle" placeholder="" value="%{project.projectTitle}" disabled="isNotEditable" maxLength="100"/>
 						</div>
 					</div>
