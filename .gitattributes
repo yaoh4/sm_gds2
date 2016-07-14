@@ -150,6 +150,7 @@ WebContent/images/css-tooltip-gradient-bg.png -text
 WebContent/images/details_close.png -text
 WebContent/images/details_open.png -text
 WebContent/images/ellipsis.png -text
+WebContent/images/ellipsisOver.png -text
 WebContent/images/hexagon_molecular_structure_footer.png -text
 WebContent/images/icon-search.gif -text
 WebContent/images/inprogress.png -text
@@ -160,6 +161,7 @@ WebContent/images/nci-sprite.png -text
 WebContent/images/newV.png -text
 WebContent/images/pending.png -text
 WebContent/images/subV.png -text
+WebContent/images/subfolder.gif -text
 WebContent/index.jsp -text
 WebContent/jsp/content/manageDuls.jsp -text
 WebContent/jsp/content/search.jsp -text
