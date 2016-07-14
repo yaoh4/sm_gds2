@@ -916,6 +916,7 @@ screens/images/css-tooltip-gradient-bg.png -text
 screens/images/details_close.png -text
 screens/images/details_open.png -text
 screens/images/ellipsis.png -text
+screens/images/ellipsisOver.png -text
 screens/images/hexagon_molecular_structure_footer.png -text
 screens/images/icon-search.gif -text
 screens/images/inprogress.png -text
@@ -926,6 +927,7 @@ screens/images/nci-sprite.png -text
 screens/images/newV.png -text
 screens/images/pending.png -text
 screens/images/subV.png -text
+screens/images/subfolder.gif -text
 screens/institutional.htm -text
 screens/institutional_dashboard.htm -text
 screens/modals/errorReport3.htm -text
