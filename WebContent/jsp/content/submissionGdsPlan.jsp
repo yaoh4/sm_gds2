@@ -256,8 +256,6 @@
 <script type="text/javascript"
 	src="<s:url value="/scripts/ckeditor/ckeditor.js" />"></script>
 <script type="text/javascript"
-	src="<s:url value="/scripts/gds.js" />"></script>
-<script type="text/javascript"
 	src="<s:url value="/controllers/UiRule.js" />"></script>
 <script type="text/javascript"
 	src="<s:url value="/controllers/dataSharing.js" />"></script>

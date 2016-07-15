@@ -121,6 +121,4 @@
 </div>
 
 <script type="text/javascript"
-	src="<s:url value="/scripts/gds.js" />"></script>
-<script type="text/javascript"
 	src="<s:url value="/controllers/basicStudy.js" />"></script>
