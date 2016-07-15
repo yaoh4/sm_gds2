@@ -2,20 +2,23 @@
 
 <p class="question">Upload Exception Memo: [to be uploaded by GPA]</p>
 
-<s:file name="exceptionMemo" id="exceptionMemo" />
 <label for="exceptionMemo" style="width: auto; display: none;">Upload
 	Exception Memo</label> 
-	<div style="margin-left: 75px; margin-top: 15px;">
-		<input type="button" name="exceptionMemoUpload"
-		value="Upload Exception Memo File" class="saved btn btn-primary"
-		id="exceptionMemoUpload"/>
+	<p class="uploadBox">File Uploader</p>
+	<div class="col-lg-6">
+		<div class="input-group">
+			<s:file class="form-control" placeholder="Choose File to Upload" name="exceptionMemo" id="exceptionMemo" />
+		</div>
 	</div>
+	<input type="button" name="exceptionMemoUpload"
+		value="Upload File" class="saved btn btn-primary upload"
+		id="exceptionMemoUpload"/>
+	
 						
 <s:if test="%{excepMemoFile.size > 0}">
 	<p></p>
-	<table style="width: 60%;" cellpadding="0px" cellspacing="0"
-		class="table table-bordered table-striped"
-		style="margin-left: 10px;">
+	<div class="qSpacing" style="margin-top: 10px; margin-left: 15px;">
+	<table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
 		<tr class="modalTheader">
 			<th class="tableHeader" align="center" >File Name</th>
 			<th class="tableHeader" align="center" >Date</th>
@@ -30,4 +33,5 @@
 				value="%{excepMemoFile[0].uploadedBy}" /></td>
 		</tr>
 	</table>
+	</div>
 </s:if>
