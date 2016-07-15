@@ -1,14 +1,17 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +27,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
+import gov.nih.nci.cbiit.scimgmt.gds.util.ExcelExportProc;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 import gov.nih.nci.cbiit.scimgmt.gds.util.RepositoryStatusComparator;
 
@@ -64,7 +68,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
     private List<RepositoryStatus> repoList = new ArrayList<RepositoryStatus>();
     
     private List<Project> subprojectList = new ArrayList<Project>();
-    
+      
 	/**
 	 * Navigate to Search Project.
 	 * @return forward string
@@ -88,6 +92,25 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		
 		logger.debug(criteria.toString());
 		
+		populateCriteria();
+		
+        jsonResult = searchProjectService.search(criteria);
+        if(jsonResult == null) {
+        	jsonResult = new SubmissionSearchResult();
+        	jsonResult.setData(new ArrayList<Submission>());
+        }
+		jsonResult.setDraw(getDraw());
+		
+		logger.debug("total records = " + jsonResult.getRecordsTotal());
+		
+		logger.debug("end - search");
+		
+		return SUCCESS;
+		
+	}
+	
+	private void populateCriteria() {
+
 		if(criteria.getSubmissionFromId().equals(ApplicationConstants.SEARCH_MY_PROJECT_SUBMISSIONS)) {
 			criteria.setPdFirstName(loggedOnUser.getFirstName());
 			criteria.setPdLastName(loggedOnUser.getLastName());
@@ -112,21 +135,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
         logger.debug("Sort by: " + criteria.getSortBy());
         logger.debug("Sort direction: " + criteria.getSortDir());
         
-        jsonResult = searchProjectService.search(criteria);
-        if(jsonResult == null) {
-        	jsonResult = new SubmissionSearchResult();
-        	jsonResult.setData(new ArrayList<Submission>());
-        }
-		jsonResult.setDraw(getDraw());
-		
-		logger.debug("total records = " + jsonResult.getRecordsTotal());
-		
-		logger.debug("end - search");
-		
-		return SUCCESS;
-		
 	}
-	
+
 	/** 
 	 * Validate Search Project.
 	 * @return forward string
@@ -141,6 +151,65 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		}
 
 		logger.debug("end - validateSearch");
+	}
+	
+	/** 
+	 * Export to excel.
+	 * @return null
+	 */
+	public String export() throws Exception {      
+
+		logger.debug("export");
+		
+		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		length = -1; // Fetch all data
+		populateCriteria();
+
+        jsonResult = searchProjectService.search(criteria);
+        
+		// Prepare headers and rows of the export data and pass it to the excel export processor
+		List<String> header = new ArrayList<String>();
+		header.add("Project ID");
+		header.add("Subproject Count");
+		header.add("Intramural/Grant/Contract");
+		header.add("Project Title");
+		header.add("Principle Investigator Name");
+		header.add("Principle Investigator Email");
+		header.add("GDS Plan");
+		header.add("Data Sharing Exception");
+		header.add("IC");
+		header.add("BSI");
+		header.add("Repository Count");
+		String[] headers = header.toArray(new String[header.size()]);
+		
+		// Prepare rows of the export data
+		List<List<String>> rows = new ArrayList<>();
+		for(Submission submission : jsonResult.getData()) {
+			List<String> row = new ArrayList<>();
+			row.add(submission.getId().toString());
+			row.add((submission.getSubprojectCount() == null? "" : submission.getSubprojectCount().toString()));
+			row.add(submission.getApplicationNum());
+			row.add(submission.getProjectTitle());
+			row.add((submission.getPiLastName() == null ? "" : submission.getPiLastName() + ", " + submission.getPiFirstName()));
+			row.add(submission.getPiEmailAddress());
+			row.add(submission.getGdsPlanStatus());
+			row.add(submission.getDataSharingException());
+			row.add(submission.getIcStatus());
+			row.add(submission.getBsiStatus());
+			row.add((submission.getRepoCount() == null ? "" : submission.getRepoCount().toString()));
+			rows.add(row);
+		}
+
+		ExcelExportProc proc = new ExcelExportProc();
+		proc.setHeaders(Arrays.asList(headers));
+		proc.setData(rows);
+		proc.doExportExcel(request, response);
+		
+		logger.debug("end - export");
+		
+		return null;
+		
 	}
 	
 	/**

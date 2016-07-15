@@ -22,6 +22,9 @@
 			 </result>
 		</action>
 		
+		<action name="export" method="export" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+		</action>
+		
 		<action name="deleteProject" method="deleteProject" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
 			<result name="success" type="tiles">search</result>
 			<result name="input" type="tiles">search</result>

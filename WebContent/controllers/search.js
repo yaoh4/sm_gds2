@@ -44,9 +44,9 @@ $(document).ready(function(){
                 }
             },
             "buttons": [
-                'csv', 'excel', 'pdf', 'print','colvis'
+                'colvis'
              ],
-            "dom": "<'row'<'col-sm-6'B>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
+            "dom": "<'row'<'col-sm-6'B <'export'>>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
             "<'row'<'col-sm-12'l <'legend'>><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12'l>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -149,9 +149,21 @@ $(document).ready(function(){
         
 	$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search.gif'></div>");
 
+	$("div.export").html("<a id='export-btn' href='#' aria-controls='submissionTable' tabindex='0' class='dt-button buttons-excel buttons-html5'><span>Excel</span></a>");
+
 	$("#search-form").on('click', '#search-btn', function () {
-		submissionTable.ajax.reload(null , true );
+		submissionTable.ajax.reload(null , true);
 		$("#searchResult").show();
+	});
+	
+	$("#search-form").on('click', '#export-btn', function (e) {
+		e.preventDefault();
+		var param = $.param($('#submissionTable').DataTable().ajax.params());
+		var url = "export.action?" + param;
+		var winName = "document";
+		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=10,height=10";
+
+		var newWin = window.open(url, winName ,features);
 	});
 	
 	//for search.htm page -- shows/hids input field when Type of Submission is selected 

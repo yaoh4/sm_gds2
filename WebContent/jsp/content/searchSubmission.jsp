@@ -54,9 +54,8 @@
 		<!--end panel body-->
 	</div>
 	<!--end panel-->
+	<s:include value="/jsp/content/searchResult.jsp"/>
 </s:form>
-
-<s:include value="/jsp/content/searchResult.jsp"/>
 
 <script type="text/javascript"
 	src="<s:url value="/controllers/search.js" />"></script>
