@@ -61,6 +61,8 @@ $(document).ready(function(){
                 { "data":  "dataSharingException"},
                 { "data":  "icStatus"},
                 { "data":  "bsiStatus"},
+                { "data":  "repoCount"},
+                { "data":  "subprojectCount"},
                 { "data":  null},
                 { "data":  null}
             ],
@@ -93,14 +95,22 @@ $(document).ready(function(){
                 "targets": -2, // Repository
                 "orderable": false,
                 "render": function (data, type, row, meta) {
-                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><span class="badge">2</span>&nbsp;Submission Status</a>';
+                	if(row.repoCount != null && row.repoCount > 0) {
+                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><span class="badge">' + row.repoCount + '</span>&nbsp;Submission Status</a>';
+                	}
+                	return data;
                 } },
                 {
                 "targets": 0, // First column, view project id
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
-                		return '<strong><a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a></strong><br>' +
-                		'<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Existing Sub-Projects</a>';
+                		if(row.subprojectCount != null && row.subprojectCount > 0) {
+                			return '<strong><a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a></strong><br>' +
+                			'<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Existing Sub-Projects</a>';
+                		}
+                		else {
+                			return '<strong><a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a></strong>';
+                		}
                 	}
                 	return data;
                 } },

@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Formula;
 
 
 /**
@@ -74,6 +75,9 @@ public class Project implements java.io.Serializable {
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<InstitutionalCertification> institutionalCertifications = new ArrayList();
 
+	private Long subprojectCount;
+	private Long repoCount;
+	
 	public Project() {
 	}
 
@@ -616,5 +620,23 @@ public class Project implements java.io.Serializable {
 
 	public void setDataLinkFlag(String dataLinkFlag) {
 		this.dataLinkFlag = dataLinkFlag;
+	}
+	
+	@Formula(value="(SELECT count(*) FROM projects_t p WHERE p.parent_project_id = id AND p.latest_version_flag = 'Y')")
+    public Long getSubprojectCount() {
+		return subprojectCount;
+	}
+	
+	public void setSubprojectCount(Long subprojectCount) {
+		this.subprojectCount = subprojectCount;
+	}
+	
+	@Formula(value="(SELECT count(*) FROM repository_statuses_t r WHERE r.project_id = id)")
+    public Long getRepoCount() {
+		return repoCount;
+	}
+	
+	public void setRepoCount(Long repoCount) {
+		this.repoCount = repoCount;
 	}
 }

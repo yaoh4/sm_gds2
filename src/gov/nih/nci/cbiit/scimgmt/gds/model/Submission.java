@@ -48,6 +48,8 @@ public class Submission implements java.io.Serializable {
 	private String dataSharingException;
 	private String icStatus;
 	private String bsiStatus;
+	private Long repoCount;
+	private Long subprojectCount;
 
 	public Submission() {
 	}
@@ -362,5 +364,21 @@ public class Submission implements java.io.Serializable {
 
 	public void setIcStatus(String icStatus) {
 		this.icStatus = icStatus;
+	}
+
+	public Long getRepoCount() {
+		return repoCount;
+	}
+
+	public void setRepoCount(Long repoCount) {
+		this.repoCount = repoCount;
+	}
+
+	public Long getSubprojectCount() {
+		return subprojectCount;
+	}
+
+	public void setSubprojectCount(Long subprojectCount) {
+		this.subprojectCount = subprojectCount;
 	}
 }
