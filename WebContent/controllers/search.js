@@ -30,6 +30,7 @@ $(document).ready(function(){
             "serverSide": true,
             "stateSave": true,
             "destroy": true,
+            "deferLoading": 0,
             "ajax": {
                 "url": "search.action",
                 "type": "POST",
@@ -46,7 +47,7 @@ $(document).ready(function(){
                 'csv', 'excel', 'pdf', 'print','colvis'
              ],
             "dom": "<'row'<'col-sm-6'B>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
-            "<'row'<'col-sm-12'l><'col-sm-6'f>>" +
+            "<'row'<'col-sm-12'l <'legend'>><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12'l>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "columns": [
@@ -79,7 +80,7 @@ $(document).ready(function(){
             "columnDefs": [ 
                 {
                 "targets": -1, // Last column, action
-                "sorting": false,
+                "orderable": false,
                 "render": function (data, type, row, meta) {
                     return '<div style="white-space: nowrap;"><a href="../manage/navigateToGeneralInfo.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i></a>' +
                     '&nbsp;&nbsp;&nbsp;<a href="deleteProject.action?projectId=' + row.id + '"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>' +
@@ -90,20 +91,23 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": -2, // Repository
-                "sorting": false,
+                "orderable": false,
                 "render": function (data, type, row, meta) {
                         return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><span class="badge">2</span>&nbsp;Submission Status</a>';
                 } },
                 {
                 "targets": 0, // First column, view project id
                 "render": function (data, type, row, meta) {
-                    return '<strong><a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a></strong><br>' +
-                    '<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Existing Sub-Projects</a>';
+                	if(type === 'display') {
+                		return '<strong><a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a></strong><br>' +
+                		'<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Existing Sub-Projects</a>';
+                	}
+                	return data;
                 } },
                 {
                 "targets": 3, // PI email and name
                 "render": function (data, type, row, width,meta) {
-                    if (row.piEmailAddress != null && row.piEmailAddress != "" &&
+                    if (type === 'display' && row.piEmailAddress != null && row.piEmailAddress != "" &&
                     		row.piLastName != null && row.piLastName != "" &&
                     		row.piFirstName != null && row.piFirstName != "") {
                         return '<a href="mailto: ' + row.piEmailAddress + '">' + data + ', ' + row.piFirstName + '</a>';
@@ -117,21 +121,27 @@ $(document).ready(function(){
                 {
                 "targets": [6, 7, 8, 9], // Status columns
                 "width": "7%",
-                "sorting": false,
+                "orderable": false,
                 "render": function (data, type, row, meta) {
-                	if(data == "In Progress") {
-                    	return '<div class="searchProgess"><img type="button" src="../images/inprogress.png" data-toggle="tooltip" data-content="In progress" alt="In Progress" width="18px" height="18px" /></div>'
+                	if(type === 'display') {
+                		if(data == "In Progress") {
+                			return '<div class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" /></div>'
+                		}
+                		if(data == "Completed") {
+                			return '<div class="searchProgess"><img src="../images/complete.png" alt="Complete" title="Complete" width="18px" height="18px"/></div>'
+                		}
+                		return '<div class="searchProgess"><img src="../images/pending.png" alt="Pending" title="Pending" width="18px" height="18px"></div>'
                 	}
-                	if(data == "Completed") {
-                    	return '<div class="searchProgess"><img src="../images/complete.png" alt="Complete" width="18px" height="18px"/></div>'
-                	}
-                    return '<div class="searchProgess"><img src="../images/pending.png" alt="Pending" width="18px" height="18px"></div>'
+                	return data;
                 } },
             ]
         });
         
+	$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search.gif'></div>");
+
 	$("#search-form").on('click', '#search-btn', function () {
 		submissionTable.ajax.reload(null , true );
+		$("#searchResult").show();
 	});
 	
 	//for search.htm page -- shows/hids input field when Type of Submission is selected 

@@ -39,34 +39,26 @@
 									value="#s.piFullName" /></td>
 							<td>
 								<div class="searchProgess">
-									<a href="../images/legend.gif" class="preview" title="Complete">
-										<img src="../images/complete.png" alt="Complete" width="18px"
-										height="18px" />
-									</a>
+									<img src="../images/complete.png" alt="Complete" width="18px"
+										height="18px" title="Complete" />
 								</div>
 							</td>
 							<td>
 								<div class="searchProgess">
-									<a href="../images/legend.gif" class="preview"
-										title="In Progress"> <img src="../images/inprogress.png"
-										alt="In Progress" width="18px" height="18px" />
-									</a>
+									<img src="../images/inprogress.png"
+										alt="In Progress" title="In Progress" width="18px" height="18px" />
 								</div>
 							</td>
 							<td>
 								<div class="searchProgess">
-									<a href="../images/legend.gif" class="preview" title="Complete">
-										<img src="../images/complete.png" alt="Complete" width="18px"
-										height="18px" />
-									</a>
+									<img src="../images/complete.png" alt="Complete" width="18px"
+										height="18px" title="Complete"/>
 								</div>
 							</td>
 							<td>
 								<div class="searchProgess">
-									<a href="../images/legend.gif" class="preview"
-										title="In Progress"> <img src="../images/inprogress.png"
-										alt="In Progress" width="18px" height="18px" />
-									</a>
+									<img src="../images/inprogress.png"
+										alt="In Progress" title="In Progress" width="18px" height="18px" />
 								</div>
 							</td>
 
@@ -142,18 +134,17 @@
 														<div class="searchProgess">
 															<s:if
 																test="%{#r.lookupTByRegistrationStatusId.displayName == 'In Progress'}">
-																<img src="../images/inprogress.png"
-																	data-toggle="tooltip" data-content="In progress"
-																	alt="In Progress" width="18px" height="18px" />
+																<img src="../images/inprogress.png" alt="In Progress"
+																	title="In Progress" width="18px" height="18px" />
 															</s:if>
 															<s:elseif
 																test="%{#r.lookupTByRegistrationStatusId.displayName == 'Completed'}">
 																<img src="../images/complete.png" alt="Complete"
-																	width="18px" height="18px" />
+																	title="Complete" width="18px" height="18px" />
 															</s:elseif>
 															<s:else>
 																<img src="../images/pending.png" alt="Pending"
-																	width="18px" height="18px">
+																	title="Pending" width="18px" height="18px">
 															</s:else>
 														</div>
 													</td>
@@ -161,18 +152,17 @@
 														<div class="searchProgess">
 															<s:if
 																test="%{#r.lookupTByDataSubmissionStatusId.displayName == 'In Progress'}">
-																<img src="../images/inprogress.png"
-																	data-toggle="tooltip" data-content="In progress"
-																	alt="In Progress" width="18px" height="18px" />
+																<img src="../images/inprogress.png" alt="In Progress" 
+																	title="In Progress" width="18px" height="18px" />
 															</s:if>
 															<s:elseif
 																test="%{#r.lookupTByDataSubmissionStatusId.displayName == 'Completed'}">
 																<img src="../images/complete.png" alt="Complete"
-																	width="18px" height="18px" />
+																	title="Complete" width="18px" height="18px" />
 															</s:elseif>
 															<s:else>
 																<img src="../images/pending.png" alt="Pending"
-																	width="18px" height="18px">
+																	title="Pending" width="18px" height="18px">
 															</s:else>
 														</div>
 													</td>

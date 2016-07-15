@@ -1,6 +1,6 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<s:if test="true">
+<div id="searchResult" style="display: none">
 	<br />
 	<h3>Search Results</h3>
 	<br />
@@ -31,4 +31,4 @@
 		<s:include value="/jsp/content/searchResultSubproject.jsp"/>
 	</div>
 	
-</s:if>
+</div>
