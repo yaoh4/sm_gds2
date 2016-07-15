@@ -131,6 +131,7 @@ $("#gds-form").on('click', '#dataSharingPlanUpload', function () {
 	});
 	if(result.indexOf("<p") == 0) {
 		$('div.loadFileHistory').html(result);
+		$("#dataSharingPlanUpload").prev('div').children('.input-group').find(':text').val('')
 	}
 	else {
 		bootbox.alert(result, function() {

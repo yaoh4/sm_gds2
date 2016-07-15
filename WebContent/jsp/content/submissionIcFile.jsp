@@ -6,13 +6,24 @@
 </p>
 <!--BEGIN Uploader-->
 <s:hidden name="docId" value="%{doc.id}" />
-<s:file name="ic" id="ic" cssStyle="margin-top: 2px;margin-left: 14px;" />
-<label for="icDoc" style="width: auto; display: none;">Upload
-	Institutional Certification</label> 
-<div style="margin-left: 75px; margin-top: 15px;">
-	<input type="button" name="icUpload" value="Upload File"
-		class="saved btn btn-primary" id="icUpload">
+
+<div class="col-lg-6">
+	<p class="uploadBox">
+		File Uploader</span>
+	</p>
+	<div class="input-group">
+		<input type="text" class="form-control" placeholder="Choose File to Upload" readonly><label
+			class="input-group-btn"> <span class="btn btn-default">
+				Choose File
+			<s:file style="display: none;" name="ic" id="ic" />
+		</span>
+		</label>
+	</div>
 </div>
+<input type="button" name="icUpload"
+		value="Upload File" class="saved btn btn-primary upload"
+		id="icUpload"/>
+
 <div id="loadIcFileHistory">
 	<s:if test="%{icFileDocs.size > 0}">
 		<p></p>

@@ -71,12 +71,24 @@
 					</p>
 					<!--BEGIN Uploader-->
 					<div class="qSpacing" id="bsiDiv">
-						<s:file name="bsi" id="bsi" cssStyle="margin-top: 2px;"/>
-						<div style="margin-left: 75px; margin-top: 15px;">
-							<input type="button" name="bsiUpload"
-								value="Upload File"
-								class="saved btn btn-primary" id="bsiUpload">
+						<div class="col-lg-6">
+							<p class="uploadBox">
+								File Uploader</span>
+							</p>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									placeholder="Choose File to Upload" readonly><label
+									class="input-group-btn"> <span class="btn btn-default">
+										Choose File <s:file style="display: none;"
+											name="bsi" id="bsi" />
+								</span>
+								</label>
+							</div>
 						</div>
+						<input type="button" name="bsiUpload"
+							value="Upload File" class="saved btn btn-primary upload"
+							id="bsiUpload" />				
+						
 						<div class="loadFileHistory">
 							<s:include value="/jsp/content/submissionBasicStudyInfoFile.jsp" />
 						</div>

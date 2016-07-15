@@ -128,6 +128,7 @@ a .fa:hover {
 
 .upload {
   display: inline;
+  margin-top: 28px;
 }
 
 .uploadBox {
@@ -141,6 +142,27 @@ a .fa:hover {
 
 table {
     background-color: #FFF;
+}
+
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
 /********************************************************************/
 /*** Main Navigation ***/

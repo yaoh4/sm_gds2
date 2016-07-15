@@ -3,23 +3,30 @@
 <p class="question">Upload Exception Memo: [to be uploaded by GPA]</p>
 
 <label for="exceptionMemo" style="width: auto; display: none;">Upload
-	Exception Memo</label> 
-	<p class="uploadBox">File Uploader</p>
-	<div class="col-lg-6">
-		<div class="input-group">
-			<s:file class="form-control" placeholder="Choose File to Upload" name="exceptionMemo" id="exceptionMemo" />
-		</div>
+	Exception Memo</label>
+
+<div class="col-lg-6">
+	<p class="uploadBox">
+		File Uploader</span>
+	</p>
+	<div class="input-group">
+		<input type="text" class="form-control" placeholder="Choose File to Upload" readonly><label
+			class="input-group-btn"> <span class="btn btn-default">
+				Choose File
+			<s:file style="display: none;" name="exceptionMemo" id="exceptionMemo" />
+		</span>
+		</label>
 	</div>
-	<input type="button" name="exceptionMemoUpload"
+</div>
+<input type="button" name="exceptionMemoUpload"
 		value="Upload File" class="saved btn btn-primary upload"
-		id="exceptionMemoUpload"/>
-	
+		id="exceptionMemoUpload"/>	
 						
 <s:if test="%{excepMemoFile.size > 0}">
 	<p></p>
 	<div class="qSpacing" style="margin-top: 10px; margin-left: 15px;">
 	<table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
-		<tr class="modalTheader">
+		<tr>
 			<th class="tableHeader" align="center" >File Name</th>
 			<th class="tableHeader" align="center" >Date</th>
 			<th class="tableHeader" align="center" >Uploaded By</th>

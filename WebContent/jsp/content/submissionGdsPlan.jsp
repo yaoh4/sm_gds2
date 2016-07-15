@@ -222,14 +222,24 @@
 				<div class="qSpacing" style="margin-left: 30px; ${map['dataSharingPlanDiv'].style}"
 					id="dataSharingPlanDiv">
 					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
-					<s:file name="dataSharingPlan" id="dataSharingPlan" />
-					<label for="dataSharingPlan" style="width: auto; display: none;">Upload
-						Data Sharing Plan</label> 
-					<div style="margin-left: 75px; margin-top: 15px;">
-						<input type="button"
-							name="dataSharingPlanUpload" value="Upload Data Sharing Plan File"
-							class="saved btn btn-primary" id="dataSharingPlanUpload">
+
+					<div class="col-lg-6">
+						<p class="uploadBox">
+							File Uploader</span>
+						</p>
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Choose File to Upload" readonly><label
+								class="input-group-btn"> <span class="btn btn-default">
+									Choose File <s:file style="display: none;" name="dataSharingPlan"
+										id="dataSharingPlan" />
+							</span>
+							</label>
+						</div>
 					</div>
+					<input type="button" name="dataSharingPlanUpload" value="Upload File"
+						class="saved btn btn-primary upload" id="dataSharingPlanUpload" />
+					
 					<div class="loadFileHistory">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>
