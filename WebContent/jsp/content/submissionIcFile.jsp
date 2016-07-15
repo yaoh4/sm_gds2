@@ -29,7 +29,7 @@
 		<p></p>
 		<table style="width: 80%;" cellpadding="0px" cellspacing="0"
 			class="table table-bordered table-striped" style="margin-left: 10px;">
-			<tr class="modalTheader">
+			<tr>
 				<th class="tableHeader" align="center" width="10%">File Name</th>
 				<th class="tableHeader" align="center" width="10%">Date</th>
 				<th class="tableHeader" align="center" width="10%">Uploaded By</th>
