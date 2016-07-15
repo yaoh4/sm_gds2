@@ -115,7 +115,7 @@ public class StudiesDulSet implements java.io.Serializable {
 	
 	@Transient
 	public String getAdditionalText() {
-		String additionalText = "";
+		String additionalText = null;
 		List<DulChecklistSelection> dulSelections = getDulChecklistSelections();
 		if(!CollectionUtils.isEmpty(dulSelections)) {
 			for(DulChecklistSelection dulSelection: dulSelections) {

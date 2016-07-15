@@ -170,28 +170,43 @@
                                               </tr>       
                                               
                                               <tr>
-                                                <s:iterator status="dulSetStat" var="studiesDulSet" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets">                                                         
-                                                  <s:set name="dulSetIdx" value="#dulSetStat.index" />
-                                                  <td colspan="1" class="row">${dulSetStat.index + 1}. ${studiesDulSet.parentDulChecklist.displayText} - ${studiesDulSet.additionalText}
-                                                    <ul class="spacing">
-                                                    <s:iterator status="dulStat" var="dul" value="%{#studiesDulSet.dulChecklistSelections}">
-                                                    <!-- Dont show the parent DUL in the bullet list -->
-                                                    <s:if test="%{#dul.dulChecklist.parentDulId != null}">
-                                                      <li class="bullet" style="display: list-item">${dul.dulChecklist.displayText}</li>
-                                                    </s:if>
-                                                     </s:iterator>    
-                                                     </ul>
-                                                  </td>
-                                                </s:iterator> 
+                                                <td colspan="4">
+                                                  <table class="table table-bordered">
+                                                    <s:iterator status="dulSetStat" var="studiesDulSet" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets">
+                                                      <s:set name="dulSetIdx" value="#dulSetStat.index" />
+                                                      <tr>
+                                                        <td>
+                                                          ${dulSetStat.index + 1}. ${studiesDulSet.parentDulChecklist.displayText}
+                                                          <s:if test="%{#studiesDulSet.additionalText != null}">
+                                                            - ${studiesDulSet.additionalText}
+                                                          </s:if>
+                                                          <s:if test="%{#studiesDulSet.dulChecklistSelections.size > 0 && 
+                                                          			(#studiesDulSet.dulChecklistSelections.size != 1 || 
+                                                          			#studiesDulSet.dulChecklistSelections[0].dulChecklist.parentDulId != null)}">
+                                                            :&nbsp
+                                                          </s:if>
+                                                          <s:iterator status="dulStat" var="dul" value="%{#studiesDulSet.dulChecklistSelections}">
+                                                            <!-- Dont show the parent DUL in the bullet list -->
+                                                            <s:if test="%{#dul.dulChecklist.parentDulId != null}">
+                                                              ${dul.dulChecklist.displayText}
+                                                              <s:if test="%{#dulStat.index < (#studiesDulSet.dulChecklistSelections.size - 1)}">
+                                                                ;
+                                                              </s:if>
+                                                            </s:if>
+                                                          </s:iterator>
+                                                        </td>
+                                                      </tr>
+                                                    </s:iterator> 
+                                                  </table>
+                                                </td>
                                               </tr>     
-                                              
-                                                                                                                              
+                                                                                                                                                                            
                                             </table>
                                           </td>
                                         </tr>
                                       </table> <!-- study class -->
-                                      </td>
-                                    </tr>
+                                    </td>
+                                  </tr>
                                 </table> <!--study end-->
                              <!--    <p>&nbsp;</p> -->
                               </s:iterator> <!-- for studies -->                      
