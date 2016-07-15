@@ -81,20 +81,24 @@ $(document).ready(function(){
                 "targets": -1, // Last column, action
                 "sorting": false,
                 "render": function (data, type, row, meta) {
-                    return '<a href="../manage/navigateToGeneralInfo.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i></a>' +
-                    '&nbsp;&nbsp;&nbsp;<a href="deleteProject.action?projectId=' + row.id + '"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>';
+                    return '<div style="white-space: nowrap;"><a href="../manage/navigateToGeneralInfo.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i></a>' +
+                    '&nbsp;&nbsp;&nbsp;<a href="deleteProject.action?projectId=' + row.id + '"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>' +
+                    '&nbsp;&nbsp;&nbsp;<a href="#" id="eclick" class="ellipsisR"><img src="../images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"><img src="../images/ellipsisOver.png" height="17px" width="16x" alt="open ellipsis"></a></div>' +
+                    '<div class="ellipsis" style="display: none;"><div class="dropbottom"><div class="dropmid" style="white-space: nowrap; height: auto;">' +
+                    '<a href="newProjectVersion.htm">Add New Version</a><br>' +
+                    '<a href="parentProjectsearch.htm">Add New Subproject</a></div></div></div>';
                 } },
                 {
                 "targets": -2, // Repository
                 "sorting": false,
                 "render": function (data, type, row, meta) {
-                        return '<a class="btn btn-default" data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>&nbsp;Submission Status</a>';
+                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><span class="badge">2</span>&nbsp;Submission Status</a>';
                 } },
                 {
                 "targets": 0, // First column, view project id
                 "render": function (data, type, row, meta) {
-                    return '<strong><a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a><strong>' +
-                    '<a class="btn btn-default" data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><i class="fa fa-eye fa-lg" aria-hidden="true" alt="view" title="view"></i>&nbsp;Existing Sub-Projects</a>';
+                    return '<strong><a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a></strong><br>' +
+                    '<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Existing Sub-Projects</a>';
                 } },
                 {
                 "targets": 3, // PI email and name
@@ -112,6 +116,8 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": [6, 7, 8, 9], // Status columns
+                "width": "7%",
+                "sorting": false,
                 "render": function (data, type, row, meta) {
                 	if(data == "In Progress") {
                     	return '<div class="searchProgess"><img type="button" src="../images/inprogress.png" data-toggle="tooltip" data-content="In progress" alt="In Progress" width="18px" height="18px" /></div>'
@@ -142,15 +148,14 @@ $(document).ready(function(){
 
 
     //for ellipsis on search results
-
     $(".ellipsis").hide();
-
-    $(".eclick").mouseover(function () {
-    	$(".ellipsis").slideDown('slow');
+    
+    $('body').on('mouseover', 'a.ellipsisR', function() {
+    	$(this).parent().next("div").slideDown('slow');
     });
 
-    $(".ellipsis").mouseleave(function () {
-    	$(".ellipsis").slideUp('slow');
+    $('body').on('mouseleave', '.ellipsis', function() {
+    	$(this).slideUp('slow');
     });
 
     // Sub-Project Repository Submission Status

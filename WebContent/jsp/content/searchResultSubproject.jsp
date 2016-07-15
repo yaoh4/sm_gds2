@@ -90,12 +90,15 @@
 													<i class="fa fa-trash fa-lg" aria-hidden="true"
 														alt="delete" title="delete"></i>
 												</s:a>
-												&nbsp;&nbsp;&nbsp; <a href="#" class="eclick"><img
+												&nbsp;&nbsp;&nbsp; <a
+													href="#" id="eclick" class="ellipsisR"><img
 													src="../images/ellipsis.png" height="17px" width="16x"
-													alt="open ellipsis"></a>	
+													alt="open ellipsis"><img
+													src="../images/ellipsisOver.png" height="17px" width="16x"
+													alt="open ellipsis"> </a>
 											</div> <!--icon div-->
 											
-											<div class="ellipsis">
+											<div class="ellipsis" style="display: none">
 												<div class="dropbottom">
 													<div class="dropmid"
 														style="white-space: nowrap; height: auto;">
