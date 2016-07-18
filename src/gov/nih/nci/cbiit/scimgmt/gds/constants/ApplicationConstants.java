@@ -36,6 +36,7 @@ public interface ApplicationConstants {
 	 public static final String PAGE_STATUS_TYPE = "PAGE_STATUS";
 	 
 	 public static final String DOC_LIST = "docList";
+	 public static final String PD_LIST = "pdList";
 	 
 	 /* Numeric constants */
 	 public static final Long PLAN_QUESTION_ANSWER_REPOSITORY_ID = 20L;

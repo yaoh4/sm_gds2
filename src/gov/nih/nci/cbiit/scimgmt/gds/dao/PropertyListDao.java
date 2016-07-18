@@ -4,6 +4,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsPd;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
@@ -131,4 +132,17 @@ public class PropertyListDao {
 			
 			return criteria.list();
 		}
+		
+		/**
+		 * Get GdsPd list
+		 * 
+		 * @return
+		 */
+		public List<GdsPd> getPdList() {
+			
+			logger.info("Retrieving PD list from DB");
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsPd.class);
+			return criteria.list();	
+		}
+		
 }
