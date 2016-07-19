@@ -14,7 +14,7 @@ public class Submission implements java.io.Serializable {
 	private String projectTitle;
 	private String docAbbreviation;
 	private String programBranch;
-	private String applicationNum;
+	private String grantContractNum;
 	private String piInstitution;
 	private String piEmailAddress;
 	private Date projectStartDate;
@@ -94,12 +94,12 @@ public class Submission implements java.io.Serializable {
 		this.programBranch = programBranch;
 	}
 
-	public String getApplicationNum() {
-		return this.applicationNum;
+	public String getGrantContractNum() {
+		return this.grantContractNum;
 	}
 
-	public void setApplicationNum(String applicationNum) {
-		this.applicationNum = applicationNum;
+	public void setGrantContractNum(String grantContractNum) {
+		this.grantContractNum = grantContractNum;
 	}
 
 	public String getPiInstitution() {

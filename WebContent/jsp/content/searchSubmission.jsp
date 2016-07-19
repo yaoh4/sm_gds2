@@ -1,6 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
 <s:form action="search" namespace="/search" id="search-form">
+	<s:hidden id="directorName" name="criteria.pdFirstAndLastName"/>
 	<div class="panel panel-default mainContent" style="width: 80%;">
 		<div class="panel-body">
 			<h3 style="margin-top: 0px;">Search Criteria</h3>
@@ -12,8 +13,8 @@
 
 				<div class="col-xs-4">
 					<label for="Program Director">Program Director:</label>
-					<s:select id="directorSelect" name="criteria.pdFirstAndLastName"
-						value="criteria.pdFirstAndLastName" cssClass="c-select form-control" 
+					<s:select id="directorSelect" name="criteria.pdNpnId"
+						value="criteria.pdNpnId" cssClass="c-select form-control" 
 						list="pdList" listKey="optionKey" listValue="optionValue" />
 				</div>
 

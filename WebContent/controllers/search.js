@@ -52,7 +52,7 @@ $(document).ready(function(){
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "columns": [
                 { "data": "id"},
-                { "data": "applicationNum"},
+                { "data": "grantContractNum"},
                 { "data": "projectTitle"},
                 { "data": "piLastName"},
                 { "data": "piFirstName"},
@@ -131,7 +131,7 @@ $(document).ready(function(){
                 {
                 "targets": [6, 7, 8, 9], // Status columns
                 "width": "7%",
-                "orderable": false,//TODO Make is orderable when DB is ready
+                "orderable": true,
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
                 		if(data == "In Progress") {
@@ -194,6 +194,10 @@ $(document).ready(function(){
     $('body').on('click', 'a.repoExpand', function() {
         $(this).parent().next("div").slideToggle('500');
         $(this).children("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
+    });
+
+    $("#directorSelect").change(function() {
+    	$("#directorName").val($(this).find("option:selected").text());
     });
 
 });

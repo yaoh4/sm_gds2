@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -203,11 +204,26 @@ public class ProjectSearchDao {
 		}
 		
 		// Program Director or My Project Submissions
-		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
-			criteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
-		}
-		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
-			criteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+		if(searchCriteria.getPdNpnId() != null) {
+			// PD search
+			Disjunction dc = Restrictions.disjunction();
+			dc.add(Restrictions.eq("pdNpnId", searchCriteria.getPdNpnId()));
+			Conjunction c = Restrictions.conjunction();
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
+				c.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+			}
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
+				c.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+			}
+			dc.add(c);
+			criteria.add(dc);
+		} else {
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
+				criteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+			}
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
+				criteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+			}
 		}
 		
 		// Project/Subproject Title partial search
@@ -224,14 +240,13 @@ public class ProjectSearchDao {
 		}
 		
 		// Intramural(Z01)/Grant/Contract #
-		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getApplicationNum()))) {
-			criteria.add(Restrictions.ilike("applicationNum", searchCriteria.getApplicationNum().trim(), MatchMode.ANYWHERE));
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getGrantContractNum()))) {
+			criteria.add(Restrictions.ilike("grantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
 		}
 
 		// Accession Number
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getAccessionNumber()))) {
-			criteria.createCriteria("project.planAnswerSelection" , "planAnswerSelection");
-			criteria.createCriteria("planAnswerSelection.repositoryStatuses" , "repositoryStatuses");
+			criteria.createCriteria("project.repositoryStatuses" , "repositoryStatuses");
 			criteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
 		}
 

@@ -10,7 +10,7 @@ public class SubmissionSearchCriteria {
 	private String pdLastName;
 	private String pdFirstName;
 	private String pdFirstAndLastName;
-	private String applicationNum;
+	private String grantContractNum;
 	private String projectTitle;
 	private String accessionNumber;
 	private String piFirstOrLastName;
@@ -24,15 +24,24 @@ public class SubmissionSearchCriteria {
 	public SubmissionSearchCriteria(){}
 
 	public SubmissionSearchCriteria(Long submissionFromId, Long pdNpnId, 
-			String applicationNum, String projectTitle, String accessionNumber, String piFirstOrLastName) {
+			String grantContractNum, String projectTitle, String accessionNumber, String piFirstOrLastName) {
 		this.submissionFromId = submissionFromId;
 		this.pdNpnId = pdNpnId;
-		this.applicationNum = applicationNum;
+		this.grantContractNum = grantContractNum;
 		this.projectTitle = projectTitle;
 		this.accessionNumber = accessionNumber;
 		this.piFirstOrLastName = piFirstOrLastName;
 	}
 
+	@Override
+	public String toString() {
+		return "SubmissionSearchCriteria [submissionFromId=" + submissionFromId + ", pdNpnId=" + pdNpnId
+				+ ", pdLastName=" + pdLastName + ", pdFirstName=" + pdFirstName + ", pdFirstAndLastName="
+				+ pdFirstAndLastName + ", grantContractNum=" + grantContractNum + ", projectTitle=" + projectTitle
+				+ ", accessionNumber=" + accessionNumber + ", piFirstOrLastName=" + piFirstOrLastName + ", doc=" + doc
+				+ ", start=" + start + ", length=" + length + ", sortBy=" + sortBy + ", sortDir=" + sortDir + "]";
+	}
+	
 	/**
 	 * Checks if no search criteria is provided
 	 * 
@@ -41,7 +50,7 @@ public class SubmissionSearchCriteria {
 	public boolean isBlank() {
 		return (submissionFromId == null
 				/*|| submissionFromId.longValue() == ApplicationConstants.SEARCH_SUBMISSION_FROM_ALL.longValue()*/)
-				&& StringUtils.isBlank(pdFirstAndLastName) && StringUtils.isBlank(applicationNum) && StringUtils.isBlank(projectTitle)
+				&& StringUtils.isBlank(pdFirstAndLastName) && StringUtils.isBlank(grantContractNum) && StringUtils.isBlank(projectTitle)
 				&& StringUtils.isBlank(accessionNumber) && StringUtils.isBlank(piFirstOrLastName);
 	}
 	
@@ -61,12 +70,12 @@ public class SubmissionSearchCriteria {
 		this.pdNpnId = pdNpnId;
 	}
 
-	public String getApplicationNum() {
-		return applicationNum;
+	public String getGrantContractNum() {
+		return grantContractNum;
 	}
 
-	public void setApplicationNum(String applicationNum) {
-		this.applicationNum = applicationNum;
+	public void setGrantContractNum(String grantContractNum) {
+		this.grantContractNum = grantContractNum;
 	}
 
 	public String getProjectTitle() {
@@ -123,13 +132,6 @@ public class SubmissionSearchCriteria {
 
 	public void setPdFirstAndLastName(String pdFirstAndLastName) {
 		this.pdFirstAndLastName = pdFirstAndLastName;
-	}
-
-	@Override
-	public String toString() {
-		return "SubmissionSearchCriteria [submissionFromId=" + submissionFromId + ", pdFirstAndLastName="
-				+ pdFirstAndLastName + ", applicationNum=" + applicationNum + ", projectTitle=" + projectTitle
-				+ ", accessionNumber=" + accessionNumber + ", piFirstOrLastName=" + piFirstOrLastName + "]";
 	}
 
 	public int getStart() {

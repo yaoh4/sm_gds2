@@ -153,7 +153,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			addActionError(getText("error.search.criteria.required"));
 		}
 		
-		if(StringUtils.isNotBlank(criteria.getApplicationNum()) && criteria.getApplicationNum().length() < ApplicationConstants.GRANT_CONTRACT_NUM_MIN_SIZE){
+		if(StringUtils.isNotBlank(criteria.getGrantContractNum()) && criteria.getGrantContractNum().length() < ApplicationConstants.GRANT_CONTRACT_NUM_MIN_SIZE){
 			jsonResult.setError(getText("grantContractNum.min.size.error"));
 			addActionError(getText("grantContractNum.min.size.error")); 
 		}
@@ -215,7 +215,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 				List<String> row = new ArrayList<>();
 				row.add(submission.getId().toString());
 				row.add((submission.getSubprojectCount() == null? "" : submission.getSubprojectCount().toString()));
-				row.add(submission.getApplicationNum());
+				row.add(submission.getGrantContractNum());
 				row.add(submission.getProjectTitle());
 				row.add((submission.getPiLastName() == null ? "" : submission.getPiLastName() + ", " + submission.getPiFirstName()));
 				row.add(submission.getPiEmailAddress());
@@ -429,7 +429,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			
 			for(GdsPd pd: pdListDb) {
 				option = new DropDownOption();
-				option.setOptionKey(pd.getPdFullNameDescrip());
+				option.setOptionKey(pd.getNpnId().toString());
 				option.setOptionValue(pd.getPdFullNameDescrip());
 				pdList.add(option);
 			}
