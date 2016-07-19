@@ -21,6 +21,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.model.ExportRow;
 import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
 import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchCriteria;
 import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchResult;
@@ -150,6 +151,11 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			jsonResult.setError(getText("error.search.criteria.required"));
 			addActionError(getText("error.search.criteria.required"));
 		}
+		
+		if(StringUtils.isNotBlank(criteria.getApplicationNum()) && criteria.getApplicationNum().length() < ApplicationConstants.GRANT_CONTRACT_NUM_MIN_SIZE){
+			jsonResult.setError(getText("grantContractNum.min.size.error"));
+			addActionError(getText("grantContractNum.min.size.error")); 
+		}
 
 		logger.debug("end - validateSearch");
 	}
@@ -169,7 +175,11 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 
         jsonResult = searchProjectService.search(criteria);
         
-		// Prepare headers and rows of the export data and pass it to the excel export processor
+        // Prepare rows of the export data
+     	List<ExportRow> rows = new ArrayList<>();
+     		
+		// Prepare headers
+     	ExportRow exportRow = new ExportRow();
 		List<String> header = new ArrayList<String>();
 		header.add("Project ID");
 		header.add("Subproject Count");
@@ -182,11 +192,13 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		header.add("IC");
 		header.add("BSI");
 		header.add("Repository Count");
-		String[] headers = header.toArray(new String[header.size()]);
+		exportRow.setRow(header);
+		exportRow.setHeader(true);
+		rows.add(exportRow);
 		
-		// Prepare rows of the export data
-		List<List<String>> rows = new ArrayList<>();
+		// Prepare data
 		for(Submission submission : jsonResult.getData()) {
+			exportRow = new ExportRow();
 			List<String> row = new ArrayList<>();
 			row.add(submission.getId().toString());
 			row.add((submission.getSubprojectCount() == null? "" : submission.getSubprojectCount().toString()));
@@ -199,11 +211,28 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			row.add(submission.getIcStatus());
 			row.add(submission.getBsiStatus());
 			row.add((submission.getRepoCount() == null ? "" : submission.getRepoCount().toString()));
-			rows.add(row);
+			exportRow.setRow(row);
+			rows.add(exportRow);
+			
+			// Add groups - testing
+			exportRow = new ExportRow();
+			row = new ArrayList<>();
+			row.add("Group data");
+			exportRow.setHeader(true);
+			exportRow.setGroup(true);
+			exportRow.setRow(row);
+			rows.add(exportRow);
+			exportRow = new ExportRow();
+			row = new ArrayList<>();
+			exportRow.setGroup(true);
+			row.add("1");
+			row.add("2");
+			row.add("3");
+			exportRow.setRow(row);
+			rows.add(exportRow);
 		}
 
 		ExcelExportProc proc = new ExcelExportProc();
-		proc.setHeaders(Arrays.asList(headers));
 		proc.setData(rows);
 		proc.doExportExcel(request, response);
 		

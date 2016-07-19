@@ -7,11 +7,12 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
 
+import gov.nih.nci.cbiit.scimgmt.gds.model.ExportRow;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.Writer;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -25,13 +26,13 @@ public class ExcelExportProc {
     private final Logger log = LogManager.getLogger(ExcelExportProc.class);
 
     private List<String> headers;
-    private List<List<String>> data;
+    private List<ExportRow> data;
 
     public void setHeaders(List<String> headers) {
         this.headers = headers;
     }
 
-    public void setData(List<List<String>> data) {
+    public void setData(List<ExportRow> data) {
         this.data = data;
     }
 
@@ -55,30 +56,46 @@ public class ExcelExportProc {
 
         int rownum = 0;
 
-        // write headers
-        if (headers != null && !headers.isEmpty()) {
-            HSSFRow row = sheet.createRow(rownum++);
+        // write rows data
+        Iterator<ExportRow> itRows = data.iterator();
+        boolean group = false;
+        int startGroup = 0, endGroup = 0;
+        while (itRows.hasNext()) {
+            HSSFRow row = sheet.createRow(rownum);
             int cellnum = 0;
-            Iterator<String> it = headers.iterator();
-            while (it.hasNext()) {
+            ExportRow currentRow = itRows.next();
+            Iterator<String> itCells = currentRow.getRow().iterator();
+            while (itCells.hasNext()) {
                 HSSFCell cell = row.createCell(cellnum);
-                cell.setCellValue(it.next());
-                cell.setCellStyle(headerStyle);
-                sheet.autoSizeColumn(cellnum++);
+                cell.setCellValue(itCells.next());
+                if(currentRow.isHeader()) {
+                	cell.setCellStyle(headerStyle);
+                    sheet.autoSizeColumn(cellnum);
+                }
+                cellnum++;
             }
+            
+            if(!group && currentRow.isGroup()) { //start grouping
+            	startGroup = rownum;
+            	group = true;
+            }
+            if(group && !currentRow.isGroup()) { //end grouping
+            	endGroup = rownum-1;
+            	sheet.groupRow(startGroup,endGroup);
+            	sheet.setRowGroupCollapsed(startGroup, true);
+            	sheet.setRowSumsBelow(false);
+            	group = false;
+            }
+            rownum++;
+        }
+        // end last group if exist
+        if(group) { //end grouping
+        	endGroup = rownum-1;
+        	sheet.groupRow(startGroup,endGroup);
+        	sheet.setRowGroupCollapsed(startGroup, true);
+        	sheet.setRowSumsBelow(false);
         }
 
-        // write rows data
-        Iterator<List<String>> itRows = data.iterator();
-        while (itRows.hasNext()) {
-            HSSFRow row = sheet.createRow(rownum++);
-            int cellnum = 0;
-            Iterator<String> itCells = itRows.next().iterator();
-            while (itCells.hasNext()) {
-                HSSFCell cell = row.createCell(cellnum++);
-                cell.setCellValue(itCells.next());
-            }
-        }
 
         ServletOutputStream out = null;
         try {
@@ -97,56 +114,6 @@ public class ExcelExportProc {
 
     }
 
-    public void doExport(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        String filename = "search_results_" + MessageFormat.format("{0, date, MM_dd_yyyy_hh_mm_ss}", new Date()).trim() + ".xls";
-        String mimeType = "application/vnd.ms-excel";
-        String characterEncoding = response.getCharacterEncoding();
-        if (characterEncoding != null) {
-            mimeType += "; charset=" + characterEncoding;
-        }
-        response.setContentType(mimeType);
-        response.addHeader("content-disposition", "inline; filename=" + filename);
-
-        Writer w = response.getWriter();
-        StringBuffer sb = new StringBuffer();
-
-        try {
-            // write headers
-            if (headers != null && !headers.isEmpty()) {
-                Iterator<String> it = headers.iterator();
-                while (it.hasNext()) {
-                    sb.append(escapeCell(it.next()));
-                    if (it.hasNext()) {
-                        sb.append("\t");
-                    }
-                }
-                sb.append("\n");
-            }
-            write(w, sb.toString());
-
-            // write rows data
-            Iterator<List<String>> itRows = data.iterator();
-            while (itRows.hasNext()) {
-                Iterator<String> itCells = itRows.next().iterator();
-                sb = new StringBuffer();
-                while (itCells.hasNext()) {
-                    sb.append(escapeCell(itCells.next()));
-                    if (itCells.hasNext()) {
-                        sb.append("\t");
-                    }
-                }
-                if (itRows.hasNext()) {
-                    sb.append("\n");
-                }
-                write(w, sb.toString());
-            }
-        } finally {
-            w.flush();
-            w.close();
-        }
-    }
-
     protected String escapeCell(Object value)
     {
         if (value != null)
@@ -156,11 +123,5 @@ public class ExcelExportProc {
 
         return null;
     }
-    private void write(Writer out, String string) throws IOException
-    {
-        if (string != null)
-        {
-            out.write(string);
-        }
-    }
+
 }
