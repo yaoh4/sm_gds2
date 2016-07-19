@@ -1003,12 +1003,12 @@ src/gov/nih/nci/cbiit/scimgmt/gds/domain/Lookup.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/NedPerson.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Organization.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/PageStatus.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/PlanAnswerSelection.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/PlanQuestionsAnswer.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Project.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Property.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/RepositoryStatus.java -text
-src/gov/nih/nci/cbiit/scimgmt/gds/domain/StatusHistory.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/StudiesDulSet.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Study.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/interceptor/UserInterceptor.java -text

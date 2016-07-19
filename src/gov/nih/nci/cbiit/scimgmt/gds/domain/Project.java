@@ -69,7 +69,7 @@ public class Project implements java.io.Serializable {
 	private Date anticipatedSubmissionDate;
 	private String submissionTitle;
 	private String dataLinkFlag;
-	private Set<StatusHistory> statusHistories = new HashSet(0);
+	private Set<PageStatus> pageStatuses = new HashSet(0);
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
@@ -105,8 +105,8 @@ public class Project implements java.io.Serializable {
 				+ ", subprojectGroupId=" + subprojectGroupId + ", submissionReasonId=" + submissionReasonId
 				+ ", certificationCompleteFlag=" + certificationCompleteFlag + ", piFirstName=" + piFirstName
 				+ ", piLastName=" + piLastName + ", pocFirstName=" + pocFirstName + ", pocLastName=" + pocLastName
-				+ ", pdFirstName=" + pdFirstName + ", pdLastName=" + pdLastName + ", statusHistories="
-				+ statusHistories + ", documents=" + documents + ", planAnswerSelections=" + planAnswerSelections
+				+ ", pdFirstName=" + pdFirstName + ", pdLastName=" + pdLastName + ", pageStatuses="
+				+ pageStatuses + ", documents=" + documents + ", planAnswerSelections=" + planAnswerSelections
 				+ ", repositoryStatuses=" + repositoryStatuses + ", institutionalCertifications="
 				+ institutionalCertifications +  ", applId=" + applId +  ", submissionTitle=" + submissionTitle +  ", dataLinkFlag=" + dataLinkFlag +"]";
 	}
@@ -119,7 +119,7 @@ public class Project implements java.io.Serializable {
 			String createdBy, String lastChangedBy, String subprojectFlag,
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
-			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, Set statusHistories, Set documents,
+			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, Set pageStatuses, Set documents,
 			Set planAnswerSelections, List repositoryStatuses, List institutionalCertifications,Long applId, String submissionTitle, String dataLinkFlag) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
@@ -151,7 +151,7 @@ public class Project implements java.io.Serializable {
 		this.pocLastName = pocLastName;
 		this.pdFirstName = pdFirstName;
 		this.pdLastName = pdLastName;
-		this.statusHistories = statusHistories;
+		this.pageStatuses = pageStatuses;
 		this.documents = documents;
 		this.planAnswerSelections = planAnswerSelections;
 		this.repositoryStatuses = repositoryStatuses;
@@ -468,12 +468,12 @@ public class Project implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-	public Set<StatusHistory> getStatusHistories() {
-		return this.statusHistories;
+	public Set<PageStatus> getPageStatuses() {
+		return this.pageStatuses;
 	}
 
-	public void setStatusHistories(Set<StatusHistory> statusHistories) {
-		this.statusHistories = statusHistories;
+	public void setPageStatuses(Set<PageStatus> pageStatuses) {
+		this.pageStatuses = pageStatuses;
 	}
 
 	@Transient 

@@ -62,7 +62,7 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Project</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.StatusHistory</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Study</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection</value>

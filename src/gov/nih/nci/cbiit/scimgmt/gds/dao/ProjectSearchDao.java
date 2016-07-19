@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.StatusHistory;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
 import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchCriteria;
 import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchResult;
@@ -65,7 +65,7 @@ public class ProjectSearchDao {
 		try {
 	  
 			Criteria criteria = null;
-			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class);
+			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class, "project");
 			int totalRecords = 0;
 			
 			// Sort order
@@ -78,11 +78,10 @@ public class ProjectSearchDao {
 			if (searchCriteria.getLength() == -1) {
 				list = criteria.list();
 			} else {
-				totalRecords = getTotalResultCount(criteria);
-				criteria.setProjection(null);
 				list =  (List<Project>) criteria.setFirstResult(searchCriteria.getStart())
 						.setMaxResults(searchCriteria.getLength())
 						.list();
+				totalRecords = getTotalResultCount(criteria);
 			}
 			
 			// Convert list to submission and set total records
@@ -92,7 +91,7 @@ public class ProjectSearchDao {
 				for(Project p: list) {
 					Submission s = new Submission();
 					BeanUtils.copyProperties(p, s);
-					for(StatusHistory status: p.getStatusHistories()) {
+					for(PageStatus status: p.getPageStatuses()) {
 						s.setGdsPlanStatus(status.getStatus().getDisplayName());
 						s.setBsiStatus(status.getStatus().getDisplayName());
 						s.setIcStatus(status.getStatus().getDisplayName());
@@ -132,6 +131,8 @@ public class ProjectSearchDao {
 	 */
 	private int getTotalResultCount(Criteria criteria) {
 
+		criteria.setMaxResults(0);
+		criteria.setFirstResult(0);
 		criteria.setProjection(Projections.rowCount());
 		Long rowCount = (Long) criteria.uniqueResult();
 		return rowCount.intValue();
@@ -228,13 +229,14 @@ public class ProjectSearchDao {
 		
 		// Intramural(Z01)/Grant/Contract #
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getApplicationNum()))) {
-			criteria.add(Restrictions.eq("applicationNum", searchCriteria.getApplicationNum().trim()));
+			criteria.add(Restrictions.ilike("applicationNum", searchCriteria.getApplicationNum().trim(), MatchMode.ANYWHERE));
 		}
 
 		// Accession Number
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getAccessionNumber()))) {
-			criteria.createAlias("repositoryStatus", "repositoryStatus");
-			criteria.add(Restrictions.eq("repositoryStatus.accessionNumber", searchCriteria.getAccessionNumber().trim()));
+			criteria.createCriteria("project.planAnswerSelection" , "planAnswerSelection");
+			criteria.createCriteria("planAnswerSelection.repositoryStatuses" , "repositoryStatuses");
+			criteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
 		}
 
 		return criteria;
