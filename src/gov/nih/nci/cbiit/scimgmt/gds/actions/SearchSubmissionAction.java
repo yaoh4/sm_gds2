@@ -20,6 +20,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsPd;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ExportRow;
 import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
@@ -69,7 +70,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
     
     private List<RepositoryStatus> repoList = new ArrayList<RepositoryStatus>();
     
-    private List<Project> subprojectList = new ArrayList<Project>();
+    private List<ProjectsVw> subprojectList = new ArrayList<ProjectsVw>();
       
 	/**
 	 * Navigate to Search Project.
@@ -113,11 +114,11 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 	
 	private void populateCriteria() {
 
-		if(criteria.getSubmissionFromId().equals(ApplicationConstants.SEARCH_MY_PROJECT_SUBMISSIONS)) {
+		if(criteria.getSubmissionFromId() == ApplicationConstants.SEARCH_MY_PROJECT_SUBMISSIONS) {
 			criteria.setPdFirstName(loggedOnUser.getFirstName());
 			criteria.setPdLastName(loggedOnUser.getLastName());
 		}
-		if(criteria.getSubmissionFromId().equals(ApplicationConstants.SEARCH_SUBMISSION_FROM_MYDOC)) {
+		if(criteria.getSubmissionFromId() == ApplicationConstants.SEARCH_SUBMISSION_FROM_MYDOC) {
 			List<Organization> docListFromDb = (List<Organization>) lookupService.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());	
 			criteria.setDoc(GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac()));	
 		}
@@ -175,64 +176,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 
         jsonResult = searchProjectService.search(criteria);
         
-        // Prepare rows of the export data
-     	List<ExportRow> rows = new ArrayList<>();
-     		
-		// Prepare headers
-     	ExportRow exportRow = new ExportRow();
-		List<String> header = new ArrayList<String>();
-		header.add("Project ID");
-		header.add("Subproject Count");
-		header.add("Intramural/Grant/Contract");
-		header.add("Project Title");
-		header.add("Principle Investigator Name");
-		header.add("Principle Investigator Email");
-		header.add("GDS Plan");
-		header.add("Data Sharing Exception");
-		header.add("IC");
-		header.add("BSI");
-		header.add("Repository Count");
-		exportRow.setRow(header);
-		exportRow.setHeader(true);
-		rows.add(exportRow);
-		
-		// Prepare data
-		for(Submission submission : jsonResult.getData()) {
-			exportRow = new ExportRow();
-			List<String> row = new ArrayList<>();
-			row.add(submission.getId().toString());
-			row.add((submission.getSubprojectCount() == null? "" : submission.getSubprojectCount().toString()));
-			row.add(submission.getApplicationNum());
-			row.add(submission.getProjectTitle());
-			row.add((submission.getPiLastName() == null ? "" : submission.getPiLastName() + ", " + submission.getPiFirstName()));
-			row.add(submission.getPiEmailAddress());
-			row.add(submission.getGdsPlanStatus());
-			row.add(submission.getDataSharingException());
-			row.add(submission.getIcStatus());
-			row.add(submission.getBsiStatus());
-			row.add((submission.getRepoCount() == null ? "" : submission.getRepoCount().toString()));
-			exportRow.setRow(row);
-			rows.add(exportRow);
-			
-			// Add groups - testing
-			exportRow = new ExportRow();
-			row = new ArrayList<>();
-			row.add("Group data");
-			exportRow.setHeader(true);
-			exportRow.setGroup(true);
-			exportRow.setRow(row);
-			rows.add(exportRow);
-			exportRow = new ExportRow();
-			row = new ArrayList<>();
-			exportRow.setGroup(true);
-			row.add("1");
-			row.add("2");
-			row.add("3");
-			exportRow.setRow(row);
-			rows.add(exportRow);
-		}
-
 		ExcelExportProc proc = new ExcelExportProc();
+		List<ExportRow> rows = prepareExportData();
 		proc.setData(rows);
 		proc.doExportExcel(request, response);
 		
@@ -240,6 +185,151 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		
 		return null;
 		
+	}
+	
+	private List<ExportRow> prepareExportData() {
+	       // Prepare rows of the export data
+	     	List<ExportRow> rows = new ArrayList<>();
+	     		
+			// Prepare headers
+	     	ExportRow exportRow = new ExportRow();
+			List<String> header = new ArrayList<String>();
+			header.add("Project ID");
+			header.add("Subproject Count");
+			header.add("Intramural/Grant/Contract");
+			header.add("Project Title");
+			header.add("Principle Investigator Name");
+			header.add("Principle Investigator Email");
+			header.add("GDS Plan");
+			header.add("Data Sharing Exception");
+			header.add("IC");
+			header.add("BSI");
+			header.add("Repository Count");
+			exportRow.setRow(header);
+			exportRow.setHeader(true);
+			rows.add(exportRow);
+			
+			// Prepare data
+			for(Submission submission : jsonResult.getData()) {
+				exportRow = new ExportRow();
+				List<String> row = new ArrayList<>();
+				row.add(submission.getId().toString());
+				row.add((submission.getSubprojectCount() == null? "" : submission.getSubprojectCount().toString()));
+				row.add(submission.getApplicationNum());
+				row.add(submission.getProjectTitle());
+				row.add((submission.getPiLastName() == null ? "" : submission.getPiLastName() + ", " + submission.getPiFirstName()));
+				row.add(submission.getPiEmailAddress());
+				row.add(submission.getGdsPlanPageStatus());
+				row.add(submission.getDataSharingException());
+				row.add(submission.getIcPageStatus());
+				row.add(submission.getBsiPageStatus());
+				row.add((submission.getRepoCount() == null ? "" : submission.getRepoCount().toString()));
+				exportRow.setRow(row);
+				rows.add(exportRow);
+				
+				// Add groups - Repo and Subprojects
+				setProjectId(submission.getId().toString());
+				
+				if (submission.getRepoCount() > 0) {
+					getRepoInfo();
+
+					exportRow = new ExportRow();
+					row = new ArrayList<>();
+					row.add("");
+					row.add("Repositories");
+					row.add("Registration Status");
+					row.add("Submission Status");
+					row.add("Study Released Status");
+					row.add("Accession Number");
+					exportRow.setHeader(true);
+					exportRow.setGroup(true);
+					exportRow.setRow(row);
+					rows.add(exportRow);
+
+					for (RepositoryStatus repo : repoList) {
+						exportRow = new ExportRow();
+						row = new ArrayList<>();
+						exportRow.setGroup(true);
+						row.add("");
+						row.add(repo.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
+						row.add(repo.getLookupTByRegistrationStatusId().getDisplayName());
+						row.add(repo.getLookupTByDataSubmissionStatusId().getDisplayName());
+						row.add(repo.getLookupTByStudyReleasedId().getDisplayName());
+						row.add(repo.getAccessionNumber());
+						exportRow.setRow(row);
+						rows.add(exportRow);
+					}
+				}
+
+				if (submission.getSubprojectCount() > 0) {
+					getSubprojects();
+
+					exportRow = new ExportRow();
+					row = new ArrayList<>();
+					row.add("");
+					row.add("Sub-Project ID");
+					row.add("Sub-project Title");
+					row.add("Principle Investigator Name");
+					row.add("Principle Investigator Email");
+					row.add("GDS Plan");
+					row.add("Data Sharing Exception");
+					row.add("IC");
+					row.add("BSI");
+					exportRow.setHeader(true);
+					exportRow.setGroup(true);
+					exportRow.setRow(row);
+					rows.add(exportRow);
+					
+					for (ProjectsVw subProject : subprojectList) {
+						exportRow = new ExportRow();
+						row = new ArrayList<>();
+						exportRow.setGroup(true);
+						row.add("");
+						row.add(subProject.getId().toString());
+						row.add(subProject.getProjectTitle());
+						row.add((subProject.getPiLastName() == null ? "" : subProject.getPiLastName() + ", " + subProject.getPiFirstName()));
+						row.add(subProject.getPiEmailAddress());
+						row.add(subProject.getGdsPlanPageStatus());
+						row.add("");
+						row.add(subProject.getIcPageStatus());
+						row.add(subProject.getBsiPageStatus());
+						exportRow.setRow(row);
+						rows.add(exportRow);
+						
+						if (!subProject.getRepositoryStatuses().isEmpty()) {
+							exportRow = new ExportRow();
+							row = new ArrayList<>();
+							row.add("");
+							row.add("Repositories");
+							row.add("Registration Status");
+							row.add("Submission Status");
+							row.add("Study Released Status");
+							row.add("Accession Number");
+							exportRow.setHeader(true);
+							exportRow.setGroup(true);
+							exportRow.setRow(row);
+							rows.add(exportRow);
+							
+							for (RepositoryStatus repo : subProject.getRepositoryStatuses()) {
+								exportRow = new ExportRow();
+								row = new ArrayList<>();
+								exportRow.setGroup(true);
+								row.add("");
+								row.add(repo.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer()
+										.getDisplayText());
+								row.add(repo.getLookupTByRegistrationStatusId().getDisplayName());
+								row.add(repo.getLookupTByDataSubmissionStatusId().getDisplayName());
+								row.add(repo.getLookupTByStudyReleasedId().getDisplayName());
+								row.add(repo.getAccessionNumber());
+								exportRow.setRow(row);
+								rows.add(exportRow);
+							}
+						}
+					}
+				}
+
+			}
+			return rows;
 	}
 	
 	/**
@@ -300,12 +390,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		String parentProjectId  = getProjectId();
 		if(StringUtils.isNotBlank(parentProjectId)) {
 			subprojectList = searchProjectService.getSubprojects(Long.valueOf(parentProjectId));
-			for(Project subproject: subprojectList) {
-				for(PlanAnswerSelection selection: subproject.getPlanAnswerSelection()) {
-					for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
-						subproject.getRepositoryStatuses().add(repositoryStatus);
-					}		
-				}
+			for(ProjectsVw subproject: subprojectList) {
 				Collections.sort(subproject.getRepositoryStatuses(),new RepositoryStatusComparator());
 				setRepoList(subproject.getRepositoryStatuses());
 			}
@@ -438,11 +523,11 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		this.repoList = repoList;
 	}
 
-	public List<Project> getSubprojectList() {
+	public List<ProjectsVw> getSubprojectList() {
 		return subprojectList;
 	}
 
-	public void setSubprojectList(List<Project> subprojectList) {
+	public void setSubprojectList(List<ProjectsVw> subprojectList) {
 		this.subprojectList = subprojectList;
 	}
 }

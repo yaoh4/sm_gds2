@@ -44,10 +44,10 @@ public class Submission implements java.io.Serializable {
 	private String pdLastName;
 	private Long applId;
 	private Date anticipatedSubmissionDate;
-	private String gdsPlanStatus;
+	private String gdsPlanPageStatus;
 	private String dataSharingException;
-	private String icStatus;
-	private String bsiStatus;
+	private String icPageStatus;
+	private String bsiPageStatus;
 	private Long repoCount;
 	private Long subprojectCount;
 
@@ -334,12 +334,12 @@ public class Submission implements java.io.Serializable {
 		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 	}
 
-	public String getGdsPlanStatus() {
-		return gdsPlanStatus;
+	public String getGdsPlanPageStatus() {
+		return gdsPlanPageStatus;
 	}
 
-	public void setGdsPlanStatus(String gdsPlanStatus) {
-		this.gdsPlanStatus = gdsPlanStatus;
+	public void setGdsPlanPageStatus(String gdsPlanPageStatus) {
+		this.gdsPlanPageStatus = gdsPlanPageStatus;
 	}
 
 	public String getDataSharingException() {
@@ -350,20 +350,20 @@ public class Submission implements java.io.Serializable {
 		this.dataSharingException = dataSharingException;
 	}
 
-	public String getBsiStatus() {
-		return bsiStatus;
+	public String getBsiPageStatus() {
+		return bsiPageStatus;
 	}
 
-	public void setBsiStatus(String bsiStatus) {
-		this.bsiStatus = bsiStatus;
+	public void setBsiPageStatus(String bsiPageStatus) {
+		this.bsiPageStatus = bsiPageStatus;
 	}
 
-	public String getIcStatus() {
-		return icStatus;
+	public String getIcPageStatus() {
+		return icPageStatus;
 	}
 
-	public void setIcStatus(String icStatus) {
-		this.icStatus = icStatus;
+	public void setIcPageStatus(String icPageStatus) {
+		this.icPageStatus = icPageStatus;
 	}
 
 	public Long getRepoCount() {

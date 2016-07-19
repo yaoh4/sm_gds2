@@ -57,10 +57,10 @@ $(document).ready(function(){
                 { "data": "piLastName"},
                 { "data": "piFirstName"},
                 { "data": "piEmailAddress"},
-                { "data":  "gdsPlanStatus"},
+                { "data":  "gdsPlanPageStatus"},
                 { "data":  "dataSharingException"},
-                { "data":  "icStatus"},
-                { "data":  "bsiStatus"},
+                { "data":  "icPageStatus"},
+                { "data":  "bsiPageStatus"},
                 { "data":  "repoCount"},
                 { "data":  "subprojectCount"},
                 { "data":  null},
@@ -98,7 +98,7 @@ $(document).ready(function(){
                 	if(row.repoCount != null && row.repoCount > 0) {
                         return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><span class="badge">' + row.repoCount + '</span>&nbsp;Submission Status</a>';
                 	}
-                	return data;
+                	return "";
                 } },
                 {
                 "targets": 0, // First column, view project id
@@ -131,7 +131,7 @@ $(document).ready(function(){
                 {
                 "targets": [6, 7, 8, 9], // Status columns
                 "width": "7%",
-                "orderable": false,
+                "orderable": false,//TODO Make is orderable when DB is ready
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
                 		if(data == "In Progress") {

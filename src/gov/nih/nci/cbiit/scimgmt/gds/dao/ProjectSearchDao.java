@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
 import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchCriteria;
 import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchResult;
@@ -61,11 +61,11 @@ public class ProjectSearchDao {
 	@SuppressWarnings("unchecked")
 	public SubmissionSearchResult search(SubmissionSearchCriteria searchCriteria) {
 		logger.debug("searching for project submission : " + searchCriteria);
-		List<Project> list = null;
+		List<ProjectsVw> list = null;
 		try {
 	  
 			Criteria criteria = null;
-			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class, "project");
+			criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class, "project");//TODO
 			int totalRecords = 0;
 			
 			// Sort order
@@ -78,7 +78,7 @@ public class ProjectSearchDao {
 			if (searchCriteria.getLength() == -1) {
 				list = criteria.list();
 			} else {
-				list =  (List<Project>) criteria.setFirstResult(searchCriteria.getStart())
+				list =  (List<ProjectsVw>) criteria.setFirstResult(searchCriteria.getStart())
 						.setMaxResults(searchCriteria.getLength())
 						.list();
 				totalRecords = getTotalResultCount(criteria);
@@ -88,15 +88,11 @@ public class ProjectSearchDao {
 			if(list != null && !list.isEmpty()) {
 				SubmissionSearchResult result = new SubmissionSearchResult();
 				List<Submission> submissions = new ArrayList<Submission>();
-				for(Project p: list) {
+				for(ProjectsVw p: list) {
 					Submission s = new Submission();
 					BeanUtils.copyProperties(p, s);
-					for(PageStatus status: p.getPageStatuses()) {
-						s.setGdsPlanStatus(status.getStatus().getDisplayName());
-						s.setBsiStatus(status.getStatus().getDisplayName());
-						s.setIcStatus(status.getStatus().getDisplayName());
-						s.setDataSharingException(status.getStatus().getDisplayName());
-					}
+					//TODO YURI
+					s.setDataSharingException("In progress");
 					submissions.add(s);
 				}
 				result.setData(submissions);
@@ -145,16 +141,16 @@ public class ProjectSearchDao {
 	 * @return List<Project>
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Project> getSubprojects(Long parentProjectId) {
+	public List<ProjectsVw> getSubprojects(Long parentProjectId) {
 		
-		List<Project> list = null;
+		List<ProjectsVw> list = null;
 		
 		try {
 			Criteria criteria = null;
-			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class);
+			criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);
 			criteria.add(Restrictions.eq("subprojectFlag", "Y"));
 			criteria.add(Restrictions.eq("parentProjectId", parentProjectId));
-			list =  (List<Project>) criteria.list();
+			list =  (List<ProjectsVw>) criteria.list();
 			return list;
 			
 		} catch (Throwable e) {

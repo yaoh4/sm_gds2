@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.ProjectSearchDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchCriteria;
 import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchResult;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
@@ -49,7 +50,7 @@ public class SearchProjectServiceImpl implements SearchProjectService {
 	 * @param parentProjectId
 	 * @return List<Project>
 	 */
-	public List<Project> getSubprojects(Long parentProjectId) {
+	public List<ProjectsVw> getSubprojects(Long parentProjectId) {
 		logger.debug("getSubprojects");
 		return projectSearchDAO.getSubprojects(parentProjectId);
 		
