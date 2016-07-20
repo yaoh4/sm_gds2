@@ -32,8 +32,6 @@ $(document).ready(function () {
 		}
 	});
 	
-	
-	//TBD - Needs to be fixed
 	//Do not show DULs and DUL verified flag if provisional
 	value  = $("#finalprov option:selected").text();
 	  if ( value == 'Provisional') {
@@ -67,29 +65,6 @@ $(document).ready(function () {
 	  } 
 		
 });
-
-//FIXME: After changing to No, and deleting DUl, then When we change to 'Yes' the  
-//deleted DUL is not restored. Also, when we click add DUL, nothing happens.
-$("#gpa").change(function(){
-	
-	var studiesArray = $('.studySections');
-	jQuery.each(studiesArray, function(index, study) {
-		var dulSetsNum = $(this).find('.dulTypes').length;
-		if(dulSetsNum == 1) {
-			var gpaVal = $('#gpa option:selected').text();
-			if(gpaVal == "No") {
-				if($(this).find(".deleteIcon").length == 0) {
-					//Get the dulIndex of this element. 
-					var studiesIdx = $(this).attr("id").replace("studySection", "");
-					var elemIndex = $(this).find('.dulTypes').attr("id").slice($(this).find('.dulTypes').attr("id").lastIndexOf("-") + 1);
-					$(this).find('.dulTypes').find(".dulHeading").prepend('<a href="#" onclick="deleteDulSet(' + studiesIdx + ',' + elemIndex + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
-				}
-			} else {
-				$(this).find(".deleteIcon").remove();
-			}
-		}
-	});
-})
 
 
 $(".parentDulSet").change(function() {
@@ -149,7 +124,8 @@ function addDulSet(studiesIdx)  {
 	newDulTypeDiv.html(function(i, oldHTML) {
 	    return oldHTML.replace("0-0", studiesIdx + "-" + newDulTypeIndex).replace(
 	    	"instCertification.studies[0].studiesDulSets[0]", 
-	    	"instCertification.studies[" + studiesIdx + "].studiesDulSets[" + newDulTypeIndex + "]");
+	    	"instCertification.studies[" + studiesIdx + "].studiesDulSets[" + newDulTypeIndex + "]").replace(
+	    		"deleteDulSet(0,0)", "deleteDulSet(" + studiesIdx + "," + newDulTypeIndex + ")");
 	})
 	
 	//Set the correct values
@@ -159,36 +135,12 @@ function addDulSet(studiesIdx)  {
 	newDulTypeDiv.appendTo("#cloneDULInput-" + studiesIdx);
 	$("#cloneDULInput-" + studiesIdx).show();
 	newDulTypeDiv.show();
-	
-	//If number of DULSets for this study is greater than 1, add trash can to all DULs
-	//Else remove trash can from the lone one.
-	var numItems = $("#cloneDULInput-" + studiesIdx).find('.dulTypes').length;
-	var dulSetArray = $("#cloneDULInput-" + studiesIdx).find('.dulTypes');
-	if(numItems > 1) {
-		jQuery.each(dulSetArray, function(index, val) {
-			if($(this).find(".deleteIcon").length == 0) {
-				//Get the dulIndex of this element. 
-				var elemIndex = $(this).attr("id").slice($(this).attr("id").lastIndexOf("-") + 1);
-				$(this).find(".dulHeading").prepend('<a href="#" onclick="deleteDulSet(' + studiesIdx + ',' + elemIndex + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
-			}
-		});
-	} else {
-		dulSetArray.find(".deleteIcon").remove();
-	}
-	
 };
 
 
 function deleteDulSet(studiesIdx, dulSetIdx) {
 	$("#dulType" + studiesIdx + "-" + dulSetIdx).find("#dulSetDisplayId" + studiesIdx + "-" + dulSetIdx).val('');
 	$("#dulType" + studiesIdx + "-" + dulSetIdx).remove();
-	var numItems = $("#studySection" + studiesIdx).find('.dulTypes').length;
-	if(numItems == 1) {
-		//Use dulTypes class and not id to locate the element because we dont know
-		//which is the DULSet that is left. 
-		$("#studySection" + studiesIdx).find(".dulTypes").find(".deleteIcon").remove();
-	}
-	
 };
 
 
