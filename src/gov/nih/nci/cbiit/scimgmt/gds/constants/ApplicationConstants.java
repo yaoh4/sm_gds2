@@ -12,7 +12,7 @@ public interface ApplicationConstants {
 	public static final String ERROR_EMAIL = "error.email";
 	public static final String EMAIL_FROM = "email.from";
 	public static final String EMAIL_FROM_DISPLAY = "email.from.display";
-	public static final String ENVIRONMENT = "environment";
+	public static final String ENVIRONMENT = "ENVIRONMENT";
 	public static final String PRODUCTION = "Production";
 		
 	/* Action forwards */

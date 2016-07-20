@@ -84,7 +84,9 @@ public class MailServiceImpl implements MailService {
 		params.put(FROM, from);
 		params.put(FROM_DISPLAY, fromDisplay);
 
-		if (to != null && to.length > 0) {
+		final String env = gdsProperties.getProperty(ApplicationConstants.ENVIRONMENT);
+
+		if (!env.toLowerCase().startsWith("prod") || to != null && to.length > 0) {
 			send("ERROR_REPORT", params);
 		} else {
 			logger.error("Unable to send error message: no TO: addresses found");
