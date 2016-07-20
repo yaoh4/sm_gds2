@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,7 +39,7 @@ public class ProjectsVw implements java.io.Serializable {
 	private String bsiReviewedFlag;
 	private Long versionNum;
 	private String subprojectFlag;
-	private Long parentProjectId;
+	private ProjectsVw parentProject;
 	private String latestVersionFlag;
 	private Long projectGroupId;
 	private Long subprojectGroupId;
@@ -57,16 +59,16 @@ public class ProjectsVw implements java.io.Serializable {
 	private Date anticipatedSubmissionDate;
 	private String projectSubmissionTitle;
 	private String dataLinkFlag;
-	private String generalInfoPageStatus;
 	private String gdsPlanPageStatus;
 	private String icPageStatus;
 	private String bsiPageStatus;
-	private String repositoryPageStatus;
+	private String dataSharingExceptionStatus;
 
 	private Long subprojectCount;
 	private Long repoCount;
 	
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
+	private List<ProjectsVw> subprojects = new ArrayList<ProjectsVw>();
 	
 	public ProjectsVw() {
 	}
@@ -75,13 +77,13 @@ public class ProjectsVw implements java.io.Serializable {
 			String programBranch, String grantContractNum, String piInstitution, String piEmailAddress,
 			Date projectStartDate, Date projectEndDate, Date sciRevApprovalRcvdDate, String parentAccessionNum,
 			String comments, String bsiReviewedFlag, Long versionNum, String subprojectFlag,
-			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
+			ProjectsVw parentProject, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String icCompleteFlag, String piFirstName, String piLastName,
 			String pocFirstName, String pocLastName, Long pdNpnId, String pdFirstName, String pdLastName,
 			String pocEmailAddress, String planComments, Long applId, String bsiComments,
 			Date anticipatedSubmissionDate, String projectSubmissionTitle, String dataLinkFlag,
-			String generalInfoPageStatus, String gdsPlanPageStatus, String icPageStatus, String bsiPageStatus,
-			String repositoryPageStatus) {
+			String gdsPlanPageStatus, String icPageStatus, String bsiPageStatus,
+			String dataSharingExceptionStatus) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
 		this.projectTitle = projectTitle;
@@ -98,7 +100,7 @@ public class ProjectsVw implements java.io.Serializable {
 		this.bsiReviewedFlag = bsiReviewedFlag;
 		this.versionNum = versionNum;
 		this.subprojectFlag = subprojectFlag;
-		this.parentProjectId = parentProjectId;
+		this.parentProject = parentProject;
 		this.latestVersionFlag = latestVersionFlag;
 		this.projectGroupId = projectGroupId;
 		this.subprojectGroupId = subprojectGroupId;
@@ -118,11 +120,10 @@ public class ProjectsVw implements java.io.Serializable {
 		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 		this.projectSubmissionTitle = projectSubmissionTitle;
 		this.dataLinkFlag = dataLinkFlag;
-		this.generalInfoPageStatus = generalInfoPageStatus;
 		this.gdsPlanPageStatus = gdsPlanPageStatus;
 		this.icPageStatus = icPageStatus;
 		this.bsiPageStatus = bsiPageStatus;
-		this.repositoryPageStatus = repositoryPageStatus;
+		this.dataSharingExceptionStatus = dataSharingExceptionStatus;
 	}
 
 	@Id
@@ -270,13 +271,14 @@ public class ProjectsVw implements java.io.Serializable {
 		this.subprojectFlag = subprojectFlag;
 	}
 
-	@Column(name = "PARENT_PROJECT_ID", precision = 10, scale = 0)
-	public Long getParentProjectId() {
-		return this.parentProjectId;
-	}
-
-	public void setParentProjectId(Long parentProjectId) {
-		this.parentProjectId = parentProjectId;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PARENT_PROJECT_ID", nullable = false)
+	public ProjectsVw getParentProject() {
+		return this.parentProject;
+	}    
+	
+	public void setParentProject(ProjectsVw parentProject) {
+		this.parentProject = parentProject;
 	}
 
 	@Column(name = "LATEST_VERSION_FLAG", length = 4)
@@ -450,15 +452,6 @@ public class ProjectsVw implements java.io.Serializable {
 		this.dataLinkFlag = dataLinkFlag;
 	}
 
-	@Column(name = "GENERAL_INFO_PAGE_STATUS", length = 400)
-	public String getGeneralInfoPageStatus() {
-		return this.generalInfoPageStatus;
-	}
-
-	public void setGeneralInfoPageStatus(String generalInfoPageStatus) {
-		this.generalInfoPageStatus = generalInfoPageStatus;
-	}
-
 	@Column(name = "GDS_PLAN_PAGE_STATUS", length = 400)
 	public String getGdsPlanPageStatus() {
 		return this.gdsPlanPageStatus;
@@ -486,13 +479,13 @@ public class ProjectsVw implements java.io.Serializable {
 		this.bsiPageStatus = bsiPageStatus;
 	}
 
-	@Column(name = "REPOSITORY_PAGE_STATUS", length = 400)
-	public String getRepositoryPageStatus() {
-		return this.repositoryPageStatus;
+	@Column(name = "DATA_SHARING_EXCEPTION_STATUS", length = 400)
+	public String getDataSharingExceptionStatus() {
+		return this.dataSharingExceptionStatus;
 	}
 
-	public void setRepositoryPageStatus(String repositoryPageStatus) {
-		this.repositoryPageStatus = repositoryPageStatus;
+	public void setDataSharingExceptionStatus(String dataSharingExceptionStatus) {
+		this.dataSharingExceptionStatus = dataSharingExceptionStatus;
 	}
 
 	@Formula(value="(SELECT count(*) FROM projects_t p WHERE p.parent_project_id = id AND p.latest_version_flag = 'Y')")
@@ -520,5 +513,14 @@ public class ProjectsVw implements java.io.Serializable {
 
 	public void setRepositoryStatuses(List<RepositoryStatus> repositoryStatuses) {
 		this.repositoryStatuses = repositoryStatuses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="parentProject")
+	public List<ProjectsVw> getSubprojects() {
+		return subprojects;
+	}
+
+	public void setSubprojects(List<ProjectsVw> subprojects) {
+		this.subprojects = subprojects;
 	}
 }

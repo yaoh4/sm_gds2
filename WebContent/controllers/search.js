@@ -58,7 +58,7 @@ $(document).ready(function(){
                 { "data": "piFirstName"},
                 { "data": "piEmailAddress"},
                 { "data":  "gdsPlanPageStatus"},
-                { "data":  "dataSharingException"},
+                { "data":  "dataSharingExceptionStatus"},
                 { "data":  "icPageStatus"},
                 { "data":  "bsiPageStatus"},
                 { "data":  "repoCount"},

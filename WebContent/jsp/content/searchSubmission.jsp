@@ -20,7 +20,7 @@
 
 				<div class="col-xs-4">
 					<label for="Intramural(Z01)/Grant/Contract #:">Intramural(Z01)/Grant/Contract #:</label> 
-					<s:textfield  name="criteria.applicationNum" class="form-control" id="grantNumber" />
+					<s:textfield  name="criteria.grantContractNum" class="form-control" id="grantNumber" />
 				</div>
 
 			</div>
