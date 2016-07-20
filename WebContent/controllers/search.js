@@ -197,7 +197,10 @@ $(document).ready(function(){
     });
 
     $("#directorSelect").change(function() {
-    	$("#directorName").val($(this).find("option:selected").text());
+    	if($(this).find("option:selected").val() != "")
+    		$("#directorName").val($(this).find("option:selected").text());
+    	else
+    		$("#directorName").val("");
     });
 
 });
