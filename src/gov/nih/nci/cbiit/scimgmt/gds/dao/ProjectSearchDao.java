@@ -197,7 +197,7 @@ public class ProjectSearchDao {
 		logger.debug("adding search criteria for project submission search: " + searchCriteria);
 
 		//Need to search for parent project latest and sub project latest
-		DetachedCriteria parentCriteria = DetachedCriteria.forClass(ProjectsVw.class,"project");
+		Conjunction parentCriteria = Restrictions.conjunction();
 		DetachedCriteria subprojectCriteria = DetachedCriteria.forClass(ProjectsVw.class,"subproject");
 		
 		parentCriteria.add(Restrictions.ne("subprojectFlag", "Y"));
@@ -259,14 +259,14 @@ public class ProjectSearchDao {
 
 		// Accession Number
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getAccessionNumber()))) {
-			parentCriteria.createCriteria("project.repositoryStatuses" , "repositoryStatuses");
+			criteria.createAlias("project.repositoryStatuses" , "repositoryStatuses");
 			parentCriteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
 			subprojectCriteria.createCriteria("subproject.repositoryStatuses" , "repositoryStatuses");
 			subprojectCriteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
 		}
 		
 		Disjunction dc = Restrictions.disjunction();
-		dc.add(Subqueries.propertyIn("id", parentCriteria.setProjection(Projections.property("id"))));
+		dc.add(parentCriteria);
 		dc.add(Subqueries.propertyIn("id", subprojectCriteria.setProjection(Projections.property("subproject.parentProject.id"))));
 		criteria.add(dc);
 

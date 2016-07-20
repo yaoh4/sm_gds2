@@ -30,7 +30,13 @@
 				<tbody>
 					<s:iterator value="subprojectList" var="s" status="stat">
 						<tr>
-							<td rowspan="2" style="white-space: nowrap"><s:a
+							<s:if test="%{#s.repositoryStatuses.size > 0}">
+								<s:set name="rowSpan" value="2"/>
+							</s:if>
+							<s:else>
+								<s:set name="rowSpan" value="1"/>
+							</s:else>
+							<td rowspan="${rowSpan}" style="white-space: nowrap"><s:a
 									href="../manage/navigateToGeneralInfo.action?projectId=%{#s.id}">
 									<strong><s:property value="#s.id" /></strong>
 								</s:a></td>
@@ -62,8 +68,8 @@
 								</div>
 							</td>
 
-
-							<td rowspan="2">
+							
+							<td rowspan="${rowSpan}">
 								<table cellpadding="1px" class="iconTable">
 									<tr>
 										<td>
@@ -77,7 +83,7 @@
 												</s:a>
 												&nbsp;&nbsp;&nbsp;
 
-												<s:a href="deleteProject.action?projectId=%{#s.id}"
+												<s:a onclick="deleteSubmission(%{#s.id})" href="javascript: void(0)"
 													class="editor_remove">
 													<i class="fa fa-trash fa-lg" aria-hidden="true"
 														alt="delete" title="delete"></i>
@@ -94,7 +100,7 @@
 												<div class="dropbottom">
 													<div class="dropmid"
 														style="white-space: nowrap; height: auto;">
-														<a href="newProjectVersion.htm">Add New Version</a><br />
+														<a href="javascript: void(0)">Add New Version</a><br />
 													</div>
 												</div>
 											</div>
@@ -105,6 +111,7 @@
 							</td>
 						</tr>
 
+						<s:if test="%{#s.repositoryStatuses.size > 0}">
 						<tr>
 							<td colspan="6">
 								<!--Repository Table --> <span> <a class="repoExpand"
@@ -128,8 +135,14 @@
 											<s:iterator value="%{#s.repositoryStatuses}" var="r"
 												status="stat2">
 												<tr>
-													<td><s:property
-															value="#r.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" /></td>
+													<td><s:if test="%{#r.planAnswerSelectionTByRepositoryId.otherText != null}">
+															<s:property value="#r.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
+															 - <s:property value="#r.planAnswerSelectionTByRepositoryId.otherText" />
+														</s:if> 
+														<s:else>
+															<s:property value="#r.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
+														</s:else>
+													</td>
 													<td>
 														<div class="searchProgess">
 															<s:if
@@ -176,6 +189,7 @@
 								</div>
 							</td>
 						</tr>
+						</s:if>
 					</s:iterator>
 				</tbody>
 			</table>

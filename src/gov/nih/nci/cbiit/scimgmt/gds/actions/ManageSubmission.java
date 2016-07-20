@@ -48,8 +48,6 @@ public class ManageSubmission extends BaseAction {
 	private Project project;
 	
 	private Long docId;
-
-	protected InputStream inputStream;
 	
 	/**
 	 * Execute method, for now used for navigation
@@ -235,16 +233,6 @@ public class ManageSubmission extends BaseAction {
 		this.docId = docId;
 	}
 
-
-	public InputStream getInputStream() {
-		return inputStream;
-	}
-
-
-	public void setInputStream(InputStream inputStream) {
-		this.inputStream = inputStream;
-	}
-	
 	
 	/**
 	 * Get Lookup object by list name and code

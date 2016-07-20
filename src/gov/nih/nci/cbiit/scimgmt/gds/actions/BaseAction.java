@@ -8,6 +8,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsProperties;
 
+import java.io.InputStream;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -38,6 +39,7 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	/*Id of the selected project or subproject*/
 	private String projectId;
 	
+	protected InputStream inputStream;
 	
 	@Override
 	public void setSession(Map<String, Object> session) {
@@ -126,5 +128,14 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
 	}	
+	
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+
+	public void setInputStream(InputStream inputStream) {
+		this.inputStream = inputStream;
+	}
 	
 }

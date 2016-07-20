@@ -1,7 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -349,9 +349,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		logger.debug("deleteProject()");
 
 		manageProjectService.delete(Long.valueOf(getProjectId()));
-		addActionMessage(getText("project.delete.success"));
-		
-		setUpLists();
+		inputStream = new ByteArrayInputStream(getText("project.delete.success").getBytes("UTF-8"));
 		
 		return SUCCESS;
 	}
@@ -408,7 +406,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		logger.debug("validateDeleteProject");
 		
 		if(StringUtils.isBlank(getProjectId())) {
-			addActionError("Error deleting submission");
+			inputStream = new ByteArrayInputStream(getText("project.delete.error").getBytes("UTF-8"));
+			addActionError(getText("project.delete.error"));
 		}
 
 		logger.debug("end - validateDeleteProject");

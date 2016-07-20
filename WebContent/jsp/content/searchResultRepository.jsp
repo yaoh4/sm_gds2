@@ -24,8 +24,14 @@
 
 					<s:iterator value="repoList" var="r" status="stat">
 						<tr>
-							<td><s:property
-									value="#r.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" /></td>
+							<td>
+								<s:if test="%{#r.planAnswerSelectionTByRepositoryId.otherText != null}">
+									<s:property value="#r.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
+										 - <s:property value="#r.planAnswerSelectionTByRepositoryId.otherText" />
+								</s:if>
+								<s:else>
+									<s:property value="#r.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
+								</s:else></td>
 							<td>
 								<div class="searchProgess">
 									<s:if

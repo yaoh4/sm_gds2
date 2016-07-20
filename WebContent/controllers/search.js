@@ -85,11 +85,11 @@ $(document).ready(function(){
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     return '<div style="white-space: nowrap;"><a href="../manage/navigateToGeneralInfo.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i></a>' +
-                    '&nbsp;&nbsp;&nbsp;<a href="deleteProject.action?projectId=' + row.id + '"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>' +
+                    '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>' +
                     '&nbsp;&nbsp;&nbsp;<a href="#" id="eclick" class="ellipsisR"><img src="../images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"><img src="../images/ellipsisOver.png" height="17px" width="16x" alt="open ellipsis"></a></div>' +
                     '<div class="ellipsis" style="display: none;"><div class="dropbottom"><div class="dropmid" style="white-space: nowrap; height: auto;">' +
-                    '<a href="newProjectVersion.htm">Add New Version</a><br>' +
-                    '<a href="parentProjectsearch.htm">Add New Subproject</a></div></div></div>';
+                    '<a href="javascript: void(0)">Add New Version</a><br>' +
+                    '<a href="javascript: void(0)">Add New Subproject</a></div></div></div>';
                 } },
                 {
                 "targets": -2, // Repository
@@ -234,5 +234,38 @@ function getSubprojects(id) {
 
 }
 
+function deleteSubmission(projectId)
+{
+	var result = "";
+	bootbox.confirm("Are you sure you want to delete this submission?", function(ans) {
+		  if (ans) {
+			  $.ajax({
+					url: "deleteProject.action",
+					type: "post",
+					data: {projectId: projectId},
+					success: function(msg){
+						result = $.trim(msg);
+					}, 
+					error: function(){}		
+				}).done(function() {
+					if(result.indexOf("success") > 0) {
+						$('#submissionTable').DataTable().ajax.reload(null , false);
+						if($('#existingSubProjects').length) { 
+							$('#existingSubProjects').modal('hide');
+						}
+						bootbox.alert(result, function() {
+				  			return true;
+						});
+					}
+					else {
+						bootbox.alert(result, function() {
+				  			return true;
+						});
+					}
+				});
+			    return true;
+		  }
+	});
+}
 
 

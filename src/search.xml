@@ -26,8 +26,14 @@
 		</action>
 		
 		<action name="deleteProject" method="deleteProject" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
-			<result name="success" type="tiles">search</result>
-			<result name="input" type="tiles">search</result>
+			<result name="success" type="stream">     
+				<param name="contentType">text/html</param>     
+				<param name="inputName">inputStream</param>   
+			</result>
+			<result name="input" type="stream">     
+				<param name="contentType">text/html</param>     
+				<param name="inputName">inputStream</param>   
+			</result>
 		</action>
 		
 		<action name="getRepoInfo" method="getRepoInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
