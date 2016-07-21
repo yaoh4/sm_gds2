@@ -367,7 +367,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			String dulSelectionsStr = "";
 			for(int i = 0; i < selectedDuls.length; i++) {										
 			
-				dulSelectionsStr = dulSelections + selectedDuls[i];
+				dulSelectionsStr = dulSelectionsStr + selectedDuls[i];
 			
 				//for each selectedDul, create a dulChecklistSelection
 				DulChecklistSelection dulChecklistSelection = createDulChecklistSelection(selectedDuls[i], null);
@@ -376,7 +376,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			}
 		
 			//Check if this dulSet is already present
-			if(validationMap.containsKey(dulSelections)) {
+			if(validationMap.containsKey(dulSelectionsStr)) {
 				//If parent dul is 13 or 21, get the additional text - validationMap.get(0);
 				DulChecklist parentDul = GdsSubmissionActionHelper.getDulChecklist(Long.valueOf(parentDulId));
 				this.addActionError(getText("error.ic.study.dulSelection.duplicate", new String[]{parentDul.getDisplayText(), studyName}));
