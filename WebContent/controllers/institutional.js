@@ -67,9 +67,9 @@ $(document).ready(function () {
 });
 
 
-$(".parentDulSet").change(function() {
+function displayDuls(element) {
 	
-	var dulTypeDivId = $(this).attr("name").replace("parentDul-", "dulType");
+    var dulTypeDivId = $(element).attr("name").replace("parentDul-", "dulType");
 	
 	//First hide dul selections (checkboxes) from all parents (radio buttons) 
 	$("#" + dulTypeDivId).find(".dulSetDiv").hide();
@@ -81,13 +81,11 @@ $(".parentDulSet").change(function() {
 	
 	
 	//Then show dul selections only from the checkboxes of the parent that was checked
-	if($(this).is(":checked")) {
-		var dulSetIds = $(this).attr('id').replace("parentDul", "dulSet");
+	if($(element).is(":checked")) {
+		var dulSetIds = $(element).attr('id').replace("parentDul", "dulSet");
 		$("#" + dulSetIds).show();
 	}
-	
-	
-});
+}
 
 $("#btnAddDUL").click(function() {
 	//Get the index of the parent study
@@ -117,15 +115,15 @@ function addDulSet(studiesIdx)  {
 		}
 	}
 	//Perform the cloning
-	var newDulTypeDiv = $( "#dulTypeTemplate0-0").clone(true);
+	var newDulTypeDiv = $( "#dulTypeTemplate0-0").clone(true, true);
 	//Set the correct ids and names
 	newDulTypeDiv.attr("id", "dulType" + studiesIdx + "-" + newDulTypeIndex);
 	newDulTypeDiv.attr("class", "dulTypes");
 	newDulTypeDiv.html(function(i, oldHTML) {
-	    return oldHTML.replace("0-0", studiesIdx + "-" + newDulTypeIndex).replace(
-	    	"instCertification.studies[0].studiesDulSets[0]", 
+	    return oldHTML.replace(/0-0/g, studiesIdx + "-" + newDulTypeIndex).replace(
+	    	/instCertification.studies\[0\].studiesDulSets\[0\]/g, 
 	    	"instCertification.studies[" + studiesIdx + "].studiesDulSets[" + newDulTypeIndex + "]").replace(
-	    		"deleteDulSet(0,0)", "deleteDulSet(" + studiesIdx + "," + newDulTypeIndex + ")");
+	    		/deleteDulSet\(0,0\)/g, "deleteDulSet(" + studiesIdx + "," + newDulTypeIndex + ")");
 	})
 	
 	//Set the correct values
@@ -184,8 +182,8 @@ function addStudy() {
 	//Set the correct ids and names
 	newStudySectionDiv.attr("id", "studySection" + newStudySectionIndex);
 	newStudySectionDiv.html(function(i, oldHTML) {
-	    return oldHTML.replace("-0", "-" + newStudySectionIndex).replace(
-	    	"instCertification.studies[0]", 
+	    return oldHTML.replace(/-0/g, "-" + newStudySectionIndex).replace(
+	    	/instCertification.studies\[0\]/g, 
 	    	"instCertification.studies[" + newStudySectionIndex + "]");
 	})
 	

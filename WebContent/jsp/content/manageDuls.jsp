@@ -42,7 +42,7 @@
                 
                   <div class="radio">
 				    <label>
-                      <input type="radio" class="parentDulSet" 
+                      <input type="radio" class="parentDulSet" onClick="displayDuls(this)"
                       		name="parentDul-<s:property value='#studiesStat.index'/>-<s:property value='#dulSetStat.index'/>" 
 							id="parentDul${studiesIdx}-${dulSetIdx}-${parentDul.id}" value="${parentDul.id}">
                     	&nbsp;&nbsp;${parentDul.displayText}    
