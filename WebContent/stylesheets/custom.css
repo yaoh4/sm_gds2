@@ -2,7 +2,7 @@ body {
  position: relative;
   padding-top: 250px; 
    margin: 0;
-  padding-bottom: 6rem;
+  padding-bottom: 0px;
   font-family: 'Source Sans Pro';
   font-size: 14px;
   
@@ -413,7 +413,7 @@ font-weight:600;
 
 .site-footer {
 	
- margin-top: 100px;
+ margin-top: 20px;
 height: 200px;
 clear: both;
 background: #123e57;
@@ -840,19 +840,20 @@ float: left;
 /*****Pop-up on General Info for Searching Grants***********/
 
 .searchLabel {
-  margin-left: 70px;
+  margin-left: 20px;
  display: inline-block;
   font-weight: 400;
     color: #686868;
     font-size: 14px;
     text-align: right;
-    width: 150px;
+    width: 250px;
     margin-bottom: 10px;
 }
 .searchFormat {
   display: inline-block;
   padding-left: 25px;
   font-size: 14px;
+  width: 400px;
 }
 
 /******GDS Data Sharing Page****************************/
