@@ -85,6 +85,19 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		return SUCCESS;
 	}
 
+	/**
+	 * Navigate to Search Parent Project.
+	 * @return forward string
+	 */
+	public String navigateToParentSearch() throws Exception {      
+
+		logger.debug("navigateToParentSearch");
+		// Populate "Submission from" and "PD" lists
+		setUpLists();
+		
+		return SUCCESS;
+	}
+	
 	/** 
 	 * Search Project.
 	 * @return forward string

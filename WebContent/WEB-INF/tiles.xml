@@ -30,7 +30,13 @@
 		<put-attribute name="navtab" value="search" type="string" />		
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/searchSubmission.jsp" />		
-	</definition>		
+	</definition>
+	
+	<definition name="searchParent" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/searchParentSubmission.jsp" />		
+	</definition>	
 
 	<definition name="error" extends="base.definition">
 		<put-attribute name="title" type="string" value="GDS Tracking System- Error Details" />

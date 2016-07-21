@@ -13,6 +13,10 @@
 			 <result name="success" type="tiles">search</result>
 		</action>
 		
+		<action name="navigateToParentSearch" method="navigateToParentSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+			 <result name="success" type="tiles">searchParent</result>
+		</action>
+		
 		<action name="search" method="search" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
 			 <result name="success" type="json">
 				<param name="root">jsonResult</param>
@@ -44,6 +48,11 @@
 		<action name="getSubprojects" method="getSubprojects" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
 			<result name="success" type="dispatcher">/jsp/content/searchResultSubproject.jsp</result>
 			<result name="input" type="dispatcher">/jsp/content/searchResultSubproject.jsp</result>
+		</action>
+		
+		<action name="getParentSubprojects" method="getSubprojects" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/searchParentResultSubproject.jsp</result>
+			<result name="input" type="dispatcher">/jsp/content/searchParentResultSubproject.jsp</result>
 		</action>
 		
 	</package>
