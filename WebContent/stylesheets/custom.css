@@ -929,6 +929,13 @@ hr {
   margin-top: 2px;
 }
 
+.number {
+  display: inline-block;
+width: 50px;
+border: 1px solid #000;
+text-align: center;
+}
+
 /***************CSS for tool tip****************************/
 .tooltip {
       position: inherit;
