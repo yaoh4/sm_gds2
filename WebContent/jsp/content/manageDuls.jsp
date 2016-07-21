@@ -5,26 +5,25 @@
 <s:hidden id="dulIds" name="dulIds"/>
 
 <div class="form-group row col-xs-12" id="DULpanel">
-<div id="entry1_dul1" class="DULclonedInput">
   
-		<div class="cloneDULInput" id="cloneDULInput-${studiesIdx}">		
+	<div class="cloneDULInput" id="cloneDULInput-${studiesIdx}">		
 																					 
         <s:iterator status="dulSetStat" var="studiesDulSet" value="instCertification.studies[#studiesStat.index].studiesDulSets">
 		  <s:set name="dulSetIdx" value="#dulSetStat.index" />
 		   
 		  <div id="dulType${studiesIdx}-${dulSetIdx}" class="dulTypes">
 		  
-		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].displayId" id="dulSetDisplayId%{studiesIdx}-%{dulSetIdx}" value="%{#dulSetIdx}"/>
+		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].displayId" id="dulSetDisplayId%{#studiesIdx}-%{#dulSetIdx}" value="%{#dulSetIdx}"/>
 		   
-		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].createdBy" id="dulSetCreatedBy%{studiesIdx}-%{dulSetIdx}"/>
-		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].id" id="dulSetId%{studiesIdx}-%{dulSetIdx}"/>
+		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].createdBy" id="dulSetCreatedBy%{#studiesIdx}-%{#dulSetIdx}"/>
+		   <s:hidden name="instCertification.studies[%{#studiesStat.index}].studiesDulSets[%{#dulSetStat.index}].id" id="dulSetId%{#studiesIdx}-%{#dulSetIdx}"/>
 		
 		<div class="panel-group">
          <div class="panel panel-default">
 		
 		  <!-- DUL PANEL HEADER -->
 		  <div class="panel-heading">
-            <h5 class="panel-title heading-reference" id="entry_dulSet_${studiesIdx}-${dulSetIdx}" name="reference">
+            <h5 class="panel-title heading-reference">
               <a href="#" onclick="deleteDulSet(${studiesIdx},${dulSetIdx})" class="deleteIcon" style="float: right;">
               <i class="fa fa-trash" aria-hidden="true"></i></a>
               Data Use Limitation Type
@@ -101,8 +100,7 @@
 	    </s:iterator>
 </div> <!-- cloned input-->
  		   
-  </div>  <!-- End DULClonedInput -->
-  
+ 		   
   <div id="addDulSetButton-${studiesIdx}" class="addDulSetButton">
     <input type="button" id="btnAddDUL" class="btn btn-default" value="Add DUL">
   </div> 																	 

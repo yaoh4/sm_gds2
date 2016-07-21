@@ -99,31 +99,30 @@
 			  <!--Begin STUDY SECTION-->
 			
               <div class="form-group row col-xs-12" id="sections">
-			   <!-- <div id="entry1" class="clonedInput"> -->
 								
-					  <div id="entry" class="cloneStudyInput">
+                <div id="entry" class="cloneStudyInput">
 					  								
-                      <s:iterator status="studiesStat" var="study" value="instCertification.studies">
-					    <s:set name="studiesIdx" value="#studiesStat.index" />
+                  <s:iterator status="studiesStat" var="study" value="instCertification.studies">
+                    <s:set name="studiesIdx" value="#studiesStat.index" />
 					  					    
-					  	<div id="studySection${studiesIdx}" class="studySections">
+                    <div id="studySection${studiesIdx}" class="studySections">
 					  	
-					  	<s:hidden name="instCertification.studies[%{#studiesStat.index}].displayId" id="studyDisplayId%-{studiesIdx}" value="%{#studiesIdx}"/>
+                      <s:hidden name="instCertification.studies[%{#studiesStat.index}].displayId" id="studyDisplayId-%{#studiesIdx}" value="%{#studiesIdx}"/>
 					  	
-					  	 <!--  This is read and passed back to prevent the createdBy field from being overwritten -->
-					     <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>
+					  <!--  This is read and passed back to prevent the createdBy field from being overwritten -->
+					  <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>
 					     
-					     <!--  This is read and passed back to so the existing ids are updated and not replaced -->
-					     <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" id="studyId%-{studiesIdx}"/> 
+					  <!--  This is read and passed back to so the existing ids are updated and not replaced -->
+					  <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" id="studyId-%{#studiesIdx}"/> 
 				  		
-					  	<div class="panel-group" id="accordion">
-				         <div class="panel panel-default">
+					  <div class="panel-group" id="accordion">
+				        <div class="panel panel-default">
 					  	
 					    <!--  STUDY SECTION HEADER  -->
 					  
                         <div class="panel-heading header">
                           <h4 class="panel-title ">
-                            <a class="studyHeading" href="#collapseOne" id="entry_study-${studiesIdx}" name="entry1_study">
+                            <a class="studyHeading" href="#collapseOne">
                             <s:if test="%{instCertification.studies.size > 1}"> 
                               <a href="#" onclick="deleteStudy(${studiesIdx})" class="deleteIcon" style="float: right;">
                             	<i class="fa fa-trash" aria-hidden="true"></i>
@@ -196,9 +195,6 @@
                       </s:iterator>
                       
                       </div>  <!--  cloneStudyInput -->
-										
-           <!--    </div> --> <!--  End cloned input-->	
-							
 								
                 <div id="addDelButtons">
                       <input type="button" id="btnAdd" value="Add Another Study" onClick="addStudy()"class="btn btn-default">

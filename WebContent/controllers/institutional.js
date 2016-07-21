@@ -67,6 +67,8 @@ $(document).ready(function () {
 });
 
 
+//Invoked when a DULSet parent radio button is clicked. Displays
+//the DUL selections available
 function displayDuls(element) {
 	
     var dulTypeDivId = $(element).attr("name").replace("parentDul-", "dulType");
@@ -86,6 +88,7 @@ function displayDuls(element) {
 		$("#" + dulSetIds).show();
 	}
 }
+
 
 $("#btnAddDUL").click(function() {
 	//Get the index of the parent study
@@ -140,7 +143,6 @@ function deleteDulSet(studiesIdx, dulSetIdx) {
 	$("#dulType" + studiesIdx + "-" + dulSetIdx).find("#dulSetDisplayId" + studiesIdx + "-" + dulSetIdx).val('');
 	$("#dulType" + studiesIdx + "-" + dulSetIdx).remove();
 };
-
 
 
 function addStudy() {
@@ -217,8 +219,11 @@ function addStudy() {
 		studySetArray.find(".studyHeading").find(".deleteIcon").remove();
 	}
 		
-	//Add a new DUL Type to this study
-	addDulSet(newStudySectionIndex);	
+	//Add a new DUL Type to this study if provisional is not selected
+	value  = $("#finalprov option:selected").text();
+	if ( value != 'Provisional') {
+        addDulSet(newStudySectionIndex);
+	}
 };
 
 
