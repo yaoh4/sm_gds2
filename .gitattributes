@@ -888,6 +888,7 @@ screens/ckeditor/skins/moono/readme.md -text
 screens/ckeditor/styles.js -text
 screens/controllers/dataSharing.js -text
 screens/controllers/general.js -text
+screens/controllers/grantSearch.js -text
 screens/controllers/institional.js -text
 screens/controllers/institutional_dashboard.js -text
 screens/controllers/newSubmission.js -text
@@ -901,6 +902,7 @@ screens/fonts/glyphicons-halflings-regular.woff -text
 screens/fonts/glyphicons-halflings-regular.woff2 -text
 screens/general.htm -text
 screens/general_info.htm -text
+screens/grantSearch.htm -text
 screens/grants.htm -text
 screens/home.htm -text
 screens/images/CriteriaClosed.gif -text
