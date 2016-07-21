@@ -14,6 +14,9 @@
       
       <!-- Page navbar -->
       <div class="pageNav">
+        <s:if test="%{instCertification.id != null}">
+      		<s:submit action="listIc" value=" Cancel " class="saved btn btn-default"/>	 
+        </s:if>
         <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
       </div>
 
@@ -125,7 +128,7 @@
                               <a href="#" onclick="deleteStudy(${studiesIdx})" class="deleteIcon" style="float: right;">
                             	<i class="fa fa-trash" aria-hidden="true"></i>
                               </a>
-                          </s:if> 
+                            </s:if> 
                               <i class="fa fa-minus-square" aria-hidden="true"></i>&nbsp;
                               Study
                             </a>
@@ -172,12 +175,14 @@
 									 rows="3"></s:textarea>
                             </div> <!--end row-->
                             <p>&nbsp;</p>
-                                                  
-                            <div class="DULinfo form-group row col-xs-12">
-                              <p><span class="question">
-                                <H4>Data Use Limitation(s)</h4></span><br/>
-                                 You may add up to 10 DULs
-                              </p>
+                                                 
+                            <div class="DULinfo"> 
+                              <div class="form-group row col-xs-12">
+                                <p><span class="question">
+                                  <h4>Data Use Limitation(s)</h4></span><br/>
+                                   You may add up to 10 DULs
+                                </p>
+                              </div>
                             </div>
 
 							<s:include value="/jsp/content/manageDuls.jsp"/>																
@@ -208,7 +213,10 @@
 		
 	  <!--SAVE & NEXT BUTTONS-->
       <div class="pageNav">
-        <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
+        <s:if test="%{instCertification.id != null}">
+      		<s:submit action="listIc" value=" Cancel " class="saved btn btn-project-primary"/>	 
+        </s:if>
+        <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-default"/>
 	  </div>
         
     </s:form>
