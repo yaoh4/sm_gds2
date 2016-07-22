@@ -216,5 +216,10 @@
 			<result name="success" type="dispatcher">/jsp/content/searchGrantsContracts.jsp</result>	
 			<result name="input" type="dispatcher">/jsp/content/searchGrantsContracts.jsp</result>	
 		</action>
+		<action name="getGrantOrContractByApplId" method="getGrantOrContractByApplId" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+			 <result name="success" type="json">
+				<param name="root">grantOrContract</param>
+			 </result>
+		</action>
 	</package>
 </struts>

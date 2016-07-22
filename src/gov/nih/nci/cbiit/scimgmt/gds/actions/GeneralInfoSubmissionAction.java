@@ -41,6 +41,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	private List<DropDownOption> projectTypes = new ArrayList<DropDownOption>();
 	private List<DropDownOption> projectSubmissionReasons = new ArrayList<DropDownOption>();	
 	private List<GdsGrantsContracts> grantOrContractList = new ArrayList<GdsGrantsContracts>();		
+	private GdsGrantsContracts grantOrContract;
 
 	@Autowired
 	protected SearchProjectService searchProjectService;	
@@ -354,6 +355,18 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	}
 		
 	/**
+	 * This method gets Intramural / Grant/ Contract Information based on applId
+	 * 
+	 * @return forward string
+	 */
+	public String getGrantOrContractByApplId(){
+
+		logger.debug("Searching grants / contracts using applId: " + applId + ".");
+		grantOrContract = manageProjectService.getGrantOrContract(Long.valueOf(applId));
+		return SUCCESS;
+	}
+	
+	/**
 	 * Validates save Project General Information
 	 */
 	public void validateGeneralInfoSave(){	
@@ -603,5 +616,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	//Get project end date
 	public String getProjectEndDate() {
 		return dateFormat.format(getProject().getProjectEndDate());
+	}
+
+	public GdsGrantsContracts getGrantOrContract() {
+		return grantOrContract;
+	}
+
+	public void setGrantOrContract(GdsGrantsContracts grantOrContract) {
+		this.grantOrContract = grantOrContract;
 	}
 }
