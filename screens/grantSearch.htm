@@ -80,7 +80,7 @@
     
 
 <!--Begin Form -->
-<form id="create_submission" name="create_submission_form" data-toggle="validator" role="form">  
+<!--<form id="create_submission" name="create_submission_form" data-toggle="validator" role="form"> --> 
 
         <div class="pageNav"><!-- Page navbar -->
        
@@ -91,19 +91,19 @@
         </div>
 
    
-
+       
       
         <!-- Begin Panel -->
    <div class="col-md-12">
      
                 
-                    
+                              
           <div class="panel project-panel-primary" id="searchGrant">
           <div class="panel-heading">
             <div class="pheader"><h4>Search for Intramural (Z01)/Grant/Contract #</h4></div>
             </div> <!--end panel header-->
             <div class="panel-body">
-              <form class="form-horizontal">
+              <!--<form class="form-horizontal">-->
                   <p><strong>Please enter your search criteria using the following format:</strong></p>
                     <div>
                       <div class="searchLabel">Extramural Grant:</div>
@@ -122,7 +122,7 @@
                       </div>
                     </div>
                     
-                    
+ 
 
                 
                   <div class="searchLabel">
@@ -133,7 +133,8 @@
                     </div>
                  
                   <div class="searchFormat" style="float:right;">
-                    <button type="submit" class="btn btn-primary" id="search">Search</button> <button type="submit" class="btn btn-default" id="reset">Reset</button>
+                    <button  class="btn btn-primary has-spinner" id="searchGrants"><i class="fa fa-spinner fa-spin"></i> Search</button> 
+                    <button type="submit" class="btn btn-default" id="reset">Reset</button> 
                  <p>&nbsp;</p>
                  
                   </div>
@@ -243,21 +244,25 @@
                   </table>
 
                 </div>
-              </form>
+             <!-- </form>-->
               </div><!--end panel body-->
               </div><!--end panel-->
             </div>
           </div>
         </div>
+
+
       <div class="pageNav"><!-- Page navbar -->
        
          
        <button name="cancel" value="Cancel" class="btn btn-project-default" id="cancel">Cancel</button>
          <a type="button" value="" class="btn btn-project-primary" onclick="window.location.href='general.htm'"> Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></a>
+
+
                   
 
         </div>
-      </form>
+      <!--</form>-->
     </div>
   </div>
 
@@ -330,16 +335,7 @@
    
          
 
-       <script type="text/javascript">
-            $(function () {
-                $('#repositoryDate .input-group.date').datepicker({
-          orientation: "bottom auto",
-          todayHighlight: true
-          });
-                });
-
-
-        </script> 
+      
 
 
 

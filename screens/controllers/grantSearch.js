@@ -43,4 +43,13 @@ $('#reset').click(function(){
     });
 
 
+$(function(){
+    $('a.has-spinner, button.has-spinner').click(function() {
+        $(this).toggleClass('active');
+    });
+});
+
+
+
+
 
