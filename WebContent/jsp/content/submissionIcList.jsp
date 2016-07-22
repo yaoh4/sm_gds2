@@ -165,6 +165,9 @@
                                               <tr>
                                                 <td colspan="4" align="left" valign="top">&nbsp;</td>
                                               </tr>
+                                              
+                                              <s:if test="%{project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets.size > 0}">
+                                              
                                               <tr>
                                                 <td colspan="4" align="left" valign="top" class="question" valign="bottom">Data Use Limitation(s)</td>
                                               </tr>       
@@ -201,7 +204,8 @@
                                                     </s:iterator> 
                                                   </table>
                                                 </td>
-                                              </tr>     
+                                              </tr>
+                                              </s:if> <!-- check for DULs present-->   
                                                                                                                                                                             
                                             </table>
                                           </td>
