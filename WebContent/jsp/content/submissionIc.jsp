@@ -125,10 +125,10 @@
                             <a class="studyHeading" href="#collapseOne">
                             <s:if test="%{instCertification.studies.size > 1}"> 
                               <a href="#" onclick="deleteStudy(${studiesIdx})" class="deleteIcon" style="float: right;">
-                            	<i class="fa fa-trash" aria-hidden="true"></i>
+                            	<i class="fa fa-trash fa-lg" aria-hidden="true"></i>
                               </a>
                             </s:if> 
-                              <i class="fa fa-minus-square" aria-hidden="true"></i>&nbsp;
+                              <i class="fa fa-minus-square fa-lg" aria-hidden="true"></i>&nbsp;
                               Study
                             </a>
                            </h4>
