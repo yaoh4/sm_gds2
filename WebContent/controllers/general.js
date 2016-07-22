@@ -41,12 +41,15 @@ function clearGrantsContracts(){
 function linkUnlinkGrants(elem) {
 	if($(elem).attr("id") == 'link') {
 		$("#dataLinkFlag").val('Y');
+		// Re-populate the data from DB.
 		$("#link").hide();
 		$("#unlink").show();
+		$(".unlink-group").prop('disabled', true);
 	} else {
 		$("#dataLinkFlag").val('N');
 		$("#unlink").hide();
 		$("#link").show();
+		$(".unlink-group").prop('disabled', false);
 	}
 }
 
@@ -161,8 +164,10 @@ function warnGeneralInfoNext(element) {
 	
 	if ($("#dataLinkFlag").attr("value") == 'Y') {
 		$("#unlink").show();
+		$(".unlink-group").prop('disabled', true);
 		
 	} else {
 		$("#link").show();
+		$(".unlink-group").prop('disabled', false);
 	}
 });

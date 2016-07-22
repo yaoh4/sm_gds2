@@ -80,21 +80,21 @@
 							
 							<s:textfield name="project.applicationNum" cssClass="form-control" readOnly="true" id="grantsContractNum" placeholder="Click on Edit Icon" value="%{project.applicationNum}"/>
 							<span class="input-group-btn"><a href="#" onclick="openGrantsContractsSearchPage()">
-										<button class="btn btn-default" type="button">
+										<button class="btn btn-default" type="button" title="edit">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 										</button>
 							</a></span>
 							
-							<s:hidden name="project.dataLinkFlag" id="dataLinkFlag"/>
+							<s:hidden name="project.dataLinkFlag" id="dataLinkFlag" value="%{project.dataLinkFlag}"/>
 							
 							<span class="input-group-btn">						
-							  <a href="#" id="unlink" style="display:none;" onclick="linkUnlinkGrants(this)">
-							    <button class="btn btn-default" type="button">
+							  <a href="javascript: void(0)" id="link" style="display:none;" onclick="linkUnlinkGrants(this)">
+							    <button class="btn btn-default" type="button" title="Unlinked. Click to Link">
 								  <i class="fa fa-chain-broken" aria-hidden="true" alt="unlink" title="unlink"></i>
 								</button>
 							  </a>
-							  <a href="#" id="link" style="display:none;" onclick="linkUnlinkGrants(this)">
-								<button class="btn btn-default" type="button">
+							  <a href="javascript: void(0)" id="unlink" style="display:none;" onclick="linkUnlinkGrants(this)">
+								<button class="btn btn-default" type="button" title="Linked. Click to Unlink">
 								  <i class="fa fa-link" aria-hidden="true" alt="link" title="link"></i>
 								</button>
 							  </a>
@@ -109,7 +109,7 @@
 						<div class="col-xs-10">
 							<label for="Project Title"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Intramural/Grant/Contract Project Title</label> 
-								<s:textfield name="project.projectTitle" cssClass="form-control" id="projectTitle" placeholder="" value="%{project.projectTitle}" disabled="isNotEditable" maxLength="100"/>
+								<s:textfield name="project.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}" disabled="isNotEditable" maxLength="100"/>
 						</div>
 					</div>
 
@@ -118,13 +118,13 @@
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
-								<s:textfield name="project.piFirstName" cssClass="form-control" id="fnPI" placeholder="" value="%{project.piFirstName}" disabled="isNotEditable" maxLength="30"/>
+								<s:textfield name="project.piFirstName" cssClass="form-control unlink-group" id="fnPI" placeholder="" value="%{project.piFirstName}" disabled="isNotEditable" maxLength="30"/>
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
-								<s:textfield name="project.piLastName" cssClass="form-control" id="lnPI" placeholder="" value="%{project.piLastName}" disabled="isNotEditable" maxLength="30"/>								
+								<s:textfield name="project.piLastName" cssClass="form-control unlink-group" id="lnPI" placeholder="" value="%{project.piLastName}" disabled="isNotEditable" maxLength="30"/>								
 						</div>
 					</div>
 
@@ -133,7 +133,7 @@
 							<label for="Email of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
 								of Principal Investigator</label>
-								<s:textfield name="project.piEmailAddress" cssClass="form-control" id="piEmail" placeholder="Enter Vaild Email Address"
+								<s:textfield name="project.piEmailAddress" cssClass="form-control unlink-group" id="piEmail" placeholder="Enter Vaild Email Address"
 								data-error="Email address is invalid" value="%{project.piEmailAddress}" disabled="isNotEditable" maxLength="80"/>								
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
@@ -144,7 +144,7 @@
 							<label for="Institution of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
 								of Principal Investigator</label>
-								<s:textfield name="project.piInstitution" cssClass="form-control" id="PIInstitute" placeholder="" value="%{project.piInstitution}" disabled="isNotEditable" maxLength="120"/>								
+								<s:textfield name="project.piInstitution" cssClass="form-control unlink-group" id="PIInstitute" placeholder="" value="%{project.piInstitution}" disabled="isNotEditable" maxLength="120"/>								
 						</div>
 					</div>
 
@@ -176,13 +176,13 @@
 							<label for="First Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
 								Name of Program Director</label>
-								<s:textfield name="project.pdFirstName" cssClass="form-control" id="fnPD" placeholder="" value="%{project.pdFirstName}" disabled="isNotEditable" maxLength="30"/>								
+								<s:textfield name="project.pdFirstName" cssClass="form-control unlink-group" id="fnPD" placeholder="" value="%{project.pdFirstName}" disabled="isNotEditable" maxLength="30"/>								
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>Last
 								Name of Program Director</label>
-								<s:textfield name="project.pdLastName" cssClass="form-control" id="lnPD" placeholder="" value="%{project.pdLastName}" disabled="isNotEditable" maxLength="30"/>								
+								<s:textfield name="project.pdLastName" cssClass="form-control unlink-group" id="lnPD" placeholder="" value="%{project.pdLastName}" disabled="isNotEditable" maxLength="30"/>								
 						</div>
 					</div>
 				</div>
@@ -195,7 +195,7 @@
 							Start Date</label>
 						<div class="input-group date">
 						
-						<s:textfield name="project.projectStartDate" cssClass="form-control" id="projectStartDate" value="%{projectStartDate}" disabled="isNotEditable"/>	
+						<s:textfield name="project.projectStartDate" cssClass="form-control unlink-group" id="projectStartDate" value="%{projectStartDate}" disabled="isNotEditable"/>	
 						<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>
@@ -209,7 +209,7 @@
 							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
 							End Date</label>
 						<div class="input-group date">
-						<s:textfield name="project.projectEndDate" cssClass="form-control" id="projectEndDate" value="%{projectEndDate}" disabled="isNotEditable"/>	
+						<s:textfield name="project.projectEndDate" cssClass="form-control unlink-group" id="projectEndDate" value="%{projectEndDate}" disabled="isNotEditable"/>	
 							<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>

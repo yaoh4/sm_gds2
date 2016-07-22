@@ -224,7 +224,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	public void loadGeneralInfoFromGranstContractVw(){
 		
 		Project project = getProject();		
-		if(project.getApplId() != null){
+		if(StringUtils.equals(project.getDataLinkFlag(), "Y")){
 			
 			logger.debug("Retreiving Project general information data from grantsContractsw for grantContract with applId: "+project.getApplId());
 			GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(project.getApplId());
