@@ -90,21 +90,17 @@ function displayDuls(element) {
 }
 
 
-$("#btnAddDUL").click(function() {
-	//Get the index of the parent study
-	var studiesIdx = $(this).parent().attr("id").replace("addDulSetButton-", "");
-	addDulSet(studiesIdx);
-});
 
-
-function addDulSet(studiesIdx)  {
-
+function addDulSet(elem)  {
+	
+	
+	var studiesIdx = $(elem).attr("id").replace("btnAddDUL-", "");
 	var dulItems = $("#studySection" + studiesIdx).find(".dulTypes").length;
 	
 	 // Right now you can only add 10 DULs. change '10' below to the max number of DULSets that
 	//can be attached to a study
     if (dulItems == 10) {
-    	$('#btnAddDUL').attr('disabled', true).prop('value', "You've reached the limit");
+    	$('#btnAddDUL-' + studiesIdx).attr('disabled', true).prop('value', "You've reached the limit");
     	return;
 	};
 
@@ -152,7 +148,7 @@ function addStudy() {
 	 // Right now you can  add 500 studies. change '500' below to the max number of studies
 	//that are permitted
     if (studyItems == 500) {
-    	$('#btnAddDUL').attr('disabled', true).prop('value', "You've reached the limit");
+    	$('#btnAdd').attr('disabled', true).prop('value', "You've reached the limit");
     	return;
 	};
 
@@ -160,7 +156,7 @@ function addStudy() {
 	//be the first index because deletions may have occurred from top 
 	//because we do not know which ones may have been deleted
 	cloneDulTypeIndex = 0;
-	for(var studySectionIndex=0; studySectionIndex < 500; i++) {
+	for(var studySectionIndex=0; studySectionIndex < 500; studySectionIndex++) {
 		if($("#studySection" + studySectionIndex).length > 0) {
 			cloneStudySectionIndex = studySectionIndex;
 			break;

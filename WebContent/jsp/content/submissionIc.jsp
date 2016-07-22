@@ -196,7 +196,7 @@
                       
                       </div>  <!--  cloneStudyInput -->
 								
-                <div id="addDelButtons">
+                <div>
                       <input type="button" id="btnAdd" value="Add Another Study" onClick="addStudy()"class="btn btn-default">
                 </div>	
 													

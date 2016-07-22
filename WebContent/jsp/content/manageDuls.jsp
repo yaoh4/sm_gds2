@@ -101,8 +101,8 @@
 </div> <!-- cloned input-->
  		   
  		   
-  <div id="addDulSetButton-${studiesIdx}" class="addDulSetButton">
-    <input type="button" id="btnAddDUL" class="btn btn-default" value="Add DUL">
+  <div>
+    <input type="button"  id="btnAddDUL-${studiesIdx}"  onclick="addDulSet(this)" class="addDulSetButton btn btn-default" value="Add DUL">
   </div> 																	 
   
 </div> <!-- END DULPanel -->
