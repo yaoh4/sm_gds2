@@ -37,6 +37,22 @@ function clearGrantsContracts(){
 	});
 }
 
+
+function linkUnlinkGrants(elem) {
+	if($(elem).attr("id") == 'link') {
+		$("#dataLinkFlag").val('Y');
+		$("#link").hide();
+		$("#unlink").show();
+	} else {
+		$("#dataLinkFlag").val('N');
+		$("#unlink").hide();
+		$("#link").show();
+	}
+}
+
+
+
+
 //Clear grants/contracts data.
 function clearData(){
 	$("#grantsContractNum").val("");
@@ -140,5 +156,13 @@ function warnGeneralInfoNext(element) {
 	}   
 	else{
 		$('#clearGrantsContractsId').prop('disabled', true);	
-	}   
+	} 
+	
+	
+	if ($("#dataLinkFlag").attr("value") == 'Y') {
+		$("#unlink").show();
+		
+	} else {
+		$("#link").show();
+	}
 });

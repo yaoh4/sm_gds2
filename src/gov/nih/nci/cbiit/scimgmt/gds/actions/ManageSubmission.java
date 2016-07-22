@@ -101,7 +101,6 @@ public class ManageSubmission extends BaseAction {
 		//Temporary hard coding project property. 
 		project.setVersionNum(1l);
 		project.setSubprojectFlag("N");
-		project.setDataLinkFlag("Y");
 		return manageProjectService.saveOrUpdate(project);
 		
 	}

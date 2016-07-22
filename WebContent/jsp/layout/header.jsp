@@ -41,8 +41,7 @@
     			</s:if>
     			<s:else>
       				<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Track Project Submission</h3>
-      				<div id="verisonNumber" style="display:inline-block;">&nbsp;&nbsp;&nbsp;Version 
-					<s:property value="%{project.versionNum}" /> (ID: <s:property value="%{project.id}" />)</div>
+      				<div style="display:inline-block;">&nbsp;(&nbsp;<s:property value="%{project.submissionTitle}"/>&nbsp;)</div>
       				</div></div>
       				<s:include value="/jsp/layout/subnavbar.jsp" />
 				</s:else>
