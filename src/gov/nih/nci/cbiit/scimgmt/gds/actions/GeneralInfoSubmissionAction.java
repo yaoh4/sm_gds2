@@ -189,6 +189,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		}
 		else{			
 			setProject(new Project());
+			getProject().setDataLinkFlag("Y"); // Initially set to linked.
 		}
 		
 		setUpLists();				
