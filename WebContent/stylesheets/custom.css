@@ -944,13 +944,6 @@ display: block;
     margin-right: 5px;
   }
 
-.number {
-  display: inline-block;
-width: 50px;
-border: 1px solid #000;
-text-align: center;
-}
-
 /***************CSS for tool tip****************************/
 .tooltip {
       position: inherit;
@@ -962,7 +955,7 @@ text-align: center;
     opacity: inherit;
   
 }
-}
+
 a.tooltip {outline:none; }
 a.tooltip strong {line-height:30px;}
 a.tooltip:hover {text-decoration:none;} 
@@ -1219,4 +1212,26 @@ ul.actionMessage {
 	list-style: none;
 	color: #000000;
 	padding-left: 25px;
+}
+
+/**********************Grant Search Page********************/
+
+.has-spinner .fa-spinner {
+  opacity: 0;
+  max-width: 0;
+
+  -webkit-transition: opacity 0.25s, max-width 0.45s; 
+  -moz-transition: opacity 0.25s, max-width 0.45s;
+  -o-transition: opacity 0.25s, max-width 0.45s;
+  transition: opacity 0.25s, max-width 0.45s; /* Duration fixed since we animate additional hidden width */
+}
+
+.has-spinner.active {
+  cursor:progress;
+}
+
+.has-spinner.active .fa-spinner {
+  opacity: 1;
+  max-width: 50px; /* More than it will ever come, notice that this affects on animation duration */
+  margin-right: 2px;
 }
