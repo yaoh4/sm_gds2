@@ -3,7 +3,7 @@
 <p></p>
 
 <s:if test="%{gdsPlanFile.size > 0}">
-	<table style="width: 80%;" cellpadding="0px" cellspacing="0"
+	<table style="width: 90%;" cellpadding="0px" cellspacing="0"
 		class="table table-bordered table-striped" style="margin-left: 10px;">
 		<tr>
 			<th class="tableHeader" align="center" width="10%">Document Title</th>
@@ -13,11 +13,11 @@
 			<th class="tableHeader" align="center" width="5%">Action</th>
 		</tr>
 		<tr>
-			<td><s:property value="%{gdsPlanFile[0].docTitle}" />
-				<s:if test="%{gdsPlanFile[0].fileName == null || gdsPlanFile[0].fileName == ''}">
+			<td><s:if test="%{gdsPlanFile[0].fileName == null || gdsPlanFile[0].fileName == ''}">
 					<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
-					<i class="fa fa-eye fa-lg" aria-hidden="true"></i></s:a>
-				</s:if></td>
+					<s:property value="%{gdsPlanFile[0].docTitle}" /></s:a>
+				</s:if>
+				<s:else><s:property value="%{gdsPlanFile[0].docTitle}" /></s:else></td>
 			<td><s:if test="%{gdsPlanFile[0].fileName != null && gdsPlanFile[0].fileName != ''}">
 					<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
 					<s:property value="%{gdsPlanFile[0].fileName}" /></s:a>
@@ -40,7 +40,7 @@
 				class="history"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>
 		</p>
 		<div class="uploadedHistory" style="display: none;">
-			<table style="width: 80%;" cellpadding="0px" cellspacing="0"
+			<table style="width: 90%;" cellpadding="0px" cellspacing="0"
 				class="table table-bordered table-striped"
 				style="margin-left: 10px;">
 				<tr>
@@ -54,11 +54,11 @@
 
 					<s:if test="#stat.index != 0">
 						<tr>
-							<td><s:property value="%{#file.docTitle}" />
-								<s:if test="%{#file.fileName == null || #file.fileName == ''}">
+							<td><s:if test="%{#file.fileName == null || #file.fileName == ''}">
 									<s:a href="javascript:openDocument(%{#file.id})">
-										<i class="fa fa-eye fa-lg" aria-hidden="true"></i></s:a>
-								</s:if></td>
+										<s:property value="%{#file.docTitle}" /></s:a>
+								</s:if>
+								<s:else><s:property value="%{#file.docTitle}" /></s:else></td>
 							<td><s:if test="%{#file.fileName != null && #file.fileName != ''}">
 									<s:a href="javascript:openDocument(%{#file.id})">
 									<s:property value="%{#file.fileName}" /></s:a>
