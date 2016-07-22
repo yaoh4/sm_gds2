@@ -120,7 +120,7 @@
 					  	
 					    <!--  STUDY SECTION HEADER  -->
 					  
-                        <div class="panel-heading header">
+                        <div class="studyHeadingPanel panel-heading header">
                           <h4 class="panel-title ">
                             <a class="studyHeading" href="#collapseOne">
                             <s:if test="%{instCertification.studies.size > 1}"> 

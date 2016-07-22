@@ -93,7 +93,6 @@ function displayDuls(element) {
 
 function addDulSet(elem)  {
 	
-	
 	var studiesIdx = $(elem).attr("id").replace("btnAddDUL-", "");
 	var dulItems = $("#studySection" + studiesIdx).find(".dulTypes").length;
 	
@@ -182,7 +181,8 @@ function addStudy() {
 	newStudySectionDiv.html(function(i, oldHTML) {
 	    return oldHTML.replace(/-0/g, "-" + newStudySectionIndex).replace(
 	    	/instCertification.studies\[0\]/g, 
-	    	"instCertification.studies[" + newStudySectionIndex + "]");
+	    	"instCertification.studies[" + newStudySectionIndex + "]").replace(
+		    		/deleteStudy\(0\)/g, "deleteStudy(" + newStudySectionIndex + ")");
 	})
 	
 	//Remove values
@@ -206,19 +206,19 @@ function addStudy() {
 	var studySetArray = $(".studySections");
 	if(numItems > 1) {		
 		jQuery.each(studySetArray, function(index, val) {
-			if($(this).find(".studyHeading").find(".deleteIcon").length == 0) {
+			if($(this).find(".studyHeadingPanel").find(".deleteIcon").length == 0) {
 				var elemIndex = $(this).attr("id").replace("studySection", "");
 				$(this).find(".studyHeading").prepend('<a href="#" onclick="deleteStudy(' + elemIndex + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash" aria-hidden="true"></i></a>');
 			}
 		});
 	} else {
-		studySetArray.find(".studyHeading").find(".deleteIcon").remove();
+		studySetArray.find(".studyHeadingPanel").find(".deleteIcon").remove();
 	}
 		
 	//Add a new DUL Type to this study if provisional is not selected
 	value  = $("#finalprov option:selected").text();
 	if ( value != 'Provisional') {
-        addDulSet(newStudySectionIndex);
+        addDulSet($("#btnAddDUL-" + newStudySectionIndex));
 	}
 };
 
@@ -230,7 +230,7 @@ function deleteStudy(studiesIdx) {
 	$("#studySection" + studiesIdx).remove();
 	var numItems = $(".studySections").length;
 	if(numItems == 1) {
-		$(".studySections").find(".studyHeading").find(".deleteIcon").remove();
+		$(".studySections").find(".studyHeadingPanel").find(".deleteIcon").remove();
 	}
 };
 
