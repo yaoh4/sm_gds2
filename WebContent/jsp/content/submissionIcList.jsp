@@ -136,7 +136,7 @@
                                 <s:set name="studyIdx" value="#studiesStat.index" />
                                 <table width="100%">
                                   <tr>
-                                    <td valign="top" class="question" style="padding-top: 7px;">${studyIdx+1})</td>
+                                    <td valign="top" class="question number">${studyIdx+1}</td>
                                     <td>
                                       <table class="table table-bordered" width="100%" class="study">
                                         <tr>
@@ -171,15 +171,17 @@
                                               
                                               <tr>
                                                 <td colspan="4">
-                                                  <table class="table table-bordered">
+                                                  <table class="table table-striped">
                                                     <s:iterator status="dulSetStat" var="studiesDulSet" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets">
                                                       <s:set name="dulSetIdx" value="#dulSetStat.index" />
                                                       <tr>
                                                         <td>
-                                                          ${dulSetStat.index + 1}. ${studiesDulSet.parentDulChecklist.displayText}
-                                                          <s:if test="%{#studiesDulSet.additionalText != null}">
-                                                            - ${studiesDulSet.additionalText}
-                                                          </s:if>
+                                                          <span class="question">
+                                                            ${dulSetStat.index + 1}. ${studiesDulSet.parentDulChecklist.displayText}
+                                                            <s:if test="%{#studiesDulSet.additionalText != null}">
+                                                              - ${studiesDulSet.additionalText}
+                                                            </s:if>
+                                                          </span>
                                                           <s:if test="%{#studiesDulSet.dulChecklistSelections.size > 0 && 
                                                           			(#studiesDulSet.dulChecklistSelections.size != 1 || 
                                                           			#studiesDulSet.dulChecklistSelections[0].dulChecklist.parentDulId != null)}">
