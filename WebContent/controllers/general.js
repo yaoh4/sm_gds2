@@ -46,10 +46,18 @@ function linkUnlinkGrants(elem) {
 		$("#unlink").show();
 		$(".unlink-group").prop('disabled', true);
 	} else {
-		$("#dataLinkFlag").val('N');
-		$("#unlink").hide();
-		$("#link").show();
-		$(".unlink-group").prop('disabled', false);
+		var result = "Unlinking will remove the auto-refresh of the Intramural/Grant/Contract data from the data source that was used to populate it.<br /> Do you wish to continue?";
+		bootbox.confirm(result, function(ans) {
+			if (ans) {
+				$("#dataLinkFlag").val('N');
+				$("#unlink").hide();
+				$("#link").show();
+				$(".unlink-group").prop('disabled', false);
+				return true;
+			} else {
+				return true;
+			}
+		});
 	}
 }
 
