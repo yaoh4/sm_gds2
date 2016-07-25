@@ -1,6 +1,6 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<div class="container">
+
 	<!--Begin Form -->
 	<s:form id="createNewSubmission" name="createNewSubmissionForm"
 		action="createNewSubmission.action" method="post"
@@ -51,4 +51,3 @@
 
 	</s:form>
 
-</div>

@@ -1,8 +1,6 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
-
-<div class="content">
     
     <!--Begin Form -->
     <s:form id="institutional_form" name="instititional_form" cssClass="dirty-check" namespace="manage"
@@ -216,7 +214,7 @@
 	  </div>
         
     </s:form>
-</div>
+
 <s:include value="/jsp/content/dulSetTemplate.jsp"/>
 <script type="text/javascript"
 	src="<s:url value="/controllers/institutional.js" />"></script>

@@ -3,7 +3,6 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
-<div class="content">
 	
 <!--Begin Form -->
     <s:form id="ic_dashboard_form" name="ic_dashboard_form" namespace="manage" method="post"
@@ -274,8 +273,6 @@
 <!-- /.modal -->
 
     </s:form>
-</div><!--end column formatting div-->
-
 
 
 <script type="text/javascript"

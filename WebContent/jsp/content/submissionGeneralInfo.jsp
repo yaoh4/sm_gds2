@@ -1,6 +1,6 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<div class="container">
+
 	<!--Begin Form -->
 	<s:form id="general_form" name="general_form" cssClass="dirty-check" action="viewProject.action" method="post" data-toggle="validator" role="form" >
 		<!-- Page navbar -->
@@ -251,7 +251,6 @@
 	  </div> <!-- generalInfoPage end -->
 	</s:form>
 
-</div>
 <!-- /container -->
 
 
