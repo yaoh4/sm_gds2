@@ -1,7 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
-<div class="container">
+
 <s:form name="submission_status_form" id="submission_status_form" action="navigateToRepositoryStatus" cssClass="form-horizontal dirty-check">
 	<div class="pageNav">	
 			<s:submit value=" Save " action="manage/saveRepositoryStatus" cssClass="saved btn btn-default" />								
@@ -100,6 +100,5 @@
 			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 	</s:form>
-</div>
-<!-- /container -->
+
 <script type="text/javascript" src="<s:url value="/controllers/submissionStatus.js" />"></script>
