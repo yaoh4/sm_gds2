@@ -6,6 +6,10 @@
 		<!-- Page navbar -->
 		<s:hidden name="projectId" value="%{project.id}"/>
 		<s:hidden name="applId" id="applId" value="%{project.applId}"/>
+	
+	  <s:include value="/jsp/content/searchGrantsContracts.jsp"/>
+		
+	  <div id="generalInfoSection">
 		<div class="pageNav">
 			<s:submit value=" Save " action="manage/saveGeneralInfo" onclick="return warnGeneralInfo()"
 				id="general_saved" cssClass="saved btn btn-default" />
@@ -244,6 +248,7 @@
 				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 
+	  </div> <!-- generalInfoPage end -->
 	</s:form>
 
 </div>

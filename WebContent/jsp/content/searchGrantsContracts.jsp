@@ -1,241 +1,109 @@
-<!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta charset="utf-8">
-<title>Select Intramural (Z01)/Grant/Contract #</title>
 
-<!-- Bootstrap -->
-<link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />"
-	rel="stylesheet" type="text/css" media="screen" />
-<!-- <link href="<s:url value="/stylesheets/non-responsive.css" />"
-	rel="stylesheet" type="text/css" media="screen" />-->
-<link href="<s:url value="/stylesheets/bootstrap-datepicker-1.6.1.min.css" />"
-	rel="stylesheet" type="text/css" media="screen" />
-<link href="<s:url value="/stylesheets/font-awesome-4.6.3.min.css" />"
-	rel="stylesheet" type="text/css" media="screen" />
-<link
-	href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic'
-	rel='stylesheet' type='text/css'>
-<link href="<s:url value="/stylesheets/custom.css" />" rel="stylesheet"
-	type="text/css" media="screen" />
-<body class="popPage">
-	<s:form name="searchGrantsContractsForm"
-		action="searchGrantsContractsAction" cssClass="form-horizontal">
-		<div style="width: 750px; margin: 20px 20px 20px 20px;">
-			<div class="panel panel-default" id="searchGrant">
-				<div class="panel-heading">
-					<div class="pheader">
-						<h5>Search for Intramural (Z01)/Grant/Contract #</h5>
-					</div>
-				</div>
-
-				<s:if test="%{!actionErrors.isEmpty}">
-					<div class="alert alert-danger">
-						<h3>
-							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error
-							Status
-						</h3>
-						<s:actionerror />
-						<s:fielderror />
-					</div>
-				</s:if>
-
-				<!--end panel header-->
-				<div class="panel-body">					
-						<p>
-							<strong>Please enter your search criteria using the
-								following format:</strong>
-						</p>
-						<div>
-							<div class="searchLabel">Extramural Grant:</div>
-							<div class="searchFormat">(enter MECH-ICD-Serial#)</div>
-						</div>
-						<div>
-							<div class="searchLabel">Intramural Grant:</div>
-							<div class="searchFormat">(enter full Z01 or ZIA#)</div>
-						</div>
-						<div>
-							<div class="searchLabel" align="right">Contract:</div>
-							<div class="searchFormat">(enter full contract#)</div>
-						</div>
-
-						<div class="form-group"></div>
-						<div class="form-group">
-							<label for="Intramural (Z01)/Grant/Contract #"
-								class="col-sm-4 control-label">Intramural
-								(Z01)/Grant/Contract #</label>
-
-							<div class="col-sm-6">
-								<s:textfield name="grantContractNum" cssClass="form-control"
-									id="grantSearch"
-									placeholder="Use Correct Format from Examples Above"
-									value="%{grantContractNum}" />
-							</div>
-						</div>
-						<div class="col-sm-offset-4 col-sm-10 row">
-							<s:submit value="Search"
-								action="search/searchGrantsContractsAction"
-								cssClass="btn btn-project-primary" />
-							<s:submit value="Reset"
-								action="search/openSearchGrantsContracts"
-								cssClass="btn btn-default" />
-						</div>
-
-						<p>&nbsp;</p>
-						<!--Begin Search Results-->
-						<table style="width: 100%;" cellpadding="0px" cellspacing="0"
-							class="table table-bordered table-striped"
-							style="margin-left: 10px;">
-							<tr class="modalTheader">
-								<th class="tableHeader" align="center" width="10%">Select</th>
-								<th class="tableHeader" width="25%">Grant Number</th>
-								<th class="tableHeader" width="50%">Project Title</th>
-								<th class="tableHeader" width="25%">Principal Investigator</th>
-							</tr>
-							<s:if test="%{grantOrContractList.size > 0}">
-							<s:iterator value="grantOrContractList" var="grantsContracts"
-								status="stat">
-
-								<s:if test="#stat.index /2 == 0">
-									<tr class="tableContent">
-								</s:if>
-								<s:else>
-									<tr class="tableContentOdd">
-								</s:else>
-								<td align="center"><s:radio theme="simple" list="#{top:''}"
-										name="selectedGrantContract" /></td>
-								<td class="paddingT" nowrap><s:property
-										value="%{#grantsContracts.grantContractNum}" /></td>
-								<td class="paddingT"><s:property
-										value="%{#grantsContracts.projectTitle}" /></td>
-								<td class="paddingT">
-								<s:a href="mailto:%{#grantsContracts.piEmailAddress}?">
-								<s:property	value="%{#grantsContracts.piLastName}" /> , <s:property	value="%{#grantsContracts.piFirstName}" />
-								</s:a>		
-								</td>
-								</tr>
-							</s:iterator>
-							</s:if>
-							<s:else>
-								<tr class="tableContent">
-								<td colspan="4">
-								Nothing found to display.
-								</td>
-								</tr>
-							</s:else>
-						</table>
-
-						<div class="alert alert-warning" style="display: none;">
-							<button type="button" class="close" aria-hidden="true">&times;</button>
-							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Your
-							selection might update some of the previously entered data in the
-							General Information Page.
-						</div>
-						<div style="float: right; display: inline;">
-							<s:submit id="btnConfirm" value="Select"
-								onclick="populateGrantsContractsData()"
-								cssClass="btn btn-project-primary" disabled="true"/>
-						</div>
-				</div>				
+			
+      <div id="searchGrantsContracts"  style="display:none;">
+    
+      <div class="pageNav"> <!-- Page navbar -->
+        <button type="button" value="Cancel" class="cancel btn btn-project-default">Cancel</button>
+        <button type="button" value="" class="btn btn-project-primary" onclick="populateGrantsContractsData()"> Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></button> 
+      </div>
+      
+      <!-- Begin Panel -->
+      <div class="col-md-12">           
+        <div class="panel project-panel-primary" id="searchGrant">					
+		  
+		  <div class="panel-heading">
+		    <div class="pheader">
+			  <h4>Search for Intramural (Z01)/Grant/Contract #</h4>
 			</div>
-			<!--end panel body-->
-		</div>
-		<!--end panel-->
-		</div>
-		<!--end container-->
-		
-		
-		<script>
-		function populateGrantsContractsData(){
-			var grantContract = jQuery("input:radio[name=selectedGrantContract]:checked").val();
-			var json = jQuery.parseJSON(grantContract);	
-				
-			if (json.grantContractNum !== "undefined") {
-				window.opener.$("#grantsContractNum").val(json.grantContractNum);
-				window.opener.$("#grantsContractNum").prop('readOnly', true);
-			}
-			
-			if (json.projectTitle !== "undefined") {
-				window.opener.$("#projectTitle").val(json.projectTitle);
-				window.opener.$("#projectTitle").prop('disabled', true);
-			}
-			
-			if (json.piFirstName !== "undefined") {
-					window.opener.$("#fnPI").val(json.piFirstName);
-					window.opener.$("#fnPI").prop('disabled', true);
-			}
-			
-			if (json.piLastName !== "undefined") {
-				window.opener.$("#lnPI").val(json.piLastName);
-				window.opener.$("#lnPI").prop('disabled', true);
-			}
-			
-			if (json.piEmailAddress !== "undefined") {
-				window.opener.$("#piEmail").val(json.piEmailAddress);
-				window.opener.$("#piEmail").prop('disabled', true);
-			}
-			
-			
-			if (json.piInstitution !== "undefined") {
-				window.opener.$("#PIInstitute").val(json.piInstitution);
-				window.opener.$("#PIInstitute").prop('disabled', true);
-			}
-			
-			if (json.pdFirstName !== "undefined") {
-				window.opener.$("#fnPD").val(json.pdFirstName);
-				window.opener.$("#fnPD").prop('disabled', true);	
-			}
-				
-			if (json.pdLastName !== "undefined") {
-				window.opener.$("#lnPD").val(json.pdLastName);
-				window.opener.$("#lnPD").prop('disabled', true);
-			}
-			
-			if (json.projectPeriodStartDate !== "undefined") {
-				window.opener.$("#projectStartDate").val(json.projectPeriodStartDate);
-				window.opener.$("#projectStartDate").prop('disabled', true);
-			}
-			
-			if (json.projectPeriodEndDate !== "undefined") {
-				window.opener.$("#projectEndDate").val(json.projectPeriodEndDate);
-				window.opener.$("#projectEndDate").prop('disabled', true);
-			}
-			
-			if (json.applId !== "undefined") {
-				window.opener.$("#applId").val(json.applId);			
-			}
-			
-			window.opener.$('#clearGrantsContractsId').prop('disabled', false);	
-			
-			window.close();
-			
-		}
-		</script>
-		<script type="text/javascript"
-			src="<s:url value="/scripts/jquery-1.12.3.min.js" />"></script>
-		<script type="text/javascript"
-			src="<s:url value="/scripts/bootstrap-3.3.6.min.js" />"></script>
+		  </div>
 
-		<script>
-			$(document).ready(function() {
-				$(':radio').click(function() {
-					if(window.opener.$("#projectTitle").val() != "" || window.opener.$("#fnPI").val() != ""
-						|| window.opener.$("#lnPI").val() != "" || window.opener.$("#piEmail").val() != ""
-						|| window.opener.$("#PIInstitute").val() != "" || window.opener.$("#fnPD").val() != ""
-						|| window.opener.$("#lnPD").val() != "" || window.opener.$("#projectStartDate").val() != ""
-						|| window.opener.$("#projectEndDate").val() != ""){ 
-						$('.alert').show();
-					}
-					$("#btnConfirm").prop('disabled', false);
-				})
-			});
-			
-		</script>
-	</s:form>
-</body>
-</html>
+		  <!--end panel header-->
+		  <div class="panel-body">					
+		    <p><strong>Please enter your search criteria using the following format:</strong></p>
+			<div>
+			  <div class="searchLabel">Extramural Grant:</div>
+			  <div class="searchFormat">(enter MECH-ICD-Serial#)</div>
+			</div>
+			<div>
+			  <div class="searchLabel">Intramural Grant:</div>
+			  <div class="searchFormat">(enter full Z01 or ZIA#)</div>
+			</div>
+			<div>
+			  <div class="searchLabel" align="right">Contract:</div>
+			  <div class="searchFormat">(enter full contract#)</div>
+			</div>
+
+			<!--  Search grants -->
+			<div class="searchLabel">
+              <label for="Intramural (Z01)/Grant/Contract #">Intramural (Z01)/Grant/Contract #</label>
+            </div>
+            <div class="searchFormat">
+              <input type="text" class="form-control" id="grantSearch" placeholder="Use Correct Format from Examples Above"
+                    	name="grantContractNum" value="${grantContractNum}">
+            </div> 
+            <div class="searchFormat" style="float:right;">
+              <button type="button" class="btn btn-primary has-spinner" id="searchGrants"><i class="fa fa-spinner fa-spin"></i> Search</button> 
+              <s:submit class="btn btn-default" id="reset" value="Reset" action="search/openSearchGrantsContracts"></s:submit> 
+              <p>&nbsp;</p>
+            </div>
+							
+			<!--Begin Search Results-->
+            <div id="searchResults">
+              <table style="width: 100%;" cellpadding="0px" cellspacing="0"
+                    class="table table-bordered table-striped" style="margin-left: 10px;">
+                <tr class="modalTheader">
+                  <th class="tableHeader" align="center" width="10%" scope="col">Select</th>
+                  <th class="tableHeader" width="25%" scope="col">Grant Number</th>
+                  <th class="tableHeader" width="50%" scope="col">Project Title</th>
+                  <th class="tableHeader" widht="25%" scope="col">Principal Investigator</th>
+                </tr>
+				
+					
+				<s:if test="%{grantOrContractList.size > 0}">
+				<!--<s:hidden name="grantOrContractList"  id="grantOrContractListId"/>-->
+				  <s:iterator value="grantOrContractList" var="grantsContracts" status="stat">
+				    <s:if test="#stat.index /2 == 0">
+					  <tr class="tableContent">
+					</s:if>
+					<s:else>
+					  <tr class="tableContentOdd">
+					</s:else>
+					    <td align="center"><input name="selectedGrantContract" type="radio" value='${grantsContracts}'/></td>
+				   <!-- <td align="center"><s:radio theme="simple" list="#{top:''}" name="selectedGrantContract" /></td> -->
+						<td class="paddingT" nowrap><s:property value="%{#grantsContracts.grantContractNum}" /></td>
+						<td class="paddingT"><s:property value="%{#grantsContracts.projectTitle}" /></td>
+						<td class="paddingT">
+						  <s:a href="mailto:%{#grantsContracts.piEmailAddress}?">
+						    <s:property	value="%{#grantsContracts.piLastName}" /> , <s:property	value="%{#grantsContracts.piFirstName}" />
+						  </s:a>		
+						</td>
+					  </tr>
+				  </s:iterator>
+				</s:if>
+				<s:else>
+				  <tr class="tableContent">
+				    <td colspan="4">Nothing found to display.</td>
+				  </tr>
+				</s:else>
+			  </table>
+
+			  <div class="alert alert-warning" style="display: none;">
+				<button type="button" class="close" aria-hidden="true">&times;</button>
+				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Your
+					selection might update some of the previously entered data in the
+					General Information Page.
+			  </div>
+			 
+			</div>	<!--end search results-->
+		  </div> <!--end panel body-->
+		</div> <!--end panel-->
+		
+		<div class="pageNav"><!-- Page navbar -->
+          <button type="button" value="Cancel" class="cancel btn btn-project-default">Cancel</button>
+          <button type="button" value="" class="btn btn-project-primary" onclick="populateGrantsContractsData()"> Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></button> 
+        </div>
+           
+     </div> <!--  end Panel  -->
+    </div>
+	

@@ -16,13 +16,34 @@ $(function () {
           });
 });
 
-//Open grants/Contracts search page:
+
+
+//Edit button
 function openGrantsContractsSearchPage() {
-	var url = "/gds/manage/openSearchGrantsContracts.action";
-	var winName = "Intramural (Z01)/Grant/Contract # Search";
-	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
-	var newWin = window.open(url, winName, features);
+	$("#messages").empty();
+	var parent = $(".tableContent").parent();
+	$(".tableContent").remove();
+	$(".tableContentOdd").remove();
+	parent.append('<tr class="tableContent"><td colspan="4">Nothing found to display.</td></tr>');
+	$("#generalInfoSection").hide();
+	$("#searchGrantsContracts").show();
+	
 }
+
+
+//Search button
+$("#searchGrants").click(function() {
+	$("#messages").empty();
+	if($('#grantSearch').val().length == 0) {
+		var errorMsg = "Please enter Intramural (Z01)/Grant/Contract #.";
+		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
+		window.scrollTo(0,0);
+	} else {	
+		$('#general_form').attr('action', "searchGrantsContractsAction.action").submit();
+	}
+	
+});
+
 
 //Confirm if user really wants to clear grants/contracts data.
 function clearGrantsContracts(){	
@@ -35,6 +56,100 @@ function clearGrantsContracts(){
 			return true;
 		}
 	});
+}
+
+
+//Cancel button
+$(".cancel").click(function() {	
+	$('#grantSearch').val('');
+	$("#messages").empty();
+	if($("#grantsContractNum").val().length > 0) {
+		//$('#general_form').attr('action', "navigateToGeneralInfo.action").submit();
+		$("#searchGrantsContracts").hide();
+		$("#generalInfoSection").show();
+	} else {
+		$('#general_form').attr('action', "newSubmission.action").submit();
+	}
+
+});
+
+
+//Next button
+function populateGrantsContractsData(){
+	
+	//$('#grantSearch').val('');
+	$("#messages").empty();
+	var grantContract = $("input[name=selectedGrantContract]:checked").val();
+	
+	if(grantContract == undefined) {
+		var errorMsg = "Please select Intramural (Z01)/Grant/Contract #.";
+		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
+		window.scrollTo(0,0);
+		return;
+	}
+	
+	var json = jQuery.parseJSON(grantContract);	
+		
+	if (json.grantContractNum !== "undefined") {
+		$("#grantsContractNum").val(json.grantContractNum);
+		$("#grantsContractNum").prop('readOnly', true);
+	}
+	
+	if (json.projectTitle !== "undefined") {
+		$("#projectTitle").val(json.projectTitle);
+		$("#projectTitle").prop('disabled', true);
+	}
+	
+	if (json.piFirstName !== "undefined") {
+		$("#fnPI").val(json.piFirstName);
+		$("#fnPI").prop('disabled', true);
+	}
+	
+	if (json.piLastName !== "undefined") {
+		$("#lnPI").val(json.piLastName);
+		$("#lnPI").prop('disabled', true);
+	}
+	
+	if (json.piEmailAddress !== "undefined") {
+		$("#piEmail").val(json.piEmailAddress);
+		$("#piEmail").prop('disabled', true);
+	}
+	
+	
+	if (json.piInstitution !== "undefined") {
+		$("#PIInstitute").val(json.piInstitution);
+		$("#PIInstitute").prop('disabled', true);
+	}
+	
+	if (json.pdFirstName !== "undefined") {
+		$("#fnPD").val(json.pdFirstName);
+		$("#fnPD").prop('disabled', true);	
+	}
+		
+	if (json.pdLastName !== "undefined") {
+		$("#lnPD").val(json.pdLastName);
+		$("#lnPD").prop('disabled', true);
+	}
+	
+	if (json.projectPeriodStartDate !== "undefined") {
+		$("#projectStartDate").val(json.projectPeriodStartDate);
+		$("#projectStartDate").prop('disabled', true);
+	}
+	
+	if (json.projectPeriodEndDate !== "undefined") {
+		$("#projectEndDate").val(json.projectPeriodEndDate);
+		$("#projectEndDate").prop('disabled', true);
+	}
+	
+	if (json.applId !== "undefined") {
+		$("#applId").val(json.applId);			
+	}
+	
+	//window.opener.$('#clearGrantsContractsId').prop('disabled', false);	
+	$('#grantSearch').val('');
+	$("#searchGrantsContracts").hide();
+	$("#generalInfoSection").show();
+	//$('#general_form').attr('action', "navigateToGeneralInfo.action").submit();
 }
 
 
@@ -227,3 +342,27 @@ function refreshGrantsContractsData(){
 		$(".unlink-group").prop('disabled', false);
 	}
 });
+ 
+ $(document).ready(function() {
+		//$(':radio').click(function() {
+			//if(window.opener.$("#projectTitle").val() != "" || window.opener.$("#fnPI").val() != ""
+			//	|| window.opener.$("#lnPI").val() != "" || window.opener.$("#piEmail").val() != ""
+			//	|| window.opener.$("#PIInstitute").val() != "" || window.opener.$("#fnPD").val() != ""
+			//	|| window.opener.$("#lnPD").val() != "" || window.opener.$("#projectStartDate").val() != ""
+			//	|| window.opener.$("#projectEndDate").val() != ""){ 
+			//	$('.alert').show();
+			//}
+			//$("#btnConfirm").prop('disabled', false);
+		//})
+		
+		if($("#grantsContractNum").val().length == 0 ||
+				$("#grantSearch").val().length != 0) {
+			//The project has no grant number specified, or a
+			//grant search request was made
+			$("#generalInfoSection").hide();
+			$("#searchGrantsContracts").show();
+		} else {
+			$("#searchGrantsContracts").hide();
+			$("#generalInfoSection").show();
+		}	
+ });
