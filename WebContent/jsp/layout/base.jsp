@@ -42,9 +42,11 @@
 	<s:include value="../layout/header.jsp" />
 	<!-- end Header -->
 
-	<s:if test="hasErrors() || hasActionMessages()">
-		<s:include value="../error/errorMessages.jsp" />
-	</s:if>
+	<div id="messages" class="container">
+		<s:if test="hasErrors() || hasActionMessages()">
+			<s:include value="../error/errorMessages.jsp" />
+		</s:if>
+	</div>
 
 	<!-- Content start -->
 	<div class="container">
