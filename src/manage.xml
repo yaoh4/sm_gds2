@@ -37,6 +37,10 @@
 				<param name="inputName">inputStream</param>   
 			</result>	
 		</action>
+		<action name="getPrevLinkedSubmissionsForGrant" method="getPrevLinkedSubmissionsForGrant" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/prevLinkedSubmissions.jsp</result>	
+		</action>
+		
 		<action name="editGdsPlan" method="execute" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			 <result name="success" type="tiles">submissionGdsPlan</result>
 		</action>

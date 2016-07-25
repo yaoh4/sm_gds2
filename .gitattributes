@@ -167,6 +167,7 @@ WebContent/images/subfolder.gif -text
 WebContent/index.jsp -text
 WebContent/jsp/content/dulSetTemplate.jsp -text
 WebContent/jsp/content/manageDuls.jsp -text
+WebContent/jsp/content/prevLinkedSubmissions.jsp -text
 WebContent/jsp/content/search.jsp -text
 WebContent/jsp/content/searchGrantsContracts.jsp -text
 WebContent/jsp/content/searchParentResult.jsp -text

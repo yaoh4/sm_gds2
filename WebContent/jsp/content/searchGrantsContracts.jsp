@@ -69,7 +69,7 @@
 					<s:else>
 					  <tr class="tableContentOdd">
 					</s:else>
-					    <td align="center"><input name="selectedGrantContract" type="radio" value='${grantsContracts}'/></td>
+					    <td align="center"><input name="selectedGrantContract" onclick="showPrevLinkedSubmissions()" type="radio" value='${grantsContracts}'/></td>
 				   <!-- <td align="center"><s:radio theme="simple" list="#{top:''}" name="selectedGrantContract" /></td> -->
 						<td class="paddingT" nowrap><s:property value="%{#grantsContracts.grantContractNum}" /></td>
 						<td class="paddingT"><s:property value="%{#grantsContracts.projectTitle}" /></td>
@@ -87,7 +87,7 @@
 				  </tr>
 				</s:else>
 			  </table>
-
+			  <div id="prevLinkedSubmissions" style="display: none;"></div>
 			  <div class="alert alert-warning" style="display: none;">
 				<button type="button" class="close" aria-hidden="true">&times;</button>
 				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Your

@@ -22,6 +22,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 
 /**
  * This class is responsible for saving Project General Information.
@@ -40,7 +41,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();	
 	private List<DropDownOption> projectTypes = new ArrayList<DropDownOption>();
 	private List<DropDownOption> projectSubmissionReasons = new ArrayList<DropDownOption>();	
-	private List<GdsGrantsContracts> grantOrContractList = new ArrayList<GdsGrantsContracts>();		
+	private List<GdsGrantsContracts> grantOrContractList = new ArrayList<GdsGrantsContracts>();	
+	private List<ProjectsVw> prevLinkedSubmissions = new ArrayList<ProjectsVw>();
 	private GdsGrantsContracts grantOrContract;
 
 	@Autowired
@@ -368,6 +370,18 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	}
 	
 	/**
+	 * This method retrieves list of already linked submissions for a given grant.
+	 * 
+	 * @return forward string
+	 * @throws Exception
+	 */
+	public String getPrevLinkedSubmissionsForGrant() throws Exception {
+		prevLinkedSubmissions = manageProjectService.getPrevLinkedSubmissionsForGrant(grantContractNum);
+		
+		return SUCCESS;
+	}
+	
+	/**
 	 * Validates save Project General Information
 	 */
 	public void validateGeneralInfoSave(){	
@@ -625,5 +639,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 
 	public void setGrantOrContract(GdsGrantsContracts grantOrContract) {
 		this.grantOrContract = grantOrContract;
+	}
+
+	public List<ProjectsVw> getPrevLinkedSubmissions() {
+		return prevLinkedSubmissions;
+	}
+
+	public void setPrevLinkedSubmissions(List<ProjectsVw> prevLinkedSubmissions) {
+		this.prevLinkedSubmissions = prevLinkedSubmissions;
 	}
 }

@@ -368,3 +368,18 @@ function refreshGrantsContractsData(){
 			$("#generalInfoSection").show();
 		}	
  });
+ 
+ //This function displays table of already linked submissions.
+ function showPrevLinkedSubmissions(){
+	 var grantContractNum = $("#grantSearch").val();
+	 $.ajax({
+		 url: 'getPrevLinkedSubmissionsForGrant.action',
+		 dataType: 'html',
+		 data: {grantContractNum: grantContractNum},
+		 type: 'post',
+		 success: function(html) {                	
+			 $("#prevLinkedSubmissions").html(html);
+			 $("#prevLinkedSubmissions").show();
+		 }
+	 })
+ }

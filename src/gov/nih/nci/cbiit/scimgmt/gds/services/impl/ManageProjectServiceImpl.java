@@ -13,6 +13,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 
 /**
  * Class to support management of Projects (save, update and delete etc...)
@@ -78,5 +79,15 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 */
 	public GdsGrantsContracts getGrantOrContract(Long applId){
 		return projectsDao.getGrantOrContract(applId);
+	}
+	
+	/**
+	 * This method retrieves list of already linked submissions for a given grant.
+	 * 
+	 * @param grantContractNum
+	 * @return
+	 */
+	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum){
+		return projectsDao.getPrevLinkedSubmissionsForGrant(grantContractNum);
 	}
 }

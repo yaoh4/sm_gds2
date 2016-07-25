@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 
 /**
  * Dao object for domain model class Project.
@@ -148,6 +149,28 @@ public class ProjectsDao {
 
 		}catch (RuntimeException re) {
 			logger.error("Retrieving  Grant / Contract failed", re);
+			throw re;
+		}
+	}
+	
+	/**
+	 * This method retrieves list of already linked submissions for a given grant.
+	 * 
+	 * @param grantContractNum
+	 * @return
+	 */
+	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum){
+		
+		logger.info("Retrieving already linked submissions for grantContractNum: "+grantContractNum);
+		try {
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);	
+			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));
+			criteria.add(Restrictions.like("dataLinkFlag", "Y"));
+			List<ProjectsVw> grantsListlist = criteria.list();
+			return grantsListlist;
+
+		}catch (RuntimeException re) {
+			logger.error("Error occurred while retrieving already linked submissions for grantContractNum: "+grantContractNum, re);
 			throw re;
 		}
 	}

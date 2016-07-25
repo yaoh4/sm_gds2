@@ -4,6 +4,7 @@ import java.util.List;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 
 public interface ManageProjectService {
 
@@ -42,4 +43,12 @@ public interface ManageProjectService {
 	 * @return
 	 */
 	public GdsGrantsContracts getGrantOrContract(Long applId);
+		
+	/**
+	 * This method retrieves list of already linked submissions for a given grant.
+	 * 
+	 * @param grantContractNum
+	 * @return
+	 */
+	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum);
 }
