@@ -253,8 +253,8 @@ public class ProjectSearchDao {
 		
 		// Intramural(Z01)/Grant/Contract #
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getGrantContractNum()))) {
-			parentCriteria.add(Restrictions.ilike("grantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
-			subprojectCriteria.add(Restrictions.ilike("grantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+			parentCriteria.add(Restrictions.ilike("lookupGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+			subprojectCriteria.add(Restrictions.ilike("lookupGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
 		}
 
 		// Accession Number

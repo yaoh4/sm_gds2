@@ -122,7 +122,7 @@ public class ProjectsDao {
 		logger.info("Retrieving  Grant / Contract List from DB for grantContractNum: "+grantContractNum);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsGrantsContracts.class);	
-			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));
+			criteria.add(Restrictions.ilike("lookupGrantContractNum", grantContractNum,MatchMode.ANYWHERE));
 			List<GdsGrantsContracts> grantsListlist = criteria.list();
 			return grantsListlist;
 
