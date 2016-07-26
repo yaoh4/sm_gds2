@@ -903,6 +903,7 @@ screens/controllers/newSubmission.js -text
 screens/controllers/search.js -text
 screens/controllers/submissionStatus.js -text
 screens/dataSharing.htm -text
+screens/detailReport.htm -text
 screens/fonts/glyphicons-halflings-regular.eot -text
 screens/fonts/glyphicons-halflings-regular.svg -text
 screens/fonts/glyphicons-halflings-regular.ttf -text
