@@ -576,7 +576,10 @@ properties/dev/log4j2.xml -text
 properties/local/gds.properties -text
 properties/local/log4j2.xml -text
 properties/messages.properties -text
+properties/production/gds.properties -text
+properties/production/log4j2.xml -text
 properties/stage/gds.properties -text
+properties/stage/log4j2.xml -text
 properties/test/gds.properties -text
 properties/test/log4j2.xml -text
 screens/ckeditor/CHANGES.md -text

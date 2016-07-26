@@ -9,7 +9,7 @@
 		</File>
 	</Appenders>
 	<Loggers>
-		<logger name="gov.nih.nci.cbiit.scimgmt.gds" level="debug" >
+		<logger name="gov.nih.nci.cbiit.scimgmt.gds" level="info" >
 			<AppenderRef ref="APPLOG"/>
 		</logger>
 		<Root level="error">
