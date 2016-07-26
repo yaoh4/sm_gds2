@@ -107,35 +107,25 @@
 						  <td><span class="question">Provisional or Final? </span><s:property value="%{getLookupDisplayNamebyId(#ic.provisionalFinalCode)}"/></td>
 						  <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(#ic.futureProjectUseCode)}"/></td>
                         </tr>
-                    <!--   <tr>
-						  <td colspan="6">&nbsp;</td>
-                        </tr> -->
                         
                         <s:if test="%{#ic.comments != null}">
-                          <tr>
-                            <td colspan="6" class="question">Comments:</td>
-                          </tr>
-                          <tr>
-                            <td colspan="6">
-                              <textarea name="ic.comments" id="comments2" style="width: 100%; padding: 4px; opacity: 0.7;"
-			                    rows="4" disabled class="normalText">${ic.comments}
-						      </textarea>
-						    </td>
-			              </tr>
+                          <tr><td colspan="6">&nbsp;</td></tr>
+                          <tr><td colspan="6" class="question">Comments:</td></tr>
+                          <tr><td colspan="6">${ic.comments}</td></tr>
 			            </s:if>
 			            
                         <tr>
                           <td colspan="3" align="left" valign="top">&nbsp;</td>
                           <td colspan="3">&nbsp;</td>
                         </tr>
+                        
                         <tr>
-                          <td colspan="6">
-                      <!--       <div id="container">        -->            
+                          <td colspan="6">           
                               <s:iterator status="studiesStat" var="study" value="project.institutionalCertifications[#icStat.index].studies">
                                 <s:set name="studyIdx" value="#studiesStat.index" />
                                 <table width="100%">
                                   <tr>
-                                    <td valign="top" class="question number">${studyIdx+1}</td>
+                                    <td valign="top" class="question" style="width: 35px;"><p class="number">${studyIdx+1}</p></td>
                                     <td>
                                       <table class="table table-bordered" width="100%" class="study">
                                         <tr>
@@ -147,26 +137,16 @@
 					                            <td><span class="question">Institution: </span>${study.institution}</td>
                                                 <td><span class="question">Data Use Limitation(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
                                               </tr>
-                                              
+                                                                                    
                                               <s:if test="%{#study.comments != null}">
-                                                <tr>
-                                                  <td colspan="6" class="question">Comments:</td>
-                                                </tr>
-                                                <tr>
-                                                  <td colspan="6">
-                                                    <textarea name="comments" id="comments2" style="width: 100%; padding: 4px; opacity: 0.7;"
-                                                      rows="4" disabled >${study.comments}
-                                                    </textarea>
-                                                  </td>
-                                                </tr>
+                                                <tr><td colspan="4" align="left" valign="top">&nbsp;</td></tr>
+                                                <tr><td colspan="6" class="question">Comments:</td></tr>
+                                                <tr><td colspan="6">${study.comments}</td></tr>
                                               </s:if>
-                                              
-                                              <tr>
-                                                <td colspan="4" align="left" valign="top">&nbsp;</td>
-                                              </tr>
                                               
                                               <s:if test="%{project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets.size > 0}">
                                               
+                                              <tr><td colspan="4" align="left" valign="top">&nbsp;</td></tr>
                                               <tr>
                                                 <td colspan="4" align="left" valign="top" class="question" valign="bottom">Data Use Limitation(s)</td>
                                               </tr>       
@@ -214,9 +194,7 @@
                                   </tr>
                                 </table> <!--study end-->
                              <!--    <p>&nbsp;</p> -->
-                              </s:iterator> <!-- for studies -->                      
-                             
-                      <!--      </div>  for container -->	        
+                              </s:iterator> <!-- for studies -->                      	        
                           </td> <!-- for colspan 6-->
 					    </tr>
                       </table> <!-- for class tBorder2 -->

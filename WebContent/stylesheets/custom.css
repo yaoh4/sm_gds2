@@ -81,6 +81,16 @@ h6 {
        margin-top: 8px;
 }
 
+.reportLabel {
+    display: inline-block;
+    max-width: 100%;
+    
+    font-weight: 600;
+    color: #000000;
+    font-size: 14px;
+  
+ 
+}
 
 .radio label {
  
@@ -929,7 +939,7 @@ hr {
   margin-top: 2px;
 }
 .number {
-display: block;
+
     height: 30px;
     width: 30px;
     line-height: 15px;
@@ -941,7 +951,7 @@ display: block;
     font-size: 15px;
     font-weight: 600;
     padding-top: 6px;
-    margin-right: 5px;
+   
   }
 
 /***************CSS for tool tip****************************/
