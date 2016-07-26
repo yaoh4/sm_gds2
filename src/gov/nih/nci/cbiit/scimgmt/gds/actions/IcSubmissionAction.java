@@ -294,8 +294,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	private void processStudyAttributes(Study study) {
 		
 		if(study.getStudyName() == null || study.getStudyName().isEmpty()) {
-			int studyIndex = Long.valueOf(study.getDisplayId()).intValue();		
-			addActionError(getText("error.ic.study.studyName.required", new String[]{Integer.valueOf(studyIndex + 1).toString()}) );
+			addActionError(getText("error.ic.study.studyName.required") );
 		}
 		
 		if(study.getId() == null || study.getId().toString().isEmpty()) {
@@ -342,8 +341,11 @@ public class IcSubmissionAction extends ManageSubmission {
 		dulChecklistSelection.setStudiesDulSet(dulSet);							
 		
 		if(additionalText == null || additionalText[0].isEmpty()) {
-			DulChecklist parentDul = GdsSubmissionActionHelper.getDulChecklist(Long.valueOf(parentDulId));
-			this.addActionError(getText("error.ic.study.dulType.additionalText.required", new String[]{parentDul.getDisplayText(), studyName}));	 
+			if(ApplicationConstants.IC_PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId))) {
+				this.addActionError(getText("error.ic.study.dulType.diseaseText.required", new String[]{studyName}));
+			} else {	
+				this.addActionError(getText("error.ic.study.dulType.additionalText.required", new String[]{studyName}));
+			}
 		} else {
 			validationMap.put(additionalText[0], new Integer(dulSetIndex));
 		}
@@ -379,7 +381,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			if(validationMap.containsKey(dulSelectionsStr)) {
 				//If parent dul is 13 or 21, get the additional text - validationMap.get(0);
 				DulChecklist parentDul = GdsSubmissionActionHelper.getDulChecklist(Long.valueOf(parentDulId));
-				this.addActionError(getText("error.ic.study.dulSelection.duplicate", new String[]{parentDul.getDisplayText(), studyName}));
+				this.addActionError(getText("error.ic.study.dulSelection.duplicate", new String[]{studyName}));
 			} else {
 				validationMap.put(dulSelectionsStr, new Integer(dulSetIndex));
 			}
