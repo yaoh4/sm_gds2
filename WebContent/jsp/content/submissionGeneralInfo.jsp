@@ -7,7 +7,9 @@
 		<s:hidden name="projectId" value="%{project.id}"/>
 		<s:hidden name="applId" id="applId" value="%{project.applId}"/>
 	
-	  <s:include value="/jsp/content/searchGrantsContracts.jsp"/>
+	  <div id="searchGrantsContracts"  style="display:none;">
+	    <s:include value="/jsp/content/searchGrantsContracts.jsp"/>
+	  </div>
 		
 	  <div id="generalInfoSection">
 		<div class="pageNav">

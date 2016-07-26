@@ -1,10 +1,8 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-			
-      <div id="searchGrantsContracts"  style="display:none;">
     
       <div class="pageNav"> <!-- Page navbar -->
-        <button type="button" value="Cancel" class="cancel btn btn-project-default">Cancel</button>
+        <button type="button" value="Cancel" class="btn btn-project-default" onclick="cancel()">Cancel</button>
         <button type="button" value="" class="btn btn-project-primary" onclick="populateGrantsContractsData()"> Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></button> 
       </div>
       
@@ -43,7 +41,7 @@
                     	name="grantContractNum" value="${grantContractNum}">
             </div> 
             <div class="searchFormat" style="float:right;">
-              <button type="button" class="btn btn-primary has-spinner" id="searchGrants"><i class="fa fa-spinner fa-spin"></i> Search</button> 
+              <button type="button" class="btn btn-primary has-spinner" id="searchGrants" onclick="searchGrantsData()"><i class="fa fa-spinner fa-spin"></i> Search</button> 
               <button type="button" class="btn btn-default" id="reset" onclick="resetData()">Reset</button> 
               <p>&nbsp;</p>
             </div>
@@ -100,10 +98,9 @@
 		</div> <!--end panel-->
 		
 		<div class="pageNav"><!-- Page navbar -->
-          <button type="button" value="Cancel" class="cancel btn btn-project-default">Cancel</button>
+          <button type="button" value="Cancel" class="btn btn-project-default" onclick="cancel()">Cancel</button>
           <button type="button" value="" class="btn btn-project-primary" onclick="populateGrantsContractsData()"> Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></button> 
         </div>
            
      </div> <!--  end Panel  -->
-    </div>
 	

@@ -28,17 +28,42 @@ function openGrantsContractsSearchPage() {
 
 
 //Search button
-$("#searchGrants").click(function() {
+function searchGrantsData() {
 	$("#messages").empty();
 	if($('#grantSearch').val().length == 0) {
 		var errorMsg = "Please enter Intramural (Z01)/Grant/Contract #.";
 		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
 		window.scrollTo(0,0);
 	} else {	
-		$('#general_form').attr('action', "searchGrantsContractsAction.action").submit();
+		$form = $("#general_form");
+	    fd = new FormData($form[0]);
+		$.ajax({
+		  	url: 'searchGrantsContractsAction.action',
+		  	type: 'post',
+		  	processData: false,
+		    contentType: false,
+		    data: fd,
+		  	async:   false,
+		  	success: function(msg){
+				result = $.trim(msg);
+			}, 
+			error: function(){}	
+		});
+		if(result.indexOf('<div') == 0) {
+			$("#searchGrantsContracts").html(result);
+			$("#generalInfoSection").hide();
+			$("#searchGrantsContracts").show();
+		}
+		else {
+			bootbox.alert(result, function() {
+	  			return true;
+			});
+		}
+		
+		//$('#general_form').attr('action', "searchGrantsContractsAction.action").submit();
 	}
 	
-});
+};
 
 
 //Reset data
@@ -69,9 +94,10 @@ function clearGrantsContracts(){
 
 
 //Cancel button
-$(".cancel").click(function() {	
+function cancel() {	
 	$('#grantSearch').val('');
 	$("#messages").empty();
+	
 	if($("#grantsContractNum").val().length > 0) {
 		$("#searchGrantsContracts").hide();
 		$("#generalInfoSection").show();
@@ -79,7 +105,7 @@ $(".cancel").click(function() {
 		$('#general_form').attr('action', "newSubmission.action").submit();
 	}
 
-});
+};
 
 
 //Next button
