@@ -20,11 +20,7 @@ $(function () {
 
 //Edit button
 function openGrantsContractsSearchPage() {
-	$("#messages").empty();
-	var parent = $(".tableContent").parent();
-	$(".tableContent").remove();
-	$(".tableContentOdd").remove();
-	parent.append('<tr class="tableContent"><td colspan="4">Nothing found to display.</td></tr>');
+	resetData();
 	$("#generalInfoSection").hide();
 	$("#searchGrantsContracts").show();
 	
@@ -43,6 +39,19 @@ $("#searchGrants").click(function() {
 	}
 	
 });
+
+
+//Reset data
+function resetData() {
+	
+	$("#messages").empty();
+	$('#grantSearch').val('');
+	var parent = $(".tableContent").parent();
+	$(".tableContent").remove();
+	$(".tableContentOdd").remove();
+	parent.append('<tr class="tableContent"><td colspan="4">Nothing found to display.</td></tr>');
+	
+};
 
 
 //Confirm if user really wants to clear grants/contracts data.
@@ -64,7 +73,6 @@ $(".cancel").click(function() {
 	$('#grantSearch').val('');
 	$("#messages").empty();
 	if($("#grantsContractNum").val().length > 0) {
-		//$('#general_form').attr('action', "navigateToGeneralInfo.action").submit();
 		$("#searchGrantsContracts").hide();
 		$("#generalInfoSection").show();
 	} else {
@@ -77,7 +85,6 @@ $(".cancel").click(function() {
 //Next button
 function populateGrantsContractsData(){
 	
-	//$('#grantSearch').val('');
 	$("#messages").empty();
 	var grantContract = $("input[name=selectedGrantContract]:checked").val();
 	

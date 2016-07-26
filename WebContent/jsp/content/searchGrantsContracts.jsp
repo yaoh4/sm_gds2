@@ -44,7 +44,7 @@
             </div> 
             <div class="searchFormat" style="float:right;">
               <button type="button" class="btn btn-primary has-spinner" id="searchGrants"><i class="fa fa-spinner fa-spin"></i> Search</button> 
-              <s:submit class="btn btn-default" id="reset" value="Reset" action="search/openSearchGrantsContracts"></s:submit> 
+              <button type="button" class="btn btn-default" id="reset" onclick="resetData()">Reset</button> 
               <p>&nbsp;</p>
             </div>
 							
@@ -88,7 +88,7 @@
 				</s:else>
 			  </table>
 			  <div id="prevLinkedSubmissions" style="display: none;"></div>
-			  <div class="alert alert-warning" style="display: none;">
+	  		  <div class="alert alert-warning" style="display: none;">
 				<button type="button" class="close" aria-hidden="true">&times;</button>
 				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Your
 					selection might update some of the previously entered data in the
