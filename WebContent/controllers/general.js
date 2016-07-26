@@ -66,7 +66,7 @@ function searchGrantsData() {
 };
 
 
-//Reset data
+//Reset button
 function resetData() {
 	
 	$("#messages").empty();
@@ -78,19 +78,6 @@ function resetData() {
 	
 };
 
-
-//Confirm if user really wants to clear grants/contracts data.
-function clearGrantsContracts(){	
-	var result = "This will clear all the autopopulated grants/contracts data.<br /> Do you wish to continue?";
-	bootbox.confirm(result, function(ans) {
-		if (ans) {
-			clearData();
-			return true;
-		} else {
-			return true;
-		}
-	});
-}
 
 
 //Cancel button
@@ -177,12 +164,11 @@ function populateGrantsContractsData(){
 	if (json.applId !== "undefined") {
 		$("#applId").val(json.applId);			
 	}
-	
-	//window.opener.$('#clearGrantsContractsId').prop('disabled', false);	
+		
 	$('#grantSearch').val('');
 	$("#searchGrantsContracts").hide();
 	$("#generalInfoSection").show();
-	//$('#general_form').attr('action', "navigateToGeneralInfo.action").submit();
+	
 }
 
 
@@ -210,33 +196,6 @@ function linkUnlinkGrants(elem) {
 	}
 }
 
-
-
-
-//Clear grants/contracts data.
-function clearData(){
-	$("#grantsContractNum").val("");
-	$("#projectTitle").val("");
-	$("#projectTitle").prop('disabled', false);
-	$("#fnPI").val("");
-	$("#fnPI").prop('disabled', false);
-	$("#lnPI").val("");
-	$("#lnPI").prop('disabled', false);
-	$("#piEmail").val("");
-	$("#piEmail").prop('disabled', false);
-	$("#PIInstitute").val("");
-	$("#PIInstitute").prop('disabled', false);
-	$("#fnPD").val("");
-	$("#fnPD").prop('disabled', false);	
-	$("#lnPD").val("");
-	$("#lnPD").prop('disabled', false);
-	$("#projectStartDate").val("");
-	$("#projectStartDate").prop('disabled', false);
-	$("#projectEndDate").val("");
-	$("#projectEndDate").prop('disabled', false);
-	$("#applId").val("");	
-	$('#clearGrantsContractsId').prop('disabled', true);		
-}
 
 //Warns user when user clicks save.
 function warnGeneralInfo(element) {
@@ -360,13 +319,6 @@ function refreshGrantsContractsData(){
 }
 
  $(function () { 
-	if($('#grantsContractNum').val() != ""){ 
-		$('#clearGrantsContractsId').prop('disabled', false);	
-	}   
-	else{
-		$('#clearGrantsContractsId').prop('disabled', true);	
-	} 
-	
 	
 	if ($("#dataLinkFlag").attr("value") == 'Y') {
 		$("#unlink").show();
@@ -376,31 +328,21 @@ function refreshGrantsContractsData(){
 		$("#link").show();
 		$(".unlink-group").prop('disabled', false);
 	}
-});
- 
- $(document).ready(function() {
-		//$(':radio').click(function() {
-			//if(window.opener.$("#projectTitle").val() != "" || window.opener.$("#fnPI").val() != ""
-			//	|| window.opener.$("#lnPI").val() != "" || window.opener.$("#piEmail").val() != ""
-			//	|| window.opener.$("#PIInstitute").val() != "" || window.opener.$("#fnPD").val() != ""
-			//	|| window.opener.$("#lnPD").val() != "" || window.opener.$("#projectStartDate").val() != ""
-			//	|| window.opener.$("#projectEndDate").val() != ""){ 
-			//	$('.alert').show();
-			//}
-			//$("#btnConfirm").prop('disabled', false);
-		//})
+
 		
-		if($("#grantsContractNum").val().length == 0 ||
-				$("#grantSearch").val().length != 0) {
-			//The project has no grant number specified, or a
-			//grant search request was made
-			$("#generalInfoSection").hide();
-			$("#searchGrantsContracts").show();
-		} else {
-			$("#searchGrantsContracts").hide();
-			$("#generalInfoSection").show();
-		}	
+	if($("#grantsContractNum").val().length == 0 ||
+		$("#grantSearch").val().length != 0) {
+		//The project has no grant number specified, or a
+		//grant search request was made
+		$("#generalInfoSection").hide();
+		$("#searchGrantsContracts").show();
+	} else {
+		$("#searchGrantsContracts").hide();
+		$("#generalInfoSection").show();
+	}	
+	
  });
+ 
  
  //This function displays table of already linked submissions.
  function showPrevLinkedSubmissions(){

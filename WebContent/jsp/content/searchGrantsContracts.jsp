@@ -59,7 +59,6 @@
 				
 					
 				<s:if test="%{grantOrContractList.size > 0}">
-				<!--<s:hidden name="grantOrContractList"  id="grantOrContractListId"/>-->
 				  <s:iterator value="grantOrContractList" var="grantsContracts" status="stat">
 				    <s:if test="#stat.index /2 == 0">
 					  <tr class="tableContent">
@@ -68,8 +67,7 @@
 					  <tr class="tableContentOdd">
 					</s:else>
 					    <td align="center"><input name="selectedGrantContract" onclick="showPrevLinkedSubmissions()" type="radio" value='${grantsContracts}'/></td>
-				   <!-- <td align="center"><s:radio theme="simple" list="#{top:''}" name="selectedGrantContract" /></td> -->
-						<td class="paddingT" nowrap><s:property value="%{#grantsContracts.grantContractNum}" /></td>
+				  		<td class="paddingT" nowrap><s:property value="%{#grantsContracts.grantContractNum}" /></td>
 						<td class="paddingT"><s:property value="%{#grantsContracts.projectTitle}" /></td>
 						<td class="paddingT">
 						  <s:a href="mailto:%{#grantsContracts.piEmailAddress}?">
@@ -86,13 +84,6 @@
 				</s:else>
 			  </table>
 			  <div id="prevLinkedSubmissions" style="display: none;"></div>
-	  		  <div class="alert alert-warning" style="display: none;">
-				<button type="button" class="close" aria-hidden="true">&times;</button>
-				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Your
-					selection might update some of the previously entered data in the
-					General Information Page.
-			  </div>
-			 
 			</div>	<!--end search results-->
 		  </div> <!--end panel body-->
 		</div> <!--end panel-->
