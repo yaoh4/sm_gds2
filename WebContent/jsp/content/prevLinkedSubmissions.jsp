@@ -40,7 +40,7 @@
 							<tr class="tableContentOdd">
 						</s:else>
 						<td align="center"><s:property
-								value="%{#prevSubmission.projectIdentifierNum}" /></td>
+								value="%{#prevSubmission.id}" /></td>
 						<td class="paddingT" nowrap><s:property
 								value="%{#prevSubmission.projectTitle}" /></td>
 						<td class="paddingT"><s:a
