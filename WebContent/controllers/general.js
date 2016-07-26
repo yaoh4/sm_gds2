@@ -35,6 +35,8 @@ function searchGrantsData() {
 		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
 		window.scrollTo(0,0);
 	} else {	
+		
+	    $('button.has-spinner').toggleClass('active');
 		$form = $("#general_form");
 	    fd = new FormData($form[0]);
 		$.ajax({
@@ -49,6 +51,7 @@ function searchGrantsData() {
 			}, 
 			error: function(){}	
 		});
+		$('button.has-spinner').toggleClass('active');
 		if(result.indexOf('<div') == 0) {
 			$("#searchGrantsContracts").html(result);
 			$("#generalInfoSection").hide();
@@ -317,6 +320,7 @@ function refreshGrantsContractsData(){
 		error: function(){}	
 	});
 }
+
 
  $(function () { 
 	
