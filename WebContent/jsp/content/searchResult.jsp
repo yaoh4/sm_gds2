@@ -19,7 +19,7 @@
 			<th width="9%"  scope="col">BSI</th>
 			<th class="never">Repository Count</th>
 			<th class="never">Subproject Count</th>
-			<th style="width: 132px;"  scope="col">Repositories</th>
+			<th style="whitespace:nowrap;"  scope="col">Submission Status</th>
 			<th width="5%"  scope="col">Actions</th>
 		</tr>
         </thead>
