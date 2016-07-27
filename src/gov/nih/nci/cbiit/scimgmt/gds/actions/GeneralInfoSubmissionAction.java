@@ -308,6 +308,12 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public String isSubmissionUpdated() throws Exception {
 		
+		//If its a new submission then no need to do comparison between current submission and saved submission. Return control.
+		if(StringUtils.isBlank(getProjectId())){
+			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
+			return SUCCESS;
+		}
+		
 		StringBuffer sb = new StringBuffer();
 		Project transientProject = getProject();
 		Project persistentProject = retrieveSelectedProject();
