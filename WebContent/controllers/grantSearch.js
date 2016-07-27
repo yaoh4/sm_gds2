@@ -1,52 +1,196 @@
 
 
+//Search button
+function searchGrantsData() {
+	$("#messages").empty();
+	if($('#grantSearch').val().length == 0) {
+		var errorMsg = "Please enter Intramural (Z01)/Grant/Contract #.";
+		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
+		window.scrollTo(0,0);
+	} else {	
+		
+	    $('button.has-spinner').toggleClass('active');
+		$form = $("#general_form");
+	    fd = new FormData($form[0]);
+		$.ajax({
+		  	url: 'searchGrantsContractsAction.action',
+		  	type: 'post',
+		  	processData: false,
+		    contentType: false,
+		    data: fd,
+		  	async:   false,
+		  	success: function(msg){
+				result = $.trim(msg);
+			}, 
+			error: function(){}	
+		});
+		$('button.has-spinner').toggleClass('active');
+		if(result.indexOf('<div') == 0) {
+			$("#searchGrantsContracts").html(result);
+			$("#generalInfoSection").hide();
+			$("#searchGrantsContracts").show();
+		}
+		else {
+			bootbox.alert(result, function() {
+	  			return true;
+			});
+		}
+		
+		//$('#general_form').attr('action', "searchGrantsContractsAction.action").submit();
+	}
+	
+};
 
 
-$('input[type="radio"]').click(function(){
-        if($(this).attr("value")=="grantS"){
-            $("#matchingSubmissions").show();
-            $("#sgrant").attr('checked',true);
-            $("#searchResults").hide();
-    } else {
-       $("#matchingSubmissions").hide();
-       $("#searchResults").show();
-    }
-       
-    });
+//Reset button
+function resetData() {
+	
+	$("#messages").empty();
+	$('#grantSearch').val('');
+	var parent = $(".tableContent").parent();
+	$(".tableContent").remove();
+	$(".tableContentOdd").remove();
+	parent.append('<tr class="tableContent"><td colspan="4">Nothing found to display.</td></tr>');
+	 $("#prevLinkedSubmissions").hide();
+};
 
 
-$('#cancel').click(function(){
-        if($(this).attr("id")=="cancel"){
-            $("#matchingSubmissions").hide();
-         
-            $("#searchResults").show();
-    } else {
-       $("#matchingSubmissions").hide();
-       $("#searchResults").show();
-    }
-       
-    });
+//Cancel button
+function cancel() {	
+	$('#grantSearch').val('');
+	$("#messages").empty();
+	
+	if($("#grantsContractNum").val().length > 0) {
+		$("#searchGrantsContracts").hide();
+		$("#generalInfoSection").show();
+	} else {
+		$('#general_form').attr('action', "newSubmission.action").submit();
+	}
+
+};
 
 
+//Next button
+function populateGrantsContractsData(){
+	
+	$("#messages").empty();
+	var grantContract = $("input[name=selectedGrantContract]:checked").val();
+	
+	if(grantContract == undefined) {
+		var errorMsg = "Please select Intramural (Z01)/Grant/Contract #.";
+		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
+		window.scrollTo(0,0);
+		return;
+	}
+	
+	var json = jQuery.parseJSON(grantContract);	
+		
+	if (json.grantContractNum !== "undefined") {
+		$("#grantsContractNum").val(json.grantContractNum);
+		$("#grantsContractNum").prop('readOnly', true);
+	}
+	
+	if (json.projectTitle !== "undefined") {
+		$("#projectTitle").val(json.projectTitle);
+		$("#projectTitle").prop('disabled', true);
+	}
+	
+	if (json.piFirstName !== "undefined") {
+		$("#fnPI").val(json.piFirstName);
+		$("#fnPI").prop('disabled', true);
+	}
+	
+	if (json.piLastName !== "undefined") {
+		$("#lnPI").val(json.piLastName);
+		$("#lnPI").prop('disabled', true);
+	}
+	
+	if (json.piEmailAddress !== "undefined") {
+		$("#piEmail").val(json.piEmailAddress);
+		$("#piEmail").prop('disabled', true);
+	}
+	
+	
+	if (json.piInstitution !== "undefined") {
+		$("#PIInstitute").val(json.piInstitution);
+		$("#PIInstitute").prop('disabled', true);
+	}
+	
+	if (json.pdFirstName !== "undefined") {
+		$("#fnPD").val(json.pdFirstName);
+		$("#fnPD").prop('disabled', true);	
+	}
+		
+	if (json.pdLastName !== "undefined") {
+		$("#lnPD").val(json.pdLastName);
+		$("#lnPD").prop('disabled', true);
+	}
+	
+	if (json.projectPeriodStartDate !== "undefined") {
+		$("#projectStartDate").val(json.projectPeriodStartDate);
+		$("#projectStartDate").prop('disabled', true);
+	}
+	
+	if (json.projectPeriodEndDate !== "undefined") {
+		$("#projectEndDate").val(json.projectPeriodEndDate);
+		$("#projectEndDate").prop('disabled', true);
+	}
+	
+	if (json.applId !== "undefined") {
+		$("#applId").val(json.applId);			
+	}
+		
+	$('#grantSearch').val('');
+	$("#searchGrantsContracts").hide();
+	$("#generalInfoSection").show();
+	
+}
+
+//This function displays table of already linked submissions.
+function showPrevLinkedSubmissions(){
+	 var grantContract = $("input[name=selectedGrantContract]:checked").val();
+	 var json = jQuery.parseJSON(grantContract);	
+	 var grantContractNum = json.grantContractNum;
+	 $.ajax({
+		 url: 'getPrevLinkedSubmissionsForGrant.action',
+		 dataType: 'html',
+		 data: {grantContractNum: grantContractNum},
+		 type: 'post',
+		 success: function(html) {   			
+			 $("#prevLinkedSubmissions").html(html);
+			 $("#prevLinkedSubmissions").show();
+			 if(html.indexOf("prevLinkedSubmissionsTable") > 0){
+				 $("#prevLinkedSubmissions").focus();
+			 }
+		 }
+	 })
+}
 
 
-$('#reset').click(function(){
-        if($(this).attr("id")=="reset"){
-            $("#matchingSubmissions").hide();
-         
-            $("#searchResults").hide();
-    } else {
-       $("#matchingSubmissions").hide();
-       $("#searchResults").show();
-    }
-       
-    });
+function openDetailsReport(id) {
+	var url = "/gds/manage/viewSubmissionDetails.action?projectId=" + id;
+	var winName = "Submission Details Report";
+	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+	var newWin = window.open(url, winName, features);
+}
+
 
 
 $(function(){
     $('a.has-spinner, button.has-spinner').click(function() {
         $(this).toggleClass('active');
     });
+    
+    if($("#grantsContractNum").val().length == 0 ||
+    		$("#grantSearch").val().length != 0) {
+    		//The project has no grant number specified, or a
+    		//grant search request was made
+    		$("#generalInfoSection").hide();
+    		$("#searchGrantsContracts").show();
+    	} else {
+    		$("#searchGrantsContracts").hide();
+    		$("#generalInfoSection").show();
+    	}	
 });
 
 

@@ -231,7 +231,7 @@
 					</div>
 
 
-				</div>
+		<script type="text/javascript" src="<s:url value="/controllers/grantSearch.js"/>"></script>		</div>
 			</div>
 			<!--end panel body-->
 		</div>
@@ -257,3 +257,4 @@
 
 
 <script type="text/javascript" src="<s:url value="/controllers/general.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/controllers/grantSearch.js"/>"></script>
