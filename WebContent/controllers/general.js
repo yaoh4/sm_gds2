@@ -78,7 +78,7 @@ function resetData() {
 	$(".tableContent").remove();
 	$(".tableContentOdd").remove();
 	parent.append('<tr class="tableContent"><td colspan="4">Nothing found to display.</td></tr>');
-	
+	 $("#prevLinkedSubmissions").hide();
 };
 
 
