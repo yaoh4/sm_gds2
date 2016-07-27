@@ -19,7 +19,7 @@
 					Intramural/Grant/Contract #
 				</div>
 				
-				<table style="width: 100%;" cellpadding="0px" cellspacing="0"
+				<table id="prevLinkedSubmissionsTable" style="width: 100%;" cellpadding="0px" cellspacing="0"
 					class="table table-bordered table-striped"
 					style="margin-left: 10px;">
 					<tr class="modalTheader">

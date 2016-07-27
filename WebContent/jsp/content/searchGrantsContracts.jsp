@@ -83,7 +83,7 @@
 				  </tr>
 				</s:else>
 			  </table>
-			  <div id="prevLinkedSubmissions" style="display: none;"></div>
+			  <div id="prevLinkedSubmissions" tabindex="-1" style="display: none;"></div>
 			</div>	<!--end search results-->
 		  </div> <!--end panel body-->
 		</div> <!--end panel-->

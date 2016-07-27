@@ -350,15 +350,20 @@ function refreshGrantsContractsData(){
  
  //This function displays table of already linked submissions.
  function showPrevLinkedSubmissions(){
-	 var grantContractNum = $("#grantSearch").val();
+	 var grantContract = $("input[name=selectedGrantContract]:checked").val();
+	 var json = jQuery.parseJSON(grantContract);	
+	 var grantContractNum = json.grantContractNum;
 	 $.ajax({
 		 url: 'getPrevLinkedSubmissionsForGrant.action',
 		 dataType: 'html',
 		 data: {grantContractNum: grantContractNum},
 		 type: 'post',
-		 success: function(html) {                	
+		 success: function(html) {   			
 			 $("#prevLinkedSubmissions").html(html);
 			 $("#prevLinkedSubmissions").show();
+			 if(html.indexOf("prevLinkedSubmissionsTable") > 0){
+				 $("#prevLinkedSubmissions").focus();
+			 }
 		 }
 	 })
  }
