@@ -17,7 +17,6 @@
 <script src="<s:url value="/scripts/theme.js" />"></script>
 
 <script src="<s:url value="/controllers/gds.js" />"></script>
-<script src="<s:url value="/controllers/grantSearch.js" />"></script>
 
 <link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/bootstrap-datepicker-1.6.1.min.css" />" rel="stylesheet" type="text/css" media="screen" />
@@ -463,6 +462,6 @@
               </div><!--end panel-->
 
               </div><!--end container-->
-          
+         	 <script src="<s:url value="/controllers/grantSearch.js" />"></script>
             </body>
           </html>
