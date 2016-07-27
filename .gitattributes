@@ -119,6 +119,7 @@ WebContent/controllers/basicStudy.js -text
 WebContent/controllers/dataSharing.js -text
 WebContent/controllers/gds.js -text
 WebContent/controllers/general.js -text
+WebContent/controllers/grantSearch.js -text
 WebContent/controllers/institutional.js -text
 WebContent/controllers/institutional_dashboard.js -text
 WebContent/controllers/search.js -text
