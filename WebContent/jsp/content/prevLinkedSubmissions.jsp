@@ -48,7 +48,7 @@
 								<s:property value="%{#prevSubmission.piLastName}" /> , <s:property
 									value="%{#prevSubmission.piFirstName}" />
 							</s:a></td>
-						<td class="paddingT"><a href="#">View</a></td>
+						<td class="paddingT"><a href="#" onclick="openDetailsReport(${prevSubmission.id})">View</a></td>
 						</tr>
 					</s:iterator>
 				</table>

@@ -139,8 +139,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * 
 	 * @return forward string
 	 */
-	public String openGrantsContractsSearch() throws Exception {
-		grantContractNum = "";
+	public String viewSubmissionDetails() throws Exception {
+		setProject(retrieveSelectedProject());
 		return SUCCESS;
 	}
 	
