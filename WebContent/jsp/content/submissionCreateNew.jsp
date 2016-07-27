@@ -10,7 +10,7 @@
 		<div class="pageNav">
 			<s:submit type="button" 
 				action="manage/saveAndNextSubmissionType" cssClass="btn btn-project-primary">
-				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
+				Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 
 
@@ -46,7 +46,7 @@
 		<div class="pageNav">
 			<s:submit type="button" 
 				action="manage/saveAndNextSubmissionType" cssClass="btn btn-project-primary">
-				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
+				Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 
 	</s:form>
