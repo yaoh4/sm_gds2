@@ -83,25 +83,25 @@
             </div> <!--end panel header-->
             <div class="panel-body" style="display:none;">
               <p>
-                <span class="reportLabel">Title of Project/Sub-project:</span>  Therapeutic Resistance to PI3K-alpha Inhibitors</p>
-                <p><span class="reportLabel">Reason for being submitted:</span> Required by GDS Policy</p>
-                <p><span class="reportLabel">Division/Office/Center:</span> CCR</br>
-                <span class="reportLabel">Program Branch:</span> Behavioral Research Program</p>
-                <p><span class="reportLabel"> Intramural (Z01)/Grant/Contract #:</span> 1R01CA088082-01A1</br>
-                <span class="reportLabel">Intramural/Grant/Contract Project Title:</span> XYZ Grant Title</p>
+                <span class="reportLabel">Title of Project/Sub-project:</span>  ${project.submissionTitle}</p>
+                <p><span class="reportLabel">Reason for being submitted:</span> <s:property value="%{projectSubmissionReason}" /> </p>
+                <p><span class="reportLabel">Division/Office/Center:</span> ${project.docAbbreviation}</br>
+                <span class="reportLabel">Program Branch:</span> ${project.programBranch}</p>
+                <p><span class="reportLabel"> Intramural (Z01)/Grant/Contract #:</span> ${project.applicationNum}</br>
+                <span class="reportLabel">Intramural/Grant/Contract Project Title:</span> ${project.projectTitle}</p>
                </p>
-                <p><span class="reportLabel">Principal Investigator:</span> Mary Jones &nbsp;&nbsp;&nbsp; <span class="reportLabel">Email:</span> <a href="mailto: mary.jones001@aicr.org">mary.jones001@aicr.org</a></br>
-                <span class="reportLabel"> Institution:</span> American Institute for Cancer Research</p>
+                <p><span class="reportLabel">Principal Investigator:</span> ${project.piFirstName} ${project.piLastName} &nbsp;&nbsp;&nbsp; <span class="reportLabel">Email:</span> <s:a href="mailto:%{project.piEmailAddress}?">${project.piEmailAddress}</s:a></br>
+                <span class="reportLabel"> Institution:</span> ${project.piInstitution}</p>
               
-                <p><span class="reportLabel">Primary Contact:</span> John Doe &nbsp;&nbsp;&nbsp; <span class="reportLabel">Email:</span> <a href="mailto:doej@aicr.org"> doej@aicr.org</a></p>
+                <p><span class="reportLabel">Primary Contact:</span> ${project.pocFirstName} ${project.pocLastName} &nbsp;&nbsp;&nbsp; <span class="reportLabel">Email:</span> <s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a></p>
                 
                  </p>
-                <p><span class="reportLabel">Program Director:</span> Andrew Davis</p>
+                <p><span class="reportLabel">Program Director:</span> ${project.pdFirstName} ${project.pdLastName}</p>
                 
-                <p><span class="reportLabel">Start Date:</span> 05/22/2016 &nbsp;&nbsp;&nbsp; <span class="reportLabel">End Date:</span> 05/22/2018</p>
+                <p><span class="reportLabel">Start Date:</span> <s:property value="%{projectStartDate}" /> &nbsp;&nbsp;&nbsp; <span class="reportLabel">End Date:</span> <s:property value="%{projectEndDate}" /></p>
                 
                  
-                 <p><span class="reportLabel">Comments</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id sem in leo vehicula faucibus ut sed nibh. Nam lobortis nunc at velit tincidunt consequat. Vestibulum rhoncus diam sit amet nisl feugiat, in cursus tortor aliquet. In venenatis eleifend purus, in suscipit nisi venenatis in. Donec et nulla molestie, tincidunt mi ac, finibus arcu. In mattis, nibh eu posuere gravida, lorem lorem consequat orci, at efficitur ligula turpis ac augue. Etiam faucibus ullamcorper neque ac pulvinar.</p>
+                 <p><span class="reportLabel">Comments</span> ${project.comments}</p>
               </div><!--end panel body-->
               </div><!--end panel-->
 

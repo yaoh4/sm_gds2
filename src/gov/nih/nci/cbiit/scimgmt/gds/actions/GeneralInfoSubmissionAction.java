@@ -141,6 +141,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public String viewSubmissionDetails() throws Exception {
 		setProject(retrieveSelectedProject());
+		loadGeneralInfoFromGranstContractVw();
 		return SUCCESS;
 	}
 	
@@ -653,5 +654,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 
 	public void setPrevLinkedSubmissions(List<ProjectsVw> prevLinkedSubmissions) {
 		this.prevLinkedSubmissions = prevLinkedSubmissions;
+	}
+	
+	//Get project Submission Reason
+	public String getProjectSubmissionReason() {		
+		return lookupService.getLookupById(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST, getProject().getSubmissionReasonId()).getDescription();
 	}
 }

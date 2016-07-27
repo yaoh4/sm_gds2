@@ -95,4 +95,13 @@ public interface LookupService {
 	  * Get pdList. Retrieve from the cache if present, else from the DB
 	  */
 	 public List<GdsPd> getPdList(String pdListKey);
+	 
+	 /**
+	  * Get Lookup object by list name and id
+	  * 
+	  * @param listName
+	  * @param id
+	  * @return
+	  */
+	 public Lookup getLookupById(String listName, Long id);	
 }

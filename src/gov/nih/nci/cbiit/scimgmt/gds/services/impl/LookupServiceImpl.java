@@ -182,4 +182,20 @@ public class LookupServiceImpl implements LookupService {
 		return pdList;
 	}
 	
+	/**
+	 * Get Lookup object by list name and id
+	 * 
+	 * @param listName
+	 * @param id
+	 * @return
+	 */
+	public Lookup getLookupById(String listName, Long id) {
+		List<Lookup> list = (List<Lookup>) getLookupList(listName);
+		for(Lookup entry: list) {
+			if (entry.getId() == id)
+				return entry;
+		}
+		return null;
+	}
+	
 }
