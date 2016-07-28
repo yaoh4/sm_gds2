@@ -43,7 +43,7 @@
           <div class="container">
             <div style="margin-left: 740px; margin-top: 10px; margin-bottom: 0px;"><a href="" id="close"><i class="fa fa-times-circle fa-2x" aria-hidden="true"></i></a></div>
             <div id="logo" class="logoImage" style="margin-left: 2px;">
-              <img src="images/nci-logo-full.svg" width="450px;"  alt="National Cancer Institute" style="display:inline;">
+              <img src="../images/nci-logo-full.svg" width="450px;"  alt="National Cancer Institute" style="display:inline;">
               <div class="GDS"><h3 style="padding: 0px; margin:0px;">Genomic Data Sharing Tracking System</h3></div>
             </div>
           </div>
