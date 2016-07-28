@@ -67,4 +67,9 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		this.bsiFile = bsiFile;
 	}
 	
+	//Get project Submission Reason
+	public String getProjectSubmissionReason() {		
+		return lookupService.getLookupById(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST, getProject().getSubmissionReasonId()).getDescription();
+	}
+	
 }
