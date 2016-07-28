@@ -286,17 +286,32 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		Project transientProject = getProject();
 		Project persistentProject = retrieveSelectedProject();
 		
-		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){
-			sb.append("The system will delete answers to following questions: <br />");
-			sb.append("1.Is there a data sharing exception requested for this project? <br />");
-			sb.append("2.Was this exception approved? <br />");
-			sb.append("3.Will there be any data submitted? <br />");
-			sb.append("And the system will delete the uploaded exception memo. <br />");
+		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){	
+			
+			if(isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)
+					|| isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)
+					|| isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)){
+				
+				sb.append("The system will delete answers to following questions: <br />");
+				if(isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)){
+					sb.append("Is there a data sharing exception requested for this project? <br />");
+				}
+				if(isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)){
+					sb.append("Was this exception approved? <br />");
+				}
+				if(isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)){
+					sb.append("Will there be any data submitted? <br />");
+				}	
+				List<Document> excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", persistentProject.getId());
+				if(excepMemoFile != null && !excepMemoFile.isEmpty()) {
+					sb.append("And the system will delete the uploaded exception memo. <br />");
+				}
+			}
 		}
 		
 		if(sb.length() > 0) {
 			sb.append("<br> Do you wish to continue?");
-			String warningMessage = getText("gds.warn.message") + "<br><br>" + sb.toString();
+			String warningMessage = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> " + getText("gds.warn.message") + "<br><br>" + sb.toString();
 			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
 		} else {
 			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
@@ -304,6 +319,24 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		
 		return SUCCESS;
 		
+	}
+	
+	/**
+	 * This method checks if question with questionId was answered on the GDS plan page.
+	 * @param project
+	 * @param questionId
+	 * @return
+	 */
+	private boolean isQuestionAnsweredInGdsPlan(Project project, Long questionId){
+
+		logger.debug("Checking if question with questionId was answered on the GDS plan page.");
+		
+		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelection()){
+			if( questionId == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){	
+				return true;			
+			}
+		}
+		return false;
 	}
 	
 	/**
