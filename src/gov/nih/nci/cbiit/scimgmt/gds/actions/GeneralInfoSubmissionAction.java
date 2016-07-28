@@ -155,9 +155,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			for(InstitutionalCertification cert: certs) {
 				for(Document doc: docs) {
 					if(doc.getInstitutionalCertificationId() != null && 
-							doc.getInstitutionalCertificationId().equals(cert.getId()))
+							doc.getInstitutionalCertificationId().equals(cert.getId())) {
 						cert.addDocument(doc);
-					break;
+						break;
+					}
 				}		
 			}
 		}
