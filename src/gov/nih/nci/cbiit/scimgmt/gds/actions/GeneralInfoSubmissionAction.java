@@ -3,6 +3,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.opensymphony.xwork2.Preparable;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
@@ -140,10 +142,31 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * @return forward string
 	 */
 	public String viewSubmissionDetails() throws Exception {
-		setProject(retrieveSelectedProject());
+		
+		Project project = retrieveSelectedProject();
+		
+		List<InstitutionalCertification> certs  = project.getInstitutionalCertifications();
+		HashMap<Long, InstitutionalCertification> map = new HashMap<Long, InstitutionalCertification>();
+		
+		if(certs != null && !certs.isEmpty()) {
+			List<Document> docs = 
+					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, retrieveSelectedProject().getId());
+				    
+			for(InstitutionalCertification cert: certs) {
+				for(Document doc: docs) {
+					if(doc.getInstitutionalCertificationId() != null && 
+							doc.getInstitutionalCertificationId().equals(cert.getId()))
+						cert.addDocument(doc);
+					break;
+				}		
+			}
+		}
+		  
+		setProject(project);
 		loadGeneralInfoFromGranstContractVw();
 		return SUCCESS;
 	}
+	
 	
 	/**
 	 * Opens Create new submission page.
