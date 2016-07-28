@@ -15,19 +15,19 @@
 								target="_blank">Accessibility</a></li>
 							<li><a href="http://www.cancer.gov/policies/disclaimer"
 								target="_blank">Disclaimer</a></li>
-							<li><a href="/policies/foia" target="_blank">FOIA</a></li>
-							<li><a href="/policies/foia" target="_blank">User Guide</a></li>
-							<li><a
+							<li><a href="http://www.cancer.gov/policies/foia" target="_blank">FOIA</a></li>
+							<li><a href="http://www.cancer.gov/policies/foia" target="_blank">User Guide</a></li>
+							<li class="last"><a
 								href="http://www.cancer.gov/policies/privacy-security"
 								target="_blank">Privacy &amp; Security</a></li>
 
 						</ul>
 						<ul>
-							<li><a href="http://www.hhs.gov/">U.S. Department of
+							<li><a href="http://www.hhs.gov" target="_blank">U.S. Department of
 									Health and Human Services</a></li>
-							<li><a href="http://www.nih.gov">National Institutes of
+							<li><a href="http://www.nih.gov" target="_blank">National Institutes of
 									Health</a></li>
-							<li><a href="/">National Cancer Institute</a></li>
+							<li><a href="http://www.cancer.gov/policies/foia" target="_blank">National Cancer Institute</a></li>
 							<li class="last"><a href="http://usa.gov">USA.gov</a></li>
 						</ul>
 					</div>
