@@ -136,37 +136,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		setUpLists();	
 	}
 	
-	/**
-	 * Opens Grants Contracts Search page.
-	 * 
-	 * @return forward string
-	 */
-	public String viewSubmissionDetails() throws Exception {
-		
-		Project project = retrieveSelectedProject();
-		
-		List<InstitutionalCertification> certs  = project.getInstitutionalCertifications();
-		HashMap<Long, InstitutionalCertification> map = new HashMap<Long, InstitutionalCertification>();
-		
-		if(certs != null && !certs.isEmpty()) {
-			List<Document> docs = 
-					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, retrieveSelectedProject().getId());
-				    
-			for(InstitutionalCertification cert: certs) {
-				for(Document doc: docs) {
-					if(doc.getInstitutionalCertificationId() != null && 
-							doc.getInstitutionalCertificationId().equals(cert.getId())) {
-						cert.addDocument(doc);
-						break;
-					}
-				}		
-			}
-		}
-		  
-		setProject(project);
-		loadGrantInfo();
-		return SUCCESS;
-	}
 	
 	
 	/**
