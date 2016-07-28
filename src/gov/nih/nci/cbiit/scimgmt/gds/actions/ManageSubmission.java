@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
@@ -283,4 +284,28 @@ public class ManageSubmission extends BaseAction {
 		}
 		return true;
 	}
+	
+	/**
+	 * This method retrieves grant information data from grantsContractsw if project has grant/contract tied to it.
+	 */
+	public void loadGrantInfo(){
+		
+		Project project = getProject();		
+		if(StringUtils.equals(project.getDataLinkFlag(), "Y")){
+			
+			logger.debug("Retreiving Project grant information data from grantsContractsw for grantContract with applId: "+project.getApplId());
+			GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(project.getApplId());
+			if(grantContract != null){
+				getProject().setProjectTitle(grantContract.getProjectTitle());
+				getProject().setPiFirstName(grantContract.getPiFirstName());
+				getProject().setPiLastName(grantContract.getPiLastName());
+				getProject().setPiInstitution(grantContract.getPiInstitution());
+				getProject().setPiEmailAddress(grantContract.getPiEmailAddress());
+				getProject().setPdFirstName(grantContract.getPdFirstName());
+				getProject().setPdLastName(grantContract.getPdLastName());
+				getProject().setProjectStartDate(grantContract.getProjectPeriodStartDate());
+				getProject().setProjectEndDate(grantContract.getProjectPeriodEndDate());
+			}
+		}
+	}	
 }

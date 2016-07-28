@@ -124,7 +124,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		}		
 		project = super.saveProject(project);
 		setProject(project);
-		loadGeneralInfoFromGranstContractVw();
+		loadGrantInfo();
 		setProjectId(project.getId().toString());
 	}
 
@@ -164,7 +164,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		}
 		  
 		setProject(project);
-		loadGeneralInfoFromGranstContractVw();
+		loadGrantInfo();
 		return SUCCESS;
 	}
 	
@@ -212,7 +212,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		Project project = retrieveSelectedProject();
 		if(project != null){
 			setProject(project);	
-			loadGeneralInfoFromGranstContractVw();
+			loadGrantInfo();
 		}
 		else{			
 			setProject(new Project());
@@ -246,30 +246,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			preSelectedDOC = getProject().getDocAbbreviation();
 		}
 	}
-	
-	/**
-	 * This method retrieves general information data from grantsContractsw if project has grant/contract tied to it.
-	 */
-	public void loadGeneralInfoFromGranstContractVw(){
-		
-		Project project = getProject();		
-		if(StringUtils.equals(project.getDataLinkFlag(), "Y")){
-			
-			logger.debug("Retreiving Project general information data from grantsContractsw for grantContract with applId: "+project.getApplId());
-			GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(project.getApplId());
-			if(grantContract != null){
-				getProject().setProjectTitle(grantContract.getProjectTitle());
-				getProject().setPiFirstName(grantContract.getPiFirstName());
-				getProject().setPiLastName(grantContract.getPiLastName());
-				getProject().setPiInstitution(grantContract.getPiInstitution());
-				getProject().setPiEmailAddress(grantContract.getPiEmailAddress());
-				getProject().setPdFirstName(grantContract.getPdFirstName());
-				getProject().setPdLastName(grantContract.getPdLastName());
-				getProject().setProjectStartDate(grantContract.getProjectPeriodStartDate());
-				getProject().setProjectEndDate(grantContract.getProjectPeriodEndDate());
-			}
-		}
-	}	
 	
 	/**
 	 * If the answer to "Why is the project being submitted?" is changed from:
@@ -429,7 +405,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			}
 			if(StringUtils.isNotBlank(applId)){
 				getProject().setApplId(Long.valueOf(applId));
-				loadGeneralInfoFromGranstContractVw();
+				loadGrantInfo();
 			}
 		}
 	}	
