@@ -237,8 +237,8 @@
 							</label>
 						</div>
 					</div>
-					<input type="button" name="dataSharingPlanUpload" value="Upload File"
-						class="saved btn btn-primary upload" id="dataSharingPlanUpload" />
+					<button type="button" name="dataSharingPlanUpload"
+						class="saved btn btn-primary has-spinner upload" id="dataSharingPlanUpload"><i class="fa fa-spinner fa-spin"></i> Upload File</button>
 					
 					<div class="loadFileHistory">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />

@@ -20,9 +20,9 @@
 		</label>
 	</div>
 </div>
-<input type="button" name="icUpload"
-		value="Upload File" class="saved btn btn-primary upload"
-		id="icUpload"/>
+<button type="button" name="icUpload"
+		class="saved btn btn-primary has-spinner upload"
+		id="icUpload"><i class="fa fa-spinner fa-spin"></i> Upload File</button>
 
 <div id="loadIcFileHistory">
 	<s:if test="%{icFileDocs.size > 0}">

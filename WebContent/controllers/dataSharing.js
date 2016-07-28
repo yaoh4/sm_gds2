@@ -116,7 +116,7 @@ $("#gds-form").on('click', '#dataSharingPlanUpload', function () {
 	var $form, fd;
     $form = $("#gds-form");
     fd = new FormData($form[0]);
-    
+    $('button.has-spinner').toggleClass('active');
 	$.ajax({
 	  	url: 'uploadDataSharingPlan.action',
 	  	type: 'post',
@@ -129,6 +129,7 @@ $("#gds-form").on('click', '#dataSharingPlanUpload', function () {
 		}, 
 		error: function(){}	
 	});
+	$('button.has-spinner').toggleClass('active');
 	if(result.indexOf("<p") == 0) {
 		$('div.loadFileHistory').html(result);
 		$("#dataSharingPlanUpload").prev('div').children('.input-group').find(':text').val('')
@@ -147,7 +148,7 @@ $("#gds-form").on('click', '#exceptionMemoUpload', function () {
 	var $form, fd;
     $form = $("#gds-form");
     fd = new FormData($form[0]);
-    
+    $('button.has-spinner').toggleClass('active');
 	$.ajax({
 	  	url: 'uploadExceptionMemo.action',
 	  	type: 'post',
@@ -160,6 +161,7 @@ $("#gds-form").on('click', '#exceptionMemoUpload', function () {
 		}, 
 		error: function(){}	
 	});
+	$('button.has-spinner').toggleClass('active');
 	if(result.indexOf("<p") == 0) {
 		$('div#exceptionMemoDiv').html(result);
 	}

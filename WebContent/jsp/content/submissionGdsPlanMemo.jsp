@@ -18,9 +18,9 @@
 		</label>
 	</div>
 </div>
-<input type="button" name="exceptionMemoUpload"
-		value="Upload File" class="saved btn btn-primary upload"
-		id="exceptionMemoUpload"/>	
+<button type="button" name="exceptionMemoUpload"
+		class="saved btn btn-primary has-spinner upload"
+		id="exceptionMemoUpload"><i class="fa fa-spinner fa-spin"></i> Upload File</button>	
 						
 <s:if test="%{excepMemoFile.size > 0}">
 	<p></p>

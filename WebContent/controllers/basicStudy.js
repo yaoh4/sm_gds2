@@ -15,7 +15,7 @@ $("#basic-study-form").on('click', '#bsiUpload', function () {
 	var $form, fd;
     $form = $("#basic-study-form");
     fd = new FormData($form[0]);
-    
+    $('button.has-spinner').toggleClass('active');
 	$.ajax({
 	  	url: 'uploadBasicStudyInfo.action',
 	  	type: 'post',
@@ -28,6 +28,7 @@ $("#basic-study-form").on('click', '#bsiUpload', function () {
 		}, 
 		error: function(){}	
 	});
+	$('button.has-spinner').toggleClass('active');
 	if(result.indexOf("<p") == 0) {
 		$('div.loadFileHistory').html(result);
 		$("#bsiUpload").prev('div').children('.input-group').find(':text').val('')

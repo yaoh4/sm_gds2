@@ -293,7 +293,7 @@ $(document).ready(function () {
 		var $form, fd;
 	    $form = $("#institutional_form");
 	    fd = new FormData($form[0]);
-	    
+	    $('button.has-spinner').toggleClass('active');
 		$.ajax({
 		  	url: 'uploadInstCertification.action',
 		  	type: 'post',
@@ -306,6 +306,7 @@ $(document).ready(function () {
 			}, 
 			error: function(){}	
 		});
+		$('button.has-spinner').toggleClass('active');
 		if(result.indexOf("<p") == 0) {
 			$('div#icDiv').html(result);
 			$(".form-group").show();

@@ -85,9 +85,9 @@
 								</label>
 							</div>
 						</div>
-						<input type="button" name="bsiUpload"
-							value="Upload File" class="saved btn btn-primary upload"
-							id="bsiUpload" />				
+						<button type="button" name="bsiUpload"
+							class="saved btn btn-primary has-spinner upload"
+							id="bsiUpload"><i class="fa fa-spinner fa-spin"></i> Upload File</button>				
 						
 						<div class="loadFileHistory">
 							<s:include value="/jsp/content/submissionBasicStudyInfoFile.jsp" />
