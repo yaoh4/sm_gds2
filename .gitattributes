@@ -165,6 +165,7 @@ WebContent/images/newV.png -text
 WebContent/images/pending.png -text
 WebContent/images/subV.png -text
 WebContent/images/subfolder.gif -text
+WebContent/images/version-divider.gif -text
 WebContent/index.jsp -text
 WebContent/jsp/content/detailReport.jsp -text
 WebContent/jsp/content/dulSetTemplate.jsp -text
