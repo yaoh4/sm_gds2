@@ -35,6 +35,7 @@ public class GdsGrantsContracts {
 	private String pdLastName;
 	private Date projectPeriodStartDate;
 	private Date projectPeriodEndDate;
+	private String applClassCode;
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	
@@ -46,7 +47,7 @@ public class GdsGrantsContracts {
 			String applTypeCode, String activityCode, String adminPhsOrgCode,
 			Integer serialNum, Integer supportYear, String suffixCode, String projectTitle, String piFirstName,
 			String piLastName, String piEmailAddress, String piInstitution, String pdFirstName, String pdLastName,
-			Date projectPeriodStartDate, Date projectPeriodEndDate) {
+			Date projectPeriodStartDate, Date projectPeriodEndDate, String applClassCode) {
 		super();
 		this.applId = applId;
 		this.grantContractNum = grantContractNum;
@@ -66,11 +67,12 @@ public class GdsGrantsContracts {
 		this.pdLastName = pdLastName;
 		this.projectPeriodStartDate = projectPeriodStartDate;
 		this.projectPeriodEndDate = projectPeriodEndDate;
+		this.applClassCode = applClassCode;
 	}
 	
 	@Override
 	public String toString() {
-		return "{\"applId\":\"" + applId + "\",\"grantContractNum\":\"" + grantContractNum 
+		return "{\"applId\":\"" + applId + "\",\"grantContractNum\":\"" + grantContractNum + "\",\"applClassCode\":\"" + applClassCode
 				+ "\",\"lookupGrantContractNum\":\"" + lookupGrantContractNum + "\", \"applTypeCode\":\"" + applTypeCode
 				+ "\",\"activityCode\":\"" + activityCode + "\", \"adminPhsOrgCode\":\"" + adminPhsOrgCode + "\", \"serialNum\":\"" + serialNum
 				+ "\", \"supportYear\":\"" + supportYear + "\", \"suffixCode\":\"" + suffixCode + "\", \"projectTitle\":\"" + projectTitle
@@ -243,5 +245,14 @@ public class GdsGrantsContracts {
 	
 	public void setProjectPeriodEndDate(Date projectPeriodEndDate) {
 		this.projectPeriodEndDate = projectPeriodEndDate;
+	}
+
+	@Column(name = "APPL_CLASS_CODE", length = 3)
+	public String getApplClassCode() {
+		return applClassCode;
+	}
+	
+	public void setApplClassCode(String applClassCode) {
+		this.applClassCode = applClassCode;
 	}
 }

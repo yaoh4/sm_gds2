@@ -77,6 +77,7 @@ public class Project implements java.io.Serializable {
 
 	private Long subprojectCount;
 	private Long repoCount;
+	private String applClassCode;
 	
 	public Project() {
 	}
@@ -638,5 +639,14 @@ public class Project implements java.io.Serializable {
 	
 	public void setRepoCount(Long repoCount) {
 		this.repoCount = repoCount;
+	}
+
+	@Transient 
+	public String getApplClassCode() {
+		return applClassCode;
+	}
+
+	public void setApplClassCode(String applClassCode) {
+		this.applClassCode = applClassCode;
 	}
 }

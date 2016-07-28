@@ -116,24 +116,37 @@ function populateGrantsContractsData(){
 		$("#PIInstitute").prop('disabled', true);
 	}
 	
-	if (json.pdFirstName !== "undefined") {
-		$("#fnPD").val(json.pdFirstName);
-		$("#fnPD").prop('disabled', true);	
-	}
+	var applClassCode= json.applClassCode;	
+	
+	//For Intramural grants don't display PD first name, last name and project start date, end date.
+	if(applClassCode != "M"){
+		if (json.pdFirstName !== "undefined") {
+			$("#fnPD").val(json.pdFirstName);
+			$("#fnPD").prop('disabled', true);	
+		}
+			
+		if (json.pdLastName !== "undefined") {
+			$("#lnPD").val(json.pdLastName);
+			$("#lnPD").prop('disabled', true);
+		}
 		
-	if (json.pdLastName !== "undefined") {
-		$("#lnPD").val(json.pdLastName);
-		$("#lnPD").prop('disabled', true);
+		if (json.projectPeriodStartDate !== "undefined") {
+			$("#projectStartDate").val(json.projectPeriodStartDate);
+			$("#projectStartDate").prop('disabled', true);
+		}
+		
+		if (json.projectPeriodEndDate !== "undefined") {
+			$("#projectEndDate").val(json.projectPeriodEndDate);
+			$("#projectEndDate").prop('disabled', true);
+		}
+		$("#pdName").show();
+		$("#pStartDate").show();
+		$("#pEndDate").show();	
 	}
-	
-	if (json.projectPeriodStartDate !== "undefined") {
-		$("#projectStartDate").val(json.projectPeriodStartDate);
-		$("#projectStartDate").prop('disabled', true);
-	}
-	
-	if (json.projectPeriodEndDate !== "undefined") {
-		$("#projectEndDate").val(json.projectPeriodEndDate);
-		$("#projectEndDate").prop('disabled', true);
+	else{
+		$("#pdName").hide();
+		$("#pStartDate").hide();
+		$("#pEndDate").hide();			
 	}
 	
 	if (json.applId !== "undefined") {

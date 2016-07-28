@@ -191,5 +191,14 @@ function refreshGrantsContractsData(){
 	
  });
  
+ $(function () {
+	 //For Intramural grants don't display PD first name, last name and project start date, end date.
+	if ($("#applClassCode").attr("value") == 'M') {  
+		$("#pdName").hide();
+		$("#pStartDate").hide();
+		$("#pEndDate").hide();			
+	}
+});
+ 
  
  

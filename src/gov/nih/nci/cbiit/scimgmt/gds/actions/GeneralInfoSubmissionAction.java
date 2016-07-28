@@ -3,7 +3,6 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,14 +16,13 @@ import com.opensymphony.xwork2.Preparable;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 
 /**
  * This class is responsible for saving Project General Information.
@@ -175,7 +173,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	/**
 	 * This method sets up all data for General Info Page.
 	 */
-	public void setUpPageData(){
+	private void setUpPageData(){
 
 		logger.debug("Setting up page data.");
 		Project project = retrieveSelectedProject();
@@ -195,7 +193,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * This method sets up all the lists for General Info Page.
 	 */
 	@SuppressWarnings("unchecked")
-	public void setUpLists(){
+	private void setUpLists(){
 		
 		logger.debug("Setting up page lists.");
 		if(docList.isEmpty()){
@@ -223,7 +221,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * @param transientProject
 	 * @param persistentProject
 	 */
-	public void performDataCleanup(Project transientProject, Project persistentProject){
+	private void performDataCleanup(Project transientProject, Project persistentProject){
 
 		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){
 
@@ -237,7 +235,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * This method deletes exception memo.
 	 * @param persistentProject
 	 */
-	public void deleteExceptionMemo(Project persistentProject){
+	private void deleteExceptionMemo(Project persistentProject){
 		
 		//The system will delete the uploaded exception memo
 		List<Document> excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", persistentProject.getId());
@@ -255,7 +253,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * 3.Will there be any data submitted?
 	 * @param persistentProject
 	 */
-	public void deletePlanAnswers(Project persistentProject){
+	private void deletePlanAnswers(Project persistentProject){
 
 		for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = persistentProject.getPlanAnswerSelection().iterator(); planAnswerSelectionIterator.hasNext();) {
 
@@ -399,7 +397,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			this.addActionError(getText("programbranch.required")); 
 		}
 		
-		if(StringUtils.isEmpty(applId)){
+		if(StringUtils.isEmpty(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
 			//Validation for Program/ Branch
 			if(StringUtils.isEmpty(getProject().getProjectTitle())){
 				this.addActionError(getText("projecttitle.required")); 
@@ -442,7 +440,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void validatePrincipleInvestigator(){	
 		
-		if(StringUtils.isEmpty(applId)){
+		if(StringUtils.isEmpty(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
 
 			//Validation for PI first name and last name.
 			if(!StringUtils.isEmpty(getProject().getPiFirstName()) && StringUtils.isEmpty(getProject().getPiLastName())){
@@ -471,7 +469,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void validatePrimaryContact(){		
 
-		if(StringUtils.isEmpty(applId)){
+		if(StringUtils.isEmpty(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
 			//Validation for Primary Contact. 
 			if(StringUtils.isEmpty(getProject().getPiFirstName()) && StringUtils.isEmpty(getProject().getPiLastName())){
 				if(StringUtils.isEmpty(getProject().getPocFirstName()) && StringUtils.isEmpty(getProject().getPocLastName())){

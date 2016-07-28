@@ -305,6 +305,7 @@ public class ManageSubmission extends BaseAction {
 				getProject().setPdLastName(grantContract.getPdLastName());
 				getProject().setProjectStartDate(grantContract.getProjectPeriodStartDate());
 				getProject().setProjectEndDate(grantContract.getProjectPeriodEndDate());
+				getProject().setApplClassCode(grantContract.getApplClassCode());
 			}
 		}
 	}	

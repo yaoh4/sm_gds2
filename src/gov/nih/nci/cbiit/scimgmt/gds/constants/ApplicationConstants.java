@@ -105,4 +105,9 @@ public interface ApplicationConstants {
 	 public static final Long IC_GPA_APPROVAL_ID_YES = 18L;
 	 public static final Long IC_GPA_APPROVAL_ID_NO = 19L;
 	 
+	 //Type of grant or contract
+	 public static final String EXTRA_APPL_CLASS_CODE = "G";
+	 public static final String INTRA_APPL_CLASS_CODE = "M";
+	 public static final String CONTRACT_APPL_CLASS_CODE = "C";
+	 
 }

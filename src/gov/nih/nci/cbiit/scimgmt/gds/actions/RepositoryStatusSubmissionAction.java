@@ -167,7 +167,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @throws Exception 
 	 */
 	@SuppressWarnings("unchecked")
-	public void setUpPageData() throws Exception{
+	private void setUpPageData() throws Exception{
 
 		logger.debug("Setting up Repository status page data.");
 		
@@ -183,7 +183,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	/**
 	 * This method sets up all the status lists for Repository Status Page.
 	 */
-	public void setUpStatusLists(){
+	private void setUpStatusLists(){
 
 		logger.debug("Setting up Repository status Lists.");
 		registrationStatusList =  GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.REGISTRATION_STATUS_LIST.toUpperCase());	
@@ -196,7 +196,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
 	 */
-	public void	setUpRepositoryStatuses() {	
+	private void setUpRepositoryStatuses() {	
 		logger.debug("Setting up Repository statuses.");
 	
 		for(PlanAnswerSelection selection: getProject().getPlanAnswerSelection()) {
@@ -219,7 +219,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
 	 */
-	public void setUpDbGapRepositoryStatus() {
+	private void setUpDbGapRepositoryStatus() {
 
 		logger.debug("Adding DbGaP Repository status.");	
 		PlanAnswerSelection dbGapPlanAnswerSelection = new PlanAnswerSelection();
@@ -240,7 +240,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
 	 */
-	public void setUpSelectdRepositoryStatuses() {
+	private void setUpSelectdRepositoryStatuses() {
 
 		logger.debug("Adding Repository statuses selected on GDS plan.");
 
@@ -281,7 +281,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	public RepositoryStatus createNewRepositoryStatus(boolean isDbGap, PlanAnswerSelection planAnswerSelection) {
+	private RepositoryStatus createNewRepositoryStatus(boolean isDbGap, PlanAnswerSelection planAnswerSelection) {
 		
 		logger.debug("Creating a new repository status.");
 		
@@ -322,7 +322,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * When validation fails, copy transient Project's repository statuses to Persistent project's repository statuses.
 	 * @throws Exception
 	 */
-	public void populateRepositoriesAfterValidationFailure() throws Exception{		
+	private void populateRepositoriesAfterValidationFailure() throws Exception{		
 
 		Project transientProject = getProject();
 		setUpPageData();

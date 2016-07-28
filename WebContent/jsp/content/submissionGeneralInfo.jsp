@@ -6,6 +6,7 @@
 		<!-- Page navbar -->
 		<s:hidden name="projectId" value="%{project.id}"/>
 		<s:hidden name="applId" id="applId" value="%{project.applId}"/>
+		<s:hidden id="applClassCode" value="%{project.applClassCode}"/>
 	
 	  <div id="searchGrantsContracts"  style="display:none;">
 	    <s:include value="/jsp/content/searchGrantsContracts.jsp"/>
@@ -47,7 +48,7 @@
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="submissionTitle"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project or Sub-project Submission Title</label> 
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project Submission Title</label> 
 								<s:textfield name="project.submissionTitle" cssClass="form-control" id="submissionTitle" placeholder="" value="%{project.submissionTitle}" maxLength="100"/>
 						</div>
 					</div>
@@ -175,9 +176,8 @@
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
-
-
-					<div class="row pdirector ">
+					
+					<div id="pdName" class="row pdirector ">
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="First Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
