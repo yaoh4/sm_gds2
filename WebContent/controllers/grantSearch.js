@@ -209,6 +209,14 @@ $('.panel-heading span.clickable').click (function(){
 });
 
 
+$('.icDetails').on('click', function(e) {
+	  e.preventDefault();
+	  var id = $(this).attr("id").replace("icDetails", "contentDivImg");
+	  var expandId = $(this).attr("id").replace("icDetails", "");
+	  $("#" + id).slideToggle('500');
+	  $("#" + expandId + "expand").toggleClass('fa-plus-square fa-minus-square');
+})
+
 
 $("#close").click(function(){
     window.close();

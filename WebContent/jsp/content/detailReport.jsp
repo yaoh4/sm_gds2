@@ -179,7 +179,7 @@
                       
                   <td style="white-space: nowrap">
                     <a href="#" class="icDetails" id="icDetails${ic.id}">
-                      <i class="expand fa fa-lg fa-minus-square" id="51expand" aria-hidden="true" alt="view" title="view"></i></a>
+                      <i class="expand fa fa-lg fa-plus-square" id="${ic.id}expand" aria-hidden="true" alt="view" title="view"></i></a>
                   </td>
                 </tr>
                         
@@ -187,7 +187,7 @@
                 <!--Begin view details-->
                 <tr>
                   <td colspan="3">
-                    <div id="contentDivImg${ic.id}" style="display: block;">
+                    <div id="contentDivImg${ic.id}" style="display: none;">
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tbody>
                           <tr>
@@ -302,6 +302,8 @@
         </div><!--end panel body-->
       </div><!--end panel-->
 
+    
+    <!-- --------------------------------Basic Info Section--------------------------------------- -->
 
       <div class="panel panel-default" id="searchGrant" style="margin-top: 20px;">
         <div class="panel-heading"><span class="clickable panel-collapsed"><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
