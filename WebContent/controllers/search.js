@@ -99,7 +99,7 @@ $(document).ready(function(){
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                 	if(row.repoCount != null && row.repoCount > 0) {
-                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><span class="badge">' + row.repoCount + '</span>&nbsp;Submission Status</a>';
+                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><span class="badge">' + row.repoCount + '</span>&nbsp;Repositories</a>';
                 	}
                 	return "";
                 } },
