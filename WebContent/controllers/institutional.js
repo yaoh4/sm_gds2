@@ -90,7 +90,6 @@ function displayDuls(element) {
 }
 
 
-
 function addDulSet(elem)  {
 	
 	var studiesIdx = $(elem).attr("id").replace("btnAddDUL-", "");
@@ -276,7 +275,7 @@ $('#finalprov').on('change', function() {
 	    var studySetArray = $(".studySections");
 	    jQuery.each(studySetArray, function(index, val) {
 	    	var elemIndex = $(this).attr("id").replace("studySection", "");
-	        addDulSet(elemIndex);
+	        addDulSet($("#btnAddDUL-" + elemIndex));
 	    })
 	        
 	    //Show the add buttons
