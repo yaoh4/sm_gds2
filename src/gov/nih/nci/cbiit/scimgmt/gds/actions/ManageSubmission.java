@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -49,6 +50,8 @@ public class ManageSubmission extends BaseAction {
 	private Project project;
 	
 	private Long docId;
+	
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	
 	/**
 	 * Execute method, for now used for navigation
@@ -308,5 +311,15 @@ public class ManageSubmission extends BaseAction {
 				getProject().setApplClassCode(grantContract.getApplClassCode());
 			}
 		}
-	}	
+	}
+	
+	//Get project start date
+	public String getProjectStartDate() {		
+		return dateFormat.format(getProject().getProjectStartDate());
+	}
+
+	//Get project end date
+	public String getProjectEndDate() {
+		return dateFormat.format(getProject().getProjectEndDate());
+	}
 }

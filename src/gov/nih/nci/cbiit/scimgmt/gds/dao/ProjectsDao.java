@@ -171,8 +171,7 @@ public class ProjectsDao {
 		logger.info("Retrieving already linked submissions for grantContractNum: "+grantContractNum);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);	
-			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));
-			criteria.add(Restrictions.like("dataLinkFlag", "Y"));
+			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));			
 			List<ProjectsVw> grantsListlist = criteria.list();
 			return grantsListlist;
 

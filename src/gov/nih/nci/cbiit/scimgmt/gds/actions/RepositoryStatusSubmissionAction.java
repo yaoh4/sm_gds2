@@ -381,8 +381,12 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 	//Get Anticipated submission date
 	public String getAnticipatedSubmissionDate() {
-		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-		return format.format(getProject().getAnticipatedSubmissionDate());
+		if(!isAnticipatedSubDateDisabled()){
+			SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+			return format.format(getProject().getAnticipatedSubmissionDate());
+		}
+		return "";
+		
 	}
 
 	public String getIsDbGap() {

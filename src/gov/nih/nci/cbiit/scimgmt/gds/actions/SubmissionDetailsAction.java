@@ -3,9 +3,12 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 
 /**
@@ -16,6 +19,8 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 public class SubmissionDetailsAction extends ManageSubmission {
 	
 	private List<Document> bsiFile;
+	private List<Document> exceptionMemo;
+	private List<Document> gdsPlanFile;
 	/**
 	 * Opens Grants Contracts Search page.
 	 * 
@@ -52,8 +57,35 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		//Load BSI file(s)
 		setBsiFile(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, new Long(getProjectId())));
 		
+		//Load Exceptions memo
+		setExceptionMemo(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, new Long(getProjectId())));
+		
+		setGdsPlanFile(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, new Long(getProjectId())));
+		
 		return SUCCESS;
 	}
+	
+	/**
+	 * This method returns answers for the questions on gds plan page.
+	 * @param project
+	 * @param questionId
+	 * @return
+	 */
+	public String getAnswerForQuestionInGdsPlan(Long questionId){
+
+		logger.debug("Getting answer for the question on gds plan page for questionId :"+questionId);
+		StringBuffer answer = new StringBuffer();
+		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelection()){			
+			if( questionId == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){
+				if(StringUtils.isNotBlank(answer)){
+					answer.append(";");
+				}
+				answer.append(planAnswerSelection.getPlanQuestionsAnswer().getDisplayText());			
+			}			
+		}
+		return answer.toString();
+	}
+	
 	/**
 	 * @return the bsiFile
 	 */
@@ -70,6 +102,34 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	//Get project Submission Reason
 	public String getProjectSubmissionReason() {		
 		return lookupService.getLookupById(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST, getProject().getSubmissionReasonId()).getDescription();
+	}	
+	
+	/**
+	 * @return the exceptionMemo
+	 */
+	public List<Document> getExceptionMemo() {
+		return exceptionMemo;
+	}
+	
+	/**
+	 * @param bsiFile the exceptionMemo to set
+	 */
+	public void setExceptionMemo(List<Document> exceptionMemo) {
+		this.exceptionMemo = exceptionMemo;
+	}
+	
+	/**
+	 * @return the gdsPlanFile
+	 */
+	public List<Document> getGdsPlanFile() {
+		return gdsPlanFile;
+	}
+	
+	/**
+	 * @param bsiFile the gdsPlanFile to set
+	 */
+	public void setGdsPlanFile(List<Document> gdsPlanFile) {
+		this.gdsPlanFile = gdsPlanFile;
 	}
 	
 }

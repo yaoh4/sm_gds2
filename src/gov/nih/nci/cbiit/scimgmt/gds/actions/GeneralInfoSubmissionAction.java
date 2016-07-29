@@ -47,8 +47,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 
 	@Autowired
 	protected SearchProjectService searchProjectService;	
-	
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
 	/**
 	 * This method is responsible for loading the General Information page and setting all the UI elements.
@@ -629,16 +627,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	public void setApplId(String applId) {
 		this.applId = applId;
 	}	
-	
-	//Get project start date
-	public String getProjectStartDate() {		
-		return dateFormat.format(getProject().getProjectStartDate());
-	}
-
-	//Get project end date
-	public String getProjectEndDate() {
-		return dateFormat.format(getProject().getProjectEndDate());
-	}
 
 	public GdsGrantsContracts getGrantOrContract() {
 		return grantOrContract;
