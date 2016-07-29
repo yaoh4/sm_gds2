@@ -70,7 +70,7 @@
           <div class="pheader" style="display:inline;"><h5>General Information</h5></div>
         </div> <!--end panel header-->
         <div class="panel-body" style="display:none;">
-          <p><span class="reportLabel">Title of Project/Sub-project:</span>  ${project.submissionTitle}</p>
+          <p><span class="reportLabel">Project Submission Title:</span>  ${project.submissionTitle}</p>
           <p><span class="reportLabel">Reason for being submitted:</span> <s:property value="%{projectSubmissionReason}" /> </p>
           <p>
             <span class="reportLabel">Division/Office/Center:</span> ${project.docAbbreviation}</br>
@@ -86,7 +86,7 @@
           </p>
           <p><span class="reportLabel">Primary Contact:</span> ${project.pocFirstName} ${project.pocLastName} &nbsp;&nbsp;&nbsp; <span class="reportLabel">Email:</span> <s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a></p>
           <p><span class="reportLabel">Program Director:</span> ${project.pdFirstName} ${project.pdLastName}</p>       
-          <p><span class="reportLabel">Start Date:</span> <s:property value="%{projectStartDate}" /> &nbsp;&nbsp;&nbsp; <span class="reportLabel">End Date:</span> <s:property value="%{projectEndDate}" /></p>        
+          <p><span class="reportLabel">Project Start Date:</span> <s:property value="%{projectStartDate}" /> &nbsp;&nbsp;&nbsp; <span class="reportLabel">Project End Date:</span> <s:property value="%{projectEndDate}" /></p>        
           <p><span class="reportLabel">Comments</span> ${project.comments}</p>
         </div><!--end panel body-->
       </div><!--end panel-->

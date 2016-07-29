@@ -25,7 +25,7 @@
 					<tr class="modalTheader">
 						<th class="tableHeader" align="center" width="10%" scope="col"
 							style="white-space: nowrap">Project/Sub-project ID</th>
-						<th class="tableHeader" width="50%" scope="col">Project Title</th>
+						<th class="tableHeader" width="50%" scope="col">Project/Sub-project Submission Title</th>
 						<th class="tableHeader" widht="25%" scope="col">Principal
 							Investigator</th>
 						<th class="tableHeader" widht="25%" scope="col">Action</th>
