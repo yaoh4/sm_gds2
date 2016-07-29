@@ -15,18 +15,39 @@
 		<div class="row">
 			<div class="container">
 				<div id="logo" class="logoImage">
-					<img src="<s:url value="/images/nci-logo-full.svg" />" width="450px;"  alt="National Cancer Institute">
-					<div id="loginName"
-						style="float: right; padding-top: 15px; padding-bottom: 15px; margin-right: 15px;"
-						class="nav navbar-nav">
-						Welcome:
-						<div id="loginID" class="login">
-							<s:if test="loggedOnUser.lastName != null">
-								<s:property value="loggedOnUser.fullName" />
-							</s:if>
-						</div>
-					</div>
-					<div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
+				    <img src="<s:url value="/images/nci-logo-full.svg" />" width="450px;"  alt="National Cancer Institute">
+				    <div
+				  	    style="float: right; padding-top: 15px; padding-bottom: 15px;"
+					    >
+					    <div class="nav navbar-nav" style="display:inline-block;">
+					  	    Welcome:
+						    <div id="loginID" class="login">
+							    <s:if test="loggedOnUser.lastName != null">
+								    <s:property value="loggedOnUser.fullName" />
+							    </s:if>
+						    </div>
+					    </div>  
+					    <div style="display:inline-block; padding-right: 10px;">
+					        <img src="<s:url value="/images/version-divider.gif" />" alt="">
+					        &nbsp;&nbsp;&nbsp;Env.: <span class="question" style="font-size: 14px;">${environment}</span>
+					    </div>
+					    <div style="display:inline-block; margin-right: 15px;">
+					        <img src="<s:url value="/images/version-divider.gif" />" alt="">
+					        &nbsp;&nbsp;&nbsp;Version: <span class="question" style="font-size: 14px;">${version}</span>
+					    </div>
+				    </div>
+				   <div id="popup_nav" style="clear:right;">
+				    <ul>
+				      <li>
+				        <a href="#">Send Comments <img src="<s:url value="/images/arrow_down.png" />" alt=""></a>
+		                <ul>
+	               			<li><a href="mailto:${businessPolicyEmail}?subject=GDS" >Business Policy Questions</a></li>
+	               			<li><a href="mailto:${technicalIssuesEmail}?subject=GDS" >Technical Issues</a></li>												
+	               		</ul>
+	               	  </li>
+	               	</ul>
+				  </div>
+				    <div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
 				</div>
 			</div>
 			<s:include value="/jsp/layout/navbar.jsp" />

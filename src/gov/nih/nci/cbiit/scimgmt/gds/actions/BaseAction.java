@@ -97,6 +97,16 @@ public class BaseAction extends ActionSupport implements SessionAware {
 		return gdsProperties.getProperty(ApplicationConstants.ENVIRONMENT);
 	}
 	
+	
+	/**
+	 * Gets the environment.
+	 * 
+	 * @return the environment
+	 */
+	public String getVersion() {		
+		return gdsProperties.getProperty(ApplicationConstants.VERSION);
+	}
+	
 	/**
 	 * Gets the GDS Error e=mail.
 	 * 
@@ -104,6 +114,19 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	 */
 	public String getGdsErrorEmail() {
 		return gdsProperties.getProperty(ApplicationConstants.ERROR_EMAIL);
+	}
+	
+	
+	/**
+	 * Get business policy email
+	 */
+	public String getBusinessPolicyEmail() {
+		return gdsProperties.getProperty(ApplicationConstants.BUSINESS_POLICY_EMAIL);
+	}
+	
+	
+	public String getTechnicalIssuesEmail() {
+		return gdsProperties.getProperty(ApplicationConstants.TECHNICAL_ISSUES_EMAIL);
 	}
 
 	/**

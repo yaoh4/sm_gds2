@@ -10,11 +10,14 @@ public interface ApplicationConstants {
 	public static final String GDS_HELP_DOCUMENT_URL = "gds.help.document.url";
 	public static final String CONTACT_EMAIL = "contact.email";
 	public static final String ERROR_EMAIL = "error.email";
+	public static final String BUSINESS_POLICY_EMAIL = "business.policy.email";
+	public static final String TECHNICAL_ISSUES_EMAIL = "technical.issues.email";
 	public static final String EMAIL_FROM = "email.from";
 	public static final String EMAIL_FROM_DISPLAY = "email.from.display";
 	public static final String ENVIRONMENT = "ENVIRONMENT";
 	public static final String PRODUCTION = "Production";
-		
+	public static final String VERSION = "version";
+	
 	/* Action forwards */
 	public static final String NOT_AUTHORIZED = "notAuthorized";	
 	
@@ -104,6 +107,7 @@ public interface ApplicationConstants {
 	 
 	 public static final Long IC_GPA_APPROVAL_ID_YES = 18L;
 	 public static final Long IC_GPA_APPROVAL_ID_NO = 19L;
+	
 	 
 	 //Type of grant or contract
 	 public static final String EXTRA_APPL_CLASS_CODE = "G";
