@@ -20,7 +20,15 @@ $(function () {
 
 //Edit button
 function openGrantsContractsSearchPage() {
-	resetData();
+	
+	$("#messages").empty();
+	$('#grantSearch').val('');
+	var parent = $(".tableContent").parent();
+	$(".tableContent").remove();
+	$(".tableContentOdd").remove();
+	parent.append('<tr class="tableContent"><td colspan="4">Nothing found to display.</td></tr>');
+	
+	$("#prevLinkedSubmissions").hide();
 	$("#generalInfoSection").hide();
 	$("#searchGrantsContracts").show();
 	
