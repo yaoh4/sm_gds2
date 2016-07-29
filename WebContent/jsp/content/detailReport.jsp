@@ -84,10 +84,19 @@
             <span class="reportLabel">Principal Investigator:</span> ${project.piFirstName} ${project.piLastName} &nbsp;&nbsp;&nbsp; <span class="reportLabel">Email:</span> <s:a href="mailto:%{project.piEmailAddress}?">${project.piEmailAddress}</s:a></br>
             <span class="reportLabel"> Institution:</span> ${project.piInstitution}
           </p>
-          <p><span class="reportLabel">Primary Contact:</span> ${project.pocFirstName} ${project.pocLastName} &nbsp;&nbsp;&nbsp; <span class="reportLabel">Email:</span> <s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a></p>
+          <p>
+			 <s:if test="project.pocFirstName != null && project.pocLastName != null">
+				<span class="reportLabel">Primary Contact:</span> ${project.pocFirstName} ${project.pocLastName} &nbsp;&nbsp;&nbsp;
+			</s:if>
+			<s:if test="project.pocEmailAddress != null">
+			    <span class="reportLabel">Email:</span> <s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a>
+			</s:if>
+		  </p>
           <p><span class="reportLabel">Program Director:</span> ${project.pdFirstName} ${project.pdLastName}</p>       
           <p><span class="reportLabel">Project Start Date:</span> <s:property value="%{projectStartDate}" /> &nbsp;&nbsp;&nbsp; <span class="reportLabel">Project End Date:</span> <s:property value="%{projectEndDate}" /></p>        
-          <p><span class="reportLabel">Comments</span> ${project.comments}</p>
+          <s:if test="project.comments != null">
+			<p><span class="reportLabel">Comments</span> ${project.comments}</p>
+		  </s:if>
         </div><!--end panel body-->
       </div><!--end panel-->
 
@@ -99,9 +108,14 @@
           <div class="pheader" style="display:inline;"><h5>Genomic Data Sharing Plan</h5></div>
         </div> <!--end panel header-->
         <div class="panel-body" style="display:none;">
-          <p><span class="reportLabel">Data sharing exception requested for this project?</span>  <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)}" /></p>
-          <p><span class="reportLabel">Exception approved?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)}" /></p>
+		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID) != ''}">
+			<p><span class="reportLabel">Data sharing exception requested for this project?</span>  <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)}" /></p>
+		  </s:if>
+		   <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID) != ''}">
+             <p><span class="reportLabel">Exception approved?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)}" /></p>
+		  </s:if>
           <p>
+			<s:if test="%{exceptionMemo[0] != null}">
             <span class="reportLabel">Uploaded Exception Memo:</span></br>
             <table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody>
@@ -119,19 +133,33 @@
                   <td style="white-space: nowrap">
                   	<s:date name="%{exceptionMemo[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
                   </td>
-                  <td><s:property value="%{exceptionMemo[0].uploadedBy}" /></td>
+                  <td><s:property value="%{exceptionMemo[0].uploadedBy}" />
                   </td>
                 </tr>
               </tbody>
             </table>
-            <span class="reportLabel">Will there be any data submitted?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)}" />
-          </p>
-          <p><span class="reportLabel">Types of specimens the data submission pertain to:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID)}" /></p>
-          <p><span class="reportLabel">Type of data that will be submitted:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_TYPE_ID)}" /></p>
-          <p><span class="reportLabel">Type of access the data will be made available through:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_ACCESS_ID)}" /> &nbsp;&nbsp;&nbsp; </p>
-          <p><span class="reportLabel"> Repository(ies) the data will be submitted to:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID)}" /></p>
-          <p><span class="reportLabel">Has the GPA reviewed the Data Sharing Plan?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID)}" /></p>
-          <p>
+			</s:if>
+			<s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID) != ''}">
+				<span class="reportLabel">Will there be any data submitted?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)}" />
+			</s:if>
+		  </p>
+		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID) != ''}">
+			<p><span class="reportLabel">Types of specimens the data submission pertain to:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID)}" /></p>
+		  </s:if>
+		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_TYPE_ID) != ''}">
+			<p><span class="reportLabel">Type of data that will be submitted:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_TYPE_ID)}" /></p>
+          </s:if>
+		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_ACCESS_ID) != ''}">
+		   <p><span class="reportLabel">Type of access the data will be made available through:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_ACCESS_ID)}" /> &nbsp;&nbsp;&nbsp; </p>
+		  </s:if>
+		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID) != ''}">  	
+			 <p><span class="reportLabel"> Repository(ies) the data will be submitted to:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID)}" /></p>
+		  </s:if>
+		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID) != ''}">  	
+            <p><span class="reportLabel">Has the GPA reviewed the Data Sharing Plan?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID)}" /></p>
+          </s:if>
+		  <s:if test="%{gdsPlanFile[0] != null}">
+		  <p>
             <span class="reportLabel">Uploaded Data Sharing Plan:</span><br/>
               <table style="width: 95%;  margin-top: 10px;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
                 <tbody><tr class="modalTheader">
@@ -165,7 +193,10 @@
               </tbody>
             </table>
           </p>
-          <p><span class="reportLabel">Comments:</span> ${project.planComments}</p>
+		  </s:if>
+		   <s:if test="project.planComments != null">
+			<p><span class="reportLabel">Comments:</span> ${project.planComments}</p>
+		   </s:if>
         </div><!--end panel body-->
       </div><!--end panel-->
 
