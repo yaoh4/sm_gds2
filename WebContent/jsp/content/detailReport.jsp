@@ -99,8 +99,8 @@
           <div class="pheader" style="display:inline;"><h5>Genomic Data Sharing Plan</h5></div>
         </div> <!--end panel header-->
         <div class="panel-body" style="display:none;">
-          <p><span class="reportLabel">Data sharing exception requested for this project?</span>  Yes</p>
-          <p><span class="reportLabel">Exception approved?</span> Yes</p>
+          <p><span class="reportLabel">Data sharing exception requested for this project?</span>  <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)}" /></p>
+          <p><span class="reportLabel">Exception approved?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)}" /></p>
           <p>
             <span class="reportLabel">Uploaded Exception Memo:</span></br>
             <table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
@@ -111,20 +111,26 @@
                   <th class="tableHeader" align="center" width="10%">Uploaded By</th>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-file-word-o" aria-hidden="true"></i> &nbsp;<a href="#" data-original-title="" title="">DataSharingExceptionMemo_approved.doc</a></td>
-                  <td style="white-space: nowrap">Feb 08 2015 06:47:12 PM</td>
-                  <td><a href="mailto: jonesm@mail.nih.gov" data-original-title="" title="">Mary Jones</a>
+                  <td>
+                  	<s:a href="javascript:openDocument(%{exceptionMemo[0].id})">
+                  		<s:property	value="%{exceptionMemo[0].fileName}" />
+                  	</s:a>
+                  </td>
+                  <td style="white-space: nowrap">
+                  	<s:date name="%{exceptionMemo[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
+                  </td>
+                  <td><s:property value="%{exceptionMemo[0].uploadedBy}" /></td>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <span class="reportLabel">Will there be any data submitted?</span> Yes
+            <span class="reportLabel">Will there be any data submitted?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)}" />
           </p>
-          <p><span class="reportLabel">Types of specimens the data submission pertain to:</span> Human; Non-human</p>
-          <p><span class="reportLabel">Type of data that will be submitted:</span> Individual</p>
-          <p><span class="reportLabel">Type of access the data will be made available through:</span> Mary Jones &nbsp;&nbsp;&nbsp; </p>
-          <p><span class="reportLabel"> Repository(ies) the data will be submitted to:</span> Database of Genotypes and Phenotypes (dbGaP); NCI Genomic Data Commons (GDC); Other: XYZ Repository</p>
-          <p><span class="reportLabel">Has the GPA reviewed the Data Sharing Plan?</span> No</p>
+          <p><span class="reportLabel">Types of specimens the data submission pertain to:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID)}" /></p>
+          <p><span class="reportLabel">Type of data that will be submitted:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_TYPE_ID)}" /></p>
+          <p><span class="reportLabel">Type of access the data will be made available through:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_ACCESS_ID)}" /> &nbsp;&nbsp;&nbsp; </p>
+          <p><span class="reportLabel"> Repository(ies) the data will be submitted to:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID)}" /></p>
+          <p><span class="reportLabel">Has the GPA reviewed the Data Sharing Plan?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID)}" /></p>
           <p>
             <span class="reportLabel">Uploaded Data Sharing Plan:</span><br/>
               <table style="width: 95%;  margin-top: 10px;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
@@ -135,15 +141,31 @@
                   <th class="tableHeader" align="center" width="10%">Uploaded By</th>
                 </tr>
                 <tr>
-                  <td><a href="#" data-original-title="" title="">DSP Version 4</a></td>
-                  <td>DataSharingExceptionMemo_approved.doc</td>
-                  <td style="white-space: nowrap">Feb 15 2015 06:47:12 PM</td>
-                  <td><a href="mailto: jonesm@mail.nih.gov" data-original-title="" title="">Mary Jones</a></td>
+                  <td>
+                  	<s:if test="%{gdsPlanFile[0].fileName == null || gdsPlanFile[0].fileName == ''}">
+						<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
+						<s:property value="%{gdsPlanFile[0].docTitle}" /></s:a>
+					</s:if>
+					<s:else>
+						<s:property value="%{gdsPlanFile[0].docTitle}" />
+					</s:else>
+				  </td>
+                  <td>
+                  	<s:if test="%{gdsPlanFile[0].fileName != null && gdsPlanFile[0].fileName != ''}">
+						<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
+							<s:property value="%{gdsPlanFile[0].fileName}" />
+						</s:a>
+					</s:if>
+				  </td>
+                  <td style="white-space: nowrap">
+                  	<s:date	name="%{gdsPlanFile[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
+                   </td>
+                  <td><s:property value="%{gdsPlanFile[0].uploadedBy}" /></td>
                 </tr>
               </tbody>
             </table>
           </p>
-          <p><span class="reportLabel">Comments:</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id sem in leo vehicula faucibus ut sed nibh. Nam lobortis nunc at velit tincidunt consequat. Vestibulum rhoncus diam sit amet nisl feugiat, in cursus tortor aliquet. In venenatis eleifend purus, in suscipit nisi venenatis in. Donec et nulla molestie, tincidunt mi ac, finibus arcu. In mattis, nibh eu posuere gravida, lorem lorem consequat orci, at efficitur ligula turpis ac augue. Etiam faucibus ullamcorper neque ac pulvinar.</p>
+          <p><span class="reportLabel">Comments:</span> ${project.planComments}</p>
         </div><!--end panel body-->
       </div><!--end panel-->
 
