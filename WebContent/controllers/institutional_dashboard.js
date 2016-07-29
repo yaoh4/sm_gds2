@@ -4,7 +4,9 @@ $(document).ready(function() {
 //show/hide button for Add Additional Instititional Certificates	
 
 
-	if ($("#radioCertCompleteN").prop("checked") == true) {
+	if ($("#radioCertCompleteY").prop("checked") == true) {
+		$('#addICBtn').hide();
+	} else {
 		$('#addICBtn').show().css('display', 'inline');
 	}
 	

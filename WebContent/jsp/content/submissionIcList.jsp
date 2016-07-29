@@ -48,7 +48,7 @@
             </div><br/>
           
             <p class="question" style="display:inline;">Have you received and reviewed all Institutional Certifications?&nbsp; &nbsp; &nbsp;
-              <div style="display:inline;" id="addICBtn">
+              <div style="display:none" id="addICBtn">
                 <s:submit action="editIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
               </div>
             </p>
