@@ -55,5 +55,8 @@
 			</div>
 		</div>
 	</s:if>
+	<s:else>
+		<span>No existing submission(s) were found for the selected Intramural/Grant/Contract #</span>
+	</s:else>
 </body>
 </html>
