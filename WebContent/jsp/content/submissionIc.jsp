@@ -93,6 +93,7 @@
                 <label for="comment">Comments:</label><br/>
                 <s:textarea class="col-md-12 form-control" rows="3" value="%{instCertification.comments}" name="instCertification.comments" ></s:textarea>
 			  </div>
+        <p>&nbsp;</p>
 	
 			  <!--Begin STUDY SECTION-->
 			
