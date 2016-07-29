@@ -52,8 +52,8 @@
                     class="table table-bordered table-striped" style="margin-left: 10px;">
                 <tr class="modalTheader">
                   <th class="tableHeader" align="center" width="10%" scope="col">Select</th>
-                  <th class="tableHeader" width="25%" scope="col">Grant Number</th>
-                  <th class="tableHeader" width="50%" scope="col">Project Title</th>
+                  <th class="tableHeader" width="25%" scope="col">Intramural/Grant/Contract #</th>
+                  <th class="tableHeader" width="50%" scope="col">Intramural/Grant/Contract Project Title</th>
                   <th class="tableHeader" widht="25%" scope="col">Principal Investigator</th>
                 </tr>
 				
