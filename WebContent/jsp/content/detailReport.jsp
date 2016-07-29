@@ -69,7 +69,12 @@
         <div class="panel-heading"><span class="clickable panel-collapsed"><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i></span>
           <div class="pheader" style="display:inline;"><h5>General Information</h5></div>
         </div> <!--end panel header-->
+        
         <div class="panel-body" style="display:none;">
+         <s:if test="%{project.applicationNum == null}">
+           No data entered.
+         </s:if>
+         <s:else>
           <p><span class="reportLabel">Project Submission Title:</span>  ${project.submissionTitle}</p>
           <p><span class="reportLabel">Reason for being submitted:</span> <s:property value="%{projectSubmissionReason}" /> </p>
           <p>
@@ -97,6 +102,7 @@
           <s:if test="project.comments != null">
 			<p><span class="reportLabel">Comments</span> ${project.comments}</p>
 		  </s:if>
+         </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->
 
@@ -107,8 +113,13 @@
         <div class="panel-heading"><span class="clickable panel-collapsed"><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
           <div class="pheader" style="display:inline;"><h5>Genomic Data Sharing Plan</h5></div>
         </div> <!--end panel header-->
+        
         <div class="panel-body" style="display:none;">
-		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID) != ''}">
+         <s:if test="%{project.planAnswerSelection.size == 0}">
+           No data entered.
+         </s:if>
+         <s:else>
+          <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID) != ''}">
 			<p><span class="reportLabel">Data sharing exception requested for this project?</span>  <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)}" /></p>
 		  </s:if>
 		   <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID) != ''}">
@@ -197,6 +208,7 @@
 		   <s:if test="project.planComments != null">
 			<p><span class="reportLabel">Comments:</span> ${project.planComments}</p>
 		   </s:if>
+         </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->
 
@@ -208,6 +220,10 @@
           <div class="pheader" style="display:inline;"><h5>Institutional Certification(s)</h5></div>
         </div> <!--end panel header-->
         <div class="panel-body" style="display:none;">
+         <s:if test="%{project.institutionalCertifications.size == 0}">
+          No data entered.
+         </s:if>
+         <s:else>
           <p><span class="reportLabel">All Institutional Certifications recieved?</span>  ${project.certificationCompleteFlag}</p>
           <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
             <tbody>
@@ -237,16 +253,23 @@
                 </tr>
                         
                              
-                <!--Begin view details-->
+              <!--Begin view details-->
+             
                 <tr>
                   <td colspan="3">
-                    <div id="contentDivImg${ic.id}" style="display: none;">
+                    <div id="contentDivImg${ic.id}" style="display: none;">  
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tbody>
                           <tr>
-                            <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(#ic.gpaApprovalCode)}"/></td>
-                            <td><span class="question">Provisional or Final? </span></span><s:property value="%{getLookupDisplayNamebyId(#ic.provisionalFinalCode)}"/></td>
-                            <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(#ic.futureProjectUseCode)}"/></td>
+                            <s:if test="%{#ic.gpaApprovalCode != null}">
+                              <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(#ic.gpaApprovalCode)}"/></td>
+                            </s:if>
+                             <s:if test="%{#ic.provisionalFinalCode != null}">
+                              <td><span class="question">Provisional or Final? </span></span><s:property value="%{getLookupDisplayNamebyId(#ic.provisionalFinalCode)}"/></td>
+                            </s:if>
+                             <s:if test="%{#ic.futureProjectUseCode != null}">
+                              <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(#ic.futureProjectUseCode)}"/></td>
+                             </s:if>
                           </tr>
                        
                           <s:if test="%{#ic.comments != null}">
@@ -277,8 +300,12 @@
                                                  <tbody>
                                                    <tr>
                                                      <td><span class="question">Study Name: </span>${study.studyName}</td>
-                                                     <td><span class="question">Institution: </span>${study.institution}</td>
-                                                     <td><span class="question">Data Use Limitation(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
+                                                     <s:if test="%{#study.institution != null}">
+                                                       <td><span class="question">Institution: </span>${study.institution}</td>
+                                                     </s:if>
+                                                      <s:if test="%{study.dulverificationId != null}">
+                                                       <td><span class="question">Data Use Limitation(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
+                                                     </s:if>
                                                    </tr>
                                                     
                                                    <s:if test="%{#study.comments != null}">                                
@@ -342,10 +369,10 @@
                           </tr>
                         </tbody>
                       </table> <!-- for class tBorder2 -->
+                     </s:else>
                     </div> <!-- for contentDivImg -->
                   </td> <!-- for colspan 3 -->
-                </tr>  <!--end view H view details-->   
-                
+                </tr>  <!--end view H view details--> 
                 
               </s:iterator><!-- ics -->              
             </tbody>
@@ -361,6 +388,10 @@
           <div class="pheader" style="display:inline;"><h5>Basic Study Information</h5></div>
         </div> <!--end panel header-->
         <div class="panel-body" style="display:none;">
+        <s:if test="%{project.bsiReviewedFlag == null}">
+          No data entered.
+        </s:if>
+        <s:else>
           <p><span class="reportLabel">Has the GPA reviewed the Basic Study Information?</span> ${project.bsiReviewedFlag}</p>  
           <p><span class="reportLabel">Uploaded Basic Study Infomation Form:</span></br>
             <table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
@@ -377,8 +408,11 @@
                   </td>
                 </tr>
               </tbody>
-            </table>  
-          <p><span class="reportLabel">Comments:</span>${project.bsiComments}</p>
+            </table>
+          <s:if test="%{#project.bsiComments != null}">  
+            <p><span class="reportLabel">Comments:</span>${project.bsiComments}</p>
+          </s:if>
+         </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->
 
