@@ -369,14 +369,14 @@
                           </tr>
                         </tbody>
                       </table> <!-- for class tBorder2 -->
-                     </s:else>
+                     
                     </div> <!-- for contentDivImg -->
                   </td> <!-- for colspan 3 -->
-                </tr>  <!--end view H view details--> 
-                
+                </tr>  <!--end view H view details-->  
               </s:iterator><!-- ics -->              
             </tbody>
           </table>
+         </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->
 
