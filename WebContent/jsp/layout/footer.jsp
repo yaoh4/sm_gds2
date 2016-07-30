@@ -16,7 +16,6 @@
 							<li><a href="http://www.cancer.gov/policies/disclaimer"
 								target="_blank">Disclaimer</a></li>
 							<li><a href="http://www.cancer.gov/policies/foia" target="_blank">FOIA</a></li>
-							<li><a href="http://www.cancer.gov/policies/foia" target="_blank">User Guide</a></li>
 							<li class="last"><a
 								href="http://www.cancer.gov/policies/privacy-security"
 								target="_blank">Privacy &amp; Security</a></li>
@@ -27,7 +26,7 @@
 									Health and Human Services</a></li>
 							<li><a href="http://www.nih.gov" target="_blank">National Institutes of
 									Health</a></li>
-							<li><a href="http://www.cancer.gov/policies/foia" target="_blank">National Cancer Institute</a></li>
+							<li><a href="http://www.cancer.gov/" target="_blank">National Cancer Institute</a></li>
 							<li class="last"><a href="http://usa.gov">USA.gov</a></li>
 						</ul>
 					</div>
