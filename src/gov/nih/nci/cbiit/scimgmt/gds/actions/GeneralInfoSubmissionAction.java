@@ -342,7 +342,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void validateSearchGrantOrContract(){	
 		
-		if(StringUtils.isEmpty(grantContractNum)){
+		if(StringUtils.isBlank(grantContractNum)){
 			this.addActionError(getText("grantContractNum.required")); 
 		}
 		else if(grantContractNum.length() < ApplicationConstants.GRANT_CONTRACT_NUM_MIN_SIZE){
@@ -414,7 +414,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	public void validateProjectDetails(){	
 
 		//Validation for Program/ Branch
-		if(StringUtils.isEmpty(getProject().getSubmissionTitle())){
+		if(StringUtils.isBlank(getProject().getSubmissionTitle())){
 			this.addActionError(getText("submissionTitle.required")); 
 		}
 
@@ -424,23 +424,23 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		}
 		
 		//Validation for Program/ Branch
-		if(StringUtils.isEmpty(getProject().getProgramBranch())){
+		if(StringUtils.isBlank(getProject().getProgramBranch())){
 			this.addActionError(getText("programbranch.required")); 
 		}
 		
-		if(StringUtils.isEmpty(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
+		if(StringUtils.isBlank(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
 			//Validation for Program/ Branch
-			if(StringUtils.isEmpty(getProject().getProjectTitle())){
+			if(StringUtils.isBlank(getProject().getProjectTitle())){
 				this.addActionError(getText("projecttitle.required")); 
 			}
 
 			//Validation for PD first name.
-			if(StringUtils.isEmpty(getProject().getPdFirstName())){
+			if(StringUtils.isBlank(getProject().getPdFirstName())){
 				this.addActionError(getText("pd.firstname.required")); 
 			}
 
 			//Validation for PD last name.
-			if(StringUtils.isEmpty(getProject().getPdLastName())){
+			if(StringUtils.isBlank(getProject().getPdLastName())){
 				this.addActionError(getText("pd.lastname.required")); 
 			}
 
@@ -459,7 +459,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			}	
 		}
 		//Comments cannot be greater than 2000 characters.
-		if(!StringUtils.isEmpty(getProject().getComments())) {
+		if(!StringUtils.isBlank(getProject().getComments())) {
 			if(getProject().getComments().length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
 				this.addActionError(getText("error.comments.size.exceeded"));  			
 			}
@@ -471,25 +471,25 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void validatePrincipleInvestigator(){	
 		
-		if(StringUtils.isEmpty(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
+		if(StringUtils.isBlank(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
 
 			//Validation for PI first name and last name.
-			if(!StringUtils.isEmpty(getProject().getPiFirstName()) && StringUtils.isEmpty(getProject().getPiLastName())){
+			if(!StringUtils.isBlank(getProject().getPiFirstName()) && StringUtils.isBlank(getProject().getPiLastName())){
 				this.addActionError(getText("pi.lastname.required")); 
 			}
-			else if(StringUtils.isEmpty(getProject().getPiFirstName()) && !StringUtils.isEmpty(getProject().getPiLastName())){
+			else if(StringUtils.isBlank(getProject().getPiFirstName()) && !StringUtils.isBlank(getProject().getPiLastName())){
 				this.addActionError(getText("pi.firstname.required")); 
 			}
 
 			//Validation for PI email.
-			if(!StringUtils.isEmpty(getProject().getPiFirstName()) && !StringUtils.isEmpty(getProject().getPiLastName())
-					&& (StringUtils.isEmpty(getProject().getPiEmailAddress()))){
+			if(!StringUtils.isBlank(getProject().getPiFirstName()) && !StringUtils.isBlank(getProject().getPiLastName())
+					&& (StringUtils.isBlank(getProject().getPiEmailAddress()))){
 				this.addActionError(getText("pi.email.required")); 
 			}
 
 			//Validation for PI institution.
-			if(!StringUtils.isEmpty(getProject().getPiFirstName()) && !StringUtils.isEmpty(getProject().getPiLastName())
-					&& (StringUtils.isEmpty(getProject().getPiInstitution()))){
+			if(!StringUtils.isBlank(getProject().getPiFirstName()) && !StringUtils.isBlank(getProject().getPiLastName())
+					&& (StringUtils.isBlank(getProject().getPiInstitution()))){
 				this.addActionError(getText("pi.institution.required")); 
 			}
 		}
@@ -500,23 +500,23 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void validatePrimaryContact(){		
 
-		if(StringUtils.isEmpty(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
+		if(StringUtils.isBlank(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
 			//Validation for Primary Contact. 
-			if(StringUtils.isEmpty(getProject().getPiFirstName()) && StringUtils.isEmpty(getProject().getPiLastName())){
-				if(StringUtils.isEmpty(getProject().getPocFirstName()) && StringUtils.isEmpty(getProject().getPocLastName())){
+			if(StringUtils.isBlank(getProject().getPiFirstName()) && StringUtils.isBlank(getProject().getPiLastName())){
+				if(StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
 					this.addActionError(getText("primarycontact.required")); 
 				}
-				else if(!StringUtils.isEmpty(getProject().getPocFirstName()) && StringUtils.isEmpty(getProject().getPocLastName())){
+				else if(!StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
 					this.addActionError(getText("primarycontact.lastname.required")); 
 				}
-				else if(StringUtils.isEmpty(getProject().getPocFirstName()) && !StringUtils.isEmpty(getProject().getPocLastName())){
+				else if(StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())){
 					this.addActionError(getText("primarycontact.firstname.required")); 
 				}
 			}    		
 
 			//Validation for Primary contact.
-			if(!StringUtils.isEmpty(getProject().getPocFirstName()) && !StringUtils.isEmpty(getProject().getPocLastName())
-					&& (StringUtils.isEmpty(getProject().getPocEmailAddress()))){
+			if(!StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())
+					&& (StringUtils.isBlank(getProject().getPocEmailAddress()))){
 				this.addActionError(getText("primarycontact.email.required")); 
 			}
 		}
