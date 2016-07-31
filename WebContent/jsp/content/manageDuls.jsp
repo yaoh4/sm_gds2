@@ -25,7 +25,7 @@
 		  <div class="panel-heading">
             <h5 class="panel-title heading-reference">
               <a href="#" onclick="deleteDulSet(${studiesIdx},${dulSetIdx})" class="deleteIcon" style="float: right;">
-              <i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+              <i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>
               Data Use Limitation Type
             </h5>
           </div>

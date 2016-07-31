@@ -32,7 +32,7 @@ $("#gds-form").on('click', '#addfield', function () {
 	{
 		// If its the second row, add a trash bin next to the first row.
 		if(fieldCount == 1) {
-			$(".otherWrapper").first().append('<span class="fa fa-trash removeclass delete" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;">'
+			$(".otherWrapper").first().append('<span class="fa fa-trash fa-lg" title="delete" aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;">'
 					+ '</span></div>');
 		}
 		

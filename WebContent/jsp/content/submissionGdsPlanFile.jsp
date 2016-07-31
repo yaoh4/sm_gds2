@@ -27,8 +27,8 @@
 					format="MMM dd yyyy hh:mm:ss a" /></td>
 			<td><s:property value="%{gdsPlanFile[0].uploadedBy}" /></td>
 			<td><s:a href="javascript:removeDocument(%{gdsPlanFile[0].id}, %{gdsPlanFile[0].projectId})">
-				<span class="fa fa-trash fa-lg" aria-hidden="true"
-				alt="delete icon" style="margin-bottom: 5px;"></span></s:a></td>
+				<i class="fa fa-trash fa-lg" aria-hidden="true" title="delete"
+				alt="delete" style="margin-bottom: 5px;"></i></s:a></td>
 		</tr>
 	</table>
 </s:if>
@@ -68,8 +68,8 @@
 								format="MMM dd yyyy hh:mm:ss a" /></td>
 							<td><s:property value="%{#file.uploadedBy}" /></td>
 							<td><s:a href="javascript:removeDocument(%{#file.id}, %{#file.projectId})">
-								<span class="fa fa-trash fa-lg" aria-hidden="true"
-								alt="delete icon" style="margin-bottom: 5px;"></span></s:a></td>
+								<i class="fa fa-trash fa-lg" aria-hidden="true"
+								alt="delete" title="delete"></i></s:a></td>
 						</tr>
 					</s:if>
 				</s:iterator>
