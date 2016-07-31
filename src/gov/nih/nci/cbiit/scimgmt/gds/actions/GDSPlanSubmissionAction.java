@@ -166,6 +166,11 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 */
 	public void validateSave() {
 		
+		
+		if(!StringUtils.isEmpty(dataSharingPlanFileName)  || 
+				!StringUtils.isEmpty(exceptionMemoFileName)) {
+			this.addActionError(getText("error.doc.fileNotUploaded"));
+		}
 		logger.debug("Validate save GDS Plan");
 		// If Other repository is selected, verify that OtherText is entered.
 		if(answerMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID) != null && answerMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).contains(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID.toString())) {

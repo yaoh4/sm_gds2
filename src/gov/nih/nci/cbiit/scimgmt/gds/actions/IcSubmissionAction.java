@@ -216,6 +216,23 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	public void validateSaveIc() {
 		
+		
+		if(!StringUtils.isEmpty(icFileName)) {
+			this.addActionError(getText("error.doc.fileNotUploaded"));
+			if(icFileDocs.isEmpty()) {
+				//If no file has been uploaded, then we do not
+				//show any more fields to enter
+				return;
+			}
+		}
+		
+		
+		if(icFileDocs.isEmpty()) {
+			this.addActionError(getText("error.doc.required"));
+			return;
+		}
+		
+		
 		InstitutionalCertification instCert = getInstCertification();
 		logger.info("No. of Studies in IC = " + instCert.getStudies().size());
 		
