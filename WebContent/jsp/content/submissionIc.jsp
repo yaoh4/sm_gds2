@@ -90,7 +90,7 @@
 	
 			  <!--  IC comments -->
 	 		  <div class="form-group row  col-xs-12">
-                <label for="comment">Comments:</label><br/>
+                <label for="comment">Comments (2000 Characters):</label><br/>
                 <s:textarea class="col-md-12 form-control" rows="3" value="%{instCertification.comments}" name="instCertification.comments" ></s:textarea>
 			  </div>
         <p>&nbsp;</p>
@@ -166,7 +166,7 @@
                               </div>
                             </div> <!--end row-->			
                             <div class="form-group row  col-xs-12" >
-                              <label for="study comments" class="label_stCom">Comments:</label><br/>
+                              <label for="study comments" class="label_stCom">Comments (2000 Characters):</label><br/>
                               <s:textarea id="comments-%{#studiesStat.index}" class="col-md-12 form-control input_stCom"  
                               		value="%{#study.comments}"
 									name="instCertification.studies[%{#studiesIdx}].comments" 
