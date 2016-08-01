@@ -35,12 +35,12 @@
 					        <img src="<s:url value="/images/version-divider.gif" />" alt="">
 					        &nbsp;&nbsp;&nbsp;Version: <span class="question" style="font-size: 14px;">${version}</span>
 					    </div>
-				   <i class="fa fa-caret-down" aria-hidden="true"></i>
-				   <div id="popup_nav" style="clear:right; display:inline-block; margin-left: 10px;">
+				   <img src="<s:url value="/images/version-divider.gif" />" alt="">
+				  <div id="popup_nav" style="clear:right; display:inline-block; margin-left: 10px;">
 				   	
 				    <ul>
 				      <li>
-				        <a href="#">Send Comments&nbsp; <img src="<s:url value="/images/arrow_down.png" />" alt="">&nbsp;&nbsp;</a>
+				        <a href="#">Send Comments&nbsp;  <i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;&nbsp;</a>
 		                <ul>
 	               			<li><a href="mailto:${businessPolicyEmail}?subject=GDS" >Business Policy Questions</a></li>
 	               			<li><a href="mailto:${technicalIssuesEmail}?subject=GDS" >Technical Issues</a></li>												
