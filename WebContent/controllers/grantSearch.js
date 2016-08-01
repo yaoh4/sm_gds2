@@ -206,6 +206,26 @@ $(function(){
     		//grant search request was made
     		$("#generalInfoSection").hide();
     		$("#searchGrantsContracts").show();
+			$("#grantSearch").focus();
+			
+			//If user hits Enter key : 
+			$("#general_form").keydown(function( event ) {
+				if ( event.which == 13) { 
+				
+					//Prevent default submit
+					event.preventDefault();	
+					//If Previous linked submissions are not displayed :
+					if($('#prevLinkedSubmissions').css('display') == 'none'){
+						//Hit Search
+						$( "#searchGrants" ).click();
+					}
+					else{
+						//Hit Next
+						$( "#searchGrantsContractsNext" ).click();
+					}
+				}
+			});	
+		
     	} else {
     		$("#searchGrantsContracts").hide();
     		$("#generalInfoSection").show();
