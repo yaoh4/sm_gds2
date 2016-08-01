@@ -1351,6 +1351,13 @@ ul.actionMessage {
     
 }
 
+#popup_nav ul ul li a:link {
+  
+  color: #2d699e;
+  text-decoration: none;
+    
+}
+
 #popup_nav ul li {
   background-image: none;
   color: #ccc;
