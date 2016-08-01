@@ -14,13 +14,13 @@
 		
 	  <div id="generalInfoSection">
 		<div class="pageNav">
-			<button  type="button" onclick="return warnGeneralInfo(event)"
-				id="general_saved" cssClass="saved btn btn-default" > Save</button>
+			<s:submit value=" Save " action="manage/saveGeneralInfo" onclick="return warnGeneralInfo()"
+				id="general_saved" cssClass="saved btn btn-default" />
 
-			<button type="button" 
-				id="general_saved_next" onclick="return warnGeneralInfoNext(event)"
-				class="btn btn-project-primary">
-				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></button>
+			<s:submit type="button" 
+				action="manage/saveGeneralInfoAndNext" id="general_saved_next" onclick="return warnGeneralInfoNext()"
+				cssClass="btn btn-project-primary">
+				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 
 		<s:if test="project.applId==null">
@@ -241,12 +241,13 @@
 
 		<!--SAVE & NEXT BUTTONS-->
 		<div class="pageNav">
-			<button type="button"  onclick="return warnGeneralInfo(event)"
-				id="general_saved" class="saved btn btn-default" > Save</button>
+			<s:submit value=" Save " namespace="/manage" action="saveGeneralInfo" onclick="return warnGeneralInfo()"
+				id="general_saved" cssClass="saved btn btn-default" />
 
-			<button type="button"  id="general_saved_next" onclick="return warnGeneralInfoNext(event)"
-				class="btn btn-project-primary" >
-				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></button>
+			<s:submit type="button" namespace="/manage"
+				action="saveGeneralInfoAndNext" id="general_saved_next" onclick="return warnGeneralInfoNext()"
+				cssClass="btn btn-project-primary" >
+				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 		</div>
 
 	  </div> <!-- generalInfoPage end -->
