@@ -26,17 +26,17 @@
 								    <s:property value="loggedOnUser.fullName" />
 							    </s:if>
 						    </div>
-					    </div>  
+					    </div><br/>  
 					    <div style="display:inline-block; padding-right: 10px;">
-					        <img src="<s:url value="/images/version-divider.gif" />" alt="">
-					        &nbsp;&nbsp;&nbsp;Env.: <span class="question" style="font-size: 14px;">${environment}</span>
+					        
+					        Env.: <span class="question" style="font-size: 14px;">${environment}</span>
 					    </div>
 					    <div style="display:inline-block; margin-right: 15px;">
 					        <img src="<s:url value="/images/version-divider.gif" />" alt="">
 					        &nbsp;&nbsp;&nbsp;Version: <span class="question" style="font-size: 14px;">${version}</span>
 					    </div>
-				    </div>
-				   <div id="popup_nav" style="clear:right;">
+				   
+				   <div id="popup_nav" style="clear:right; display:inline-block; ">
 				    <ul>
 				      <li>
 				        <a href="#">Send Comments <img src="<s:url value="/images/arrow_down.png" />" alt=""></a>
@@ -47,6 +47,7 @@
 	               	  </li>
 	               	</ul>
 				  </div>
+				   </div>
 				    <div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
 				</div>
 			</div>
