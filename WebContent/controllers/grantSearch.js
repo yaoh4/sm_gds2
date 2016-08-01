@@ -10,6 +10,8 @@ function searchGrantsData() {
 	} else {	
 		
 	    $('button.has-spinner').toggleClass('active');
+	    var grantNum = $('#grantSearch').val().replace(/\s+/g, '');
+	    $('#grantSearch').val(grantNum);
 		$form = $("#general_form");
 	    fd = new FormData($form[0]);
 		$.ajax({
