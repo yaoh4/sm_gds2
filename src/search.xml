@@ -6,7 +6,7 @@
 	
 	<package name="search" namespace="/search" extends="default, json-default">
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
-			 <result name="success" type="tiles">home</result>
+			 <result name="success" type="tiles">search</result>
 		</action>
 		
 		<action name="navigateToSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
