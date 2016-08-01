@@ -37,7 +37,7 @@
               <label for="Intramural (Z01)/Grant/Contract #">Intramural (Z01)/Grant/Contract #</label>
             </div>
             <div class="searchFormat">
-              <input type="text" class="form-control" id="grantSearch" placeholder="Use Correct Format from Examples Above"
+              <input type="text" class="form-control" id="grantSearch" size="30" maxlength="30" placeholder="Use Correct Format from Examples Above"
                     	name="grantContractNum" value="${grantContractNum}">
             </div> 
             <div class="searchFormat" style="float:right;">

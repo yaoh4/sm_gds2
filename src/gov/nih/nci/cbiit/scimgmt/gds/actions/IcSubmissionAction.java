@@ -3,8 +3,6 @@
  */
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
-import com.opensymphony.xwork2.ActionSupport;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -106,14 +104,18 @@ public class IcSubmissionAction extends ManageSubmission {
 			if(docs != null && !docs.isEmpty()) {
 				for(Document doc: docs) {
 					if((getDocId() != null && doc.getId().equals(getDocId())) || (doc.getInstitutionalCertificationId() != null && 
-							doc.getInstitutionalCertificationId().equals(instCert.getId())))
+							doc.getInstitutionalCertificationId().equals(instCert.getId()))) {
 						icFileDocs.add(doc);
-				}			
+					}			
+				}
 			}
 			if(icFileDocs.isEmpty() && doc != null) {
-				icFileDocs.add(doc);
+					icFileDocs.add(doc);
 			}
-			instCert.setDocuments(icFileDocs);		
+			if(!icFileDocs.isEmpty()) {
+				doc = icFileDocs.get(0);
+			}
+			instCert.setDocuments(icFileDocs);
 		}
 	}
 	
@@ -219,22 +221,25 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		if(!StringUtils.isEmpty(icFileName)) {
 			this.addActionError(getText("error.doc.fileNotUploaded"));
-			if(icFileDocs.isEmpty()) {
+			if(getDocId() == null) {
 				//If no file has been uploaded, then we do not
 				//show any more fields to enter
+				setProject(retrieveSelectedProject());
 				return;
 			}
 		}
 		
-		
-		if(icFileDocs.isEmpty()) {
+		if(getDocId() == null) {
 			this.addActionError(getText("error.doc.required"));
 			return;
 		}
 		
-		
 		InstitutionalCertification instCert = getInstCertification();
 		logger.info("No. of Studies in IC = " + instCert.getStudies().size());
+		
+		if(instCert.getComments() != null && instCert.getComments().length() > 2000) {
+			addActionError(getText("error.comments.size.exceeded"));
+		}
 		
 		//validate the DULs in each Study
 		Iterator<Study> studies = instCert.getStudies().iterator();
@@ -312,12 +317,22 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		if(study.getStudyName() == null || study.getStudyName().isEmpty()) {
 			addActionError(getText("error.ic.study.studyName.required") );
+		} else if(study.getStudyName().length() > 100) {
+			addActionError(getText("error.studyName.size.exceeded"));
+		}
+		
+		if(study.getInstitution() != null && study.getInstitution().length() > 120) {
+			addActionError(getText("error.institution.size.exceeded", new String[]{study.getStudyName()}));
 		}
 		
 		if(study.getId() == null || study.getId().toString().isEmpty()) {
 			study.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 		} else {
 			study.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+		}
+		
+		if(study.getComments() != null && study.getComments().length() > 2000) {
+			addActionError(getText("error.comments.size.exceeded"));
 		}
 	}
 	
@@ -363,6 +378,14 @@ public class IcSubmissionAction extends ManageSubmission {
 			} else {	
 				this.addActionError(getText("error.ic.study.dulType.additionalText.required", new String[]{studyName}));
 			}
+		} else if (additionalText[0].length() > 100){
+			if(ApplicationConstants.IC_PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId))) {
+				addActionError(getText("error.ic.study.dulType.diseaseText.size.exceeded", new String[]{studyName}));
+			
+			} else {
+				addActionError(getText("error.ic.study.dulType.additionalText.size.exceeded", new String[]{studyName}));
+			}
+			
 		} else {
 			validationMap.put(additionalText[0], new Integer(dulSetIndex));
 		}

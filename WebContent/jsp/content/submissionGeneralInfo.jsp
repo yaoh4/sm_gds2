@@ -14,13 +14,13 @@
 		
 	  <div id="generalInfoSection">
 		<div class="pageNav">
-			<s:submit value=" Save " action="manage/saveGeneralInfo" onclick="return warnGeneralInfo()"
-				id="general_saved" cssClass="saved btn btn-default" />
+			<button  type="button" onclick="return warnGeneralInfo(event)"
+				id="general_saved" cssClass="saved btn btn-default" > Save</button>
 
-			<s:submit type="button" 
-				action="manage/saveGeneralInfoAndNext" id="general_saved_next" onclick="return warnGeneralInfoNext()"
-				cssClass="btn btn-project-primary">
-				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
+			<button type="button" 
+				id="general_saved_next" onclick="return warnGeneralInfoNext(event)"
+				class="btn btn-project-primary">
+				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></button>
 		</div>
 
 		<s:if test="project.applId==null">
@@ -226,7 +226,7 @@
 					<div class="form-group row  col-xs-12" style="padding-left: 30px;">
 
 						<label for="general info comments" class="label_stCom">Comments (2000 Characters):</label><br />
-						<s:textarea cssClass="col-md-12 form-control input " rows="3"
+						<s:textarea cssClass="col-md-12 form-control input " rows="3" maxlength="2000"
 							name="project.comments" id="gComments"></s:textarea>
 					</div>
 
@@ -241,13 +241,12 @@
 
 		<!--SAVE & NEXT BUTTONS-->
 		<div class="pageNav">
-			<s:submit value=" Save " namespace="/manage" action="saveGeneralInfo" onclick="return warnGeneralInfo()"
-				id="general_saved" cssClass="saved btn btn-default" />
+			<button type="button"  onclick="return warnGeneralInfo(event)"
+				id="general_saved" class="saved btn btn-default" > Save</button>
 
-			<s:submit type="button" namespace="/manage"
-				action="saveGeneralInfoAndNext" id="general_saved_next" onclick="return warnGeneralInfoNext()"
-				cssClass="btn btn-project-primary" >
-				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
+			<button type="button"  id="general_saved_next" onclick="return warnGeneralInfoNext(event)"
+				class="btn btn-project-primary" >
+				Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></button>
 		</div>
 
 	  </div> <!-- generalInfoPage end -->
@@ -255,6 +254,5 @@
 
 <!-- /container -->
 
-
-<script type="text/javascript" src="<s:url value="/controllers/general.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/controllers/grantSearch.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/controllers/general.js"/>"></script>

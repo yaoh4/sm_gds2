@@ -82,7 +82,7 @@
 							<div class="form-group row">
 								<div class="col-xs-12">
 									<s:label for="%{'repositoryComments_' + #stat.index}" value="Comments (2000 Characters):" />
-									<s:textarea id="%{'repositoryComments_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].comments" value="%{#repositoryStatus.comments}" cssClass="form-control input" rows="3"></s:textarea>
+									<s:textarea id="%{'repositoryComments_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].comments" value="%{#repositoryStatus.comments}" cssClass="form-control input" maxlength="2000" rows="3"></s:textarea>
 								</div>
 							</div>					
 						</div>						

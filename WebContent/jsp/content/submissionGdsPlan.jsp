@@ -247,7 +247,7 @@
 
 				<div>
 					<p class="question">Comments (2000 Characters):</p>
-					<s:textarea class="col-md-10" rows="3" name="comments"></s:textarea>
+					<s:textarea class="col-md-10" rows="3" maxlength="2000" name="comments"></s:textarea>
 				</div>
 			</div>
 			<!--end panel body-->
