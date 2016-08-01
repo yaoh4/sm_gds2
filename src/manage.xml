@@ -130,7 +130,7 @@
 			 </result>-->
 			 <result name="input" type="tiles">submissionBasicStudyInfo</result>
 		</action>
-		<action name="navigateToSubmissionDetail" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
+		<action name="navigateToSubmissionDetail" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SubmissionDetailsAction">
 			 <result name="success" type="tiles">submissionDetail</result>
 		</action>
 		<action name="downloadFile" method="downloadFile" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmission">
@@ -202,12 +202,11 @@
 			 <result name="input" type="tiles">submissionRepositoryStatus</result>
 		</action>
 		<action name="saveRepositoryStatusAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
-			 <result name="success" type="tiles">submissionRepositoryStatus</result>
-			 <!--<result name="success" type="redirect-action">
+			 <result name="success" type="redirect-action">
 			 	<param name="actionName">navigateToSubmissionDetail</param>
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
-			 </result>-->
+			 </result>
 			 <result name="input" type="tiles">submissionRepositoryStatus</result>
 		</action>	
 		<action name="navigateToIntramuralGrantOrContractSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">

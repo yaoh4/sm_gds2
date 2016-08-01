@@ -77,18 +77,16 @@
 				</s:if>
 				
 				<%-- We always show the detail page if its a saved project --%>
-				<!-- Commenting out for this Sprint
 				<s:if test="%{'detail' eq #attr['subnavtab']}">
 					<li class="active"><a href="javascript: void(0)">Submission Details</a></li>
 				</s:if>
 				<s:else>
-					<s:url namespace="/manage" var="submissionStatusUrl" action="navigateToSubmissionDetail">
+					<s:url namespace="/manage" var="submissionDetailUrl" action="navigateToSubmissionDetail">
 						<s:param name="projectId" value="%{projectId}" />
 					</s:url>
-					<li><s:a href="%{submissionStatusUrl}">Submission Details</s:a></li>
+					<li><s:a href="%{submissionDetailUrl}">Submission Details</s:a></li>
 				</s:else>
-				<li class="divider-vertical"></li>
-				 -->
+				<li class="divider-vertical"></li>				 
 			</s:if>
 		</ul>
 	</div>
