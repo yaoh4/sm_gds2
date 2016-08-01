@@ -1267,79 +1267,91 @@ ul.actionMessage {
 /**************/
 
 #popup_nav {
-	float: right;
-	display: block;
+  float: right;
+  display: block;
 }
 
 #popup_nav ul a:link, #admin_nav ul a:visited {
-	font-size: 14px;
+  font-size: 14px;
+  /* color: #a94442; */
 }
 
 #popup_nav ul ul {
-	display: none;
+  display: none;
 }
 
 #popup_nav ul li:hover > ul {
-	display: block;
+  display: block;
 }
 
 #popup_nav ul {
-	list-style: none;
-	position: relative;
-	display: inline-table;
+  list-style: none;
+  position: relative;
+  display: inline-table;
+  margin-left:  0px;
+  padding-left: 0px;
 }
 
 #popup_nav ul:after {
-	content: "";
-	clear: both;
-	display: block;
+  content: "";
+  clear: both;
+  display: block;
 }
 
 #popup_nav ul li {
-	float: left;
-	text-align: left;
-	width: auto;
-	padding-right: 0;
-		margin-right: 10px;
+  float: left;
+  text-align: left;
+  width: auto;
+  padding-right: 0;
+  margin-right: 10px;
+  /* color: #a94442; */
 }
 
 #popup_nav ul li:hover {
-	background: #4b545f;
+  background: #fff;
+  
 }
 
 #popup_nav ul li:hover a {
-	color: #fff;
+  color: #111;
 }
 
 #popup_nav ul li a {
-	display: block;
-	color: #757575;
-	text-decoration: none;
-	padding: 5px;
-	font-size: 22px;
+  display: inline-block;
+  color: #111;
+  text-decoration: none;
+  /* padding: 5px; */
+  margin-left:  0px;
+  font-size: 22px;
 }
 
 #popup_nav ul ul {
-	background: #5f6975;
-	padding: 0;
-	position: absolute;
-	top: 100%;
+  background: #fff;
+  padding: 0;
+  position: absolute;
+  top: 100%;
 }
 
 #popup_nav ul ul li {
-	float: none;
-	position: relative;
+  float: none;
+  position: relative;
+  
+  
 }
 
 #popup_nav ul ul li a {
-	color: #fff;
+  color: #2d699e;
+;
 }
 
 #popup_nav ul ul li a:hover {
-	background: #4b545f;
-		
+  background: #f1f1f1;
+  color: #23527c;
+  text-decoration: underline
+    
 }
 
 #popup_nav ul li {
-	background-image: none;
+  background-image: none;
+  color: #ccc;
 }
