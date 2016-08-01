@@ -14,7 +14,7 @@
 			<div class="panel-body">
 				<div class="alert alert-warning">
 					<button type="button" class="close" aria-hidden="true">&times;</button>
-					<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;The
+					<i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;The
 					following submission(s) has been linked to the same
 					Intramural/Grant/Contract #
 				</div>
