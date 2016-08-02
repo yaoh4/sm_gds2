@@ -4,7 +4,7 @@
 
 <s:form id="submission-details_form"  namespace="manage"
     enctype="multipart/form-data" action="submissionDetails" method="post" role="form">  
-
+<p>test</p>
 			<s:include value="/jsp/content/submissionGeneralInfoView.jsp"/>
 			<s:include value="/jsp/content/submissionGdsPlanView.jsp"/>
 			<s:include value="/jsp/content/submissionIcListView.jsp"/>
