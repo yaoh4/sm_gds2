@@ -167,8 +167,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	public void validateSave() {
 		
 		
-		if(!StringUtils.isEmpty(dataSharingPlanFileName)  || 
-				!StringUtils.isEmpty(exceptionMemoFileName)) {
+		if(dataSharingPlan != null  || exceptionMemo != null) {
 			this.addActionError(getText("error.doc.fileNotUploaded"));
 		}
 		logger.debug("Validate save GDS Plan");

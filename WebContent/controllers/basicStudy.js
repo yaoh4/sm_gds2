@@ -11,6 +11,8 @@ $('body').on('click', 'a.history', function() {
 // Data sharing plan file upload Ajax
 $("#basic-study-form").on('click', '#bsiUpload', function () {
 
+	$("#messages").empty();
+	
 	var result = "";
 	var $form, fd;
     $form = $("#basic-study-form");
@@ -32,6 +34,7 @@ $("#basic-study-form").on('click', '#bsiUpload', function () {
 	if(result.indexOf("<p") == 0) {
 		$('div.loadFileHistory').html(result);
 		$("#bsiUpload").prev('div').children('.input-group').find(':text').val('')
+		$("#bsi").val('');
 	}
 	else {
 		bootbox.alert(result, function() {

@@ -98,7 +98,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		
 		logger.debug("Validate save Basic Study Info");
 		
-		if(!StringUtils.isEmpty(bsiFileName)) {
+		if(bsi != null) {
 			this.addActionError(getText("error.doc.fileNotUploaded"));
 		}
 		
@@ -164,7 +164,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		try {
 			doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_BSI, bsi, bsiFileName);
 			bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, new Long(getProjectId()));
-			
+		
 		} catch (Exception e) {
 			try {
 				inputStream = new ByteArrayInputStream(getText("error.doc.upload").getBytes("UTF-8"));

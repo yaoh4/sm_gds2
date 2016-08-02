@@ -219,10 +219,10 @@ public class IcSubmissionAction extends ManageSubmission {
 	public void validateSaveIc() {
 		
 		
-		if(!StringUtils.isEmpty(icFileName)) {
+		if(ic != null) {
 			this.addActionError(getText("error.doc.fileNotUploaded"));
 			if(getDocId() == null) {
-				//If no file has been uploaded, then we do not
+				//If no file has been uploaded yet, then we do not
 				//show any more fields to enter
 				setProject(retrieveSelectedProject());
 				return;
