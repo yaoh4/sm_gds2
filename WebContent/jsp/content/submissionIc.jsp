@@ -140,7 +140,10 @@
                           				
                             <div class="form-group row">
                               <div class="col-xs-3">
-                                <label class="label_sn" for="Study Name">Study Name</label>
+                                <label class="label_sn" for="Study Name">
+                                  <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>
+                                  Study Name
+                                </label>
                                 <input type="text" class="form-control input_sn" placeholder="Full Name of Study" 
                               	    id="studyName-${studiesIdx}"  maxlength="100"
                               		name="instCertification.studies[<s:property value='#studiesStat.index'/>].studyName" 
