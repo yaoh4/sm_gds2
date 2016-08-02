@@ -133,6 +133,7 @@ $("#gds-form").on('click', '#dataSharingPlanUpload', function () {
 	if(result.indexOf("<p") == 0) {
 		$('div.loadFileHistory').html(result);
 		$("#dataSharingPlanUpload").prev('div').children('.input-group').find(':text').val('')
+		$("#dataSharingPlan").val('');
 	}
 	else {
 		bootbox.alert(result, function() {
@@ -164,6 +165,7 @@ $("#gds-form").on('click', '#exceptionMemoUpload', function () {
 	$('button.has-spinner').toggleClass('active');
 	if(result.indexOf("<p") == 0) {
 		$('div#exceptionMemoDiv').html(result);
+		$("#exceptionMemo").val('');
 	}
 	else {
 		bootbox.alert(result, function() {

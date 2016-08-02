@@ -32,6 +32,7 @@ $("#basic-study-form").on('click', '#bsiUpload', function () {
 	if(result.indexOf("<p") == 0) {
 		$('div.loadFileHistory').html(result);
 		$("#bsiUpload").prev('div').children('.input-group').find(':text').val('')
+		$("#bsi").val('');
 	}
 	else {
 		bootbox.alert(result, function() {
