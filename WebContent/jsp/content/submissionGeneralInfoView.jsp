@@ -2,7 +2,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 
-<div class="panel panel-default" id="searchGrant" style="margin-top: 200px;">
+<div class="panel panel-default" id="searchGrant" style="margin-top: 20px;">
         <div class="panel-heading"><span class="clickable panel-collapsed"><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i></span>
           <div class="pheader" style="display:inline;"><h5>General Information</h5></div><div style="display:inline; float: right;"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i></div>
         </div> <!--end panel header-->
