@@ -141,9 +141,9 @@ $(document).ready(function(){
                 			return '<div class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" /></div>'
                 		}
                 		if(data == "Completed") {
-                			return '<div class="searchProgess"><img src="../images/complete.png" alt="Complete" title="Complete" width="18px" height="18px"/></div>'
+                			return '<div class="searchProgess"><img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/></div>'
                 		}
-                		return '<div class="searchProgess"><img src="../images/pending.png" alt="Pending" title="Pending" width="18px" height="18px"></div>'
+                		return '<div class="searchProgess"><img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"></div>'
                 	}
                 	return data;
                 } },
