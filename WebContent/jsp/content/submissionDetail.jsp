@@ -19,8 +19,8 @@
           <tbody>
             <tr class="odd">
               <td colspan="2"><a href="#">Project Created</a></td>
-              <td><div class="searchProgess"><a href="../images/legend.gif" class="preview" title="Complete">
-        <img src="../images/complete.png" alt="Complete" width="18px" height="18px"/></div></td>
+              <td><div class="searchProgess">
+        <img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/></div></td>
               <td>03/02/2016 1:01 PM</td>
               <td align="center"></td>
               <td><a href="#">Jones, Mary</a></td>
@@ -29,8 +29,8 @@
             <tr class="info">
               <td colspan="2"><a href="#">GDS Plan</a></td>
       
-              <td><div class="searchProgess"><a href="../images/legend.gif" class="preview" title="In Progress">
-        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+              <td><div class="searchProgess">
+        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       </div></td>
               <td>03/11/2016 2:41 PM</td>
               <td align="center"><a href="errorReport2.htm"
@@ -43,8 +43,8 @@
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Data Sharing Exception</td>
-              <td><div class="searchProgess"><a href="../images/legend.gif" class="preview" title="In Progress">
-        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+              <td><div class="searchProgess">
+        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       </div></td>
               <td>03/11/2016 2:41 PM</td>
               <td align="center"><a href="errorReport2.htm"
@@ -55,8 +55,8 @@
 
             <tr class="info">
               <td colspan="2"><a href="#">Institutional Certification</a></td>
-              <td><div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
-        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+              <td><div class="searchProgess">
+        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       </div></td>
               <td>03/04/2016 5:25 PM</td>
                 <td align="center"><a href="errorReport3.htm"
@@ -67,8 +67,8 @@
 
             <tr class="odd">
               <td colspan="2"><a href="#">Basic Study Information</a></td>
-              <td><div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
-        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+              <td><div class="searchProgess">
+        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       </div></td>
               <td>03/08/2016 9:52 PM</td>
               <td align="center"><a href="#">View</a></td>
@@ -84,8 +84,8 @@
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Study Registration</td>
-              <td><div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
-        <img src="../images/complete.png" alt="Complete" width="18px" height="18px"/>
+              <td><div class="searchProgess">
+        <img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/>
       </div></td>
               <td>03/11/2016 2:41 PM</td>
               <td></td>
@@ -95,8 +95,8 @@
                       <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Project Submission</td>
-              <td><div class="searchProgess"><a href="images/legend.gif" class="preview" title="In Progress">
-        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" /></td>
+              <td><div class="searchProgess">
+        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" /></td>
               
               <td>03/11/2016 2:41 PM</td>
               <td align="center"></td>
@@ -125,8 +125,8 @@
             <tr class="odd">
               <td style="border-right: 0px;">&nbsp;</td>
               <td style="border-left: 0px;">Study Registration</td>
-              <td><div class="searchProgess"><a href="images/legend.gif" class="preview" title="Complete">
-        <img src="../images/complete.png" alt="Complete" width="18px" height="18px"/></div></td>
+              <td><div class="searchProgess">
+        <img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed" /></div></td>
               <td>03/11/2016 3:23 PM</td>
               <td></td>
               <td><a href="#">Jones, Mary</a></td>
@@ -134,8 +134,8 @@
             <tr class="odd">
               <td style="border-right: 0px;">&nbsp;</td>
               <td style="border-left: 0px;">Project Submission</td>
-              <td><div class="searchProgess"><a href="images/legend.gif" class="preview" title="Not Started">
-        <img src="../images/pending.png" alt="Not Started" width="18px" height="18px"/></a>
+              <td><div class="searchProgess">
+        <img src="../images/pending.png" alt="Not Started" width="18px" height="18px" title="Not Started" />
       </div></td>
 
              
