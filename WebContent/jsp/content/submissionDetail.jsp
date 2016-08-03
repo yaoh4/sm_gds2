@@ -3,7 +3,7 @@
 
 
 <div style="float:right; display:block;"><a href="#"><i class="fa fa-print fa-lg" aria-hidden="true"></i>&nbsp;Generate missing data report (PDF)</a></div><br/><br/>
-        <h4>Submission Details</h4><div style="display:inline; float: right;"><img alt="legend for progress icons" src="images/legend-search.gif"></div>
+        <h4>Submission Details</h4><div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search.gif"></div>
           <br/>
           <table width="85%" class="table table-bordered">
           <caption style="display: none;">Status History</caption>
@@ -20,7 +20,7 @@
             <tr class="odd">
               <td colspan="2"><a href="#">Project Created</a></td>
               <td><div class="searchProgess"><a href="../images/legend.gif" class="preview" title="Complete">
-        <img src="images/complete.png" alt="Complete" width="18px" height="18px"/></div></td>
+        <img src="../images/complete.png" alt="Complete" width="18px" height="18px"/></div></td>
               <td>03/02/2016 1:01 PM</td>
               <td align="center"></td>
               <td><a href="#">Jones, Mary</a></td>
@@ -44,7 +44,7 @@
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Data Sharing Exception</td>
               <td><div class="searchProgess"><a href="../images/legend.gif" class="preview" title="In Progress">
-        <img src="images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
+        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" /></a>
       </div></td>
               <td>03/11/2016 2:41 PM</td>
               <td align="center"><a href="errorReport2.htm"
