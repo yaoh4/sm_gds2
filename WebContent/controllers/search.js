@@ -92,7 +92,7 @@ $(document).ready(function(){
                     '&nbsp;&nbsp;&nbsp;<a href="#" id="eclick" class="ellipsisR"><img src="../images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"><img src="../images/ellipsisOver.png" height="17px" width="16x" alt="open ellipsis"></a></div>' +
                     '<div class="ellipsis" style="display: none;"><div class="dropbottom"><div class="dropmid" style="white-space: nowrap; height: auto;">' +
                     '<a href="javascript: void(0)">Add New Version</a><br>' +
-                    '<a href="javascript: void(0)">Add New Subproject</a></div></div></div>';
+                    '<a href="../manage/createSubproject.action?projectId=' + row.id + '">Add New Subproject</a></div></div></div>';
                 } },
                 {
                 "targets": -2, // Repository

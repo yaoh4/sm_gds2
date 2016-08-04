@@ -20,6 +20,7 @@ public interface ApplicationConstants {
 	
 	/* Action forwards */
 	public static final String NOT_AUTHORIZED = "notAuthorized";	
+	public static final String LINK_TO_PARENT_PAGE = "linkToParentProject";	
 	
 	/*List discriminators*/
 	 public static final String REGISTRATION_STATUS_LIST = "registration_status";
@@ -113,5 +114,8 @@ public interface ApplicationConstants {
 	 public static final String EXTRA_APPL_CLASS_CODE = "G";
 	 public static final String INTRA_APPL_CLASS_CODE = "M";
 	 public static final String CONTRACT_APPL_CLASS_CODE = "C";
+	 
+	 //Submission Type constants.	
+	 public static final Long SUBMISSION_TYPE_NEW_SUBPROJECT = 43L;
 	 
 }

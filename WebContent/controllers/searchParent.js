@@ -180,3 +180,11 @@ function getParentSubprojects(id) {
 	});
 
 }
+
+//This function executes on click of Next button on Link to Parent page.
+function createNewSubProject()
+{ 
+    var myForm = document.getElementById("search-form");
+    myForm.action="/gds/manage/createSubproject";
+    myForm.submit();
+}

@@ -1,14 +1,18 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.io.ByteArrayInputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Preparable;
@@ -43,7 +47,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	private List<DropDownOption> projectSubmissionReasons = new ArrayList<DropDownOption>();	
 	private List<GdsGrantsContracts> grantOrContractList = new ArrayList<GdsGrantsContracts>();	
 	private List<ProjectsVw> prevLinkedSubmissions = new ArrayList<ProjectsVw>();
-	private GdsGrantsContracts grantOrContract;
+	private GdsGrantsContracts grantOrContract;	
 
 	@Autowired
 	protected SearchProjectService searchProjectService;	
@@ -164,9 +168,65 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public String saveAndNextSubmissionType(){
 		
-		return SUCCESS;
+		if(Long.valueOf(getSelectedTypeOfProject()) == ApplicationConstants.SUBMISSION_TYPE_NEW_SUBPROJECT){
+			return ApplicationConstants.LINK_TO_PARENT_PAGE;
+		}		
 		
+		return SUCCESS;
 	}
+	
+	/**
+	 * This method creates a new subproject and copies Parent project data to it except basic study and submission status.
+	 * @return
+	 */
+	public String createSubproject(){
+
+		Project subProject = new Project();
+		Project parentProject = retrieveSelectedProject();
+
+		try {
+			ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
+			BeanUtils.copyProperties(parentProject, subProject);
+
+		} catch (Exception e) {
+			logger.error("Error occured while creating a Subproject", e);
+		}		
+		
+		cleanUpSubProject(subProject);
+		setProject(subProject);
+		loadGrantInfo();
+		setUpLists();
+		return SUCCESS;
+	}
+	
+	/**
+	 * Clean up of sub project.
+	 * Remove id, basic study info and repository statuses.
+	 */
+	private void cleanUpSubProject(Project subProject){
+		
+		subProject.setParentProjectId(subProject.getId());	
+		subProject.setId(null);
+		subProject.setBsiComments(null);
+		subProject.setBsiReviewedFlag(null);
+		subProject.setRepositoryStatuses(null);
+		subProject.setAnticipatedSubmissionDate(null);
+		subProject.setCreatedBy(null);
+		subProject.setLastChangedBy(null);
+		subProject.setPlanComments(null);
+		subProject.setPlanAnswerSelection(null);
+								
+		//Add only IC doc. Basic study and GDS plan docs should not be added to subproject
+		Set<Document> subProjectDocuments = new HashSet(0);
+		for(Document doc : subProject.getDocuments()){
+			if(ApplicationConstants.DOC_TYPE_IC.equalsIgnoreCase(doc.getDocType().getCode())){
+				subProjectDocuments.add(doc);
+			}
+		}
+		subProject.setDocuments(subProjectDocuments);		
+	}
+	
+	
 	
 	/**
 	 * This method sets up all data for General Info Page.
@@ -643,5 +703,4 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	public void setPrevLinkedSubmissions(List<ProjectsVw> prevLinkedSubmissions) {
 		this.prevLinkedSubmissions = prevLinkedSubmissions;
 	}	
-	
 }

@@ -6,7 +6,9 @@
 		<!-- Page navbar -->
 		<s:hidden name="projectId" value="%{project.id}"/>
 		<s:hidden name="applId" id="applId" value="%{project.applId}"/>
-		<s:hidden id="applClassCode" value="%{project.applClassCode}"/>
+		<s:hidden id="applClassCode" name="project.applClassCode" value="%{project.applClassCode}"/>
+		<s:hidden name="project.parentProjectId" value="%{project.parentProjectId}"/>
+		<s:hidden name="project.projectGroupId" value="%{project.projectGroupId}"/>
 	
 	  <div id="searchGrantsContracts"  style="display:none;">
 	    <s:include value="/jsp/content/searchGrantsContracts.jsp"/>

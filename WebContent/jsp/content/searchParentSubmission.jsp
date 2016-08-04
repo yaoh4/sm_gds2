@@ -4,7 +4,7 @@
 
 	<div class="pageNav">
 		<!-- Page navbar -->
-		<s:submit type="button" action="navigateToParentSearch" class="btn btn-project-primary">
+		<s:submit type="button" onclick="createNewSubProject()" class="btn btn-project-primary">
 			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right"
 				style="color: #ffffff;"></i>
 		</s:submit>
@@ -95,7 +95,7 @@
 
 	<div class="pageNav">
 		<!-- Page navbar -->
-		<s:submit type="button" action="navigateToParentSearch" class="btn btn-project-primary">
+		<s:submit type="button" onclick="createNewSubProject()" class="btn btn-project-primary">
 			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right"
 				style="color: #ffffff;"></i>
 		</s:submit>
