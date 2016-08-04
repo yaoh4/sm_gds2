@@ -72,9 +72,6 @@
 					<!--BEGIN Uploader-->
 					<div class="qSpacing" id="bsiDiv">
 						<div class="col-lg-6">
-							<p class="uploadBox">
-								File Uploader</span>
-							</p>
 							<div class="input-group">
 								<input type="text" class="form-control"
 									placeholder="Choose File to Upload" readonly><label
