@@ -177,6 +177,13 @@ public class ManageSubmission extends BaseAction {
 		
 		boolean show = true;
 		
+		//Do not show GDS Plan if this is a sub-project
+		if(project.getParentProjectId() != null) {
+			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_GDSPLAN)) {
+				show = false;
+			}
+		}
+		
 		// If user selects "Non-human" only, the system will NOT display the "Institutional Certifications"
 		if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
 				project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) != null) {
