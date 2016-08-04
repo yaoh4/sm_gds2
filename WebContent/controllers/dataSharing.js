@@ -38,7 +38,7 @@ $("#gds-form").on('click', '#addfield', function () {
 		
 		// add input box
 		$(".otherWrapper").last().after('<div class="otherWrapper" style="margin-bottom: 15px; margin-top: 15px;">'
-			+ '<input type="text" class="other" name="otherText[25]" id="field_'
+			+ '<input type="text" maxlength="200" class="other" name="otherText[25]" id="field_'
 			+ fieldCount
 			+ '" placeholder="Name of Repository" />'
 			+ '<span class="fa fa-trash removeclass delete" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px;">'

@@ -151,7 +151,7 @@
 									<s:if test="%{otherText[#ans.id].size > 0}">
 										<s:iterator value="%{otherText[#ans.id]}" var="other" status="otherStat">
 											<s:div class="otherWrapper" style="margin-bottom: 15px; margin-top: 15px;">
-												<s:textfield id="field_%{#otherStat.index}" name="otherText[%{#ans.id}]" value="%{#other}"
+												<s:textfield id="field_%{#otherStat.index}" name="otherText[%{#ans.id}]" value="%{#other}" maxlength="200"
 													class="other" placeholder="Name of Repository" />
 												<s:if test="%{otherText[#ans.id].size > 1}">
 													<span class="fa fa-trash fa-lg" title="delete" aria-hidden="true" alt="delete" style="font-size: 18px; padding-right: 3px;"></span>
@@ -161,7 +161,7 @@
 									</s:if>
 									<s:else>
 										<s:div class="otherWrapper" style="margin-bottom: 15px; margin-top: 15px;">
-											<s:textfield id="field_0" name="otherText[%{#ans.id}]"
+											<s:textfield id="field_0" name="otherText[%{#ans.id}]" maxlength="200"
 												class="other" placeholder="Name of Repository" />
 										</s:div>
 									</s:else>
