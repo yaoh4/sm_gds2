@@ -47,9 +47,7 @@
         <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       </div></td>
               <td>03/11/2016 2:41 PM</td>
-              <td align="center"><a href="errorReport2.htm"
-    onclick="return !window.open(this.href, 'Google', 'width=800,height=500')"
-    target="_blank">View</a></td>
+              <td align="center"></td>
               <td><a href="#">Jones, Mary</a></td>
             </tr>
 
