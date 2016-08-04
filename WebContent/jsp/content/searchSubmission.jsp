@@ -36,7 +36,7 @@
 
 
 				<div class="col-xs-4">
-					<label for="Principal Investigator">Principal Investigator</label>
+					<label for="Principal Investigator">Principle Investigator</label>
 					<s:textfield  name="criteria.piFirstOrLastName" class="form-control" id="investigator" />
 				</div>
 
