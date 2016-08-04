@@ -733,6 +733,11 @@ i.fa.fa-circle.fa-stack-2x {padding:0px; margin:0px;  position:relative; font-si
 table.dataTable tbody th, table.dataTable tbody td {
   padding: 3px;
 }
+
+table.dataTable td {
+  font-size: 12px;
+}
+
 th.sorting_asc {padding:12px !important;}
  th.sorting {padding: 3px 3px !important;}
 td.sorting {padding: 12px 12px !important;}
