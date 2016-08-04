@@ -43,7 +43,7 @@
 				<div id="1" style="${map['1'].style}" class="qSpacing">
 					<p class="question">
 						<s:property value="%{getQuestionById(1).getDisplayText()}" /> [
-						<a href="http://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data#exceptions"
+						<a href="http://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/about-policy#exceptions"
 							target="_blank">View Exception Process&nbsp;<i
 							class="fa fa-external-link" aria-hidden="true"></i></a> ]
 					</p>
