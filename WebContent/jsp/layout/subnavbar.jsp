@@ -23,17 +23,18 @@
 				</s:else>
 				<li class="divider-vertical"></li>
 				
-				<%-- We always show the gds plan page if its a saved project --%>
-				<s:if test="%{'gdsPlan' eq #attr['subnavtab']}">
+				<s:if test="%{showPage('gdsPlan')}">
+				  <s:if test="%{'gdsPlan' eq #attr['subnavtab']}">
 					<li class="active"><a href="javascript: void(0)">Genomic Data Sharing Plan</a></li>
-				</s:if>
-				<s:else>
+				  </s:if>
+				  <s:else>
 					<s:url namespace="/manage" var="gdsPlanUrl" action="editGdsPlan">
 						<s:param name="projectId" value="%{projectId}" />
 					</s:url>
 					<li><s:a href="%{gdsPlanUrl}">Genomic Data Sharing Plan</s:a></li>
-				</s:else>
-				<li class="divider-vertical"></li>
+				  </s:else>
+				  <li class="divider-vertical"></li>
+				</s:if>
 				
 				<%-- Show IC tab --%>
 				<s:if test="%{showPage('ic')}">
