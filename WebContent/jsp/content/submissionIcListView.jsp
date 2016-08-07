@@ -5,8 +5,15 @@
 
 <div class="panel panel-default" id="searchGrant" style="margin-top: 20px;">
         <div class="panel-heading">
-          <span class="clickable panel-collapsed"><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
-          <div class="pheader" style="display:inline;"><h5>Institutional Certification(s)</h5></div><div style="display:inline; float: right;"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i></div>
+          <span class="clickable panel-collapsed">
+            <i class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
+          </span>
+          <div class="pheader" style="display:inline;"><h5>Institutional Certification(s)</h5></div>
+          <div style="display:inline; float: right;">
+            <a href="/gds/manage/listIc.action?projectId=${project.id}">
+              <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>
+            </a>
+          </div>
         </div> <!--end panel header-->
         <div class="panel-body" style="display:none;">
          <s:if test="%{project.institutionalCertifications.size == 0}">
