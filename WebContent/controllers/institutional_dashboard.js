@@ -1,9 +1,10 @@
 ////for page institutional_dashboard.htm
 $(document).ready(function() {
 
-//show/hide button for Add Additional Instititional Certificates	
-
-
+  
+	
+  //show/hide button for Add Additional Institutional Certificates if not subproject
+  if($("#subprojectFlag").val().toUpperCase() == 'N') {
 	if ($("#radioCertCompleteY").prop("checked") == true) {
 		$('#addICBtn').hide();
 	} else {
@@ -19,9 +20,10 @@ $(document).ready(function() {
             $('#addICBtn').hide();   
        }
    });
+ }
 
-//delete modal///
-
+  
+  //delete modal///
 
   $('.btnDelete').on('click', function (e) {
     e.preventDefault();
@@ -39,14 +41,7 @@ $(document).ready(function() {
   })
   
   
-  //Show and hide ic details
-//$('body').on('click', 'a.icDetails', function() {
-	//var id = $(this).attr("id").replace("icDetails", "contentDivImg");
-   // $("#" + id).slideToggle('500');
-   // $("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
-//});
-  
-  
+ 
 
 $('#btnDelteYes').click(function () {
     var id = $('#myModal').data('id');
