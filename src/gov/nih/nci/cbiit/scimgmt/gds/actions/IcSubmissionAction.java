@@ -593,6 +593,21 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	
+	public String save() {
+		
+		saveIcList();
+		addActionMessage(getText("project.save.success"));
+		return getIcList();
+	}
+	
+	
+	public String saveAndNext() {
+		
+		saveIcList();
+		return SUCCESS;
+	}
+	
+	
 	/**
 	 * Saves the certificationComplete flag. Invoked from:
 	 * 'Save' or 'Save and Next' button on the Track Institutional Certification
@@ -600,7 +615,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	 * 
 	 * @return
 	 */
-	public String saveIcList() {
+	private void saveIcList() {
 		
 		String certComplete = getProject().getCertificationCompleteFlag();
 		
@@ -609,11 +624,6 @@ public class IcSubmissionAction extends ManageSubmission {
 		project.setCertificationCompleteFlag(certComplete);
 		
 		setProject(saveProject(project));
-		
-		addActionMessage(getText("project.save.success"));
-		
-		return getIcList();
-		
 	}
 	
 	
