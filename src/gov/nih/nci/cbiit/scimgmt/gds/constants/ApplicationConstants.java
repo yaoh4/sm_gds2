@@ -118,4 +118,8 @@ public interface ApplicationConstants {
 	 //Submission Type constants.	
 	 public static final Long SUBMISSION_TYPE_NEW_SUBPROJECT = 43L;
 	 
+	 //Action forward constants
+	 public static final String SUBPROJECT = "subproject";
+	 public static final String EMPTY = "empty";
+	 
 }
