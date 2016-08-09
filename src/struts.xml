@@ -51,7 +51,7 @@
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
 			<result name="success" type="redirect-action">
 				<param name="actionName">home</param>
-            	<param name="namespace">/search</param>
+            	<param name="namespace">/manage</param>
 			</result>			
 		</action>
 		
