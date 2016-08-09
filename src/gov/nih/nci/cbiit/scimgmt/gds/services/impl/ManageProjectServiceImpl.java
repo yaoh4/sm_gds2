@@ -1,17 +1,22 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.DocumentsDao;
+import gov.nih.nci.cbiit.scimgmt.gds.dao.InstitutionalCertificationsDao;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.ProjectsDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 
@@ -27,6 +32,9 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	
 	@Autowired
 	private DocumentsDao documentsDao;
+	
+	@Autowired
+	InstitutionalCertificationsDao icCertsDao;
 	
 	/**
 	 * Inserts or Updates the Project
@@ -49,11 +57,19 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		for(Document doc : docs) {
 			documentsDao.delete(doc);
 		}
+		
 		Project project = findById(projectId);
+		List<ProjectsIcMapping> icMappings = project.getProjectsIcMappings();
+		for(ProjectsIcMapping icMapping: icMappings) {
+			icCertsDao.delete(icMapping.getInstitutionalCertification());
+		}
+		
 		projectsDao.delete(project);
 		return;
 	}
-
+	
+	
+	
 	/**
 	 * Retrieve Project given an ID
 	 * 
@@ -63,6 +79,66 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	public Project findById(Long projectId) {
 		return projectsDao.findById(projectId);
 	}
+	
+	
+	/**
+	 * Inserts or Updates the IC
+	 * 
+	 * @param ic
+	 * @return saved ic
+	 */
+	public InstitutionalCertification saveOrUpdateIc(InstitutionalCertification ic, Project project) {
+		InstitutionalCertification result =  icCertsDao.merge(ic);
+		if(ic.getId() == null) {
+			project.getProjectsIcMappings().add(new ProjectsIcMapping(
+					project, result.getCreatedBy(), null, result));	
+		}
+		
+		saveOrUpdate(project);
+		return result;
+	}
+	
+	
+	/**
+	 * Deletes an IC from DB by icId
+	 * 
+	 * @param icId
+	 * @return boolean
+	 */
+	public boolean deleteIc(Long icId) {
+		
+		InstitutionalCertification ic = icCertsDao.findById(icId);
+		if(ic == null)
+			return false;
+		icCertsDao.delete(ic);
+		return true;
+	}
+
+	/**
+	 * Retrieve a list of ICs from DB for a specific project
+	 * 
+	 * @param projectId
+	 * 
+	 * @return list of ICs
+	 */
+	public List<InstitutionalCertification> findIcsByProject(Project project) {
+		
+		List<InstitutionalCertification> icList = new ArrayList<InstitutionalCertification>();
+		
+		List<ProjectsIcMapping> icMappings = project.getProjectsIcMappings();
+		if(!CollectionUtils.isEmpty(icMappings)) {
+			for(ProjectsIcMapping icMapping: icMappings) {
+				InstitutionalCertification ic = icMapping.getInstitutionalCertification();
+				icList.add(ic);
+			}
+		}
+		
+		return icList;
+	}
+	
+	
+	
+	
 	
 	/**
 	 * This method retrieves Intramural / Grant / Contract List

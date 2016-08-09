@@ -31,12 +31,13 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		Project project = retrieveSelectedProject();
 		
 		//Load ICs
-		List<InstitutionalCertification> certs  = project.getInstitutionalCertifications();
+		List<InstitutionalCertification> certs  = manageProjectService.findIcsByProject(project);
+		project.setInstitutionalCertifications(certs);
 		HashMap<Long, InstitutionalCertification> map = new HashMap<Long, InstitutionalCertification>();
 		
 		if(certs != null && !certs.isEmpty()) {
 			List<Document> docs = 
-					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, retrieveSelectedProject().getId());
+					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getParentProjectId());
 				    
 			for(InstitutionalCertification cert: certs) {
 				for(Document doc: docs) {

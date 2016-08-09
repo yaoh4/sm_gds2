@@ -32,7 +32,6 @@ import org.hibernate.annotations.CascadeType;
 public class InstitutionalCertification implements java.io.Serializable {
 
 	private Long id;
-	private Project project;
 	private Long gpaApprovalCode;
 	private Long provisionalFinalCode;
 	private Long futureProjectUseCode;
@@ -41,13 +40,13 @@ public class InstitutionalCertification implements java.io.Serializable {
 	private String lastChangedBy;
 	private List<Document> documents = new ArrayList();
 	private List<Study> studies = new ArrayList();
+	private List<ProjectsIcMapping> projectsIcMappings = new ArrayList();
 
 	public InstitutionalCertification() {
 	}
 
-	public InstitutionalCertification(Long id, Project project, String createdBy) {
+	public InstitutionalCertification(Long id,  String createdBy) {
 		this.id = id;
-		this.project = project;
 		this.createdBy = createdBy;
 	}
 
@@ -55,7 +54,6 @@ public class InstitutionalCertification implements java.io.Serializable {
 			Long provisionalFinalCode, Long futureProjectUseCode, String comments,
 			String createdBy, String lastChangedBy, List documents, List studies) {
 		this.id = id;
-		this.project = project;
 		this.gpaApprovalCode = gpaApprovalCode;
 		this.provisionalFinalCode = provisionalFinalCode;
 		this.futureProjectUseCode = futureProjectUseCode;
@@ -78,15 +76,6 @@ public class InstitutionalCertification implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PROJECT_ID", nullable = false)
-	public Project getProject() {
-		return this.project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
 
 	@Column(name = "GPA_APPROVAL_CODE", length = 8)
 	public Long getGpaApprovalCode() {
@@ -168,6 +157,18 @@ public class InstitutionalCertification implements java.io.Serializable {
 	
 	public void addStudy(Study study) {
 		studies.add(study);
+	}
+
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "institutionalCertification", orphanRemoval=true)
+	@Cascade({CascadeType.ALL})
+	public List<ProjectsIcMapping> getProjectsIcMappings() {
+		return projectsIcMappings;
+	}
+
+	
+	public void setProjectsIcMappings(List<ProjectsIcMapping> projectsIcMappings) {
+		this.projectsIcMappings = projectsIcMappings;
 	}
 
 }

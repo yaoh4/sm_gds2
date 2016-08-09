@@ -3,6 +3,7 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
+<s:hidden id="icIds" name="icIds"/>
 	
 <!--Begin Form -->
     <s:form id="ic_dashboard_form" name="ic_dashboard_form" namespace="manage" method="post"
@@ -15,6 +16,8 @@
       </div>
       
       <s:hidden name="projectId" id="projectId" value="%{project.id}"/>
+      <s:hidden name="project.subprojectFlag" id="subprojectFlag" value="%{project.subprojectFlag}"/>
+      <s:hidden name="project.parentProjectId" value="%{project.parentProjectId}"/>
       <s:hidden name="project.createdBy" value="%{project.createdBy}"/>
       
       
@@ -24,20 +27,7 @@
           
           <div class="panel-heading">
             <div class="pheader"><h4>Institutional Certification Status</h4></div>
-         <!--  <div class="statusWrapper">
-              <div class="status"><a href="#" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
-              <div class="statusIcon"> 
-                <a href="#" class="tooltip"><img src="images/inprogress.png" alt="In Progress" />
-                  <span>
-                    <img class="callout" src="images/callout_black.gif" />
-                    <strong>Legend:</strong><br />  
-                    <img src="images/legend.gif" /> 
-                  </span>
-                </a>
-              </div>
-            </div> -->
-          </div><!--end header-->
-          
+          </div><!--end header-->   
           
           <div class="panel-body">
            
@@ -63,6 +53,8 @@
 
             <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
               <tr class="modalTheader">
+               <!--  Show this column header only for subproject -->
+                <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select</th>                      
                 <th class="tableHeader" align="center" width="60%">Institutional Certification Document</th>
                 <th class="tableHeader" align="center" width="30%">Date Uploaded</th>
                 <th class="tableHeader" align="center" width="10%">Actions</th>
@@ -73,6 +65,14 @@
                 
                 <!--  FILE DISPLAY AND ICONS ROW -->    
                 <tr  data-id="${ic.id}">
+                 
+                 <!--  Show this column only for subproject -->
+                    <td class="subprojectSelect" style="white-space: nowrap;display:none;">                 
+		                <input class="icSelect" type="checkbox" 
+	                      name="ic-selected" id="ic${ic.id}" value="${ic.id}">				 
+                    </td>
+
+                
                   <td style="white-space: nowrap">
                     <s:a href="javascript:openDocument(%{#ic.documents[0].id})">
                       <s:property value="%{#ic.documents[0].fileName}" />
@@ -87,12 +87,13 @@
                     <a href="#" class="icDetails" id="icDetails${ic.id}">
                       <i class="expand fa fa-plus-square fa-lg" id="${ic.id}expand" aria-hidden="true" alt="view" title="view"></i>
                     </a>&nbsp;&nbsp;&nbsp;
-                    <a href="/gds/manage/editIc.action?instCertId=${ic.id}&projectId=${project.id}">
-                      <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;
-                    </a>&nbsp;&nbsp;&nbsp;
-                    <a href="#" class="btnDelete">
-                      <i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i>
-                    </a>
+                    <!--  Do not show edit and delete for sub-project -->
+                      <a class="btnEdit" style="display:none;"  href="/gds/manage/editIc.action?instCertId=${ic.id}&projectId=${project.id}">
+                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;
+                      </a>&nbsp;&nbsp;&nbsp;
+                      <a style="display:none;" href="#" class="btnDelete">
+                        <i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i>
+                      </a>                   
                   </td>
                 </tr>
                         

@@ -87,7 +87,8 @@ public interface ApplicationConstants {
 	 /* String constants */
 	 public static final String NOT_STARTED = "NOTSTARTED"; 
 	 public static final String NOT_APPLICABLE = "NA"; 
-	 public static final String NO = "NO"; 
+	 public static final String NO = "NO"; 	
+	 public static final String CODE_YES = "Y";
 	 public static final String OTHER = "Other"; 
 	 public static final String DOC_TYPE_EXCEPMEMO = "EXCEPMEMO";
 	 public static final String DOC_TYPE_GDSPLAN = "GDSPLAN";

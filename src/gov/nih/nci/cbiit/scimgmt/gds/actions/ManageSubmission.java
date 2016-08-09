@@ -97,6 +97,24 @@ public class ManageSubmission extends BaseAction {
 	}
 	
 	
+	public Project retrieveParentProject() {
+		Project parentProject = null;
+		
+		if(project == null) {
+			String projectId  = getProjectId();
+			if(StringUtils.isNotBlank(projectId)) {
+				project =  manageProjectService.findById(Long.valueOf(projectId));
+			} 
+		}
+		
+		Long parentProjectId = project.getParentProjectId();
+		if(parentProjectId != null) {
+			parentProject =  manageProjectService.findById(Long.valueOf(parentProjectId));
+		} 
+		return parentProject;
+	}
+	
+	
 	/**
 	 * Save the project
 	 */
@@ -115,6 +133,14 @@ public class ManageSubmission extends BaseAction {
 		
 	}
 
+	
+	public Project saveUpdateProjectStatus(Project project) {
+		if(project.getCertificationCompleteFlag() == "No") {
+			
+		}
+		return null;
+	}
+	
 	
 	/**
 	 * Delete a file using document id

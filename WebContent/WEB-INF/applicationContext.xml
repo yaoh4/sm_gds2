@@ -61,6 +61,7 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Project</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Study</value>

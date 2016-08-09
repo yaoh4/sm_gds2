@@ -1,9 +1,19 @@
 ////for page institutional_dashboard.htm
 $(document).ready(function() {
 
-  
+  if($("#icIds") != null && $("#icIds").val().length > 0) {
+    var icIdArray = JSON.parse($("#icIds").val());
 	
-  //show/hide button for Add Additional Institutional Certificates if not subproject
+	//Set all selected ics to checked
+	jQuery.each(icIdArray, function(index, value) {
+		
+	  //this represents value of the ic checkbox
+	  $("#ic" + value).prop('checked', true);	
+	});
+  }
+	
+	
+  //show/hide Add Additional Instititional Certificates link if not subproject
   if($("#subprojectFlag").val().toUpperCase() == 'N') {
 	if ($("#radioCertCompleteY").prop("checked") == true) {
 		$('#addICBtn').hide();
@@ -20,10 +30,19 @@ $(document).ready(function() {
             $('#addICBtn').hide();   
        }
    });
+	
+	//show the delete and edit icons only for projects
+	$(".btnEdit").show();
+	$(".btnDelete").show();
+ } else {
+	 //Show the checkbox select column only for subprojects
+	 $("#subprojectColumn").show();
+	 $(".subprojectSelect").show();
+	 
  }
 
-  
-  //delete modal///
+//delete modal///
+
 
   $('.btnDelete').on('click', function (e) {
     e.preventDefault();
