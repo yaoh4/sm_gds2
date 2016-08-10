@@ -561,7 +561,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		Project storedProject = retrieveSelectedProject();
 		List<InstitutionalCertification> icList = manageProjectService.findIcsByProject(storedProject);
 		Long displayProjectId = storedProject.getId();
-		if(ApplicationConstants.CODE_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
+		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
 			prepareIcListDisplay(icList);
 			icList = manageProjectService.findIcsByProject(retrieveParentProject());
 			displayProjectId = storedProject.getParentProjectId();
@@ -572,7 +572,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		List<Document> docs = 
 			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, displayProjectId);
 			
-		if(CollectionUtils.isEmpty(icList) && !ApplicationConstants.CODE_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
+		if(CollectionUtils.isEmpty(icList) && !ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
 			forward =  ApplicationConstants.EMPTY;
 		} 
 		
@@ -637,7 +637,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		storedProject.setCertificationCompleteFlag(certComplete);
 		
 		//If this is a sub-project, save only the ICs selected from the parent
-		if(ApplicationConstants.CODE_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
+		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
 			List<ProjectsIcMapping> projectsIcMappings = getSubProjectIcs(storedProject);			
 			storedProject.setProjectsIcMappings(projectsIcMappings);
 		}

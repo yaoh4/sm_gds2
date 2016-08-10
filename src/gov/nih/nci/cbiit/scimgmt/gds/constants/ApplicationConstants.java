@@ -76,19 +76,25 @@ public interface ApplicationConstants {
 	 public static final Long IC_STUDY_DUL_CHECKLIST_DISEASE_SPECIFIC_ID = 13L;
 	 public static final Long IC_STUDY_DUL_CHECKLIST_OTHER_ID = 21L;
 	 public static final Long PROJECT_SUBMISSION_STATUS_INPROGRESS_ID = 12L;
-	 public static final Long PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID = 13L;	 
+	 public static final Long PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID = 13L;	
+	 public static final Long PROJECT_SUBMISSION_STATUS_COMPLETED_ID = 14L;
 	 public static final Long REGISTRATION_STATUS_INPROGRESS_ID = 8L;
 	 public static final Long REGISTRATION_STATUS_NOTSTARTED_ID = 9L;	 
 	 public static final Long PROJECT_STUDY_RELEASED_NO_ID = 17L;
 	 public static final Long SEARCH_MY_PROJECT_SUBMISSIONS = 40L;
 	 public static final Long SEARCH_SUBMISSION_FROM_MYDOC = 41L;
 	 public static final Long SEARCH_SUBMISSION_FROM_ALL = 42L;
+	 public static final Long YES_ID = 18L;
+	 public static final Long NO_ID  = 19L;
+	 
+	 /* Data Constants for flags*/
+	 public static final String FLAG_YES = "Y";
+	 public static final String FLAG_NO = "N";
 	 
 	 /* String constants */
 	 public static final String NOT_STARTED = "NOTSTARTED"; 
 	 public static final String NOT_APPLICABLE = "NA"; 
 	 public static final String NO = "NO"; 	
-	 public static final String CODE_YES = "Y";
 	 public static final String OTHER = "Other"; 
 	 public static final String DOC_TYPE_EXCEPMEMO = "EXCEPMEMO";
 	 public static final String DOC_TYPE_GDSPLAN = "GDSPLAN";
