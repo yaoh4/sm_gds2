@@ -1005,6 +1005,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/actions/SysAdminAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/PlanQuestionList.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/DocumentsDao.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/dao/InstitutionalCertificationsDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/MailTemplateDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/ProjectSearchDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/ProjectsDao.java -text
