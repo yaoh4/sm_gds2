@@ -395,5 +395,9 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 	public void setIsDbGap(String isDbGap) {
 		this.isDbGap = isDbGap;
-	}	
+	}
+	
+	public String getPageStatusCode() {
+		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_REPOSITORY);
+	}
 }

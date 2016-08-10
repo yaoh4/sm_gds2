@@ -27,6 +27,8 @@
           
           <div class="panel-heading">
             <div class="pheader"><h4>Institutional Certification Status</h4></div>
+            <s:include value="/jsp/content/pageStatus.jsp"/>
+             
           </div><!--end header-->   
           
           <div class="panel-body">

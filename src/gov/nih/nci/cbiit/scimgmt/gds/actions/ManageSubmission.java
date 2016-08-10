@@ -21,11 +21,13 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionStatusHelper;
 
 /**
  * Manages Submission creation, updates and deletion.
@@ -129,6 +131,7 @@ public class ManageSubmission extends BaseAction {
 			project.setSubprojectFlag("Y");
 		}
 		
+		project.setPageStatuses(GdsSubmissionStatusHelper.getInstance().getPageStatuses(project));
 		return manageProjectService.saveOrUpdate(project);
 		
 	}
@@ -361,4 +364,11 @@ public class ManageSubmission extends BaseAction {
 	public String getProjectEndDate() {
 		return dateFormat.format(getProject().getProjectEndDate());
 	}
+	
+	public String getPageStatusCode(String pageCode) {
+		PageStatus pageStatus = 
+			getProject().getPageStatus(pageCode);
+		return pageStatus.getStatus().getCode();
+	}
+	
 }

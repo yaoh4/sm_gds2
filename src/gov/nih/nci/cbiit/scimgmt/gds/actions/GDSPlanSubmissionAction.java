@@ -6,8 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.Date;import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -882,6 +881,11 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	
+	
+	public String getPageStatusCode() {
+		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_GDSPLAN);
 	}
 
 }

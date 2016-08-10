@@ -18,6 +18,7 @@
 				<div class="panel-heading">
 					<div class="pheader">
 						<h4>Submission Status&nbsp;</h4>
+						 <s:include value="/jsp/content/pageStatus.jsp"/>
 					</div>
 				</div>
 				<div class="panel-body">

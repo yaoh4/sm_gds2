@@ -170,6 +170,7 @@ WebContent/index.jsp -text
 WebContent/jsp/content/detailReport.jsp -text
 WebContent/jsp/content/dulSetTemplate.jsp -text
 WebContent/jsp/content/manageDuls.jsp -text
+WebContent/jsp/content/pageStatus.jsp -text
 WebContent/jsp/content/prevLinkedSubmissions.jsp -text
 WebContent/jsp/content/search.jsp -text
 WebContent/jsp/content/searchGrantsContracts.jsp -text
@@ -1056,6 +1057,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/util/DropDownOption.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/ExcelExportProc.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/GdsProperties.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/GdsSubmissionActionHelper.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/util/GdsSubmissionStatusHelper.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/RepositoryStatusComparator.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/UIRuleUtil.java -text
 src/manage.xml -text

@@ -24,6 +24,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
@@ -866,6 +867,10 @@ public class IcSubmissionAction extends ManageSubmission {
 
 	public void setDoc(Document doc) {
 		this.doc = doc;
+	}
+	
+	public String getPageStatusCode() {
+		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_IC);
 	}
 
 }

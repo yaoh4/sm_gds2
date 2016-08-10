@@ -287,5 +287,9 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	public void setBsiReviewedFlag(String bsiReviewedFlag) {
 		this.bsiReviewedFlag = bsiReviewedFlag;
 	}
+	
+	public String getPageStatusCode() {
+		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_BSI);
+	}
 
 }

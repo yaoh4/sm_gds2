@@ -4,6 +4,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.domain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -69,7 +70,7 @@ public class Project implements java.io.Serializable {
 	private Date anticipatedSubmissionDate;
 	private String submissionTitle;
 	private String dataLinkFlag;
-	private Set<PageStatus> pageStatuses = new HashSet(0);
+	private List<PageStatus> pageStatuses = new ArrayList();
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
@@ -122,7 +123,7 @@ public class Project implements java.io.Serializable {
 			String createdBy, String lastChangedBy, String subprojectFlag,
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
-			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, Set pageStatuses, Set documents,
+			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, List pageStatuses, Set documents,
 			Set planAnswerSelections, List repositoryStatuses, List institutionalCertifications,Long applId, String submissionTitle, String dataLinkFlag) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
@@ -470,13 +471,26 @@ public class Project implements java.io.Serializable {
 		this.pdLastName = pdLastName;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-	public Set<PageStatus> getPageStatuses() {
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
+	@Cascade({CascadeType.ALL})
+	public List<PageStatus> getPageStatuses() {
 		return this.pageStatuses;
 	}
 
-	public void setPageStatuses(Set<PageStatus> pageStatuses) {
+	public void setPageStatuses(List<PageStatus> pageStatuses) {
 		this.pageStatuses = pageStatuses;
+	}
+	
+	public PageStatus getPageStatus(String pageCode) {
+		Iterator<PageStatus> statuses = pageStatuses.iterator();
+		while(statuses.hasNext()) {
+		    PageStatus pageStatus = statuses.next();
+			if(pageStatus.getPage().getCode().equals(pageCode)) {
+				return pageStatus;
+			}
+		}
+		
+		return null;
 	}
 
 	@Transient 

@@ -126,6 +126,10 @@
 	<bean id="gdsSubmissionActionHelper" class="gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper"
 		init-method="init">
 	</bean>
+	
+	<bean id="gdsSubmissionStatusHelper" class="gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionStatusHelper"
+		init-method="init">
+	</bean>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host">

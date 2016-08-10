@@ -104,6 +104,7 @@ public class ProjectsDao {
 				Hibernate.initialize(instance.getPlanAnswerSelection());
 				Hibernate.initialize(instance.getRepositoryStatuses());
 				Hibernate.initialize(instance.getProjectsIcMappings());
+				Hibernate.initialize(instance.getPageStatuses());
 				logger.debug("get successful, instance found");
 			}
 			return instance;

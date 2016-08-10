@@ -20,6 +20,7 @@
 			<div class="panel-heading">
 				<div class="pheader">
 					<h4>Basic Study Information</h4>
+					 <s:include value="/jsp/content/pageStatus.jsp"/>
 				</div>
 				<!-- <div class="statusWrapper">
 					<div class="status">

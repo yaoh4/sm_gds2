@@ -91,6 +91,17 @@ public interface ApplicationConstants {
 	 public static final String FLAG_YES = "Y";
 	 public static final String FLAG_NO = "N";
 	 
+	 /*Constants for page codes*/
+	 public static final String PAGE_CODE_IC = "IC";
+	 public static final String PAGE_CODE_GDSPLAN = "GDSPLAN";
+	 public static final String PAGE_CODE_BSI = "BSI";
+	 public static final String PAGE_CODE_REPOSITORY = "REPOSITORY";
+	 
+	 /*Constants for page status codes*/
+	 public static final String PAGE_STATUS_CODE_NOT_STARTED = "NOTSTARTED";
+	 public static final String PAGE_STATUS_CODE_IN_PROGRESS = "INPROGRESS";
+	 public static final String PAGE_STATUS_CODE_COMPLETED = "COMPLETED";	 
+	 
 	 /* String constants */
 	 public static final String NOT_STARTED = "NOTSTARTED"; 
 	 public static final String NOT_APPLICABLE = "NA"; 
