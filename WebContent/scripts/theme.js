@@ -69,7 +69,7 @@
             }
 
         });
-	});
+
 
 //back to top button
 
@@ -86,5 +86,10 @@
         $('.back-to-top').css('opacity', '0')
     };
 });
+
+        
+	});
+
+
 
  
