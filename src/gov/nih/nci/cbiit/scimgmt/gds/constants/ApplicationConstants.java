@@ -50,6 +50,8 @@ public interface ApplicationConstants {
 	 public static final int  NED_PERSON_NIH_SAC_MIN_SIZE = 4;
 	 public static final int  GRANT_CONTRACT_NUM_MIN_SIZE = 6;
 	 public static final Long PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID = 1L;
+	 public static final Long PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID = 2L;
+	 public static final Long PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID = 3L;
 	 public static final Long PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID = 4L;
 	 public static final Long PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID = 5L;
 	 public static final Long PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID = 6L;
@@ -66,6 +68,8 @@ public interface ApplicationConstants {
 	 public static final Long PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID = 19L;
 	 public static final Long PLAN_QUESTION_ANSWER_DBGAP_ID = 21L;
 	 public static final Long PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID = 26L;
+	 public static final Long PLAN_QUESTION_ANSWER_GPA_REVIEWED_YES_ID = 27L;
+	 public static final Long PLAN_QUESTION_ANSWER_GPA_REVIEWED_NO_ID = 28L;
 	 public static final Long PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID = 29L;
 	 public static final Long PLAN_QUESTION_ANSWER_UPLOAD_OPTION_FILE_ID = 30L;
 	 public static final Long SUBMISSION_REASON_GDSPOLICY = 26L;

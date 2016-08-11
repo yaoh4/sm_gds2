@@ -482,7 +482,7 @@ public class Project implements java.io.Serializable {
 	}
 	
 	public PageStatus getPageStatus(String pageCode) {
-		Iterator<PageStatus> statuses = pageStatuses.iterator();
+		Iterator<PageStatus> statuses = getPageStatuses().iterator();
 		while(statuses.hasNext()) {
 		    PageStatus pageStatus = statuses.next();
 			if(pageStatus.getPage().getCode().equals(pageCode)) {
