@@ -27,7 +27,7 @@
 							<li><a href="http://www.nih.gov" target="_blank">National Institutes of
 									Health</a></li>
 							<li><a href="http://www.cancer.gov/" target="_blank">National Cancer Institute</a></li>
-							<li class="last"><a href="http://usa.gov">USA.gov</a></li>
+							<li class="last"><a href="http://usa.gov" target="_blank">USA.gov</a></li>
 						</ul>
 					</div>
 				</div>
