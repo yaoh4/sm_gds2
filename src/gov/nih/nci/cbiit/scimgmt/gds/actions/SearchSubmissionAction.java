@@ -266,7 +266,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 						row.add("");
 						row.add(repo.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
 						row.add(repo.getLookupTByRegistrationStatusId().getDisplayName());
-						row.add(repo.getLookupTByDataSubmissionStatusId().getDisplayName());
+						row.add(repo.getLookupTBySubmissionStatusId().getDisplayName());
 						row.add(repo.getLookupTByStudyReleasedId().getDisplayName());
 						row.add(repo.getAccessionNumber());
 						exportRow.setRow(row);
@@ -331,7 +331,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 								row.add(repo.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer()
 										.getDisplayText());
 								row.add(repo.getLookupTByRegistrationStatusId().getDisplayName());
-								row.add(repo.getLookupTByDataSubmissionStatusId().getDisplayName());
+								row.add(repo.getLookupTBySubmissionStatusId().getDisplayName());
 								row.add(repo.getLookupTByStudyReleasedId().getDisplayName());
 								row.add(repo.getAccessionNumber());
 								exportRow.setRow(row);

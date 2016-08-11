@@ -60,8 +60,8 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		for(RepositoryStatus repositoryStatus : getProject().getRepositoryStatuses()){
 
 			//Anticipated submission date validation.
-			if((repositoryStatus.getLookupTByDataSubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID
-					|| repositoryStatus.getLookupTByDataSubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID)
+			if((repositoryStatus.getLookupTBySubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID
+					|| repositoryStatus.getLookupTBySubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID)
 						||(repositoryStatus.getLookupTByRegistrationStatusId().getId() == ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID ||
 							repositoryStatus.getLookupTByRegistrationStatusId().getId() == ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID)){
 				isStatusNotStartedOrInProgress = true;
@@ -291,10 +291,10 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		repositoryStatus.setLookupTByRegistrationStatusId(lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 		
 		if(isDbGap){
-			repositoryStatus.setLookupTByDataSubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
+			repositoryStatus.setLookupTBySubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
 		}
 		else{
-			repositoryStatus.setLookupTByDataSubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+			repositoryStatus.setLookupTBySubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 		}
 		
 		repositoryStatus.setLookupTByStudyReleasedId(lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));	
@@ -330,7 +330,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		for(int i=0;i<transientProject.getRepositoryStatuses().size();i++){
 			persistentProject.getRepositoryStatuses().get(i).setAccessionNumber(transientProject.getRepositoryStatuses().get(i).getAccessionNumber());
 			persistentProject.getRepositoryStatuses().get(i).setComments(transientProject.getRepositoryStatuses().get(i).getComments());
-			persistentProject.getRepositoryStatuses().get(i).setLookupTByDataSubmissionStatusId(transientProject.getRepositoryStatuses().get(i).getLookupTByDataSubmissionStatusId());
+			persistentProject.getRepositoryStatuses().get(i).setLookupTBySubmissionStatusId(transientProject.getRepositoryStatuses().get(i).getLookupTBySubmissionStatusId());
 			persistentProject.getRepositoryStatuses().get(i).setLookupTByRegistrationStatusId(transientProject.getRepositoryStatuses().get(i).getLookupTByRegistrationStatusId());
 			persistentProject.getRepositoryStatuses().get(i).setLookupTByStudyReleasedId(transientProject.getRepositoryStatuses().get(i).getLookupTByStudyReleasedId());				
 		}
