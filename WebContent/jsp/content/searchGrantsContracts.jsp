@@ -66,7 +66,7 @@
 					<s:else>
 					  <tr class="tableContentOdd">
 					</s:else>
-					    <td align="center"><input name="selectedGrantContract" onclick="showPrevLinkedSubmissions()" type="radio"/></td>
+					    <td align="center"><input name="selectedGrantContract" onclick="showPrevLinkedSubmissions()" type="radio" value='${grantsContracts}'/></td>
 				  		<td class="paddingT" nowrap><s:property value="%{#grantsContracts.grantContractNum}" /></td>
 						<td class="paddingT"><s:property value="%{#grantsContracts.projectTitle}" /></td>
 						<td class="paddingT">
