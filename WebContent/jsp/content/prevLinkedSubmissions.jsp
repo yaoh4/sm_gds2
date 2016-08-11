@@ -26,9 +26,9 @@
 						<th class="tableHeader" align="center" width="10%" scope="col"
 							style="white-space: nowrap">Project/Sub-project ID</th>
 						<th class="tableHeader" width="50%" scope="col">Project/Sub-project Submission Title</th>
-						<th class="tableHeader" widht="25%" scope="col">Principal
+						<th class="tableHeader" width="25%" scope="col">Principal
 							Investigator</th>
-						<th class="tableHeader" widht="25%" scope="col">Action</th>
+						<th class="tableHeader" width="25%" scope="col">Action</th>
 					</tr>
 
 					<s:iterator value="prevLinkedSubmissions" var="prevSubmission"
@@ -48,7 +48,9 @@
 								<s:property value="%{#prevSubmission.piLastName}" /> , <s:property
 									value="%{#prevSubmission.piFirstName}" />
 							</s:a></td>
-						<td class="paddingT"><a href="#" onclick="openDetailsReport(${prevSubmission.id})">View</a></td>
+						<td class="paddingT"> <a href="#" onclick="openDetailsReport(${prevSubmission.id})">View</a> &nbsp;&nbsp;
+						<a href="../manage/navigateToSubmissionDetail.action?projectId=${prevSubmission.id}">Edit</a>
+						</td>
 						</tr>
 					</s:iterator>
 				</table>
