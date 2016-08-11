@@ -73,38 +73,18 @@
 
 //back to top button
 
-jQuery(document).ready(function() {
- 
-var offset = 250;
- 
-var duration = 300;
- 
-jQuery(window).scroll(function() {
- 
-if (jQuery(this).scrollTop() > offset) {
- 
-jQuery(‘.back-to-top’).fadeIn(duration);
- 
-} else {
- 
-jQuery(‘.back-to-top’).fadeOut(duration);
- 
-}
- 
-});
- 
-&nbsp;
- 
-jQuery(‘.back-to-top’).click(function(event) {
- 
-event.preventDefault();
- 
-jQuery(‘html, body’).animate({scrollTop: 0}, duration);
- 
-return false;
- 
-})
- 
+   $(window).scroll(function () {
+    var     vH = $(window).height(),
+          bodyHeight = ($(document).height() - (vH * 2)),
+        // When you open a page, you already see the website as big
+        // as your own screen (viewport). Therefor you need to reduce 
+        // the page by two times the viewport
+    scrolledPX = $(window).scrollTop();
+    if (scrolledPX > bodyHeight) {
+        $('.back-to-top').css('opacity', '1');
+    } else {
+        $('.back-to-top').css('opacity', '0')
+    };
 });
 
  
