@@ -44,7 +44,7 @@
 				<div id="1" style="${map['1'].style}" class="qSpacing">
 					<p class="question">
 						<s:property value="%{getQuestionById(1).getDisplayText()}" /> [
-						<a href="http://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data#exceptions"
+						<a href="http://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/about-policy#exceptions"
 							target="_blank">View Exception Process&nbsp;<i
 							class="fa fa-external-link" aria-hidden="true"></i></a> ]
 					</p>
@@ -152,7 +152,7 @@
 									<s:if test="%{otherText[#ans.id].size > 0}">
 										<s:iterator value="%{otherText[#ans.id]}" var="other" status="otherStat">
 											<s:div class="otherWrapper" style="margin-bottom: 15px; margin-top: 15px;">
-												<s:textfield id="field_%{#otherStat.index}" name="otherText[%{#ans.id}]" value="%{#other}"
+												<s:textfield id="field_%{#otherStat.index}" name="otherText[%{#ans.id}]" value="%{#other}" maxlength="200"
 													class="other" placeholder="Name of Repository" />
 												<s:if test="%{otherText[#ans.id].size > 1}">
 													<span class="fa fa-trash fa-lg" title="delete" aria-hidden="true" alt="delete" style="font-size: 18px; padding-right: 3px;"></span>
@@ -162,7 +162,7 @@
 									</s:if>
 									<s:else>
 										<s:div class="otherWrapper" style="margin-bottom: 15px; margin-top: 15px;">
-											<s:textfield id="field_0" name="otherText[%{#ans.id}]"
+											<s:textfield id="field_0" name="otherText[%{#ans.id}]" maxlength="200"
 												class="other" placeholder="Name of Repository" />
 										</s:div>
 									</s:else>
@@ -225,9 +225,6 @@
 					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
 
 					<div class="col-lg-6">
-						<p class="uploadBox">
-							File Uploader</span>
-						</p>
 						<div class="input-group">
 							<input type="text" class="form-control"
 								placeholder="Choose File to Upload" readonly><label

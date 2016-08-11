@@ -53,9 +53,11 @@
 
             <tr class="info">
               <td colspan="2"><a href="#">Institutional Certification</a></td>
-              <td><div class="searchProgess">
-        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
-      </div></td>
+              <td>
+                <div class="searchProgess">
+        		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
+      		    </div>
+      		  </td>
               <td>03/04/2016 5:25 PM</td>
                 <td align="center"><a href="errorReport3.htm"
     onclick="return !window.open(this.href, 'Google', 'width=800,height=500')"

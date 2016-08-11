@@ -154,7 +154,12 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 * @return
 	 */
 	public GdsGrantsContracts getGrantOrContract(Long applId){
-		return projectsDao.getGrantOrContract(applId);
+		GdsGrantsContracts grantContract = projectsDao.getGrantOrContract(applId);
+		if(grantContract == null){
+			//If grant contract doesn't exist in DB, then create new one.
+			grantContract = new GdsGrantsContracts();
+		}
+		return grantContract;
 	}
 	
 	/**

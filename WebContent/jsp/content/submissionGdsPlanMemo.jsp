@@ -6,9 +6,6 @@
 	Exception Memo</label>
 
 <div class="col-lg-6">
-	<p class="uploadBox">
-		File Uploader</span>
-	</p>
 	<div class="input-group">
 		<input type="text" class="form-control" placeholder="Choose File to Upload" readonly><label
 			class="input-group-btn"> <span class="btn btn-default">

@@ -31,6 +31,16 @@ function openGrantsContractsSearchPage() {
 	$("#prevLinkedSubmissions").hide();
 	$("#generalInfoSection").hide();
 	$("#searchGrantsContracts").show();
+	$("#grantSearch").focus();	
+	//If user hits Enter key : 
+	$("#general_form").keydown(function( event ) {
+		if ( event.which == 13) {				
+			//Prevent default submit
+			event.preventDefault();						
+			//Hit Search
+			$( "#searchGrants" ).click();					
+		}
+	});		
 	
 }
 
