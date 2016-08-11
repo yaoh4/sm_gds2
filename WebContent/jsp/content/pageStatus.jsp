@@ -5,14 +5,14 @@
     <div class="status"><a href="#" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
     <div class="statusIcon"> 
       <a href="#" class="tooltip">
-        <s:if test="%{pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_NOT_STARTED)}">	
-          <img src="../images/newV.png" alt="Not Started" />
-        </s:if>
-        <s:elseif test="%{pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
+        <s:if test="%{pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">	
           <img src="../images/inprogress.png" alt="In Progress" />
+        </s:if>
+        <s:elseif test="%{pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+          <img src="../images/complete.png" alt="Completed" />
         </s:elseif>
         <s:else>
-          <img src="../images/complete.png" alt="Completed" />
+          <img src="../images/pending.png" alt="Not Started" />
         </s:else>
         <span>
           <img class="callout" src="../images/callout_black.gif" />
