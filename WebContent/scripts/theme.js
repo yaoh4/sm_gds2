@@ -72,7 +72,7 @@
 
 
 //back to top button
-
+  $('.back-to-top').css('opacity', '0');
    $(window).scroll(function () {
     var     vH = $(window).height(),
           bodyHeight = ($(document).height() - (vH * 2)),
