@@ -42,6 +42,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	private String grantContractNum;
 	private String selectedTypeOfProject;
 	private String applId;
+	
+
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();	
 	private List<DropDownOption> projectTypes = new ArrayList<DropDownOption>();
 	private List<DropDownOption> projectSubmissionReasons = new ArrayList<DropDownOption>();	
@@ -91,6 +93,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 
 		validateGeneralInfoSave();
 	}	
+	
 	
 	/**
 	 * Saves Project General Information and Navigates to next page.
@@ -444,7 +447,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * @throws Exception
 	 */
 	public String getPrevLinkedSubmissionsForGrant() throws Exception {
-		prevLinkedSubmissions = manageProjectService.getPrevLinkedSubmissionsForGrant(grantContractNum);
+		prevLinkedSubmissions = manageProjectService.getPrevLinkedSubmissionsForGrant(grantContractNum,(long) 1);
 		
 		return SUCCESS;
 	}
@@ -690,7 +693,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	public void setApplId(String applId) {
 		this.applId = applId;
 	}	
-
 	public GdsGrantsContracts getGrantOrContract() {
 		return grantOrContract;
 	}
