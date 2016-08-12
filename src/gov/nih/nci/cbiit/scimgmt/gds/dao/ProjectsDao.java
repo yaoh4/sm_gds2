@@ -193,7 +193,7 @@ public class ProjectsDao {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);	
 			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));
 			criteria.add(Restrictions.ne("id", 1));
-			/criteria.add(Restrictions.ne("parentProject.id", 1));
+			//criteria.add(Restrictions.ne("parentProject.id", 1));
 			List<ProjectsVw> grantsListlist = criteria.list();
 			return grantsListlist;
 
