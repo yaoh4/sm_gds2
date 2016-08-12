@@ -44,8 +44,13 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		
 		Project project = retrieveSelectedProject();
 		
-		repoList=manageProjectService.getRepoList((long) project.getId());
-		logger.debug("retrieve repos list here" +repoList);
+		//repoList=manageProjectService.getRepoList((long) project.getId());
+		//logger.debug("retrieve repos list here" +repoList);
+		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
+			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
+				project.getRepositoryStatuses().add(repositoryStatus);
+			}		
+		}
 			
 		//Load ICs
 		List<InstitutionalCertification> certs  = manageProjectService.findIcsByProject(project);
