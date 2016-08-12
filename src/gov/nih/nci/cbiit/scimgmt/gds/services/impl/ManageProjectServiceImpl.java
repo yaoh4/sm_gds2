@@ -19,6 +19,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 
 /**
  * Class to support management of Projects (save, update and delete etc...)
@@ -168,7 +169,13 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 * @param grantContractNum
 	 * @return
 	 */
-	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum){
-		return projectsDao.getPrevLinkedSubmissionsForGrant(grantContractNum);
+	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum,Long projectId){
+		return projectsDao.getPrevLinkedSubmissionsForGrant(grantContractNum,projectId);
+	}
+
+	@Override
+	public List<RepositoryStatus> getRepoList(long i) {
+		// TODO Auto-generated method stub
+		return projectsDao.getRepositories(i);
 	}
 }
