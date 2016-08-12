@@ -23,6 +23,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 
 /**
  * Dao object for domain model class Project.
@@ -141,6 +142,22 @@ public class ProjectsDao {
 		}
 	}
 	
+	
+	public List<RepositoryStatus> getRepositories(Long projectId){
+
+		try {
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RepositoryStatus.class);	
+			criteria.add(Restrictions.eq("project.id", projectId));
+			List<RepositoryStatus> repositoryStatusList = criteria.list();
+			logger.debug("repos list is" +repositoryStatusList);
+			return repositoryStatusList;
+
+		}catch (RuntimeException re) {
+			logger.error("Retrieving  Grant / Contract List failed", re);
+			throw re;
+		}
+	}
+	
 	/**
 	 * This method returns grantContract for given applId
 	 * @param applId
@@ -161,18 +178,22 @@ public class ProjectsDao {
 		}
 	}
 	
+	
+	
 	/**
 	 * This method retrieves list of already linked submissions for a given grant.
 	 * 
 	 * @param grantContractNum
 	 * @return
 	 */
-	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum){
+	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum,long projectId){
 		
 		logger.info("Retrieving already linked submissions for grantContractNum: "+grantContractNum);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);	
-			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));			
+			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));
+			criteria.add(Restrictions.ne("id", 1));
+			/criteria.add(Restrictions.ne("parentProject.id", 1));
 			List<ProjectsVw> grantsListlist = criteria.list();
 			return grantsListlist;
 
