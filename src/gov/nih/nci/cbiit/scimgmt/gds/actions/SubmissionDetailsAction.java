@@ -1,5 +1,6 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,6 +11,10 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.model.ExportRow;
+import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
 
 /**
  * @author menons2
@@ -21,6 +26,15 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	private List<Document> bsiFile;
 	private List<Document> exceptionMemo;
 	private List<Document> gdsPlanFile;
+	private List<RepositoryStatus> repoList = new ArrayList<RepositoryStatus>();
+	public List<RepositoryStatus> getRepoList() {
+		return repoList;
+	}
+
+	public void setRepoList(List<RepositoryStatus> repoList) {
+		this.repoList = repoList;
+	}
+
 	/**
 	 * Opens Grants Contracts Search page.
 	 * 
@@ -30,6 +44,8 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		
 		Project project = retrieveSelectedProject();
 		
+		repoList=manageProjectService.getRepoList((long) project.getId());
+		logger.debug("retrieve repos list here" +repoList);
 		//Load ICs
 		List<InstitutionalCertification> certs  = manageProjectService.findIcsByProject(project);
 		project.setInstitutionalCertifications(certs);
