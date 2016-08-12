@@ -220,7 +220,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		subProject.setCreatedBy(null);
 		subProject.setLastChangedBy(null);
 		subProject.setPlanComments(null);
-		subProject.setPlanAnswerSelection(null);
+		subProject.setPlanAnswerSelections(null);
 								
 		//Add only IC doc. Basic study and GDS plan docs should not be added to subproject
 		Set<Document> subProjectDocuments = new HashSet(0);
