@@ -20,9 +20,8 @@
           No data entered.
         </s:if>
         <s:else>
-         <p><span class="reportLabel">[<strong><s:property value="%{project.repositoryStatuses.size}"/></strong>] Data Repositories have been indicated for this project.</span> 05/22/2020</p>
-          <p><span class="reportLabel">Anticipated Submission Date:</span> 05/22/2020</p>  
-          
+         <p><span class="reportLabel">[<strong><s:property value="%{repoList.size}"/></strong>] Data Repositories have been indicated for this project.</span> 05/22/2020</p>
+          <p><span class="reportLabel">Anticipated Submission Date:<s:date name="%{project.anticipatedSubmissionDate}" format="MM/dd/yyyy"/> </span> </p>  
           <table width="100%" border="1" cellpadding="3"
         class="table  table-bordered">
         <tbody>
@@ -84,9 +83,7 @@
               <td><s:property
                   value="#r.lookupTByStudyReleasedId.displayName" /></td>
               <td><s:property value="#r.accessionNumber" /></td>
-              <td><s:property
-                  value="#r.lookupTByStudyReleasedId.displayName" /></td>
-              <td><s:property value="#r.accessionNumber" /></td>
+              <td><s:property value="#r.comments" /></td>
             </tr>
           </s:iterator>
         </tbody>
