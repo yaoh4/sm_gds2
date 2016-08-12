@@ -96,7 +96,7 @@
               <td width="26%" style="border-left: 0px;">Study Registration</td>
               <td>
                 <s:hidden id="repoReg%{#repStat.index}" value="%{#repStatus.lookupTByRegistrationStatusId.code}"/>
-              	<div id="repoRegDiv${#repStat.index}" class="searchProgess">
+              	<div id="repoRegDiv${repStat.index}" class="searchProgess">
         			<img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/>
       			</div>
       		  </td>
@@ -110,7 +110,7 @@
               <td width="26%" style="border-left: 0px;">Project Submission</td>
               <td>
                <s:hidden id="repoSub%{#repStat.index}" value="%{#repStatus.lookupTBySubmissionStatusId.code}"/>            	
-              	<div id="repoSubDiv${#repStat.index}" class="searchProgess">
+              	<div id="repoSubDiv${repStat.index}" class="searchProgess">
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
         	  	</div>
         	  </td>
