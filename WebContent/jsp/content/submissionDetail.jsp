@@ -122,7 +122,7 @@
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Study Released</td>
-              <td style="text-align: center;">${#repoStatus.lookupTByStudyReleasedId.displayName}</td>
+              <td style="text-align: center;">${repStatus.lookupTByStudyReleasedId.displayName}</td>
               <td>03/11/2016 2:41 PM</td>
               <td></td>
               <td><a href="#">Jones, Mary</a></td>
