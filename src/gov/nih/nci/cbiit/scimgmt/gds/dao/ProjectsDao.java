@@ -102,7 +102,7 @@ public class ProjectsDao {
 			if (instance == null) {
 				logger.debug("get successful, no instance found");
 			} else {
-				Hibernate.initialize(instance.getPlanAnswerSelection());
+				Hibernate.initialize(instance.getPlanAnswerSelections());
 				Hibernate.initialize(instance.getRepositoryStatuses());
 				Hibernate.initialize(instance.getProjectsIcMappings());
 				Hibernate.initialize(instance.getPageStatuses());

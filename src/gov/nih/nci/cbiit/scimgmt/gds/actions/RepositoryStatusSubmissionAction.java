@@ -199,7 +199,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	private void setUpRepositoryStatuses() {	
 		logger.debug("Setting up Repository statuses.");
 	
-		for(PlanAnswerSelection selection: getProject().getPlanAnswerSelection()) {
+		for(PlanAnswerSelection selection: getProject().getPlanAnswerSelections()) {
 			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
 				getProject().getRepositoryStatuses().add(repositoryStatus);
 			}		
@@ -223,7 +223,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 		logger.debug("Adding DbGaP Repository status.");	
 		PlanAnswerSelection dbGapPlanAnswerSelection = new PlanAnswerSelection();
-		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelection()){
+		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelections()){
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DBGAP_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
 				dbGapPlanAnswerSelection = planAnswerSelection;
 				break;
@@ -246,7 +246,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
 		
 		//Iterate through selections made on Gds plan page and add Empty repository status objects to Project if new selections are made/ its a new submission.
-		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelection()){
+		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelections()){
 
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){				
 

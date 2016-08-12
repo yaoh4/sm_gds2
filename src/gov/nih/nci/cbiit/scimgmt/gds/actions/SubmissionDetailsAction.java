@@ -46,6 +46,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		
 		repoList=manageProjectService.getRepoList((long) project.getId());
 		logger.debug("retrieve repos list here" +repoList);
+			
 		//Load ICs
 		List<InstitutionalCertification> certs  = manageProjectService.findIcsByProject(project);
 		project.setInstitutionalCertifications(certs);
@@ -92,7 +93,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 
 		logger.debug("Getting answer for the question on gds plan page for questionId :"+questionId);
 		StringBuffer answer = new StringBuffer();
-		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelection()){			
+		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelections()){			
 			if( questionId == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){
 				if(StringUtils.isNotBlank(answer)){
 					answer.append(";");

@@ -377,7 +377,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	private void populateAnswersMap() {
 
 		List<PlanAnswerSelection> savedList = new LinkedList<PlanAnswerSelection>(
-				getProject().getPlanAnswerSelection());
+				getProject().getPlanAnswerSelections());
 
 		class PlanAnswerSelectionComparator implements Comparator<PlanAnswerSelection> {
 
@@ -432,7 +432,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	private void populatePlanAnswerSelection() throws Exception{
 				
 		for(Long id: oldSet) {
-			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelection().iterator(); planAnswerSelectionIterator.hasNext();) {
+			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
 				PlanAnswerSelection savedOther = planAnswerSelectionIterator.next();
 				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue())
 					planAnswerSelectionIterator.remove();			
@@ -440,7 +440,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		}
 		
 		for(Long id: otherSet) {
-			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelection().iterator(); planAnswerSelectionIterator.hasNext();) {
+			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
 				PlanAnswerSelection savedOther = planAnswerSelectionIterator.next();
 				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue() &&
 						StringUtils.isNotBlank(savedOther.getOtherText())) {
@@ -468,7 +468,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 						newObject.setOtherText(otherText);
 						newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 						newObject.setProject(getProject());
-						getProject().getPlanAnswerSelection().add(newObject);
+						getProject().getPlanAnswerSelections().add(newObject);
 					}
 				}
 			} else {
@@ -478,7 +478,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 					newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 					newObject.setProject(getProject());
-					getProject().getPlanAnswerSelection().add(newObject);
+					getProject().getPlanAnswerSelections().add(newObject);
 				}
 			}
 		}
@@ -504,7 +504,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				}
 			}
 		}
-		for (PlanAnswerSelection e: getProject().getPlanAnswerSelection()) {
+		for (PlanAnswerSelection e: getProject().getPlanAnswerSelections()) {
 			origSet.add(e.getPlanQuestionsAnswer().getId());
 		}
 		
@@ -714,7 +714,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			List<RepositoryStatus> removedRepositories = new ArrayList<RepositoryStatus>();	
 		
 			// Remove the deleted repository from PlanAnswerSelection object
-			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelection().iterator(); planAnswerSelectionIterator.hasNext();) {
+			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
 				PlanAnswerSelection selection = planAnswerSelectionIterator.next();
 				for(RepositoryStatus rep: selection.getRepositoryStatuses()) {
 					// Check if any of the repository has been removed.

@@ -153,7 +153,7 @@ public class GdsSubmissionStatusHelper {
 		
 		//No data has been entered
 		if(!StringUtils.hasText(project.getPlanComments()) && 
-			CollectionUtils.isEmpty(project.getPlanAnswerSelection())) {
+			CollectionUtils.isEmpty(project.getPlanAnswerSelections())) {
 			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
@@ -166,7 +166,7 @@ public class GdsSubmissionStatusHelper {
 		
 		//Data sharing exception request not indicated, OR Data sharing exception requested  
 		//but not approved OR data sharing exception approved but memo not loaded
-		if(CollectionUtils.isEmpty(project.getPlanAnswerSelection())
+		if(CollectionUtils.isEmpty(project.getPlanAnswerSelections())
 		|| 
 		(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
 		&& project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) == null) 

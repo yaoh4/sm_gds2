@@ -244,7 +244,7 @@ public class GdsSubmissionActionHelper {
 
 		logger.debug("Checking if any repositories were selected on the GDS plan page.");
 		
-		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelection()){
+		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelections()){
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
 				return false;			
 			}

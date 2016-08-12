@@ -378,7 +378,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		String projectId  = getProjectId();
 		if(StringUtils.isNotBlank(projectId)) {
 			Project project = manageProjectService.findById(Long.valueOf(projectId));
-			for(PlanAnswerSelection selection: project.getPlanAnswerSelection()) {
+			for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 				for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
 					project.getRepositoryStatuses().add(repositoryStatus);
 				}		

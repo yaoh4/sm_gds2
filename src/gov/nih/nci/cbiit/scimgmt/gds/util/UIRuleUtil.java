@@ -57,7 +57,7 @@ public class UIRuleUtil {
 		// Based on Plan Answer Selection, compute the initial state of UI.
 		List<String> selectedAnswers = new ArrayList<String> ();
 		if(project != null) {
-			for (PlanAnswerSelection selectedAnswer: project.getPlanAnswerSelection()) {
+			for (PlanAnswerSelection selectedAnswer: project.getPlanAnswerSelections()) {
 				selectedAnswers.add(selectedAnswer.getPlanQuestionsAnswer().getId().toString());
 			}
 		}

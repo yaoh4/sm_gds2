@@ -319,7 +319,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	private void deletePlanAnswers(Project persistentProject){
 
-		for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = persistentProject.getPlanAnswerSelection().iterator(); planAnswerSelectionIterator.hasNext();) {
+		for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = persistentProject.getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
 
 			PlanAnswerSelection planAnswerSelection = planAnswerSelectionIterator.next();
 
@@ -395,7 +395,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 
 		logger.debug("Checking if question with questionId was answered on the GDS plan page.");
 		
-		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelection()){
+		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelections()){
 			if( questionId == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){	
 				return true;			
 			}
