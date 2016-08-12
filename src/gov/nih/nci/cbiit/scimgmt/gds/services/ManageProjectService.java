@@ -6,6 +6,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 
 public interface ManageProjectService {
 
@@ -76,5 +77,7 @@ public interface ManageProjectService {
 	 * @param grantContractNum
 	 * @return
 	 */
-	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum);
+	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum,Long projectId);
+
+	public List<RepositoryStatus> getRepoList(long i);
 }
