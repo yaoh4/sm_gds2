@@ -29,9 +29,12 @@
             <tr class="info">
               <td colspan="2"><a href="#">GDS Plan</a></td>
       
-              <td><div class="searchProgess">
-        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
-      </div></td>
+              <td>
+               <s:hidden id="gdsPlan" value="%{getPageStatusCode('GDSPLAN')}"/>
+              	<div id="gdsPlanDiv" class="searchProgess">
+        		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
+      		    </div>
+      		  </td>
               <td>03/11/2016 2:41 PM</td>
               <td align="center"><a href="errorReport2.htm"
     onclick="return !window.open(this.href, 'Google', 'width=800,height=500')"
@@ -40,6 +43,7 @@
 
             </tr>
 
+           <s:if test="%{project.planAnswerSelectionByAnswerId(@gov.nih.nci.cbiit.scimgmt.gds.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null}">
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Data Sharing Exception</td>
@@ -50,11 +54,12 @@
               <td align="center"></td>
               <td><a href="#">Jones, Mary</a></td>
             </tr>
-
+		  </s:if>
             <tr class="info">
               <td colspan="2"><a href="#">Institutional Certification</a></td>
               <td>
-                <div class="searchProgess">
+               <s:hidden id="ic" value="%{getPageStatusCode('IC')}"/>
+              	<div id="icDiv" class="searchProgess">               
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       		    </div>
       		  </td>
@@ -67,96 +72,66 @@
 
             <tr class="odd">
               <td colspan="2"><a href="#">Basic Study Information</a></td>
-              <td><div class="searchProgess">
-        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
-      </div></td>
+              <td>
+              <s:hidden id="bsi" value="%{getPageStatusCode('BSI')}"/>
+              	<div id="bsiDiv" class="searchProgess">
+        		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
+      			</div>
+      		  </td>
               <td>03/08/2016 9:52 PM</td>
               <td align="center"><a href="#">View</a></td>
               <td><a href="#">Jones, Mary</a></td>
             </tr>
             
+        <s:iterator status="repStat" var="repStatus" value="project.repositoryStatuses">
+          <div class="repoItem">      
             <tr class="info">
-              <td colspan="4"><a href="#">Submission Status for Repository: dbGap</a></td>
+              <td colspan="4"><a href="#">Submission Status for Repository: ${repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText}</a></td>
              <td align="center"><a href="#">View</a></td>
               <td></td>
-          
             </tr>
+            
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Study Registration</td>
-              <td><div class="searchProgess">
-        <img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/>
-      </div></td>
+              <td>
+                <s:hidden id="repoReg%{#repStat.index}" value="%{#repStatus.lookupTByRegistrationStatusId.code}"/>
+              	<div id="repoRegDiv${#repStat.index}" class="searchProgess">
+        			<img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/>
+      			</div>
+      		  </td>
               <td>03/11/2016 2:41 PM</td>
               <td></td>
               <td><a href="#">Jones, Mary</a></td>
-            </tr>
-                      
-                      <tr class="odd">
+            </tr> 
+            
+            <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Project Submission</td>
-              <td><div class="searchProgess">
-        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" /></td>
-              
+              <td>
+               <s:hidden id="repoSub%{#repStat.index}" value="%{#repStatus.lookupTBySubmissionStatusId.code}"/>            	
+              	<div id="repoSubDiv${#repStat.index}" class="searchProgess">
+        		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
+        	  	</div>
+        	  </td>
               <td>03/11/2016 2:41 PM</td>
               <td align="center"></td>
               <td><a href="#">Jones, Mary</a></td>
-            </tr>
-                      
-                      <tr class="odd">
+            </tr>   
+      
+            <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Study Released</td>
-              <td style="text-align: center;">Yes</td>
+              <td style="text-align: center;">${#repoStatus.lookupTByStudyReleasedId.displayName}</td>
               <td>03/11/2016 2:41 PM</td>
               <td></td>
               <td><a href="#">Jones, Mary</a></td>
-            </tr>
-                      
-                      
-            
-            </tr>
-            <tr class="info">
-              <td colspan="4"><a href="#">Submission Status for Repository: GDC</a></td>
-              <td align="center"><a href="#">View</a></td>
-              <td></td>
+            </tr>   
+          </div>                 
+        </s:iterator>            
               
-             
-            </tr>
-            <tr class="odd">
-              <td style="border-right: 0px;">&nbsp;</td>
-              <td style="border-left: 0px;">Study Registration</td>
-              <td><div class="searchProgess">
-        <img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed" /></div></td>
-              <td>03/11/2016 3:23 PM</td>
-              <td></td>
-              <td><a href="#">Jones, Mary</a></td>
-            </tr>
-            <tr class="odd">
-              <td style="border-right: 0px;">&nbsp;</td>
-              <td style="border-left: 0px;">Project Submission</td>
-              <td><div class="searchProgess">
-        <img src="../images/pending.png" alt="Not Started" width="18px" height="18px" title="Not Started" />
-      </div></td>
-
-             
-              <td>03/11/2016 3:23 PM</td>
-               <td align="center"></td>
-
-              <td><a href="#">Jones, Mary</a></td>
-            </tr>
-            <tr class="odd">
-              <td style="border-right: 0px;">&nbsp;</td>
-              <td style="border-left: 0px;">Study Released</td>
-              <td style="text-align: center;">No</td>
-              <td>03/11/2016 3:23 PM</td>
-          <td align="center"></td>
-
-              <td><a href="#">Jones, Mary</a></td>
-            </tr>
-
-
-          </tbody>
-        </table>
+        </tbody>
+      </table>
 <s:form id="submission-details_form"  namespace="manage"
     enctype="multipart/form-data" action="submissionDetails" method="post" role="form">  
 
@@ -170,5 +145,4 @@
 
 
 <script src="<s:url value="/controllers/gds.js" />"></script>
-<script src="<s:url value="/controllers/grantSearch.js" />"></script>
-        
+<script src="<s:url value="/controllers/submissionDetail.js" />"></script>       

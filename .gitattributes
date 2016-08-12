@@ -124,6 +124,7 @@ WebContent/controllers/institutional.js -text
 WebContent/controllers/institutional_dashboard.js -text
 WebContent/controllers/search.js -text
 WebContent/controllers/searchParent.js -text
+WebContent/controllers/submissionDetail.js -text
 WebContent/controllers/submissionStatus.js -text
 WebContent/fonts/FontAwesome.otf -text
 WebContent/fonts/fontawesome-webfont.eot -text
