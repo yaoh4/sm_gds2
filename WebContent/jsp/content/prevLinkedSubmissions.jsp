@@ -33,6 +33,7 @@
 
 					<s:iterator value="prevLinkedSubmissions" var="prevSubmission"
 						status="stat">
+						
 						<s:if test="#stat.index /2 == 0">
 							<tr class="tableContent">
 						</s:if>
@@ -40,7 +41,7 @@
 							<tr class="tableContentOdd">
 						</s:else>
 						<td align="center"><s:property
-								value="%{#prevSubmission.id}" /></td>
+								value="%{#prevSubmission.id}" />
 						<td class="paddingT" nowrap><s:property
 								value="%{#prevSubmission.projectTitle}" /></td>
 						<td class="paddingT"><s:a
