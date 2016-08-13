@@ -29,7 +29,11 @@
                   <th class="tableHeader" align="center" width="10%">Uploaded By</th>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-file-word-o" aria-hidden="true"></i> &nbsp;<s:a href="#" data-original-title="" title=""><s:property value="%{bsiFile[0].fileName}" /></s:a></td>
+                  <td>
+                     <s:a href="javascript:openDocument(%{bsiFile[0].id})">
+                      <s:property value="%{bsiFile[0].fileName}" />
+                    </s:a>
+                  </td>
                   <td style="white-space: nowrap"><s:date name="%{bsiFile[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" /></td>
                   <td><a href="mailto: jonesm@mail.nih.gov" data-original-title="" title=""><s:property value="%{bsiFile[0].uploadedBy}" /></a>
                   </td>
