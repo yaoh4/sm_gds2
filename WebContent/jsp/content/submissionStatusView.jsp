@@ -65,12 +65,12 @@
               <td>
                 <div class="searchProgess">
                   <s:if
-                    test="%{#r.lookupTByDataSubmissionStatusId.displayName == 'In Progress'}">
+                    test="%{#r.lookupTBySubmissionStatusId.displayName == 'In Progress'}">
                     <img src="../images/inprogress.png" alt="In Progress" width="18px"
                       height="18px"  title="In Progress"/>
                   </s:if>
                   <s:elseif
-                    test="%{#r.lookupTByDataSubmissionStatusId.displayName == 'Completed'}">
+                    test="%{#r.lookupTBySubmissionStatusId.displayName == 'Completed'}">
                     <img src="../images/complete.png" alt="Complete" width="18px"
                       height="18px"  title="Complete"/>
                   </s:elseif>

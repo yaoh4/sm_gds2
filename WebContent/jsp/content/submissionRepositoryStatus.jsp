@@ -63,8 +63,8 @@
 
 								<div class="col-xs-2">
 									<s:label for="%{'projStatus_' + #stat.index}" value="Project Submission Status" /> 
-									<s:select id="%{'projStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByDataSubmissionStatusId.id" onChange="enableDisableStudyReleased(this.id)" 
-												value="%{#repositoryStatus.lookupTByDataSubmissionStatusId.id}" cssClass="c-select form-control" disabled="true" list="projectSubmissionStatusList" listKey="optionKey" listValue="optionValue"/>											
+									<s:select id="%{'projStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTBySubmissionStatusId.id" onChange="enableDisableStudyReleased(this.id)" 
+												value="%{#repositoryStatus.lookupTBySubmissionStatusId.id}" cssClass="c-select form-control" disabled="true" list="projectSubmissionStatusList" listKey="optionKey" listValue="optionValue"/>											
 								</div>							
 
 								<div class="col-xs-2">
