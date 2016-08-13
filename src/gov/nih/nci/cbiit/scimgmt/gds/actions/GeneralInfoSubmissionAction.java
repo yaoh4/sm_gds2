@@ -217,19 +217,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		subProject.setBsiReviewedFlag(null);
 		subProject.setRepositoryStatuses(null);
 		subProject.setAnticipatedSubmissionDate(null);
-		subProject.setCreatedBy(null);
+		subProject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 		subProject.setLastChangedBy(null);
 		subProject.setPlanComments(null);
 		subProject.setPlanAnswerSelections(null);
-								
-		//Add only IC doc. Basic study and GDS plan docs should not be added to subproject
-		Set<Document> subProjectDocuments = new HashSet(0);
-		for(Document doc : subProject.getDocuments()){
-			if(ApplicationConstants.DOC_TYPE_IC.equalsIgnoreCase(doc.getDocType().getCode())){
-				subProjectDocuments.add(doc);
-			}
-		}
-		subProject.setDocuments(subProjectDocuments);		
+										
 	}
 	
 	
