@@ -2,7 +2,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 
-<div style="float:right; display:block;"><a href="#"><i class="fa fa-print fa-lg" aria-hidden="true"></i>&nbsp;Generate missing data report (PDF)</a></div><br/><br/>
+  <div style="float:right; display:block;"><a href="#"><i class="fa fa-print fa-lg" aria-hidden="true"></i>&nbsp;Generate missing data report (PDF)</a></div><br/><br/>
         <h4>Submission Details</h4><div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search.gif"></div>
           <br/>
           <table width="85%" class="table table-bordered">
@@ -25,7 +25,7 @@
               <td align="center"></td>
               <td><a href="#">Jones, Mary</a></td>
             </tr>
-
+		  <s:if test="%{showPage('GDSPLAN')}">
             <tr class="info">
               <td colspan="2"><a href="#">GDS Plan</a></td>
       
@@ -40,10 +40,9 @@
     onclick="return !window.open(this.href, 'Google', 'width=800,height=500')"
     target="_blank">View</a></td>
               <td><a href="#">Jones, Mary</a></td>
-
+          
+          <s:if test="%{project.getPlanAnswerSelectionByAnswerId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null}">
             </tr>
-
-           <s:if test="%{project.planAnswerSelectionByAnswerId(@gov.nih.nci.cbiit.scimgmt.gds.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null}">
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Data Sharing Exception</td>
@@ -54,7 +53,10 @@
               <td align="center"></td>
               <td><a href="#">Jones, Mary</a></td>
             </tr>
+            </s:if>
 		  </s:if>
+		  
+		  <s:if test="%{showPage('IC')}">
             <tr class="info">
               <td colspan="2"><a href="#">Institutional Certification</a></td>
               <td>
@@ -69,7 +71,8 @@
     target="_blank">View</a></td>
               <td><a href="#">Jones, Mary</a></td>
             </tr>
-
+          </s:if>
+          <s:if test="%{showPage('BSI')}">
             <tr class="odd">
               <td colspan="2"><a href="#">Basic Study Information</a></td>
               <td>
@@ -82,7 +85,7 @@
               <td align="center"><a href="#">View</a></td>
               <td><a href="#">Jones, Mary</a></td>
             </tr>
-            
+          </s:if>
         <s:iterator status="repStat" var="repStatus" value="project.repositoryStatuses">
           <div class="repoItem">      
             <tr class="info">
@@ -135,11 +138,18 @@
 <s:form id="submission-details_form"  namespace="manage"
     enctype="multipart/form-data" action="submissionDetails" method="post" role="form">  
 
-			<s:include value="/jsp/content/submissionGeneralInfoView.jsp"/>
-			<s:include value="/jsp/content/submissionGdsPlanView.jsp"/>
-			<s:include value="/jsp/content/submissionIcListView.jsp"/>
+		  <s:include value="/jsp/content/submissionGeneralInfoView.jsp"/>
+		  <s:if test="%{showPage('GDSPLAN')}">
+		    <s:include value="/jsp/content/submissionGdsPlanView.jsp"/>
+		  </s:if>
+          <s:if test="%{showPage('IC')}">		  
+		    <s:include value="/jsp/content/submissionIcListView.jsp"/>
+		  </s:if>
+		  <s:if test="%{showPage('BSI')}">
 			<s:include value="/jsp/content/submissionBasicStudyInfoView.jsp"/>
-			<s:include value="/jsp/content/submissionStatusView.jsp"/>
+		  </s:if>
+	      <s:include value="/jsp/content/submissionStatusView.jsp"/>
+		 
 
 </s:form>		
 
