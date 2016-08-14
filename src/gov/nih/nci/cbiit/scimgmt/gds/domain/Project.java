@@ -70,6 +70,8 @@ public class Project implements java.io.Serializable {
 	private Date anticipatedSubmissionDate;
 	private String submissionTitle;
 	private String dataLinkFlag;
+	private Date createdDate;
+	private Date lastChangedDate;
 	private List<PageStatus> pageStatuses = new ArrayList();
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
@@ -261,6 +263,7 @@ public class Project implements java.io.Serializable {
 		this.projectEndDate = projectEndDate;
 	}
 
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "SCI_REV_APPROVAL_RCVD_DATE", length = 7)
 	public Date getSciRevApprovalRcvdDate() {
@@ -342,7 +345,7 @@ public class Project implements java.io.Serializable {
 	public void setLastChangedBy(String lastChangedBy) {
 		this.lastChangedBy = lastChangedBy;
 	}
-
+	
 	@Column(name = "SUBPROJECT_FLAG", length = 4)
 	public String getSubprojectFlag() {
 		return this.subprojectFlag;
@@ -471,6 +474,35 @@ public class Project implements java.io.Serializable {
 		this.pdLastName = pdLastName;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED_DATE", length = 7)
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_CHANGED_DATE", length = 7)
+	public Date getLastChangedDate() {
+		return lastChangedDate;
+	}
+
+	public void setLastChangedDate(Date lastChangedDate) {
+		this.lastChangedDate = lastChangedDate;
+	}
+	
+	@Transient
+	public Date getUpdatedDate() {
+		if(lastChangedDate != null) {
+			return lastChangedDate;
+		}
+		
+		return createdDate;
+	}
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
 	public List<PageStatus> getPageStatuses() {

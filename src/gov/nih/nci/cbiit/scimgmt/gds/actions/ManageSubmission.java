@@ -366,9 +366,13 @@ public class ManageSubmission extends BaseAction {
 	}
 	
 	public String getPageStatusCode(String pageCode) {
-		PageStatus pageStatus = 
-			getProject().getPageStatus(pageCode);
-		return pageStatus.getStatus().getCode();
+		return getPageStatus(pageCode).getStatus().getCode();
 	}
 	
+	
+	public PageStatus getPageStatus(String pageCode) {
+		PageStatus pageStatus = 
+			getProject().getPageStatus(pageCode);
+		return pageStatus;
+	}
 }

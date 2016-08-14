@@ -21,7 +21,7 @@
               <td colspan="2"><a href="#">Project Created</a></td>
               <td><div class="searchProgess">
         <img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/></div></td>
-              <td>03/02/2016 1:01 PM</td>
+              <td><s:date name="%{project.updatedDate}" format="MM/dd/yyyy"/> </td>
               <td align="center"></td>
               <td><a href="#">Jones, Mary</a></td>
             </tr>
@@ -35,7 +35,7 @@
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       		    </div>
       		  </td>
-              <td>03/11/2016 2:41 PM</td>
+              <td><s:date name="%{getPageStatus('GDSPLAN').updatedDate}" format="MM/dd/yyyy"/> </td>
               <td align="center"><a href="errorReport2.htm"
     onclick="return !window.open(this.href, 'Google', 'width=800,height=500')"
     target="_blank">View</a></td>
@@ -49,7 +49,7 @@
               <td><div class="searchProgess">
         <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       </div></td>
-              <td>03/11/2016 2:41 PM</td>
+              <td></td>
               <td align="center"></td>
               <td><a href="#">Jones, Mary</a></td>
             </tr>
@@ -65,7 +65,7 @@
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       		    </div>
       		  </td>
-              <td>03/04/2016 5:25 PM</td>
+              <td><s:date name="%{getPageStatus('IC').updatedDate}" format="MM/dd/yyyy"/></td>
                 <td align="center"><a href="errorReport3.htm"
     onclick="return !window.open(this.href, 'Google', 'width=800,height=500')"
     target="_blank">View</a></td>
@@ -81,7 +81,7 @@
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       			</div>
       		  </td>
-              <td>03/08/2016 9:52 PM</td>
+              <td><s:date name="%{getPageStatus('GDSPLAN').updatedDate}" format="MM/dd/yyyy"/></td>
               <td align="center"><a href="#">View</a></td>
               <td><a href="#">Jones, Mary</a></td>
             </tr>
