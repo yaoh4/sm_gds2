@@ -6,6 +6,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.util;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,7 +88,7 @@ public class GdsSubmissionStatusHelper {
 			PageStatus pageStatus = new PageStatus(
 			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
 			lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
-			project, loggedOnUser.getFullNameLF());
+			project, loggedOnUser.getFullNameLF(), new Date());
 			pageStatuses.add(pageStatus);
 		}
 		
@@ -120,7 +121,7 @@ public class GdsSubmissionStatusHelper {
 		PageStatus pageStatus = new PageStatus(
 			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, pageStatusStr),
 			lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
-			project, loggedOnUser.getFullNameLF());		
+			project, loggedOnUser.getFullNameLF(), new Date());		
 		return pageStatus;
 	}
 	

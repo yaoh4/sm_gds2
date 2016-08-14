@@ -868,5 +868,9 @@ public class IcSubmissionAction extends ManageSubmission {
 	public void setDoc(Document doc) {
 		this.doc = doc;
 	}
+	
+	public String getPageStatusCode() {
+		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_IC);
+	}
 
 }

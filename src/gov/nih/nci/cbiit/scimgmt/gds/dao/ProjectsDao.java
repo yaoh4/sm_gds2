@@ -79,11 +79,11 @@ public class ProjectsDao {
 			if(id != null){
 				//Already saved submission				
 				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Project.class, id));
-				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());				
+				detachedInstance.setLastChangedBy(loggedOnUser.getFullNameLF());				
 			}
 			else{
 				//New submission
-				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());				
+				detachedInstance.setCreatedBy(loggedOnUser.getFullNameLF());				
 			}
 			Project result = (Project) sessionFactory.getCurrentSession().merge(detachedInstance);
 			logger.debug("merge successful");

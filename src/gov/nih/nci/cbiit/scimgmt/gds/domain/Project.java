@@ -349,6 +349,15 @@ public class Project implements java.io.Serializable {
 		this.lastChangedBy = lastChangedBy;
 	}
 	
+	@Transient
+	public String getUpdatedBy() {
+		if(lastChangedBy != null) {
+			return lastChangedBy;
+		}
+		
+		return createdBy;
+	}
+	
 	@Column(name = "SUBPROJECT_FLAG", length = 4)
 	public String getSubprojectFlag() {
 		return this.subprojectFlag;

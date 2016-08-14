@@ -23,7 +23,7 @@
         <img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/></div></td>
               <td><s:date name="%{project.updatedDate}" format="MM/dd/yyyy"/> </td>
               <td align="center"></td>
-              <td><a href="#">Jones, Mary</a></td>
+              <td>${project.updatedBy}</td>
             </tr>
 		  <s:if test="%{showPage('GDSPLAN')}">
             <tr class="info">
@@ -39,7 +39,7 @@
               <td align="center"><a href="errorReport2.htm"
     onclick="return !window.open(this.href, 'Google', 'width=800,height=500')"
     target="_blank">View</a></td>
-              <td><a href="#">Jones, Mary</a></td>
+              <td><s:property value="%{getPageStatus('GDSPLAN').updatedBy}"/></td>
           
           <s:if test="%{project.getPlanAnswerSelectionByAnswerId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null}">
             </tr>
@@ -50,8 +50,8 @@
         <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       </div></td>
               <td></td>
-              <td align="center"></td>
-              <td><a href="#">Jones, Mary</a></td>
+              <td></td>
+              <td></td>
             </tr>
             </s:if>
 		  </s:if>
@@ -69,7 +69,7 @@
                 <td align="center"><a href="errorReport3.htm"
     onclick="return !window.open(this.href, 'Google', 'width=800,height=500')"
     target="_blank">View</a></td>
-              <td><a href="#">Jones, Mary</a></td>
+              <td><s:property value="%{getPageStatus('IC').updatedBy}"/></td>
             </tr>
           </s:if>
           <s:if test="%{showPage('BSI')}">
@@ -81,9 +81,9 @@
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       			</div>
       		  </td>
-              <td><s:date name="%{getPageStatus('GDSPLAN').updatedDate}" format="MM/dd/yyyy"/></td>
+              <td><s:date name="%{getPageStatus('BSI').updatedDate}" format="MM/dd/yyyy"/></td>
               <td align="center"><a href="#">View</a></td>
-              <td><a href="#">Jones, Mary</a></td>
+              <td><s:property value="%{getPageStatus('BSI').updatedBy}"/></td>
             </tr>
           </s:if>
         <s:iterator status="repStat" var="repStatus" value="project.repositoryStatuses">

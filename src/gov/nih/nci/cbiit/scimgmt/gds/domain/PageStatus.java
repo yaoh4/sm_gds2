@@ -35,30 +35,17 @@ public class PageStatus implements java.io.Serializable {
 	public PageStatus() {
 	}
 
-	public PageStatus(Long id, Lookup status, Lookup page, Project project) {
-		this.id = id;
-		this.status = status;
-		this.page = page;
-		this.project = project;
+
+	public PageStatus(Lookup status, Lookup page, Project project, String createdBy, Date createdDate) {
 		
-	}
-
-	public PageStatus(Long id, Lookup status, Lookup page, Project project, Date createdDate, String createdBy,
-			Date lastChangedDate, String lastChangedBy) {
-		this.id = id;
 		this.status = status;
 		this.page = page;
 		this.project = project;
 		this.createdBy = createdBy;
-		this.lastChangedBy = lastChangedBy;
+		this.createdDate = createdDate;
 	}
-
-	public PageStatus(Lookup status, Lookup page, Project project, String createdBy) {
-		this.status = status;
-		this.page = page;
-		this.project = project;
-		this.createdBy = createdBy;
-	}
+	
+	
 
 	@Id
 	@SequenceGenerator(name="pst_seq_gen", sequenceName="PST_SEQ", allocationSize=1)
@@ -120,6 +107,15 @@ public class PageStatus implements java.io.Serializable {
 
 	public void setLastChangedBy(String lastChangedBy) {
 		this.lastChangedBy = lastChangedBy;
+	}
+	
+	@Transient
+	public String getUpdatedBy() {
+		if(lastChangedBy != null) {
+			return lastChangedBy;
+		}
+		
+		return createdBy;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

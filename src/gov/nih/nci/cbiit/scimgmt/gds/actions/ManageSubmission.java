@@ -367,6 +367,7 @@ public class ManageSubmission extends BaseAction {
 		return dateFormat.format(getProject().getProjectEndDate());
 	}
 	
+	//Invoked to display status on individual pages
 	public String getPageStatusCode(String pageCode) {
 		return getPageStatus(pageCode).getStatus().getCode();
 	}
