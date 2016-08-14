@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,8 +10,10 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
@@ -26,6 +29,9 @@ import gov.nih.nci.cbiit.scimgmt.gds.util.RepositoryStatusComparator;
 @SuppressWarnings("serial")
 public class RepositoryStatusSubmissionAction extends ManageSubmission {
 
+	@Autowired
+	protected NedPerson loggedOnUser;
+	
 	private static final Logger logger = LogManager.getLogger(RepositoryStatusSubmissionAction.class);	
 
 	private List<DropDownOption> registrationStatusList = new ArrayList<DropDownOption>();	
@@ -149,9 +155,10 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		for(RepositoryStatus repositoryStatus : project.getRepositoryStatuses()){
 			repositoryStatus.setProject(project);
 			if(repositoryStatus.getId() == null) {
-				repositoryStatus.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+				repositoryStatus.setCreatedBy(loggedOnUser.getFullNameLF());
+				repositoryStatus.setCreatedDate(new Date());
 			} else {
-				repositoryStatus.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+				repositoryStatus.setLastChangedBy(loggedOnUser.getFullNameLF());
 			}
 			project.getPlanAnswerSelectionById(repositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()).getRepositoryStatuses().clear();
 			project.getPlanAnswerSelectionById(repositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()).getRepositoryStatuses().add(repositoryStatus);

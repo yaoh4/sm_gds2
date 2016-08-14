@@ -89,9 +89,10 @@
         <s:iterator status="repStat" var="repStatus" value="project.repositoryStatuses">
           <div class="repoItem">      
             <tr class="info">
-              <td colspan="4"><a href="#">Submission Status for Repository: ${repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText}</a></td>
+              <td colspan="3"><a href="#">Submission Status for Repository: ${repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText}</a></td>
+             <td><s:date name="%{#repStatus.updatedDate}" format="MM/dd/yyyy"/></td>
              <td align="center"><a href="#">View</a></td>
-              <td></td>
+              <td><s:property value="%{#repStatus.updatedBy}"/></td>
             </tr>
             
             <tr class="odd">
@@ -103,9 +104,9 @@
         			<img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/>
       			</div>
       		  </td>
-              <td>03/11/2016 2:41 PM</td>
               <td></td>
-              <td><a href="#">Jones, Mary</a></td>
+              <td></td>
+              <td></td>
             </tr> 
             
             <tr class="odd">
@@ -117,18 +118,18 @@
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
         	  	</div>
         	  </td>
-              <td>03/11/2016 2:41 PM</td>
-              <td align="center"></td>
-              <td><a href="#">Jones, Mary</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>   
       
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Study Released</td>
               <td style="text-align: center;">${repStatus.lookupTByStudyReleasedId.displayName}</td>
-              <td>03/11/2016 2:41 PM</td>
               <td></td>
-              <td><a href="#">Jones, Mary</a></td>
+              <td></td>
+              <td></td>
             </tr>   
           </div>                 
         </s:iterator>            
