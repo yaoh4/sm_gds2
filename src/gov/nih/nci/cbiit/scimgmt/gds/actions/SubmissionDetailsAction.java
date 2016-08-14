@@ -26,14 +26,6 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	private List<Document> bsiFile;
 	private List<Document> exceptionMemo;
 	private List<Document> gdsPlanFile;
-	private List<RepositoryStatus> repoList = new ArrayList<RepositoryStatus>();
-	public List<RepositoryStatus> getRepoList() {
-		return repoList;
-	}
-
-	public void setRepoList(List<RepositoryStatus> repoList) {
-		this.repoList = repoList;
-	}
 
 	/**
 	 * Opens Grants Contracts Search page.
@@ -43,9 +35,6 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	public String execute() throws Exception {
 		
 		Project project = retrieveSelectedProject();
-		
-		//repoList=manageProjectService.getRepoList((long) project.getId());
-		//logger.debug("retrieve repos list here" +repoList);
 		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
 				project.getRepositoryStatuses().add(repositoryStatus);
