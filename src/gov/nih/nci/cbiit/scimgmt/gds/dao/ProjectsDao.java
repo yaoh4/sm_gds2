@@ -142,22 +142,6 @@ public class ProjectsDao {
 		}
 	}
 	
-	
-	public List<RepositoryStatus> getRepositories(Long projectId){
-
-		try {
-			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RepositoryStatus.class);	
-			criteria.add(Restrictions.eq("project.id", projectId));
-			List<RepositoryStatus> repositoryStatusList = criteria.list();
-			logger.debug("repos list is" +repositoryStatusList);
-			return repositoryStatusList;
-
-		}catch (RuntimeException re) {
-			logger.error("Retrieving  Grant / Contract List failed", re);
-			throw re;
-		}
-	}
-	
 	/**
 	 * This method returns grantContract for given applId
 	 * @param applId
@@ -186,14 +170,13 @@ public class ProjectsDao {
 	 * @param grantContractNum
 	 * @return
 	 */
-	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum,long projectId){
+	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum,Long projectId){
 		
 		logger.info("Retrieving already linked submissions for grantContractNum: "+grantContractNum);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);	
 			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));
-			criteria.add(Restrictions.ne("id", 1));
-			//criteria.add(Restrictions.ne("parentProject.id", 1));
+			criteria.add(Restrictions.ne("id", projectId));
 			List<ProjectsVw> grantsListlist = criteria.list();
 			return grantsListlist;
 
