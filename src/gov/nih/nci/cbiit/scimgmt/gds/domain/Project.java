@@ -501,6 +501,55 @@ public class Project implements java.io.Serializable {
 	public void setDocuments(Set<Document> documents) {
 		this.documents = documents;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
+	@Cascade({CascadeType.ALL})
+	public List<ProjectsIcMapping> getProjectsIcMappings() {
+		return projectsIcMappings;
+	}
+
+	
+	public void setProjectsIcMappings(List<ProjectsIcMapping> projectsIcMappings) {
+		this.projectsIcMappings = projectsIcMappings;
+	}
+	
+
+	@Column(name = "APPL_ID", length = 10)
+	public Long getApplId() {
+		return applId;
+	}
+
+	public void setApplId(Long applId) {
+		this.applId = applId;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "ANTICIPATED_SUBMISSION_DATE", length = 7)
+	public Date getAnticipatedSubmissionDate() {
+		return anticipatedSubmissionDate;
+	}
+
+	public void setAnticipatedSubmissionDate(Date anticipatedSubmissionDate) {
+		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
+	}
+	
+	@Column(name = "PROJECT_SUBMISSION_TITLE", length = 100)
+	public String getSubmissionTitle() {
+		return submissionTitle;
+	}
+
+	public void setSubmissionTitle(String submissionTitle) {
+		this.submissionTitle = submissionTitle;
+	}
+
+	@Column(name = "DATA_LINK_FLAG", length = 1)
+	public String getDataLinkFlag() {
+		return dataLinkFlag;
+	}
+
+	public void setDataLinkFlag(String dataLinkFlag) {
+		this.dataLinkFlag = dataLinkFlag;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
@@ -573,37 +622,6 @@ public class Project implements java.io.Serializable {
 	}
 	
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
-	@Cascade({CascadeType.ALL})
-	public List<ProjectsIcMapping> getProjectsIcMappings() {
-		return projectsIcMappings;
-	}
-
-	
-	public void setProjectsIcMappings(List<ProjectsIcMapping> projectsIcMappings) {
-		this.projectsIcMappings = projectsIcMappings;
-	}
-	
-
-	@Column(name = "APPL_ID", length = 10)
-	public Long getApplId() {
-		return applId;
-	}
-
-	public void setApplId(Long applId) {
-		this.applId = applId;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "ANTICIPATED_SUBMISSION_DATE", length = 7)
-	public Date getAnticipatedSubmissionDate() {
-		return anticipatedSubmissionDate;
-	}
-
-	public void setAnticipatedSubmissionDate(Date anticipatedSubmissionDate) {
-		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
-	}
-	
 	/**
 	 * This method is for displaying the pi full name and hyper link for the email.
 	 * @return
@@ -633,23 +651,7 @@ public class Project implements java.io.Serializable {
 		}
 	}
 
-	@Column(name = "PROJECT_SUBMISSION_TITLE", length = 100)
-	public String getSubmissionTitle() {
-		return submissionTitle;
-	}
-
-	public void setSubmissionTitle(String submissionTitle) {
-		this.submissionTitle = submissionTitle;
-	}
-
-	@Column(name = "DATA_LINK_FLAG", length = 1)
-	public String getDataLinkFlag() {
-		return dataLinkFlag;
-	}
-
-	public void setDataLinkFlag(String dataLinkFlag) {
-		this.dataLinkFlag = dataLinkFlag;
-	}
+	
 	
 	@Formula(value="(SELECT count(*) FROM projects_t p WHERE p.parent_project_id = id AND p.latest_version_flag = 'Y')")
     public Long getSubprojectCount() {
