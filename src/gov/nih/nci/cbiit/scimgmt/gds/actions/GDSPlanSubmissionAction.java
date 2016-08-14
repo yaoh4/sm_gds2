@@ -883,9 +883,4 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		this.comments = comments;
 	}
 	
-	
-	public String getPageStatusCode() {
-		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_GDSPLAN);
-	}
-
 }
