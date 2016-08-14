@@ -173,9 +173,5 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		return projectsDao.getPrevLinkedSubmissionsForGrant(grantContractNum,projectId);
 	}
 
-	@Override
-	public List<RepositoryStatus> getRepoList(long i) {
-		// TODO Auto-generated method stub
-		return projectsDao.getRepositories(i);
-	}
+	
 }
