@@ -20,7 +20,7 @@
           No data entered.
         </s:if>
         <s:else>
-         <p><span class="reportLabel">[<strong><s:property value="%{repoList.size}"/></strong>] Data Repositories have been indicated for this project.</span> 05/22/2020</p>
+         <p><span class="reportLabel">[<strong><s:property value="%{project.repositoryStatuses.size}"/></strong>] Data Repositories have been indicated for this project.</span></p>
           <p><span class="reportLabel">Anticipated Submission Date:<s:date name="%{project.anticipatedSubmissionDate}" format="MM/dd/yyyy"/> </span> </p>  
           <table width="100%" border="1" cellpadding="3"
         class="table  table-bordered">
@@ -34,7 +34,7 @@
             <th>Comments</th>
           </tr>
 
-          <s:iterator value="repoList" var="r" status="stat">
+          <s:iterator value="project.repositoryStatuses" var="r" status="stat">
             <tr>
               <td>
                 <s:if test="%{#r.planAnswerSelectionTByRepositoryId.otherText != null}">
