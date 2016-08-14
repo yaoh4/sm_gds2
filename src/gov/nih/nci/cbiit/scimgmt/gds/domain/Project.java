@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,6 +25,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Formula;
+
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 
 
 /**
@@ -505,12 +508,17 @@ public class Project implements java.io.Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
+	@OrderBy("createdDate DESC")
 	public List<PageStatus> getPageStatuses() {
 		return this.pageStatuses;
 	}
 
 	public void setPageStatuses(List<PageStatus> pageStatuses) {
 		this.pageStatuses = pageStatuses;
+	}
+	
+	public void addPageStatus(PageStatus pageStatus) {
+		this.pageStatuses.add(pageStatus);
 	}
 	
 	public PageStatus getPageStatus(String pageCode) {

@@ -158,7 +158,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			project.setAnticipatedSubmissionDate(getProject().getAnticipatedSubmissionDate());
 		}
 
-		super.saveProject(project);
+		super.saveProject(project, ApplicationConstants.PAGE_CODE_REPOSITORY);
 		setUpPageData();
 	}
 	

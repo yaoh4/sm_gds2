@@ -11,11 +11,15 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.xml.sax.SAXException;
 
+
+import gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
@@ -35,6 +39,8 @@ import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
  */
 public class GdsSubmissionStatusHelper {
 
+	private static final Logger logger = LogManager.getLogger(GdsSubmissionStatusHelper.class);
+	
 	@Autowired
 	protected LookupService lookupService;
 	
@@ -70,7 +76,7 @@ public class GdsSubmissionStatusHelper {
 	}
 	
 	
-	public List<PageStatus> getPageStatuses(Project project) {
+	public List<PageStatus> initPageStatuses(Project project) {
 		List<PageStatus> pageStatuses = new ArrayList<PageStatus>();
 		
 		List<String> pageCodes = Arrays.asList(ApplicationConstants.PAGE_CODE_IC, 
@@ -78,16 +84,10 @@ public class GdsSubmissionStatusHelper {
 											   ApplicationConstants.PAGE_CODE_BSI,
 											   ApplicationConstants.PAGE_CODE_REPOSITORY);
 		for(String pageCode: pageCodes) {
-			String statusCode = getPageStatus(pageCode, project);
-			Lookup status = 
-					lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, statusCode);
-			Lookup page = 
-					lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode);
-			PageStatus pageStatus = new PageStatus();
-			pageStatus.setStatus(status);
-			pageStatus.setPage(page);
-			pageStatus.setProject(project);
-			pageStatus.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+			PageStatus pageStatus = new PageStatus(
+			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
+			lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
+			project, loggedOnUser.getFullNameLF());
 			pageStatuses.add(pageStatus);
 		}
 		
@@ -95,26 +95,33 @@ public class GdsSubmissionStatusHelper {
 	}
 	
 	
-	public String getPageStatus(String pageCode, Project project) {
+	public PageStatus getPageStatus(String pageCode, Project project) {
 		
-		String status = ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-		
+		String pageStatusStr = null;
 		switch(pageCode) {
-		case ApplicationConstants.PAGE_CODE_IC:
-			status = getIcPageStatus(project);
+		case ApplicationConstants.PAGE_CODE_IC:		
+			pageStatusStr =  getIcPageStatus(project);
 			break;
 		case ApplicationConstants.PAGE_CODE_GDSPLAN:
-			status = getGdsPageStatus(project);
-			break;	
+			pageStatusStr =  getGdsPageStatus(project);
+			break;
 		case ApplicationConstants.PAGE_CODE_BSI:
-			status = getBsiPageStatus(project);
+			pageStatusStr =  getBsiPageStatus(project);
 			break;
 		case ApplicationConstants.PAGE_CODE_REPOSITORY:
-			status = getRepositoryPageStatus(project);
-			break;	
+			pageStatusStr = getRepositoryPageStatus(project);
+			break;
+		default:
+			String errorMsg = "Incorrect page code (" + pageCode + ") provided";
+			logger.error(errorMsg);
+			throw new RuntimeException(errorMsg);
 		}
 		
-		return status;
+		PageStatus pageStatus = new PageStatus(
+			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, pageStatusStr),
+			lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
+			project, loggedOnUser.getFullNameLF());		
+		return pageStatus;
 	}
 	
 	

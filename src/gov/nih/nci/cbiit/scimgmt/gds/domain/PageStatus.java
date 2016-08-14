@@ -53,6 +53,12 @@ public class PageStatus implements java.io.Serializable {
 		this.lastChangedBy = lastChangedBy;
 	}
 
+	public PageStatus(Lookup status, Lookup page, Project project, String createdBy) {
+		this.status = status;
+		this.page = page;
+		this.project = project;
+		this.createdBy = createdBy;
+	}
 
 	@Id
 	@SequenceGenerator(name="pst_seq_gen", sequenceName="PST_SEQ", allocationSize=1)

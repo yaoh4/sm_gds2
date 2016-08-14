@@ -128,7 +128,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		else{
 			project = getProject();
 		}		
-		project = super.saveProject(project);
+		project = super.saveProject(project, null);
 		setProject(project);
 		loadGrantInfo();
 		setProjectId(project.getId().toString());
@@ -217,8 +217,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		subProject.setBsiReviewedFlag(null);
 		subProject.setRepositoryStatuses(null);
 		subProject.setAnticipatedSubmissionDate(null);
-		subProject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
-		subProject.setLastChangedBy(null);
 		subProject.setPlanComments(null);
 		subProject.setPlanAnswerSelections(null);
 										

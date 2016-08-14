@@ -80,7 +80,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		getProject().setBsiReviewedFlag(bsiReviewedFlag);
 		getProject().setBsiComments(comments); 
 
-		super.saveProject(getProject());
+		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_BSI);
 		
 		setProject(retrieveSelectedProject());
 		

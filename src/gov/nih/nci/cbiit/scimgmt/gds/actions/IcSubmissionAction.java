@@ -643,7 +643,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			storedProject.setProjectsIcMappings(projectsIcMappings);
 		}
 		
-		setProject(saveProject(storedProject));
+		setProject(saveProject(storedProject, ApplicationConstants.PAGE_CODE_IC));
 		
 	}
 	

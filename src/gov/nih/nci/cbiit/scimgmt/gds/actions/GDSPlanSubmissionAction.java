@@ -149,7 +149,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 
 		populatePlanAnswerSelection();
 
-		super.saveProject(getProject());
+		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
 		
 		setProject(retrieveSelectedProject());
 		

@@ -120,7 +120,7 @@ public class ManageSubmission extends BaseAction {
 	/**
 	 * Save the project
 	 */
-	public Project saveProject(Project project) {
+	public Project saveProject(Project project, String pageCode) {
 		
 		//Temporary hard coding project property. 
 		project.setVersionNum(1l);
@@ -131,19 +131,21 @@ public class ManageSubmission extends BaseAction {
 			project.setSubprojectFlag("Y");
 		}
 		
-		project.setPageStatuses(GdsSubmissionStatusHelper.getInstance().getPageStatuses(project));
-		return manageProjectService.saveOrUpdate(project);
+		//Set the page status on the project
+		if(pageCode != null) {
+			//We are not in the General Info page, so the project has
+			//already been saved, hence add a status only for this page
+			project.addPageStatus(
+				GdsSubmissionStatusHelper.getInstance().getPageStatus(pageCode, project));
+		} else  {
+			//We are in the General Info page. Check if this is a new submission
+			if (project.getId() == null)
+			project.setPageStatuses(GdsSubmissionStatusHelper.getInstance().initPageStatuses(project));
+		}
 		
+		return manageProjectService.saveOrUpdate(project);
 	}
 
-	
-	public Project saveUpdateProjectStatus(Project project) {
-		if(project.getCertificationCompleteFlag() == "No") {
-			
-		}
-		return null;
-	}
-	
 	
 	/**
 	 * Delete a file using document id
@@ -369,10 +371,10 @@ public class ManageSubmission extends BaseAction {
 		return getPageStatus(pageCode).getStatus().getCode();
 	}
 	
-	
 	public PageStatus getPageStatus(String pageCode) {
 		PageStatus pageStatus = 
 			getProject().getPageStatus(pageCode);
 		return pageStatus;
 	}
+	
 }
