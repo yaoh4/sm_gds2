@@ -79,5 +79,5 @@ public interface ManageProjectService {
 	 */
 	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum,Long projectId);
 
-	public List<RepositoryStatus> getRepoList(long i);
+	
 }
