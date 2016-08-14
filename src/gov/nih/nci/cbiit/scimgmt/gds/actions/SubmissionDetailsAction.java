@@ -57,9 +57,13 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		project.setInstitutionalCertifications(certs);
 		HashMap<Long, InstitutionalCertification> map = new HashMap<Long, InstitutionalCertification>();
 		
+		Long projectId = project.getId();
+		if(project.getParentProjectId() != null) {
+			projectId = project.getParentProjectId();
+		}
 		if(certs != null && !certs.isEmpty()) {
 			List<Document> docs = 
-					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getParentProjectId());
+					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, projectId);
 				    
 			for(InstitutionalCertification cert: certs) {
 				for(Document doc: docs) {
@@ -71,7 +75,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 				}		
 			}
 		}
-		  
+		
 		setProject(project);
 		
 		//Load general info
