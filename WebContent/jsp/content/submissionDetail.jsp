@@ -89,7 +89,7 @@
         <s:iterator status="repStat" var="repStatus" value="project.repositoryStatuses">
           <div class="repoItem">      
             <tr class="info">
-              <td colspan="3"><a href="#">Submission Status for Repository: ${repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText}</a></td>
+              <td colspan="3"><a href="#">Submission Status for Repository:<s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" /></a></td>
              <td><s:date name="%{#repStatus.updatedDate}" format="MM/dd/yyyy"/></td>
              <td align="center"><a href="#">View</a></td>
               <td><s:property value="%{#repStatus.updatedBy}"/></td>
@@ -126,7 +126,7 @@
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Study Released</td>
-              <td style="text-align: center;">${repStatus.lookupTByStudyReleasedId.displayName}</td>
+              <td style="text-align: center;"><s:property value="#repStatus.lookupTByStudyReleasedId.displayName" /></td>
               <td></td>
               <td></td>
               <td></td>
