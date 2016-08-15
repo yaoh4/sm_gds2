@@ -42,7 +42,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	private String grantContractNum;
 	private String selectedTypeOfProject;
 	private String applId;
-	
 
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();	
 	private List<DropDownOption> projectTypes = new ArrayList<DropDownOption>();
@@ -437,7 +436,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * @throws Exception
 	 */
 	public String getPrevLinkedSubmissionsForGrant() throws Exception {
-		prevLinkedSubmissions = manageProjectService.getPrevLinkedSubmissionsForGrant(grantContractNum);
+		prevLinkedSubmissions = manageProjectService.getPrevLinkedSubmissionsForGrant(grantContractNum,Long.valueOf(getProjectId()));
 		
 		return SUCCESS;
 	}
