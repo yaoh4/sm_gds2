@@ -132,7 +132,7 @@ public class ManageSubmission extends BaseAction {
 		}
 		
 		//Set the page status on the project
-	/*	if(pageCode != null) {
+		if(pageCode != null) {
 			//We are not in the General Info page, so the project has
 			//already been saved, hence add a status only for this page
 			project.addUpdatePageStatus(
@@ -141,7 +141,7 @@ public class ManageSubmission extends BaseAction {
 			//We are in the General Info page. Check if this is a new submission
 			if (project.getId() == null)
 			project.setPageStatuses(GdsSubmissionStatusHelper.getInstance().initPageStatuses(project));
-		}*/
+		}
 		
 		return manageProjectService.saveOrUpdate(project);
 	}
