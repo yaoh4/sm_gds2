@@ -168,12 +168,14 @@ function populateGrantsContractsData(){
 //This function displays table of already linked submissions.
 function showPrevLinkedSubmissions(){
 	 var grantContract = $("input[name=selectedGrantContract]:checked").val();
-	 var json = jQuery.parseJSON(grantContract);	
+	 //var project=$("input[name=projectId]").val();
+	 var json = jQuery.parseJSON(grantContract);
 	 var grantContractNum = json.grantContractNum;
+	 var projectId=$("#projectId").val();
 	 $.ajax({
 		 url: 'getPrevLinkedSubmissionsForGrant.action',
 		 dataType: 'html',
-		 data: {grantContractNum: grantContractNum},
+		 data: {grantContractNum: grantContractNum,projectId:projectId},
 		 type: 'post',
 		 success: function(html) {   			
 			 $("#prevLinkedSubmissions").html(html);
