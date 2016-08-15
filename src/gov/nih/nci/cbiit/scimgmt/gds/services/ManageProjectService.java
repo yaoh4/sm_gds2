@@ -77,7 +77,7 @@ public interface ManageProjectService {
 	 * @param grantContractNum
 	 * @return
 	 */
-	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum);
+	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum, Long projectId);
 
 	
 }
