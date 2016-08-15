@@ -16,7 +16,7 @@
           </div>
         </div> <!--end panel header-->
           <div class="panel-body" style="display:none;">
-        <s:if test="%{project.bsiReviewedFlag == null}">
+        <s:if test="%{project.repositoryStatuses.size == 0}">
           No data entered.
         </s:if>
         <s:else>
