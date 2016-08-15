@@ -4,7 +4,7 @@
 	<!--Begin Form -->
 	<s:form id="general_form" name="general_form" cssClass="dirty-check" action="viewProject.action" method="post" data-toggle="validator" role="form" >
 		<!-- Page navbar -->
-		<s:hidden name="projectId" value="%{project.id}"/>
+		<s:hidden name="projectId" id="projectId" value="%{project.id}"/>
 		<s:hidden name="applId" id="applId" value="%{project.applId}"/>
 		<s:hidden id="applClassCode" name="project.applClassCode" value="%{project.applClassCode}"/>
 		<s:hidden name="project.parentProjectId" value="%{project.parentProjectId}"/>
