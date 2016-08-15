@@ -135,7 +135,7 @@ public class ManageSubmission extends BaseAction {
 		if(pageCode != null) {
 			//We are not in the General Info page, so the project has
 			//already been saved, hence add a status only for this page
-			project.addPageStatus(
+			project.addUpdatePageStatus(
 				GdsSubmissionStatusHelper.getInstance().getPageStatus(pageCode, project));
 		} else  {
 			//We are in the General Info page. Check if this is a new submission
