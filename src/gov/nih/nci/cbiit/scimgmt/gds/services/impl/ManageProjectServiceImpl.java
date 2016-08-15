@@ -169,8 +169,8 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 * @param grantContractNum
 	 * @return
 	 */
-	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum){
-		return projectsDao.getPrevLinkedSubmissionsForGrant(grantContractNum);
+	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum, Long projectId){
+		return projectsDao.getPrevLinkedSubmissionsForGrant(grantContractNum,projectId);
 	}
 
 	
