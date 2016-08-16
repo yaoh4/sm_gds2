@@ -88,18 +88,17 @@ $(document).ready(function(){
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     return '<div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i></a>' +
-                    '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>' +
-                    '&nbsp;&nbsp;&nbsp;<a href="#" id="eclick" class="ellipsisR"><img src="../images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"><img src="../images/ellipsisOver.png" height="17px" width="16x" alt="open ellipsis"></a></div>' +
-                    '<div class="ellipsis" style="display: none;"><div class="dropbottom"><div class="dropmid" style="white-space: nowrap; height: auto;">' +
-                    '<a href="javascript: void(0)">Add New Version</a><br>' +
-                    '<a href="../manage/createSubproject.action?projectId=' + row.id + '">Add New Subproject</a></div></div></div>';
+                    '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a><br/>' +
+                     
+                    '<a href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" alt="Create New Version" alt="Create New Version"></i></a>' +
+                    '<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Create Sub-project" tile="Create Sub-project"></a></div></div></div>';
                 } },
                 {
                 "targets": -2, // Repository
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                 	if(row.repoCount != null && row.repoCount > 0) {
-                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><span class="badge">' + row.repoCount + '</span>&nbsp;Repositories</a>';
+                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a>';
                 	}
                 	return "";
                 } },
@@ -109,7 +108,7 @@ $(document).ready(function(){
                 	if(type === 'display') {
                 		if(row.subprojectCount != null && row.subprojectCount > 0) {
                 			return '<strong><a href="../manage/navigateToSubmissionDetail.action?projectId=' + data + '">'  + data + '</a></strong><br>' +
-                			'<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Existing Sub-Projects</a>';
+                			'<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Sub-projects</a>';
                 		}
                 		else {
                 			return '<strong><a href="../manage/navigateToSubmissionDetail.action?projectId=' + data + '">'  + data + '</a></strong>';
@@ -179,34 +178,34 @@ $(document).ready(function(){
 
 
     //for legend icon
-    $('#myTable_wrapper').prepend('<div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search.gif" /></div>')
+    $('#myTable_wrapper').prepend('<div style="float: right;"><img alt="legend for progress icons" src="../images/legend-search.gif" /></div>')
 
 
     //for ellipsis on search results
-    $(".ellipsis").hide();
+    //$(".ellipsis").hide();
     
-    $('body').on('mouseover', 'a.ellipsisR', function() {
-    	$(this).parent().next("div").slideDown('slow');
-    });
+    //$('body').on('mouseover', 'a.ellipsisR', function() {
+    	//$(this).parent().next("div").slideDown('slow');
+   // });
 
-    $('body').on('mouseleave', '.ellipsis', function() {
-    	$(this).slideUp('slow');
-    });
+    //$('body').on('mouseleave', '.ellipsis', function() {
+    	//$(this).slideUp('slow');
+    //});
 
     // Sub-Project Repository Submission Status
-    $('body').on('click', 'a.repoExpand', function() {
-        $(this).parent().next("div").slideToggle('500');
-        $(this).children("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
-    });
+   // $('body').on('click', 'a.repoExpand', function() {
+    //    $(this).parent().next("div").slideToggle('500');
+     //   $(this).children("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
+   // });
 
-    $("#directorSelect").change(function() {
-    	if($(this).find("option:selected").val() != "")
-    		$("#directorName").val($(this).find("option:selected").text());
-    	else
-    		$("#directorName").val("");
-    });
+  //  $("#directorSelect").change(function() {
+   // 	if($(this).find("option:selected").val() != "")
+    //		$("#directorName").val($(this).find("option:selected").text());
+    //	else
+    //		$("#directorName").val("");
+ //   });
 
-});
+//});
 
 function getRepoInfo(id) {
 	// Get html for modal display
