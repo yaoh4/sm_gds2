@@ -15,12 +15,15 @@
           </div>
         </div> <!--end panel header-->
         <div class="panel-body" style="display:none;">
-        <s:if test="%{project.bsiReviewedFlag == null}">
+        <s:if test="%{project.bsiReviewedFlag == null && project.bsiComments==null && project.documents.size==0}">
           No data entered.
         </s:if>
         <s:else>
+        <s:if test="%{project.bsiReviewedFlag != null}">  
           <p><span class="reportLabel">Has the GPA reviewed the Basic Study Information?</span> ${project.bsiReviewedFlag}</p>  
-          <p><span class="reportLabel">Uploaded Basic Study Infomation Form:</span></br>
+          </s:if>
+          <s:if test="%{bsiFile[0] != null}">
+          <p><span class="reportLabel">Uploaded Basic Study Infomation Form:</span><br>
             <table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody>
                 <tr class="modalTheader">
@@ -40,7 +43,8 @@
                 </tr>
               </tbody>
             </table>
-          <s:if test="%{#project.bsiComments != null}">  
+            </s:if>
+          <s:if test="%{project.bsiComments != null}">  
             <p><span class="reportLabel">Comments:</span>${project.bsiComments}</p>
           </s:if>
          </s:else>
