@@ -90,9 +90,8 @@ $(document).ready(function(){
                     return '<div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i></a>' +
                     '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>' +
                     '&nbsp;&nbsp;&nbsp;<a href="#" id="eclick" class="ellipsisR"><img src="../images/ellipsis.png" height="17px" width="16x" alt="open ellipsis"><img src="../images/ellipsisOver.png" height="17px" width="16x" alt="open ellipsis"></a></div>' +
-                    '<div class="ellipsis" style="display: none;"><div class="dropbottom"><div class="dropmid" style="white-space: nowrap; height: auto;">' +
-                    '<a href="javascript: void(0)">Add New Version</a><br>' +
-                    '<a href="../manage/createSubproject.action?projectId=' + row.id + '">Add New Subproject</a></div></div></div>';
+                    '<a href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" alt="Create New Version" alt="Create New Version"></i></a>' +
+                    '<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Create Sub-project" tile="Create Sub-project"></a></div></div></div>';
                 } },
                 {
                 "targets": -2, // Repository
