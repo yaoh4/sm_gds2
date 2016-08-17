@@ -9,6 +9,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionStatusHelper;
 
 /**
  * Basic Study Information Page Action Class
@@ -279,5 +281,11 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	
 	public String getPageStatusCode() {
 		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_BSI);
+	}
+	
+
+	public String getMissingBsiData() {
+		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_BSI));
+		return SUCCESS;
 	}
 }

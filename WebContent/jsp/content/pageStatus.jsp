@@ -1,8 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
-  <div class="statusWrapper">
-    <div class="status"><a href="#" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+ 
     <div class="statusIcon"> 
       <a href="#" class="tooltip">
         <s:if test="%{pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">	
@@ -21,4 +20,3 @@
         </span>
       </a>
     </div>
-  </div> 

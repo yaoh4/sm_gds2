@@ -24,16 +24,17 @@
 <div class="modal-content2">
   <div class="modal-header">
     <p align="left" class="modal-alert">Missing/Incomplete Data Report</p>
-    <p class="modal-warning">In order for the ${missingData.page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</p>
+    <p class="modal-warning">In order for the ${page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</p>
   </div>
   <div class="modal-body" id="template">
   	<div align="right"><img src="images/print.png" width="15px" height="15px">&nbsp;<a href="#">print report</a></div>
   	<s:iterator status="missingLevel0Stat" var="missingLevel0Data" value="missingDataList">	  
   	  <p>${missingLevel0Stat.index + 1}.&nbsp;&nbsp;${missingLevel0Data.displayText}</p>
   	  <s:if test="%{#missingLevel0Data.childList.size > 0}">
+  	    <ol style="list-style-type: square;"> 	    
   	    <s:iterator status="missingLevel1Stat" var="missingLevel1Data" value="#missingLevel0Data.childList">
-  	    <div class="indent"><p>${missingLevel1Stat.index + 1}.&nbsp;&nbsp;${missingLevel1Data.displayText}</p></div>
-  	      <s:if test="%{#missingLevel1Data.childList.size > 0}">
+  	    <li>${missingLevel1Data.displayText}</li>
+  	    <s:if test="%{#missingLevel1Data.childList.size > 0}">
   	        <ul class="indent" style="list-style-type: disc">
   	          <s:iterator status="missingLevel2Stat" var="missingLevel2Data" value="#missingLevel1Data.childList">
   		        <li>${missingLevel2Data.displayText}</li>
@@ -47,7 +48,9 @@
   	          </s:iterator> <!-- level2 iteration end -->
   	        </ul>
   	      </s:if>
+  	      <br/>
         </s:iterator><!--  level1 iteration end -->
+        </ol>
       </s:if>
     </s:iterator> <!--  level0 iteration end -->	
   </div> <!--  end modal body -->
