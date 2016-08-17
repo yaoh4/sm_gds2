@@ -108,7 +108,7 @@ $(document).ready(function(){
                 	if(type === 'display') {
                 		if(row.subprojectCount != null && row.subprojectCount > 0) {
                 			return '<strong><a href="../manage/navigateToSubmissionDetail.action?projectId=' + data + '">'  + data + '</a></strong><br>' +
-                			'<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Existing Sub-Projects</a>';
+                			'<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Sub-Projects</a>';
                 		}
                 		else {
                 			return '<strong><a href="../manage/navigateToSubmissionDetail.action?projectId=' + data + '">'  + data + '</a></strong>';

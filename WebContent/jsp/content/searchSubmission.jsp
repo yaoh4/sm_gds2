@@ -2,9 +2,17 @@
 
 <s:form action="search" namespace="/search" id="search-form">
 	<s:hidden id="directorName" name="criteria.pdFirstAndLastName"/>
-	<div class="panel panel-default mainContent" style="width: 80%;">
+	<div class="panel project-panel-primary">
+
+		<div class="panel-heading">
+		    <div class="pheader">
+			  <h4>Search Criteria</h4>
+			</div>
+		  </div>
+
+		  <!--end panel header-->
 		<div class="panel-body">
-			<h3 style="margin-top: 0px;">Search Criteria</h3>
+
 			<div class="form-group row">
 				<div class="col-xs-4">
 					<label for="Submission from">Submission from:</label> 
@@ -51,12 +59,14 @@
 				<input type="button" id="search-btn" value=" Search " class="btn btn-project-primary"/>
 			</div>
 
-		</div>
+		
+	<s:include value="/jsp/content/searchResult.jsp"/>
+</s:form>
+
+</div>
 		<!--end panel body-->
 	</div>
 	<!--end panel-->
-	<s:include value="/jsp/content/searchResult.jsp"/>
-</s:form>
 
 <script type="text/javascript"
 	src="<s:url value="/controllers/search.js" />"></script>
