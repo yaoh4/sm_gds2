@@ -170,16 +170,18 @@ public class ProjectsDao {
 	 * @param grantContractNum
 	 * @return
 	 */
-	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum, Long projectId){
+	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum, String projectId){
 		
 		logger.info("Retrieving already linked submissions for grantContractNum: "+grantContractNum);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);	
 			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));
-			criteria.add(Restrictions.ne("id", projectId));
+			if(!projectId.isEmpty()){
+			criteria.add(Restrictions.ne("id", Long.valueOf(projectId)));
 			criteria.add(Restrictions.or(
-					   Restrictions.ne("parentProject.id",projectId),
+					   Restrictions.ne("parentProject.id",Long.valueOf(projectId)),
 					   Restrictions.isNull("parentProject.id")));
+			}
 			List<ProjectsVw> grantsListlist = criteria.list();
 			return grantsListlist;
 
