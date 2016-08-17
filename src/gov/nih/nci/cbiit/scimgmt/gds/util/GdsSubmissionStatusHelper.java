@@ -28,6 +28,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
@@ -375,28 +376,28 @@ public class GdsSubmissionStatusHelper {
 	public List<MissingData> computeMissingRepositoryStatusData(Project project) {
 		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
 		
-		List<RepositoryStatus> repositoryStatuses = project.getRepositoryStatuses();
 		MissingData missingData = new MissingData("The following repository statuses need to be updated:");
-		
-		for(RepositoryStatus repoStatus: repositoryStatuses) {
+		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
+			for(RepositoryStatus repoStatus: selection.getRepositoryStatuses()) {
 			
-			MissingData missingRepoData = new MissingData(repoStatus.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
-			Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
-			Lookup registrationStatus = repoStatus.getLookupTBySubmissionStatusId();
-			Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
+				MissingData missingRepoData = new MissingData(repoStatus.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
+				Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
+				Lookup registrationStatus = repoStatus.getLookupTBySubmissionStatusId();
+				Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
 			
-			if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
-				missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'"));
-			}
-			if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
-				missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'"));
-			}
-			if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
-				missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'"));
-			}
+				if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
+					missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'"));
+				}
+				if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
+					missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'"));
+				}
+				if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
+					missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'"));
+				}
 			
-			if(missingRepoData.getChildList().size() > 0) {
-				missingData.addChild(missingRepoData);
+				if(missingRepoData.getChildList().size() > 0) {
+					missingData.addChild(missingRepoData);
+				}
 			}
 		}
 		
