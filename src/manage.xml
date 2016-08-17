@@ -80,6 +80,9 @@
 				<param name="parse">true</param>
 			 </result>-->
 		</action>
+		<action name="viewMissingGdsPlanData" method="getMissingGdsPlanData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GdsPlanSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
+		</action>	
 		<action name="editIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>
 			 <param name="projectId">${project.id}</param>
@@ -118,6 +121,9 @@
 			 <result name="input" type="tiles">submissionIcList</result>
 			 <param name="projectId">${project.id}</param>
 		</action>
+		<action name="viewMissingIcData" method="getMissingIcData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
+		</action>
 		<action name="navigateToBasicStudyInfo" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
 			 <result name="success" type="tiles">submissionBasicStudyInfo</result>
 		</action>
@@ -138,6 +144,9 @@
 				<param name="parse">true</param>
 			 </result>-->
 			 <result name="input" type="tiles">submissionBasicStudyInfo</result>
+		</action>
+		<action name="viewMissingBsiData" method="getMissingBsiData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
 		</action>
 		<action name="navigateToSubmissionDetail" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SubmissionDetailsAction">
 			 <result name="success" type="tiles">submissionDetail</result>
@@ -217,6 +226,9 @@
 				<param name="parse">true</param>
 			 </result>
 			 <result name="input" type="tiles">submissionRepositoryStatus</result>
+		</action>
+		<action name="viewMissingRepositoryData" method="getMissingRepositoryData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
 		</action>	
 		<action name="navigateToIntramuralGrantOrContractSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
 			 <result name="success" type="tiles">intramuralGrantOrContractSearch</result>

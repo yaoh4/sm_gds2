@@ -24,6 +24,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
@@ -54,6 +55,11 @@ public class ManageSubmission extends BaseAction {
 	private Long docId;
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	
+	private Lookup page;
+	
+	private List<MissingData> missingDataList;
+	
 	
 	/**
 	 * Execute method, for now used for navigation
@@ -376,6 +382,28 @@ public class ManageSubmission extends BaseAction {
 		PageStatus pageStatus = 
 			getProject().getPageStatus(pageCode);
 		return pageStatus;
+	}
+	
+	
+	public List<MissingData> getMissingDataList() {
+		return GdsSubmissionStatusHelper.getInstance().computeMissingDataReport(
+			retrieveSelectedProject(), getPage().getCode());
+	}
+	
+	
+	/**
+	 * @return the page
+	 */
+	public Lookup getPage() {
+		return page;
+	}
+
+
+	/**
+	 * @param page the page to set
+	 */
+	public void setPage(Lookup page) {
+		this.page = page;
 	}
 	
 }

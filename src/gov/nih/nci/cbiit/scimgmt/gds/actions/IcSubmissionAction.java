@@ -24,13 +24,16 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
+import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionStatusHelper;
 
 import org.springframework.util.CollectionUtils;
 
@@ -62,7 +65,6 @@ public class IcSubmissionAction extends ManageSubmission {
 	private List<Document> icFileDocs = new ArrayList<Document>();
 	
 	private Document doc = null; // json object to be returned for UI refresh after upload
-	
 	
 	
 	/**
@@ -468,9 +470,14 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public String saveIc() {
 		Project project = retrieveSelectedProject();
+		InstitutionalCertification ic = retrieveIC();
 		Long docId = null;
 		
 		InstitutionalCertification instCert = getInstCertification();
+		if(ic != null) {
+			instCert.setProjectsIcMappings(ic.getProjectsIcMappings());
+		}
+		
 		if(instCert.getId() != null) {
 			instCert.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
 		} else {
@@ -708,10 +715,10 @@ public class IcSubmissionAction extends ManageSubmission {
 			}		
 		}
 		
-		
 		manageProjectService.deleteIc(instCertId);
 		
-		setProject(retrieveSelectedProject());
+		setProject(retrieveSelectedProject());	
+		getProject().setCertificationCompleteFlag(null);
 
 		return SUCCESS;
 	}
@@ -872,5 +879,13 @@ public class IcSubmissionAction extends ManageSubmission {
 	public String getPageStatusCode() {
 		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_IC);
 	}
+	
 
+	public String getMissingIcData() {
+		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
+		return SUCCESS;
+	}
+
+
+	
 }

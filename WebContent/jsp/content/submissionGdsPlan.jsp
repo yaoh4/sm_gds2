@@ -17,7 +17,10 @@
 			<div class="panel-heading">
 				<div class="pheader">
 					<h4>Genomic Data Sharing Plan</h4>
-					 <s:include value="/jsp/content/pageStatus.jsp"/>
+					<div class="statusWrapper">
+    		  		  <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingGdsPlanData.action')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+              		  <s:include value="/jsp/content/pageStatus.jsp"/>           	
+            		</div>
 				</div>
 				<%-- <div class="statusWrapper">
 					<div class="status">

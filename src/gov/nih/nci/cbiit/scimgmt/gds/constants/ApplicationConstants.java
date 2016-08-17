@@ -83,7 +83,9 @@ public interface ApplicationConstants {
 	 public static final Long PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID = 13L;	
 	 public static final Long PROJECT_SUBMISSION_STATUS_COMPLETED_ID = 14L;
 	 public static final Long REGISTRATION_STATUS_INPROGRESS_ID = 8L;
-	 public static final Long REGISTRATION_STATUS_NOTSTARTED_ID = 9L;	 
+	 public static final Long REGISTRATION_STATUS_NOTSTARTED_ID = 9L;
+	 public static final Long REGISTRATION_STATUS_COMPLETED_ID = 10L;
+	 public static final Long PROJECT_STUDY_RELEASED_YES_ID = 16L;
 	 public static final Long PROJECT_STUDY_RELEASED_NO_ID = 17L;
 	 public static final Long SEARCH_MY_PROJECT_SUBMISSIONS = 40L;
 	 public static final Long SEARCH_SUBMISSION_FROM_MYDOC = 41L;

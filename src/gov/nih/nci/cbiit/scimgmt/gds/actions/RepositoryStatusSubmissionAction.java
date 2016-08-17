@@ -408,4 +408,9 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_REPOSITORY);
 	}
 	
+	public String getMissingRepositoryData() {
+		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
+		return SUCCESS;
+	}
+	
 }

@@ -887,4 +887,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_GDSPLAN);
 	}
 	
+	public String getMissingGdsPlanData() {
+		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_GDSPLAN));
+		return SUCCESS;
+	}
+	
 }

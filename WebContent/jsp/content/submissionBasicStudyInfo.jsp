@@ -20,23 +20,12 @@
 			<div class="panel-heading">
 				<div class="pheader">
 					<h4>Basic Study Information</h4>
-					 <s:include value="/jsp/content/pageStatus.jsp"/>
+					<div class="statusWrapper">
+    		  		  <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingBsiData.action')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+              		  <s:include value="/jsp/content/pageStatus.jsp"/>           	
+            	    </div>					 
 				</div>
-				<!-- <div class="statusWrapper">
-					<div class="status">
-						<a href="#" class="statusLink">Generate Missing Data Report</a>
-						&nbsp; &nbsp;
-					</div>
-					<div class="statusIcon">
-						<a href="#" class="tooltip"> <img src="images/inprogress.png"
-							alt="In Progress" /> <span> <img class="callout"
-								src="images/callout_black.gif" /> <strong>Legend:</strong><br />
-								<img src="images/legend.gif" />
-
-						</span>
-						</a>
-					</div>
-				</div> -->
+				
 			</div>
 
 			<div class="panel-body">
@@ -130,5 +119,5 @@
 	</div>
 </div>
 
-<script type="text/javascript"
-	src="<s:url value="/controllers/basicStudy.js" />"></script>
+<script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
+<script type="text/javascript" src="<s:url value="/controllers/basicStudy.js" />"></script>

@@ -18,7 +18,10 @@
 				<div class="panel-heading">
 					<div class="pheader">
 						<h4>Submission Status&nbsp;</h4>
-						 <s:include value="/jsp/content/pageStatus.jsp"/>
+						<div class="statusWrapper">
+						  <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryData.action')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+              			  <s:include value="/jsp/content/pageStatus.jsp"/>           	
+            			</div>				
 					</div>
 				</div>
 				<div class="panel-body">

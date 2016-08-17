@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
+import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
@@ -263,11 +265,153 @@ public class GdsSubmissionStatusHelper {
 	}
 	
 	
-	public void computeMissingDataReport(Project project, Long pageId) {
+	public List<MissingData> computeMissingDataReport(Project project, String pageCode) {
 		//Generate array of MissingDataFields - project id, page id, displayText level orderNum
-		
+		if(ApplicationConstants.PAGE_CODE_IC.equals(pageCode)) {
+			return computeMissingIcData(project);
+		} else if(ApplicationConstants.PAGE_CODE_BSI.equals(pageCode)) {
+			return computeMissingBsiData(project);
+		} else if(ApplicationConstants.PAGE_CODE_REPOSITORY.equals(pageCode)) {
+			return computeMissingRepositoryStatusData(project);
+		}
+		return null;
 	}
 	
 	
+	public List<MissingData> computeMissingIcData(Project project) {
+		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
+		
+		List<InstitutionalCertification> icList = manageProjectService.findIcsByProject(project);
+		
+		if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag()) ||
+				CollectionUtils.isEmpty(icList)) {
+			String displayText = "Add all the required Institutional Certifications";
+			MissingData missingData = new MissingData(displayText);
+			missingDataList.add(missingData);
+		}
+		
+		//Get the file list
+		HashMap<Long, Document> docMap = new HashMap<Long, Document>();
+		List<Document> docs = 
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
+		if(docs != null && !docs.isEmpty()) {
+			for(Document doc: docs) {
+				if(doc.getInstitutionalCertificationId() != null) {
+					docMap.put(doc.getInstitutionalCertificationId(), doc);
+				}			
+			}
+		}
+		
+		//There is at least one IC. So proceed to check if the ICs are all ok.
+		MissingData missingData = new MissingData("The following ICs have incomplete data:");
+		
+		for(InstitutionalCertification ic: icList) {
+			MissingData missingIcData = new MissingData();
+			Document document = docMap.get(ic.getId());
+			
+			if(document != null) {				
+				missingIcData.setDisplayText(document.getFileName());
+			} else {
+				missingIcData.setDisplayText("No file uploaded for IC");
+				continue;
+			}
+			
+			//Check GPA Approval Code
+			if(!ApplicationConstants.YES_ID.equals(ic.getGpaApprovalCode())) {
+				String text = "GPA approval code must be 'Yes'";
+				missingIcData.addChild(new MissingData(text));	
+			}
+			
+			//Loop through all the studies in the IC
+			List<Study> studies = ic.getStudies();			
+			for(Study study: studies) {
+				String studyText = "Study Name: " + study.getStudyName();
+				MissingData missingStudyData = new MissingData(studyText);
+				if(!ApplicationConstants.YES_ID.equals(study.getDulVerificationId())) {
+					String dulVerifiedText = "Data User Limitations Verified must be 'Yes'";
+					missingStudyData.addChild(new MissingData(dulVerifiedText));					
+				}
+				//Other checks, if and when added will come here
+				
+				if(missingStudyData.getChildList().size() > 0) {
+					//Add the study to the missing data list if 
+					//there is at least one piece of missing data
+					missingIcData.addChild(missingStudyData);
+				}
+			}
+			
+			if(missingIcData.getChildList().size() > 0) {
+				missingData.addChild(missingIcData);
+			}
+		}
+		
+		if(missingData.getChildList().size() > 0) {
+			missingDataList.add(missingData);
+		}
+		
+		return missingDataList;
+	}
 	
+	public List<MissingData> computeMissingBsiData(Project project) {
+		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
+		
+		if(!ApplicationConstants.FLAG_YES.equals(project.getBsiReviewedFlag())) {
+			String displayText = "BSI Reviewed flag must be 'Yes'.";
+			MissingData missingData = new MissingData(displayText);
+			missingDataList.add(missingData);
+		}
+		
+		List<Document> docs = 
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, project.getId());
+		if(CollectionUtils.isEmpty(docs)) {
+			String displayText = "The completed Basic Study Information Form must be uploaded.";
+			MissingData missingData = new MissingData(displayText);
+			missingDataList.add(missingData);
+		}
+		
+		return missingDataList;
+	}
+	
+	public List<MissingData> computeMissingRepositoryStatusData(Project project) {
+		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
+		
+		List<RepositoryStatus> repositoryStatuses = project.getRepositoryStatuses();
+		MissingData missingData = new MissingData("The following repository statuses need to be updated:");
+		
+		for(RepositoryStatus repoStatus: repositoryStatuses) {
+			
+			MissingData missingRepoData = new MissingData(repoStatus.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
+			Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
+			Lookup registrationStatus = repoStatus.getLookupTBySubmissionStatusId();
+			Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
+			
+			if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
+				missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'"));
+			}
+			if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
+				missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'"));
+			}
+			if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
+				missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'"));
+			}
+			
+			if(missingRepoData.getChildList().size() > 0) {
+				missingData.addChild(missingRepoData);
+			}
+		}
+		
+		if(missingData.getChildList().size() > 0) {
+			missingDataList.add(missingData);
+		}
+		
+		return missingDataList;
+	}
+	
+	public List<MissingData> computeMissingGdsPlanData(Project project) {
+		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
+		
+		
+		return missingDataList;
+	}
+		
 }

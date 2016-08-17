@@ -27,7 +27,10 @@
           
           <div class="panel-heading">
             <div class="pheader"><h4>Institutional Certification Status</h4></div>
-            <s:include value="/jsp/content/pageStatus.jsp"/>
+            <div class="statusWrapper">
+    		  <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+              <s:include value="/jsp/content/pageStatus.jsp"/>           	
+            </div>
              
           </div><!--end header-->   
           
@@ -255,7 +258,6 @@
 
     </s:form>
 
-
-<script type="text/javascript"
-	src="<s:url value="/controllers/institutional_dashboard.js" />"></script>
+<script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
+<script type="text/javascript" src="<s:url value="/controllers/institutional_dashboard.js" />"></script>
 
