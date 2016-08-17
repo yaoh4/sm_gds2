@@ -274,6 +274,8 @@ public class GdsSubmissionStatusHelper {
 			return computeMissingBsiData(project);
 		} else if(ApplicationConstants.PAGE_CODE_REPOSITORY.equals(pageCode)) {
 			return computeMissingRepositoryStatusData(project);
+		} else if(ApplicationConstants.PAGE_CODE_GDSPLAN.equals(pageCode)) {
+			return computeMissingGdsPlanData(project);
 		}
 		return null;
 	}
@@ -411,6 +413,12 @@ public class GdsSubmissionStatusHelper {
 	public List<MissingData> computeMissingGdsPlanData(Project project) {
 		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
 		
+		Set<PlanAnswerSelection> planAnswerSelections = 
+				project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID);
+		if(CollectionUtils.isEmpty(planAnswerSelections)) {
+			MissingData missingData = new MissingData("The question 'Is there a data sharing exception requested for this project' needs to be answered.");
+			missingDataList.add(missingData);
+		}
 		
 		return missingDataList;
 	}

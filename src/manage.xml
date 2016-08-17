@@ -80,7 +80,7 @@
 				<param name="parse">true</param>
 			 </result>-->
 		</action>
-		<action name="viewMissingGdsPlanData" method="getMissingGdsPlanData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GdsPlanSubmissionAction">
+		<action name="viewMissingGdsPlanData" method="getMissingGdsPlanData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
 		</action>	
 		<action name="editIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
