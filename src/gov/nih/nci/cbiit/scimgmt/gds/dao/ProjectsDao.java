@@ -83,7 +83,8 @@ public class ProjectsDao {
 			}
 			else{
 				//New submission
-				detachedInstance.setCreatedBy(loggedOnUser.getFullNameLF());				
+				detachedInstance.setCreatedBy(loggedOnUser.getFullNameLF());	
+				detachedInstance.setCreatedDate(new Date());
 			}
 			Project result = (Project) sessionFactory.getCurrentSession().merge(detachedInstance);
 			logger.debug("merge successful");

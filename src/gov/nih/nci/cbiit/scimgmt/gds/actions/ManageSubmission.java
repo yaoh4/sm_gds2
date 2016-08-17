@@ -145,8 +145,9 @@ public class ManageSubmission extends BaseAction {
 				GdsSubmissionStatusHelper.getInstance().getPageStatus(pageCode, project));
 		} else  {
 			//We are in the General Info page. Check if this is a new submission
-			if (project.getId() == null)
-			project.setPageStatuses(GdsSubmissionStatusHelper.getInstance().initPageStatuses(project));
+			if (project.getId() == null) {
+				project.setPageStatuses(GdsSubmissionStatusHelper.getInstance().initPageStatuses(project));
+			}
 		}
 		
 		return manageProjectService.saveOrUpdate(project);
