@@ -38,9 +38,9 @@ public class InstitutionalCertification implements java.io.Serializable {
 	private String comments;
 	private String createdBy;
 	private String lastChangedBy;
-	private List<Document> documents = new ArrayList();
-	private List<Study> studies = new ArrayList();
-	//private List<ProjectsIcMapping> projectsIcMappings = new ArrayList();
+	private List<Document> documents = new ArrayList<Document>();
+	private List<Study> studies = new ArrayList<Study>();
+	private List<ProjectsIcMapping> projectsIcMappings = new ArrayList<ProjectsIcMapping>();
 
 	public InstitutionalCertification() {
 	}
@@ -160,7 +160,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 	}
 
 	
-	/*@OneToMany(fetch = FetchType.LAZY, mappedBy = "institutionalCertification", orphanRemoval=true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "institutionalCertification", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
 	public List<ProjectsIcMapping> getProjectsIcMappings() {
 		return projectsIcMappings;
@@ -169,6 +169,6 @@ public class InstitutionalCertification implements java.io.Serializable {
 	
 	public void setProjectsIcMappings(List<ProjectsIcMapping> projectsIcMappings) {
 		this.projectsIcMappings = projectsIcMappings;
-	}*/
+	}
 
 }

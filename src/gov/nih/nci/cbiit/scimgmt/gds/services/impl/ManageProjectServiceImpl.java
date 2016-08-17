@@ -93,9 +93,9 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		if(ic.getId() == null) {
 			project.getProjectsIcMappings().add(new ProjectsIcMapping(
 					project, result.getCreatedBy(), null, result));	
+			saveOrUpdate(project);
 		}
-		
-		saveOrUpdate(project);
+				
 		return result;
 	}
 	
