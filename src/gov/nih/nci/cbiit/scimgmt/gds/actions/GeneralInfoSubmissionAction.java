@@ -436,7 +436,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * @throws Exception
 	 */
 	public String getPrevLinkedSubmissionsForGrant() throws Exception {
-		prevLinkedSubmissions = manageProjectService.getPrevLinkedSubmissionsForGrant(grantContractNum,Long.valueOf(getProjectId()));
+		prevLinkedSubmissions = manageProjectService.getPrevLinkedSubmissionsForGrant(grantContractNum,getProjectId());
 		
 		return SUCCESS;
 	}
