@@ -315,13 +315,13 @@ public class GdsSubmissionStatusHelper {
 			if(document != null) {				
 				missingIcData.setDisplayText(document.getFileName());
 			} else {
-				missingIcData.setDisplayText("No file uploaded for IC");
+				missingIcData.setDisplayText("No file uploaded for IC.");
 				continue;
 			}
 			
 			//Check GPA Approval Code
 			if(!ApplicationConstants.YES_ID.equals(ic.getGpaApprovalCode())) {
-				String text = "GPA approval code must be 'Yes'";
+				String text = "GPA approval code must be 'Yes'.";
 				missingIcData.addChild(new MissingData(text));	
 			}
 			
@@ -331,7 +331,7 @@ public class GdsSubmissionStatusHelper {
 				String studyText = "Study Name: " + study.getStudyName();
 				MissingData missingStudyData = new MissingData(studyText);
 				if(!ApplicationConstants.YES_ID.equals(study.getDulVerificationId())) {
-					String dulVerifiedText = "Data User Limitations Verified must be 'Yes'";
+					String dulVerifiedText = "Data User Limitations Verified must be 'Yes'.";
 					missingStudyData.addChild(new MissingData(dulVerifiedText));					
 				}
 				//Other checks, if and when added will come here
@@ -388,13 +388,13 @@ public class GdsSubmissionStatusHelper {
 				Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
 			
 				if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
-					missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'"));
+					missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'."));
 				}
 				if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
-					missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'"));
+					missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'."));
 				}
 				if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
-					missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'"));
+					missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'."));
 				}
 			
 				if(missingRepoData.getChildList().size() > 0) {
@@ -413,12 +413,53 @@ public class GdsSubmissionStatusHelper {
 	public List<MissingData> computeMissingGdsPlanData(Project project) {
 		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
 		
-		Set<PlanAnswerSelection> planAnswerSelections = 
-				project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID);
-		if(CollectionUtils.isEmpty(planAnswerSelections)) {
-			MissingData missingData = new MissingData("The question 'Is there a data sharing exception requested for this project' needs to be answered.");
+		
+		List<Document> exceptionMemos = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, project.getId());
+		
+		List<Document> gdsplans = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, project.getId());
+		
+		Long submissionReasonId = project.getSubmissionReasonId();
+		
+		if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
+				 || ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.equals(submissionReasonId)) {
+				
+			//Not indicated whether there is a data sharing exception requested for this project
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID))) {
+				MissingData missingData = new MissingData("The question 'Is there a data sharing exception requested for this project' needs to be answered.");
+				missingDataList.add(missingData);
+			}
+			
+			//Not indicated if the data sharing exception requested was approved
+			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
+				&& ( CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID))
+				|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null)) {
+				MissingData missingData = new MissingData("The question 'Was this exception approved' needs to be a 'Yes' or 'No'.");
+				missingDataList.add(missingData);
+			}
+			
+			//Data sharing exception approved but Exception Memo not uploaded
+			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
+					&& CollectionUtils.isEmpty(exceptionMemos)) {
+				MissingData missingData = new MissingData("The Exception Memo has not been uploaded.");
+				missingDataList.add(missingData);
+			}
+			
+			if(CollectionUtils.isEmpty(exceptionMemos)) {
+				MissingData missingData = new MissingData("The Data Sharing Plan has not been uploaded.");
+				missingDataList.add(missingData);
+			}
+		}
+		
+		//GPA has not reviewed the data sharing plan
+		if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID))
+				|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_NO_ID) != null) {
+			MissingData missingData = new MissingData("GPA review of the Data Sharing Plan is pending.");
 			missingDataList.add(missingData);
 		}
+		
+		
 		
 		return missingDataList;
 	}
