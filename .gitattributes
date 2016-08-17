@@ -171,6 +171,7 @@ WebContent/index.jsp -text
 WebContent/jsp/content/detailReport.jsp -text
 WebContent/jsp/content/dulSetTemplate.jsp -text
 WebContent/jsp/content/manageDuls.jsp -text
+WebContent/jsp/content/missingDataReport.jsp -text
 WebContent/jsp/content/pageStatus.jsp -text
 WebContent/jsp/content/prevLinkedSubmissions.jsp -text
 WebContent/jsp/content/search.jsp -text
