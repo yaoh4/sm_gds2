@@ -99,7 +99,7 @@ $(document).ready(function(){
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                 	 {
-                        return '<s:include value="/jsp/content/pageStatus.jsp"/>' + '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal">' + '<i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>';
+                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal">' + '<i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>';
                 	}
                 	return "";
                 } },
@@ -132,7 +132,7 @@ $(document).ready(function(){
                     }
                 } },
                 {
-                "targets": [6, 7, 8, 9], // Status columns
+                "targets": [6, 7, 8, 9, 12], // Status columns
                 "width": "7%",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
