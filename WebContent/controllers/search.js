@@ -43,8 +43,8 @@ $(document).ready(function(){
             		});
                 }
             },
-            "dom": "<'row'<'col-sm-6' <'export'>>>" + "<'row'<'col-sm-12'l <'legend'>><'col-sm-6'f>>"
-            +"<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
+            "dom": "<'row'<'col-sm-6' <'export'>>>" + "<'row'<'legend'>><'col-sm-6'f>>"
+            +"<'row'<'col-sm-4'i><'col-sm-4'l><'col-sm-4'p>>" + 
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12'l>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "columns": [
@@ -155,7 +155,7 @@ $(document).ready(function(){
             ]
         });
         
-	$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search.gif'></div>");
+	$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search2.gif'></div>");
 
 	$("div.export").html("<a id='export-btn' href='#' aria-controls='submissionTable' tabindex='0' class='dt-button buttons-excel buttons-html5'><span>Export to Excel</span></a>");
 
@@ -194,7 +194,7 @@ $(document).ready(function(){
 
 
     //for legend icon
-    $('#myTable_wrapper').prepend('<div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search.gif" /></div>')
+    $('#myTable_wrapper').prepend('<div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search2.gif" /></div>')
 
 
 
