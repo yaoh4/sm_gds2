@@ -164,8 +164,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	/**
 	 * Validate Save Genomic Data Sharing Plan 
+	 * @throws Exception 
 	 */
-	public void validateSave() {
+	public void validateSave() throws Exception {
 		
 		
 		if(dataSharingPlan != null  || exceptionMemo != null) {
@@ -192,8 +193,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 		}
 
-		if(hasErrors())
+		if(hasErrors()) {
 			setProject(retrieveSelectedProject());
+			populateSelectedRemovedSets(false); // Re-populate the new and old set for save.
+			populatePlanAnswerSelection();
+			uiControlMap = uIRuleUtil.getUiRuleMap(getProject());
+		}
 		
 	}
 
@@ -222,8 +227,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	/**
 	 * Validate Save & Next Genomic Data Sharing Plan 
+	 * @throws Exception 
 	 */
-	public void validateSaveAndNext() {
+	public void validateSaveAndNext() throws Exception {
 		
 		validateSave();
 	}
@@ -461,7 +467,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		PlanAnswerSelection newObject = null;
 		for (Long id : newSet) {
 			PlanQuestionsAnswer planQuestionsAnswer = PlanQuestionList.getAnswerByAnswerId(id);
-			if(planQuestionsAnswer.getDisplayText().equalsIgnoreCase(ApplicationConstants.OTHER)) {
+			if(planQuestionsAnswer.getDisplayText().equalsIgnoreCase(ApplicationConstants.OTHER) && otherTextMap != null && !otherTextMap.isEmpty()) {
 				for(String otherText: otherTextMap.get(id)) {
 					newObject = getProject().getPlanAnswerSelectionByAnswerIdAndText(id, otherText);
 					if(newObject == null) {
