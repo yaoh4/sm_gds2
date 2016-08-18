@@ -43,12 +43,7 @@ $(document).ready(function(){
             		});
                 }
             },
-            "buttons": [
-                {
-                extend: 'colvis',
-                columns: [0, 1, 2, 3, 6, 7, 8, 9, 12, 13]
-                }
-             ],
+       
             "dom": "<'row'<'col-sm-6'B <'export'>>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
             "<'row'<'col-sm-12'l <'legend'>><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12'l>>" +
@@ -88,17 +83,17 @@ $(document).ready(function(){
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     return '<div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i></a>' +
-                    '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a><br/>' +
+                    '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>' +
                      
-                    '<a href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" alt="Create New Version" alt="Create New Version"></i></a>' +
+                    '&nbsp;&nbsp;&nbsp;<a href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" alt="Create New Version" alt="Create New Version"></i></a>' +
                     '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Create Sub-project" tile="Create Sub-project"></a></div></div></div>';
                 } },
                 {
                 "targets": -2, // Repository
                 "orderable": false,
                 "render": function (data, type, row, meta) {
-                	if(row.repoCount != null && row.repoCount > 0) {
-                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal"><span class="badge">' + row.repoCount + '</span>&nbsp;Repositories</a>';
+                	 {
+                        return '<s:include value="/jsp/content/pageStatus.jsp"/>' + '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal">' + '<i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>';
                 	}
                 	return "";
                 } },
@@ -181,16 +176,7 @@ $(document).ready(function(){
     $('#myTable_wrapper').prepend('<div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search.gif" /></div>')
 
 
-    //for ellipsis on search results
-    $(".ellipsis").hide();
-    
-    $('body').on('mouseover', 'a.ellipsisR', function() {
-    	$(this).parent().next("div").slideDown('slow');
-    });
 
-    $('body').on('mouseleave', '.ellipsis', function() {
-    	$(this).slideUp('slow');
-    });
 
     // Sub-Project Repository Submission Status
     $('body').on('click', 'a.repoExpand', function() {
