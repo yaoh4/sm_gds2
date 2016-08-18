@@ -60,7 +60,7 @@ $(document).ready(function(){
                 { "data":  "bsiPageStatus"},
                 { "data":  "repoCount"},
                 { "data":  "subprojectCount"},
-                { "data":  null},
+                { "data":  "repositoryPageStatus"},
                 { "data":  null}
             ],
             "searching": false,
@@ -89,10 +89,22 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": -2, // Repository
-                "orderable": false,
+                "orderable": true,
                 "render": function (data, type, row, meta) {
                 	 {
-                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal">' + '<i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>';
+                		 if(type === 'display') {
+                     		if(data == "In Progress") {
+                     			status = '<div class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" /></div>'
+                     		}
+                     		else if(data == "Completed") {
+                     			status = '<div class="searchProgess"><img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/></div>'
+                     		} else {
+                     			status = '<div class="searchProgess"><img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"></div>'
+                     	   	}
+                		 }
+                		if(row.repoCount != null && row.repoCount > 0) {
+                			return status + '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal">' + '<i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>';
+                		}
                 	}
                 	return "";
                 } },

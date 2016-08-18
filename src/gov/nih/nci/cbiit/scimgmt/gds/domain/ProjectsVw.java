@@ -63,6 +63,7 @@ public class ProjectsVw implements java.io.Serializable {
 	private String icPageStatus;
 	private String bsiPageStatus;
 	private String dataSharingExceptionStatus;
+	private String repositoryPageStatus;
 
 	private Long subprojectCount;
 	private Long repoCount;
@@ -83,7 +84,7 @@ public class ProjectsVw implements java.io.Serializable {
 			String pocEmailAddress, String planComments, Long applId, String bsiComments,
 			Date anticipatedSubmissionDate, String projectSubmissionTitle, String dataLinkFlag,
 			String gdsPlanPageStatus, String icPageStatus, String bsiPageStatus,
-			String dataSharingExceptionStatus) {
+			String dataSharingExceptionStatus, String repositoryPageStatus) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
 		this.projectTitle = projectTitle;
@@ -124,6 +125,7 @@ public class ProjectsVw implements java.io.Serializable {
 		this.icPageStatus = icPageStatus;
 		this.bsiPageStatus = bsiPageStatus;
 		this.dataSharingExceptionStatus = dataSharingExceptionStatus;
+		this.repositoryPageStatus = repositoryPageStatus;
 	}
 
 	@Id
@@ -486,6 +488,15 @@ public class ProjectsVw implements java.io.Serializable {
 
 	public void setDataSharingExceptionStatus(String dataSharingExceptionStatus) {
 		this.dataSharingExceptionStatus = dataSharingExceptionStatus;
+	}
+
+	@Column(name = "REPOSITORY_PAGE_STATUS", length = 400)
+	public String getRepositoryPageStatus() {
+		return repositoryPageStatus;
+	}
+
+	public void setRepositoryPageStatus(String repositoryPageStatus) {
+		this.repositoryPageStatus = repositoryPageStatus;
 	}
 
 	@Formula(value="(SELECT count(*) FROM projects_t p WHERE p.parent_project_id = id AND p.latest_version_flag = 'Y')")

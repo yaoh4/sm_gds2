@@ -217,7 +217,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			header.add("Data Sharing Exception");
 			header.add("IC");
 			header.add("BSI");
-			header.add("Repository Count");
+			header.add("Submission Status");
 			exportRow.setRow(header);
 			exportRow.setHeader(true);
 			rows.add(exportRow);
@@ -236,7 +236,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 				row.add(submission.getDataSharingExceptionStatus());
 				row.add(submission.getIcPageStatus());
 				row.add(submission.getBsiPageStatus());
-				row.add((submission.getRepoCount() == null ? "" : submission.getRepoCount().toString()));
+				row.add((submission.getRepoCount() == null ? "" : submission.getRepositoryPageStatus()));
 				exportRow.setRow(row);
 				rows.add(exportRow);
 				

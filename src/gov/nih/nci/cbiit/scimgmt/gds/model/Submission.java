@@ -48,6 +48,7 @@ public class Submission implements java.io.Serializable {
 	private String dataSharingExceptionStatus;
 	private String icPageStatus;
 	private String bsiPageStatus;
+	private String repositoryPageStatus;
 	private Long repoCount;
 	private Long subprojectCount;
 
@@ -364,6 +365,14 @@ public class Submission implements java.io.Serializable {
 
 	public void setIcPageStatus(String icPageStatus) {
 		this.icPageStatus = icPageStatus;
+	}
+
+	public String getRepositoryPageStatus() {
+		return repositoryPageStatus;
+	}
+
+	public void setRepositoryPageStatus(String repositoryPageStatus) {
+		this.repositoryPageStatus = repositoryPageStatus;
 	}
 
 	public Long getRepoCount() {
