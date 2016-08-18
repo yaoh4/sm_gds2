@@ -85,7 +85,11 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		setProject(retrieveSelectedProject());
 		
-		InstitutionalCertification instCert = retrieveIC();
+		InstitutionalCertification instCert = null;
+		if(instCertId != null) {
+			instCert = retrieveIC(Long.valueOf(instCertId));
+		}
+		
 		if(instCert != null) {
 			loadFiles(instCert);
 		} else {
@@ -203,15 +207,14 @@ public class IcSubmissionAction extends ManageSubmission {
 	 * 
 	 * @return
 	 */
-	private InstitutionalCertification retrieveIC() {
+	private InstitutionalCertification retrieveIC(Long instCertId) {
 	
-		String instCertId  = getInstCertId();
 		if(instCertId != null) {
 			Project project = retrieveSelectedProject();
 			List<InstitutionalCertification> certs = manageProjectService.findIcsByProject(project);
 			if(!CollectionUtils.isEmpty(certs)) {
 				for(InstitutionalCertification cert: certs) {
-					if(cert.getId().toString().equals(instCertId)) {
+					if(cert.getId().equals(instCertId)) {
 						return cert;
 					}
 				}
@@ -470,12 +473,14 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public String saveIc() {
 		Project project = retrieveSelectedProject();
-		InstitutionalCertification ic = retrieveIC();
+		InstitutionalCertification ic = retrieveIC(getInstCertification().getId());
 		Long docId = null;
 		
 		InstitutionalCertification instCert = getInstCertification();
 		if(ic != null) {
-			instCert.setProjectsIcMappings(ic.getProjectsIcMappings());
+			instCert.setProjects(ic.getProjects());
+		} else {
+			instCert.addProject(project);
 		}
 		
 		if(instCert.getId() != null) {
@@ -551,177 +556,6 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	
-	/**
-	 * Invoked for the Track IC Status page. Invoked from
-	 * 1. ICs tab (if at least one IC is present in the submission (else, user will
-	 * be directed to the Add IC page)
-	 * 2. The Save and Next button on the Genomic Data Sharing Plan if at least one
-	 *   IC is present in the Submission (else user will be directed to the Add IC page).
-	 * 3. Save Study button on the Add IC Certification page.
-	 * @return
-	 */
-	public String getIcList() {
-		
-		String forward = SUCCESS;
-		
-		
-		//Retrieve IC list. If sub-project, retrieve parent IC list
-		Project storedProject = retrieveSelectedProject();
-		List<InstitutionalCertification> icList = manageProjectService.findIcsByProject(storedProject);
-		Long displayProjectId = storedProject.getId();
-		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
-			prepareIcListDisplay(icList);
-			icList = manageProjectService.findIcsByProject(retrieveParentProject());
-			displayProjectId = storedProject.getParentProjectId();
-		}
-		
-		storedProject.setInstitutionalCertifications(icList);
-				
-		List<Document> docs = 
-			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, displayProjectId);
-			
-		if(CollectionUtils.isEmpty(icList) && !ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
-			forward =  ApplicationConstants.EMPTY;
-		} 
-		
-		if(docs != null && !docs.isEmpty()) {
-			for(InstitutionalCertification ic: icList) {
-				for(Document doc: docs) {
-					if(doc.getInstitutionalCertificationId() != null && 
-							doc.getInstitutionalCertificationId().equals(ic.getId()))
-						ic.addDocument(doc);								
-				}	
-			}
-		}
-		
-		setProject(storedProject);
-		setProjectId(storedProject.getId().toString());
-		return forward;
-	}
-	
-	
-	private void prepareIcListDisplay(List<InstitutionalCertification> icList) {
-		ArrayList<String> icIdList = new ArrayList<String>();
-		
-		//Determine which checkboxes need to be saved. These will be the ICs associated
-		//with the stored sub-project (param)
-		if(!CollectionUtils.isEmpty(icList)) {
-			for(InstitutionalCertification ic: icList) {
-				icIdList.add(ic.getId().toString());
-			}
-		}
-		
-		icIds = (new JSONArray(icIdList)).toString();
-	}
-	
-	
-	public String save() {
-		
-		saveIcList();
-		addActionMessage(getText("project.save.success"));
-		return getIcList();
-	}
-	
-	
-	public String saveAndNext() {
-		
-		saveIcList();
-		return SUCCESS;
-	}
-	
-	/**
-	 * Saves the certificationComplete flag. Invoked from:
-	 * 'Save' or 'Save and Next' button on the Track Institutional Certification
-	 *  Status page.
-	 * 
-	 * @return
-	 */
-	private void saveIcList() {
-		
-		String certComplete = getProject().getCertificationCompleteFlag();
-		
-		Project storedProject = retrieveSelectedProject();
-		
-		storedProject.setCertificationCompleteFlag(certComplete);
-		
-		//If this is a sub-project, save only the ICs selected from the parent
-		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
-			List<ProjectsIcMapping> projectsIcMappings = getSubProjectIcs(storedProject);			
-			storedProject.setProjectsIcMappings(projectsIcMappings);
-		}
-		
-		setProject(saveProject(storedProject, ApplicationConstants.PAGE_CODE_IC));
-		
-	}
-	
-	
-	private List<ProjectsIcMapping> getSubProjectIcs(Project storedProject) {
-		
-		List<ProjectsIcMapping> storedIcMappings = storedProject.getProjectsIcMappings();
-		
-		//Get the IC mappings in the stored project
-		HashMap<Long, ProjectsIcMapping> icMap = new HashMap();
-		if(!CollectionUtils.isEmpty(storedIcMappings)) {
-			for(ProjectsIcMapping projectsIcMapping: storedIcMappings) {
-				icMap.put(projectsIcMapping.getInstitutionalCertification().getId(), projectsIcMapping);
-			}
-		}
-			
-		//Get the ic mappings of the project from the display - this is the same as the
-		//parent project ic mappings
-		List<InstitutionalCertification> parentIcList = manageProjectService.findIcsByProject(retrieveParentProject());
-		String [] icElem = ServletActionContext.getRequest().getParameterValues("ic-selected");
-		if(icElem == null) {
-			storedIcMappings.clear();
-		} else {
-		    //Add/remove based on the ones selected in the display
-			List<String> selectedIcs = Arrays.asList(icElem);
-			if(!CollectionUtils.isEmpty(parentIcList)) {
-				for(InstitutionalCertification ic: parentIcList) {
-					Long certificationId = ic.getId();
-					if(selectedIcs.contains(certificationId.toString())) {			
-					//This has been selected, add to subproject if not already present
-						if(!icMap.containsKey(certificationId)) {
-							storedIcMappings.add(new ProjectsIcMapping(
-								storedProject, loggedOnUser.getAdUserId().toUpperCase(), null, ic));
-						}
-					} else {
-						storedIcMappings.remove(certificationId);
-					}
-				}
-			}
-		}
-		return storedIcMappings;
-	
-	}
-	
-	/**
-	 * Deletes an IC. Invoked when the delete button is clicked on the Track
-	 * Submission Status (IC List) page
-	 * 
-	 * @return
-	 */
-	public String deleteIc() {
-		
-		Long instCertId = Long.valueOf(getInstCertId());
-		
-		Project project = retrieveSelectedProject();
-		
-		// Delete the files for this certId
-		icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
-		for(Document doc: icFileDocs) {
-			if(doc.getInstitutionalCertificationId() == null || doc.getInstitutionalCertificationId().longValue() == instCertId.longValue()) {
-				fileUploadService.deleteFile(doc.getId());
-			}		
-		}
-		
-		manageProjectService.deleteIc(instCertId);
-		
-		setProject(retrieveSelectedProject());	
-		getProject().setCertificationCompleteFlag(null);
-
-		return SUCCESS;
-	}
 	
 	
 	/**

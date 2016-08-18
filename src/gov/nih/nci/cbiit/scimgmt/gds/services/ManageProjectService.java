@@ -33,6 +33,13 @@ public interface ManageProjectService {
 	 */
 	public Project findById(Long projectId);
 	
+	/**
+	 * Retrieve IC given an ID
+	 * 
+	 * @param icId
+	 * @return InstitutionCertification
+	 */
+	public InstitutionalCertification findIcById(Long icId);
 	
 	/**
 	 * Inserts or Updates the IC

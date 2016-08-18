@@ -270,6 +270,8 @@ public class GdsSubmissionStatusHelper {
 		//Generate array of MissingDataFields - project id, page id, displayText level orderNum
 		if(ApplicationConstants.PAGE_CODE_IC.equals(pageCode)) {
 			return computeMissingIcData(project);
+		} else if(ApplicationConstants.PAGE_CODE_ICLIST.equals(pageCode)) {
+			return computeMissingIcListData(project);
 		} else if(ApplicationConstants.PAGE_CODE_BSI.equals(pageCode)) {
 			return computeMissingBsiData(project);
 		} else if(ApplicationConstants.PAGE_CODE_REPOSITORY.equals(pageCode)) {
@@ -281,7 +283,7 @@ public class GdsSubmissionStatusHelper {
 	}
 	
 	
-	public List<MissingData> computeMissingIcData(Project project) {
+	public List<MissingData> computeMissingIcListData(Project project) {
 		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
 		
 		List<InstitutionalCertification> icList = manageProjectService.findIcsByProject(project);
@@ -353,6 +355,52 @@ public class GdsSubmissionStatusHelper {
 		}
 		
 		return missingDataList;
+	}
+	
+	
+	public List<MissingData> computeMissingIcData(Project project) {
+		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
+		return missingDataList;
+		
+	}
+	
+	private MissingData computeMissingIcData(InstitutionalCertification ic, Document doc) {
+		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
+		MissingData missingIcData = new MissingData();
+		
+		if(doc != null) {				
+			missingIcData.setDisplayText(doc.getFileName());
+		} else {
+			missingIcData.setDisplayText("No file uploaded for IC.");
+			return missingIcData;
+		}
+		
+		//Check GPA Approval Code
+		if(!ApplicationConstants.YES_ID.equals(ic.getGpaApprovalCode())) {
+			String text = "GPA approval code must be 'Yes'.";
+			missingIcData.addChild(new MissingData(text));	
+		}
+		
+		//Loop through all the studies in the IC
+		List<Study> studies = ic.getStudies();			
+		for(Study study: studies) {
+			String studyText = "Study Name: " + study.getStudyName();
+			MissingData missingStudyData = new MissingData(studyText);
+			if(!ApplicationConstants.YES_ID.equals(study.getDulVerificationId())) {
+				String dulVerifiedText = "Data User Limitations Verified must be 'Yes'.";
+				missingStudyData.addChild(new MissingData(dulVerifiedText));					
+			}
+			//Other checks, if and when added will come here
+			
+			if(missingStudyData.getChildList().size() > 0) {
+				//Add the study to the missing data list if 
+				//there is at least one piece of missing data
+				missingIcData.addChild(missingStudyData);
+			}
+		}
+		
+		
+		return missingIcData;
 	}
 	
 	public List<MissingData> computeMissingBsiData(Project project) {

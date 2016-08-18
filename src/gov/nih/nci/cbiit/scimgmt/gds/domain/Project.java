@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
@@ -80,7 +81,7 @@ public class Project implements java.io.Serializable {
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<InstitutionalCertification> institutionalCertifications = new ArrayList();
-	private List<ProjectsIcMapping> projectsIcMappings = new ArrayList<ProjectsIcMapping>();
+	//private List<ProjectsIcMapping> projectsIcMappings = new ArrayList<ProjectsIcMapping>();
 	
 	
 	private Long subprojectCount;
@@ -561,7 +562,7 @@ public class Project implements java.io.Serializable {
 		this.documents = documents;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
+	/*@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
 	public List<ProjectsIcMapping> getProjectsIcMappings() {
 		return projectsIcMappings;
@@ -570,7 +571,7 @@ public class Project implements java.io.Serializable {
 	
 	public void setProjectsIcMappings(List<ProjectsIcMapping> projectsIcMappings) {
 		this.projectsIcMappings = projectsIcMappings;
-	}
+	}*/
 	
 
 	@Column(name = "APPL_ID", length = 10)
@@ -671,7 +672,7 @@ public class Project implements java.io.Serializable {
 		this.repositoryStatuses = repositoryStatuses;
 	}
 
-	@Transient
+	@ManyToMany(mappedBy="projects") 
 	public List<InstitutionalCertification> getInstitutionalCertifications() {
 		return this.institutionalCertifications;
 	}

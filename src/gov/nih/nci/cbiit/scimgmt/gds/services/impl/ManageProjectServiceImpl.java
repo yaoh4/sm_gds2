@@ -60,9 +60,8 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		}
 		
 		Project project = findById(projectId);
-		List<ProjectsIcMapping> icMappings = project.getProjectsIcMappings();
-		for(ProjectsIcMapping icMapping: icMappings) {
-			icCertsDao.delete(icMapping.getInstitutionalCertification());
+		for(InstitutionalCertification ic: project.getInstitutionalCertifications()) {
+			icCertsDao.delete(ic);
 		}
 		
 		projectsDao.delete(project);
@@ -83,6 +82,17 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	
 	
 	/**
+	 * Retrieve Project given an ID
+	 * 
+	 * @param projectId
+	 * @return Project
+	 */
+	public InstitutionalCertification findIcById(Long icId) {
+		return icCertsDao.findById(icId);
+	}
+	
+	
+	/**
 	 * Inserts or Updates the IC
 	 * 
 	 * @param ic
@@ -90,12 +100,8 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 */
 	public InstitutionalCertification saveOrUpdateIc(InstitutionalCertification ic, Project project) {
 		InstitutionalCertification result =  icCertsDao.merge(ic);
-		if(ic.getId() == null) {
-			project.getProjectsIcMappings().add(new ProjectsIcMapping(
-					project, result.getCreatedBy(), null, result));	
-			saveOrUpdate(project);
-		}
-				
+		
+		//saveOrUpdate(project);		
 		return result;
 	}
 	
@@ -111,7 +117,9 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		InstitutionalCertification ic = icCertsDao.findById(icId);
 		if(ic == null)
 			return false;
+		
 		icCertsDao.delete(ic);
+		
 		return true;
 	}
 
@@ -126,13 +134,8 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		
 		List<InstitutionalCertification> icList = new ArrayList<InstitutionalCertification>();
 		
-		List<ProjectsIcMapping> icMappings = project.getProjectsIcMappings();
-		if(!CollectionUtils.isEmpty(icMappings)) {
-			for(ProjectsIcMapping icMapping: icMappings) {
-				InstitutionalCertification ic = icMapping.getInstitutionalCertification();
-				icList.add(ic);
-			}
-		}
+		
+		icList = project.getInstitutionalCertifications();
 		
 		return icList;
 	}

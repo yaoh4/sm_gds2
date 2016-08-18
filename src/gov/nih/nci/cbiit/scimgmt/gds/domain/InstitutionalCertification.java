@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -40,8 +42,9 @@ public class InstitutionalCertification implements java.io.Serializable {
 	private String lastChangedBy;
 	private List<Document> documents = new ArrayList<Document>();
 	private List<Study> studies = new ArrayList<Study>();
-	private List<ProjectsIcMapping> projectsIcMappings = new ArrayList<ProjectsIcMapping>();
-
+	//private List<ProjectsIcMapping> projectsIcMappings = new ArrayList<ProjectsIcMapping>();
+	private List<Project> projects = new ArrayList();
+	
 	public InstitutionalCertification() {
 	}
 
@@ -159,9 +162,22 @@ public class InstitutionalCertification implements java.io.Serializable {
 		studies.add(study);
 	}
 
+	@ManyToMany
+	@JoinTable(name="projects_ic_mapping_t", joinColumns=@JoinColumn(name="certification_id"), inverseJoinColumns=@JoinColumn(name="project_id"))
+	public List<Project> getProjects() {
+		return projects;
+	}
+
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "institutionalCertification", orphanRemoval=true)
-	@Cascade({CascadeType.ALL})
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
+	}
+
+	public void addProject(Project project) {
+		this.projects.add(project);
+	}
+	
+	/*@Transient
 	public List<ProjectsIcMapping> getProjectsIcMappings() {
 		return projectsIcMappings;
 	}
@@ -169,6 +185,8 @@ public class InstitutionalCertification implements java.io.Serializable {
 	
 	public void setProjectsIcMappings(List<ProjectsIcMapping> projectsIcMappings) {
 		this.projectsIcMappings = projectsIcMappings;
-	}
+	}*/
+	
+	
 
 }
