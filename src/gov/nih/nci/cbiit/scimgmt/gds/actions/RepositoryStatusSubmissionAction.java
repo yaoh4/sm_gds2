@@ -2,8 +2,10 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -90,6 +92,14 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		
 		if(getProject().getAnticipatedSubmissionDate() == null && isStatusNotStartedOrInProgress && !isAnticipatedSubDateDisabled()){
 			this.addActionError(getText("anticipated.submission.date.required"));
+		}
+		
+		if(getProject().getAnticipatedSubmissionDate() != null) {
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(getProject().getAnticipatedSubmissionDate());
+			if(cal.get(Calendar.YEAR) > 9999){
+				this.addActionError(getText("error.daterange.year"));
+			}
 		}
 
 		//The system will validate that the 'Genomic Data Sharing', 'Institutional Certifications' and the 'Basic Study Info' pages are completed, 

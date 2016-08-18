@@ -2,11 +2,10 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.lang3.StringUtils;
@@ -507,6 +506,16 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			//Validation for Project end date.
 			if(getProject().getProjectEndDate() == null){
 				this.addActionError(getText("project.end.date.required")); 
+			}
+			
+			if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null) {
+				Calendar startCal = new GregorianCalendar();
+				startCal.setTime(getProject().getProjectStartDate());
+				Calendar endCal = new GregorianCalendar();
+				endCal.setTime(getProject().getProjectEndDate());
+				if(startCal.get(Calendar.YEAR) > 9999 || endCal.get(Calendar.YEAR) > 9999){
+					this.addActionError(getText("error.daterange.year"));
+				}	
 			}
 			
 			if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null && getProject().getProjectStartDate().after(getProject().getProjectEndDate())){
