@@ -147,6 +147,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		warnOnly = false;
 		performDataCleanup();
 
+		populateSelectedRemovedSets(false); // Re-populate the new and old set for save.
+		
 		populatePlanAnswerSelection();
 
 		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
@@ -489,7 +491,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 * Construct new and old set of answers to be used for warning and
 	 * Plan Answer Selection object removal/creation
 	 */
-	private void populateSelectedRemovedSets() {
+	private void populateSelectedRemovedSets(boolean warn) {
 		Set<Long> origSet = new HashSet<Long>();
 		newSet.clear();
 		oldSet.clear();
@@ -509,9 +511,11 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		}
 		
 		oldSet.addAll(origSet);
-		oldSet.removeAll(newSet); // deleted set
+		if(!warn) {
+			oldSet.removeAll(newSet); // deleted set
 		
-		newSet.removeAll(origSet); // added set
+			newSet.removeAll(origSet); // added set
+		}
 		newSet.addAll(otherSet);
 		
 	}
@@ -551,7 +555,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			setProject(retrieveSelectedProject());
 		}
 		
-		populateSelectedRemovedSets();
+		populateSelectedRemovedSets(true); // keep original (stored) answers for computing warning message
 		
 		// If the answer to "Will there be any data submitted?" is changed from Yes to No.
 		if(oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) && newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID)) {
@@ -646,7 +650,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		// And
 		// answer to "What type of access is the data to be made available through?" 
 		// is set to Unrestricted only or is changed from Controlled to Unrestricted only.
-		if(newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) &&
+		if(!oldSet.isEmpty() && newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) &&
 				newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_CONTROLLED_ID)) {
 			// a) The system will delete all DUL(s) created that contains DUL type of 
 			//    "Health/Medical/Biomedical", "Disease-specific" and/or "Other". 
