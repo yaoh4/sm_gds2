@@ -43,8 +43,8 @@ $(document).ready(function(){
             		});
                 }
             },
-            "dom": "<'row'<'col-sm-6' <'export'>>>" +  "<'row'<'col-sm-12'l <'legend'>><'col-sm-6'f>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
-           
+            "dom": "<'row'<'col-sm-6' <'export'>>>" + "<'row'<'col-sm-12'l <'legend'>><'col-sm-6'f>>"
+            +"<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12'l>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "columns": [
@@ -145,7 +145,7 @@ $(document).ready(function(){
         
 	$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search.gif'></div>");
 
-	$("div.export").html("<a id='export-btn' href='#' aria-controls='submissionTable' tabindex='0' class='dt-button buttons-excel buttons-html5'><span>Excel</span></a>");
+	$("div.export").html("<a id='export-btn' href='#' aria-controls='submissionTable' tabindex='0' class='dt-button buttons-excel buttons-html5'><span>Export to Excel</span></a>");
 
 	$("#search-form").on('click', '#search-btn', function () {
 		submissionTable.ajax.reload(null , true);
