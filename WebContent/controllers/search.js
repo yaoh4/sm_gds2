@@ -43,6 +43,12 @@ $(document).ready(function(){
             		});
                 }
             },
+             "buttons": [
+                {
+                extend: 'colvis',
+                columns: [0, 1, 2, 3, 6, 7, 8, 9, 12, 13]
+                }
+             ],
        
             "dom": "<'row'<'col-sm-6'B <'export'>>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
             "<'row'<'col-sm-12'l <'legend'>><'col-sm-6'f>>" +
