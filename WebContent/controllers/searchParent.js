@@ -26,7 +26,7 @@ $(document).ready(function(){
 	//data table initialization
 	var parentTable = $("#parentTable").DataTable ( {
             "responsive": true,
-            "processing": true,
+            "processing": false,
             "serverSide": true,
             "stateSave": true,
             "destroy": true,
@@ -43,9 +43,6 @@ $(document).ready(function(){
             		});
                 }
             },
-            "buttons": [
-                'colvis'
-             ],
             "dom": "<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
             "<'row'<'col-sm-12'l <'legend'>><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12'l>>" +
@@ -141,6 +138,15 @@ $(document).ready(function(){
 		$("#searchResult").show();
 	});
 	
+	$('#parentTable')
+    .on( 'processing.dt', function ( e, settings, processing ) {
+        if(processing) {
+        	$('button.has-spinner').addClass('active');
+        } else {
+        	$('button.has-spinner').removeClass('active');
+        }
+    } )
+    .dataTable();
 	
 	//for search.htm page -- shows/hids input field when Type of Submission is selected 
     $("div.desc").hide();

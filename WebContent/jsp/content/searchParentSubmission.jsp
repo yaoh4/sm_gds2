@@ -80,8 +80,7 @@
 					</div>
 					<!--end form group-->
 					<div class="searchButton">
-						<input type="button" id="search-btn" value=" Search "
-							class="btn btn-project-primary" />
+						<button type="button" class="btn btn-primary has-spinner" id="search-btn"><i class="fa fa-spinner fa-spin"></i> Search</button>
 					</div>
 
 				</div>

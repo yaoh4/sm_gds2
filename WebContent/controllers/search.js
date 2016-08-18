@@ -26,7 +26,7 @@ $(document).ready(function(){
 	//data table initialization
 	var submissionTable = $("#submissionTable").DataTable ( {
             "responsive": true,
-            "processing": true,
+            "processing": false,
             "serverSide": true,
             "stateSave": true,
             "destroy": true,
@@ -43,14 +43,7 @@ $(document).ready(function(){
             		});
                 }
             },
-             "buttons": [
-                {
-                extend: 'colvis',
-                columns: [0, 1, 2, 3, 6, 7, 8, 9, 12, 13]
-                }
-             ],
-       
-            "dom": "<'row'<'col-sm-6'B <'export'>>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
+            "dom": "<'row'<'col-sm-6' <'export'>>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
             "<'row'<'col-sm-12'l <'legend'>><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12'l>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -158,6 +151,16 @@ $(document).ready(function(){
 		submissionTable.ajax.reload(null , true);
 		$("#searchResult").show();
 	});
+	
+	$('#submissionTable')
+    .on( 'processing.dt', function ( e, settings, processing ) {
+        if(processing) {
+        	$('button.has-spinner').addClass('active');
+        } else {
+        	$('button.has-spinner').removeClass('active');
+        }
+    } )
+    .dataTable();
 	
 	$("#search-form").on('click', '#export-btn', function (e) {
 		e.preventDefault();
