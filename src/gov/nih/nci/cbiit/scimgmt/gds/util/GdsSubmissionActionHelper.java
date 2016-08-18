@@ -99,7 +99,9 @@ public class GdsSubmissionActionHelper {
 		
 		Map<Long, ParentDulChecklist> dulChecklistMap = new TreeMap<Long, ParentDulChecklist>();
 		boolean humanAndUnrestricted = 
-			project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) != null
+			project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) == null
+			&& project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) != null
+			&& project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_CONTROLLED_ID) == null
 			&& project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID) != null;
 				
 		for(DulChecklist dulChecklist: allDulChecklists) {
