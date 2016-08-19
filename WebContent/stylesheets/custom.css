@@ -1367,3 +1367,9 @@ ul.actionMessage {
   background-image: none;
   color: #ccc;
 }
+
+
+
+.paginate_button {
+  margin-bottom: 10px;
+}

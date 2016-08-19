@@ -17,32 +17,126 @@
            No data entered.
          </s:if>
          <s:else>
-          <p><span class="reportLabel">Project Submission Title:</span>  ${project.submissionTitle}</p>
-          <p><span class="reportLabel">Reason for being submitted:</span> <s:property value="%{projectSubmissionReason}" /> </p>
-          <p>
-            <span class="reportLabel">Division/Office/Center:</span> ${project.docAbbreviation}</br>
-            <span class="reportLabel">Program Branch:</span> ${project.programBranch}
-          </p>
-          <p>
-            <span class="reportLabel"> Intramural (Z01)/Grant/Contract #:</span> ${project.applicationNum}</br>
-            <span class="reportLabel">Intramural/Grant/Contract Project Title:</span> ${project.projectTitle}
-          </p>
-          <p>
-            <span class="reportLabel">Principal Investigator:</span> ${project.piFirstName} ${project.piLastName} &nbsp;&nbsp;&nbsp; <span class="reportLabel">Email:</span> <s:a href="mailto:%{project.piEmailAddress}?">${project.piEmailAddress}</s:a></br>
-            <span class="reportLabel"> Institution:</span> ${project.piInstitution}
-          </p>
-          <p>
-			 <s:if test="project.pocFirstName != null && project.pocLastName != null">
-				<span class="reportLabel">Primary Contact:</span> ${project.pocFirstName} ${project.pocLastName} &nbsp;&nbsp;&nbsp;
-			</s:if>
-			<s:if test="project.pocEmailAddress != null">
-			    <span class="reportLabel">Email:</span> <s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a>
-			</s:if>
-		  </p>
-          <p><span class="reportLabel">Program Director:</span> ${project.pdFirstName} ${project.pdLastName}</p>       
-          <p><span class="reportLabel">Project Start Date:</span> <s:property value="%{projectStartDate}" /> &nbsp;&nbsp;&nbsp; <span class="reportLabel">Project End Date:</span> <s:property value="%{projectEndDate}" /></p>        
-          <s:if test="project.comments != null">
-			<p><span class="reportLabel">Comments</span> ${project.comments}</p>
+
+         <table width="100%" border="0" cellpadding="3">
+    <tr>
+      <td width="35%" style="white-space: nowrap"><strong>Project Submission Title:</strong></td>
+      <td colspan="4">${project.submissionTitle}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td width="20%">&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+      <td width="38%">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: style="white-space: nowrap""><strong>Reason for being submitted:</strong></td>
+      <td colspan="4"><s:property value="%{projectSubmissionReason}" /></td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Division/Office/Center:</strong></td>
+      <td colspan="4">${project.docAbbreviation}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Program Branch:</strong></td>
+      <td colspan="4">${project.programBranch}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Intramural (Z01)/Grant/Contract #:</strong></td>
+      <td colspan="4">${project.applicationNum}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Intramural/Grant/Contract Project Title:</strong></td>
+      <td colspan="4">${project.projectTitle}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Principal Investigator:</strong></td>
+      <td style="white-space: nowrap">${project.piFirstName} ${project.piLastName}</td>
+      <td width="2%">&nbsp;</td>
+      <td width="5%" align="right">Email:</td>
+      <td><s:a href="mailto:%{project.piEmailAddress}?">${project.piEmailAddress}</s:a></td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Institution: </strong></td>
+      <td colspan="4">${project.piInstitution}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+      
+
+    <tr>
+      <s:if test="project.pocFirstName != null && project.pocLastName != null">
+      <td style="white-space: nowrap"><strong>Primary Contact: </strong></td>
+      <td>${project.pocFirstName} ${project.pocLastName} </td>
+          </s:if>
+      <s:if test="project.pocEmailAddress != null">
+      <td>&nbsp;</td>
+      <td align="right">Email:</td>
+      <td><s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a></td>
+      </s:if>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Program Director:</strong></td>
+      <td colspan="4">${project.pdFirstName} ${project.pdLastName}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Project Start Date:</strong></td>
+      <td><s:property value="%{projectStartDate}" /></td>
+      <td>&nbsp;</td>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Project End Date: </strong></td>
+      <td><s:property value="%{projectEndDate}" /></td>
+      <td colspan="2">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>    <s:if test="project.comments != null">
+      <td style="white-space: nowrap"><strong>Comments:</strong></td>
+      <td colspan="4">${project.comments}</td>
+    </tr>
+  </table>
 		  </s:if>
          </s:else>
         </div><!--end panel body-->
