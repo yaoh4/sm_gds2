@@ -94,16 +94,16 @@ $(document).ready(function(){
                 	 {
                 		 if(type === 'display') {
                      		if(data == "In Progress") {
-                     			status = '<div class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" /></div>'
+                     			status = '<img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" />&nbsp;&nbsp;'
                      		}
                      		else if(data == "Completed") {
-                     			status = '<div class="searchProgess"><img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/></div>'
+                     			status = '<img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>&nbsp;&nbsp;'
                      		} else {
-                     			status = '<div class="searchProgess"><img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"></div>'
+                     			status = '<img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px">&nbsp;&nbsp;'
                      	   	}
                 		 }
                 		if(row.repoCount != null && row.repoCount > 0) {
-                			return status + '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal">' + '<i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>';
+                			return '<div class="searchProgess">' + status + '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal">' + '<i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a></div>';
                 		}
                 	}
                 	return "";
