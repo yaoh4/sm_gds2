@@ -413,9 +413,16 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 
 		logger.debug("Searching grants / contracts.");
 		grantOrContractList = manageProjectService.getGrantOrContractList(grantContractNum);
+		filterSingleQuotes();
 		return SUCCESS;
 	}
 		
+	private void filterSingleQuotes() {
+		for(GdsGrantsContracts grantOrContract: grantOrContractList) {
+			grantOrContract.setProjectTitle(grantOrContract.getProjectTitle().replaceAll("'",""));
+		}
+	}
+
 	/**
 	 * This method gets Intramural / Grant/ Contract Information based on applId
 	 * 

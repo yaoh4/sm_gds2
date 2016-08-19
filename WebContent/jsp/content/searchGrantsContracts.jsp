@@ -51,10 +51,10 @@
               <table style="width: 100%;" cellpadding="0px" cellspacing="0"
                     class="table table-bordered table-striped" style="margin-left: 10px;">
                 <tr class="modalTheader">
-                  <th class="tableHeader" align="center" width="5%" scope="col">Select</th>
-                  <th class="tableHeader" width="25%" scope="col">Intramural/Grant/Contract #</th>
-                  <th class="tableHeader" width="50%" scope="col">Intramural/Grant/Contract Project Title</th>
-                  <th class="tableHeader" widht="25%" scope="col">Principal Investigator</th>
+                  <th class="tableHeader" align="center" style="width:5%" scope="col">Select</th>
+                  <th class="tableHeader" style="width:25%" scope="col">Intramural/Grant/Contract #</th>
+                  <th class="tableHeader" style="width:50%" scope="col">Intramural/Grant/Contract Project Title</th>
+                  <th class="tableHeader" style="width:20%" scope="col">Principal Investigator</th>
                 </tr>
 				
 					
@@ -66,10 +66,10 @@
 					<s:else>
 					  <tr class="tableContentOdd">
 					</s:else>
-					    <td align="center"><input name="selectedGrantContract" onclick="showPrevLinkedSubmissions()" type="radio" value='${grantsContracts}'/></td>
-				  		<td class="paddingT" nowrap><s:property value="%{#grantsContracts.grantContractNum}" /></td>
-						<td class="paddingT"><s:property value="%{#grantsContracts.projectTitle}" /></td>
-						<td class="paddingT">
+					    <td align="center" style="width:5%"><input name="selectedGrantContract" onclick="showPrevLinkedSubmissions()" type="radio" value='${grantsContracts}'/></td>
+				  		<td class="paddingT" style="width:25%" nowrap><s:property value="%{#grantsContracts.grantContractNum}" /></td>
+						<td class="paddingT" style="width:50%"><s:property value="%{#grantsContracts.projectTitle}" /></td>
+						<td class="paddingT" style="width:20%">
 						  <s:a href="mailto:%{#grantsContracts.piEmailAddress}?">
 						    <s:property	value="%{#grantsContracts.piLastName}" /> , <s:property	value="%{#grantsContracts.piFirstName}" />
 						  </s:a>		
