@@ -18,16 +18,14 @@
          </s:if>
          <s:else>
 
-         <table width="100%" border="0" cellpadding="3">
+                  <table width="100%" border="0" cellpadding="3">
     <tr>
-      <td width="35%" style="white-space: nowrap"><strong>Project Submission Title:</strong></td>
+      <td width="33%" style="white-space: nowrap"><strong>Project Submission Title:</strong></td>
       <td colspan="4">${project.submissionTitle}</td>
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
-      <td width="20%">&nbsp;</td>
-      <td colspan="2">&nbsp;</td>
-      <td width="38%">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
     </tr>
     <tr>
       <td style="white-space: style="white-space: nowrap""><strong>Reason for being submitted:</strong></td>
@@ -35,9 +33,7 @@
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
-      <td>&nbsp;</td>
-      <td colspan="2">&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
     </tr>
     <tr>
       <td style="white-space: nowrap"><strong>Division/Office/Center:</strong></td>
@@ -49,9 +45,7 @@
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
-      <td>&nbsp;</td>
-      <td colspan="2">&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
     </tr>
     <tr>
       <td style="white-space: nowrap"><strong>Intramural (Z01)/Grant/Contract #:</strong></td>
@@ -63,16 +57,15 @@
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
-      <td>&nbsp;</td>
-      <td colspan="2">&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
     </tr>
     <tr>
       <td style="white-space: nowrap"><strong>Principal Investigator:</strong></td>
-      <td style="white-space: nowrap">${project.piFirstName} ${project.piLastName}</td>
-      <td width="2%">&nbsp;</td>
-      <td width="5%" align="right">Email:</td>
-      <td><s:a href="mailto:%{project.piEmailAddress}?">${project.piEmailAddress}</s:a></td>
+      <td style="white-space: nowrap" colspan="4">${project.piFirstName} ${project.piLastName}</td>
+       </tr>
+       <tr>
+      <td ><strong>Email:</strong></td>
+      <td width="67%"><s:a href="mailto:%{project.piEmailAddress}?">${project.piEmailAddress}</s:a></td>
     </tr>
     <tr>
       <td style="white-space: nowrap"><strong>Institution: </strong></td>
@@ -80,28 +73,25 @@
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
-      <td>&nbsp;</td>
-      <td colspan="2">&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
     </tr>
       
 
     <tr>
       <s:if test="project.pocFirstName != null && project.pocLastName != null">
       <td style="white-space: nowrap"><strong>Primary Contact: </strong></td>
-      <td>${project.pocFirstName} ${project.pocLastName} </td>
+      <td colspan="4">${project.pocFirstName} ${project.pocLastName} 
+        <s:a href="mailto:%{project.pocEmailAddress}?"></s:a></td>
           </s:if>
-      <s:if test="project.pocEmailAddress != null">
-      <td>&nbsp;</td>
-      <td align="right">Email:</td>
-      <td><s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a></td>
-      </s:if>
+      <s:if test="project.pocEmailAddress != null">      </s:if>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Email:</strong></td>
+      <td colspan="4">${project.pocEmailAddress}</td>
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
-      <td>&nbsp;</td>
-      <td colspan="2">&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
     </tr>
     <tr>
       <td style="white-space: nowrap"><strong>Program Director:</strong></td>
@@ -109,28 +99,19 @@
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
-      <td>&nbsp;</td>
-      <td colspan="2">&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
     </tr>
     <tr>
       <td style="white-space: nowrap"><strong>Project Start Date:</strong></td>
-      <td><s:property value="%{projectStartDate}" /></td>
-      <td>&nbsp;</td>
-      <td style="white-space: nowrap">&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="4"><s:property value="%{projectStartDate}" /></td>
     </tr>
     <tr>
       <td style="white-space: nowrap"><strong>Project End Date: </strong></td>
-      <td><s:property value="%{projectEndDate}" /></td>
-      <td colspan="2">&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="4"><s:property value="%{projectEndDate}" /></td>
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
-      <td>&nbsp;</td>
-      <td colspan="2">&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
     </tr>
     <tr>    <s:if test="project.comments != null">
       <td style="white-space: nowrap"><strong>Comments:</strong></td>
