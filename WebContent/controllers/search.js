@@ -44,7 +44,7 @@ $(document).ready(function(){
                 }
             },
             "dom": "<'row'<'col-sm-6' <'export'>>>" + "<'row'<'legend'>><'col-sm-6'f>"
-            +"<'row'<'col-sm-4'l><'col-sm-4'i><'col-sm-7'p>>" + 
+            +"<'row'<'col-sm-4'l i><'col-sm-7'p>>" + 
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12'l>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "columns": [
