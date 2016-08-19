@@ -47,7 +47,7 @@ public interface ManageProjectService {
 	 * @param IC
 	 * @return saved IC
 	 */
-	public InstitutionalCertification saveOrUpdateIc(InstitutionalCertification ic, Project project);
+	public InstitutionalCertification saveOrUpdateIc(InstitutionalCertification ic);
 
 	/**
 	 * Deletes the IC given an ID
@@ -56,14 +56,6 @@ public interface ManageProjectService {
 	 */
 	public boolean deleteIc(Long icId);
 
-	/**
-	 * Retrieve ICs for the given project
-	 * 
-	 * @param project
-	 * @return list of IC
-	 */
-	public List<InstitutionalCertification> findIcsByProject(Project project);
-	
 
 	/**
 	 * This method retrieves Intramural / Grant / Contract List

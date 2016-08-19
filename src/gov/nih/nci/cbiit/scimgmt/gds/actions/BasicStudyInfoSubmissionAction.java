@@ -3,14 +3,18 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.util.CollectionUtils;
+
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
-import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionStatusHelper;
+
 
 /**
  * Basic Study Information Page Action Class
@@ -283,9 +287,42 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_BSI);
 	}
 	
-
+	public String computePageStatus(Project project) {
+		String status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		
+		//Check if document has been loaded
+		List<Document> docs = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, project.getId());
+		
+		if(!ApplicationConstants.FLAG_YES.equals(project.getBsiReviewedFlag()) 
+				|| CollectionUtils.isEmpty(docs)) {
+			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		}
+		
+		return status;
+	}
+	
 	public String getMissingBsiData() {
+		
 		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_BSI));
+		
+		missingDataList = new ArrayList<MissingData>();
+		Project project = retrieveSelectedProject();
+		
+		if(!ApplicationConstants.FLAG_YES.equals(project.getBsiReviewedFlag())) {
+			String displayText = "BSI Reviewed flag must be 'Yes'.";
+			MissingData missingData = new MissingData(displayText);
+			missingDataList.add(missingData);
+		}
+		
+		List<Document> docs = 
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, project.getId());
+		if(CollectionUtils.isEmpty(docs)) {
+			String displayText = "The completed Basic Study Information Form must be uploaded.";
+			MissingData missingData = new MissingData(displayText);
+			missingDataList.add(missingData);
+		}
+		
 		return SUCCESS;
 	}
 }

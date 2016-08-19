@@ -42,7 +42,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		}
 			
 		//Load ICs
-		List<InstitutionalCertification> certs  = manageProjectService.findIcsByProject(project);
+		List<InstitutionalCertification> certs  = project.getInstitutionalCertifications();
 		project.setInstitutionalCertifications(certs);
 		HashMap<Long, InstitutionalCertification> map = new HashMap<Long, InstitutionalCertification>();
 		

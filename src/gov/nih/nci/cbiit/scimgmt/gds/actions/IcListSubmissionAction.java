@@ -82,11 +82,11 @@ public class IcListSubmissionAction extends ManageSubmission {
 		
 		//Retrieve IC list. If sub-project, retrieve parent IC list
 		Project storedProject = retrieveSelectedProject();
-		List<InstitutionalCertification> icList = manageProjectService.findIcsByProject(storedProject);
+		List<InstitutionalCertification> icList = storedProject.getInstitutionalCertifications();
 		Long displayProjectId = storedProject.getId();
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
 			prepareIcListDisplay(icList);
-			icList = manageProjectService.findIcsByProject(retrieveParentProject());
+			icList = retrieveParentProject().getInstitutionalCertifications();
 			displayProjectId = storedProject.getParentProjectId();
 		}
 		
@@ -184,7 +184,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 			
 		//Get the ic mappings of the project from the display - this is the same as the
 		//parent project ic mappings
-		List<InstitutionalCertification> parentIcList = manageProjectService.findIcsByProject(retrieveParentProject());
+		List<InstitutionalCertification> parentIcList = retrieveParentProject().getInstitutionalCertifications();
 		String [] icElem = ServletActionContext.getRequest().getParameterValues("ic-selected");
 		if(icElem == null) {
 			storedIcMappings.clear();
@@ -377,15 +377,88 @@ public class IcListSubmissionAction extends ManageSubmission {
 	}
 	
 	public String getPageStatusCode() {
-		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_ICLIST);
+		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_IC);
 	}
 	
 
-	public String getMissingIcListData() {
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_ICLIST));
-		return SUCCESS;
+	
+	protected String computePageStatus(Project project) {
+		
+		String status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
+		
+		if(CollectionUtils.isEmpty(icList)) {
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		}
+			
+		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())) { 
+			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		}
+		
+		//There is at least one IC and IC certification flag says done. So proceed to
+		//check if the ICs are all ok.
+		for(InstitutionalCertification ic: icList) {
+			ic = manageProjectService.findIcById(ic.getId());
+			
+			if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(ic.getGpaApprovalCode())) {
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+			List<Study> studies = ic.getStudies();
+			for(Study study: studies) {
+				if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
+			}
+		}
+		
+		return status;
 	}
 
-
+	public String getMissingIcListData() {
+		
+		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
+		
+		missingDataList = new ArrayList<MissingData>();
+		Project project = retrieveSelectedProject();
+			
+		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
+			
+		if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag()) ||
+					CollectionUtils.isEmpty(icList)) {
+			String displayText = "Add all the required Institutional Certifications";
+			MissingData missingData = new MissingData(displayText);
+			missingDataList.add(missingData);
+		}
+			
+		//Get the file list
+		HashMap<Long, Document> docMap = new HashMap<Long, Document>();
+		List<Document> docs = 
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
+		if(docs != null && !docs.isEmpty()) {
+			for(Document doc: docs) {
+				if(doc.getInstitutionalCertificationId() != null) {
+					docMap.put(doc.getInstitutionalCertificationId(), doc);
+				}			
+			}
+		}
+			
+		//There is at least one IC. So proceed to check if the ICs are all ok.
+		MissingData missingData = new MissingData("The following ICs have incomplete data:");
+			
+		for(InstitutionalCertification ic: icList) {
+			Document document = docMap.get(ic.getId());
+			MissingData missingIcData = GdsSubmissionStatusHelper.getInstance().computeMissingIcData(ic, document);
+									
+			if(missingIcData.getChildList().size() > 0) {
+				missingIcData.setDisplayText(document.getFileName());
+				missingData.addChild(missingIcData);
+			}
+		}
+		if(missingData.getChildList().size() > 0) {
+			missingDataList.add(missingData);
+		}
+			
+		return SUCCESS;
+	}
 	
 }

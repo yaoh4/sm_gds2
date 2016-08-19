@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -58,7 +59,7 @@ public class ManageSubmission extends BaseAction {
 	
 	private Lookup page;
 	
-	private List<MissingData> missingDataList;
+	protected List<MissingData> missingDataList;
 	
 	
 	/**
@@ -142,8 +143,12 @@ public class ManageSubmission extends BaseAction {
 		if(pageCode != null) {
 			//We are not in the General Info page, so the project has
 			//already been saved, hence add a status only for this page
-			project.addUpdatePageStatus(
-				GdsSubmissionStatusHelper.getInstance().getPageStatus(pageCode, project));
+			String statusCode = computePageStatus(project);
+			PageStatus pageStatus = new PageStatus(
+				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, statusCode),
+				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
+				project, loggedOnUser.getFullNameLF(), new Date());	
+			project.addUpdatePageStatus(pageStatus);
 		} else  {
 			//We are in the General Info page. Check if this is a new submission
 			if (project.getId() == null) {
@@ -388,8 +393,7 @@ public class ManageSubmission extends BaseAction {
 	
 	
 	public List<MissingData> getMissingDataList() {
-		return GdsSubmissionStatusHelper.getInstance().computeMissingDataReport(
-			retrieveSelectedProject(), getPage().getCode());
+		return missingDataList;
 	}
 	
 	
@@ -406,6 +410,11 @@ public class ManageSubmission extends BaseAction {
 	 */
 	public void setPage(Lookup page) {
 		this.page = page;
+	}
+	
+	protected String computePageStatus(Project project) {
+		//Override
+		return null;
 	}
 	
 }

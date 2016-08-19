@@ -101,7 +101,7 @@ public interface ApplicationConstants {
 	 public static final String FLAG_NO = "N";
 	 
 	 /*Constants for page codes*/
-	 public static final String PAGE_CODE_ICLIST = "ICLIST";
+	 //public static final String PAGE_CODE_ICLIST = "ICLIST";
 	 public static final String PAGE_CODE_IC = "IC";
 	 public static final String PAGE_CODE_GDSPLAN = "GDSPLAN";
 	 public static final String PAGE_CODE_BSI = "BSI";

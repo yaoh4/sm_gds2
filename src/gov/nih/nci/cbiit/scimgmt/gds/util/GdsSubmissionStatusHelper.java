@@ -132,8 +132,8 @@ public class GdsSubmissionStatusHelper {
 	private String getIcPageStatus(Project project) {
 		
 		String status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
 		
-		List<InstitutionalCertification> icList = manageProjectService.findIcsByProject(project);
 		if(CollectionUtils.isEmpty(icList)) {
 			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
@@ -145,12 +145,14 @@ public class GdsSubmissionStatusHelper {
 		//There is at least one IC and IC certification flag says done. So proceed to
 		//check if the ICs are all ok.
 		for(InstitutionalCertification ic: icList) {
-			if(!ApplicationConstants.YES_ID.equals(ic.getGpaApprovalCode())) {
+			ic = manageProjectService.findIcById(ic.getId());
+			
+			if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(ic.getGpaApprovalCode())) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
 			List<Study> studies = ic.getStudies();
 			for(Study study: studies) {
-				if(!ApplicationConstants.YES_ID.equals(study.getDulVerificationId())) {
+				if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())) {
 					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 				}
 			}
@@ -266,117 +268,18 @@ public class GdsSubmissionStatusHelper {
 	}
 	
 	
-	public List<MissingData> computeMissingDataReport(Project project, String pageCode) {
-		//Generate array of MissingDataFields - project id, page id, displayText level orderNum
-		if(ApplicationConstants.PAGE_CODE_IC.equals(pageCode)) {
-			return computeMissingIcData(project);
-		} else if(ApplicationConstants.PAGE_CODE_ICLIST.equals(pageCode)) {
-			return computeMissingIcListData(project);
-		} else if(ApplicationConstants.PAGE_CODE_BSI.equals(pageCode)) {
-			return computeMissingBsiData(project);
-		} else if(ApplicationConstants.PAGE_CODE_REPOSITORY.equals(pageCode)) {
-			return computeMissingRepositoryStatusData(project);
-		} else if(ApplicationConstants.PAGE_CODE_GDSPLAN.equals(pageCode)) {
-			return computeMissingGdsPlanData(project);
-		}
-		return null;
-	}
-	
-	
-	public List<MissingData> computeMissingIcListData(Project project) {
-		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
+	public MissingData computeMissingIcData(InstitutionalCertification ic, Document doc) {
 		
-		List<InstitutionalCertification> icList = manageProjectService.findIcsByProject(project);
-		
-		if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag()) ||
-				CollectionUtils.isEmpty(icList)) {
-			String displayText = "Add all the required Institutional Certifications";
-			MissingData missingData = new MissingData(displayText);
-			missingDataList.add(missingData);
-		}
-		
-		//Get the file list
-		HashMap<Long, Document> docMap = new HashMap<Long, Document>();
-		List<Document> docs = 
-			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
-		if(docs != null && !docs.isEmpty()) {
-			for(Document doc: docs) {
-				if(doc.getInstitutionalCertificationId() != null) {
-					docMap.put(doc.getInstitutionalCertificationId(), doc);
-				}			
-			}
-		}
-		
-		//There is at least one IC. So proceed to check if the ICs are all ok.
-		MissingData missingData = new MissingData("The following ICs have incomplete data:");
-		
-		for(InstitutionalCertification ic: icList) {
-			MissingData missingIcData = new MissingData();
-			Document document = docMap.get(ic.getId());
-			
-			if(document != null) {				
-				missingIcData.setDisplayText(document.getFileName());
-			} else {
-				missingIcData.setDisplayText("No file uploaded for IC.");
-				continue;
-			}
-			
-			//Check GPA Approval Code
-			if(!ApplicationConstants.YES_ID.equals(ic.getGpaApprovalCode())) {
-				String text = "GPA approval code must be 'Yes'.";
-				missingIcData.addChild(new MissingData(text));	
-			}
-			
-			//Loop through all the studies in the IC
-			List<Study> studies = ic.getStudies();			
-			for(Study study: studies) {
-				String studyText = "Study Name: " + study.getStudyName();
-				MissingData missingStudyData = new MissingData(studyText);
-				if(!ApplicationConstants.YES_ID.equals(study.getDulVerificationId())) {
-					String dulVerifiedText = "Data User Limitations Verified must be 'Yes'.";
-					missingStudyData.addChild(new MissingData(dulVerifiedText));					
-				}
-				//Other checks, if and when added will come here
-				
-				if(missingStudyData.getChildList().size() > 0) {
-					//Add the study to the missing data list if 
-					//there is at least one piece of missing data
-					missingIcData.addChild(missingStudyData);
-				}
-			}
-			
-			if(missingIcData.getChildList().size() > 0) {
-				missingData.addChild(missingIcData);
-			}
-		}
-		
-		if(missingData.getChildList().size() > 0) {
-			missingDataList.add(missingData);
-		}
-		
-		return missingDataList;
-	}
-	
-	
-	public List<MissingData> computeMissingIcData(Project project) {
-		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
-		return missingDataList;
-		
-	}
-	
-	private MissingData computeMissingIcData(InstitutionalCertification ic, Document doc) {
-		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
 		MissingData missingIcData = new MissingData();
 		
-		if(doc != null) {				
-			missingIcData.setDisplayText(doc.getFileName());
-		} else {
-			missingIcData.setDisplayText("No file uploaded for IC.");
+		if(doc == null) {				
+			String text = "No file uploaded for IC.";
+			missingIcData.addChild(new MissingData(text));
 			return missingIcData;
 		}
 		
 		//Check GPA Approval Code
-		if(!ApplicationConstants.YES_ID.equals(ic.getGpaApprovalCode())) {
+		if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(ic.getGpaApprovalCode())) {
 			String text = "GPA approval code must be 'Yes'.";
 			missingIcData.addChild(new MissingData(text));	
 		}
@@ -386,7 +289,7 @@ public class GdsSubmissionStatusHelper {
 		for(Study study: studies) {
 			String studyText = "Study Name: " + study.getStudyName();
 			MissingData missingStudyData = new MissingData(studyText);
-			if(!ApplicationConstants.YES_ID.equals(study.getDulVerificationId())) {
+			if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())) {
 				String dulVerifiedText = "Data User Limitations Verified must be 'Yes'.";
 				missingStudyData.addChild(new MissingData(dulVerifiedText));					
 			}
@@ -401,115 +304,6 @@ public class GdsSubmissionStatusHelper {
 		
 		
 		return missingIcData;
-	}
-	
-	public List<MissingData> computeMissingBsiData(Project project) {
-		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
-		
-		if(!ApplicationConstants.FLAG_YES.equals(project.getBsiReviewedFlag())) {
-			String displayText = "BSI Reviewed flag must be 'Yes'.";
-			MissingData missingData = new MissingData(displayText);
-			missingDataList.add(missingData);
-		}
-		
-		List<Document> docs = 
-			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, project.getId());
-		if(CollectionUtils.isEmpty(docs)) {
-			String displayText = "The completed Basic Study Information Form must be uploaded.";
-			MissingData missingData = new MissingData(displayText);
-			missingDataList.add(missingData);
-		}
-		
-		return missingDataList;
-	}
-	
-	public List<MissingData> computeMissingRepositoryStatusData(Project project) {
-		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
-		
-		MissingData missingData = new MissingData("The following repository statuses need to be updated:");
-		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
-			for(RepositoryStatus repoStatus: selection.getRepositoryStatuses()) {
-			
-				MissingData missingRepoData = new MissingData(repoStatus.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
-				Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
-				Lookup registrationStatus = repoStatus.getLookupTBySubmissionStatusId();
-				Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
-			
-				if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
-					missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'."));
-				}
-				if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
-					missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'."));
-				}
-				if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
-					missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'."));
-				}
-			
-				if(missingRepoData.getChildList().size() > 0) {
-					missingData.addChild(missingRepoData);
-				}
-			}
-		}
-		
-		if(missingData.getChildList().size() > 0) {
-			missingDataList.add(missingData);
-		}
-		
-		return missingDataList;
-	}
-	
-	public List<MissingData> computeMissingGdsPlanData(Project project) {
-		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
-		
-		
-		List<Document> exceptionMemos = 
-				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, project.getId());
-		
-		List<Document> gdsplans = 
-				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, project.getId());
-		
-		Long submissionReasonId = project.getSubmissionReasonId();
-		
-		if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
-				 || ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.equals(submissionReasonId)) {
-				
-			//Not indicated whether there is a data sharing exception requested for this project
-			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID))) {
-				MissingData missingData = new MissingData("The question 'Is there a data sharing exception requested for this project' needs to be answered.");
-				missingDataList.add(missingData);
-			}
-			
-			//Not indicated if the data sharing exception requested was approved
-			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
-				&& ( CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID))
-				|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null)) {
-				MissingData missingData = new MissingData("The question 'Was this exception approved' needs to be a 'Yes' or 'No'.");
-				missingDataList.add(missingData);
-			}
-			
-			//Data sharing exception approved but Exception Memo not uploaded
-			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
-					&& CollectionUtils.isEmpty(exceptionMemos)) {
-				MissingData missingData = new MissingData("The Exception Memo has not been uploaded.");
-				missingDataList.add(missingData);
-			}
-			
-			if(CollectionUtils.isEmpty(exceptionMemos)) {
-				MissingData missingData = new MissingData("The Data Sharing Plan has not been uploaded.");
-				missingDataList.add(missingData);
-			}
-		}
-		
-		//GPA has not reviewed the data sharing plan
-		if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID))
-				|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_NO_ID) != null) {
-			MissingData missingData = new MissingData("GPA review of the Data Sharing Plan is pending.");
-			missingDataList.add(missingData);
-		}
-		
-		
-		
-		return missingDataList;
 	}
 		
 }

@@ -78,7 +78,7 @@ public class Study implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "CERTIFICATION_ID", nullable = false)
 	public InstitutionalCertification getInstitutionalCertification() {
 		return this.institutionalCertification;

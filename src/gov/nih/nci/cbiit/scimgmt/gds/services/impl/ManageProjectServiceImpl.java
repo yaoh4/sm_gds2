@@ -98,7 +98,7 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 * @param ic
 	 * @return saved ic
 	 */
-	public InstitutionalCertification saveOrUpdateIc(InstitutionalCertification ic, Project project) {
+	public InstitutionalCertification saveOrUpdateIc(InstitutionalCertification ic) {
 		InstitutionalCertification result =  icCertsDao.merge(ic);
 		
 		//saveOrUpdate(project);		
@@ -122,26 +122,6 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		
 		return true;
 	}
-
-	/**
-	 * Retrieve a list of ICs from DB for a specific project
-	 * 
-	 * @param projectId
-	 * 
-	 * @return list of ICs
-	 */
-	public List<InstitutionalCertification> findIcsByProject(Project project) {
-		
-		List<InstitutionalCertification> icList = new ArrayList<InstitutionalCertification>();
-		
-		
-		icList = project.getInstitutionalCertifications();
-		
-		return icList;
-	}
-	
-	
-	
 	
 	
 	/**

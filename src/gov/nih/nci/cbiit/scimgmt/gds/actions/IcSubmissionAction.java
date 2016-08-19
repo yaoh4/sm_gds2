@@ -211,7 +211,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 		if(instCertId != null) {
 			Project project = retrieveSelectedProject();
-			List<InstitutionalCertification> certs = manageProjectService.findIcsByProject(project);
+			List<InstitutionalCertification> certs = project.getInstitutionalCertifications();
 			if(!CollectionUtils.isEmpty(certs)) {
 				for(InstitutionalCertification cert: certs) {
 					if(cert.getId().equals(instCertId)) {
@@ -309,7 +309,7 @@ public class IcSubmissionAction extends ManageSubmission {
 				 	}
 				}//End while-loop for iterating through dulSets				
 			} 
-			if(!atLeastOneDULSelected && !ApplicationConstants.IC_GPA_APPROVAL_ID_NO.equals(instCert.getGpaApprovalCode())) {
+			if(!atLeastOneDULSelected && !ApplicationConstants.IC_GPA_APPROVED_NO_ID.equals(instCert.getGpaApprovalCode())) {
 				addActionError(getText("error.ic.study.dulTypes.required", new String[]{study.getStudyName()}));
 			}
 		} //End for-loop for iterating through studies
@@ -498,9 +498,9 @@ public class IcSubmissionAction extends ManageSubmission {
 			}
 		}
 		
-		manageProjectService.saveOrUpdateIc(instCert, project);
-		Project savedProject = retrieveSelectedProject();
-		setProject(savedProject);
+		manageProjectService.saveOrUpdateIc(instCert);
+		saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_IC);
+		setProject(retrieveSelectedProject());
 		
 		// Update CertId
 		if(docId != null) {
@@ -512,11 +512,13 @@ public class IcSubmissionAction extends ManageSubmission {
 				}
 			}
 
-			List<InstitutionalCertification> icList = manageProjectService.findIcsByProject(savedProject);
+			List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
 			Collections.sort(icList, new InstitutionalCertificationComparator());
 			fileUploadService.updateCertId(docId, icList.get(0).getId());
 		}
 		
+		
+		setProjectId(project.getId().toString());
 		return SUCCESS;
 	}
 	
@@ -711,15 +713,71 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	public String getPageStatusCode() {
-		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_IC);
+		return instCertification.getStatus();
 	}
 	
+
+	protected String computePageStatus(Project project) {
+		
+		String status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
+		
+		if(CollectionUtils.isEmpty(icList)) {
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		}
+			
+		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())) { 
+			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		}
+		
+		//There is at least one IC and IC certification flag says done. So proceed to
+		//check if the ICs are all ok.
+		for(InstitutionalCertification ic: icList) {
+			ic = manageProjectService.findIcById(ic.getId());
+			
+			if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(ic.getGpaApprovalCode())) {
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+			List<Study> studies = ic.getStudies();
+			for(Study study: studies) {
+				if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
+			}
+		}
+			
+		return status;
+	}
+
 
 	public String getMissingIcData() {
+		
 		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
+		
+		missingDataList = new ArrayList<MissingData>();
+		Project project = retrieveSelectedProject();
+		
+		InstitutionalCertification ic = manageProjectService.findIcById(Long.valueOf(instCertId));
+			
+		//Get the file list
+		Document document = null;
+		List<Document> docs = 
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
+		if(docs != null && !docs.isEmpty()) {
+			for(Document doc: docs) {
+				Long docId = doc.getInstitutionalCertificationId();
+				if(docId != null && docId.equals(Long.valueOf(instCertId))) {
+					document = doc;
+				}			
+			}
+		}
+		
+		MissingData missingIcData = GdsSubmissionStatusHelper.getInstance().computeMissingIcData(ic, document);	
+		if(missingIcData.getChildList().size() > 0) {
+				missingIcData.setDisplayText("The following data is incomplete");
+				missingDataList.add(missingIcData);
+		}		
+			
 		return SUCCESS;
 	}
-
-
-	
 }

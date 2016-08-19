@@ -15,10 +15,12 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 import gov.nih.nci.cbiit.scimgmt.gds.util.RepositoryStatusComparator;
@@ -418,9 +420,91 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_REPOSITORY);
 	}
 	
-	public String getMissingRepositoryData() {
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
-		return SUCCESS;
+	
+	public String computePageStatus(Project project) {
+		String status = ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		
+		
+		List<RepositoryStatus> repositoryStatuses = project.getRepositoryStatuses();
+		for(RepositoryStatus repoStatus: repositoryStatuses) {
+			
+			Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
+			Lookup registrationStatus = repoStatus.getLookupTBySubmissionStatusId();
+			Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
+			
+			if(ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID.equals(registrationStatus.getId())) {
+				//No need to check further, since the submission status and
+				//study released fields will be disabled in this case
+				if(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equals(status)) {
+					//If previous repository is in complete status, then we are now
+					//in in-progress state
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
+				continue;
+			}
+			
+			//If we get here, then the page status is either in progress or completed.
+			//Check in progress first
+			
+			//Submission status is not started or in progress, OR Registration 
+			//status is not started or in progress, OR study released is No.
+			if(ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID.equals(registrationStatus.getId())
+			||	(ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID.equals(submissionStatus.getId())
+				|| ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID.equals(submissionStatus.getId())) 
+			|| ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId())) {
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+			
+			//Neither not started, nor in in-progress status.Hence, completed
+			status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+			
+		};
+		
+		if(project.getAnticipatedSubmissionDate() != null &&
+				ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED.equals(status)) {
+			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		}
+		
+		return status;
 	}
+	public String getMissingRepositoryData() {
+		
+		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
+		
+		missingDataList = new ArrayList<MissingData>();
+		Project project = retrieveSelectedProject();
+			
+		MissingData missingData = new MissingData("The following repository statuses need to be updated:");
+		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
+			for(RepositoryStatus repoStatus: selection.getRepositoryStatuses()) {
+				
+				MissingData missingRepoData = new MissingData(repoStatus.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
+				Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
+				Lookup registrationStatus = repoStatus.getLookupTBySubmissionStatusId();
+				Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
+				
+				if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
+						missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'."));
+				}
+				if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
+					missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'."));
+				}
+				if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
+					missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'."));
+				}
+				
+				if(missingRepoData.getChildList().size() > 0) {
+					missingData.addChild(missingRepoData);
+				}
+			}
+		}
+			
+		if(missingData.getChildList().size() > 0) {
+			missingDataList.add(missingData);
+		}
+			
+		return SUCCESS;
+	}	
+	
 	
 }
