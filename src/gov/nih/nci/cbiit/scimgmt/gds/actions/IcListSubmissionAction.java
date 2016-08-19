@@ -33,7 +33,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
-import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionStatusHelper;
+
 
 import org.springframework.util.CollectionUtils;
 
@@ -384,7 +384,6 @@ public class IcListSubmissionAction extends ManageSubmission {
 	
 	protected String computePageStatus(Project project) {
 		
-		String status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
 		
 		if(CollectionUtils.isEmpty(icList)) {
@@ -398,22 +397,15 @@ public class IcListSubmissionAction extends ManageSubmission {
 		//There is at least one IC and IC certification flag says done. So proceed to
 		//check if the ICs are all ok.
 		for(InstitutionalCertification ic: icList) {
-			ic = manageProjectService.findIcById(ic.getId());
-			
-			if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(ic.getGpaApprovalCode())) {
+			if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
-			List<Study> studies = ic.getStudies();
-			for(Study study: studies) {
-				if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())) {
-					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-				}
-			}
 		}
-		
-		return status;
+			
+		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 	}
 
+	
 	public String getMissingIcListData() {
 		
 		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
@@ -447,7 +439,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 			
 		for(InstitutionalCertification ic: icList) {
 			Document document = docMap.get(ic.getId());
-			MissingData missingIcData = GdsSubmissionStatusHelper.getInstance().computeMissingIcData(ic, document);
+			MissingData missingIcData = GdsSubmissionActionHelper.getInstance().computeMissingIcData(ic, document);
 									
 			if(missingIcData.getChildList().size() > 0) {
 				missingIcData.setDisplayText(document.getFileName());

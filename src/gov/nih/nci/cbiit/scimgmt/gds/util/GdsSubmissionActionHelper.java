@@ -15,12 +15,16 @@ import org.springframework.util.CollectionUtils;
 import org.xml.sax.SAXException;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
+import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 
@@ -252,5 +256,45 @@ public class GdsSubmissionActionHelper {
 			}
 		}
 		return true;
+	}
+	
+		
+	
+	public MissingData computeMissingIcData(InstitutionalCertification ic, Document doc) {
+		
+		MissingData missingIcData = new MissingData();
+		
+		if(doc == null) {				
+			String text = "No file uploaded for IC.";
+			missingIcData.addChild(new MissingData(text));
+			return missingIcData;
+		}
+		
+		//Check GPA Approval Code
+		if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(ic.getGpaApprovalCode())) {
+			String text = "GPA approval code must be 'Yes'.";
+			missingIcData.addChild(new MissingData(text));	
+		}
+		
+		//Loop through all the studies in the IC
+		List<Study> studies = ic.getStudies();			
+		for(Study study: studies) {
+			String studyText = "Study Name: " + study.getStudyName();
+			MissingData missingStudyData = new MissingData(studyText);
+			if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())) {
+				String dulVerifiedText = "Data User Limitations Verified must be 'Yes'.";
+				missingStudyData.addChild(new MissingData(dulVerifiedText));					
+			}
+			//Other checks, if and when added will come here
+			
+			if(missingStudyData.getChildList().size() > 0) {
+				//Add the study to the missing data list if 
+				//there is at least one piece of missing data
+				missingIcData.addChild(missingStudyData);
+			}
+		}
+		
+		
+		return missingIcData;
 	}
 }

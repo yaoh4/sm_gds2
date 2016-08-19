@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +31,6 @@ import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
-import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionStatusHelper;
 
 /**
  * Manages Submission creation, updates and deletion.
@@ -152,13 +153,32 @@ public class ManageSubmission extends BaseAction {
 		} else  {
 			//We are in the General Info page. Check if this is a new submission
 			if (project.getId() == null) {
-				project.setPageStatuses(GdsSubmissionStatusHelper.getInstance().initPageStatuses(project));
+				project.setPageStatuses(initPageStatuses(project));
 			}
 		}
 		
 		return manageProjectService.saveOrUpdate(project);
 	}
 
+	
+	public List<PageStatus> initPageStatuses(Project project) {
+		List<PageStatus> pageStatuses = new ArrayList<PageStatus>();
+		
+		List<String> pageCodes = Arrays.asList(ApplicationConstants.PAGE_CODE_IC, 
+											   ApplicationConstants.PAGE_CODE_GDSPLAN, 
+											   ApplicationConstants.PAGE_CODE_BSI,
+											   ApplicationConstants.PAGE_CODE_REPOSITORY);
+		for(String pageCode: pageCodes) {
+			PageStatus pageStatus = new PageStatus(
+			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
+			lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
+			project, loggedOnUser.getFullNameLF(), new Date());
+			pageStatuses.add(pageStatus);
+		}
+		
+		return pageStatuses;
+	}
+	
 	
 	/**
 	 * Delete a file using document id

@@ -27,13 +27,11 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
-import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionStatusHelper;
 
 import org.springframework.util.CollectionUtils;
 
@@ -717,36 +715,30 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 
+	/**
+	 * Invoked while saving the IC 
+	 */
 	protected String computePageStatus(Project project) {
 		
-		String status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
-		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
+		String icStatus = getInstCertification().getStatus();
+		PageStatus status = project.getPageStatus(ApplicationConstants.PAGE_CODE_IC);
 		
-		if(CollectionUtils.isEmpty(icList)) {
-			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
-		}
-			
-		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())) { 
+		
+		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())
+				|| ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(icStatus)) {
+			//More ICs need to be added or the current one is not completed, so 
+			//overall status is inprogress
 			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-		}
-		
-		//There is at least one IC and IC certification flag says done. So proceed to
-		//check if the ICs are all ok.
-		for(InstitutionalCertification ic: icList) {
-			ic = manageProjectService.findIcById(ic.getId());
-			
-			if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(ic.getGpaApprovalCode())) {
-				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-			}
-			List<Study> studies = ic.getStudies();
-			for(Study study: studies) {
-				if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())) {
+		} else {
+			//Else return status based on other ICs
+			for(InstitutionalCertification ic: project.getInstitutionalCertifications()) {
+				if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
 					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 				}
 			}
-		}
 			
-		return status;
+			return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		}
 	}
 
 
@@ -772,7 +764,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			}
 		}
 		
-		MissingData missingIcData = GdsSubmissionStatusHelper.getInstance().computeMissingIcData(ic, document);	
+		MissingData missingIcData = GdsSubmissionActionHelper.getInstance().computeMissingIcData(ic, document);	
 		if(missingIcData.getChildList().size() > 0) {
 				missingIcData.setDisplayText("The following data is incomplete");
 				missingDataList.add(missingIcData);
