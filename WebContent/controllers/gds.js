@@ -15,7 +15,7 @@ function openFileModal(result){
 }
 
 function openMissingDataReport(id, action) {
-	var url = action + "?projectId=" + id;
+	var url = action + "projectId=" + id;
 	var winName = "Missing Data Report";
 	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
 	var newWin = window.open(url, winName, features);

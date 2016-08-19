@@ -28,7 +28,7 @@
           <div class="panel-heading">
             <div class="pheader"><h4>Institutional Certification Status</h4></div>
             <div class="statusWrapper">
-    		  <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcListData.action')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+    		  <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcListData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
               <s:include value="/jsp/content/pageStatus.jsp"/>           	
             </div>
              

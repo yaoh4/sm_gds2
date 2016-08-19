@@ -21,7 +21,7 @@
 				<div class="pheader">
 					<h4>Basic Study Information</h4>
 					<div class="statusWrapper">
-    		  		  <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingBsiData.action')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+    		  		  <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingBsiData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
               		  <s:include value="/jsp/content/pageStatus.jsp"/>           	
             	    </div>					 
 				</div>

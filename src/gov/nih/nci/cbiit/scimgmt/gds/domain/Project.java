@@ -81,7 +81,6 @@ public class Project implements java.io.Serializable {
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<InstitutionalCertification> institutionalCertifications = new ArrayList();
-	//private List<ProjectsIcMapping> projectsIcMappings = new ArrayList<ProjectsIcMapping>();
 	
 	
 	private Long subprojectCount;
@@ -561,18 +560,6 @@ public class Project implements java.io.Serializable {
 	public void setDocuments(Set<Document> documents) {
 		this.documents = documents;
 	}
-	
-	/*@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
-	@Cascade({CascadeType.ALL})
-	public List<ProjectsIcMapping> getProjectsIcMappings() {
-		return projectsIcMappings;
-	}
-
-	
-	public void setProjectsIcMappings(List<ProjectsIcMapping> projectsIcMappings) {
-		this.projectsIcMappings = projectsIcMappings;
-	}*/
-	
 
 	@Column(name = "APPL_ID", length = 10)
 	public Long getApplId() {

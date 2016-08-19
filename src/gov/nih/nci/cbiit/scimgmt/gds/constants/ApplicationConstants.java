@@ -90,8 +90,11 @@ public interface ApplicationConstants {
 	 public static final Long SEARCH_MY_PROJECT_SUBMISSIONS = 40L;
 	 public static final Long SEARCH_SUBMISSION_FROM_MYDOC = 41L;
 	 public static final Long SEARCH_SUBMISSION_FROM_ALL = 42L;
-	 public static final Long YES_ID = 18L;
-	 public static final Long NO_ID  = 19L;
+	 public static final Long IC_DUL_VERIFIED_YES_ID = 35L;
+			 
+	 
+	 //public static final Long YES_ID = 18L;
+	 //public static final Long NO_ID  = 19L;
 	 
 	 /* Data Constants for flags*/
 	 public static final String FLAG_YES = "Y";
@@ -132,8 +135,8 @@ public interface ApplicationConstants {
 	 public static final Long IC_PROV_FINAL_ID_PROV = 22L;
 	 public static final Long IC_PROV_FINAL_ID_FINAL = 23L;  
 	 
-	 public static final Long IC_GPA_APPROVAL_ID_YES = 18L;
-	 public static final Long IC_GPA_APPROVAL_ID_NO = 19L;
+	 public static final Long IC_GPA_APPROVED_YES_ID = 18L;
+	 public static final Long IC_GPA_APPROVED_NO_ID = 19L;
 	
 	 
 	 //Type of grant or contract

@@ -25,20 +25,12 @@
           
           <div class="panel-heading">
             <div class="pheader"><h4>Add Institutional Certification(s)</h4></div>
-      <!--    <div class="statusWrapper">
-              <div class="status"><a href="#" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
-              <div class="statusIcon">
-                <a href="#" class="tooltip">
-                  <img src="<s:url value="/images/inprogress.png"/>" alt="In Progress" />
-                  <span>
-                    <img class="callout" src="<s:url value="/images/callout_black.gif" />" />
-                    <strong>Legend:</strong><br />
-                    <img src="<s:url value="/images/legend.gif" />" />
-                    
-                  </span>
-                </a>
+            <s:if test="%{instCertification.id != null}">
+              <div class="statusWrapper">
+    		    <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${instCertification.id}&')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+                <s:include value="/jsp/content/pageStatus.jsp"/>           	
               </div>
-            </div> -->
+            </s:if>
           </div>
 
 		
