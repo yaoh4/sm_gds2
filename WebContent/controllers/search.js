@@ -43,8 +43,8 @@ $(document).ready(function(){
             		});
                 }
             },
-            "dom": "<'row'<'col-sm-6' <'export'>>>" + "<'row'<'legend'>><'col-sm-6'f>>"
-            +"<'row'<'col-sm-4'i><'col-sm-4'l><'col-sm-4'p>>" + 
+            "dom": "<'row'<'col-sm-6' <'export'>>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + 
+            "<'row'<'col-sm-12'l <'legend'>><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12'l>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "columns": [
@@ -60,7 +60,7 @@ $(document).ready(function(){
                 { "data":  "bsiPageStatus"},
                 { "data":  "repoCount"},
                 { "data":  "subprojectCount"},
-                { "data":  "repositoryPageStatus"},
+                { "data":  null},
                 { "data":  null}
             ],
             "searching": false,
@@ -89,22 +89,10 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": -2, // Repository
-                "orderable": true,
+                "orderable": false,
                 "render": function (data, type, row, meta) {
                 	 {
-                		 if(type === 'display') {
-                     		if(data == "In Progress") {
-                     			status = '<div class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" /></div>'
-                     		}
-                     		else if(data == "Completed") {
-                     			status = '<div class="searchProgess"><img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/></div>'
-                     		} else {
-                     			status = '<div class="searchProgess"><img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"></div>'
-                     	   	}
-                		 }
-                		if(row.repoCount != null && row.repoCount > 0) {
-                			return status + '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal">' + '<i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>';
-                		}
+                        return '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal">' + '<i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>';
                 	}
                 	return "";
                 } },
@@ -155,7 +143,7 @@ $(document).ready(function(){
             ]
         });
         
-	$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search2.gif'></div>");
+	$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search.gif'></div>");
 
 	$("div.export").html("<a id='export-btn' href='#' aria-controls='submissionTable' tabindex='0' class='dt-button buttons-excel buttons-html5'><span>Export to Excel</span></a>");
 
@@ -194,7 +182,7 @@ $(document).ready(function(){
 
 
     //for legend icon
-    $('#myTable_wrapper').prepend('<div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search2.gif" /></div>')
+    $('#myTable_wrapper').prepend('<div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search.gif" /></div>')
 
 
 
