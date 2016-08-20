@@ -35,7 +35,7 @@
               <td colspan="2"> <a href="/gds/manage/editGdsPlan.action?projectId=${project.id}">GDS Plan</a></td>
       
               <td>
-               <s:hidden id="gdsPlan" value="%{getPageStatusCode('GDSPLAN')}"/>
+               <s:hidden id="gdsPlan" value="%{getPageStatus('GDSPLAN').status.code}"/>
               	<div id="gdsPlanDiv" class="searchProgess">
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       		    </div>
@@ -63,7 +63,7 @@
             <tr class="info">
               <td colspan="2"> <a href="/gds/manage/listIc.action?projectId=${project.id}">Institutional Certification</a></td>
               <td>
-               <s:hidden id="ic" value="%{getPageStatusCode('IC')}"/>
+               <s:hidden id="ic" value="%{getPageStatus('IC').status.code}"/>
               	<div id="icDiv" class="searchProgess">               
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       		    </div>
@@ -77,7 +77,7 @@
             <tr class="odd">
               <td colspan="2"> <a href="/gds/manage/navigateToBasicStudyInfo.action?projectId=${project.id}">Basic Study Information</a></td>
               <td>
-              <s:hidden id="bsi" value="%{getPageStatusCode('BSI')}"/>
+              <s:hidden id="bsi" value="%{getPageStatus('BSI').status.code}"/>
               	<div id="bsiDiv" class="searchProgess">
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       			</div>

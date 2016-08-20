@@ -408,6 +408,12 @@ public class ManageSubmission extends BaseAction {
 	public PageStatus getPageStatus(String pageCode) {
 		PageStatus pageStatus = 
 			getProject().getPageStatus(pageCode);
+		if(pageStatus == null) {
+			return new PageStatus(
+					lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
+					lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
+					project, null, null);
+		}
 		return pageStatus;
 	}
 	
