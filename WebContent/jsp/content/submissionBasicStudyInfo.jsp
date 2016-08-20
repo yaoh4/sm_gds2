@@ -40,17 +40,17 @@
 						target="_blank">NCI Basic Study Information Form&nbsp;<i
 						class="fa fa-external-link" aria-hidden="true"></i></a>
 				</div>
-				<p style="font-size: 12px; margin-top: 5px;">
+			<!--<p style="font-size: 12px; margin-top: 5px;">
 					Note: <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Asterisk
 					indicates a required field
-				</p>
+				</p>-->
 				<p>&nbsp;</p>
 
 				<div class="qSpacing">
 
 					<p class="question" style="display: inline;">
-						<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Has the GPA
-						reviewed the Basic Study Information?&nbsp; &nbsp; &nbsp;</p>
+						<!--<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
+						Has the GPA reviewed the Basic Study Information?&nbsp; &nbsp; &nbsp;</p>
 
 					<s:radio id="reviewed" list="#{'Y':'Yes','N':'No'}"
 						name="bsiReviewedFlag" value="bsiReviewedFlag"
@@ -61,7 +61,8 @@
 
 					<!--  File Upload -->
 					<p class="question">
-						<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Upload File(s):
+					<!-- <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
+						Upload File(s):
 					</p>
 					<!--BEGIN Uploader-->
 					<div class="qSpacing" id="bsiDiv">

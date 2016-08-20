@@ -21,7 +21,7 @@
 						<div class="statusWrapper">
 						  <s:if test="%{!pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">         		       	      
 						    <div class="status">
-						      <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;
+						      <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryListData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;
 						    </div>
 						  </s:if>
               			  <s:include value="/jsp/content/pageStatus.jsp"/>           	

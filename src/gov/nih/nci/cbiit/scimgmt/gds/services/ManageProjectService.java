@@ -33,6 +33,15 @@ public interface ManageProjectService {
 	 */
 	public Project findById(Long projectId);
 	
+	
+	/**
+	 * Retrieve RepositoryStatus given an ID
+	 * 
+	 * @param repoId
+	 * @return RepositoryStatus
+	 */
+	public RepositoryStatus findRepositoryById(Long repoId);
+	
 	/**
 	 * Retrieve IC given an ID
 	 * 
@@ -40,6 +49,9 @@ public interface ManageProjectService {
 	 * @return InstitutionCertification
 	 */
 	public InstitutionalCertification findIcById(Long icId);
+	
+	
+	
 	
 	/**
 	 * Inserts or Updates the IC

@@ -44,6 +44,8 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	private List<DropDownOption> studyReleasedList = new ArrayList<DropDownOption>();
 	
 	private String isDbGap = "N";	
+	
+	private String repoStatusId;
 
 	/**
 	 * This method is responsible for loading the Repository status page and setting all the UI elements.
@@ -421,7 +423,25 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_REPOSITORY);
 	}
 	
+	/**
+	 * @return the repoStatusId
+	 */
+	public String getRepoStatusId() {
+		return repoStatusId;
+	}
+
+	/**
+	 * @param repoStatusId the repoStatusId to set
+	 */
+	public void setRepoStatusId(String repoStatusId) {
+		this.repoStatusId = repoStatusId;
+	}	
 	
+	
+	
+	/**
+	 * Invoked during save
+	 */
 	public String computePageStatus(Project project) {
 		String status = ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		
@@ -469,16 +489,34 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		return status;
 	}
 	
-	
+	/**
+	 * Invoked during display of missing data report for a specific repository.
+	 * @return
+	 */
 	public String getMissingRepositoryData() {
+		
+		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
+	
+		Project project = retrieveSelectedProject();
+		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingRepositoryData(project, Long.valueOf(repoStatusId)));
+					
+		return SUCCESS;
+	}	
+
+
+	/**
+	 * Invoked during display of missing data report for all repositories.
+	 * @return
+	 */
+	public String getMissingRepositoryListData() {
 		
 		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
 		
 		Project project = retrieveSelectedProject();
-		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingRepositoryData(project));
+		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingRepositoryListData(project));
 			
 		return SUCCESS;
-	}	
-	
+	}
+
 	
 }

@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
@@ -111,6 +112,26 @@ public class ProjectsDao {
 			return instance;
 		} catch (RuntimeException re) {
 			logger.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	
+	/**
+	 * Gets the IC by icId
+	 * 
+	 * @param icId
+	 * @return
+	 */
+	public RepositoryStatus findRepositoryById(Long repoId) {
+		logger.debug("getting RepositoryStatus instance with repoId: " + repoId);
+		try {
+			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RepositoryStatus.class);
+			criteria.add(Restrictions.eq("id", repoId));
+			 RepositoryStatus repoStatus = (RepositoryStatus) criteria.uniqueResult();
+			return repoStatus;
+		} catch (RuntimeException re) {
+			logger.error("Unable to find IC by id " + repoId, re);
 			throw re;
 		}
 	}

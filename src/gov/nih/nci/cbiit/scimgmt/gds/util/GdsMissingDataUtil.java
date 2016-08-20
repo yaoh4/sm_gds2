@@ -178,6 +178,35 @@ public class GdsMissingDataUtil {
 	}
 	
 	
+	public List<MissingData> getMissingIcData(Project project, Long instCertId) {
+		
+		List<MissingData> missingDataList = new ArrayList<MissingData>();		
+		InstitutionalCertification ic = manageProjectService.findIcById(Long.valueOf(instCertId));
+			
+		//Get the file list
+		Document document = null;
+		List<Document> docs = 
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
+		if(docs != null && !docs.isEmpty()) {
+			for(Document doc: docs) {
+				Long docId = doc.getInstitutionalCertificationId();
+				if(docId != null && docId.equals(Long.valueOf(instCertId))) {
+					document = doc;
+				}			
+			}
+		}
+		
+		MissingData missingIcData = GdsMissingDataUtil.getInstance().computeMissingIcData(ic, document);	
+		if(missingIcData.getChildList().size() > 0) {
+				missingIcData.setDisplayText("The following data is incomplete");
+				missingDataList.add(missingIcData);
+		}		
+			
+		return missingDataList;
+	}
+	
+	
+	
 	public List<MissingData> getMissingBsiData(Project project) {
 		
 		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
@@ -200,7 +229,7 @@ public class GdsMissingDataUtil {
 	}
 	
 	
-	public List<MissingData> getMissingRepositoryData(Project project) {
+	public List<MissingData> getMissingRepositoryListData(Project project) {
 		
 		List<MissingData> missingDataList = new ArrayList<MissingData>();
 			
@@ -208,20 +237,7 @@ public class GdsMissingDataUtil {
 		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 			for(RepositoryStatus repoStatus: selection.getRepositoryStatuses()) {
 				
-				MissingData missingRepoData = new MissingData(repoStatus.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
-				Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
-				Lookup registrationStatus = repoStatus.getLookupTBySubmissionStatusId();
-				Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
-				
-				if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
-						missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'."));
-				}
-				if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
-					missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'."));
-				}
-				if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
-					missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'."));
-				}
+				MissingData missingRepoData = computeMissingRepositoryData(repoStatus);
 				
 				if(missingRepoData.getChildList().size() > 0) {
 					missingData.addChild(missingRepoData);
@@ -235,6 +251,40 @@ public class GdsMissingDataUtil {
 			
 		return missingDataList;
 	}	
+	
+	
+	public List<MissingData> getMissingRepositoryData(Project project, Long repoStatusId) {
+		
+		List<MissingData> missingDataList = new ArrayList<MissingData>();
+		RepositoryStatus repoStatus = manageProjectService.findRepositoryById(repoStatusId);	
+		MissingData missingRepoData = GdsMissingDataUtil.getInstance().computeMissingRepositoryData(repoStatus);	
+		if(missingRepoData.getChildList().size() > 0) {
+				missingRepoData.setDisplayText("The following data is incomplete");
+				missingDataList.add(missingRepoData);
+		}	
+			
+		return missingDataList;
+	}	
+	
+
+	private MissingData computeMissingRepositoryData(RepositoryStatus repoStatus) {
+		MissingData missingRepoData = new MissingData(repoStatus.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
+		Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
+		Lookup registrationStatus = repoStatus.getLookupTByRegistrationStatusId();
+		Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
+		
+		if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
+				missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'."));
+		}
+		if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
+			missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'."));
+		}
+		if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
+			missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'."));
+		}
+		
+		return missingRepoData;
+	}
 	
 	
 	public MissingData computeMissingIcData(InstitutionalCertification ic, Document doc) {

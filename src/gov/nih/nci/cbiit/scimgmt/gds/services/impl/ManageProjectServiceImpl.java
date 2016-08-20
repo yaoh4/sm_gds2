@@ -82,15 +82,25 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	
 	
 	/**
-	 * Retrieve Project given an ID
+	 * Retrieve IC given an ID
 	 * 
-	 * @param projectId
-	 * @return Project
+	 * @param icId
+	 * @return IC
 	 */
 	public InstitutionalCertification findIcById(Long icId) {
 		return icCertsDao.findById(icId);
 	}
 	
+	
+	/**
+	 * Retrieve RepositoryStatus given an ID
+	 * 
+	 * @param repoId
+	 * @return RepositoryStatus
+	 */
+	public RepositoryStatus findRepositoryById(Long repoId) {
+		return projectsDao.findRepositoryById(repoId);
+	}
 	
 	/**
 	 * Inserts or Updates the IC

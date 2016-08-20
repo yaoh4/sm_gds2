@@ -235,6 +235,9 @@
 		</action>
 		<action name="viewMissingRepositoryData" method="getMissingRepositoryData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
 			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
+		</action>
+		<action name="viewMissingRepositoryListData" method="getMissingRepositoryListData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
 		</action>	
 		<action name="navigateToIntramuralGrantOrContractSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.RepositoryStatusSubmissionAction">
 			 <result name="success" type="tiles">intramuralGrantOrContractSearch</result>

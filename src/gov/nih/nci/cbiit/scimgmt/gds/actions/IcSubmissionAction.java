@@ -747,29 +747,8 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
 		
-		missingDataList = new ArrayList<MissingData>();
 		Project project = retrieveSelectedProject();
-		
-		InstitutionalCertification ic = manageProjectService.findIcById(Long.valueOf(instCertId));
-			
-		//Get the file list
-		Document document = null;
-		List<Document> docs = 
-			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
-		if(docs != null && !docs.isEmpty()) {
-			for(Document doc: docs) {
-				Long docId = doc.getInstitutionalCertificationId();
-				if(docId != null && docId.equals(Long.valueOf(instCertId))) {
-					document = doc;
-				}			
-			}
-		}
-		
-		MissingData missingIcData = GdsMissingDataUtil.getInstance().computeMissingIcData(ic, document);	
-		if(missingIcData.getChildList().size() > 0) {
-				missingIcData.setDisplayText("The following data is incomplete");
-				missingDataList.add(missingIcData);
-		}		
+		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingIcData(project, Long.valueOf(instCertId)));		
 			
 		return SUCCESS;
 	}

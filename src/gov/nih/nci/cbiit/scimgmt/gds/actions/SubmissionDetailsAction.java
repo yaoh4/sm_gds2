@@ -184,7 +184,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		setupMissingDataList(ApplicationConstants.PAGE_CODE_BSI, 
 				missingDataUtil.getMissingBsiData(project));
 		setupMissingDataList(ApplicationConstants.PAGE_CODE_REPOSITORY, 
-				missingDataUtil.getMissingRepositoryData(project));
+				missingDataUtil.getMissingRepositoryListData(project));
 		
 		return SUCCESS;
 	}
