@@ -275,7 +275,10 @@ $('#finalprov').on('change', function() {
 	    var studySetArray = $(".studySections");
 	    jQuery.each(studySetArray, function(index, val) {
 	    	var elemIndex = $(this).attr("id").replace("studySection", "");
-	        addDulSet($("#btnAddDUL-" + elemIndex));
+	    	var dulItems = $("#studySection" + elemIndex).find(".dulTypes").length;
+	    	if(dulItems == 0) {
+	          addDulSet($("#btnAddDUL-" + elemIndex));
+	    	}
 	    })
 	        
 	    //Show the add buttons
