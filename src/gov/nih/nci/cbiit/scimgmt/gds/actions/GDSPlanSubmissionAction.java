@@ -34,6 +34,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.UIList;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 import gov.nih.nci.cbiit.scimgmt.gds.util.UIRuleUtil;
 
 /**
@@ -947,59 +948,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	public String getMissingGdsPlanData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_GDSPLAN));
+		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, 
+			ApplicationConstants.PAGE_CODE_GDSPLAN));
 		
-		missingDataList = new ArrayList<MissingData>();
 		Project project = retrieveSelectedProject();
-			
-			
-			List<Document> exceptionMemos = 
-					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, project.getId());
-			
-			List<Document> gdsplans = 
-					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, project.getId());
-			
-			Long submissionReasonId = project.getSubmissionReasonId();
-			
-			if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
-					 || ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.equals(submissionReasonId)) {
-					
-				//Not indicated whether there is a data sharing exception requested for this project
-				if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID))) {
-					MissingData missingData = new MissingData("The question 'Is there a data sharing exception requested for this project' needs to be answered.");
-					missingDataList.add(missingData);
-				}
-				
-				//Not indicated if the data sharing exception requested was approved
-				if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
-					&& ( CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID))
-					|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null)) {
-					MissingData missingData = new MissingData("The question 'Was this exception approved' needs to be a 'Yes' or 'No'.");
-					missingDataList.add(missingData);
-				}
-				
-				//Data sharing exception approved but Exception Memo not uploaded
-				if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
-						&& CollectionUtils.isEmpty(exceptionMemos)) {
-					MissingData missingData = new MissingData("The Exception Memo has not been uploaded.");
-					missingDataList.add(missingData);
-				}
-				
-				if(CollectionUtils.isEmpty(exceptionMemos)) {
-					MissingData missingData = new MissingData("The Data Sharing Plan has not been uploaded.");
-					missingDataList.add(missingData);
-				}
-			}
-			
-			//GPA has not reviewed the data sharing plan
-			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID))
-					|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_NO_ID) != null) {
-				MissingData missingData = new MissingData("GPA review of the Data Sharing Plan is pending.");
-				missingDataList.add(missingData);
-			}
-			
-			
-			
+		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingGdsPlanData(project));	
+		
 			return SUCCESS;
 		}
 	

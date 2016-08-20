@@ -60,7 +60,7 @@ public class ManageSubmission extends BaseAction {
 	
 	private Lookup page;
 	
-	protected List<MissingData> missingDataList;
+	protected List<MissingData> missingDataList = new ArrayList<MissingData>();
 	
 	
 	/**
@@ -416,6 +416,10 @@ public class ManageSubmission extends BaseAction {
 		return missingDataList;
 	}
 	
+	
+	public void setMissingDataList(List<MissingData> missingDataList) {
+		this.missingDataList = missingDataList;
+	}
 	
 	/**
 	 * @return the page

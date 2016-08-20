@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
@@ -14,7 +15,9 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ExportRow;
+import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 
 /**
  * @author menons2
@@ -146,6 +149,36 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	 */
 	public void setGdsPlanFile(List<Document> gdsPlanFile) {
 		this.gdsPlanFile = gdsPlanFile;
+	}
+	
+	
+	public String getMissingProjectData() {
+		
+		Project project = retrieveSelectedProject();
+		
+		GdsMissingDataUtil missingDataUtil = GdsMissingDataUtil.getInstance();		
+		
+		setupMissingDataList(ApplicationConstants.PAGE_CODE_GDSPLAN, 
+				missingDataUtil.getMissingGdsPlanData(project));
+		setupMissingDataList(ApplicationConstants.PAGE_CODE_IC, 
+				missingDataUtil.getMissingIcListData(project));
+		setupMissingDataList(ApplicationConstants.PAGE_CODE_BSI, 
+				missingDataUtil.getMissingBsiData(project));
+		setupMissingDataList(ApplicationConstants.PAGE_CODE_REPOSITORY, 
+				missingDataUtil.getMissingRepositoryData(project));
+		
+		return SUCCESS;
+	}
+	
+	
+	private void setupMissingDataList(String pageCode, List<MissingData> list) {
+		if(!CollectionUtils.isEmpty(list)) {
+			String displayText = lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, 
+					pageCode).getDisplayName();
+			MissingData missingData = new MissingData(displayText);
+			missingData.addChildren(list);
+			missingDataList.add(missingData);
+		}	
 	}
 	
 }

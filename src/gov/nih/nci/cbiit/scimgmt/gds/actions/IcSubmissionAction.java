@@ -31,6 +31,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 
 import org.springframework.util.CollectionUtils;
@@ -764,7 +765,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			}
 		}
 		
-		MissingData missingIcData = GdsSubmissionActionHelper.getInstance().computeMissingIcData(ic, document);	
+		MissingData missingIcData = GdsMissingDataUtil.getInstance().computeMissingIcData(ic, document);	
 		if(missingIcData.getChildList().size() > 0) {
 				missingIcData.setDisplayText("The following data is incomplete");
 				missingDataList.add(missingIcData);

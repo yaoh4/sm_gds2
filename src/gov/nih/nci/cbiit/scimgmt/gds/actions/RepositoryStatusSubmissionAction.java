@@ -22,6 +22,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 import gov.nih.nci.cbiit.scimgmt.gds.util.RepositoryStatusComparator;
 
@@ -467,41 +468,14 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		
 		return status;
 	}
+	
+	
 	public String getMissingRepositoryData() {
 		
 		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
 		
-		missingDataList = new ArrayList<MissingData>();
 		Project project = retrieveSelectedProject();
-			
-		MissingData missingData = new MissingData("The following repository statuses need to be updated:");
-		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
-			for(RepositoryStatus repoStatus: selection.getRepositoryStatuses()) {
-				
-				MissingData missingRepoData = new MissingData(repoStatus.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
-				Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
-				Lookup registrationStatus = repoStatus.getLookupTBySubmissionStatusId();
-				Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
-				
-				if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
-						missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'."));
-				}
-				if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
-					missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'."));
-				}
-				if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
-					missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'."));
-				}
-				
-				if(missingRepoData.getChildList().size() > 0) {
-					missingData.addChild(missingRepoData);
-				}
-			}
-		}
-			
-		if(missingData.getChildList().size() > 0) {
-			missingDataList.add(missingData);
-		}
+		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingRepositoryData(project));
 			
 		return SUCCESS;
 	}	

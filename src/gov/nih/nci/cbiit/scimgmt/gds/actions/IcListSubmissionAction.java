@@ -32,6 +32,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 
 
@@ -410,45 +411,8 @@ public class IcListSubmissionAction extends ManageSubmission {
 		
 		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
 		
-		missingDataList = new ArrayList<MissingData>();
 		Project project = retrieveSelectedProject();
-			
-		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
-			
-		if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag()) ||
-					CollectionUtils.isEmpty(icList)) {
-			String displayText = "Add all the required Institutional Certifications";
-			MissingData missingData = new MissingData(displayText);
-			missingDataList.add(missingData);
-		}
-			
-		//Get the file list
-		HashMap<Long, Document> docMap = new HashMap<Long, Document>();
-		List<Document> docs = 
-			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
-		if(docs != null && !docs.isEmpty()) {
-			for(Document doc: docs) {
-				if(doc.getInstitutionalCertificationId() != null) {
-					docMap.put(doc.getInstitutionalCertificationId(), doc);
-				}			
-			}
-		}
-			
-		//There is at least one IC. So proceed to check if the ICs are all ok.
-		MissingData missingData = new MissingData("The following ICs have incomplete data:");
-			
-		for(InstitutionalCertification ic: icList) {
-			Document document = docMap.get(ic.getId());
-			MissingData missingIcData = GdsSubmissionActionHelper.getInstance().computeMissingIcData(ic, document);
-									
-			if(missingIcData.getChildList().size() > 0) {
-				missingIcData.setDisplayText(document.getFileName());
-				missingData.addChild(missingIcData);
-			}
-		}
-		if(missingData.getChildList().size() > 0) {
-			missingDataList.add(missingData);
-		}
+		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingIcListData(project));
 			
 		return SUCCESS;
 	}

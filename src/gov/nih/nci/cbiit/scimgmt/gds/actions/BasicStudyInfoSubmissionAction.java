@@ -14,6 +14,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 
 
 /**
@@ -304,24 +305,11 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	
 	public String getMissingBsiData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_BSI));
+		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, 
+			ApplicationConstants.PAGE_CODE_BSI));
 		
-		missingDataList = new ArrayList<MissingData>();
 		Project project = retrieveSelectedProject();
-		
-		if(!ApplicationConstants.FLAG_YES.equals(project.getBsiReviewedFlag())) {
-			String displayText = "BSI Reviewed flag must be 'Yes'.";
-			MissingData missingData = new MissingData(displayText);
-			missingDataList.add(missingData);
-		}
-		
-		List<Document> docs = 
-			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, project.getId());
-		if(CollectionUtils.isEmpty(docs)) {
-			String displayText = "The completed Basic Study Information Form must be uploaded.";
-			MissingData missingData = new MissingData(displayText);
-			missingDataList.add(missingData);
-		}
+		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingBsiData(project));
 		
 		return SUCCESS;
 	}

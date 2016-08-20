@@ -127,7 +127,7 @@
 		init-method="init">
 	</bean>
 	
-	<bean id="gdsSubmissionStatusHelper" class="gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionStatusHelper"
+	<bean id="gdsMissingDataUtil" class="gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil"
 		init-method="init">
 	</bean>
 
