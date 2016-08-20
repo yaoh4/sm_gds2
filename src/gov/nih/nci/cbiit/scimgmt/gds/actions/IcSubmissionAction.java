@@ -498,8 +498,8 @@ public class IcSubmissionAction extends ManageSubmission {
 		}
 		
 		manageProjectService.saveOrUpdateIc(instCert);
-		saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_IC);
-		setProject(retrieveSelectedProject());
+		project = saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_IC);
+		setProject(project);
 		
 		// Update CertId
 		if(docId != null) {
