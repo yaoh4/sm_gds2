@@ -47,7 +47,7 @@
       		    </div>
       		  </td>
               <td><s:date name="%{getPageStatus('GDSPLAN').updatedDate}" format="MM/dd/yyyy"/> </td>
-              <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingGdsPlanData.action')">View</a></td>
+              <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingGdsPlanData.action?')">View</a></td>
               <td><s:property value="%{getPageStatus('GDSPLAN').updatedBy}"/></td>
           
           <s:if test="%{project.getPlanAnswerSelectionByAnswerId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null}">
@@ -75,7 +75,7 @@
       		    </div>
       		  </td>
               <td><s:date name="%{getPageStatus('IC').updatedDate}" format="MM/dd/yyyy"/></td>
-                <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action')">View</a></td>
+                <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcListData.action?')">View</a></td>
               <td><s:property value="%{getPageStatus('IC').updatedBy}"/></td>
             </tr>
           </s:if>
@@ -89,7 +89,7 @@
       			</div>
       		  </td>
               <td><s:date name="%{getPageStatus('BSI').updatedDate}" format="MM/dd/yyyy"/></td>
-              <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingBsiData.action')">View</a></td>
+              <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingBsiData.action?')">View</a></td>
               <td><s:property value="%{getPageStatus('BSI').updatedBy}"/></td>
             </tr>
           </s:if>
@@ -98,7 +98,7 @@
             <tr class="info">
               <td colspan="3"><a href="/gds/manage/navigateToRepositoryStatus.action?projectId=${project.id}">Submission Status for Repository:<s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" /></a></td>
              <td><s:date name="%{#repStatus.updatedDate}" format="MM/dd/yyyy"/></td>
-             <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryData.action')">View</a></td>
+             <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryData.action?')">View</a></td>
               <td><s:property value="%{#repStatus.updatedBy}"/></td>
             </tr>
             
