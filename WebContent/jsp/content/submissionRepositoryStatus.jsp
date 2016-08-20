@@ -19,7 +19,11 @@
 					<div class="pheader">
 						<h4>Submission Status&nbsp;</h4>
 						<div class="statusWrapper">
-						  <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+						  <s:if test="%{!pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">         		       	      
+						    <div class="status">
+						      <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;
+						    </div>
+						  </s:if>
               			  <s:include value="/jsp/content/pageStatus.jsp"/>           	
             			</div>				
 					</div>

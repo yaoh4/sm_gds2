@@ -28,7 +28,11 @@
           <div class="panel-heading">
             <div class="pheader"><h4>Institutional Certification Status</h4></div>
             <div class="statusWrapper">
-    		  <div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcListData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+              <s:if test="%{!pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">         		           		      
+    		    <div class="status">
+    		      <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcListData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;
+    		    </div>
+    		  </s:if>
               <s:include value="/jsp/content/pageStatus.jsp"/>           	
             </div>
              
