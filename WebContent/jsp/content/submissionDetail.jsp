@@ -2,15 +2,21 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 
-  <div style="float:right; display:block;">
-  	<a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingProjectData.action?')" class="statusLink">
-  	  <i class="fa fa-print fa-lg" aria-hidden="true"></i>
-  	  &nbsp;Generate missing data report (PDF)	            		  
-  	</a>
-  </div><br/><br/>
-        <h4>Submission Details</h4><div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search.gif"></div>
-          <br/>
-          <table width="85%" class="table table-bordered">
+ 
+	<div class="panel  project-panel-primary">
+  			
+  	  <div class="panel-heading">
+		<div class="pheader">
+		  <h4>Submission Details</h4>
+		  <div class="statusWrapper">
+    	  	<div class="status"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingProjectData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;</div>
+           	<s:include value="/jsp/content/pageStatus.jsp"/>           	
+          </div>
+		</div>
+	  </div>
+         
+      <div class="panel-body">
+        <table width="85%" class="table table-bordered">
           <caption style="display: none;">Status History</caption>
           <thead>
             <tr class="active">
@@ -137,6 +143,9 @@
               
         </tbody>
       </table>
+    </div>
+  </div>
+
 <s:form id="submission-details_form"  namespace="manage"
     enctype="multipart/form-data" action="submissionDetails" method="post" role="form">  
 

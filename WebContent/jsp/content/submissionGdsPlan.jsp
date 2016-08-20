@@ -22,16 +22,6 @@
               		  <s:include value="/jsp/content/pageStatus.jsp"/>           	
             		</div>
 				</div>
-				<%-- <div class="statusWrapper">
-					<div class="status">
-						<a href="#" class="statusLink">Generate Missing Data Report</a>
-						&nbsp; &nbsp;
-					</div>
-					<div class="statusIcon">
-						<a href="images/legend.gif" class="preview" title="Legend"><img
-							src="images/inprogress.png" alt="In Progress" /></a>
-					</div>
-				</div> --%>
 			</div>
 
 			<div class="panel-body">

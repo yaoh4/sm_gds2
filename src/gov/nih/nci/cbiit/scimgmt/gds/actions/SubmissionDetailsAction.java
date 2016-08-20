@@ -2,6 +2,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
@@ -149,6 +151,23 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	 */
 	public void setGdsPlanFile(List<Document> gdsPlanFile) {
 		this.gdsPlanFile = gdsPlanFile;
+	}
+	
+	
+	public String getPageStatusCode() {
+		
+		List<PageStatus> statuses = retrieveSelectedProject().getPageStatuses();
+		if(!CollectionUtils.isEmpty(statuses)) {
+			for(PageStatus status: statuses) {
+				if(status.getStatus().getCode().equals(
+					ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS)) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
+			}
+		} else {
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		}		
+		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 	}
 	
 	
