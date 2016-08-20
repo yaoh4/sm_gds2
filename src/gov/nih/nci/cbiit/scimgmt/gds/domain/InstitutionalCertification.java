@@ -4,6 +4,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.domain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -177,6 +178,17 @@ public class InstitutionalCertification implements java.io.Serializable {
 
 	public void addProject(Project project) {
 		this.projects.add(project);
+	}
+	
+	public void removeProject(Project project) {
+		Iterator<Project> projects = this.getProjects().iterator();
+		while(projects.hasNext()) {
+			Project curProject = projects.next();
+			if(curProject.getId().equals(project.getId())) {
+				projects.remove();
+				break;
+			}
+		}
 	}
 	
 	@Transient

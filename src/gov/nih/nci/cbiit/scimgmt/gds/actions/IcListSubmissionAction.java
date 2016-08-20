@@ -157,59 +157,61 @@ public class IcListSubmissionAction extends ManageSubmission {
 		String certComplete = getProject().getCertificationCompleteFlag();
 		
 		Project storedProject = retrieveSelectedProject();
-		
 		storedProject.setCertificationCompleteFlag(certComplete);
 		
 		//If this is a sub-project, save only the ICs selected from the parent
-		/*if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
-			List<ProjectsIcMapping> projectsIcMappings = getSubProjectIcs(storedProject);			
-			storedProject.setProjectsIcMappings(projectsIcMappings);
-		}*/
-		
+		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
+			storedProject.setInstitutionalCertifications(getSubProjectIcs(storedProject));
+		}		
 		setProject(saveProject(storedProject, ApplicationConstants.PAGE_CODE_IC));
-		
 	}
 	
 	
-	private List<ProjectsIcMapping> getSubProjectIcs(Project storedProject) {
+	private List<InstitutionalCertification> getSubProjectIcs(Project storedProject) {
 		
-		List<ProjectsIcMapping> storedIcMappings = new ArrayList(); // storedProject.getProjectsIcMappings();
-		
+		List<InstitutionalCertification> certs = storedProject.getInstitutionalCertifications();
 		//Get the IC mappings in the stored project
-		HashMap<Long, ProjectsIcMapping> icMap = new HashMap();
-		if(!CollectionUtils.isEmpty(storedIcMappings)) {
-			for(ProjectsIcMapping projectsIcMapping: storedIcMappings) {
-				icMap.put(projectsIcMapping.getInstitutionalCertification().getId(), projectsIcMapping);
-			}
-		}
-			
-		//Get the ic mappings of the project from the display - this is the same as the
-		//parent project ic mappings
-		List<InstitutionalCertification> parentIcList = retrieveParentProject().getInstitutionalCertifications();
-		String [] icElem = ServletActionContext.getRequest().getParameterValues("ic-selected");
-		if(icElem == null) {
-			storedIcMappings.clear();
-		} else {
-		    //Add/remove based on the ones selected in the display
-			List<String> selectedIcs = Arrays.asList(icElem);
-			if(!CollectionUtils.isEmpty(parentIcList)) {
-				for(InstitutionalCertification ic: parentIcList) {
-					Long certificationId = ic.getId();
-					if(selectedIcs.contains(certificationId.toString())) {			
-					//This has been selected, add to subproject if not already present
-						if(!icMap.containsKey(certificationId)) {
-							storedIcMappings.add(new ProjectsIcMapping(
-								storedProject, loggedOnUser.getAdUserId().toUpperCase(), null, ic));
-						}
-					} else {
-						storedIcMappings.remove(certificationId);
+				HashMap<Long, InstitutionalCertification> icMap = new HashMap();
+				if(!CollectionUtils.isEmpty(certs)) {
+					for(InstitutionalCertification ic: certs) {
+						icMap.put(ic.getId(), ic);
 					}
 				}
+		
+		
+		//Get the ics of the project from the display - this is the same as the
+		//parent project ics
+		Project parentProject =  manageProjectService.findById(Long.valueOf(storedProject.getParentProjectId()));
+		
+		List<InstitutionalCertification> parentIcList = parentProject.getInstitutionalCertifications();
+		if(!CollectionUtils.isEmpty(parentIcList)) {
+			//Get the user selected ICs
+			String [] icElem = ServletActionContext.getRequest().getParameterValues("ic-selected");
+			List<String> selectedIcs  = new ArrayList<String>();
+			if(icElem != null) {
+				//Add the ones selected
+				selectedIcs = Arrays.asList(icElem);
 			}
+			for(InstitutionalCertification parentIc: parentIcList) {
+				Long certificationId = parentIc.getId();
+				if(selectedIcs.contains(certificationId.toString())) {
+					if(!icMap.containsKey(certificationId)) {
+						//Not present in the storedProject, hence add it
+						parentIc.addProject(storedProject);
+						icMap.put(certificationId, parentIc);
+					}
+				} else {
+					//Not selected, if present then remove
+					if(icMap.containsKey(certificationId)) {
+						parentIc.removeProject(storedProject);
+						icMap.remove(certificationId);
+					}
+				} 		
+			} 
 		}
-		return storedIcMappings;
-	
+		return new ArrayList<InstitutionalCertification>(icMap.values());
 	}
+	
 	
 	/**
 	 * Deletes an IC. Invoked when the delete button is clicked on the Track
