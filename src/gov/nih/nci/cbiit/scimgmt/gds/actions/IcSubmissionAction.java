@@ -308,7 +308,7 @@ public class IcSubmissionAction extends ManageSubmission {
 				 	}
 				}//End while-loop for iterating through dulSets				
 			} 
-			if(!atLeastOneDULSelected && !ApplicationConstants.IC_GPA_APPROVED_NO_ID.equals(instCert.getGpaApprovalCode())) {
+			if(!atLeastOneDULSelected && ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(instCert.getGpaApprovalCode())) {
 				addActionError(getText("error.ic.study.dulTypes.required", new String[]{study.getStudyName()}));
 			}
 		} //End for-loop for iterating through studies
