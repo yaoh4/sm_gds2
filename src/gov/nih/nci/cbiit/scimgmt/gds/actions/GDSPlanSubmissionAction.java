@@ -604,6 +604,10 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 			else {
 				getProject().getInstitutionalCertifications().clear();
+				for(InstitutionalCertification ic: getProject().getInstitutionalCertifications()) {
+					//Also remove project from ic since this is a many to many relationship
+					ic.removeProject(getProject());
+				}
 			}
 			
 			// d) The system will delete answers to Has the GPA reviewed the Basic Study Information?
