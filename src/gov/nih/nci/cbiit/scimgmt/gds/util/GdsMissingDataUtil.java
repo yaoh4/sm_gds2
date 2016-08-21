@@ -141,7 +141,7 @@ public class GdsMissingDataUtil {
 			
 		if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag()) ||
 					CollectionUtils.isEmpty(icList)) {
-			String displayText = "Add all the required Institutional Certifications";
+			String displayText = "Institutional Certifications Reviewed flag must be 'Yes'";
 			MissingData missingData = new MissingData(displayText);
 			missingDataList.add(missingData);
 		}

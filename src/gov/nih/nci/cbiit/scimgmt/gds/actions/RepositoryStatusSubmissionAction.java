@@ -454,8 +454,8 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
 			
 			if(ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID.equals(registrationStatus.getId())) {
-				//No need to check further, since the submission status and
-				//study released fields will be disabled in this case
+				//No need to check this repository further, since the submission status
+				//and study released fields will be disabled in this case
 				if(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equals(status)) {
 					//If previous repository is in complete status, then we are now
 					//in in-progress state
