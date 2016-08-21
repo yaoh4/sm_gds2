@@ -17,7 +17,9 @@
 <link href="stylesheets/table.css" rel="stylesheet" type="text/css" media="screen">
 <link href="stylesheets/styles.css" rel="stylesheet" type="text/css" media="screen">
 <link href="stylesheets/displaytag.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<s:url value="/stylesheets/font-awesome-4.6.3.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -27,7 +29,11 @@
     <p class="modal-warning">In order for the ${page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</p>
   </div>
   <div class="modal-body" id="template">
-  	<div align="right"><img src="images/print.png" width="15px" height="15px">&nbsp;<a href="#">print report</a></div>
+  	<div align="right">
+  	  <a href="#" onclick="window.print()">
+  	    <i class="fa fa-print fa-lg" aria-hidden="true"></i>&nbsp;Print Report
+  	  </a>
+  	</div>
   	<s:iterator status="missingLevel0Stat" var="missingLevel0Data" value="missingDataList">	  
   	  <p>${missingLevel0Stat.index + 1}.&nbsp;&nbsp;${missingLevel0Data.displayText}</p>
   	  <s:if test="%{#missingLevel0Data.childList.size > 0}">
