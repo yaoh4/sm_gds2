@@ -108,7 +108,6 @@ public class ManageSubmission extends BaseAction {
 	
 	
 	public Project retrieveParentProject() {
-		Project parentProject = null;
 		
 		if(project == null) {
 			String projectId  = getProjectId();
@@ -117,12 +116,20 @@ public class ManageSubmission extends BaseAction {
 			} 
 		}
 		
+		return retrieveParentProject(project);
+	}
+	
+	
+	public Project retrieveParentProject(Project project) {
+		
 		Long parentProjectId = project.getParentProjectId();
 		if(parentProjectId != null) {
-			parentProject =  manageProjectService.findById(Long.valueOf(parentProjectId));
+			Project parentProject =  manageProjectService.findById(Long.valueOf(parentProjectId));
+			return parentProject;
 		} 
-		return parentProject;
+		return null;
 	}
+	
 	
 	
 	/**
@@ -237,22 +244,31 @@ public class ManageSubmission extends BaseAction {
 		return null;
 	}
 
+	
+	public boolean showPage(String page) {
+		return showPage(page, project);
+	}
+	
 	/**
 	 * Determine whether a page should be shown
 	 * @param page
 	 * @return
 	 */
-	public boolean showPage(String page) {
+	public boolean showPage(String page, Project project) {
 		logger.debug("showPage()");
 		
 		boolean show = true;
 		
-		//Do not show GDS Plan if this is a sub-project
-		if(project.getParentProjectId() != null) {
-			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_GDSPLAN)) {
-				show = false;
+		//Do not show this page for a sub-project it this is the GDS
+		//Plan or if the page is not being shown by the parent.
+		Project parent = retrieveParentProject(project);
+		if(parent != null) {
+			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_GDSPLAN)
+					|| !showPage(page, parent)) {
+				return false;
 			}
 		}
+		
 		
 		// If user selects "Non-human" only, the system will NOT display the "Institutional Certifications"
 		if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
