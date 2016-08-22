@@ -183,7 +183,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	}
 	
 	
-	public String getRepositoryStatusCode(String repoId) {
+	public String getRepositoryStatusCode(Long repoId) {
 		List<RepositoryStatus> statuses = retrieveSelectedProject().getRepositoryStatuses();
 		for(RepositoryStatus repoStatus: statuses) {
 			if(repoStatus.getId().equals(repoId)) {
