@@ -30,10 +30,11 @@
 </head>
 
 <body>
-<div class="panel panel-danger" id="missing data">          
+<div class="panel panel-danger" id="missing data" width="95%">          
       
       <div class="panel-heading">
-        <div class="pheader"><h4>Missing/Incomplete Data Report</h4></div>
+        <div class="pheader">Missing/Incomplete Data Report</div>
+      </div>
         <div class="panel-body">
     <div align="right">
       <a href="#" onclick="window.print()">
