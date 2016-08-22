@@ -41,7 +41,7 @@
               <td>${project.updatedBy}</td>
             </tr>
 		  <s:if test="%{showPage('GDSPLAN')}">
-            <tr class="info">
+            <tr >
               <td colspan="2"> <a href="/gds/manage/editGdsPlan.action?projectId=${project.id}">GDS Plan</a></td>
       
               <td>
@@ -76,7 +76,7 @@
 		  </s:if>
 		  
 		  <s:if test="%{showPage('IC')}">
-            <tr class="info">
+            <tr >
               <td colspan="2"> <a href="/gds/manage/listIc.action?projectId=${project.id}">Institutional Certification</a></td>
               <td>
                <s:hidden id="ic" value="%{getPageStatus('IC').status.code}"/>

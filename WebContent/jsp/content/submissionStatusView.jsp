@@ -20,9 +20,14 @@
           No data entered.
         </s:if>
         <s:else>
-         <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap">[<strong><s:property value="%{project.repositoryStatuses.size}"/></strong>] Data Repositories have been indicated for this project.</span></td><td></td></tr>
+         <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>Data Repositories that have been indicated for this project:</strong></td><td><s:property value="%{project.repositoryStatuses.size}"/></td></tr>
+          <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr> 
           <tr><td><strong>Anticipated Submission Date:</strong></td>
             <td><s:date name="%{project.anticipatedSubmissionDate}" format="MM/dd/yyyy"/>  </td> </tr></table> 
+            <p>&nbsp;</p>
           <table width="100%" border="1" cellpadding="3"
         class="table  table-bordered">
         <tbody>
