@@ -84,7 +84,7 @@
 
 					<div class="form-group row">
 						<div class="col-xs-5">
-							<label for="Intramural (Z01)/Grant/Contract #"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Intramural (Z01)/Grant/Contract #</label>
+							<label for="Intramural (Z01)/Grant/Contract #"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Grant/Intramural/Contract #</label>
 							<div class="input-group2">
 							
 							<s:textfield name="project.applicationNum" cssClass="form-control" readOnly="true" id="grantsContractNum" placeholder="Click on Edit Icon" value="%{project.applicationNum}"/>
