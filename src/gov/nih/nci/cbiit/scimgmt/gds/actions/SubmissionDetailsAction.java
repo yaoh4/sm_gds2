@@ -183,6 +183,19 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	}
 	
 	
+	public String getRepositoryStatusCode(String repoId) {
+		List<RepositoryStatus> statuses = retrieveSelectedProject().getRepositoryStatuses();
+		for(RepositoryStatus repoStatus: statuses) {
+			if(repoStatus.getId().equals(repoId)) {
+				return repoStatus.getStatus();
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	
 	public String getMissingProjectData() {
 		
 		Project project = retrieveSelectedProject();
