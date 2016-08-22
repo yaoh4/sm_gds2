@@ -2,12 +2,16 @@
 $(document).ready(function() {
 
 	var repoItemsSize = $(".repoItem").length;
+	var icItemsSize=$(".icCount").length;
 	setStatus("gdsPlan", "gdsPlanDiv");
 	setStatus("ic", "icDiv");
 	setStatus("bsi", "bsiDiv");
 	for(var index=0; index < repoItemsSize; index++) {
 		setStatus("repoReg" + index, "repoRegDiv" + index);
 		setStatus("repoSub" + index, "repoSubDiv" + index);
+	}
+	for(var size=0; size < icItemsSize; size++) {
+		setStatus("icReg" + size, "icDiv" + size);
 	}
 	
 });
