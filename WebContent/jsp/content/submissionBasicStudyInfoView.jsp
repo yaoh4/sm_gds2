@@ -15,7 +15,7 @@
           </div>
         </div> <!--end panel header-->
         <div class="panel-body" style="display:none;">
-        <s:if test="%{project.bsiReviewedFlag == null && project.bsiComments==null && project.documents.size==0}">
+       <s:if test="%{getPageStatus('BSI').status.code.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_NOT_STARTED)}">
           No data entered.
         </s:if>
         <s:else>
