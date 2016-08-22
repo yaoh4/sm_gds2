@@ -20,7 +20,7 @@
         </s:if>
         <s:else>
         <s:if test="%{project.bsiReviewedFlag != null}">  
-          <p><span class="reportLabel">Has the GPA reviewed the Basic Study Information?</span> ${project.bsiReviewedFlag}</p>  
+          <table width="100%" border="0" cellpadding="3" ><tr><td width="30%" style="white-space: nowrap"><strong>Has the GPA reviewed the Basic Study Information?</strong><td>${project.bsiReviewedFlag}</td></tr></table>  
           </s:if>
           <s:if test="%{bsiFile[0] != null}">
           <p><span class="reportLabel">Uploaded Basic Study Infomation Form:</span><br>

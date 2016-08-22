@@ -20,8 +20,9 @@
           No data entered.
         </s:if>
         <s:else>
-         <p><span class="reportLabel">[<strong><s:property value="%{project.repositoryStatuses.size}"/></strong>] Data Repositories have been indicated for this project.</span></p>
-          <p><span class="reportLabel">Anticipated Submission Date:<s:date name="%{project.anticipatedSubmissionDate}" format="MM/dd/yyyy"/> </span> </p>  
+         <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap">[<strong><s:property value="%{project.repositoryStatuses.size}"/></strong>] Data Repositories have been indicated for this project.</span></td><td></td></tr>
+          <tr><td><strong>Anticipated Submission Date:</strong></td>
+            <td><s:date name="%{project.anticipatedSubmissionDate}" format="MM/dd/yyyy"/>  </td> </tr></table> 
           <table width="100%" border="1" cellpadding="3"
         class="table  table-bordered">
         <tbody>

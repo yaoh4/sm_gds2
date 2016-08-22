@@ -67,7 +67,7 @@
               <!--Begin view details-->
              
                 <tr>
-                  <td colspan="2">
+                  <td colspan="4">
                     <div id="contentDivImg${ic.id}" style="display: none;">  
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tbody>
