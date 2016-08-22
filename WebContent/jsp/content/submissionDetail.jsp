@@ -51,7 +51,13 @@
       		    </div>
       		  </td>
               <td><s:date name="%{getPageStatus('GDSPLAN').updatedDate}" format="MM/dd/yyyy"/> </td>
-              <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingGdsPlanData.action?')">View</a></td>
+              <td align="center">
+               <s:if test="%{!getPageStatus('GDSPLAN').status.code.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+              <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingGdsPlanData.action?')">
+              <i class="fa fa-file-text fa-lg" aria-hidden="true"></i>
+              </a>
+              </s:if>
+              </td>
               <td><s:property value="%{getPageStatus('GDSPLAN').updatedBy}"/></td>
           
           <s:if test="%{project.getPlanAnswerSelectionByAnswerId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null}">
@@ -79,7 +85,11 @@
       		    </div>
       		  </td>
               <td><s:date name="%{getPageStatus('IC').updatedDate}" format="MM/dd/yyyy"/></td>
-                <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcListData.action?')">View</a></td>
+                <td align="center">
+                 <s:if test="%{!getPageStatus('IC').status.code.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcListData.action?')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>
+                </s:if>
+                </td>
               <td><s:property value="%{getPageStatus('IC').updatedBy}"/></td>
             </tr>
           </s:if>
@@ -93,7 +103,11 @@
       			</div>
       		  </td>
               <td><s:date name="%{getPageStatus('BSI').updatedDate}" format="MM/dd/yyyy"/></td>
-              <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingBsiData.action?')">View</a></td>
+              <td align="center">
+              <s:if test="%{!getPageStatus('BSI').status.code.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+              <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingBsiData.action?')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>
+              </s:if>
+              </td>
               <td><s:property value="%{getPageStatus('BSI').updatedBy}"/></td>
             </tr>
           </s:if>
@@ -102,7 +116,12 @@
             <tr class="info">
               <td colspan="3"><a href="/gds/manage/navigateToRepositoryStatus.action?projectId=${project.id}">Submission Status for Repository:<s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" /></a></td>
              <td><s:date name="%{#repStatus.updatedDate}" format="MM/dd/yyyy"/></td>
-             <td align="center"><a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryData.action?repoStatusId=${repStatus.id}&')">View</a></td>
+             <td align="center">
+             <s:hidden value="%{getRepositoryStatusCode(#repStatus.id)}"/> 
+              <s:if test="%{!getRepositoryStatusCode(#repStatus.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+             <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryData.action?repoStatusId=${repStatus.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>
+             </s:if>
+              </td>
               <td><s:property value="%{#repStatus.updatedBy}"/></td>
             </tr>
             
