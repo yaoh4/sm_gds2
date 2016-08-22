@@ -279,6 +279,5 @@
     </s:form>
 
 <script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
-<script type="text/javascript" src="<s:url value="/controllers/institutional_dashboard.js" />"></script>
-<script src="<s:url value="/controllers/submissionDetail.js" />"></script>   
+<script type="text/javascript" src="<s:url value="/controllers/institutional_dashboard.js" />"></script>  
 
