@@ -12,28 +12,32 @@
 <meta charset="utf-8">
 <title>Missing Data Report</title>
 
-<script type="text/javascript" src="scripts/main.js"></script>
+<script type="text/javascript" src="/scripts/main.js"></script>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<link href="stylesheets/table.css" rel="stylesheet" type="text/css" media="screen">
-<link href="stylesheets/styles.css" rel="stylesheet" type="text/css" media="screen">
-<link href="stylesheets/displaytag.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/stylesheets/table.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/stylesheets/styles.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/stylesheets/displaytag.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/stylesheets/custom.css" rel="stylesheet" type="text/css" media="screen">
 <link href="<s:url value="/stylesheets/font-awesome-4.6.3.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
 </head>
 
 <body>
-<div class="modal-content2">
-  <div class="modal-header">
-    <p align="left" class="modal-alert">Missing/Incomplete Data Report</p>
-    <p class="modal-warning">In order for the ${page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</p>
-  </div>
-  <div class="modal-body" id="template">
-  	<div align="right">
-  	  <a href="#" onclick="window.print()">
-  	    <i class="fa fa-print fa-lg" aria-hidden="true"></i>&nbsp;Print Report
-  	  </a>
-  	</div>
+<div class="panel panel-danger" id="missing data">          
+      
+      <div class="panel-heading">
+        <div class="pheader"><h4>Missing/Incomplete Data Report</h4>/div>
+        <div class="panel-body">
+    <div align="right">
+      <a href="#" onclick="window.print()">
+        <i class="fa fa-print" aria-hidden="true"></i>&nbsp;Print Report
+      </a>
+    </div>
+    <p><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i><strong>In order for the ${page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</strong></p>
+ 
+ 
+
   	<s:iterator status="missingLevel0Stat" var="missingLevel0Data" value="missingDataList">	  
   	  <p>${missingLevel0Stat.index + 1}.&nbsp;&nbsp;${missingLevel0Data.displayText}</p>
   	  <s:if test="%{#missingLevel0Data.childList.size > 0}">
@@ -59,7 +63,7 @@
         </ol>
       </s:if>
     </s:iterator> <!--  level0 iteration end -->	
-  </div> <!--  end modal body -->
-</div> <!--  modal-content2 -->
+  </div> <!--  end panel body -->
+</div> <!--  end panel -->
 </body>
 </html>
