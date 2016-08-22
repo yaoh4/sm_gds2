@@ -26,7 +26,7 @@
             <tr>
           <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID) != ''}">
           
-		<td width="25%" style="white-space: nowrap"><strong>Data sharing exception requested for this project?</strong></td>
+		<td width="30%" style="white-space: nowrap"><strong>Data sharing exception requested for this project?</strong></td>
     <td><s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)}" /></td>
     </s:if>
     </tr>

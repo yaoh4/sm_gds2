@@ -20,7 +20,7 @@
           No data entered.
         </s:if>
          <s:else>
-          <p><span class="reportLabel">All Institutional Certifications recieved?</span>  ${project.certificationCompleteFlag}</p>
+          <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>All Institutional Certifications recieved?</strong><td>${project.certificationCompleteFlag}</td></tr></table>
           <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
             <tbody>
               <tr class="modalTheader">
@@ -28,7 +28,7 @@
                 <th class="tableHeader" align="center" width="19%">Status</th>
                 <th class="tableHeader" align="center" width="19%">Missing Data</th>
                 <th class="tableHeader" align="center" width="19%">Date Uploaded</th>
-                <th class="tableHeader" align="center" width="10%">Actions</th>
+               
               </tr>
                     
               <s:iterator status="icStat" var="ic" value="project.institutionalCertifications">
@@ -38,6 +38,8 @@
                 <!--  FILE DISPLAY AND ICONS ROW -->    
                 <tr data-id="${ic.id}">
                   <td style="white-space: nowrap">
+                    <a href="#" class="icDetails" id="icDetails${ic.id}">
+                      <i class="expand fa fa-lg fa-plus-square" id="${ic.id}expand" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;
                     <s:a href="javascript:openDocument(%{#ic.documents[0].id})"><s:property value="%{#ic.documents[0].fileName}" /></s:a>
                   </td>
                   
@@ -58,17 +60,14 @@
                     <s:date name="%{#ic.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
                   </td>
                       
-                  <td style="white-space: nowrap">
-                    <a href="#" class="icDetails" id="icDetails${ic.id}">
-                      <i class="expand fa fa-lg fa-plus-square" id="${ic.id}expand" aria-hidden="true" alt="view" title="view"></i></a>
-                  </td>
+                  
                 </tr>
                         
                    </div>          
               <!--Begin view details-->
              
                 <tr>
-                  <td colspan="3">
+                  <td colspan="2">
                     <div id="contentDivImg${ic.id}" style="display: none;">  
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tbody>
