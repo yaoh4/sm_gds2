@@ -30,7 +30,12 @@
     <td><s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)}" /></td>
     </s:if>
     </tr>
-		  
+		 
+     <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr> 
+     
       <tr>
 
 		   <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID) != ''}">
@@ -38,6 +43,13 @@
              <td><s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)}" /></td>
 		  </s:if>
           </tr>
+
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+
           <tr>
 			<s:if test="%{exceptionMemo[0] != null}">
             <td colspan="2"><strong>Uploaded Exception Memo:</strong></br>
@@ -65,6 +77,12 @@
           </td>
 			</s:if>
     </tr>
+   
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
     <tr>
 			<s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID) != ''}">
 				<td><strong>Will there be any data submitted?</strong></td> 
@@ -72,12 +90,25 @@
         </td>
 			</s:if>
 		  </tr>
+     
+
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
       <tr>
 		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID) != ''}">
 			<td><strong>Types of specimens the data submission pertain to:</strpmg></td>
       <td> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID)}" /></td>
 		  </s:if>
     </tr>
+
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
 
     <tr>
 		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_TYPE_ID) != ''}">
@@ -86,11 +117,23 @@
           </s:if>
         </tr>
 
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+
         <tr>
 		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_ACCESS_ID) != ''}">
 		   <td><strong>Type of access the data will be made available through:</strong></td> 
        <td><s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_ACCESS_ID)}" /> &nbsp;&nbsp;&nbsp; </td>
 		  </s:if>
+    </tr>
+
+
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
     </tr>
 
     <tr>
@@ -100,12 +143,25 @@
 		  </s:if>
     </tr>
 
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+
     <tr>
 		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID) != ''}">  	
             <td><strong>Has the GPA reviewed the Data Sharing Plan?</strong></td>
             <td> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID)}" /></td>
           </s:if>
         </tr>
+
+
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
 
         <tr>
 		  <s:if test="%{gdsPlanFile[0] != null}">
@@ -144,6 +200,12 @@
             </table>
           </td>
 		  </s:if>
+    </tr>
+
+
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
     </tr>
 
     <tr>
