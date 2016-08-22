@@ -16,7 +16,7 @@
 					<button type="button" class="close" aria-hidden="true">&times;</button>
 					<i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;The
 					following submission(s) has been linked to the same
-					Intramural/Grant/Contract #
+					Grant/Intramural/Contract #
 				</div>
 				
 				<table id="prevLinkedSubmissionsTable" style="width: 100%;" cellpadding="0px" cellspacing="0"
@@ -59,7 +59,7 @@
 		</div>
 	</s:if>
 	<s:else>
-		<span>No existing submission(s) were found for the selected Intramural/Grant/Contract #</span>
+		<span>No existing submission(s) were found for the selected Grant/Intramural/Contract #</span>
 	</s:else>
 </body>
 </html>
