@@ -100,15 +100,6 @@ $("#19").change(function () {
 });
 controlledUnrestricted(true);
 
-//The system will pre-select Database of Genotypes and Phenotypes (dbGaP), 
-// if user checked NCI Genomic Data Commons (GDC)
-$("#23").change(function () {
-	if ($("#23").is(":checked")) {
-		if(!$("#21").is(":disabled"))
-			$("#21").prop('checked', true ); // Select dbGaP
-	}
-});
-
 // Data sharing plan file upload Ajax
 $("#gds-form").on('click', '#dataSharingPlanUpload', function () {
 
