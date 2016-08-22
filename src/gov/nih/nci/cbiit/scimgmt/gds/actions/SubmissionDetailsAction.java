@@ -171,6 +171,18 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	}
 	
 	
+	public String getIcStatusCode(Long icId) {
+		List<InstitutionalCertification> certs = retrieveSelectedProject().getInstitutionalCertifications();
+		for(InstitutionalCertification ic: certs) {
+			if(ic.getId().equals(icId)) {
+				return ic.getStatus();
+			}
+		}
+		
+		return null;
+	}
+	
+	
 	public String getMissingProjectData() {
 		
 		Project project = retrieveSelectedProject();
