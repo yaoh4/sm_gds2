@@ -8,7 +8,7 @@
         <thead>
         <tr>
 			<th width="11%" scope="col" style="whitespace:nowrap;">Project ID</th>
-			<th width="5%"  scope="col"  >Intramural/<br />Grant/Contract</th>
+			<th width="5%"  scope="col"  >Grant/<br />Intramural/Contract</th>
 			<th width="20%" scope="col">Project Title</th>
 			<th width="11%" scope="col">Principle Investigator</th>
 			<th class="never">PI First Name</th>
