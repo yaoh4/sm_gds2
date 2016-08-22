@@ -9,7 +9,7 @@
         <tr>
         	<th width="5%"  scope="col" align="center">Select</th>
 			<th style="width: 153px;"  scope="col">Project ID</th>
-			<th width="5%"  scope="col">Intramural/<br />Grant/Contract</th>
+			<th width="5%"  scope="col">Grant/<br />Intramural/Contract</th>
 			<th width="16%" scope="col">Project Title</th>
 			<th width="11%" scope="col">Principle Investigator</th>
 			<th class="never">PI First Name</th>
