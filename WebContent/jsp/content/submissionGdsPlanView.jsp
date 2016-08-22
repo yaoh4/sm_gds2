@@ -16,9 +16,9 @@
         </div> <!--end panel header-->
         
         <div class="panel-body" style="display:none;">
-         <s:if test="%{project.planAnswerSelection.size == 0}">
-           No data entered.
-         </s:if>
+        <s:if test="%{getPageStatus('GDSPLAN').status.code.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_NOT_STARTED)}">
+          No data entered.
+        </s:if>
          <s:else>
 
          <table width="100%" border="0" cellpadding="3">
