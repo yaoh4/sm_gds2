@@ -48,12 +48,20 @@ function openGrantsContractsSearchPage() {
 
 function linkUnlinkGrants(elem) {
 	if($(elem).attr("id") == 'link') {
-		$("#dataLinkFlag").val('Y');
-		// Re-populate the data from DB.
-		refreshGrantsContractsData();
-		$("#link").hide();
-		$("#unlink").show();
-		$(".unlink-group").prop('disabled', true);
+		var result = "Linking will restore the auto-refresh of the Grant/Intramural/Contract data to the data source and delete any edits you migh have made.<br /> Do you wish to continue?";
+		bootbox.confirm(result, function(ans) {
+			if (ans) {
+				$("#dataLinkFlag").val('Y');
+				// Re-populate the data from DB.
+				refreshGrantsContractsData();
+				$("#link").hide();
+				$("#unlink").show();
+				$(".unlink-group").prop('disabled', true);
+				return true;
+			} else {
+				return true;
+			}
+		});
 	} else {
 		var result = "Unlinking will remove the auto-refresh of the Intramural/Grant/Contract data from the data source that was used to populate it.<br /> Do you wish to continue?";
 		bootbox.confirm(result, function(ans) {
