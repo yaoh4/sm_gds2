@@ -81,14 +81,13 @@
       <s:if test="project.pocFirstName != null && project.pocLastName != null">
       <td style="white-space: nowrap"><strong>Primary Contact: </strong></td>
       <td colspan="4">${project.pocFirstName} ${project.pocLastName} 
+        <s:a href="mailto:%{project.pocEmailAddress}?"></s:a></td>
           </s:if>
-       
+      <s:if test="project.pocEmailAddress != null">      </s:if>
     </tr>
     <tr>
-      <s:if test="project.pocEmailAddress != null">      
       <td style="white-space: nowrap"><strong>Email:</strong></td>
-      <td colspan="4"><s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a></td>
-      </s:if>
+      <td colspan="4">${project.pocEmailAddress}</td>
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
