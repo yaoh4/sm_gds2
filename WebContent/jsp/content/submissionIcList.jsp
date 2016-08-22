@@ -65,11 +65,14 @@
                <!--  Show this column header only for subproject -->
                 <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select</th>                      
                 <th class="tableHeader" align="center" width="60%">Institutional Certification Document</th>
+               <th class="tableHeader" align="center" width="19%">Status</th>
+                <th class="tableHeader" align="center" width="19%">Missing Data</th>
                 <th class="tableHeader" align="center" width="30%">Date Uploaded</th>
                 <th class="tableHeader" align="center" width="10%">Actions</th>
               </tr>
                     
               <s:iterator status="icStat" var="ic" value="project.institutionalCertifications">
+              <div class="icCount">
                 <s:set name="icIdx" value="#icStat.index" />
                 
                 <!--  FILE DISPLAY AND ICONS ROW -->    
@@ -86,6 +89,19 @@
                     <s:a href="javascript:openDocument(%{#ic.documents[0].id})">
                       <s:property value="%{#ic.documents[0].fileName}" />
                      </s:a>
+                  </td>
+                
+                <td style="white-space: nowrap">
+               <s:hidden id="icReg%{#icStat.index}" value="%{getPageStatusCode()}"/>            	
+              	<div id="icDiv${icStat.index}" class="searchProgess">
+        		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
+        	  	</div>
+                  </td>
+                  
+                  <td style="white-space: nowrap">
+                  <s:if test="%{!getPageStatusCode().equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                   <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${ic.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a> &nbsp; &nbsp;
+                 </s:if>
                   </td>
                 
                   <td style="white-space: nowrap"> 
@@ -105,8 +121,8 @@
                       </a>                   
                   </td>
                 </tr>
-                        
-                             
+                     </div> 
+                            
                 <!--Begin view details-->
                 <tr>
 			      <td colspan="3">
@@ -264,4 +280,5 @@
 
 <script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
 <script type="text/javascript" src="<s:url value="/controllers/institutional_dashboard.js" />"></script>
+<script src="<s:url value="/controllers/submissionDetail.js" />"></script>   
 
