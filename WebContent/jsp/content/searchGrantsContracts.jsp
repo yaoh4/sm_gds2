@@ -12,7 +12,7 @@
 		  
 		  <div class="panel-heading">
 		    <div class="pheader">
-			  <h4>Search for Intramural (Z01)/Grant/Contract #</h4>
+			  <h4>Search for Grant/Intramural/Contract #</h4>
 			</div>
 		  </div>
 
@@ -34,7 +34,7 @@
 
 			<!--  Search grants -->
 			<div class="searchLabel">
-              <label for="Intramural (Z01)/Grant/Contract #">Intramural (Z01)/Grant/Contract #</label>
+              <label for="Intramural (Z01)/Grant/Contract #">Grant/Intramural/Contract #</label>
             </div>
             <div class="searchFormat">
               <input type="text" class="form-control" id="grantSearch" size="30" maxlength="30" placeholder="Use Correct Format from Examples Above"
@@ -52,7 +52,7 @@
                     class="table table-bordered table-striped" style="margin-left: 10px;">
                 <tr class="modalTheader">
                   <th class="tableHeader" align="center" style="width:5%" scope="col">Select</th>
-                  <th class="tableHeader" style="width:25%" scope="col">Intramural/Grant/Contract #</th>
+                  <th class="tableHeader" style="width:25%" scope="col">Grant/Intramural/Contract #</th>
                   <th class="tableHeader" style="width:50%" scope="col">Intramural/Grant/Contract Project Title</th>
                   <th class="tableHeader" style="width:20%" scope="col">Principal Investigator</th>
                 </tr>
