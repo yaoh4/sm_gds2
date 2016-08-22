@@ -20,7 +20,7 @@
 
                   <table width="100%" border="0" cellpadding="3">
     <tr>
-      <td width="33%" style="white-space: nowrap"><strong>Project Submission Title:</strong></td>
+      <td width="25%" style="white-space: nowrap"><strong>Project Submission Title:</strong></td>
       <td colspan="4">${project.submissionTitle}</td>
     </tr>
     <tr>
