@@ -16,20 +16,23 @@
           </div>
         </div> <!--end panel header-->
         <div class="panel-body" style="display:none;">
-         <s:if test="%{project.institutionalCertifications.size == 0}">
+       <s:if test="%{getPageStatus('IC').status.code.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_NOT_STARTED)}">
           No data entered.
-         </s:if>
+        </s:if>
          <s:else>
           <p><span class="reportLabel">All Institutional Certifications recieved?</span>  ${project.certificationCompleteFlag}</p>
           <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
             <tbody>
               <tr class="modalTheader">
-                <th class="tableHeader" align="center" width="60%">Institutional Certification Document</th>
-                <th class="tableHeader" align="center" width="30%">Date Uploaded</th>
+                <th class="tableHeader" align="center" width="23%">Institutional Certification Document</th>
+                <th class="tableHeader" align="center" width="19%">Status</th>
+                <th class="tableHeader" align="center" width="19%">Missing Data</th>
+                <th class="tableHeader" align="center" width="19%">Date Uploaded</th>
                 <th class="tableHeader" align="center" width="10%">Actions</th>
               </tr>
                     
               <s:iterator status="icStat" var="ic" value="project.institutionalCertifications">
+              <div class="icCount">
                 <s:set name="icIdx" value="#icStat.index" />
                 
                 <!--  FILE DISPLAY AND ICONS ROW -->    
@@ -37,7 +40,20 @@
                   <td style="white-space: nowrap">
                     <s:a href="javascript:openDocument(%{#ic.documents[0].id})"><s:property value="%{#ic.documents[0].fileName}" /></s:a>
                   </td>
-                
+                  
+                <td style="white-space: nowrap">
+                <s:hidden id="icReg%{#icStat.index}" value="%{getIcStatusCode(#ic.id)}"/>            	
+              	<div id="icDiv${icStat.index}" class="searchProgess">
+        		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
+        	  	</div>
+                  </td>
+                  
+                  <td style="white-space: nowrap">
+                   <s:if test="%{!getIcStatusCode(#ic.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                   <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${ic.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a> &nbsp; &nbsp;
+                  </s:if>
+                  </td>
+                  
                   <td style="white-space: nowrap"> 
                     <s:date name="%{#ic.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
                   </td>
@@ -48,7 +64,7 @@
                   </td>
                 </tr>
                         
-                             
+                   </div>          
               <!--Begin view details-->
              
                 <tr>
