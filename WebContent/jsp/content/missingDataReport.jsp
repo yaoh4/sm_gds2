@@ -50,17 +50,24 @@
   	<s:iterator status="missingLevel0Stat" var="missingLevel0Data" value="missingDataList">	  
   	  <p>${missingLevel0Stat.index + 1}.&nbsp;&nbsp;${missingLevel0Data.displayText}</p>
   	  <s:if test="%{#missingLevel0Data.childList.size > 0}">
-  	    <ol style="list-style-type: square;"> 	    
+  	    <ol style="list-style-type: lower-latin;"> 	    
   	    <s:iterator status="missingLevel1Stat" var="missingLevel1Data" value="#missingLevel0Data.childList">
   	    <li>${missingLevel1Data.displayText}</li>
   	    <s:if test="%{#missingLevel1Data.childList.size > 0}">
-  	        <ul class="indent" style="list-style-type: disc">
+  	        <ul class="indent" style="list-style-type: square">
   	          <s:iterator status="missingLevel2Stat" var="missingLevel2Data" value="#missingLevel1Data.childList">
   		        <li>${missingLevel2Data.displayText}</li>
   		        <s:if test="%{#missingLevel2Data.childList.size > 0}">
-  		          <ol style="list-style-type: circle;">
+  		          <ol style="list-style-type: disc;">
   		            <s:iterator status="missingLevel3Stat" var="missingLevel3Data" value="#missingLevel2Data.childList">		     
   		              <li class="indent2">${missingLevel3Data.displayText}</li>
+  		                <s:if test="%{#missingLevel3Data.childList.size > 0}">
+  		                  <ul class="indent" style="list-style-type: circle">
+  		                    <s:iterator status="missingLevel4Stat" var="missingLevel4Data" value="#missingLevel3Data.childList">
+  		                      <li>${missingLevel4Data.displayText}</li>
+  		        			</s:iterator>
+  		        		  </ul>
+  		        		</s:if>
   		            </s:iterator>
   		          </ol>
   	            </s:if>
