@@ -27,7 +27,7 @@
 					format="MMM dd yyyy hh:mm:ss a" /></td>
 			<td><s:property value="%{gdsPlanFile[0].uploadedBy}" /></td>
 			<td><s:a href="javascript:removeDocument(%{gdsPlanFile[0].id}, %{gdsPlanFile[0].projectId})">
-				<i class="fa fa-trash fa-lg" aria-hidden="true" title="Delete"
+				<i class="fa fa-trash fa-lg delete" aria-hidden="true" title="Delete"
 				alt="Delete" style="margin-bottom: 5px;"></i></s:a></td>
 		</tr>
 	</table>
