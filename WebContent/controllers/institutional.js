@@ -207,7 +207,7 @@ function addStudy() {
 		jQuery.each(studySetArray, function(index, val) {
 			if($(this).find(".studyHeadingPanel").find(".deleteIcon").length == 0) {
 				var elemIndex = $(this).attr("id").replace("studySection", "");
-				$(this).find(".studyHeading").prepend('<a href="#" onclick="deleteStudy(' + elemIndex + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash fa-lg" aria-hidden="true" title="Delete" alt="Delete"></i></a>');
+				$(this).find(".studyHeading").append('<a href="#" onclick="deleteStudy(' + elemIndex + ')" class="deleteIcon" style="float: right;"><i class="fa fa-trash fa-lg" aria-hidden="true" title="Delete" alt="Delete"></i></a>');
 			}
 		});
 	} else {

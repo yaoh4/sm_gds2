@@ -118,14 +118,15 @@
                         <div class="studyHeadingPanel panel-heading header">
                           <h4 class="panel-title ">
                             <a class="studyHeading" href="#collapseOne">
+                             <i class="fa fa-minus-square fa-lg" aria-hidden="true"></i>&nbsp;
+                              Study
+                            </a>
                             <s:if test="%{instCertification.studies.size > 1}"> 
                               <a href="#" onclick="deleteStudy(${studiesIdx})" class="deleteIcon" style="float: right;">
                             	<i class="fa fa-trash fa-lg" title="delete" alt="delete" aria-hidden="true"></i>
                               </a>
                             </s:if> 
-                              <i class="fa fa-minus-square fa-lg" aria-hidden="true"></i>&nbsp;
-                              Study
-                            </a>
+                                               
                            </h4>
                         </div>	                      		
 												
