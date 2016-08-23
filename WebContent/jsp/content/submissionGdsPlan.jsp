@@ -152,7 +152,7 @@
 												<s:textfield id="field_%{#otherStat.index}" name="otherText[%{#ans.id}]" value="%{#other}" maxlength="200"
 													class="other" placeholder="Name of Repository" />
 												<s:if test="%{otherText[#ans.id].size > 1}">
-													<i class="fa fa-trash fa-lg delete" title="Delete" aria-hidden="true" alt="Delete" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer"></i>
+													<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer"></i>
 												</s:if>
 											</s:div>
 										</s:iterator>
