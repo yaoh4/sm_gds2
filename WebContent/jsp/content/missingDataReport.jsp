@@ -50,7 +50,7 @@
         <i class="fa fa-print" aria-hidden="true"></i>&nbsp;Print Report
       </a>
     </div>
-    <p><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i><strong>In order for the ${page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</strong></p>
+    <p><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true" style="color: orange;"></i><strong>In order for the ${page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</strong></p>
  
  
 
