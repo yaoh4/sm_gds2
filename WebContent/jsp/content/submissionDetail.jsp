@@ -116,7 +116,7 @@
           </s:if>
         <s:iterator status="repStat" var="repStatus" value="project.repositoryStatuses">
           <div class="repoItem">      
-            <tr class="info">
+            <tr class="repoRow">
               <td colspan="3"><a href="/gds/manage/navigateToRepositoryStatus.action?projectId=${project.id}">Submission Status for Repository:<s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" /></a></td>
              <td><s:date name="%{#repStatus.updatedDate}" format="MM/dd/yyyy"/></td>
              <td align="center">
