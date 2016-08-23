@@ -73,12 +73,12 @@
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
 			 </result>
-			 <result name="success" type="tiles">submissionGdsPlan</result>
-			 <!--<result name="success" type="redirect-action">
+		<!-- 	 <result name="success" type="tiles">submissionGdsPlan</result> -->
+			 <result name="success" type="redirect-action">
 			 	<param name="actionName">navigateToSubmissionDetail</param>
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
-			 </result>-->
+			 </result>
 		</action>
 		<action name="viewMissingGdsPlanData" method="getMissingGdsPlanData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
@@ -140,12 +140,12 @@
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
 			 </result>
-			 <result name="success" type="tiles">submissionBasicStudyInfo</result>
-			 <!--<result name="success" type="redirect-action">
+			<!--  <result name="success" type="tiles">submissionBasicStudyInfo</result> -->
+			 <result name="success" type="redirect-action">
 			 	<param name="actionName">navigateToSubmissionDetail</param>
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
-			 </result>-->
+			 </result>
 			 <result name="input" type="tiles">submissionBasicStudyInfo</result>
 		</action>
 		<action name="viewMissingBsiData" method="getMissingBsiData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
