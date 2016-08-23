@@ -139,7 +139,7 @@ text-decoration: none;
 
 .upload {
   display: inline;
-  margin-top: 28px;
+ 
 }
 
 .uploadBox {
@@ -1372,4 +1372,15 @@ ul.actionMessage {
 
 .paginate_button {
   margin-bottom: 10px;
+}
+
+.info {
+  color: #f5f5f5;
+}
+
+.btn-default.focus, .btn-default:focus {
+    color: #333;
+    background-color: #FFF;
+    border-color: #8c8c8c;
+
 }
