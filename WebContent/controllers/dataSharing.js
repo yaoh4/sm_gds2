@@ -32,8 +32,8 @@ $("#gds-form").on('click', '#addfield', function () {
 	{
 		// If its the second row, add a trash bin next to the first row.
 		if(fieldCount == 1) {
-			$(".otherWrapper").first().append('<span class="fa fa-trash removeclass delete" title="Delete" aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer">'
-					+ '</span></div>');
+			$(".otherWrapper").first().append('<i class="fa fa-trash fa-lg" title="Delete" aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer">'
+					+ '</i></div>');
 		}
 		
 		// add input box
@@ -41,8 +41,8 @@ $("#gds-form").on('click', '#addfield', function () {
 			+ '<input type="text" maxlength="200" class="other" name="otherText[25]" id="field_'
 			+ fieldCount
 			+ '" placeholder="Name of Repository" />'
-			+ '<span class="fa fa-trash removeclass delete" title="Delete"  aria-hidden="true" alt="delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 13px; cursor:pointer">'
-			+ '</span></div>');
+			+ '<i class="fa fa-trash fa-lg" title="Delete"  aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 13px; cursor:pointer">'
+			+ '</i></div>');
 		
 	}
 });
