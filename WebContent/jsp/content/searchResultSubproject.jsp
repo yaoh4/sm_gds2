@@ -17,7 +17,7 @@
 				class="table table-bordered">
 				<thead>
 					<tr class="modalTheader">
-						<th width="8%" scope="col">Sub-Project ID</th>
+						<th width="8%" scope="col">Sub-project ID</th>
 						<th width="16%" scope="col">Sub-project Title</th>
 						<th width="11%" scope="col">Principle Investigator</th>
 						<th width="7%" scope="col">GDS Plan</th>
@@ -79,30 +79,16 @@
 												<s:a
 													href="../manage/navigateToGeneralInfo.action?projectId=%{#s.id}">
 													<i class="fa fa-pencil-square fa-lg" aria-hidden="true"
-														alt="edit" title="edit"></i>
+														alt="Edit" title="Edit"></i>
 												</s:a>
 												&nbsp;&nbsp;&nbsp;
 
 												<s:a onclick="deleteSubmission(%{#s.id})" href="javascript: void(0)"
 													class="editor_remove">
 													<i class="fa fa-trash fa-lg" aria-hidden="true"
-														alt="delete" title="delete"></i>
+														alt="Delete" title="Delete"></i>
 												</s:a>
-												&nbsp;&nbsp;&nbsp; <a
-													href="#" id="eclick" class="ellipsisR"><img
-													src="../images/ellipsis.png" height="17px" width="16x"
-													alt="open ellipsis"><img
-													src="../images/ellipsisOver.png" height="17px" width="16x"
-													alt="open ellipsis"> </a>
-											</div> <!--icon div-->
-											
-											<div class="ellipsis" style="display: none">
-												<div class="dropbottom">
-													<div class="dropmid"
-														style="white-space: nowrap; height: auto;">
-														<a href="javascript: void(0)">Add New Version</a><br />
-													</div>
-												</div>
+												&nbsp;&nbsp;&nbsp; <a href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i></a>
 											</div>
 
 										</td>

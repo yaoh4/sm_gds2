@@ -86,7 +86,9 @@
 
                 
                   <td style="white-space: nowrap">
-                    <s:a href="javascript:openDocument(%{#ic.documents[0].id})">
+                    <a href="#" class="icDetails" id="icDetails${ic.id}">
+                      <i class="expand fa fa-plus-square fa-lg" id="${ic.id}expand" aria-hidden="true" alt="Details" title="Details"></i>
+                    </a>&nbsp;&nbsp;&nbsp;<s:a href="javascript:openDocument(%{#ic.documents[0].id})">
                       <s:property value="%{#ic.documents[0].fileName}" />
                      </s:a>
                   </td>
@@ -109,15 +111,13 @@
                   </td>
                       
                   <td style="white-space: nowrap">
-                    <a href="#" class="icDetails" id="icDetails${ic.id}">
-                      <i class="expand fa fa-plus-square fa-lg" id="${ic.id}expand" aria-hidden="true" alt="view" title="view"></i>
-                    </a>&nbsp;&nbsp;&nbsp;
+                    
                     <!--  Do not show edit and delete for sub-project -->
                       <a class="btnEdit" style="display:none;"  href="/gds/manage/editIc.action?instCertId=${ic.id}&projectId=${project.id}">
-                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>&nbsp;
+                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit"></i>&nbsp;
                       </a>&nbsp;&nbsp;&nbsp;
                       <a style="display:none;" href="#" class="btnDelete">
-                        <i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i>
+                        <i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="Delete"></i>
                       </a>                   
                   </td>
                 </tr>
@@ -125,7 +125,7 @@
                             
                 <!--Begin view details-->
                 <tr>
-			      <td colspan="3">
+			      <td colspan="5">
                     <div id="contentDivImg${ic.id}" style="display: none">
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tr>

@@ -1374,8 +1374,8 @@ ul.actionMessage {
   margin-bottom: 10px;
 }
 
-.info {
-  color: #f5f5f5;
+.repoRow {
+  background-color: #f5f5f5;
 }
 
 .btn-default.focus, .btn-default:focus {

@@ -7,7 +7,7 @@
 	<table id="submissionTable" width="100%" cellpadding="0px" cellspacing="0" class="table table-striped table-bordered responsive" >
         <thead>
         <tr>
-			<th width="11%" scope="col" style="whitespace:nowrap;">Project ID</th>
+			<th width="15%" scope="col" style="whitespace:nowrap;">Project ID</th>
 			<th width="5%"  scope="col"  >Grant/<br />Intramural/Contract</th>
 			<th width="20%" scope="col">Project Title</th>
 			<th width="11%" scope="col">Principle Investigator</th>
@@ -18,7 +18,7 @@
 			<th width="6%"  scope="col">IC</th>
 			<th width="6%"  scope="col">BSI</th>
 			<th class="never">Repository Count</th>
-			<th class="never">Subproject Count</th>
+			<th class="never">Sub-project Count</th>
 			<th style="whitespace:nowrap;" width="6%" scope="col">Submission<br/> Status</th>
 			<th width="11%"  scope="col" style="whitespace:nowrap;">Actions</th>
 		</tr>

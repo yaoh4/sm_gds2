@@ -26,7 +26,7 @@
 					name="%{gdsPlanFile[0].uploadedDate}"
 					format="MMM dd yyyy hh:mm:ss a" /></td>
 			<td><s:property value="%{gdsPlanFile[0].uploadedBy}" /></td>
-			<td align="center"><s:a href="javascript:removeDocument(%{gdsPlanFile[0].id}, %{gdsPlanFile[0].projectId})">
+			<td><s:a href="javascript:removeDocument(%{gdsPlanFile[0].id}, %{gdsPlanFile[0].projectId})">
 				<i class="fa fa-trash fa-lg" aria-hidden="true" title="delete"
 				alt="delete" style="margin-bottom: 5px;"></i></s:a></td>
 		</tr>
@@ -36,8 +36,8 @@
 <s:if test="%{gdsPlanFile.size > 1}">
 	<div class="qSpacing">
 		<p class="question">
-			History of Uploaded Documents&nbsp;<a href="javascript:void"
-				class="history"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>
+			<a href="javascript:void"
+				class="history"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;History of Uploaded Documents
 		</p>
 		<div class="uploadedHistory" style="display: none;">
 			<table style="width: 90%;" cellpadding="0px" cellspacing="0"
