@@ -82,10 +82,10 @@ $(document).ready(function(){
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     return '<div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i></a>' +
-                    '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="delete"></i></a>' +
+                    '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>' +
                      
-                    '&nbsp;&nbsp;&nbsp;<a href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" alt="Create New Version" alt="Create New Version"></i></a>' +
-                    '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Create Sub-project" tile="Create Sub-project"></a></div></div></div>';
+                    '&nbsp;&nbsp;&nbsp;<a href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Create New Version" alt="Create New Version"></i></a>' +
+                    '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Create Sub-project" title="Create Sub-project"></a></div></div></div>';
                 } },
                 {
                 "targets": -2, // Repository
@@ -114,7 +114,7 @@ $(document).ready(function(){
                 	if(type === 'display') {
                 		if(row.subprojectCount != null && row.subprojectCount > 0) {
                 			return '<strong><a href="../manage/navigateToSubmissionDetail.action?projectId=' + data + '">'  + data + '</a></strong><br>' +
-                			'<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Sub-Projects</a>';
+                			'<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="Sub-projects" title="Sub-projects"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Sub-projects</a>';
                 		}
                 		else {
                 			return '<strong><a href="../manage/navigateToSubmissionDetail.action?projectId=' + data + '">'  + data + '</a></strong>';
