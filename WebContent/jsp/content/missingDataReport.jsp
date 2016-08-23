@@ -16,14 +16,6 @@
 <script src="<s:url value="/scripts/bootstrap-3.3.6.min.js" />"></script>
 <script src="<s:url value="/scripts/jquery.validate-1.15.0.min.js" />"></script>
 
-<script type="text/javascript">
-
-        $(document).ready(function() {
-            $("body").css("padding-top", "10px;");
-        });
-
-    </script>
-
 
 
 <link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
@@ -38,7 +30,7 @@
 </head>
 
 <body>
- 
+ <br/>
 <div class="panel panel-danger" id="missing data" style="width: 95%; margin: auto;">          
       
       <div class="panel-heading">
@@ -50,8 +42,9 @@
         <i class="fa fa-print" aria-hidden="true"></i>&nbsp;Print Report
       </a>
     </div>
-    <p><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true" style="color: orange;"></i><strong>In order for the ${page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</strong></p>
- 
+    <br/>
+    <table border="0" cellpadding="3"><tr><td><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true" style="color: orange;"></i><strong></td><td>In order for the ${page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</strong></td></tr></table>
+ <p>&nbsp;</p>
  
 
   	<s:iterator status="missingLevel0Stat" var="missingLevel0Data" value="missingDataList">	  
