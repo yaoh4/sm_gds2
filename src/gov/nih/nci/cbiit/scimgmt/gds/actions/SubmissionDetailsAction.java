@@ -99,7 +99,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelections()){			
 			if( questionId == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){
 				if(StringUtils.isNotBlank(answer)){
-					answer.append(";");
+					answer.append("; ");
 				}
 				answer.append(planAnswerSelection.getPlanQuestionsAnswer().getDisplayText());			
 			}			
