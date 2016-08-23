@@ -352,6 +352,18 @@ public class ManageSubmission extends BaseAction {
 		return null;
 	}
 	
+	
+	public String getDisplayNameByFlag(String flag) {
+		if(ApplicationConstants.FLAG_YES.equals(flag)) {
+			 return ApplicationConstants.DISPLAY_NAME_YES;
+		} else if(ApplicationConstants.FLAG_NO.equals(flag)) {
+			return ApplicationConstants.DISPLAY_NAME_NO;
+		} else {
+			return flag;
+		}
+	}
+	
+	
 	/**
 	 * Validate Upload File
 	 */

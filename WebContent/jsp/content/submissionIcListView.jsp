@@ -20,7 +20,7 @@
           No data entered.
         </s:if>
          <s:else>
-          <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>All Institutional Certifications recieved?</strong><td>${project.certificationCompleteFlag}</td></tr></table>
+          <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>All Institutional Certifications received?</strong><td><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td></tr></table>
           <p>&nbsp;</p>
           <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
             <tbody>

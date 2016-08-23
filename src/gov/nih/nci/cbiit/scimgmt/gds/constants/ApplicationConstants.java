@@ -92,8 +92,9 @@ public interface ApplicationConstants {
 	 public static final Long SEARCH_SUBMISSION_FROM_ALL = 42L;
 	 public static final Long IC_DUL_VERIFIED_YES_ID = 35L;
 			 
+	 public static final String DISPLAY_NAME_YES = "Yes";
+	 public static final String DISPLAY_NAME_NO = "No";
 	 
-	 //public static final Long YES_ID = 18L;
 	 //public static final Long NO_ID  = 19L;
 	 
 	 /* Data Constants for flags*/

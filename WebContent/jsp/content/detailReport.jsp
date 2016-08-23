@@ -224,7 +224,7 @@
           No data entered.
          </s:if>
          <s:else>
-          <p><span class="reportLabel">All Institutional Certifications recieved?</span>  ${project.certificationCompleteFlag}</p>
+          <p><span class="reportLabel">All Institutional Certifications received?</span>&nbsp<s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></p>
           <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
             <tbody>
               <tr class="modalTheader">
@@ -304,7 +304,7 @@
                                                        <td><span class="question">Institution: </span>${study.institution}</td>
                                                      </s:if>
                                                       <s:if test="%{study.dulverificationId != null}">
-                                                       <td><span class="question">Data Use Limitation(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
+                                                       <td><span class="question">Data Use Limitation(s) Verified? </span> <s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
                                                      </s:if>
                                                    </tr>
                                                     
@@ -392,7 +392,7 @@
           No data entered.
         </s:if>
         <s:else>
-          <p><span class="reportLabel">Has the GPA reviewed the Basic Study Information?</span> ${project.bsiReviewedFlag}</p>  
+          <p><span class="reportLabel">Has the GPA reviewed the Basic Study Information?</span>&nbsp;<s:property value="%{getDisplayNameByFlag(project.bsiReviewedFlag)}"/></p>  
           <p><span class="reportLabel">Uploaded Basic Study Infomation Form:</span></br>
             <table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody>
