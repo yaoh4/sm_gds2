@@ -20,7 +20,7 @@
           No data entered.
         </s:if>
         <s:else>
-         <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>Number of Data Repositories indicated for this project:</strong></td><td><s:property value="%{project.repositoryStatuses.size}"/></td></tr>
+         <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>Number of Data Repositories indicated:</strong></td><td><s:property value="%{project.repositoryStatuses.size}"/></td></tr>
           <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="2">&nbsp;</td>
