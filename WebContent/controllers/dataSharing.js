@@ -54,7 +54,7 @@ $("#gds-form").on('click', '.removeclass', function () {//user click on remove t
 	fieldCount = $(".otherWrapper").length;
 	// If this was the second row, remove the trash bin from the first row.
 	if(fieldCount == 1) {
-		$(".otherWrapper").first().children("span").remove();
+		$(".otherWrapper").first().children("i").remove();
 	}
 	
 }); 
