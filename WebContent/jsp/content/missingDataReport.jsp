@@ -16,6 +16,14 @@
 <script src="<s:url value="/scripts/bootstrap-3.3.6.min.js" />"></script>
 <script src="<s:url value="/scripts/jquery.validate-1.15.0.min.js" />"></script>
 
+<script type="text/javascript">
+
+        $(document).ready(function() {
+            $("body").css("padding-top", "10px;");
+        });
+
+    </script>
+
 
 
 <link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
@@ -30,10 +38,11 @@
 </head>
 
 <body>
-<div class="panel panel-danger" id="missing data" width="95%">          
+  <div style="vertical-align: "
+<div class="panel panel-danger" id="missing data" style="width: 95%; margin: auto;">          
       
       <div class="panel-heading">
-        <div class="pheader">Missing/Incomplete Data Report</div>
+        <div class="pheader"><span style="font-size: 18px; font-weight: bold;">Missing/Incomplete Data Report</span></div>
       </div>
         <div class="panel-body">
     <div align="right">
