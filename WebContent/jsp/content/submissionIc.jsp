@@ -12,7 +12,7 @@
       
       <!-- Page navbar -->
       <div class="pageNav">
-        <s:if test="%{instCertification.id != null}">
+        <s:if test="%{instCertification.id != null || project.institutionalCertifications.size > 0}">
       		<s:submit action="listIc" value=" Cancel " class="saved btn btn-default"/>	 
         </s:if>
         <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
@@ -123,7 +123,7 @@
                             	<i class="fa fa-trash fa-lg" title="delete" alt="delete" aria-hidden="true"></i>
                               </a>
                             </s:if> 
-                              <i class="fa fa-minus-square fa-lg" aria-hidden="true" alt="delete" title="delete"></i>&nbsp;
+                              <i class="fa fa-minus-square fa-lg" aria-hidden="true"></i>&nbsp;
                               Study
                             </a>
                            </h4>
@@ -207,7 +207,7 @@
 		
 	  <!--SAVE & NEXT BUTTONS-->
       <div class="pageNav">
-        <s:if test="%{instCertification.id != null}">
+        <s:if test="%{instCertification.id != null || project.institutionalCertifications.size > 0}">
       		<s:submit action="listIc" value=" Cancel " class="saved btn btn-default"/>	 
         </s:if>
         <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
