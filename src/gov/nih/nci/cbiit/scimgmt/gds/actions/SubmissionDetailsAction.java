@@ -177,13 +177,37 @@ public class SubmissionDetailsAction extends ManageSubmission {
 			if(ic.getId().equals(icId)) {
 				return ic.getStatus();
 			}
-		}
-		
+		}		
 		return null;
 	}
 	
 	
+	public String getExceptionMemoStatusCode() {
+		
+		Project project = retrieveSelectedProject();
+		List<Document> exceptionMemos = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, project.getId());
+				
+		//Not indicated whether there a data sharing exception has been requested, or exception not requested, or requested but not approved
+		if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)) 
+				|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+				|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) != null) {
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED; 
+		} else {
+			//Data sharing exception has been approved and the file has been uploaded
+			if (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
+				&& !CollectionUtils.isEmpty(exceptionMemos)) {
+			return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+				
+			}	
+		}
+		return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+	}
+	
+	
+	
 	public String getRepositoryStatusCode(Long repoId) {
+
 		List<RepositoryStatus> statuses = retrieveSelectedProject().getRepositoryStatuses();
 		for(RepositoryStatus repoStatus: statuses) {
 			if(repoStatus.getId().equals(repoId)) {

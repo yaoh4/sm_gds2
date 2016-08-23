@@ -4,6 +4,9 @@ $(document).ready(function() {
 	var repoItemsSize = $(".repoItem").length;
 	var icItemsSize=$(".icCount").length;
 	setStatus("gdsPlan", "gdsPlanDiv");
+	if($("#exceptionMemoDiv").is(":visible")) { 
+	    setStatus("exceptionMemo", "exceptionMemoDiv");
+	}
 	setStatus("ic", "icDiv");
 	setStatus("bsi", "bsiDiv");
 	for(var index=0; index < repoItemsSize; index++) {

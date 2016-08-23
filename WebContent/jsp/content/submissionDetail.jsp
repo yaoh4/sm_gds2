@@ -58,16 +58,19 @@
               </a>
               </s:if>
               </td>
-              <td><s:property value="%{getPageStatus('GDSPLAN').updatedBy}"/></td>
-          
-          <s:if test="%{project.getPlanAnswerSelectionByAnswerId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null}">
-            </tr>
+              <td><s:property value="%{getPageStatus('GDSPLAN').updatedBy}"/></td>  
+          </tr>
+          <s:if test="%{!exceptionMemoStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_NOT_STARTED)}">            
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Data Sharing Exception</td>
-              <td><div class="searchProgess">
-        <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
-      </div></td>
+              <td>
+                
+                <s:hidden id="exceptionMemo" value="%{exceptionMemoStatusCode}"/>
+                <div id="exceptionMemoDiv" class="searchProgess">
+        		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
+      			</div>
+      		  </td>
               <td></td>
               <td></td>
               <td></td>
