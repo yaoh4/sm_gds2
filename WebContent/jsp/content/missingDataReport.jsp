@@ -43,7 +43,7 @@
       </a>
     </div>
     <br/>
-    <table border="0" cellpadding="3"><tr><td style="verticle-align: top;"><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true" style="color: orange;"></i></td><td><strong>&nbsp;In order for the ${page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</strong></td></tr></table>
+    <table border="0" cellpadding="3"><tr><td style="padding-bottom: 15px; padding-right: 5px;"><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true" style="color: orange;"></i></td><td><strong>In order for the ${page.displayName} to be moved to the "Completed" status, the following data needs to be provided or updated:</strong></td></tr></table>
  <p>&nbsp;</p>
  
 
