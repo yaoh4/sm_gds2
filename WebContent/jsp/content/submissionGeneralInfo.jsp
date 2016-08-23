@@ -96,9 +96,9 @@
 							
 							<s:hidden name="project.dataLinkFlag" id="dataLinkFlag" value="%{project.dataLinkFlag}"/>
 							
-							<span class="input-group-btn">	
-							<a href="javascript: void(0)" id="unlink" class="btn btn-default" style="background-color: #d4d4d4;" title="Linked. Click to Unlink" onclick="linkUnlinkGrants(this)"><i class="fa fa-link-align-right" aria-hidden="true" alt="link" title="link"></i></a>					
-							  <a href="javascript: void(0)" id="link" onclick="linkUnlinkGrants(this)" class="btn btn-default" title="Unlinked. Click to Link"><i class="fa fa-chain-broken-align-left" aria-hidden="true" alt="unlink" title="unlink"></i></a>
+							<span class="btn-group">	
+							<a href="javascript: void(0)" id="unlink" class="btn btn-default" style="background-color: #d4d4d4;" title="Linked. Click to Unlink" onclick="linkUnlinkGrants(this)"><i class="fa fa-link" aria-hidden="true" alt="link" title="link"></i></a>					
+							  <a href="javascript: void(0)" id="link" onclick="linkUnlinkGrants(this)" class="btn btn-default" title="Unlinked. Click to Link"><i class="fa fa-chain-broken" aria-hidden="true" alt="unlink" title="unlink"></i></a>
 							  
 							</span>
 	 
