@@ -203,6 +203,10 @@ public class ProjectSearchDao {
 		parentCriteria.add(Restrictions.ne("subprojectFlag", "Y"));
 		subprojectCriteria.add(Restrictions.eq("subprojectFlag", "Y"));
 		
+		if(StringUtils.equals(searchCriteria.getParentSearch(), "Y")) {
+			parentCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
+			subprojectCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
+		}
 
 		// My DOC
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getDoc()))) {

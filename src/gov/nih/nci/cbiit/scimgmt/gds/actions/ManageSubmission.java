@@ -31,6 +31,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 
 /**
  * Manages Submission creation, updates and deletion.
@@ -142,9 +143,14 @@ public class ManageSubmission extends BaseAction {
 		project.setLatestVersionFlag("Y");
 		if(project.getParentProjectId() == null){
 			project.setSubprojectFlag("N");
+			if(GdsSubmissionActionHelper.isEligibleForSubproject(project))
+				project.setSubprojectEligibleFlag("Y");
+			else
+				project.setSubprojectEligibleFlag("N");
 		}
 		else{
 			project.setSubprojectFlag("Y");
+			project.setSubprojectEligibleFlag("N");
 		}
 		
 		//Set the page status on the project

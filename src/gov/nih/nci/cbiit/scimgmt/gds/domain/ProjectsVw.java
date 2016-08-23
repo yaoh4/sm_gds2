@@ -64,6 +64,7 @@ public class ProjectsVw implements java.io.Serializable {
 	private String bsiPageStatus;
 	private String dataSharingExceptionStatus;
 	private String repositoryPageStatus;
+	private String subprojectEligibleFlag;
 
 	private Long subprojectCount;
 	private Long repoCount;
@@ -84,7 +85,7 @@ public class ProjectsVw implements java.io.Serializable {
 			String pocEmailAddress, String planComments, Long applId, String bsiComments,
 			Date anticipatedSubmissionDate, String projectSubmissionTitle, String dataLinkFlag,
 			String gdsPlanPageStatus, String icPageStatus, String bsiPageStatus,
-			String dataSharingExceptionStatus, String repositoryPageStatus) {
+			String dataSharingExceptionStatus, String repositoryPageStatus, String subprojectEligibleFlag) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
 		this.projectTitle = projectTitle;
@@ -126,6 +127,7 @@ public class ProjectsVw implements java.io.Serializable {
 		this.bsiPageStatus = bsiPageStatus;
 		this.dataSharingExceptionStatus = dataSharingExceptionStatus;
 		this.repositoryPageStatus = repositoryPageStatus;
+		this.subprojectEligibleFlag = subprojectEligibleFlag;
 	}
 
 	@Id
@@ -499,6 +501,15 @@ public class ProjectsVw implements java.io.Serializable {
 		this.repositoryPageStatus = repositoryPageStatus;
 	}
 
+	@Column(name = "SUBPROJECT_ELIGIBLE_FLAG", length = 4)
+	public String getSubprojectEligibleFlag() {
+		return this.subprojectEligibleFlag;
+	}
+
+	public void setSubprojectEligibleFlag(String subprojectEligibleFlag) {
+		this.subprojectEligibleFlag = subprojectEligibleFlag;
+	}
+	
 	@Formula(value="(SELECT count(*) FROM projects_t p WHERE p.parent_project_id = id AND p.latest_version_flag = 'Y')")
     public Long getSubprojectCount() {
 		return subprojectCount;

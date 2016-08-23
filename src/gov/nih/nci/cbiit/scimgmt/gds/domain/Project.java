@@ -74,6 +74,7 @@ public class Project implements java.io.Serializable {
 	private Date anticipatedSubmissionDate;
 	private String submissionTitle;
 	private String dataLinkFlag;
+	private String subprojectEligibleFlag;
 	private Date createdDate;
 	private Date lastChangedDate;
 	private List<PageStatus> pageStatuses = new ArrayList();
@@ -128,7 +129,7 @@ public class Project implements java.io.Serializable {
 			String createdBy, String lastChangedBy, String subprojectFlag,
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
-			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, List pageStatuses, Set documents,
+			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, List pageStatuses, Set documents, String subprojectEligibleFlag, 
 			Set planAnswerSelections, List repositoryStatuses, List institutionalCertifications,Long applId, String submissionTitle, String dataLinkFlag) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
@@ -168,6 +169,7 @@ public class Project implements java.io.Serializable {
 		this.applId = applId;
 		this.submissionTitle = submissionTitle;
 		this.dataLinkFlag = dataLinkFlag;
+		this.subprojectEligibleFlag = subprojectEligibleFlag;
 		
 	}
 
@@ -598,6 +600,15 @@ public class Project implements java.io.Serializable {
 		this.dataLinkFlag = dataLinkFlag;
 	}
 
+	@Column(name = "SUBPROJECT_ELIGIBLE_FLAG", length = 4)
+	public String getSubprojectEligibleFlag() {
+		return this.subprojectEligibleFlag;
+	}
+
+	public void setSubprojectEligibleFlag(String subprojectEligibleFlag) {
+		this.subprojectEligibleFlag = subprojectEligibleFlag;
+	}
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
 	@Cascade({CascadeType.ALL})
 	public Set<PlanAnswerSelection> getPlanAnswerSelections() {

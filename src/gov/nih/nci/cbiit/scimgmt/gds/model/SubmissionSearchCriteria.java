@@ -20,17 +20,20 @@ public class SubmissionSearchCriteria {
     private int length;
     private String sortBy;
     private String sortDir;
+    private String parentSearch;
     
 	public SubmissionSearchCriteria(){}
 
 	public SubmissionSearchCriteria(Long submissionFromId, Long pdNpnId, 
-			String grantContractNum, String projectTitle, String accessionNumber, String piFirstOrLastName) {
+			String grantContractNum, String projectTitle, String accessionNumber, 
+			String piFirstOrLastName, String parentSearch) {
 		this.submissionFromId = submissionFromId;
 		this.pdNpnId = pdNpnId;
 		this.grantContractNum = grantContractNum;
 		this.projectTitle = projectTitle;
 		this.accessionNumber = accessionNumber;
 		this.piFirstOrLastName = piFirstOrLastName;
+		this.parentSearch = parentSearch;
 	}
 
 	@Override
@@ -39,7 +42,8 @@ public class SubmissionSearchCriteria {
 				+ ", pdLastName=" + pdLastName + ", pdFirstName=" + pdFirstName + ", pdFirstAndLastName="
 				+ pdFirstAndLastName + ", grantContractNum=" + grantContractNum + ", projectTitle=" + projectTitle
 				+ ", accessionNumber=" + accessionNumber + ", piFirstOrLastName=" + piFirstOrLastName + ", doc=" + doc
-				+ ", start=" + start + ", length=" + length + ", sortBy=" + sortBy + ", sortDir=" + sortDir + "]";
+				+ ", start=" + start + ", length=" + length + ", sortBy=" + sortBy + ", sortDir=" + sortDir 
+				+ ", parentSearch=" + parentSearch + "]";
 	}
 	
 	/**
@@ -164,6 +168,14 @@ public class SubmissionSearchCriteria {
 
 	public void setSortDir(String sortDir) {
 		this.sortDir = sortDir;
+	}
+
+	public String getParentSearch() {
+		return parentSearch;
+	}
+
+	public void setParentSearch(String parentSearch) {
+		this.parentSearch = parentSearch;
 	}
 
 }

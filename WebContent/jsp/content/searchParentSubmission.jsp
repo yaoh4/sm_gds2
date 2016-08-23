@@ -1,7 +1,8 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
 <s:form action="search" namespace="/search" id="search-form">
-
+	<s:hidden id="parentSearch" name="criteria.parentSearch" value="Y"/>
+	
 	<div class="pageNav">
 		<!-- Page navbar -->
 		<s:submit type="button" onclick="createNewSubProject()" class="btn btn-project-primary">

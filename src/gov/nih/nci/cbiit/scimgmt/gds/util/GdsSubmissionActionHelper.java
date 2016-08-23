@@ -258,4 +258,50 @@ public class GdsSubmissionActionHelper {
 		return true;
 	}
 	
+	/*
+	 * This method checks if a sub-project can be created off of this Project
+	 * Condition:
+	 * A project submission exists in the system and:
+	 *	  - If Submission is marked as required by GDS or GWAS and answer to question 
+	 *		"Is there a data sharing exception requested for this project?" is No,
+	 *	 OR
+	 *	 - If Submission is marked as required by GDS or GWAS and 
+	 *		answer to "Will there be any data submitted?" is Yes,
+	 *	 OR
+	 *	 - If submission is marked as Optional Submission NIH Funded or Non-NIH Funded.
+	 */
+	public static boolean isEligibleForSubproject(Project project){
+		logger.debug("Checking if subproject can be created off of this project.");
+		
+		boolean dataSubmittedYesFlag = false;
+		boolean exceptionRequestedNoFlag = false;
+		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelections()){
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+				dataSubmittedYesFlag = true;
+			}
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+				exceptionRequestedNoFlag = true;
+			}
+		}
+		
+		if((project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY || 
+				project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY) &&
+				exceptionRequestedNoFlag) {
+			return true;
+		}
+		
+		if((project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY || 
+				project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY) &&
+				dataSubmittedYesFlag) {
+			return true;
+		}
+		
+		if(project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_NIHFUND || 
+				project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 }
