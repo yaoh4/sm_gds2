@@ -169,13 +169,16 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		Set<PlanAnswerSelection> answers = storedProject.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
 		HashMap<Long, RepositoryStatus> repoMap = new HashMap<Long, RepositoryStatus>();
 		for(PlanAnswerSelection answer: answers) {
-			RepositoryStatus storedRepoStatus = new ArrayList<RepositoryStatus>(answer.getRepositoryStatuses()).get(0);
-			repoMap.put(storedRepoStatus.getId(), storedRepoStatus);
+			if(!answer.getRepositoryStatuses().isEmpty()) {
+				RepositoryStatus storedRepoStatus = new ArrayList<RepositoryStatus>(answer.getRepositoryStatuses()).get(0);
+				repoMap.put(storedRepoStatus.getId(), storedRepoStatus);
+			}
 		}
 		
 		for(RepositoryStatus repoStatus : getProject().getRepositoryStatuses()){
 			RepositoryStatus storedRepoStatus = repoMap.get(repoStatus.getId());
-			Long planAnswerSelectionId = storedRepoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
+			if(storedRepoStatus != null) {
+				Long planAnswerSelectionId = storedRepoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
 			
 				if(!repoStatus.getLookupTByRegistrationStatusId().getId().equals(storedRepoStatus.getLookupTByRegistrationStatusId().getId())
 						|| !repoStatus.getLookupTBySubmissionStatusId().getId().equals(storedRepoStatus.getLookupTBySubmissionStatusId().getId())
@@ -186,10 +189,16 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 					repoStatus.setCreatedBy(storedRepoStatus.getCreatedBy());
 					repoStatus.setCreatedDate(storedRepoStatus.getCreatedDate());
 					repoStatus.setProject(storedProject);
-					repoStatus.setPlanAnswerSelectionTByRepositoryId(storedProject.getPlanAnswerSelectionById(planAnswerSelectionId));	
+					//repoStatus.setPlanAnswerSelectionTByRepositoryId(storedProject.getPlanAnswerSelectionById(planAnswerSelectionId));	
 					storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().add(repoStatus);
 				} 
-			
+			} else {
+				Long planAnswerSelectionId = repoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
+				repoStatus.setCreatedBy(loggedOnUser.getAdUserId());
+				repoStatus.setCreatedDate(new Date());
+				repoStatus.setProject(storedProject);
+				storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().add(repoStatus);
+			}
 		}
 		storedProject.setAnticipatedSubmissionDate(getProject().getAnticipatedSubmissionDate());
 		super.saveProject(storedProject, ApplicationConstants.PAGE_CODE_REPOSITORY);

@@ -447,8 +447,10 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		for(Long id: oldSet) {
 			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
 				PlanAnswerSelection savedOther = planAnswerSelectionIterator.next();
-				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue())
-					planAnswerSelectionIterator.remove();			
+				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue()) {
+					savedOther.removeProject(getProject());
+					planAnswerSelectionIterator.remove();
+				}
 			}
 		}
 		
@@ -463,8 +465,10 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 							found = true;
 						break;
 					}
-					if(!found)
+					if(!found) {
+						savedOther.removeProject(getProject());
 						planAnswerSelectionIterator.remove();
+					}
 				}
 			}
 		}
@@ -480,7 +484,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 						newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 						newObject.setOtherText(otherText);
 						newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
-						newObject.setProject(getProject());
+						newObject.addProject(getProject());
 						getProject().getPlanAnswerSelections().add(newObject);
 					}
 				}
@@ -490,7 +494,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					newObject = new PlanAnswerSelection();
 					newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 					newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
-					newObject.setProject(getProject());
+					newObject.addProject(getProject());
 					getProject().getPlanAnswerSelections().add(newObject);
 				}
 			}

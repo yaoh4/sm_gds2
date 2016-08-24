@@ -609,7 +609,7 @@ public class Project implements java.io.Serializable {
 		this.subprojectEligibleFlag = subprojectEligibleFlag;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
+	@ManyToMany(mappedBy="projects")
 	@Cascade({CascadeType.ALL})
 	public Set<PlanAnswerSelection> getPlanAnswerSelections() {
 		return this.planAnswerSelections;

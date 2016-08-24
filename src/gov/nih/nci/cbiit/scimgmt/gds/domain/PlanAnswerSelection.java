@@ -1,7 +1,10 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Mar 28, 2016 10:25:57 AM by Hibernate Tools 4.0.0
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -27,7 +32,7 @@ public class PlanAnswerSelection implements java.io.Serializable {
 
 	private Long id;
 	private PlanQuestionsAnswer planQuestionsAnswer;
-	private Project project;
+	private List<Project> projects = new ArrayList();;
 	private String createdBy;
 	private String lastChangedBy;
 	private String otherText;
@@ -36,19 +41,16 @@ public class PlanAnswerSelection implements java.io.Serializable {
 	public PlanAnswerSelection() {
 	}
 
-	public PlanAnswerSelection(Long id, PlanQuestionsAnswer planQuestionsAnswer, Project project,
-			String createdBy) {
+	public PlanAnswerSelection(Long id, PlanQuestionsAnswer planQuestionsAnswer, String createdBy) {
 		this.id = id;
 		this.planQuestionsAnswer = planQuestionsAnswer;
-		this.project = project;
 		this.createdBy = createdBy;
 	}
 
-	public PlanAnswerSelection(Long id, PlanQuestionsAnswer planQuestionsAnswer, Project project,
+	public PlanAnswerSelection(Long id, PlanQuestionsAnswer planQuestionsAnswer,
 			String createdBy, String lastChangedBy) {
 		this.id = id;
 		this.planQuestionsAnswer = planQuestionsAnswer;
-		this.project = project;
 		this.createdBy = createdBy;
 		this.lastChangedBy = lastChangedBy;
 	}
@@ -56,7 +58,7 @@ public class PlanAnswerSelection implements java.io.Serializable {
 	public PlanAnswerSelection(PlanAnswerSelection newObject) {
 		this.id = newObject.id;
 		this.planQuestionsAnswer = newObject.planQuestionsAnswer;
-		this.project = newObject.project;
+		this.projects = newObject.projects;
 		this.createdBy = newObject.createdBy;
 		this.lastChangedBy = newObject.lastChangedBy;
 	}
@@ -83,16 +85,31 @@ public class PlanAnswerSelection implements java.io.Serializable {
 		this.planQuestionsAnswer = planQuestionsAnswer;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PROJECT_ID", nullable = false)
-	public Project getProject() {
-		return this.project;
+	@ManyToMany
+	@JoinTable(name="project_plan_answers_mapping_t", joinColumns=@JoinColumn(name="answer_selection_id"), inverseJoinColumns=@JoinColumn(name="project_id"))
+	public List<Project> getProjects() {
+		return this.projects;
 	}
 
-	public void setProject(Project project) {
-		this.project = project;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
+	public void addProject(Project project) {
+		this.projects.add(project);
+	}
+	
+	public void removeProject(Project project) {
+		Iterator<Project> projects = this.getProjects().iterator();
+		while(projects.hasNext()) {
+			Project curProject = projects.next();
+			if(curProject.getId().equals(project.getId())) {
+				projects.remove();
+				break;
+			}
+		}
+	}
+	
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
 	public String getCreatedBy() {
 		return this.createdBy;
