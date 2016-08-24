@@ -23,7 +23,7 @@
 					  	    Welcome:
 						    <div id="loginID" class="login">
 							    <s:if test="loggedOnUser.lastName != null">
-								    <s:property value="loggedOnUser.fullName" />
+								    <s:property value="%{loggedOnUser.fullName.toUpperCase()}" />
 							    </s:if>
 						    </div>
 					    </div><br/>  

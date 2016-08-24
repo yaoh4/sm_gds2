@@ -78,7 +78,7 @@
 							<label for="Program Branch"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Program
 								Branch</label> 
-								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name" value="%{project.programBranch}" maxLength="30"/>
+								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Program Branch" value="%{project.programBranch}" maxLength="30"/>
 						</div>
 					</div>
 
