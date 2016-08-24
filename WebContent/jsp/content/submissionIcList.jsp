@@ -65,11 +65,15 @@
                <!--  Show this column header only for subproject -->
                 <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select</th>                      
                 <th class="tableHeader" align="center" width="60%">Institutional Certification Document</th>
+                 <th class="tableHeader" align="center" width="19%">Status</th>
+                <th class="tableHeader" align="center" width="19%">Missing Data</th>
                 <th class="tableHeader" align="center" width="30%">Date Uploaded</th>
                 <th class="tableHeader" align="center" width="10%">Actions</th>
               </tr>
                     
               <s:iterator status="icStat" var="ic" value="project.institutionalCertifications">
+               <div class="icCountList">
+              
                 <s:set name="icIdx" value="#icStat.index" />
                 
                 <!--  FILE DISPLAY AND ICONS ROW -->    
@@ -89,6 +93,20 @@
                       <s:property value="%{#ic.documents[0].fileName}" />
                      </s:a>
                   </td>
+                  
+                    
+                <td style="white-space: nowrap">
+                <s:hidden id="icReg%{#icStat.index}" value="%{getIcStatusCodeIndividual(#ic.id)}"/>            	
+              	<div id="icDiv${icStat.index}" class="searchProgess">
+        		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
+        	  	</div>
+                  </td>
+                  
+                  <td style="white-space: nowrap">
+                   <s:if test="%{!getIcStatusCodeIndividual(#ic.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                   <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${ic.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a> &nbsp; &nbsp;
+                  </s:if>
+                  </td>
                 
                   <td style="white-space: nowrap"> 
                     <s:date name="%{#ic.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
@@ -105,6 +123,7 @@
                       </a>                   
                   </td>
                 </tr>
+                </div>    
                 <!--Begin view details-->
                 <tr>
 			      <td colspan="5">
