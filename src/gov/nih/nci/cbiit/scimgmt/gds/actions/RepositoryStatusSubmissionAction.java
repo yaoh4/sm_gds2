@@ -3,11 +3,13 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -163,24 +165,34 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		if(StringUtils.isEmpty(getProjectId())) {
 			throw new Exception(getText("error.projectid.null"));
 		}
-		
-		Project project = retrieveSelectedProject();
-		project.setRepositoryStatuses(getProject().getRepositoryStatuses());	
-		
-		for(RepositoryStatus repositoryStatus : project.getRepositoryStatuses()){
-			repositoryStatus.setProject(project);
-			if(repositoryStatus.getId() == null) {
-				repositoryStatus.setCreatedBy(loggedOnUser.getFullNameLF());
-				repositoryStatus.setCreatedDate(new Date());
-			} else {
-				repositoryStatus.setLastChangedBy(loggedOnUser.getFullNameLF());
-			}
-			project.getPlanAnswerSelectionById(repositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()).getRepositoryStatuses().clear();
-			project.getPlanAnswerSelectionById(repositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()).getRepositoryStatuses().add(repositoryStatus);
-			project.setAnticipatedSubmissionDate(getProject().getAnticipatedSubmissionDate());
+		Project storedProject = retrieveSelectedProject();
+		Set<PlanAnswerSelection> answers = storedProject.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
+		HashMap<Long, RepositoryStatus> repoMap = new HashMap<Long, RepositoryStatus>();
+		for(PlanAnswerSelection answer: answers) {
+			RepositoryStatus storedRepoStatus = new ArrayList<RepositoryStatus>(answer.getRepositoryStatuses()).get(0);
+			repoMap.put(storedRepoStatus.getId(), storedRepoStatus);
 		}
-
-		super.saveProject(project, ApplicationConstants.PAGE_CODE_REPOSITORY);
+		
+		for(RepositoryStatus repoStatus : getProject().getRepositoryStatuses()){
+			RepositoryStatus storedRepoStatus = repoMap.get(repoStatus.getId());
+			Long planAnswerSelectionId = storedRepoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
+			
+				if(!repoStatus.getLookupTByRegistrationStatusId().getId().equals(storedRepoStatus.getLookupTByRegistrationStatusId().getId())
+						|| !repoStatus.getLookupTBySubmissionStatusId().getId().equals(storedRepoStatus.getLookupTBySubmissionStatusId().getId())
+						|| !repoStatus.getLookupTByStudyReleasedId().getId().equals(storedRepoStatus.getLookupTByStudyReleasedId().getId())) {
+					//There is a change to an existing repositoryStatus
+					storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().remove(storedRepoStatus);
+					repoStatus.setLastChangedBy(loggedOnUser.getFullNameLF());
+					repoStatus.setCreatedBy(storedRepoStatus.getCreatedBy());
+					repoStatus.setCreatedDate(storedRepoStatus.getCreatedDate());
+					repoStatus.setProject(storedProject);
+					repoStatus.setPlanAnswerSelectionTByRepositoryId(storedProject.getPlanAnswerSelectionById(planAnswerSelectionId));	
+					storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().add(repoStatus);
+				} 
+			
+		}
+		storedProject.setAnticipatedSubmissionDate(getProject().getAnticipatedSubmissionDate());
+		super.saveProject(storedProject, ApplicationConstants.PAGE_CODE_REPOSITORY);
 		setUpPageData();
 	}
 	

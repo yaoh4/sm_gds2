@@ -60,6 +60,7 @@
 
 						</div> 
 						<s:hidden name="project.repositoryStatuses[%{#stat.index}].planAnswerSelectionTByRepositoryId.id" value="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.id}"/>
+						<s:hidden name="project.repositoryStatuses[%{#stat.index}].id" value="%{#repositoryStatus.id}"/>		
 						<div class="panel-body">		 				
 							<div class="form-group row">
 								<div class="col-xs-2">
