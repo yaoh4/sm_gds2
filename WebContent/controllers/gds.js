@@ -20,3 +20,23 @@ function openMissingDataReport(id, action) {
 	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
 	var newWin = window.open(url, winName, features);
 }
+
+$(document).ready(function() {
+	var icItemsSize=$(".icCountList").length;
+	for(var size=0; size < icItemsSize; size++) {
+		setStatusIcon("icReg" + size, "icDiv" + size);
+	}
+	
+});
+
+function setStatusIcon(elem, elemDiv) {
+	$("#" + elemDiv).empty();
+	var elemVal = $("#" + elem).val();
+	if($("#" + elem).val() == 'COMPLETED') {
+		$("#" + elemDiv).prepend('<img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/>');
+	} else if($("#" + elem).val() == 'INPROGRESS') {
+		$("#" + elemDiv).prepend('<img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>');
+	} else {
+		$("#" + elemDiv).prepend('<img src="../images/pending.png" alt="Not Started" width="18px" height="18px" title="Not Started"/>');
+	}
+}
