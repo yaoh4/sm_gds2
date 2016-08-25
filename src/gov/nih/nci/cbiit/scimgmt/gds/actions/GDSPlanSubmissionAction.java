@@ -448,7 +448,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
 				PlanAnswerSelection savedOther = planAnswerSelectionIterator.next();
 				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue()) {
-					savedOther.removeProject(getProject());
 					planAnswerSelectionIterator.remove();
 				}
 			}
@@ -466,7 +465,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 						break;
 					}
 					if(!found) {
-						savedOther.removeProject(getProject());
 						planAnswerSelectionIterator.remove();
 					}
 				}
@@ -485,6 +483,11 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 						newObject.setOtherText(otherText);
 						newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 						newObject.addProject(getProject());
+						// If child exists, then add answer to all children
+						List<Project> children = retrieveSubprojects(getProject());
+						for(Project child: children) {
+							newObject.addProject(child);
+						}
 						getProject().getPlanAnswerSelections().add(newObject);
 					}
 				}
@@ -495,6 +498,11 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 					newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 					newObject.addProject(getProject());
+					// If child exists, then add answer to all children
+					List<Project> children = retrieveSubprojects(getProject());
+					for(Project child: children) {
+						newObject.addProject(child);
+					}
 					getProject().getPlanAnswerSelections().add(newObject);
 				}
 			}

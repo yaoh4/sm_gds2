@@ -211,4 +211,33 @@ public class ProjectsDao {
 			throw re;
 		}
 	}
+	
+	/**
+	 * Retrieve Sub-projects based on parent project ID.
+	 * @param parentProjectId
+	 * @return List<Project>
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Project> getSubprojects(Long parentProjectId) {
+		
+		List<Project> list =  new ArrayList<Project>();
+		
+		try {
+			Criteria criteria = null;
+			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class);
+			criteria.add(Restrictions.eq("subprojectFlag", "Y"));
+			criteria.add(Restrictions.eq("parentProjectId", parentProjectId));
+			list =  (List<Project>) criteria.list();
+			return list;
+			
+		} catch (Throwable e) {
+			logger.error("Error while searching for subproject submission ", e);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
+			logger.error("Pass-in parameters: Parent ProjectId - " + parentProjectId);
+			logger.error("Outgoing parameters: Subproject List - " + list);
+			
+			throw e;
+		}
+		
+	}
 }

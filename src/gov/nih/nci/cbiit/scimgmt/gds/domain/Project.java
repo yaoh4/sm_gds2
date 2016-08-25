@@ -610,7 +610,7 @@ public class Project implements java.io.Serializable {
 	}
 	
 	@ManyToMany(mappedBy="projects")
-	@Cascade({CascadeType.ALL})
+	@Cascade({CascadeType.ALL, CascadeType.DELETE_ORPHAN})
 	public Set<PlanAnswerSelection> getPlanAnswerSelections() {
 		return this.planAnswerSelections;
 	}

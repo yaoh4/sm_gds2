@@ -131,7 +131,15 @@ public class ManageSubmission extends BaseAction {
 		return null;
 	}
 	
-	
+	public List<Project> retrieveSubprojects(Project project) {
+		
+		Long projectId = project.getId();
+		if(projectId != null) {
+			List<Project> subproject =  manageProjectService.getSubprojects(projectId);
+			return subproject;
+		} 
+		return new ArrayList<Project>();
+	}
 	
 	/**
 	 * Save the project

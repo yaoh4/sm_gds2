@@ -170,8 +170,10 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		HashMap<Long, RepositoryStatus> repoMap = new HashMap<Long, RepositoryStatus>();
 		for(PlanAnswerSelection answer: answers) {
 			if(!answer.getRepositoryStatuses().isEmpty()) {
-				RepositoryStatus storedRepoStatus = new ArrayList<RepositoryStatus>(answer.getRepositoryStatuses()).get(0);
-				repoMap.put(storedRepoStatus.getId(), storedRepoStatus);
+				for(RepositoryStatus storedRepoStatus : answer.getRepositoryStatuses()) {
+					if(storedRepoStatus.getProject().getId() == storedProject.getId())
+						repoMap.put(storedRepoStatus.getId(), storedRepoStatus);
+				}
 			}
 		}
 		
@@ -189,7 +191,6 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 					repoStatus.setCreatedBy(storedRepoStatus.getCreatedBy());
 					repoStatus.setCreatedDate(storedRepoStatus.getCreatedDate());
 					repoStatus.setProject(storedProject);
-					//repoStatus.setPlanAnswerSelectionTByRepositoryId(storedProject.getPlanAnswerSelectionById(planAnswerSelectionId));	
 					storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().add(repoStatus);
 				} 
 			} else {
@@ -244,7 +245,8 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	
 		for(PlanAnswerSelection selection: getProject().getPlanAnswerSelections()) {
 			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
-				getProject().getRepositoryStatuses().add(repositoryStatus);
+				if(repositoryStatus.getProject().getId() == getProject().getId())
+					getProject().getRepositoryStatuses().add(repositoryStatus);
 			}		
 		}
 		

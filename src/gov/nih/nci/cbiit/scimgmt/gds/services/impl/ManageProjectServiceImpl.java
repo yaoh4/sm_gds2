@@ -166,5 +166,15 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		return projectsDao.getPrevLinkedSubmissionsForGrant(grantContractNum,projectId);
 	}
 
+	/**
+	 * Retrieve Sub-projects based on parent project ID.
+	 * @param parentProjectId
+	 * @return List<Project>
+	 */
+	public List<Project> getSubprojects(Long parentProjectId) {
+		logger.debug("getSubprojects");
+		return projectsDao.getSubprojects(parentProjectId);
+		
+	}
 	
 }

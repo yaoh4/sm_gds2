@@ -125,6 +125,14 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		}
 		else{
 			project = getProject();
+			// For new Sub project, populate child table from parent
+			if(project.getId() == null && project.getParentProjectId() != null) {
+				Project parentProject = retrieveParentProject(project);
+				project.setPlanAnswerSelections(parentProject.getPlanAnswerSelections());
+				for(PlanAnswerSelection ans: project.getPlanAnswerSelections()) {
+					ans.addProject(project);
+				}
+			}
 		}		
 		project = super.saveProject(project, null);
 		setProject(project);

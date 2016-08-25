@@ -90,5 +90,12 @@ public interface ManageProjectService {
 	 */
 	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum, String projectId);
 
+	/**
+	 * Retrieve Sub-projects based on parent project ID.
+	 * @param parentProjectId
+	 * @return List<Project>
+	 */
+	public List<Project> getSubprojects(Long parentProjectId);
+	
 	
 }
