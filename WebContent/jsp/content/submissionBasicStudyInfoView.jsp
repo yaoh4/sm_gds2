@@ -45,9 +45,6 @@
               </tbody>
             </table>
             </s:if>
-          <s:if test="%{project.bsiComments != null}">  
-            <p><span class="reportLabel">Comments:</span>${project.bsiComments}</p>
-          </s:if>
          </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->
