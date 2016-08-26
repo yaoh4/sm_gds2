@@ -19,6 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
@@ -198,6 +199,23 @@ public class ManageSubmission extends BaseAction {
 		}
 		
 		return pageStatuses;
+	}
+	
+	
+	public String getProjectStatusCode(Project project) {
+		
+		List<PageStatus> statuses = project.getPageStatuses();
+		if(!CollectionUtils.isEmpty(statuses)) {
+			for(PageStatus status: statuses) {
+				if(status.getStatus().getCode().equals(
+					ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS)) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
+			}
+		} else {
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		}		
+		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 	}
 	
 	
