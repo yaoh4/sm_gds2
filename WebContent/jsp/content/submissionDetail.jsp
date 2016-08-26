@@ -42,7 +42,7 @@
             </tr>
 		  <s:if test="%{showPage('GDSPLAN')}">
             <tr >
-              <td colspan="2"> <a href="/gds/manage/editGdsPlan.action?projectId=${project.id}">GDS Plan</a></td>
+              <td colspan="2"> <a href="/gds/manage/editGdsPlan.action?projectId=${project.id}">Genomic DSP</a></td>
       
               <td>
                <s:hidden id="gdsPlan" value="%{getPageStatus('GDSPLAN').status.code}"/>
@@ -185,8 +185,9 @@
 		  <s:if test="%{showPage('BSI')}">
 			<s:include value="/jsp/content/submissionBasicStudyInfoView.jsp"/>
 		  </s:if>
+		  <s:if test="%{showPage('REPOSITORY')}">
 	      <s:include value="/jsp/content/submissionStatusView.jsp"/>
-		 
+		 </s:if>
 
 </s:form>		
 
