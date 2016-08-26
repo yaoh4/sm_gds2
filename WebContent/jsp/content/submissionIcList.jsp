@@ -71,51 +71,51 @@
                 <th class="tableHeader" align="center" width="10%">Actions</th>
               </tr>
                     
-              <s:iterator status="icStat" var="ic" value="project.institutionalCertifications">
+              <s:iterator status="icStat" var="cert" value="project.institutionalCertifications">
                <div class="icCountList">
               
                 <s:set name="icIdx" value="#icStat.index" />
                 
                 <!--  FILE DISPLAY AND ICONS ROW -->    
-                <tr  data-id="${ic.id}">
+                <tr  data-id="${cert.id}">
                  
                  <!--  Show this column only for subproject -->
                     <td class="subprojectSelect" style="white-space: nowrap;display:none;">                 
 		                <input class="icSelect" type="checkbox" 
-	                      name="ic-selected" id="ic${ic.id}" value="${ic.id}">				 
+	                      name="ic-selected" id="ic${cert.id}" value="${cert.id}">				 
                     </td>
 
                 
                   <td style="white-space: nowrap">
-                    <a href="#" class="icDetails" id="icDetails${ic.id}">
-                      <i class="expand fa fa-plus-square fa-lg" id="${ic.id}expand" aria-hidden="true" alt="Details" title="Details"></i>
-                    </a>&nbsp;&nbsp;&nbsp;<s:a href="javascript:openDocument(%{#ic.documents[0].id})">
-                      <s:property value="%{#ic.documents[0].fileName}" />
+                    <a href="#" class="icDetails" id="icDetails${cert.id}">
+                      <i class="expand fa fa-plus-square fa-lg" id="${cert.id}expand" aria-hidden="true" alt="Details" title="Details"></i>
+                    </a>&nbsp;&nbsp;&nbsp;<s:a href="javascript:openDocument(%{#cert.documents[0].id})">
+                      <s:property value="%{#cert.documents[0].fileName}" />
                      </s:a>
                   </td>
                   
                     
                 <td style="white-space: nowrap">
-                <s:hidden id="icReg%{#icStat.index}" value="%{getIcStatusCodeIndividual(#ic.id)}"/>            	
+                <s:hidden id="icReg%{#icStat.index}" value="%{getIcStatusCodeIndividual(#cert.id)}"/>            	
               	<div id="icDiv${icStat.index}" class="searchProgess">
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
         	  	</div>
                   </td>
                   
                   <td style="white-space: nowrap">
-                   <s:if test="%{!getIcStatusCodeIndividual(#ic.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
-                   <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${ic.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a> &nbsp; &nbsp;
+                   <s:if test="%{!getIcStatusCodeIndividual(#cert.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                   <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${cert.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a> &nbsp; &nbsp;
                   </s:if>
                   </td>
                 
                   <td style="white-space: nowrap"> 
-                    <s:date name="%{#ic.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
+                    <s:date name="%{#cert.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
                   </td>
                       
                   <td style="white-space: nowrap">
                     
                     <!--  Do not show edit and delete for sub-project -->
-                      <a class="btnEdit" style="display:none;"  href="/gds/manage/editIc.action?instCertId=${ic.id}&projectId=${project.id}">
+                      <a class="btnEdit" style="display:none;"  href="/gds/manage/editIc.action?instCertId=${cert.id}&projectId=${project.id}">
                         <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit"></i>&nbsp;
                       </a>&nbsp;&nbsp;&nbsp;
                       <a style="display:none;" href="#" class="btnDelete">
@@ -127,18 +127,18 @@
                 <!--Begin view details-->
                 <tr>
 			      <td colspan="5">
-                    <div id="contentDivImg${ic.id}" style="display: none">
+                    <div id="contentDivImg${cert.id}" style="display: none">
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tr>
-                          <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(#ic.gpaApprovalCode)}"/></td>
-						  <td><span class="question">Provisional or Final? </span><s:property value="%{getLookupDisplayNamebyId(#ic.provisionalFinalCode)}"/></td>
-						  <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(#ic.futureProjectUseCode)}"/></td>
+                          <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(#cert.gpaApprovalCode)}"/></td>
+						  <td><span class="question">Provisional or Final? </span><s:property value="%{getLookupDisplayNamebyId(#cert.provisionalFinalCode)}"/></td>
+						  <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(#cert.futureProjectUseCode)}"/></td>
                         </tr>
                         
-                        <s:if test="%{#ic.comments != null}">
+                        <s:if test="%{#cert.comments != null}">
                           <tr><td colspan="6">&nbsp;</td></tr>
                           <tr><td colspan="6" class="question">Comments:</td></tr>
-                          <tr><td colspan="6">${ic.comments}</td></tr>
+                          <tr><td colspan="6">${cert.comments}</td></tr>
 			            </s:if>
 			            
                         <tr>
