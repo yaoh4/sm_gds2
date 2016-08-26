@@ -4,7 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	
-	<package name="search" namespace="/search" extends="default, json-default">
+	<package name="search" namespace="/search" extends="default">
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
 			 <result name="success" type="tiles">search</result>
 		</action>

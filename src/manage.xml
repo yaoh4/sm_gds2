@@ -4,7 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	
-	<package name="manage" namespace="/manage" extends="default, json-default">
+	<package name="manage" namespace="/manage" extends="default">
 	
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
 			 <result name="success" type="tiles">home</result>
@@ -85,7 +85,8 @@
 		</action>	
 		<action name="editIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>
-			 <param name="projectId">${project.id}</param>
+			 <param name="instCertId">${instCertification.id}</param>
+			 <param name="projectId">${project.id}</param>		 
 		</action>
 		<action name="deleteIc" method="deleteIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcListSubmissionAction">
 			 <result name="success" type="tiles">submissionIcList</result>

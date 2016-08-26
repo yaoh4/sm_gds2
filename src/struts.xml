@@ -49,10 +49,7 @@
 		</global-exception-mappings>	
 		
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
-			<result name="success" type="redirect-action">
-				<param name="actionName">home</param>
-            	<param name="namespace">/manage</param>
-			</result>			
+			<result name="success" type="redirect-action">manage/home</result>				
 		</action>
 		
 		<action name="sendErrorMessage" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ErrorMessageAction">
