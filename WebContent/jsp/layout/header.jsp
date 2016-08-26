@@ -63,7 +63,13 @@
     				<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Create New Submission</h3></div></div>
     			</s:if>
     			<s:else>
-      				<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Track Project Submission</h3>
+      				<div class="pageHeader" id="pageHeader"><div class="titleWrapper container">
+      				<s:if test="%{project.parentProjectId == null}">
+      					<h3>Project Submission</h3>
+      				</s:if>
+      				<s:else>
+      					<h3>Sub-project Submission</h3>
+      				</s:else>
       				<div style="display:inline-block;">&nbsp;(&nbsp;<s:property value="%{project.submissionTitle}"/>&nbsp;)</div>
       				</div></div>
       				<s:include value="/jsp/layout/subnavbar.jsp" />
