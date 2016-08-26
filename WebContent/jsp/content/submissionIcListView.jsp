@@ -73,11 +73,11 @@
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tbody>
                           <tr>
+                          <s:if test="%{#ic.provisionalFinalCode != null}">
+                              <td><span class="question">Provisional or Final? </span></span><s:property value="%{getLookupDisplayNamebyId(#ic.provisionalFinalCode)}"/></td>
+                            </s:if>
                             <s:if test="%{#ic.gpaApprovalCode != null}">
                               <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(#ic.gpaApprovalCode)}"/></td>
-                            </s:if>
-                             <s:if test="%{#ic.provisionalFinalCode != null}">
-                              <td><span class="question">Provisional or Final? </span></span><s:property value="%{getLookupDisplayNamebyId(#ic.provisionalFinalCode)}"/></td>
                             </s:if>
                              <s:if test="%{#ic.futureProjectUseCode != null}">
                               <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(#ic.futureProjectUseCode)}"/></td>
@@ -120,11 +120,7 @@
                                                      </s:if>
                                                    </tr>
                                                     
-                                                   <s:if test="%{#study.comments != null}">                                
-                                                     <tr><td colspan="4" align="left" valign="top">&nbsp;</td></tr>
-                                                     <tr><td colspan="6" class="question">Comments:</td></tr>
-                                                     <tr><td colspan="6">${study.comments}</td></tr>
-                                                   </s:if>       
+                                                        
                                                              
                                                    <s:if test="%{project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets.size > 0}">
                                                                          
