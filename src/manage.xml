@@ -85,7 +85,6 @@
 		</action>	
 		<action name="editIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>
-			 <param name="instCertId">${instCertification.id}</param>
 			 <param name="projectId">${project.id}</param>		 
 		</action>
 		<action name="deleteIc" method="deleteIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcListSubmissionAction">
