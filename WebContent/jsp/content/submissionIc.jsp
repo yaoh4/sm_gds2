@@ -53,6 +53,16 @@
 			</div>
 		
 			  <div class="form-group row">
+			   <div class="col-xs-3">
+                  <label for="Provisional or Final?">Provisional or Final?</label>
+                  <s:select name="instCertification.provisionalFinalCode"
+                    value="instCertification.provisionalFinalCode"
+                    class="c-select form-control"
+                    list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_PROV_OR_FINAL_LIST)}"
+                    listKey="optionKey" listValue="optionValue" id="finalprov"
+                    emptyOption="true"/>
+                </div>
+                
                 <div class="col-xs-3">
                   <label for="Approved by GPA">Approved by GPA</label>
                   <s:select name="instCertification.gpaApprovalCode"
@@ -63,16 +73,7 @@
                     emptyOption="true"/>
                  
                 </div>
-                <div class="col-xs-3">
-                  <label for="Provisional or Final?">Provisional or Final?</label>
-                  <s:select name="instCertification.provisionalFinalCode"
-                    value="instCertification.provisionalFinalCode"
-                    class="c-select form-control"
-                    list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_PROV_OR_FINAL_LIST)}"
-                    listKey="optionKey" listValue="optionValue" id="finalprov"
-                    emptyOption="true"/>
-                </div>
-                  
+             
                 <div id="memo" class="col-xs-3">
                   <label for="Project Submission Status">IC Memo for Use in Future Projects?</label>
                   <s:select name="instCertification.futureProjectUseCode"
