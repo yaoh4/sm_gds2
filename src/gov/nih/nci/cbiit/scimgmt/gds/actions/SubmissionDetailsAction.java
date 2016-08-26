@@ -42,7 +42,8 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		Project project = retrieveSelectedProject();
 		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
-				project.getRepositoryStatuses().add(repositoryStatus);
+				if(repositoryStatus.getProject().getId() == project.getId())
+					project.getRepositoryStatuses().add(repositoryStatus);
 			}		
 		}
 			

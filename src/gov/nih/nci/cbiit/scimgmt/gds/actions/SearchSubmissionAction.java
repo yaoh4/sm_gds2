@@ -280,7 +280,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			Project project = manageProjectService.findById(Long.valueOf(projectId));
 			for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 				for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
-					project.getRepositoryStatuses().add(repositoryStatus);
+					if(repositoryStatus.getProject().getId() == Long.valueOf(projectId))
+						project.getRepositoryStatuses().add(repositoryStatus);
 				}		
 			}
 			Collections.sort(project.getRepositoryStatuses(),new RepositoryStatusComparator());
