@@ -208,12 +208,7 @@
       <td colspan="4">&nbsp;</td>
     </tr>
 
-    <tr>
-		   <s:if test="project.planComments != null">
-			<td><strong>Comments:</strong></td>
-      <td> ${project.planComments}</td>
-		   </s:if>
-     </tr>
+   
    </table>
          </s:else>
         </div><!--end panel body-->
