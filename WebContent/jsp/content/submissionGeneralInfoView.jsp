@@ -49,11 +49,11 @@
       <td colspan="4">&nbsp;</td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><strong>Intramural (Z01)/Grant/Contract #:</strong></td>
+      <td style="white-space: nowrap"><strong>Grant/Intramural/Contract #:</strong></td>
       <td colspan="4">${project.applicationNum}</td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><strong>Intramural/Grant/Contract Project Title:</strong></td>
+      <td style="white-space: nowrap"><strong>Grant/Intramural/Contract Project Title:</strong></td>
       <td colspan="4">${project.projectTitle}</td>
     </tr>
     <tr>
@@ -114,11 +114,6 @@
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
-    </tr>
-    <tr>    <s:if test="project.comments != null">
-      <td style="white-space: nowrap"><strong>Comments:</strong></td>
-      <td colspan="4">${project.comments}</td>
-       </s:if>
     </tr>
   </table>
 		
