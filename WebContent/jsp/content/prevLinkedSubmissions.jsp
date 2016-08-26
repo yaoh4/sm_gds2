@@ -49,8 +49,10 @@
 								<s:property value="%{#prevSubmission.piLastName}" /> , <s:property
 									value="%{#prevSubmission.piFirstName}" />
 							</s:a></td>
-						<td class="paddingT"> <a href="#" onclick="openDetailsReport(${prevSubmission.id})">View</a> &nbsp;&nbsp;
-						<a href="../manage/navigateToSubmissionDetail.action?projectId=${prevSubmission.id}">Edit</a>
+						<td class="paddingT"> <a href="#" onclick="openDetailsReport(${prevSubmission.id})"> 
+						<i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
+						<a href="../manage/navigateToSubmissionDetail.action?projectId=${prevSubmission.id}">
+						<i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a>
 						</td>
 						</tr>
 					</s:iterator>
