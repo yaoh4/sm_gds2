@@ -140,6 +140,20 @@ public class FileUploadServiceImpl implements FileUploadService {
 	}
 	
 	/**
+	 * Retrieve a list of files from DB by icId and projectId
+	 * 
+	 * @param icId
+	 * @param projectId
+	 * 
+	 * @return document
+	 */
+	public List<Document> retrieveFileByIcId(Long icId, Long projectId) {
+		
+		List<Document> docs = documentsDao.findByIcId(icId, projectId);
+		return docs;
+	}
+	
+	/**
 	 * Retrieve a list of files from DB by ProjectId and DocTypeId
 	 * 
 	 * @param docTypeId

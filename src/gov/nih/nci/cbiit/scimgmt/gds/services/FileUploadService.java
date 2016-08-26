@@ -63,6 +63,16 @@ public interface FileUploadService {
 	public List<Document> retrieveFileByProjectId(Long projectId);
 	
 	/**
+	 * Retrieve a list of files from DB by icId and projectId
+	 * 
+	 * @param icId
+	 * @param projectId
+	 * 
+	 * @return document
+	 */
+	public List<Document> retrieveFileByIcId(Long icId, Long projectId);
+	
+	/**
 	 * Retrieve a list of files from DB by ProjectId and DocTypeId
 	 * 
 	 * @param docTypeId

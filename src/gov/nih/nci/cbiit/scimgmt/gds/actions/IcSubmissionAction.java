@@ -537,7 +537,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			doc = fileUploadService.storeFile(
 				new Long(getProjectId()), ApplicationConstants.DOC_TYPE_IC, ic, icFileName, getInstCertification().getId());
 			setDocId(doc.getId());
-			icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
+			icFileDocs = fileUploadService.retrieveFileByIcId(instCertification.getId(), new Long(getProjectId()));
 			
 		} catch (Exception e) {
 			try {

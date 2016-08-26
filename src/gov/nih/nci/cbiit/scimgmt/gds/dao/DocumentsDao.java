@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 
 /**
@@ -57,6 +58,27 @@ public class DocumentsDao {
 			criteria.add(Restrictions.eq("id", docId));
 			Document doc = (Document) criteria.uniqueResult();
 			return doc;
+		} catch (RuntimeException re) {
+			logger.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	
+	public List<Document> findByIcId(Long icId, Long projectId) {
+		logger.debug("getting IC Document instance with icId: " + icId + " projectId: " + projectId);
+		try {
+			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Document.class);
+			criteria.createAlias("docType", "docType");
+			criteria.add(Restrictions.eq("docType.code", ApplicationConstants.DOC_TYPE_IC));
+			criteria.add(Restrictions.eq("projectId", projectId));
+			if(icId != null) {
+				criteria.add(Restrictions.eq("institutionalCertificationId", icId));
+			}
+			criteria.add(Restrictions.eq("activeFlag", "Y"));
+			criteria.addOrder(Order.desc("uploadedDate"));
+			List<Document> docs = (List<Document>) criteria.list();
+			return docs;
 		} catch (RuntimeException re) {
 			logger.error("get failed", re);
 			throw re;
