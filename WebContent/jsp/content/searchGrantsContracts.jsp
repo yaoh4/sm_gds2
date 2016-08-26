@@ -53,7 +53,7 @@
                 <tr class="modalTheader">
                   <th class="tableHeader" align="center" style="width:5%" scope="col">Select</th>
                   <th class="tableHeader" style="width:25%" scope="col">Grant/Intramural/Contract #</th>
-                  <th class="tableHeader" style="width:50%" scope="col">Intramural/Grant/Contract Project Title</th>
+                  <th class="tableHeader" style="width:50%" scope="col">Grant/Intramural/Contract Project Title</th>
                   <th class="tableHeader" style="width:20%" scope="col">Principal Investigator</th>
                 </tr>
 				
