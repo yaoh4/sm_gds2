@@ -1,9 +1,11 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.io.ByteArrayInputStream;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -19,10 +21,12 @@ import com.opensymphony.xwork2.Preparable;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
@@ -132,6 +136,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 				for(PlanAnswerSelection ans: project.getPlanAnswerSelections()) {
 					ans.addProject(project);
 				}
+				
+				//Create repository statuses for sub-project from parent
+				setupRepositoryStatuses(project);
 			}
 		}		
 		project = super.saveProject(project, null);
@@ -221,10 +228,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		subProject.setId(null);
 		subProject.setBsiComments(null);
 		subProject.setBsiReviewedFlag(null);
-		subProject.setRepositoryStatuses(null);
+		subProject.setRepositoryStatuses(new ArrayList<RepositoryStatus>());
 		subProject.setAnticipatedSubmissionDate(null);
 		subProject.setPlanComments(null);
-		subProject.setPlanAnswerSelections(null);
+		subProject.setPlanAnswerSelections(new HashSet());
 										
 	}
 	
@@ -273,6 +280,38 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			preSelectedDOC = getProject().getDocAbbreviation();
 		}
 	}
+	
+	
+	/**
+	 * This method sets up Repository Statuses.
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 */
+	private void setupRepositoryStatuses(Project subProject) {
+		
+		logger.debug("Setting up Repository statuses.");
+		
+		Project parentProject = retrieveParentProject();
+		for(PlanAnswerSelection selection: parentProject.getPlanAnswerSelections()) {
+			if(!selection.getRepositoryStatuses().isEmpty()) {				
+				RepositoryStatus repoStatus = new RepositoryStatus();
+				repoStatus.setLookupTByRegistrationStatusId(
+				 lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+				repoStatus.setLookupTBySubmissionStatusId(
+				  lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+				repoStatus.setLookupTByStudyReleasedId(
+				  lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
+				repoStatus.setCreatedBy(loggedOnUser.getAdUserId());
+				repoStatus.setCreatedDate(new Date());
+				repoStatus.setProject(subProject);
+				repoStatus.setPlanAnswerSelectionTByRepositoryId(selection);
+				selection.getRepositoryStatuses().add(repoStatus);
+			}
+		}
+	}
+	
+
+	
 	
 	/**
 	 * If the answer to "Why is the project being submitted?" is changed from:
