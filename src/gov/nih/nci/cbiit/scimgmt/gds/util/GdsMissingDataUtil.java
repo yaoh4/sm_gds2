@@ -87,7 +87,7 @@ public class GdsMissingDataUtil {
 		List<Document> exceptionMemos = 
 			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, project.getId());
 			
-		List<Document> gdsplans = 
+		List<Document> gdsPlans = 
 			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, project.getId());
 			
 		Long submissionReasonId = project.getSubmissionReasonId();
@@ -105,30 +105,70 @@ public class GdsMissingDataUtil {
 			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
 				&& ( CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID))
 				|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null)) {
-				MissingData missingData = new MissingData("The question 'Was this exception approved' needs to be a 'Yes' or 'No'.");
+				MissingData missingData = new MissingData("The question 'Was this exception approved ?' has not been answered.");
 				missingDataList.add(missingData);
 			}
 				
 			//Data sharing exception approved but Exception Memo not uploaded
-			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
-				&& CollectionUtils.isEmpty(exceptionMemos)) {
-				MissingData missingData = new MissingData("The Exception Memo has not been uploaded.");
-				missingDataList.add(missingData);
+			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null) {
+				
+			
+				if(CollectionUtils.isEmpty(exceptionMemos)) {
+					MissingData missingData = new MissingData("The Exception Memo has not been uploaded.");
+					missingDataList.add(missingData);
+				}
+				
+				if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID))) {
+					MissingData missingData = new MissingData("The question 'Will there be any data submitted ?' has not been answered.");
+					missingDataList.add(missingData);
+				}
 			}
 				
-			if(CollectionUtils.isEmpty(exceptionMemos)) {
-				MissingData missingData = new MissingData("The Data Sharing Plan has not been uploaded.");
+			if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
+					&& 
+					(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null 
+					)) {
+				
+				if(CollectionUtils.isEmpty(gdsPlans)) {
+					MissingData missingData = new MissingData("The Data Sharing Plan has not been uploaded.");
+					missingDataList.add(missingData);
+				}
+			
+				//GPA has not reviewed the data sharing plan
+				if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_YES_ID) == null) {
+					MissingData missingData = new MissingData("GPA review of the Data Sharing Plan is pending.");
+					missingDataList.add(missingData);
+				}
+			}
+		}		
+		
+
+		//If Exception not requested, or requested but not approved, or requested and approved but still
+		//data needs to be submitted
+		if(ApplicationConstants.SUBMISSION_REASON_NIHFUND.equals(submissionReasonId)
+				 || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(submissionReasonId)
+				 || (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+			|| 	project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) != null
+			||	project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null)) {
+			
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_ID))) {
+				MissingData missingData = new MissingData("The question 'What specimen type does the data submission pertain to ?' has not been answered.");
+				missingDataList.add(missingData);
+			}
+			
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_TYPE_ID))) {
+				MissingData missingData = new MissingData("The question 'What type of data will be submitted ?' has not been answered.");
+				missingDataList.add(missingData);
+			}
+			
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_ID))) {
+				MissingData missingData = new MissingData("The question 'What type of access is the data to be made available through ?' has not been answered.");
 				missingDataList.add(missingData);
 			}
 		}
-			
-		//GPA has not reviewed the data sharing plan
-		if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID))
-			|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_NO_ID) != null) {
-			MissingData missingData = new MissingData("GPA review of the Data Sharing Plan is pending.");
-			missingDataList.add(missingData);
-		}
-			
+				
 		return missingDataList;
 	}
 	
@@ -196,7 +236,7 @@ public class GdsMissingDataUtil {
 			}
 		}
 		
-		MissingData missingIcData = GdsMissingDataUtil.getInstance().computeMissingIcData(ic, document);	
+		MissingData missingIcData = computeMissingIcData(ic, document);	
 		if(missingIcData.getChildList().size() > 0) {
 				missingIcData.setDisplayText("The following data is incomplete");
 				missingDataList.add(missingIcData);
@@ -257,7 +297,7 @@ public class GdsMissingDataUtil {
 		
 		List<MissingData> missingDataList = new ArrayList<MissingData>();
 		RepositoryStatus repoStatus = manageProjectService.findRepositoryById(repoStatusId);	
-		MissingData missingRepoData = GdsMissingDataUtil.getInstance().computeMissingRepositoryData(repoStatus);	
+		MissingData missingRepoData = computeMissingRepositoryData(repoStatus);	
 		if(missingRepoData.getChildList().size() > 0) {
 				missingRepoData.setDisplayText("The following data is incomplete");
 				missingDataList.add(missingRepoData);

@@ -928,35 +928,58 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
+		Long submissionReasonId = project.getSubmissionReasonId();
 		List<Document> exceptionMemo = 
 			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, project.getId());
 			
 		List<Document> gdsPlan = 
 				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, project.getId());
 				
+		if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
+				 || ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.equals(submissionReasonId)) {
 		
-		//Data sharing exception request not indicated, OR Data sharing exception requested  
-		//but not approved OR data sharing exception approved but memo not loaded
-		if(CollectionUtils.isEmpty(project.getPlanAnswerSelections())
-		|| 
-		(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
-		&& project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) == null) 
-		||
-		(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
-		&& CollectionUtils.isEmpty(exceptionMemo))){
-			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-		}
+			//Data sharing exception request not indicated, OR Data sharing exception requested  
+			//but not approved OR data sharing exception approved but memo not loaded
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID))
+				|| 
+				(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
+					&& project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) == null) 
+				||
+				(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
+					&& (CollectionUtils.isEmpty(exceptionMemo) || CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)))
+						)){
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+			
+			//Data Sharing Plan not loaded or not reviewed
+			if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
+					&& 
+					(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null 
+					)) {
+				if(CollectionUtils.isEmpty(gdsPlan) || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_YES_ID) == null) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
+			}
+				
+		}		
 		
-		//Data sharing plan not reviewed
-		if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_YES_ID) == null) {
-			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-		}
-		
-		//GDS Plan required by GDS policy but no plan loaded
-		if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(project.getSubmissionReasonId()) 
-				&& CollectionUtils.isEmpty(gdsPlan)) {
-			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-		}
+		//If Exception not requested, or requested but not approved, or requested and approved but still
+		//data needs to be submitted
+		if(ApplicationConstants.SUBMISSION_REASON_NIHFUND.equals(submissionReasonId)
+				 || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(submissionReasonId)
+				 || (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+			|| 	project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) != null
+			||	project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null)) {
+					
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_ID))
+					|| CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_TYPE_ID)) 
+					|| CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_ID)))  {
+				
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;			
+			}
+		}		
 		
 		return status;
 	}
