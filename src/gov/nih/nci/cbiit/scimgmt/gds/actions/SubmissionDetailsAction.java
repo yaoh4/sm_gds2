@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +21,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.model.ExportRow;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
+import gov.nih.nci.cbiit.scimgmt.gds.util.RepositoryStatusComparator;
 
 /**
  * @author menons2
@@ -44,6 +46,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
 				if(repositoryStatus.getProject().getId() == project.getId())
 					project.getRepositoryStatuses().add(repositoryStatus);
+				Collections.sort(project.getRepositoryStatuses(),new RepositoryStatusComparator());
 			}		
 		}
 			
@@ -72,6 +75,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		}
 		
 		setProject(project);
+		
 		
 		//Load general info
 		loadGrantInfo();
