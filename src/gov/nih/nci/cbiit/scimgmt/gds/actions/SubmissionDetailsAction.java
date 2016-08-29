@@ -39,6 +39,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	 * 
 	 * @return forward string
 	 */
+	@SuppressWarnings("unchecked")
 	public String execute() throws Exception {
 		
 		Project project = retrieveSelectedProject();
