@@ -21,7 +21,7 @@
      function submitFormForDeletion()
      { 
          var myForm = document.getElementById("searchForm");
-         myForm.action="deleteProject";
+         myForm.action="../search/deleteProject";
          myForm.submit();
      }
 </script>
