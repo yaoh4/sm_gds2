@@ -115,7 +115,7 @@
         </div> <!--end panel header-->
         
         <div class="panel-body" style="display:none;">
-         <s:if test="%{project.planAnswerSelection.size == 0}">
+         <s:if test="%{project.planAnswerSelections.size == 0}">
            No data entered.
          </s:if>
          <s:else>
