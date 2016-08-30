@@ -75,33 +75,103 @@
            No data entered.
          </s:if>
          <s:else>
-          <p><span class="reportLabel">Project Submission Title:</span>  ${project.submissionTitle}</p>
-          <p><span class="reportLabel">Reason for being submitted:</span> <s:property value="%{projectSubmissionReason}" /> </p>
-          <p>
-            <span class="reportLabel">Division/Office/Center:</span> ${project.docAbbreviation}</br>
-            <span class="reportLabel">Program Branch:</span> ${project.programBranch}
-          </p>
-          <p>
-            <span class="reportLabel"> Intramural (Z01)/Grant/Contract #:</span> ${project.applicationNum}</br>
-            <span class="reportLabel">Intramural/Grant/Contract Project Title:</span> ${project.projectTitle}
-          </p>
-          <p>
-            <span class="reportLabel">Principal Investigator:</span> ${project.piFirstName} ${project.piLastName} &nbsp;&nbsp;&nbsp; <span class="reportLabel">Email:</span> <s:a href="mailto:%{project.piEmailAddress}?">${project.piEmailAddress}</s:a></br>
-            <span class="reportLabel"> Institution:</span> ${project.piInstitution}
-          </p>
-          <p>
-			 <s:if test="project.pocFirstName != null && project.pocLastName != null">
-				<span class="reportLabel">Primary Contact:</span> ${project.pocFirstName} ${project.pocLastName} &nbsp;&nbsp;&nbsp;
-			</s:if>
-			<s:if test="project.pocEmailAddress != null">
-			    <span class="reportLabel">Email:</span> <s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a>
-			</s:if>
-		  </p>
-          <p><span class="reportLabel">Program Director:</span> ${project.pdFirstName} ${project.pdLastName}</p>       
-          <p><span class="reportLabel">Project Start Date:</span> <s:property value="%{projectStartDate}" /> &nbsp;&nbsp;&nbsp; <span class="reportLabel">Project End Date:</span> <s:property value="%{projectEndDate}" /></p>        
-          <s:if test="project.comments != null">
-			<p><span class="reportLabel">Comments</span> ${project.comments}</p>
-		  </s:if>
+           <table width="100%" border="0" cellpadding="3">
+    <tr>
+      <td width="30%" style="white-space: nowrap"><strong>Project Submission Title:</strong></td>
+      <td colspan="4">${project.submissionTitle}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: style="white-space: nowrap""><strong>Reason for being submitted:</strong></td>
+      <td colspan="4"><s:property value="%{projectSubmissionReason}" /></td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Division/Office/Center:</strong></td>
+      <td colspan="4">${project.docAbbreviation}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Program Branch:</strong></td>
+      <td colspan="4">${project.programBranch}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Grant/Intramural/Contract #:</strong></td>
+      <td colspan="4">${project.applicationNum}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Grant/Intramural/Contract Project Title:</strong></td>
+      <td colspan="4">${project.projectTitle}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Principal Investigator:</strong></td>
+      <td style="white-space: nowrap" colspan="4">${project.piFirstName} ${project.piLastName}</td>
+       </tr>
+       <tr>
+      <td ><strong>Email:</strong></td>
+      <td width="67%"><s:a href="mailto:%{project.piEmailAddress}?">${project.piEmailAddress}</s:a></td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Institution:</strong></td>
+      <td colspan="4">${project.piInstitution}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+      
+
+    <tr>
+      <s:if test="project.pocFirstName != null && project.pocLastName != null">
+      <td style="white-space: nowrap"><strong>Primary Contact: </strong></td>
+      <td colspan="4">${project.pocFirstName} ${project.pocLastName} 
+          </s:if>
+       
+    </tr>
+    <tr>
+      <s:if test="project.pocEmailAddress != null">      
+      <td style="white-space: nowrap"><strong>Email:</strong></td>
+      <td colspan="4"><s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a></td>
+      </s:if>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Program Director:</strong></td>
+      <td colspan="4">${project.pdFirstName} ${project.pdLastName}</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Project Start Date:</strong></td>
+      <td colspan="4"><s:property value="%{projectStartDate}" /></td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Project End Date: </strong></td>
+      <td colspan="4"><s:property value="%{projectEndDate}" /></td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+  </table>
          </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->
@@ -119,15 +189,38 @@
            No data entered.
          </s:if>
          <s:else>
+          <table width="100%" border="0" cellpadding="3">
+
+            <tr>
           <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID) != ''}">
-			<p><span class="reportLabel">Data sharing exception requested for this project?</span>  <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)}" /></p>
-		  </s:if>
-		   <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID) != ''}">
-             <p><span class="reportLabel">Exception approved?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)}" /></p>
-		  </s:if>
-          <p>
-			<s:if test="%{exceptionMemo[0] != null}">
-            <span class="reportLabel">Uploaded Exception Memo:</span></br>
+          
+    <td width="30%" style="white-space: nowrap"><strong>Data sharing exception requested for this project?</strong></td>
+    <td><s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)}" /></td>
+    </s:if>
+    </tr>
+     
+     <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr> 
+     
+      <tr>
+
+       <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID) != ''}">
+             <td><strong>Exception approved?</strong></td> 
+             <td><s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)}" /></td>
+      </s:if>
+          </tr>
+
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+
+          <tr>
+      <s:if test="%{exceptionMemo[0] != null}">
+            <td colspan="2"><strong>Uploaded Exception Memo:</strong></br>
             <table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody>
                 <tr class="modalTheader">
@@ -137,41 +230,111 @@
                 </tr>
                 <tr>
                   <td>
-                  	<s:a href="javascript:openDocument(%{exceptionMemo[0].id})">
-                  		<s:property	value="%{exceptionMemo[0].fileName}" />
-                  	</s:a>
+                    <s:a href="javascript:openDocument(%{exceptionMemo[0].id})">
+                      <s:property value="%{exceptionMemo[0].fileName}" />
+                    </s:a>
                   </td>
                   <td style="white-space: nowrap">
-                  	<s:date name="%{exceptionMemo[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
+                    <s:date name="%{exceptionMemo[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
                   </td>
                   <td><s:property value="%{exceptionMemo[0].uploadedBy}" />
                   </td>
                 </tr>
               </tbody>
             </table>
-			</s:if>
-			<s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID) != ''}">
-				<span class="reportLabel">Will there be any data submitted?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)}" />
-			</s:if>
-		  </p>
-		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID) != ''}">
-			<p><span class="reportLabel">Types of specimens the data submission pertain to:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID)}" /></p>
-		  </s:if>
-		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_TYPE_ID) != ''}">
-			<p><span class="reportLabel">Type of data that will be submitted:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_TYPE_ID)}" /></p>
+          </td>
+      </s:if>
+    </tr>
+   
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID) != ''}">
+        <td><strong>Will there be any data submitted?</strong></td> 
+        <td><s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)}" />
+        </td>
+      </s:if>
+      </tr>
+     
+
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+      <tr>
+      <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID) != ''}">
+      <td><strong>Types of specimens the data submission pertain to:</strpmg></td>
+      <td> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID)}" /></td>
+      </s:if>
+    </tr>
+
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+
+    <tr>
+      <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_TYPE_ID) != ''}">
+      <td><strong>Type of data that will be submitted:</strong></td>
+      <td> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_TYPE_ID)}" /></td>
           </s:if>
-		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_ACCESS_ID) != ''}">
-		   <p><span class="reportLabel">Type of access the data will be made available through:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_ACCESS_ID)}" /> &nbsp;&nbsp;&nbsp; </p>
-		  </s:if>
-		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID) != ''}">  	
-			 <p><span class="reportLabel"> Repository(ies) the data will be submitted to:</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID)}" /></p>
-		  </s:if>
-		  <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID) != ''}">  	
-            <p><span class="reportLabel">Has the GPA reviewed the Data Sharing Plan?</span> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID)}" /></p>
+        </tr>
+
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+
+        <tr>
+      <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_ACCESS_ID) != ''}">
+       <td><strong>Type of access the data will be made available through:</strong></td> 
+       <td><s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_ACCESS_ID)}" /> &nbsp;&nbsp;&nbsp; </td>
+      </s:if>
+    </tr>
+
+
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID) != ''}">    
+       <td><strong> Repository(ies) the data will be submitted to:</strong></td>
+       <td> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID)}" /></td>
+      </s:if>
+    </tr>
+
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+
+    <tr>
+      <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID) != ''}">    
+            <td><strong>Has the GPA reviewed the Data Sharing Plan?</strong></td>
+            <td> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID)}" /></td>
           </s:if>
-		  <s:if test="%{gdsPlanFile[0] != null}">
-		  <p>
-            <span class="reportLabel">Uploaded Data Sharing Plan:</span><br/>
+        </tr>
+
+
+<tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+
+        <tr>
+      <s:if test="%{gdsPlanFile[0] != null}">
+      <td colspan="2">
+            <strong>Uploaded Data Sharing Plan:</strong><br/>
               <table style="width: 95%;  margin-top: 10px;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
                 <tbody><tr class="modalTheader">
                   <th class="tableHeader" align="center" width="10%">Documnent Title</th>
@@ -181,33 +344,40 @@
                 </tr>
                 <tr>
                   <td>
-                  	<s:if test="%{gdsPlanFile[0].fileName == null || gdsPlanFile[0].fileName == ''}">
-						<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
-						<s:property value="%{gdsPlanFile[0].docTitle}" /></s:a>
-					</s:if>
-					<s:else>
-						<s:property value="%{gdsPlanFile[0].docTitle}" />
-					</s:else>
-				  </td>
+                    <s:if test="%{gdsPlanFile[0].fileName == null || gdsPlanFile[0].fileName == ''}">
+            <s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
+            <s:property value="%{gdsPlanFile[0].docTitle}" /></s:a>
+          </s:if>
+          <s:else>
+            <s:property value="%{gdsPlanFile[0].docTitle}" />
+          </s:else>
+          </td>
                   <td>
-                  	<s:if test="%{gdsPlanFile[0].fileName != null && gdsPlanFile[0].fileName != ''}">
-						<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
-							<s:property value="%{gdsPlanFile[0].fileName}" />
-						</s:a>
-					</s:if>
-				  </td>
+                    <s:if test="%{gdsPlanFile[0].fileName != null && gdsPlanFile[0].fileName != ''}">
+            <s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
+              <s:property value="%{gdsPlanFile[0].fileName}" />
+            </s:a>
+          </s:if>
+          </td>
                   <td style="white-space: nowrap">
-                  	<s:date	name="%{gdsPlanFile[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
+                    <s:date name="%{gdsPlanFile[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
                    </td>
                   <td><s:property value="%{gdsPlanFile[0].uploadedBy}" /></td>
                 </tr>
               </tbody>
             </table>
-          </p>
-		  </s:if>
-		   <s:if test="project.planComments != null">
-			<p><span class="reportLabel">Comments:</span> ${project.planComments}</p>
-		   </s:if>
+          </td>
+      </s:if>
+    </tr>
+
+
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+
+   
+   </table>
          </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->
@@ -224,48 +394,64 @@
           No data entered.
          </s:if>
          <s:else>
-          <p><span class="reportLabel">All Institutional Certifications received?</span>&nbsp<s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></p>
+          <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>All Institutional Certifications received?</strong><td><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td></tr></table>
+          <p>&nbsp;</p>
           <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
             <tbody>
               <tr class="modalTheader">
-                <th class="tableHeader" align="center" width="60%">Institutional Certification Document</th>
-                <th class="tableHeader" align="center" width="30%">Date Uploaded</th>
-                <th class="tableHeader" align="center" width="10%">Actions</th>
+                <th class="tableHeader" align="center" width="23%">Institutional Certification Document</th>
+                <th class="tableHeader" align="center" width="19%">Status</th>
+                <th class="tableHeader" align="center" width="19%">Missing Data</th>
+                <th class="tableHeader" align="center" width="19%">Date Uploaded</th>
+               
               </tr>
                     
               <s:iterator status="icStat" var="ic" value="project.institutionalCertifications">
+              <div class="icCount">
                 <s:set name="icIdx" value="#icStat.index" />
                 
                 <!--  FILE DISPLAY AND ICONS ROW -->    
                 <tr data-id="${ic.id}">
                   <td style="white-space: nowrap">
+                    <a href="#" class="icDetails" id="icDetails${ic.id}">
+                      <i class="expand fa fa-lg fa-plus-square" id="${ic.id}expand" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;
                     <s:a href="javascript:openDocument(%{#ic.documents[0].id})"><s:property value="%{#ic.documents[0].fileName}" /></s:a>
                   </td>
-                
+                  
+                <td style="white-space: nowrap">
+                <s:hidden id="icReg%{#icStat.index}" value="%{getIcStatusCode(#ic.id)}"/>             
+                <div id="icDiv${icStat.index}" class="searchProgess">
+              <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
+              </div>
+                  </td>
+                  
+                  <td style="white-space: nowrap">
+                   <s:if test="%{!getIcStatusCode(#ic.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                   <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${ic.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a> &nbsp; &nbsp;
+                  </s:if>
+                  </td>
+                  
                   <td style="white-space: nowrap"> 
                     <s:date name="%{#ic.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
                   </td>
                       
-                  <td style="white-space: nowrap">
-                    <a href="#" class="icDetails" id="icDetails${ic.id}">
-                      <i class="expand fa fa-lg fa-plus-square" id="${ic.id}expand" aria-hidden="true" alt="view" title="view"></i></a>
-                  </td>
+                  
                 </tr>
                         
-                             
+                   </div>          
               <!--Begin view details-->
              
                 <tr>
-                  <td colspan="3">
+                  <td colspan="4">
                     <div id="contentDivImg${ic.id}" style="display: none;">  
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tbody>
                           <tr>
+                          <s:if test="%{#ic.provisionalFinalCode != null}">
+                              <td><span class="question">Provisional or Final? </span></span><s:property value="%{getLookupDisplayNamebyId(#ic.provisionalFinalCode)}"/></td>
+                            </s:if>
                             <s:if test="%{#ic.gpaApprovalCode != null}">
                               <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(#ic.gpaApprovalCode)}"/></td>
-                            </s:if>
-                             <s:if test="%{#ic.provisionalFinalCode != null}">
-                              <td><span class="question">Provisional or Final? </span></span><s:property value="%{getLookupDisplayNamebyId(#ic.provisionalFinalCode)}"/></td>
                             </s:if>
                              <s:if test="%{#ic.futureProjectUseCode != null}">
                               <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(#ic.futureProjectUseCode)}"/></td>
@@ -276,7 +462,7 @@
                             <tr><td colspan="6">&nbsp;</td></tr>
                             <tr><td colspan="6" class="question">Comments:</td></tr>
                             <tr><td colspan="6">${ic.comments}</td></tr>
-			              </s:if>
+                    </s:if>
                        
                           <tr>
                             <td colspan="3" align="left" valign="top">&nbsp;</td>
@@ -304,15 +490,11 @@
                                                        <td><span class="question">Institution: </span>${study.institution}</td>
                                                      </s:if>
                                                       <s:if test="%{study.dulverificationId != null}">
-                                                       <td><span class="question">Data Use Limitation(s) Verified? </span> <s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
+                                                       <td><span class="question">Data Use Limitation(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
                                                      </s:if>
                                                    </tr>
                                                     
-                                                   <s:if test="%{#study.comments != null}">                                
-                                                     <tr><td colspan="4" align="left" valign="top">&nbsp;</td></tr>
-                                                     <tr><td colspan="6" class="question">Comments:</td></tr>
-                                                     <tr><td colspan="6">${study.comments}</td></tr>
-                                                   </s:if>       
+                                                        
                                                              
                                                    <s:if test="%{project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets.size > 0}">
                                                                          
@@ -335,8 +517,8 @@
                                                                   </s:if>
                                                                 </span>
                                                                 <s:if test="%{#studiesDulSet.dulChecklistSelections.size > 0 && 
-                                                          		  (#studiesDulSet.dulChecklistSelections.size != 1 || 
-                                                          		  #studiesDulSet.dulChecklistSelections[0].dulChecklist.parentDulId != null)}">
+                                                                (#studiesDulSet.dulChecklistSelections.size != 1 || 
+                                                                #studiesDulSet.dulChecklistSelections[0].dulChecklist.parentDulId != null)}">
                                                                   :&nbsp
                                                                 </s:if>                                                         
                                                                 <s:iterator status="dulStat" var="dul" value="%{#studiesDulSet.dulChecklistSelections}">
@@ -392,8 +574,12 @@
           No data entered.
         </s:if>
         <s:else>
-          <p><span class="reportLabel">Has the GPA reviewed the Basic Study Information?</span>&nbsp;<s:property value="%{getDisplayNameByFlag(project.bsiReviewedFlag)}"/></p>  
-          <p><span class="reportLabel">Uploaded Basic Study Infomation Form:</span></br>
+          <s:if test="%{project.bsiReviewedFlag != null}">  
+          <table width="100%" border="0" cellpadding="3" ><tr><td width="30%" style="white-space: nowrap"><strong>Has the GPA reviewed the Basic Study Information?</strong><td><s:property value="%{getDisplayNameByFlag(project.bsiReviewedFlag)}"/></td></tr></table>  
+          </s:if>
+          <p>&nbsp;</p>
+          <s:if test="%{bsiFile[0] != null}">
+          <p><strong>Uploaded Basic Study Infomation Form:</strong><br>
             <table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody>
                 <tr class="modalTheader">
@@ -402,16 +588,18 @@
                   <th class="tableHeader" align="center" width="10%">Uploaded By</th>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-file-word-o" aria-hidden="true"></i> &nbsp;<s:a href="#" data-original-title="" title=""><s:property value="%{bsiFile[0].fileName}" /></s:a></td>
+                  <td>
+                     <s:a href="javascript:openDocument(%{bsiFile[0].id})">
+                      <s:property value="%{bsiFile[0].fileName}" />
+                    </s:a>
+                  </td>
                   <td style="white-space: nowrap"><s:date name="%{bsiFile[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" /></td>
                   <td><a href="mailto: jonesm@mail.nih.gov" data-original-title="" title=""><s:property value="%{bsiFile[0].uploadedBy}" /></a>
                   </td>
                 </tr>
               </tbody>
             </table>
-          <s:if test="%{#project.bsiComments != null}">  
-            <p><span class="reportLabel">Comments:</span>${project.bsiComments}</p>
-          </s:if>
+            </s:if>
          </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->
@@ -428,9 +616,14 @@
           No data entered.
         </s:if>
         <s:else>
-         <p><span class="reportLabel">[<strong><s:property value="%{project.repositoryStatuses.size}"/></strong>] Data Repositories have been indicated for this project.</span> 05/22/2020</p>
-          <p><span class="reportLabel">Anticipated Submission Date:</span> 05/22/2020</p>  
-          
+         <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>Number of Data Repositories indicated:</strong></td><td><s:property value="%{project.repositoryStatuses.size}"/></td></tr>
+          <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr> 
+          <tr><td><strong>Anticipated Submission Date:</strong></td>
+            <td><s:date name="%{project.anticipatedSubmissionDate}" format="MM/dd/yyyy"/>  </td> </tr></table> 
+            <p>&nbsp;</p>
           <table width="100%" border="1" cellpadding="3"
         class="table  table-bordered">
         <tbody>
@@ -440,10 +633,9 @@
             <th>Submission Status</th>
             <th>Study Released Status</th>
             <th>Accession Number</th>
-            <th>Comments</th>
           </tr>
 
-          <s:iterator value="repoList" var="r" status="stat">
+          <s:iterator value="project.repositoryStatuses" var="r" status="stat">
             <tr>
               <td>
                 <s:if test="%{#r.planAnswerSelectionTByRepositoryId.otherText != null}">
@@ -492,14 +684,10 @@
               <td><s:property
                   value="#r.lookupTByStudyReleasedId.displayName" /></td>
               <td><s:property value="#r.accessionNumber" /></td>
-              <td><s:property
-                  value="#r.lookupTByStudyReleasedId.displayName" /></td>
-              <td><s:property value="#r.accessionNumber" /></td>
             </tr>
           </s:iterator>
         </tbody>
       </table>
-
           
          </s:else>
         </div><!--end panel body-->
