@@ -65,10 +65,10 @@
                <!--  Show this column header only for subproject -->
                 <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select</th>                      
                 <th class="tableHeader" align="center" width="60%">Institutional Certification Document</th>
-                 <th class="tableHeader" align="center" width="19%">Status</th>
-                <th class="tableHeader" align="center" width="19%">Missing Data</th>
-                <th class="tableHeader" align="center" width="30%">Date Uploaded</th>
-                <th class="tableHeader" align="center" width="10%">Actions</th>
+                <th class="tableHeader" align="center" width="10%">Status</th>
+                <th class="tableHeader" align="center" width="10%">Missing Data</th>
+                <th class="tableHeader" align="center" width="20%">Date Uploaded</th>               
+                <th id="actionColumn" class="tableHeader" style="display:none;" align="center" width="10%">Actions</th>
               </tr>
                     
               <s:iterator status="icStat" var="cert" value="project.institutionalCertifications">
@@ -112,13 +112,13 @@
                     <s:date name="%{#cert.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
                   </td>
                       
-                  <td style="white-space: nowrap">
+                  <td id="editDeleteBtns" style="white-space: nowrap; display:none;">
                     
                     <!--  Do not show edit and delete for sub-project -->
-                      <a class="btnEdit" style="display:none;"  href="/gds/manage/editIc.action?instCertId=${cert.id}&projectId=${project.id}">
+                      <a class="btnEdit"  href="/gds/manage/editIc.action?instCertId=${cert.id}&projectId=${project.id}">
                         <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit"></i>&nbsp;
                       </a>&nbsp;&nbsp;&nbsp;
-                      <a style="display:none;" href="#" class="btnDelete">
+                      <a class="btnDelete" href="#" >
                         <i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="Delete"></i>
                       </a>                   
                   </td>
