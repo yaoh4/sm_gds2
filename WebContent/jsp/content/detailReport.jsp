@@ -19,7 +19,7 @@
 <link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/datatables-1.10.12.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/font-awesome-4.6.3.min.css" />" rel="stylesheet" type="text/css" media="screen" />
-<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:500,600,600italic,700,700italic,900,900italic,500italic' rel='stylesheet' type='text/css'>
 <link href="<s:url value="/stylesheets/custom.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/styles.css" />" rel="stylesheet" type="text/css" media="screen">
 
@@ -29,7 +29,7 @@
 
 <body class="popPage">
 
-  <div style="width: 750px; margin: 20px 20px 20px 20px;">
+  <div style="width: 800px; margin: 20px 20px 20px 20px;">
 
     <!--   <body class="noSubNav"> -->
     <!-- header-->
@@ -41,7 +41,7 @@
       <div class="navbar  navbar-fixed-top" style="min-width: 750px;">
         <div class="row">
           <div class="container">
-            <div style="margin-left: 740px; margin-top: 10px; margin-bottom: 0px;"><a href="" id="close"><i class="fa fa-times-circle fa-2x" aria-hidden="true"></i></a></div>
+            <div style="margin-left: 750px; margin-top: 10px; margin-bottom: 0px;"><a href="" id="close"><i class="fa fa-times-circle fa-2x" aria-hidden="true"></i></a></div>
             <div id="logo" class="logoImage" style="margin-left: 2px;">
               <img src="../images/nci-logo-full.svg" width="450px;"  alt="National Cancer Institute" style="display:inline;">
               <div class="GDS"><h3 style="padding: 0px; margin:0px;">Genomic Data Sharing Tracking System</h3></div>
@@ -77,7 +77,7 @@
          <s:else>
            <table width="100%" border="0" cellpadding="3">
     <tr>
-      <td width="30%" style="white-space: nowrap"><strong>Project Submission Title:</strong></td>
+      <td width="50%" style="white-space: nowrap"><strong>Project Submission Title:</strong></td>
       <td colspan="4">${project.submissionTitle}</td>
     </tr>
     <tr>
@@ -194,7 +194,7 @@
             <tr>
           <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID) != ''}">
           
-    <td width="30%" style="white-space: nowrap"><strong>Data sharing exception requested for this project?</strong></td>
+    <td width="50%" style="white-space: nowrap"><strong>Data sharing exception requested for this project?</strong></td>
     <td><s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)}" /></td>
     </s:if>
     </tr>
@@ -306,7 +306,7 @@
 
     <tr>
       <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID) != ''}">    
-       <td><strong> Repository(ies) the data will be submitted to:</strong></td>
+       <td style="text-align: top;"><strong> Repository(ies) the data will be submitted to:</strong></td>
        <td> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID)}" /></td>
       </s:if>
     </tr>
@@ -394,7 +394,7 @@
           No data entered.
          </s:if>
          <s:else>
-          <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>All Institutional Certifications received?</strong><td><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td></tr></table>
+          <table width="100%" border="0" cellpadding="3"><tr><td width="50%" style="white-space: nowrap"><strong>All Institutional Certifications received?</strong><td><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td></tr></table>
           <p>&nbsp;</p>
           <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
             <tbody>
@@ -476,7 +476,7 @@
                                 <table width="100%">
                                   <tbody>
                                     <tr>
-                                      <td valign="top" class="question" style="width: 35px;"><p class="number">${studyIdx+1}</p></td>
+                                      <td valign="top" class="question" style="width: 50px;"><p class="number">${studyIdx+1}</p></td>
                                       <td>
                                         <table class="table table-bordered" width="100%">
                                           <tbody>
@@ -575,7 +575,7 @@
         </s:if>
         <s:else>
           <s:if test="%{project.bsiReviewedFlag != null}">  
-          <table width="100%" border="0" cellpadding="3" ><tr><td width="30%" style="white-space: nowrap"><strong>Has the GPA reviewed the Basic Study Information?</strong><td><s:property value="%{getDisplayNameByFlag(project.bsiReviewedFlag)}"/></td></tr></table>  
+          <table width="100%" border="0" cellpadding="3" ><tr><td width="50%" style="white-space: nowrap"><strong>Has the GPA reviewed the Basic Study Information?</strong><td><s:property value="%{getDisplayNameByFlag(project.bsiReviewedFlag)}"/></td></tr></table>  
           </s:if>
           <p>&nbsp;</p>
           <s:if test="%{bsiFile[0] != null}">
@@ -616,7 +616,7 @@
           No data entered.
         </s:if>
         <s:else>
-         <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>Number of Data Repositories indicated:</strong></td><td><s:property value="%{project.repositoryStatuses.size}"/></td></tr>
+         <table width="100%" border="0" cellpadding="3"><tr><td width="50%" style="white-space: nowrap"><strong>Number of Data Repositories indicated:</strong></td><td><s:property value="%{project.repositoryStatuses.size}"/></td></tr>
           <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="2">&nbsp;</td>
