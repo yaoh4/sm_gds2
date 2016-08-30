@@ -33,7 +33,7 @@ $(document).ready(function() {
 	
 	//show the delete and edit icons only for projects
 	$("#actionColumn").show();
-	$("#editDeleteBtns").show();
+	$(".editDeleteBtns").show();
  } else {
 	 //Show the checkbox select column only for subprojects
 	 $("#subprojectColumn").show();

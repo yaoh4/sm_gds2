@@ -112,7 +112,7 @@
                     <s:date name="%{#cert.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
                   </td>
                       
-                  <td id="editDeleteBtns" style="white-space: nowrap; display:none;">
+                  <td class="editDeleteBtns" style="white-space: nowrap; display:none;">
                     
                     <!--  Do not show edit and delete for sub-project -->
                       <a class="btnEdit"  href="/gds/manage/editIc.action?instCertId=${cert.id}&projectId=${project.id}">
