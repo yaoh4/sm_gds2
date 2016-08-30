@@ -27,7 +27,7 @@ $(document).ready(function() {
             $('#addICBtn').show().css('display', 'inline');           
        }
        else {
-            $('#addICBtn').hide();   
+            $('#addICBtn').hide();
        }
    });
 	
@@ -38,6 +38,7 @@ $(document).ready(function() {
 	 //Show the checkbox select column only for subprojects
 	 $("#subprojectColumn").show();
 	 $(".subprojectSelect").show();
+	 $('#showSpan').show().css('display', 'inline'); 
 	 
  }
 
