@@ -46,6 +46,9 @@
               </a>
             </div><br/>
           
+          <div style="display:none" id="showSpan"><br/>
+               <span>You will be able to add/edit Institutional Certification and/or DUL only at the parent project level. Changes will then be reflected in this sub-project. </span>
+             <br/><br/></div> 
             <p class="question" style="display:inline;">Have you received and reviewed all Institutional Certifications?&nbsp; &nbsp; &nbsp;
               <div style="display:none" id="addICBtn">
                 <s:submit action="editIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
