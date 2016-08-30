@@ -29,7 +29,7 @@
 
 <body class="popPage">
 
-  <div style="width: 800px; margin: 20px 20px 20px 20px;">
+  <div style="width: 750px; margin: 20px 20px 20px 20px;">
 
     <!--   <body class="noSubNav"> -->
     <!-- header-->
