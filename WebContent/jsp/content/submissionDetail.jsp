@@ -60,12 +60,11 @@
               </td>
               <td><s:property value="%{getPageStatus('GDSPLAN').updatedBy}"/></td>  
           </tr>
-          <s:if test="%{!exceptionMemoStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_NOT_STARTED)}">            
+          <s:if test="%{exceptionMemoStatusCode neq null}">            
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Data Sharing Exception</td>
               <td>
-                
                 <s:hidden id="exceptionMemo" value="%{exceptionMemoStatusCode}"/>
                 <div id="exceptionMemoDiv" class="searchProgess">
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
@@ -75,8 +74,8 @@
               <td></td>
               <td></td>
             </tr>
-            </s:if>
-		  </s:if>
+          </s:if>
+		</s:if>
 		  
 		  <s:if test="%{showPage('IC')}">
             <tr >
