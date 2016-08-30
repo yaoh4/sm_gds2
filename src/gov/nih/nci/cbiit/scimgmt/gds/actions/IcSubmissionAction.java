@@ -732,9 +732,13 @@ public class IcSubmissionAction extends ManageSubmission {
 			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 		} else {
 			//Else return status based on other ICs
-			for(InstitutionalCertification ic: project.getInstitutionalCertifications()) {
-				if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
-					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			List<InstitutionalCertification> certs = project.getInstitutionalCertifications();
+			Long instCertId = getInstCertification().getId();
+			for(InstitutionalCertification ic: certs) {
+				if(!ic.getId().equals(instCertId)) {
+					if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
+						return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+					}
 				}
 			}
 			
