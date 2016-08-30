@@ -19,7 +19,7 @@
 <link href="<s:url value="/stylesheets/bootstrap-3.3.6.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/datatables-1.10.12.min.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/font-awesome-4.6.3.min.css" />" rel="stylesheet" type="text/css" media="screen" />
-<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:500,600,600italic,700,700italic,900,900italic,500italic' rel='stylesheet' type='text/css'>
+<link href="<s:url value="https://fonts.googleapis.com/css?family=Source+Sans+Pro:500,600,600italic,700,700italic,900,900italic,500italic" />" rel="stylesheet" type="text/css">
 <link href="<s:url value="/stylesheets/custom.css" />" rel="stylesheet" type="text/css" media="screen" />
 <link href="<s:url value="/stylesheets/styles.css" />" rel="stylesheet" type="text/css" media="screen">
 
