@@ -27,17 +27,18 @@ $(document).ready(function() {
             $('#addICBtn').show().css('display', 'inline');           
        }
        else {
-            $('#addICBtn').hide();   
+            $('#addICBtn').hide();
        }
    });
 	
 	//show the delete and edit icons only for projects
-	$(".btnEdit").show();
-	$(".btnDelete").show();
+	$("#actionColumn").show();
+	$(".editDeleteBtns").show();
  } else {
 	 //Show the checkbox select column only for subprojects
 	 $("#subprojectColumn").show();
 	 $(".subprojectSelect").show();
+	 $('#showSpan').show().css('display', 'inline'); 
 	 
  }
 

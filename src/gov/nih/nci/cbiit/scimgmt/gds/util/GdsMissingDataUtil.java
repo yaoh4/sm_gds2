@@ -187,9 +187,14 @@ public class GdsMissingDataUtil {
 		}
 			
 		//Get the file list
+		Project docParent = project;
+		Long parentProjectId = project.getParentProjectId();
+		if(parentProjectId != null) {
+			docParent =  manageProjectService.findById(Long.valueOf(parentProjectId));
+		} 
 		HashMap<Long, Document> docMap = new HashMap<Long, Document>();
 		List<Document> docs = 
-			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, docParent.getId());
 		if(docs != null && !docs.isEmpty()) {
 			for(Document doc: docs) {
 				if(doc.getInstitutionalCertificationId() != null) {
@@ -225,8 +230,13 @@ public class GdsMissingDataUtil {
 			
 		//Get the file list
 		Document document = null;
+		Project docParent = project;
+		Long parentProjectId = project.getParentProjectId();
+		if(parentProjectId != null) {
+			docParent =  manageProjectService.findById(Long.valueOf(parentProjectId));
+		}
 		List<Document> docs = 
-			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, docParent.getId());
 		if(docs != null && !docs.isEmpty()) {
 			for(Document doc: docs) {
 				Long docId = doc.getInstitutionalCertificationId();
