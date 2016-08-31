@@ -20,12 +20,15 @@
 			<div class="panel-heading">
 				<div class="pheader">
 					<h4>Basic Study Information</h4>
+					
 					<div class="statusWrapper">
+					<div class="status">
 					  <s:if test="%{!pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">         		          		      
-    		  		    <div class="status">
+    		  		    
     		  		      <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingBsiData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;
-    		  		    </div>
     		  		  </s:if>
+    		  		    </div>
+    		  		  
               		  <s:include value="/jsp/content/pageStatus.jsp"/>           	
             	    </div>					 
 				</div>
