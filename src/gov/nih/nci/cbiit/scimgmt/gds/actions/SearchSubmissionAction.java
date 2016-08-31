@@ -142,8 +142,10 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		}
 
 		// Provide pagination information
-		criteria.setSortBy(getSortByProperty(request));
-		criteria.setSortDir(getSortByDirection(request));
+		if(criteria.getSortBy() == null)
+			criteria.setSortBy(getSortByProperty(request));
+		if(criteria.getSortDir() == null)
+			criteria.setSortDir(getSortByDirection(request));
 		criteria.setStart(start);
 		criteria.setLength(length);
         
