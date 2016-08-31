@@ -60,10 +60,19 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		}
 		
 		Project project = findById(projectId);
+		if(project.getSubprojectFlag().equalsIgnoreCase("N")){
 		for(InstitutionalCertification ic: project.getInstitutionalCertifications()) {
 			icCertsDao.delete(ic);
 		}
-		
+		}
+		else{
+			for(InstitutionalCertification ic: project.getInstitutionalCertifications()) {
+			List<ProjectsIcMapping> projMaps=icCertsDao.findProjectIcMappingsByIcId(ic.getId());
+			
+			for(ProjectsIcMapping pm:projMaps)
+				icCertsDao.delete(pm);
+		}
+		}
 		projectsDao.delete(project);
 		return;
 	}
