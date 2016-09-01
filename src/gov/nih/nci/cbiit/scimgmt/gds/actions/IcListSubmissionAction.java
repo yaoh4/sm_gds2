@@ -207,13 +207,13 @@ public class IcListSubmissionAction extends ManageSubmission {
 				if(selectedIcs.contains(certificationId.toString())) {
 					if(!icMap.containsKey(certificationId)) {
 						//Not present in the storedProject, hence add it
-						parentIc.addProject(storedProject);
+						//parentIc.addProject(storedProject);
 						icMap.put(certificationId, parentIc);
 					}
 				} else {
 					//Not selected, if present then remove
 					if(icMap.containsKey(certificationId)) {
-						parentIc.removeProject(storedProject);
+						//parentIc.removeProject(storedProject);
 						icMap.remove(certificationId);
 					}
 				} 		
@@ -233,17 +233,8 @@ public class IcListSubmissionAction extends ManageSubmission {
 		
 		Long instCertId = Long.valueOf(getInstCertId());
 		
-		Project project = retrieveSelectedProject();
-		
-		// Delete the files for this certId
-		icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
-		for(Document doc: icFileDocs) {
-			if(doc.getInstitutionalCertificationId() == null || doc.getInstitutionalCertificationId().longValue() == instCertId.longValue()) {
-				fileUploadService.deleteFile(doc.getId());
-			}		
-		}
-		
-		manageProjectService.deleteIc(instCertId);
+		Project project = retrieveSelectedProject();		
+		manageProjectService.deleteIc(instCertId, project);
 		
 		setProject(retrieveSelectedProject());	
 		getProject().setCertificationCompleteFlag(null);

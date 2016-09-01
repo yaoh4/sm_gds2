@@ -472,17 +472,12 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public String saveIc() {
 		Project project = retrieveSelectedProject();
-		InstitutionalCertification ic = retrieveIC(getInstCertification().getId());
 		Long docId = null;
 		
 		InstitutionalCertification instCert = getInstCertification();
-		if(ic != null) {
-			instCert.setProjects(ic.getProjects());
-		} else {
-			instCert.addProject(project);
-		}
+		Long storedCertId = instCert.getId();
 		
-		if(instCert.getId() != null) {
+		if(storedCertId != null) {
 			instCert.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
 		} else {
 			instCert.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
@@ -497,8 +492,14 @@ public class IcSubmissionAction extends ManageSubmission {
 			}
 		}
 		
-		manageProjectService.saveOrUpdateIc(instCert);
-		project = saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_IC);
+		//Save the IC
+		instCert = manageProjectService.saveOrUpdateIc(instCert);
+		
+		if(storedCertId == null) {
+			//This is a new ic, so add it to the project
+			project.getInstitutionalCertifications().add(instCert);
+		}
+		project = saveProject(project, ApplicationConstants.PAGE_CODE_IC);
 		setProject(project);
 		
 		// Update CertId

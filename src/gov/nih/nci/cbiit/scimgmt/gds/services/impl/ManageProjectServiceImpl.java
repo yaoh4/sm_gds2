@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.DocumentsDao;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.InstitutionalCertificationsDao;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.ProjectsDao;
@@ -53,7 +54,8 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 * @param projectId
 	 */
 	public void delete(Long projectId) {
-		// Delete the documents first
+		
+		// First delete the documents
 		List<Document>  docs = documentsDao.findByProjectId(projectId);
 		for(Document doc : docs) {
 			documentsDao.delete(doc);
@@ -62,12 +64,16 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		Project project = findById(projectId);
 		String subProjectFlag=project.getSubprojectFlag();
 		List<InstitutionalCertification> certs=project.getInstitutionalCertifications();
+		
+		//Then delete the project
 		projectsDao.delete(project);
+		
+		//If this is a parent project, then delete the orphaned IC
 		if(subProjectFlag.equalsIgnoreCase("N")){
 			for(InstitutionalCertification ic: certs) {
 				icCertsDao.delete(ic);
 			}
-			}
+		}
 		return;
 	}
 	
@@ -125,12 +131,26 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 * @param icId
 	 * @return boolean
 	 */
-	public boolean deleteIc(Long icId) {
+	public boolean deleteIc(Long icId, Project project) {
 		
 		InstitutionalCertification ic = icCertsDao.findById(icId);
 		if(ic == null)
 			return false;
 		
+		// First, delete the files for this certId
+		List<Document>	icFileDocs = documentsDao.findByIcId(icId, project.getId());
+		for(Document doc: icFileDocs) {
+			documentsDao.delete(doc);		
+		}
+		
+		//Then remove the IC mapping from all the associated projects
+		List<Project> projects = ic.getProjects();
+		for(Project proj: projects) {
+			proj.getInstitutionalCertifications().remove(ic);
+			saveOrUpdate(proj);
+		}
+		
+		//Now delete the IC
 		icCertsDao.delete(ic);
 		
 		return true;
