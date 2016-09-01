@@ -100,8 +100,9 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	
 	/**
 	 * Validate Save Basic Study Info
+	 * @throws Exception 
 	 */
-	public void validateSave() {
+	public void validateSave() throws Exception {
 		
 		logger.debug("Validate save Basic Study Info");
 		
@@ -116,8 +117,10 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 			}
 		}
 
-		if(hasErrors())
+		if(hasErrors()) {
 			setProject(retrieveSelectedProject());
+			bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, getProject().getId());
+		}
 		
 	}
 
@@ -139,8 +142,9 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	
 	/**
 	 * Validate Save & Next Basic Study Info 
+	 * @throws Exception 
 	 */
-	public void validateSaveAndNext() {
+	public void validateSaveAndNext() throws Exception {
 		
 		validateSave();
 	}
