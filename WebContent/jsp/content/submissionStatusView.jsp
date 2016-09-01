@@ -28,7 +28,7 @@
           <tr><td><strong>Anticipated Submission Date:</strong></td>
             <td><s:date name="%{project.anticipatedSubmissionDate}" format="MM/dd/yyyy"/>  </td> </tr></table> 
             <p>&nbsp;</p>
-          <table width="100%" border="1" cellpadding="3"
+          <table width="100%" border="1" cellpadding="3" style="table-layout:fixed;"
         class="table  table-bordered">
         <tbody>
           <tr style="background: #e6e6e6;">
@@ -41,14 +41,15 @@
 
           <s:iterator value="project.repositoryStatuses" var="r" status="stat">
             <tr>
-              <td>
+              <td style="word-wrap:break-word;">
                 <s:if test="%{#r.planAnswerSelectionTByRepositoryId.otherText != null}">
                   <s:property value="#r.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
                      - <s:property value="#r.planAnswerSelectionTByRepositoryId.otherText" />
                 </s:if>
                 <s:else>
                   <s:property value="#r.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
-                </s:else></td>
+                </s:else>
+                </td>
               <td>
                 <div class="searchProgess">
                   <s:if
