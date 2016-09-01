@@ -142,8 +142,10 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		}
 
 		// Provide pagination information
-		criteria.setSortBy(getSortByProperty(request));
-		criteria.setSortDir(getSortByDirection(request));
+		if(criteria.getSortBy() == null)
+			criteria.setSortBy(getSortByProperty(request));
+		if(criteria.getSortDir() == null)
+			criteria.setSortDir(getSortByDirection(request));
 		criteria.setStart(start);
 		criteria.setLength(length);
         
@@ -223,23 +225,25 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			rows.add(exportRow);
 			
 			// Prepare data
-			for(Submission submission : jsonResult.getData()) {
-				exportRow = new ExportRow();
-				List<String> row = new ArrayList<>();
-				row.add(submission.getId().toString());
-				row.add((submission.getSubprojectCount() == null? "" : submission.getSubprojectCount().toString()));
-				row.add(submission.getGrantContractNum());
-				row.add(submission.getProjectTitle());
-				row.add((submission.getPiLastName() == null ? "" : submission.getPiLastName() + ", " + submission.getPiFirstName()));
-				row.add(submission.getPiEmailAddress());
-				row.add(submission.getGdsPlanPageStatus());
-				row.add(submission.getDataSharingExceptionStatus());
-				row.add(submission.getIcPageStatus());
-				row.add(submission.getBsiPageStatus());
-				row.add((submission.getRepoCount() == null ? "" : submission.getRepositoryPageStatus()));
-				exportRow.setRow(row);
-				rows.add(exportRow);
+			if(jsonResult != null) {
+				for(Submission submission : jsonResult.getData()) {
+					exportRow = new ExportRow();
+					List<String> row = new ArrayList<>();
+					row.add(submission.getId().toString());
+					row.add((submission.getSubprojectCount() == null? "" : submission.getSubprojectCount().toString()));
+					row.add(submission.getGrantContractNum());
+					row.add(submission.getProjectTitle());
+					row.add((submission.getPiLastName() == null ? "" : submission.getPiLastName() + ", " + submission.getPiFirstName()));
+					row.add(submission.getPiEmailAddress());
+					row.add(submission.getGdsPlanPageStatus());
+					row.add(submission.getDataSharingExceptionStatus());
+					row.add(submission.getIcPageStatus());
+					row.add(submission.getBsiPageStatus());
+					row.add((submission.getRepoCount() == null ? "" : submission.getRepositoryPageStatus()));
+					exportRow.setRow(row);
+					rows.add(exportRow);
 				
+				}
 			}
 
 			return rows;

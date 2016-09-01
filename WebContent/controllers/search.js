@@ -176,12 +176,12 @@ $(document).ready(function(){
 	
 	$("#search-form").on('click', '#export-btn', function (e) {
 		e.preventDefault();
-		var param = $.param($('#submissionTable').DataTable().ajax.params());
-		var url = "export.action?" + param;
-		var winName = "document";
-		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=10,height=10";
-
-		var newWin = window.open(url, winName ,features);
+		var queryString = $('#search-form').serialize();
+		var order = submissionTable.order();
+        var orderProperty = submissionTable.column(order[0][0]).dataSrc();
+        var url = "export.action?" + queryString + "&criteria.sortBy=" + orderProperty + "&criteria.sortDir=" + order[0][1];
+        
+		window.location.href = url;
 	});
 	
 	//for search.htm page -- shows/hids input field when Type of Submission is selected 

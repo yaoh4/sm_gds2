@@ -62,11 +62,12 @@ public interface ManageProjectService {
 	public InstitutionalCertification saveOrUpdateIc(InstitutionalCertification ic);
 
 	/**
-	 * Deletes the IC given an ID
+	 * Deletes the IC given an ID and parent project
 	 * 
 	 * @param icId
+	 * @param project
 	 */
-	public boolean deleteIc(Long icId);
+	public boolean deleteIc(Long icId, Project project);
 
 
 	/**

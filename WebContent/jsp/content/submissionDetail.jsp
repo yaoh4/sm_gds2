@@ -2,6 +2,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 
+  <div class="col-md-12">
  
 	<div class="panel  project-panel-primary">
   			
@@ -198,6 +199,6 @@
 
 </s:form>		
 
-
+</div>
 <script src="<s:url value="/controllers/gds.js" />"></script>
 <script src="<s:url value="/controllers/submissionDetail.js" />"></script>       

@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -670,7 +672,8 @@ public class Project implements java.io.Serializable {
 		this.repositoryStatuses = repositoryStatuses;
 	}
 
-	@ManyToMany(mappedBy="projects") 
+	@ManyToMany
+	@JoinTable(name="projects_ic_mapping_t", joinColumns=@JoinColumn(name="project_id"), inverseJoinColumns=@JoinColumn(name="certification_id"))	
 	public List<InstitutionalCertification> getInstitutionalCertifications() {
 		return this.institutionalCertifications;
 	}
