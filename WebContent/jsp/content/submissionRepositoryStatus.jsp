@@ -48,7 +48,7 @@
 					<s:div class="panel panel-default" id="%{'repositoryStatus_' + #stat.index}">
 						<div class="panel-heading">
 							<div class="pheader">
-								<h5>
+								<h5 class="adjustText">
 								<s:if test="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.otherText != null}" >
 									<s:property value="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText}"/> - <s:property value="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.otherText}"/>
 								 </s:if>
