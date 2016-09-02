@@ -69,26 +69,44 @@
             }
 
         });
-
-
-//back to top button
-  $('.back-to-top').css('opacity', '0');
-   $(window).scroll(function () {
-    var     vH = $(window).height(),
-          bodyHeight = ($(document).height() - (vH * 2)),
-        // When you open a page, you already see the website as big
-        // as your own screen (viewport). Therefor you need to reduce 
-        // the page by two times the viewport
-    scrolledPX = $(window).scrollTop();
-    if (scrolledPX > bodyHeight) {
-        $('.back-to-top').css('opacity', '1');
-    } else {
-        $('.back-to-top').css('opacity', '0')
-    };
-});
-
         
-	});
+    });
+
+//back to top button located in footer.jsp
+
+$(function () {
+                        $('[data-toggle="popover"]').popover()
+                  })
+                 
+                        jQuery(document).ready(function($){
+                  // browser window scroll (in pixels) after which the "back to top" link is shown
+                  var offset = 300,
+                        //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+                        offset_opacity = 1200,
+                        //duration of the top scrolling animation (in ms)
+                        scroll_top_duration = 700,
+                        //grab the "back to top" link
+                        $back_to_top = $('.cd-top');
+ 
+                  //hide or show the "back to top" link
+                  $(window).scroll(function(){
+                        ( $(this).scrollTop() > offset ) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+                        if( $(this).scrollTop() > offset_opacity ) {
+                              $back_to_top.addClass('cd-fade-out');
+                        }
+                  });
+ 
+                  //smooth scroll to top
+                  $back_to_top.on('click', function(event){
+                        event.preventDefault();
+                        $('body,html').animate({
+                              scrollTop: 0 ,
+                             }, scroll_top_duration
+                        );
+                  });
+ 
+            });
+
 
 
 
