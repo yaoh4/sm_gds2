@@ -166,6 +166,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	}
 	
 	
+	
 	public String getIcStatusCode(Long icId) {
 		List<InstitutionalCertification> certs = retrieveSelectedProject().getInstitutionalCertifications();
 		for(InstitutionalCertification ic: certs) {
@@ -223,8 +224,10 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	}
 	
 	
-	
 	public String getMissingProjectData() {
+		
+		
+		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_SUBMISISON_DETAILS));
 		
 		Project project = retrieveSelectedProject();
 		

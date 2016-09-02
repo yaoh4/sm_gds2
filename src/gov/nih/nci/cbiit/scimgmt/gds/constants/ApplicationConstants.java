@@ -107,6 +107,7 @@ public interface ApplicationConstants {
 	 public static final String PAGE_CODE_GDSPLAN = "GDSPLAN";
 	 public static final String PAGE_CODE_BSI = "BSI";
 	 public static final String PAGE_CODE_REPOSITORY = "REPOSITORY";
+	 public static final String PAGE_CODE_SUBMISISON_DETAILS = "SUBDETAILS";
 	 
 	 
 	 /*Constants for page status codes*/
