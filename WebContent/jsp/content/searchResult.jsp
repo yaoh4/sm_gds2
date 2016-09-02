@@ -10,7 +10,7 @@
 			<th width="15%" scope="col" style="whitespace:nowrap;" width="110px;">Project ID</th>
 			<th width="5%"  scope="col"  >Grant/<br />Intramural/Contract #</th>
 			<th width="20%" scope="col">Project Title</th>
-			<th width="11%" scope="col">Principle Investigator</th>
+			<th width="11%" scope="col">Principal Investigator</th>
 			<th class="never">PI First Name</th>
 			<th class="never">PI Email</th>
 			<th width="6%"  scope="col">GDS Plan</th>
