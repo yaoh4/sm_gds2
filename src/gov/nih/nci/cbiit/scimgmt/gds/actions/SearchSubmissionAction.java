@@ -213,8 +213,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			header.add("Subproject Count");
 			header.add("Intramural/Grant/Contract");
 			header.add("Project Title");
-			header.add("Principle Investigator Name");
-			header.add("Principle Investigator Email");
+			header.add("Principal Investigator Name");
+			header.add("Principal Investigator Email");
 			header.add("GDS Plan");
 			header.add("Data Sharing Exception");
 			header.add("IC");

@@ -19,7 +19,7 @@
 					<tr class="modalTheader">
 						<th width="8%" scope="col">Sub-project ID</th>
 						<th width="16%" scope="col">Sub-project Title</th>
-						<th width="11%" scope="col">Principle Investigator</th>
+						<th width="11%" scope="col">Principal Investigator</th>
 						<th width="7%" scope="col">GDS Plan</th>
 						<th width="7%" scope="col">Data<br /> Sharing<br />Exception</th>
 						<th width="7%" scope="col">IC</th>

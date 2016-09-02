@@ -11,7 +11,7 @@
 			<th style="width: 153px;"  scope="col">Project ID</th>
 			<th width="5%"  scope="col">Grant/<br />Intramural/Contract #</th>
 			<th width="16%" scope="col">Project Title</th>
-			<th width="11%" scope="col">Principle Investigator</th>
+			<th width="11%" scope="col">Principal Investigator</th>
 			<th class="never">PI First Name</th>
 			<th class="never">PI Email</th>
 			<th width="9%"  scope="col">GDS Plan</th>
