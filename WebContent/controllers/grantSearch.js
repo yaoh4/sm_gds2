@@ -31,6 +31,7 @@ function searchGrantsData() {
 			$("#searchGrantsContracts").html(result);
 			$("#generalInfoSection").hide();
 			$("#searchGrantsContracts").show();
+			$("#general_form").removeClass( "dirty" )
 		}
 		else {
 			bootbox.alert(result, function() {
