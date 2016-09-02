@@ -292,6 +292,8 @@ $(document).ready(function () {
 	// IC file upload Ajax
 	$("#institutional_form").on('click', '#icUpload', function () {
 
+		$("#messages").empty();
+		
 		var result = "";
 		var $form, fd;
 	    $form = $("#institutional_form");
