@@ -14,6 +14,7 @@ $('#25').change(function () {
     if( $(this).is(':checked')) {
         $("#addRepo").show();
     } else {
+    	$(".otherWrapper").first().children("i").remove();
     	$(".other").val('');
     	$(".otherWrapper").not(".otherWrapper:first").remove();
         $("#addRepo").hide();

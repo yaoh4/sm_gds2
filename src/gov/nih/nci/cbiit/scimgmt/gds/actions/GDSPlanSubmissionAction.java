@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;import java.util.HashMap;
@@ -183,7 +184,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			if(otherTextMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID) == null) {
 				this.addActionError(getText("error.other.specify"));
 			} else {
-				otherTextMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).remove("");
+				otherTextMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).removeAll(Arrays.asList("", null));;
 				if(otherTextMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).isEmpty()) {
 					otherTextMap.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID);
 					this.addActionError(getText("error.other.specify"));

@@ -21,7 +21,7 @@
 	  </div>
          
       <div class="panel-body">
-        <table width="85%" class="table table-bordered">
+        <table width="85%" style="table-layout:fixed;" class="table table-bordered">
           <caption style="display: none;">Status History</caption>
           <thead>
             <tr class="active">
@@ -117,7 +117,7 @@
         <s:iterator status="repStat" var="repStatus" value="project.repositoryStatuses">
           <div class="repoItem">      
             <tr class="repoRow">
-              <td colspan="3"><a href="/gds/manage/navigateToRepositoryStatus.action?projectId=${project.id}">Submission Status for Repository: 
+              <td colspan="3" style="word-wrap:break-word;"><a href="/gds/manage/navigateToRepositoryStatus.action?projectId=${project.id}">Submission Status for Repository: 
                <s:if test="%{#repStatus.planAnswerSelectionTByRepositoryId.otherText != null}">
                   <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
                      - <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.otherText" />
@@ -125,7 +125,6 @@
                <s:else>
                   <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
                </s:else></a></td>
-             
              <td><s:date name="%{#repStatus.updatedDate}" format="MM/dd/yyyy"/></td>
              <td align="center">
              <s:hidden value="%{getRepositoryStatusCode(#repStatus.id)}"/> 

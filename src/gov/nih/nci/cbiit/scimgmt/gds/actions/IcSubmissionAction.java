@@ -7,7 +7,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -110,7 +109,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		if(instCert != null) {
 			icFileDocs = new ArrayList<Document>();
 			List<Document> docs = 
-				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, retrieveSelectedProject().getId());
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, Long.valueOf(getProjectId()));
 			if(docs != null && !docs.isEmpty()) {
 				for(Document doc: docs) {
 					if((getDocId() != null && doc.getId().equals(getDocId())) || (doc.getInstitutionalCertificationId() != null && 
@@ -119,7 +118,7 @@ public class IcSubmissionAction extends ManageSubmission {
 					}			
 				}
 			}
-			if(icFileDocs.isEmpty() && doc != null) {
+			if(icFileDocs.isEmpty() && doc != null && doc.getId() != null) {
 					icFileDocs.add(doc);
 			}
 			if(!icFileDocs.isEmpty()) {
@@ -227,6 +226,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	public void validateSaveIc() {
 		
+		this.clearActionErrors();
+		InstitutionalCertification instCert = getInstCertification();
 		
 		if(ic != null) {
 			this.addActionError(getText("error.doc.fileNotUploaded"));
@@ -234,16 +235,18 @@ public class IcSubmissionAction extends ManageSubmission {
 				//If no file has been uploaded yet, then we do not
 				//show any more fields to enter
 				setProject(retrieveSelectedProject());
+				prepareDisplay(instCert);
 				return;
 			}
 		}
 		
 		if(getDocId() == null) {
+			setProject(retrieveSelectedProject());
+			prepareDisplay(instCert);
 			this.addActionError(getText("error.doc.required"));
 			return;
 		}
 		
-		InstitutionalCertification instCert = getInstCertification();
 		logger.info("No. of Studies in IC = " + instCert.getStudies().size());
 		
 		if(instCert.getComments() != null && instCert.getComments().length() > 2000) {
@@ -542,6 +545,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			
 		} catch (Exception e) {
 			try {
+				logger.error("Error uploading IC doc ", e);
 				inputStream = new ByteArrayInputStream(getText("error.doc.upload").getBytes("UTF-8"));
 			} catch (UnsupportedEncodingException e1) {
 				return INPUT;
