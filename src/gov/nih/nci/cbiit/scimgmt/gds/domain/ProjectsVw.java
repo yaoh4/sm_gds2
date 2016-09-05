@@ -560,7 +560,6 @@ public class ProjectsVw implements java.io.Serializable {
 		if(this.gdsPlanPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
 			&& this.icPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
 			&& this.bsiPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
-			&& this.dataSharingExcepStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
 			&& this.repositoryPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)){
 			return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 		}
