@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Formula;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
@@ -555,13 +556,18 @@ public class ProjectsVw implements java.io.Serializable {
 	 */
 	@Transient
 	public String getProjectStatusCode(){
+		if(!StringUtils.isBlank(this.gdsPlanPageStatusCode) 
+		   && !StringUtils.isBlank(this.icPageStatusCode)	
+		   && !StringUtils.isBlank(this.bsiPageStatusCode)
+		   && !StringUtils.isBlank(this.repositoryPageStatusCode)) {
 		
-		//If all the pages are completed then Project is completed.
-		if(this.gdsPlanPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
-			&& this.icPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
-			&& this.bsiPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
-			&& this.repositoryPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)){
-			return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+			//If all the pages are completed then Project is completed.
+			if(this.gdsPlanPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
+				&& this.icPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
+				&& this.bsiPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
+				&& this.repositoryPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)){
+				return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+			}
 		}
 		
 		return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;	
