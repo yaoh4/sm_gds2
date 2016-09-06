@@ -54,8 +54,8 @@ function linkUnlinkGrants(elem) {
 				$("#dataLinkFlag").val('Y');
 				// Re-populate the data from DB.
 				refreshGrantsContractsData();
-				$("#link").hide();
-				$("#unlink").show();
+				$("#link").css("background-color", "#FFF");
+				$("#unlink").css("background-color", "#d4d4d4");
 				$(".unlink-group").prop('disabled', true);
 				return true;
 			} else {
@@ -67,8 +67,8 @@ function linkUnlinkGrants(elem) {
 		bootbox.confirm(result, function(ans) {
 			if (ans) {
 				$("#dataLinkFlag").val('N');
-				$("#unlink").hide();
-				$("#link").show();
+				$("#unlink").css("background-color", "#FFF");
+				$("#link").css("background-color", "#d4d4d4");
 				$(".unlink-group").prop('disabled', false);
 				return true;
 			} else {
