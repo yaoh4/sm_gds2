@@ -63,11 +63,11 @@ public class ProjectsVw implements java.io.Serializable {
 	private Date anticipatedSubmissionDate;
 	private String projectSubmissionTitle;
 	private String dataLinkFlag;
-	private String gdsPlanPageStatus;
-	private String icPageStatus;
-	private String bsiPageStatus;
-	private String dataSharingExceptionStatus;
-	private String repositoryPageStatus;
+	private String gdsPlanPageStatusCode;
+	private String icPageStatusCode;
+	private String bsiPageStatusCode;
+	private String dataSharingExcepStatusCode;
+	private String repositoryPageStatusCode;
 	private String subprojectEligibleFlag;
 
 	private Long subprojectCount;
@@ -88,8 +88,8 @@ public class ProjectsVw implements java.io.Serializable {
 			String pocFirstName, String pocLastName, Long pdNpnId, String pdFirstName, String pdLastName,
 			String pocEmailAddress, String planComments, Long applId, String bsiComments,
 			Date anticipatedSubmissionDate, String projectSubmissionTitle, String dataLinkFlag,
-			String gdsPlanPageStatus, String icPageStatus, String bsiPageStatus,
-			String dataSharingExceptionStatus, String repositoryPageStatus, String subprojectEligibleFlag) {
+			String gdsPlanPageStatusCode, String icPageStatusCode, String bsiPageStatusCode,
+			String dataSharingExcepStatusCode, String repositoryPageStatusCode, String subprojectEligibleFlag) {
 		this.id = id;
 		this.projectIdentifierNum = projectIdentifierNum;
 		this.projectTitle = projectTitle;
@@ -126,11 +126,11 @@ public class ProjectsVw implements java.io.Serializable {
 		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 		this.projectSubmissionTitle = projectSubmissionTitle;
 		this.dataLinkFlag = dataLinkFlag;
-		this.gdsPlanPageStatus = gdsPlanPageStatus;
-		this.icPageStatus = icPageStatus;
-		this.bsiPageStatus = bsiPageStatus;
-		this.dataSharingExceptionStatus = dataSharingExceptionStatus;
-		this.repositoryPageStatus = repositoryPageStatus;
+		this.gdsPlanPageStatusCode = gdsPlanPageStatusCode;
+		this.icPageStatusCode = icPageStatusCode;
+		this.bsiPageStatusCode = bsiPageStatusCode;
+		this.dataSharingExcepStatusCode = dataSharingExcepStatusCode;
+		this.repositoryPageStatusCode = repositoryPageStatusCode;
 		this.subprojectEligibleFlag = subprojectEligibleFlag;
 	}
 
@@ -460,49 +460,49 @@ public class ProjectsVw implements java.io.Serializable {
 		this.dataLinkFlag = dataLinkFlag;
 	}
 
-	@Column(name = "GDS_PLAN_PAGE_STATUS", length = 400)
-	public String getGdsPlanPageStatus() {
-		return this.gdsPlanPageStatus;
+	@Column(name = "GDS_PLAN_PAGE_STATUS_CODE", length = 400)
+	public String getgdsPlanPageStatusCode() {
+		return this.gdsPlanPageStatusCode;
 	}
 
-	public void setGdsPlanPageStatus(String gdsPlanPageStatus) {
-		this.gdsPlanPageStatus = gdsPlanPageStatus;
+	public void setGdsPlanPageStatusCode(String gdsPlanPageStatusCode) {
+		this.gdsPlanPageStatusCode = gdsPlanPageStatusCode;
 	}
 
-	@Column(name = "IC_PAGE_STATUS", length = 400)
-	public String getIcPageStatus() {
-		return this.icPageStatus;
+	@Column(name = "IC_PAGE_STATUS_CODE", length = 400)
+	public String getIcPageStatusCode() {
+		return this.icPageStatusCode;
 	}
 
-	public void setIcPageStatus(String icPageStatus) {
-		this.icPageStatus = icPageStatus;
+	public void setIcPageStatusCode(String icPageStatusCode) {
+		this.icPageStatusCode = icPageStatusCode;
 	}
 
-	@Column(name = "BSI_PAGE_STATUS", length = 400)
-	public String getBsiPageStatus() {
-		return this.bsiPageStatus;
+	@Column(name = "BSI_PAGE_STATUS_CODE", length = 400)
+	public String getBsiPageStatusCode() {
+		return this.bsiPageStatusCode;
 	}
 
-	public void setBsiPageStatus(String bsiPageStatus) {
-		this.bsiPageStatus = bsiPageStatus;
+	public void setBsiPageStatusCode(String bsiPageStatusCode) {
+		this.bsiPageStatusCode = bsiPageStatusCode;
 	}
 
-	@Column(name = "DATA_SHARING_EXCEPTION_STATUS", length = 400)
-	public String getDataSharingExceptionStatus() {
-		return this.dataSharingExceptionStatus;
+	@Column(name = "DATA_SHARING_EXCEP_STATUS_CODE", length = 400)
+	public String getDataSharingExcepStatusCode() {
+		return this.dataSharingExcepStatusCode;
 	}
 
-	public void setDataSharingExceptionStatus(String dataSharingExceptionStatus) {
-		this.dataSharingExceptionStatus = dataSharingExceptionStatus;
+	public void setDataSharingExcepStatusCode(String dataSharingExcepStatusCode) {
+		this.dataSharingExcepStatusCode = dataSharingExcepStatusCode;
 	}
 
-	@Column(name = "REPOSITORY_PAGE_STATUS", length = 400)
-	public String getRepositoryPageStatus() {
-		return repositoryPageStatus;
+	@Column(name = "REPOSITORY_PAGE_STATUS_CODE", length = 400)
+	public String getRepositoryPageStatusCode() {
+		return repositoryPageStatusCode;
 	}
 
-	public void setRepositoryPageStatus(String repositoryPageStatus) {
-		this.repositoryPageStatus = repositoryPageStatus;
+	public void setRepositoryPageStatusCode(String repositoryPageStatusCode) {
+		this.repositoryPageStatusCode = repositoryPageStatusCode;
 	}
 
 	@Column(name = "SUBPROJECT_ELIGIBLE_FLAG", length = 4)
