@@ -220,6 +220,37 @@ public class ManageSubmission extends BaseAction {
 		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 	}
 	
+	public String getExceptionMemoStatusCode() {
+		
+		Project project = retrieveSelectedProject();
+		List<Document> exceptionMemos = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, project.getId());
+		Long submissionReasonId = project.getSubmissionReasonId();
+		
+		if(ApplicationConstants.SUBMISSION_REASON_NIHFUND.equals(submissionReasonId)
+				 || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(submissionReasonId)
+				 || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+				 || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) != null)
+		{
+			//Not applicable
+			return null;
+		}
+		
+		//Exception requested but approval pending, or approved but document not loaded not approved
+		if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null
+			|| (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null 
+				&& CollectionUtils.isEmpty(exceptionMemos))) {
+			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS; 
+		} 
+		
+		//Data sharing exception has been approved and the file has been uploaded
+		if (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
+				&& !CollectionUtils.isEmpty(exceptionMemos)) {
+			return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;	
+		}
+		
+		return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+	}
 	
 	/**
 	 * Delete a file using document id
