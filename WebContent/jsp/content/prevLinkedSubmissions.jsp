@@ -15,7 +15,7 @@
 				<div class="alert alert-warning">
 					<button type="button" class="close" aria-hidden="true">&times;</button>
 					<i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;The
-					following submission(s) has been linked to the same
+					following submission(s) have been linked to the same
 					Grant/Intramural/Contract #
 				</div>
 				
@@ -28,7 +28,8 @@
 						<th class="tableHeader" width="50%" scope="col">Project/Sub-project Submission Title</th>
 						<th class="tableHeader" width="25%" scope="col">Principal
 							Investigator</th>
-						<th class="tableHeader" width="25%" scope="col">Action</th>
+						<th class="tableHeader" width="5%" scope="col">Status</th>
+						<th class="tableHeader" width="20%" scope="col">Action</th>
 					</tr>
 
 					<s:iterator value="prevLinkedSubmissions" var="prevSubmission"
@@ -49,6 +50,18 @@
 								<s:property value="%{#prevSubmission.piLastName}" /> , <s:property
 									value="%{#prevSubmission.piFirstName}" />
 							</s:a></td>
+							
+						<td class="paddingT"> 
+							<s:if test="%{#prevSubmission.projectStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
+								<img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"/>
+							</s:if> <s:elseif
+								test="%{#prevSubmission.projectStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+								<img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>
+							</s:elseif> <s:else>
+								<img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
+							</s:else>
+						</td>	
+							
 						<td class="paddingT"> <a href="#" onclick="openDetailsReport(${prevSubmission.id})"> 
 						<i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
 						<a href="../manage/navigateToSubmissionDetail.action?projectId=${prevSubmission.id}">

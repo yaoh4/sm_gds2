@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.hibernate.annotations.Type;
 
 /**
@@ -928,7 +929,7 @@ public class NedPerson implements java.io.Serializable {
 		sb.append(" ");
 
 		sb.append(getLastName());
-		return sb.toString();
+		return WordUtils.capitalizeFully(sb.toString());
 	}
 	
 	/**

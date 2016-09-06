@@ -36,7 +36,8 @@
 						NIH ... Turning Discovery Into Health<sup>®</sup>
 					</div>
 				</div>
-				<a class="back-to-top" href="#top" style="display: inline;">TOP</a>
+				<!--back to top arrow-->
+				<a href="#0" class="cd-top" title="back to top"><i id="btop" class="fa fa-chevron-up fa-2x"></i></a>
 			</div>
 		</div>
 	</div>
