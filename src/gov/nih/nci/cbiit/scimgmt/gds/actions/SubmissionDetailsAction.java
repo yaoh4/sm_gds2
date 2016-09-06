@@ -202,7 +202,8 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		} 
 		
 		//Data sharing exception has been approved and the file has been uploaded
-		if (!CollectionUtils.isEmpty(exceptionMemos)) {
+		if (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
+				&& !CollectionUtils.isEmpty(exceptionMemos)) {
 			return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;	
 		}
 		
