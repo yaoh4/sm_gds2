@@ -57,6 +57,21 @@ function resetData() {
 	 $("#prevLinkedSubmissions").hide();
 };
 
+//confirm Edit
+function confirmEdit(elem){
+	if($(elem).attr("id") == 'confEdit') {
+		var result = "By electing to edit the existing project or sub-project, the new submission will not be created.<br /> Do you wish to continue?";
+		var id=$('#prevSubId').val();
+		bootbox.confirm(result, function(ans) {
+			if (ans) {
+				  window.location = '../manage/navigateToSubmissionDetail.action?projectId='+id;
+				return true;
+			} else {
+				return true;
+			}
+		});
+	} 
+}
 
 //Cancel button
 function cancel() {	
