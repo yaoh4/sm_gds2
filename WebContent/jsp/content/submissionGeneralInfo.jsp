@@ -78,7 +78,7 @@
 							<label for="Program Branch"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Program
 								Branch</label> 
-								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Program Branch" value="%{project.programBranch}" maxLength="30"/>
+								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name" value="%{project.programBranch}" maxLength="30"/>
 						</div>
 					</div>
 
@@ -96,17 +96,10 @@
 							
 							<s:hidden name="project.dataLinkFlag" id="dataLinkFlag" value="%{project.dataLinkFlag}"/>
 							
-							<span class="input-group-btn">						
-							  <a href="javascript: void(0)" id="link" style="display:none;" onclick="linkUnlinkGrants(this)">
-							    <button class="btn btn-default" type="button" title="Unlinked. Click to Link">
-								  <i class="fa fa-chain-broken" aria-hidden="true" alt="unlink" title="unlink"></i>
-								</button>
-							  </a>
-							  <a href="javascript: void(0)" id="unlink" style="display:none;" onclick="linkUnlinkGrants(this)">
-								<button class="btn btn-default" type="button" title="Linked. Click to Unlink">
-								  <i class="fa fa-link" aria-hidden="true" alt="link" title="link"></i>
-								</button>
-							  </a>
+							<span class="btn-group">	
+							<a href="javascript: void(0)" id="unlink" class="btn btn-default" style="background-color: #d4d4d4;" title="Linked. Click to Unlink" onclick="linkUnlinkGrants(this)"><i class="fa fa-link" aria-hidden="true" alt="link" title="link"></i></a>					
+							  <a href="javascript: void(0)" id="link" onclick="linkUnlinkGrants(this)" class="btn btn-default" title="Unlinked. Click to Link"><i class="fa fa-chain-broken" aria-hidden="true" alt="unlink" title="unlink"></i></a>
+							  
 							</span>
 	 
 								 
@@ -117,7 +110,7 @@
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Grant/Intramural/Contract Project Title</label> 
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Intramural/Grant/Contract Project Title</label> 
 								<s:textfield name="project.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}" disabled="isNotEditable" maxLength="100"/>
 						</div>
 					</div>
