@@ -84,7 +84,7 @@
 
 					<div class="form-group row">
 					<div class="col-xs-5">
-							<label for="Intramural (Z01)/Grant/Contract #"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Grant/Intramural/Contract #</label>
+							<label for="Intramural (Z01)/Grant/Contract #"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i>Grant/Intramural/Contract #</label>
 											
 				
 								<div class="input-group ">
@@ -109,9 +109,9 @@
 							<s:hidden name="project.dataLinkFlag" id="dataLinkFlag" value="%{project.dataLinkFlag}">
 							<div class="btn-group">
 															
-							<a href="javascript: void(0)" class="btn btn-default" type="button" id="unlink" style="background-color: #d4d4d4; margin-right: 2px;" title="Linked. Click to Unlink" onclick="linkUnlinkGrants(this)">
-							<i class="fa fa-link" aria-hidden="true" alt="link" title="link"></i></button></a>					
-							<a href="javascript: void(0)" id="link" class="btn btn-default" title="Link" type="button" onclick="linkUnlinkGrants(this)" title="Unlinked. Click to Link"><i class="fa fa-chain-broken" aria-hidden="true" alt="unlink" title="unlink"></i></a>
+							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: 2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
+							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
+							<a href="javascript: void(0)" id="unlink" class="btn btn-default" title="Link" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
 														  
 							</div>
 	 
