@@ -88,11 +88,11 @@
 											
 				
 								<div class="input-group ">
-								  <input type="text" class="form-control" aria-label="..." style="width: 383px;">
-								  <div class="input-group-btn">&nbsp;
-								    <s:textfield name="project.applicationNum" cssclass="form-control" readonly="true" id="grantsContractNum" placeholder="Click on Edit Icon" value="%{project.applicationNum}">
-
-																<a href="#" onclick="openGrantsContractsSearchPage()">
+								  <input type="text" class="form-control" aria-label="Grant Search" style="width: 383px;">
+								  <s:textfield name="project.applicationNum" cssclass="form-control" readonly="true" id="grantsContractNum" placeholder="Click on Edit Icon" value="%{project.applicationNum}">
+								  <div class="input-group-btn">
+								    
+                                    <a href="#" onclick="openGrantsContractsSearchPage()">
 																		<button class="btn btn-default" type="button" title="edit" style=" margin-left: -2px;">
 																			<i class="fa fa-pencil" aria-hidden="true"></i>
 																		</button></a></s:textfield>  
@@ -109,7 +109,7 @@
 							<s:hidden name="project.dataLinkFlag" id="dataLinkFlag" value="%{project.dataLinkFlag}">
 							<div class="btn-group">
 															
-							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: 2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
+							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
 							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
 							<a href="javascript: void(0)" id="unlink" class="btn btn-default" title="Link" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
 														  
