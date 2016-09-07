@@ -28,7 +28,7 @@
 
 				<div class="col-xs-4">
 					<label for="Intramural(Z01)/Grant/Contract #:">Grant/Intramural/Contract # :</label> 
-					<s:textfield  name="criteria.grantContractNum" class="form-control" id="grantNumber" />
+					<s:textfield  name="criteria.grantContractNum" class="form-control" id="grantNumber" maxLength="30"/>
 				</div>
 
 			</div>
@@ -39,18 +39,18 @@
 				<div class="col-xs-4">
 					<label for="Project/Subproject Title">Project/Subproject
 						Title:</label> 
-					<s:textfield  name="criteria.projectTitle" class="form-control" id="projectTitle" />
+					<s:textfield  name="criteria.projectTitle" class="form-control" id="projectTitle" maxLength="100"/>
 				</div>
 
 
 				<div class="col-xs-4">
 					<label for="Principal Investigator">Principal Investigator</label>
-					<s:textfield  name="criteria.piFirstOrLastName" class="form-control" id="investigator" />
+					<s:textfield  name="criteria.piFirstOrLastName" class="form-control" id="investigator" maxLength="120"/>
 				</div>
 
 				<div class="col-xs-4">
 					<label for="Accession Number">Accession Number</label> 
-					<s:textfield  name="criteria.accessionNumber" class="form-control" id="accessionNumber" />
+					<s:textfield  name="criteria.accessionNumber" class="form-control" id="accessionNumber" maxLength="30"/>
 				</div>
 
 			</div>
