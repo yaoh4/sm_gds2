@@ -235,11 +235,11 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 					row.add(submission.getProjectTitle());
 					row.add((submission.getPiLastName() == null ? "" : submission.getPiLastName() + ", " + submission.getPiFirstName()));
 					row.add(submission.getPiEmailAddress());
-					row.add(submission.getGdsPlanPageStatus());
-					row.add(submission.getDataSharingExceptionStatus());
-					row.add(submission.getIcPageStatus());
-					row.add(submission.getBsiPageStatus());
-					row.add((submission.getRepoCount() == null ? "" : submission.getRepositoryPageStatus()));
+					row.add(submission.getGdsPlanPageStatusCode());
+					row.add(submission.getDataSharingExceptionStatusCode());
+					row.add(submission.getIcPageStatusCode());
+					row.add(submission.getBsiPageStatusCode());
+					row.add((submission.getRepoCount() == null ? "" : submission.getRepositoryPageStatusCode()));
 					exportRow.setRow(row);
 					rows.add(exportRow);
 				

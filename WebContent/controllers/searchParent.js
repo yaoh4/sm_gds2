@@ -55,10 +55,10 @@ $(document).ready(function(){
                 { "data": "piLastName"},
                 { "data": "piFirstName"},
                 { "data": "piEmailAddress"},
-                { "data":  "gdsPlanPageStatus"},
-                { "data":  "dataSharingExceptionStatus"},
-                { "data":  "icPageStatus"},
-                { "data":  "bsiPageStatus"},
+                { "data":  "gdsPlanPageStatusCode"},
+                { "data":  "dataSharingExceptionStatusCode"},
+                { "data":  "icPageStatusCode"},
+                { "data":  "bsiPageStatusCode"},
                 { "data":  "subprojectCount"}
             ],
             "searching": false,
@@ -118,13 +118,15 @@ $(document).ready(function(){
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
-                		if(data == "In Progress") {
+                		if(data == "INPROGRESS") {
                 			return '<div class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" /></div>'
                 		}
-                		if(data == "Completed") {
+                		if(data == "COMPLETED") {
                 			return '<div class="searchProgess"><img src="../images/complete.png" alt="Complete" title="Complete" width="18px" height="18px"/></div>'
                 		}
-                		return '<div class="searchProgess"><img src="../images/pending.png" alt="Pending" title="Pending" width="18px" height="18px"></div>'
+                		else if(data == "NOTSTARTED") {
+                			return '<div class="searchProgess"><img src="../images/pending.png" alt="Pending" title="Pending" width="18px" height="18px"></div>'
+                		}
                 	}
                 	return data;
                 } },

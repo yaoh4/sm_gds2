@@ -54,13 +54,13 @@ $(document).ready(function(){
                 { "data": "piLastName"},
                 { "data": "piFirstName"},
                 { "data": "piEmailAddress"},
-                { "data":  "gdsPlanPageStatus"},
-                { "data":  "dataSharingExceptionStatus"},
-                { "data":  "icPageStatus"},
-                { "data":  "bsiPageStatus"},
+                { "data":  "gdsPlanPageStatusCode"},
+                { "data":  "dataSharingExceptionStatusCode"},
+                { "data":  "icPageStatusCode"},
+                { "data":  "bsiPageStatusCode"},
                 { "data":  "repoCount"},
                 { "data":  "subprojectCount"},
-                { "data":  "repositoryPageStatus"},
+                { "data":  "repositoryPageStatusCode"},
                 { "data":  null}
             ],
             "searching": false,
@@ -93,12 +93,13 @@ $(document).ready(function(){
                 "render": function (data, type, row, meta) {
                 	 {
                 		 if(type === 'display') {
-                     		if(data == "In Progress") {
+                     		if(data == "INPROGRESS") {
                      			status = '<img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" />&nbsp;&nbsp;'
                      		}
-                     		else if(data == "Completed") {
+                     		else if(data == "COMPLETED") {
                      			status = '<img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>&nbsp;&nbsp;'
-                     		} else {
+                     		}
+                     		else if(data == "NOTSTARTED") {
                      			status = '<img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px">&nbsp;&nbsp;'
                      	   	}
                 		 }
@@ -142,13 +143,15 @@ $(document).ready(function(){
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
-                		if(data == "In Progress") {
+                		if(data == "INPROGRESS") {
                 			return '<div class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" /></div>'
                 		}
-                		if(data == "Completed") {
+                		if(data == "COMPLETED") {
                 			return '<div class="searchProgess"><img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/></div>'
                 		}
-                		return '<div class="searchProgess"><img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"></div>'
+                		if(data == "NOTSTARTED") {
+                			return '<div class="searchProgess"><img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"></div>'
+                		}
                 	}
                 	return data;
                 } },

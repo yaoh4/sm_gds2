@@ -44,11 +44,11 @@ public class Submission implements java.io.Serializable {
 	private String pdLastName;
 	private Long applId;
 	private Date anticipatedSubmissionDate;
-	private String gdsPlanPageStatus;
-	private String dataSharingExceptionStatus;
-	private String icPageStatus;
-	private String bsiPageStatus;
-	private String repositoryPageStatus;
+	private String gdsPlanPageStatusCode;
+	private String dataSharingExceptionStatusCode;
+	private String icPageStatusCode;
+	private String bsiPageStatusCode;
+	private String repositoryPageStatusCode;
 	private Long repoCount;
 	private Long subprojectCount;
 
@@ -335,44 +335,44 @@ public class Submission implements java.io.Serializable {
 		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 	}
 
-	public String getGdsPlanPageStatus() {
-		return gdsPlanPageStatus;
+	public String getGdsPlanPageStatusCode() {
+		return gdsPlanPageStatusCode;
 	}
 
-	public void setGdsPlanPageStatus(String gdsPlanPageStatus) {
-		this.gdsPlanPageStatus = gdsPlanPageStatus;
+	public void setGdsPlanPageStatusCode(String gdsPlanPageStatusCode) {
+		this.gdsPlanPageStatusCode = gdsPlanPageStatusCode;
 	}
 
-	public String getDataSharingExceptionStatus() {
-		return dataSharingExceptionStatus;
+	public String getDataSharingExceptionStatusCode() {
+		return dataSharingExceptionStatusCode;
 	}
 
-	public void setDataSharingExceptionStatus(String dataSharingExceptionStatus) {
-		this.dataSharingExceptionStatus = dataSharingExceptionStatus;
+	public void setDataSharingExceptionStatusCode(String dataSharingExceptionStatusCode) {
+		this.dataSharingExceptionStatusCode = dataSharingExceptionStatusCode;
 	}
 
-	public String getBsiPageStatus() {
-		return bsiPageStatus;
+	public String getBsiPageStatusCode() {
+		return bsiPageStatusCode;
 	}
 
-	public void setBsiPageStatus(String bsiPageStatus) {
-		this.bsiPageStatus = bsiPageStatus;
+	public void setBsiPageStatusCode(String bsiPageStatusCode) {
+		this.bsiPageStatusCode = bsiPageStatusCode;
 	}
 
-	public String getIcPageStatus() {
-		return icPageStatus;
+	public String getIcPageStatusCode() {
+		return icPageStatusCode;
 	}
 
-	public void setIcPageStatus(String icPageStatus) {
-		this.icPageStatus = icPageStatus;
+	public void setIcPageStatusCode(String icPageStatusCode) {
+		this.icPageStatusCode = icPageStatusCode;
 	}
 
-	public String getRepositoryPageStatus() {
-		return repositoryPageStatus;
+	public String getRepositoryPageStatusCode() {
+		return repositoryPageStatusCode;
 	}
 
-	public void setRepositoryPageStatus(String repositoryPageStatus) {
-		this.repositoryPageStatus = repositoryPageStatus;
+	public void setRepositoryPageStatusCode(String repositoryPageStatusCode) {
+		this.repositoryPageStatusCode = repositoryPageStatusCode;
 	}
 
 	public Long getRepoCount() {
