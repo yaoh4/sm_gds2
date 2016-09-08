@@ -67,7 +67,10 @@
 					  <tr class="tableContentOdd">
 					</s:else>
 					    <td align="center" style="width:5%"><input name="selectedGrantContract" onclick="showPrevLinkedSubmissions()" type="radio" value='${grantsContracts}'/></td>
-				  		<td class="paddingT" style="width:25%" nowrap><s:property value="%{#grantsContracts.grantContractNum}" /></td>
+				  		<td class="paddingT" style="width:25%" nowrap>
+				  		<s:hidden id="cancerActivityCode" value="%{#grantsContracts.activityCode}"/>
+				  		<s:property value="%{#grantsContracts.grantContractNum}" />
+				  		</td>
 						<td class="paddingT" style="width:50%"><s:property value="%{#grantsContracts.projectTitle}" /></td>
 						<td class="paddingT" style="width:20%">
 						  <s:a href="mailto:%{#grantsContracts.piEmailAddress}?">
