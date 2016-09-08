@@ -108,6 +108,11 @@ function populateGrantsContractsData(){
 		$("#grantsContractNum").prop('readOnly', true);
 	}
 	
+	if (json.activityCode !== "undefined") {
+		$("#cancerActivity").val(json.activityCode);
+		$("#cancerActivity").prop('readOnly', true);
+	}
+	
 	if (json.projectTitle !== "undefined") {
 		$("#projectTitle").val(json.projectTitle);
 		$("#projectTitle").prop('disabled', true);
@@ -135,9 +140,17 @@ function populateGrantsContractsData(){
 	}
 	
 	var applClassCode= json.applClassCode;	
+	 var docName=$('#DOC').find('option:selected').text();
 	
 	//For Intramural grants don't display PD first name, last name and project start date, end date.
-	if(applClassCode != "M"){
+	//if(applClassCode != "M"){
+	 if(docName == "DCEG" || docName == "CCR" ){
+		 $("#canAct").hide();
+		 $("#pdName").hide();
+			$("#pStartDate").hide();
+			$("#pEndDate").hide();
+	}
+	else{
 		if (json.pdFirstName !== "undefined") {
 			$("#fnPD").val(json.pdFirstName);
 			$("#fnPD").prop('disabled', true);	
@@ -157,14 +170,14 @@ function populateGrantsContractsData(){
 			$("#projectEndDate").val(json.projectPeriodEndDate);
 			$("#projectEndDate").prop('disabled', true);
 		}
+		if (json.activityCode !== "undefined") {
+			$("#cancerActivity").val(json.activityCode);
+			$("#cancerActivity").prop('readOnly', true);
+		}
+		$("#canAct").show();
 		$("#pdName").show();
 		$("#pStartDate").show();
-		$("#pEndDate").show();	
-	}
-	else{
-		$("#pdName").hide();
-		$("#pStartDate").hide();
-		$("#pEndDate").hide();			
+		$("#pEndDate").show();				
 	}
 	
 	if (json.applId !== "undefined") {
