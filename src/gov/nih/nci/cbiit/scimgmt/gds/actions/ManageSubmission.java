@@ -464,10 +464,11 @@ public class ManageSubmission extends BaseAction {
 	public void loadGrantInfo(){
 		
 		Project project = getProject();		
-		if(StringUtils.equals(project.getDataLinkFlag(), "Y")){
+		
 			
 			logger.debug("Retreiving Project grant information data from grantsContractsw for grantContract with applId: "+project.getApplId());
 			GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(project.getApplId());
+			if(StringUtils.equals(project.getDataLinkFlag(), "Y")){
 			if(grantContract != null){
 				getProject().setProjectTitle(grantContract.getProjectTitle());
 				getProject().setPiFirstName(grantContract.getPiFirstName());
@@ -479,7 +480,13 @@ public class ManageSubmission extends BaseAction {
 				getProject().setProjectStartDate(grantContract.getProjectPeriodStartDate());
 				getProject().setProjectEndDate(grantContract.getProjectPeriodEndDate());
 				getProject().setApplClassCode(grantContract.getApplClassCode());
+				getProject().setActivityCode(grantContract.getActivityCode());
 			}
+		}
+		else {
+			if(grantContract != null) 
+				getProject().setActivityCode(grantContract.getActivityCode());
+			
 		}
 	}
 	
