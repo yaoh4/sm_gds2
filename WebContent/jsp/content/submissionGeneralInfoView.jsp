@@ -38,6 +38,7 @@
     </tr>
     <tr>
       <td style="white-space: nowrap"><strong>Division/Office/Center:</strong></td>
+      <s:hidden id="projAbbr" value="%{project.docAbbreviation}"/>
       <td colspan="4">${project.docAbbreviation}</td>
     </tr>
     <tr>
@@ -52,6 +53,14 @@
       <td style="white-space: nowrap"><strong>Grant/Intramural/Contract #:</strong></td>
       <td colspan="4">${project.applicationNum}</td>
     </tr>
+    <s:if test="project.docAbbreviation == 'CCR' || project.docAbbreviation == 'DCEG'">
+   </s:if>
+   <s:else>
+    <tr>
+      <td style="white-space: nowrap"><strong>Cancer Activity:</strong></td>
+      <td colspan="4">${project.activityCode}</td>
+    </tr>
+    </s:else>
     <tr>
       <td style="white-space: nowrap"><strong>Grant/Intramural/Contract Project Title:</strong></td>
       <td colspan="4">${project.projectTitle}</td>
@@ -95,6 +104,9 @@
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
+   <s:if test="project.docAbbreviation == 'CCR' || project.docAbbreviation == 'DCEG'">
+   </s:if>
+   <s:else>
     <tr>
       <td style="white-space: nowrap"><strong>Program Director:</strong></td>
       <td colspan="4">${project.pdFirstName} ${project.pdLastName}</td>
@@ -111,6 +123,7 @@
       <td style="white-space: nowrap"><strong>Project End Date: </strong></td>
       <td colspan="4"><s:property value="%{projectEndDate}" /></td>
     </tr>
+    </s:else>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
