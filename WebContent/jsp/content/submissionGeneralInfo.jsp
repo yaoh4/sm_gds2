@@ -57,10 +57,10 @@
 					
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
-						<p class="question"> <br/> <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>						
+						<p class="question"> <br/> <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>	
 							<s:radio id="submissionReasonId" name="project.submissionReasonId" list="projectSubmissionReasons" template="radiomap-div.ftl"
 								listKey="optionKey" listValue="optionValue" />
-						
+								
 						</div>
 					</div>
 
@@ -69,7 +69,12 @@
 							<label for="Division/Office/Center"><i
 								class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;
 								Division/Office/Center</label> 
-								<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue" value="%{preSelectedDOC}"/>								
+								<s:if test="project.parentProjectId==null">
+								<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue"  value="%{preSelectedDOC}"/>								
+						</s:if>
+						<s:else>
+						<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue" contenteditable="true" readonly="true"  value="%{preSelectedDOC}"/>
+						</s:else>
 						</div>
 					</div>
 					
@@ -78,7 +83,12 @@
 							<label for="Program Branch"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Program
 								Branch</label> 
-								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name" value="%{project.programBranch}" maxLength="30"/>
+								<s:if test="project.parentProjectId==null">
+								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name"  value="%{project.programBranch}"  maxLength="30"/>
+						</s:if>
+						<s:else>
+							<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name"  value="%{project.programBranch}" readonly="true" maxLength="30"/>
+						</s:else>
 						</div>
 					</div>
 
@@ -99,9 +109,7 @@
 								</div>
 								</div>
 								</div>
-
-
-
+					
 							<div class="col-xs-5">
 							<label>&nbsp;</label>
 							  <div class="position: relative; display: table; border-collapse: separate;">
@@ -121,7 +129,17 @@
 					
 
 					</div>
-
+					
+					<div id="canAct">
+					<div class="form-group row has-feedback">
+                       <div class="col-xs-5">
+                           <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
+                           <s:textfield name="cancerActivity" cssClass="form-control"  id="cancerActivity" value="%{project.activityCode}" placeholder=""  readonly="true">
+                           </s:textfield>
+                           </div>
+                           </div>
+                           </div>
+                           
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title"><i
