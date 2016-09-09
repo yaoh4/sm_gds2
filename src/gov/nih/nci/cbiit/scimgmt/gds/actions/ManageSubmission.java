@@ -142,6 +142,16 @@ public class ManageSubmission extends BaseAction {
 		return new ArrayList<Project>();
 	}
 	
+	public List<Project> retrieveVersions(Project project) {
+		
+		Long projectGroupId = project.getProjectGroupId();
+		if(projectGroupId != null) {
+			List<Project> versions =  manageProjectService.getVersions(projectGroupId);
+			return versions;
+		} 
+		return new ArrayList<Project>();
+	}
+	
 	/**
 	 * Save the project
 	 */

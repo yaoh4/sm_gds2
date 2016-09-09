@@ -197,7 +197,16 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	public List<Project> getSubprojects(Long parentProjectId) {
 		logger.debug("getSubprojects");
 		return projectsDao.getSubprojects(parentProjectId);
-		
+	}
+	
+	/**
+	 * Retrieve project versions based on project group ID.
+	 * @param projectGroupId
+	 * @return List<Project>
+	 */
+	public List<Project> getVersions(Long projectGroupId) {
+		logger.debug("getVersions");
+		return projectsDao.getVersions(projectGroupId);
 	}
 	
 }

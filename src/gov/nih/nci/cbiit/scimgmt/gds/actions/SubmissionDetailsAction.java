@@ -33,6 +33,8 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	private List<Document> bsiFile;
 	private List<Document> exceptionMemo;
 	private List<Document> gdsPlanFile;
+	
+	private List<Project> versions;
 
 	/**
 	 * Opens Grants Contracts Search page.
@@ -88,6 +90,8 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		setExceptionMemo(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, new Long(getProjectId())));
 		
 		setGdsPlanFile(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, new Long(getProjectId())));
+		
+		setVersions(retrieveVersions(project));
 		
 		return SUCCESS;
 	}
@@ -160,6 +164,20 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	}
 	
 	
+	/**
+	 * @return the versions
+	 */
+	public List<Project> getVersions() {
+		return versions;
+	}
+
+	/**
+	 * @param versions the versions to set
+	 */
+	public void setVersions(List<Project> versions) {
+		this.versions = versions;
+	}
+
 	public String getPageStatusCode() {
 		
 		return super.getProjectStatusCode(retrieveSelectedProject());

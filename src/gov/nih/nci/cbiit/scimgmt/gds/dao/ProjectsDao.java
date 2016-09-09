@@ -238,6 +238,33 @@ public class ProjectsDao {
 			
 			throw e;
 		}
+	}
+	
+	
+	/**
+	 * Retrieve Sub-projects based on parent project ID.
+	 * @param parentProjectId
+	 * @return List<Project>
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Project> getVersions(Long projectGroupId) {
 		
+		List<Project> list =  new ArrayList<Project>();
+		
+		try {
+			Criteria criteria = null;
+			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class);
+			criteria.add(Restrictions.eq("projectGroupId", projectGroupId));
+			list =  (List<Project>) criteria.list();
+			return list;
+			
+		} catch (Throwable e) {
+			logger.error("Error while searching for project versions ", e);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
+			logger.error("Pass-in parameters: projectGroupId - " + projectGroupId);
+			logger.error("Outgoing parameters: Version List - " + list);
+			
+			throw e;
+		}
 	}
 }

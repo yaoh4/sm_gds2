@@ -98,5 +98,10 @@ public interface ManageProjectService {
 	 */
 	public List<Project> getSubprojects(Long parentProjectId);
 	
-	
+	/**
+	 * Retrieve versions based on project group ID.
+	 * @param projectGroupId
+	 * @return List<Project>
+	 */
+	public List<Project> getVersions(Long projectGroupId);
 }
