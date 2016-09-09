@@ -25,7 +25,7 @@
         <div class="qSpacing">
     <p class="question">
       <a href="javascript:void"
-        class="subproject"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-projects
+        class="subproject"><i class="expandS fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-projects
     </p>
     <div class="relatedSubs" style="display: none;">
       <table style="width: 90%;" cellpadding="0px" cellspacing="0"

@@ -22,7 +22,7 @@ $(document).ready(function() {
 //Show and hide subproject
 $('body').on('click', 'a.subproject', function() {
     $(".relatedSubs").slideToggle('500');
-    $("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
+    $("i.expandS.fa").toggleClass('fa-plus-square fa-minus-square');
 });
 
 
