@@ -21,6 +21,96 @@
 	  </div>
          
       <div class="panel-body">
+<!--Link to sub projects-->
+        <div class="qSpacing">
+    <p class="question">
+      <a href="javascript:void"
+        class="history"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-projects
+    </p>
+    <div class="uploadedHistory" style="display: none;">
+      <table style="width: 90%;" cellpadding="0px" cellspacing="0"
+        class="table table-bordered table-striped"
+        style="margin-left: 10px;">
+        <tr>
+          <th class="tableHeader" width="50%" scope="col">Sub-project Submission Title</th>
+            <th class="tableHeader" width="25%" scope="col">Principal
+              Investigator</th>
+            <th class="tableHeader" width="5%" scope="col">Status</th>
+            <th class="tableHeader" width="20%" scope="col">Action</th>
+        </tr>
+     
+            <tr>
+              <td>Add sub project title</td>
+              
+              <td>Add PI with email link</td>
+              
+              <td style="white-space: nowrap"><s:if test="%{#prevSubmission.projectStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
+                <img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"/>
+              </s:if> <s:elseif
+                test="%{#prevSubmission.projectStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                <img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>
+              </s:elseif> <s:else>
+                <img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
+              </s:else></td>
+
+              <td><a href="#" onclick="openDetailsReport(${prevSubmission.id})"> 
+            <s:hidden  id="prevSubId" value="%{#prevSubmission.id}"/>
+            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
+           <a href="javascript: void(0)" id="confEdit" onclick="confirmEdit(this)">
+            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></td>
+              
+            </tr>
+        
+      </table>
+    </div>
+  </div>
+
+
+  <!--Link to main Projects-->
+        <div class="qSpacing">
+    <p class="question">
+      <a href="javascript:void"
+        class="history"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Parent Project
+    </p>
+    <div class="uploadedHistory" style="display: none;">
+      <table style="width: 90%;" cellpadding="0px" cellspacing="0"
+        class="table table-bordered table-striped"
+        style="margin-left: 10px;">
+        <tr>
+          <th class="tableHeader" width="50%" scope="col">Parent Submission Title</th>
+            <th class="tableHeader" width="25%" scope="col">Principal
+              Investigator</th>
+            <th class="tableHeader" width="5%" scope="col">Status</th>
+            <th class="tableHeader" width="20%" scope="col">Action</th>
+        </tr>
+     
+            <tr>
+              <td>Add project title</td>
+              
+              <td>Add PI with email link</td>
+              
+              <td style="white-space: nowrap"><s:if test="%{#prevSubmission.projectStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
+                <img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"/>
+              </s:if> <s:elseif
+                test="%{#prevSubmission.projectStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                <img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>
+              </s:elseif> <s:else>
+                <img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
+              </s:else></td>
+
+              <td><a href="#" onclick="openDetailsReport(${prevSubmission.id})"> 
+            <s:hidden  id="prevSubId" value="%{#prevSubmission.id}"/>
+            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
+           <a href="javascript: void(0)" id="confEdit" onclick="confirmEdit(this)">
+            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></td>
+              
+            </tr>
+        
+      </table>
+    </div>
+  </div>
+
+
         <table width="85%" style="table-layout:fixed;" class="table table-bordered">
           <caption style="display: none;">Status History</caption>
           <thead>
