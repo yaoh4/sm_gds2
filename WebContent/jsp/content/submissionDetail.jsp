@@ -25,9 +25,9 @@
         <div class="qSpacing">
     <p class="question">
       <a href="javascript:void"
-        class="history"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-projects
+        class="subproject"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-projects
     </p>
-    <div class="uploadedHistory" style="display: none;">
+    <div class="relatedSubs" style="display: none;">
       <table style="width: 90%;" cellpadding="0px" cellspacing="0"
         class="table table-bordered table-striped"
         style="margin-left: 10px;">
@@ -66,13 +66,13 @@
   </div>
 
 
-  <!--Link to main Projects-->
+  <!--Link to Parent Project-->
         <div class="qSpacing">
     <p class="question">
       <a href="javascript:void"
-        class="history"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Parent Project
+        class="project"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Parent Project
     </p>
-    <div class="uploadedHistory" style="display: none;">
+    <div class="related" style="display: none;">
       <table style="width: 90%;" cellpadding="0px" cellspacing="0"
         class="table table-bordered table-striped"
         style="margin-left: 10px;">
