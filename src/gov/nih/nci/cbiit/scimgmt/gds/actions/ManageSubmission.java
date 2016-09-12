@@ -189,6 +189,10 @@ public class ManageSubmission extends BaseAction {
 			}
 		}
 		
+		//Set the exception memo status
+		project.setDataSharingExcepStatus(
+			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, getExceptionMemoStatusCode(project)));
+		
 		return manageProjectService.saveOrUpdate(project);
 	}
 
@@ -231,8 +235,11 @@ public class ManageSubmission extends BaseAction {
 	}
 	
 	public String getExceptionMemoStatusCode() {
+		return getExceptionMemoStatusCode(retrieveSelectedProject());
+	}
+	
+	public String getExceptionMemoStatusCode(Project project) {
 		
-		Project project = retrieveSelectedProject();
 		List<Document> exceptionMemos = 
 				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, project.getId());
 		Long submissionReasonId = project.getSubmissionReasonId();

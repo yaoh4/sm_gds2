@@ -56,7 +56,7 @@ $(document).ready(function(){
                 { "data": "piFirstName"},
                 { "data": "piEmailAddress"},
                 { "data":  "gdsPlanPageStatusCode"},
-                { "data":  "dataSharingExceptionStatusCode"},
+                { "data":  "dataSharingExcepStatusCode"},
                 { "data":  "icPageStatusCode"},
                 { "data":  "bsiPageStatusCode"},
                 { "data":  "subprojectCount"}

@@ -45,7 +45,7 @@ public class Submission implements java.io.Serializable {
 	private Long applId;
 	private Date anticipatedSubmissionDate;
 	private String gdsPlanPageStatusCode;
-	private String dataSharingExceptionStatusCode;
+	private String dataSharingExcepStatusCode;
 	private String icPageStatusCode;
 	private String bsiPageStatusCode;
 	private String repositoryPageStatusCode;
@@ -343,12 +343,12 @@ public class Submission implements java.io.Serializable {
 		this.gdsPlanPageStatusCode = gdsPlanPageStatusCode;
 	}
 
-	public String getDataSharingExceptionStatusCode() {
-		return dataSharingExceptionStatusCode;
+	public String getDataSharingExcepStatusCode() {
+		return dataSharingExcepStatusCode;
 	}
 
-	public void setDataSharingExceptionStatusCode(String dataSharingExceptionStatusCode) {
-		this.dataSharingExceptionStatusCode = dataSharingExceptionStatusCode;
+	public void setDataSharingExcepStatusCode(String dataSharingExcepStatusCode) {
+		this.dataSharingExcepStatusCode = dataSharingExcepStatusCode;
 	}
 
 	public String getBsiPageStatusCode() {

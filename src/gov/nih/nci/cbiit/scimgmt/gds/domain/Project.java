@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
@@ -79,6 +80,7 @@ public class Project implements java.io.Serializable {
 	private String subprojectEligibleFlag;
 	private Date createdDate;
 	private Date lastChangedDate;
+	private Lookup dataSharingExcepStatus;
 	private List<PageStatus> pageStatuses = new ArrayList();
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
@@ -612,6 +614,20 @@ public class Project implements java.io.Serializable {
 
 	public void setSubprojectEligibleFlag(String subprojectEligibleFlag) {
 		this.subprojectEligibleFlag = subprojectEligibleFlag;
+	}
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DATA_SHARING_EXCEP_STATUS_ID")
+	public Lookup getDataSharingExcepStatus() {
+		return dataSharingExcepStatus;
+	}
+
+	/**
+	 * @param dataSharingExcepStatus the dataSharingExcepStatus to set
+	 */
+	public void setDataSharingExcepStatus(Lookup dataSharingExcepStatus) {
+		this.dataSharingExcepStatus = dataSharingExcepStatus;
 	}
 	
 	@ManyToMany(mappedBy="projects")

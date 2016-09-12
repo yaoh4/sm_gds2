@@ -156,7 +156,7 @@
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
               <td width="26%" style="border-left: 0px;">Data Sharing Exception</td>
               <td>
-                <s:hidden id="exceptionMemo" value="%{exceptionMemoStatusCode}"/>
+                <s:hidden id="exceptionMemo" value="%{project.dataSharingExcepStatus.code}"/>
                 <div id="exceptionMemoDiv" class="searchProgess">
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
       			</div>
