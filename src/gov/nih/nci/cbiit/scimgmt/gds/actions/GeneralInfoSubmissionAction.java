@@ -136,7 +136,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 				for(PlanAnswerSelection ans: project.getPlanAnswerSelections()) {
 					ans.addProject(project);
 				}
-				
+				project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
 				//Create repository statuses for sub-project from parent
 				setupRepositoryStatuses(project);
 			}
@@ -441,7 +441,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	/**
 	 * Validates Intramural / Grant/ Contract search
 	 */
-	public void validateSearchGrantOrContract(){	
+	/*public void validateSearchGrantOrContract(){	
 		
 		if(StringUtils.isBlank(grantContractNum)){
 			this.addActionError(getText("grantContractNum.required")); 
@@ -449,7 +449,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		else if(grantContractNum.length() < ApplicationConstants.GRANT_CONTRACT_NUM_MIN_SIZE){
 			this.addActionError(getText("grantContractNum.min.size.error")); 
 		}
-	}	
+	}*/	
 	
 	/**
 	 * This method searches Intramural / Grant/ Contract Information
@@ -527,10 +527,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		}
 
 		//Validation for SubmissionReason
-		if(getProject().getSubmissionReasonId() == null){
-			this.addActionError(getText("submissionReasonId.required")); 
+		if(getProject().getParentProjectId() == null){
+			if(getProject().getSubmissionReasonId() == null){
+				this.addActionError(getText("submissionReasonId.required")); 
+			}
 		}
-		
 		//Validation for Program/ Branch
 		if(StringUtils.isBlank(getProject().getProgramBranch())){
 			this.addActionError(getText("programbranch.required")); 
