@@ -16,8 +16,6 @@ $(function () {
           });
 });
 
-
-
 //Edit button
 function openGrantsContractsSearchPage() {
 	
@@ -242,9 +240,19 @@ function refreshGrantsContractsData(){
  
  $(function () {
 	 var docName=$('#DOC').find('option:selected').text();
-	 //For Intramural grants don't display PD first name, last name and project start date, end date.
+	 var projAnswer=$('input[type="radio"]:checked').val();
 	//if ($("#applClassCode").attr("value") == 'M') {  
-		if(docName == "DCEG" || docName == "CCR" ){
+	 if(projAnswer == 29){
+		    $("#DivisionOffice").hide();
+			$("#pBranch").hide();
+			$("#grantDiv").hide();
+			$("#title").hide();
+		    $("#canAct").hide();
+			$("#pdName").hide();
+			$("#pStartDate").hide();
+			$("#pEndDate").hide();
+	 }
+	 else if(docName == "DCEG" || docName == "CCR" ){
 		$("#canAct").hide();
 		$("#pdName").hide();
 		$("#pStartDate").hide();
@@ -252,9 +260,40 @@ function refreshGrantsContractsData(){
 	}
 });
  
+ $('.radio').on('change', function () {
+	 var projAnswer=$('input[type="radio"]:checked').val();
+	 var docName=$('#DOC').find('option:selected').text();
+	 if(projAnswer == 29){
+		    $("#DivisionOffice").hide();
+			$("#pBranch").hide();
+			$("#grantDiv").hide();
+			$("#title").hide();
+		    $("#canAct").hide();
+			$("#pdName").hide();
+			$("#pStartDate").hide();
+			$("#pEndDate").hide();
+	 }
+	 else if(docName == "DCEG" || docName == "CCR"){
+		 $("#canAct").hide();
+			$("#pdName").hide();
+			$("#pStartDate").hide();
+			$("#pEndDate").hide();	 
+	 }
+	 else{
+		 $("#DivisionOffice").show();
+			$("#pBranch").show();
+			$("#grantDiv").show();
+			$("#title").show();
+		    $("#canAct").show();
+			$("#pdName").show();
+			$("#pStartDate").show();
+			$("#pEndDate").show();
+	 }
+ });
  
  $('#DOC').on('change', function () {
 	   var optionSelected = $("option:selected", this);
+	   var projAnswer=$('input[type="radio"]:checked').val();
 	   var valueSelected = this.value;
 	   if(valueSelected == 'DCEG' || valueSelected == 'CCR'){
 		   $("#canAct").hide();
@@ -262,9 +301,23 @@ function refreshGrantsContractsData(){
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();
 	   }
+	   else if(projAnswer == 29){
+		   $("#DivisionOffice").hide();
+			$("#pBranch").hide();
+			$("#grantDiv").hide();
+			$("#title").hide();
+		    $("#canAct").hide();
+			$("#pdName").hide();
+			$("#pStartDate").hide();
+			$("#pEndDate").hide();
+	   }
 	   else{
-		   $("#canAct").show();
-		   $("#pdName").show();
+		   $("#DivisionOffice").show();
+			$("#pBranch").show();
+			$("#grantDiv").show();
+			$("#title").show();
+		    $("#canAct").show();
+			$("#pdName").show();
 			$("#pStartDate").show();
 			$("#pEndDate").show();
 	   }
