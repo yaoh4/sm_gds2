@@ -29,6 +29,7 @@ function openGrantsContractsSearchPage() {
 	$("#prevLinkedSubmissions").hide();
 	$("#generalInfoSection").hide();
 	$("#searchGrantsContracts").show();
+	$("#searchIcon").show();
 	$("#grantSearch").focus();	
 	//If user hits Enter key : 
 	$("#general_form").keydown(function( event ) {
