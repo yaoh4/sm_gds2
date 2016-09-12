@@ -30,18 +30,19 @@
     </tr>
     <tr>
       <td style="white-space: style="white-space: nowrap""><strong>Reason for being submitted:</strong></td>
+      <s:hidden id="answer" value="%{projectSubmissionReason}" />
       <td colspan="4"><s:property value="%{projectSubmissionReason}" /></td>
     </tr>
-    <tr>
+    <tr class="display">
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
-    <tr>
+    <tr class="display">
       <td style="white-space: nowrap"><strong>Division/Office/Center:</strong></td>
       <s:hidden id="projAbbr" value="%{project.docAbbreviation}"/>
       <td colspan="4">${project.docAbbreviation}</td>
     </tr>
-    <tr>
+   <tr class="display">
       <td style="white-space: nowrap"><strong>Program Branch:</strong></td>
       <td colspan="4">${project.programBranch}</td>
     </tr>
@@ -49,23 +50,23 @@
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
-    <tr>
+    <tr class="display">
       <td style="white-space: nowrap"><strong>Grant/Intramural/Contract #:</strong></td>
       <td colspan="4">${project.applicationNum}</td>
     </tr>
     <s:if test="project.docAbbreviation == 'CCR' || project.docAbbreviation == 'DCEG'">
    </s:if>
    <s:else>
-    <tr>
+    <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Cancer Activity:</strong></td>
       <td colspan="4">${project.activityCode}</td>
     </tr>
     </s:else>
-    <tr>
+   <tr class="display">
       <td style="white-space: nowrap"><strong>Grant/Intramural/Contract Project Title:</strong></td>
       <td colspan="4">${project.projectTitle}</td>
     </tr>
-    <tr>
+    <tr class="display">
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
@@ -104,10 +105,7 @@
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
-   <s:if test="project.docAbbreviation == 'CCR' || project.docAbbreviation == 'DCEG'">
-   </s:if>
-   <s:else>
-    <tr>
+    <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Program Director:</strong></td>
       <td colspan="4">${project.pdFirstName} ${project.pdLastName}</td>
     </tr>
@@ -115,21 +113,19 @@
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
-    <tr>
+   <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Project Start Date:</strong></td>
       <td colspan="4"><s:property value="%{projectStartDate}" /></td>
     </tr>
-    <tr>
+   <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Project End Date: </strong></td>
       <td colspan="4"><s:property value="%{projectEndDate}" /></td>
     </tr>
-    </s:else>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
   </table>
-		
          </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->
