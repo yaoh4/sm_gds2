@@ -54,14 +54,10 @@
       <td style="white-space: nowrap"><strong>Grant/Intramural/Contract #:</strong></td>
       <td colspan="4">${project.applicationNum}</td>
     </tr>
-    <s:if test="project.docAbbreviation == 'CCR' || project.docAbbreviation == 'DCEG'">
-   </s:if>
-   <s:else>
     <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Cancer Activity:</strong></td>
       <td colspan="4">${project.activityCode}</td>
     </tr>
-    </s:else>
    <tr class="display">
       <td style="white-space: nowrap"><strong>Grant/Intramural/Contract Project Title:</strong></td>
       <td colspan="4">${project.projectTitle}</td>
