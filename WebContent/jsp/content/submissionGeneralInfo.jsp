@@ -7,7 +7,7 @@
 		<s:hidden name="projectId" id="projectId" value="%{project.id}"/>
 		<s:hidden name="applId" id="applId" value="%{project.applId}"/>
 		<s:hidden id="applClassCode" name="project.applClassCode" value="%{project.applClassCode}"/>
-		<s:hidden name="project.parentProjectId" value="%{project.parentProjectId}"/>
+		<s:hidden name="project.parentProjectId" id="parentId" value="%{project.parentProjectId}"/>
 		<s:hidden name="project.projectGroupId" value="%{project.projectGroupId}"/>
 	
 	  <div id="searchGrantsContracts"  style="display:none;">
@@ -65,6 +65,7 @@
 					</div>
 
 					<div class="form-group row has-feedback">
+					<div id="DivisionOffice">
 						<div class="col-xs-5">
 							<label for="Division/Office/Center"><i
 								class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;
@@ -76,9 +77,11 @@
 						<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue" contenteditable="true" readonly="true"  value="%{preSelectedDOC}"/>
 						</s:else>
 						</div>
+						</div>
 					</div>
 					
 					<div class="form-group row has-feedback">
+					<div id="pBranch">
 						<div class="col-xs-5">
 							<label for="Program Branch"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Program
@@ -90,8 +93,10 @@
 							<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name"  value="%{project.programBranch}" readonly="true" maxLength="30"/>
 						</s:else>
 						</div>
+						</div>
 					</div>
-
+                      
+                      <div id="grantDiv">
 					<div class="form-group row">
 					<div class="col-xs-5">
 							<label for="Intramural (Z01)/Grant/Contract #"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i>Grant/Intramural/Contract #</label>
@@ -126,7 +131,7 @@
 							</s:hidden>
 						</div>
 						</div>
-					
+					</div>
 
 					</div>
 					
@@ -139,13 +144,15 @@
                            </div>
                            </div>
                            </div>
-                           
+                        
+                        <div id="title">   
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Intramural/Grant/Contract Project Title</label> 
 								<s:textfield name="project.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}" disabled="isNotEditable" maxLength="100"/>
 						</div>
+					</div>
 					</div>
 
 					<div class="row">
