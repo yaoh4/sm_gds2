@@ -344,6 +344,13 @@ public class ManageSubmission extends BaseAction {
 			}
 		}
 		
+		//If submission reason is non-NIH fund, do not show IC and GDS Plan
+		if(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(project.getSubmissionReasonId())) {
+			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_IC) ||
+				page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_GDSPLAN)) {
+				return false;
+			}
+		}
 		
 		// If user selects "Non-human" only, the system will NOT display the "Institutional Certifications"
 		if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
