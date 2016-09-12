@@ -1,5 +1,20 @@
 ////for page institutional_dashboard.htm
 $(document).ready(function() {
+	
+	var answer=$("#answer").val();
+	var projSub=$("#projAbbr").val();
+	if(answer == "Optional Submission – Non-NIH Funded"){
+		$(".display").hide();
+		$(".conditionalDisplay").hide();
+	}
+	else if(projSub == 'DCEG' || projSub == 'CCR') {
+		$(".display").show();
+		$(".conditionalDisplay").hide();
+	}
+	else {
+		$(".display").show();
+		$(".conditionalDisplay").show();
+	}
 
 	var repoItemsSize = $(".repoItem").length;
 	var icItemsSize=$(".icCount").length;
@@ -66,5 +81,3 @@ $('.icDetails').on('click', function(e) {
 	  $("#" + id).slideToggle('500');
 	  $("#" + expandId + "expand").toggleClass('fa-plus-square fa-minus-square');
 })
-
-
