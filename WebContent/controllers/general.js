@@ -16,6 +16,13 @@ $(function () {
           });
 });
 
+$(function(){
+	var parentId=$("#parentId").val();
+	if(parentId){
+		$("input[type=radio]").attr('disabled', true);
+	}
+});
+
 //Edit button
 function openGrantsContractsSearchPage() {
 	
