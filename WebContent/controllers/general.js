@@ -16,15 +16,9 @@ $(function () {
           });
 });
 
-$(function(){
-	var parentId=$("#parentId").val();
-	if(parentId){
-		$("input[type=radio]").attr('disabled', true);
-	}
-});
 
 
-//Search/Edit button
+//Edit button
 function openGrantsContractsSearchPage() {
 	
 	$("#messages").empty();
@@ -50,19 +44,6 @@ function openGrantsContractsSearchPage() {
 	
 }
 
-$( document ).ready(function() {
-	if($('#grantInput').val() != '')
-	{
-		$("#editIcon").show();
-		$("#searchIcon").hide();
-	}
-
-	else { 
-	$('#editIcon').hide();
-	$("#searchIcon").show();
-	}
-});
-
 
 
 function linkUnlinkGrants(elem) {
@@ -85,12 +66,10 @@ function linkUnlinkGrants(elem) {
 		var result = "Unlinking will remove the auto-refresh of the Intramural/Grant/Contract data from the data source that was used to populate it.<br /> Do you wish to continue?";
 		bootbox.confirm(result, function(ans) {
 			if (ans) {
-				//getting the cancerActivity code
 				$("#dataLinkFlag").val('N');
 				$("#unlink").css("background-color", "#d4d4d4");
 				$("#link").css("background-color", "#FFF");
 				$(".unlink-group").prop('disabled', false);
-				refreshCancerActivityCode();
 				return true;
 			} else {
 				return true;
@@ -116,7 +95,7 @@ function warnGeneralInfo(element) {
 		data : fd,
 		async : false,
 		success : function(msg) {
-			result = $.trim(msg); 
+			result = $.trim(msg);
 		},
 		error : function() {
 		}
@@ -172,23 +151,6 @@ function warnGeneralInfoNext(element) {
 	return false;
 }
 
-function refreshCancerActivityCode(){
-	var applId = $("#applId").val();
-	$.ajax({
-	  	url: 'getGrantOrContractByApplId.action',
-	  	data: {applId: applId},
-	  	type: 'post',
-	  	async:   false,
-	  	success: function(json){
-	  		if (json.activityCode !== "undefined") {
-	  			$("#cancerActivity").val(json.activityCode);
-	  			$("#cancerActivity").prop('readOnly', true);
-	  		}
-		}, 
-		error: function(){}	
-	});
-}
-
 function refreshGrantsContractsData(){
 	var applId = $("#applId").val();
 		
@@ -230,10 +192,6 @@ function refreshGrantsContractsData(){
 	  			var d = new Date(json.projectPeriodEndDate);
 	  			$("#projectEndDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
 	  		}	
-	  		if (json.activityCode !== "undefined") {
-	  			$("#cancerActivity").val(json.activityCode);
-	  			$("#cancerActivity").prop('readOnly', true);
-	  		}
 	  		if (json.applId !== "undefined") {
 	  			$("#applId").val(json.applId);			
 	  		}
@@ -260,87 +218,13 @@ function refreshGrantsContractsData(){
  });
  
  $(function () {
-	 var docName=$('#DOC').find('option:selected').text();
-	 var projAnswer=$('input[type="radio"]:checked').val();
-	//if ($("#applClassCode").attr("value") == 'M') {  
-	 if(projAnswer == 29){
-		    $("#DivisionOffice").hide();
-			$("#pBranch").hide();
-			$("#grantDiv").hide();
-			$("#title").hide();
-		    $("#canAct").hide();
-			$("#pdName").hide();
-			$("#pStartDate").hide();
-			$("#pEndDate").hide();
-	 }
-	 else if(docName == "DCEG" || docName == "CCR" ){
-		$("#canAct").hide();
+	 //For Intramural grants don't display PD first name, last name and project start date, end date.
+	if ($("#applClassCode").attr("value") == 'M') {  
 		$("#pdName").hide();
 		$("#pStartDate").hide();
 		$("#pEndDate").hide();			
 	}
 });
  
- $('.radio').on('change', function () {
-	 var projAnswer=$('input[type="radio"]:checked').val();
-	 var docName=$('#DOC').find('option:selected').text();
-	 if(projAnswer == 29){
-		    $("#DivisionOffice").hide();
-			$("#pBranch").hide();
-			$("#grantDiv").hide();
-			$("#title").hide();
-		    $("#canAct").hide();
-			$("#pdName").hide();
-			$("#pStartDate").hide();
-			$("#pEndDate").hide();
-	 }
-	 else if(docName == "DCEG" || docName == "CCR"){
-		 $("#canAct").hide();
-			$("#pdName").hide();
-			$("#pStartDate").hide();
-			$("#pEndDate").hide();	 
-	 }
-	 else{
-		 $("#DivisionOffice").show();
-			$("#pBranch").show();
-			$("#grantDiv").show();
-			$("#title").show();
-		    $("#canAct").show();
-			$("#pdName").show();
-			$("#pStartDate").show();
-			$("#pEndDate").show();
-	 }
- });
  
- $('#DOC').on('change', function () {
-	   var optionSelected = $("option:selected", this);
-	   var projAnswer=$('input[type="radio"]:checked').val();
-	   var valueSelected = this.value;
-	   if(valueSelected == 'DCEG' || valueSelected == 'CCR'){
-		   $("#canAct").hide();
-		   $("#pdName").hide();
-			$("#pStartDate").hide();
-			$("#pEndDate").hide();
-	   }
-	   else if(projAnswer == 29){
-		   $("#DivisionOffice").hide();
-			$("#pBranch").hide();
-			$("#grantDiv").hide();
-			$("#title").hide();
-		    $("#canAct").hide();
-			$("#pdName").hide();
-			$("#pStartDate").hide();
-			$("#pEndDate").hide();
-	   }
-	   else{
-		   $("#DivisionOffice").show();
-			$("#pBranch").show();
-			$("#grantDiv").show();
-			$("#title").show();
-		    $("#canAct").show();
-			$("#pdName").show();
-			$("#pStartDate").show();
-			$("#pEndDate").show();
-	   }
-	});
  
