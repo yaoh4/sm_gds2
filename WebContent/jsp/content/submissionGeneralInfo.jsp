@@ -7,7 +7,7 @@
 		<s:hidden name="projectId" id="projectId" value="%{project.id}"/>
 		<s:hidden name="applId" id="applId" value="%{project.applId}"/>
 		<s:hidden id="applClassCode" name="project.applClassCode" value="%{project.applClassCode}"/>
-		<s:hidden name="project.parentProjectId" value="%{project.parentProjectId}"/>
+		<s:hidden name="project.parentProjectId" id="parentId" value="%{project.parentProjectId}"/>
 		<s:hidden name="project.projectGroupId" value="%{project.projectGroupId}"/>
 	
 	  <div id="searchGrantsContracts"  style="display:none;">
@@ -57,68 +57,102 @@
 					
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
-						<p class="question"> <br/> <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>						
+						<p class="question"> <br/> <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>	
 							<s:radio id="submissionReasonId" name="project.submissionReasonId" list="projectSubmissionReasons" template="radiomap-div.ftl"
 								listKey="optionKey" listValue="optionValue" />
-						
+								
 						</div>
 					</div>
 
 					<div class="form-group row has-feedback">
+					<div id="DivisionOffice">
 						<div class="col-xs-5">
 							<label for="Division/Office/Center"><i
 								class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;
 								Division/Office/Center</label> 
-								<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue" value="%{preSelectedDOC}"/>								
+								<s:if test="project.parentProjectId==null">
+								<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue"  value="%{preSelectedDOC}"/>								
+						</s:if>
+						<s:else>
+						<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue" contenteditable="true" readonly="true"  value="%{preSelectedDOC}"/>
+						</s:else>
+						</div>
 						</div>
 					</div>
 					
 					<div class="form-group row has-feedback">
+					<div id="pBranch">
 						<div class="col-xs-5">
 							<label for="Program Branch"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Program
 								Branch</label> 
-								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name" value="%{project.programBranch}" maxLength="30"/>
+								<s:if test="project.parentProjectId==null">
+								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name"  value="%{project.programBranch}"  maxLength="30"/>
+						</s:if>
+						<s:else>
+							<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name"  value="%{project.programBranch}" readonly="true" maxLength="30"/>
+						</s:else>
+						</div>
 						</div>
 					</div>
-
-					
+                      
+                      <div id="grantDiv">
 					<div class="form-group row">
-						<div class="col-xs-5">
-							<label for="Intramural (Z01)/Grant/Contract #"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Grant/Intramural/Contract #</label>
-							<div class="input-group">
-							
-							<s:textfield name="project.applicationNum" cssClass="form-control" readOnly="true" id="grantsContractNum"  value="%{project.applicationNum}"/>
-							<span class="input-group-btn"><a href="#" onclick="openGrantsContractsSearchPage()">
-										<button class="btn btn-default" type="button"  style=" margin-left: -2px;">
-																			<i class="fa fa-pencil" aria-hidden="true" title="edit" alt="edit" id="editIcon" style="display:none;"></i><i class="fa fa-search" aria-hidden="true" id="searchIcon" title="Search Grants" alt="Search Grants"></i>
-																		</button>
-							</a></span>
-						</div>
-					</div>
-							
-							
-							<div class="col-xs-5" style="padding-left: 0px; margin-left: -20px">
+					<div class="col-xs-5">
+							<label for="Intramural (Z01)/Grant/Contract #">Grant/Intramural/Contract #</label>
+											
+				
+								<div class="input-group ">
+								  <input type="text" class="form-control" aria-label="Grant Search" style="width: 383px;">
+								  <s:textfield name="project.applicationNum" cssclass="form-control" readonly="true" id="grantsContractNum" placeholder="Click on Edit Icon" value="%{project.applicationNum}">
+								  <div class="input-group-btn">
+								    
+                                    <a href="#" onclick="openGrantsContractsSearchPage()">
+																		<button class="btn btn-default" type="button" title="edit" style=" margin-left: -2px;">
+																			<i class="fa fa-pencil" aria-hidden="true"></i>
+																		</button></a></s:textfield>  
+								</div>
+								</div>
+								</div>
+					
+							<div class="col-xs-5">
 							<label>&nbsp;</label>
 							  <div class="position: relative; display: table; border-collapse: separate;">
-							  	<s:hidden name="project.dataLinkFlag" id="dataLinkFlag" value="%{project.dataLinkFlag}"/>
-							<div class="btn-group">	
-							<a href="javascript: void(0)" id="unlink" class="btn btn-default" style="background-color: #d4d4d4;" title="Linked. Click to Unlink" onclick="linkUnlinkGrants(this)"><i class="fa fa-link" aria-hidden="true" alt="link" title="link"></i></a>					
-							  <a href="javascript: void(0)" id="link" onclick="linkUnlinkGrants(this)" class="btn btn-default" title="Unlinked. Click to Link"><i class="fa fa-chain-broken" aria-hidden="true" alt="unlink" title="unlink"></i></a>
-							  
+														
+							<s:hidden name="project.dataLinkFlag" id="dataLinkFlag" value="%{project.dataLinkFlag}">
+							<div class="btn-group">
+															
+							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
+							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
+							<a href="javascript: void(0)" id="unlink" class="btn btn-default" title="Link" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
+														  
 							</div>
 	 
-								 
-							</div>
+							</s:hidden>
+						</div>
 						</div>
 					</div>
 
+					</div>
+					
+					<div id="canAct">
+					<div class="form-group row has-feedback">
+                       <div class="col-xs-5">
+                           <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
+                           <s:textfield name="cancerActivity" cssClass="form-control"  id="cancerActivity" value="%{project.activityCode}" placeholder=""  readonly="true">
+                           </s:textfield>
+                           </div>
+                           </div>
+                           </div>
+                        
+                        <div id="title">   
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Intramural/Grant/Contract Project Title</label> 
 								<s:textfield name="project.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}" disabled="isNotEditable" maxLength="100"/>
 						</div>
+					</div>
 					</div>
 
 					<div class="row">
