@@ -506,8 +506,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	public void validateGeneralInfoSave(){	
 		
 		validateProjectDetails();
-		validatePrincipleInvestigator();
-		validatePrimaryContact();	
+		//validatePrincipleInvestigator();
+		//validatePrimaryContact();	
 		
 		//If user selected a grant from grantContract search page and then validation failed on general info page while saving
 		//then re-populate the grantContract information.
@@ -543,7 +543,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			this.addActionError(getText("programbranch.required")); 
 		}
 		
-		if(StringUtils.isBlank(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
+		/*if(StringUtils.isBlank(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
 			//Validation for Program/ Branch
 			if(StringUtils.isBlank(getProject().getProjectTitle())){
 				this.addActionError(getText("projecttitle.required")); 
@@ -582,7 +582,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null && getProject().getProjectStartDate().after(getProject().getProjectEndDate())){
 				this.addActionError(getText("error.daterange.outofsequence"));
 			}	
-		}
+		}*/
 		//Comments cannot be greater than 2000 characters.
 		if(!StringUtils.isBlank(getProject().getComments())) {
 			if(getProject().getComments().length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
