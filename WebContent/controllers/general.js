@@ -23,7 +23,8 @@ $(function(){
 	}
 });
 
-//Edit button
+
+//Search/Edit button
 function openGrantsContractsSearchPage() {
 	
 	$("#messages").empty();
@@ -36,7 +37,6 @@ function openGrantsContractsSearchPage() {
 	$("#prevLinkedSubmissions").hide();
 	$("#generalInfoSection").hide();
 	$("#searchGrantsContracts").show();
-	
 	$("#grantSearch").focus();	
 	//If user hits Enter key : 
 	$("#general_form").keydown(function( event ) {
@@ -50,13 +50,17 @@ function openGrantsContractsSearchPage() {
 	
 }
 
-$(function () {
-if($('#grantInput').val() != ''){
-	$("#editIcon").show();
-}
+$( document ).ready(function() {
+	if($('#grantInput').val() != '')
+	{
+		$("#editIcon").show();
+		$("#searchIcon").hide();
+	}
 
-else { $('#editIcon').hide();
-}
+	else { 
+	$('#editIcon').hide();
+	$("#searchIcon").show();
+	}
 });
 
 
