@@ -106,9 +106,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		
 		logger.debug("Saving Submission General Info and navigating to GDS plan page.");
 		saveProject();
-		if(getProject().getParentProjectId() != null) {
-			return ApplicationConstants.SUBPROJECT;
+		Project project = retrieveSelectedProject();
+		if(!showPage(ApplicationConstants.PAGE_TYPE_GDSPLAN, project)) {
+			if(showPage(ApplicationConstants.PAGE_TYPE_IC, project)) {
+				return ApplicationConstants.SHOW_IC;
+			} else if(showPage(ApplicationConstants.PAGE_TYPE_BSI, project)) {
+				return ApplicationConstants.SHOW_BSI;
+			}
 		}
+		
 		return SUCCESS;
 	}
 	

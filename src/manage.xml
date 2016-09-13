@@ -33,8 +33,12 @@
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
 			 </result>
-			 <result name="subproject" type="redirect-action">
+			 <result name="showIc" type="redirect-action">
 			 	<param name="actionName">listIc</param>
+				<param name="projectId">${project.id}</param>
+			 </result>
+			 <result name="showBsi" type="redirect-action">
+			 	<param name="actionName">navigateToBasicStudyInfo</param>
 				<param name="projectId">${project.id}</param>
 			 </result>
 			 <result name="input" type="tiles">submissionGeneralInfo</result>

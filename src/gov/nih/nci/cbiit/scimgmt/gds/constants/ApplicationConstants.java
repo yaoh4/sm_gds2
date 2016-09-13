@@ -150,7 +150,8 @@ public interface ApplicationConstants {
 	 public static final Long SUBMISSION_TYPE_NEW_SUBPROJECT = 43L;
 	 
 	 //Action forward constants
-	 public static final String SUBPROJECT = "subproject";
 	 public static final String EMPTY = "empty";
+	 public static final String SHOW_IC = "showIc";
+	 public static final String SHOW_BSI = "showBsi";
 	 
 }
