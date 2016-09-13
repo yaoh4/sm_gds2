@@ -231,7 +231,7 @@ $(function(){
         $(this).toggleClass('active');
     });
     
-    if($("#grantsContractNum").val().length == 0 ||
+    /*if($("#grantsContractNum").val().length == 0 ||
     		$("#grantSearch").val().length != 0) {
     		//The project has no grant number specified, or a
     		//grant search request was made
@@ -252,7 +252,7 @@ $(function(){
     	} else {
     		$("#searchGrantsContracts").hide();
     		$("#generalInfoSection").show();
-    	}	
+    	}*/	
 });
 
 
