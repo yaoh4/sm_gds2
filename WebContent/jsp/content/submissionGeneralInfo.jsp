@@ -86,22 +86,27 @@
 					<div class="form-group row">
 						<div class="col-xs-5">
 							<label for="Intramural (Z01)/Grant/Contract #"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Grant/Intramural/Contract #</label>
-							<div class="input-group2">
+							<div class="input-group">
 							
-							<s:textfield name="project.applicationNum" cssClass="form-control" readOnly="true" id="grantsContractNum" placeholder="Click on Edit Icon" value="%{project.applicationNum}"/>
+							<s:textfield name="project.applicationNum" cssClass="form-control" readOnly="true" id="grantsContractNum"  value="%{project.applicationNum}"/>
 							<span class="input-group-btn"><a href="#" onclick="openGrantsContractsSearchPage()">
-										<button class="btn btn-default" type="button" title="edit">
-											<i class="fa fa-pencil" aria-hidden="true"></i>
-										</button>
+										<button class="btn btn-default" type="button"  style=" margin-left: -2px;">
+																			<i class="fa fa-pencil" aria-hidden="true" title="edit" alt="edit" id="editIcon" style="display:none;"></i><i class="fa fa-search" aria-hidden="true" id="searchIcon" title="Search Grants" alt="Search Grants"></i>
+																		</button>
 							</a></span>
+						</div>
+					</div>
 							
-							<s:hidden name="project.dataLinkFlag" id="dataLinkFlag" value="%{project.dataLinkFlag}"/>
 							
-							<span class="btn-group">	
+							<div class="col-xs-5" style="padding-left: 0px; margin-left: -20px">
+							<label>&nbsp;</label>
+							  <div class="position: relative; display: table; border-collapse: separate;">
+							  	<s:hidden name="project.dataLinkFlag" id="dataLinkFlag" value="%{project.dataLinkFlag}"/>
+							<div class="btn-group">	
 							<a href="javascript: void(0)" id="unlink" class="btn btn-default" style="background-color: #d4d4d4;" title="Linked. Click to Unlink" onclick="linkUnlinkGrants(this)"><i class="fa fa-link" aria-hidden="true" alt="link" title="link"></i></a>					
 							  <a href="javascript: void(0)" id="link" onclick="linkUnlinkGrants(this)" class="btn btn-default" title="Unlinked. Click to Link"><i class="fa fa-chain-broken" aria-hidden="true" alt="unlink" title="unlink"></i></a>
 							  
-							</span>
+							</div>
 	 
 								 
 							</div>
