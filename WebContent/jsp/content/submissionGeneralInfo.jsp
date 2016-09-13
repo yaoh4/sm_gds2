@@ -103,13 +103,13 @@
 											
 				
 								<div class="input-group ">
-								  <input type="text" class="form-control" aria-label="Grant Search">
+								  <input type="text" class="form-control" aria-label="Grant Search" id="grantInput">
 								  <s:textfield name="project.applicationNum" cssclass="form-control" readonly="true" id="grantsContractNum" placeholder="Click on Edit Icon" value="%{project.applicationNum}">
 								  <div class="input-group-btn">
 								    
                                     <a href="#" onclick="openGrantsContractsSearchPage()">
 																		<button class="btn btn-default" type="button"  style=" margin-left: -2px;">
-																			<i class="fa fa-pencil" aria-hidden="true" title="edit" alt="edit"></i><i class="fa fa-search" aria-hidden="true" style="display:none;" id="searchIcon" title="Search Grants" alt="Search Grants"></i>
+																			<i class="fa fa-pencil" aria-hidden="true" title="edit" alt="edit" id="editIcon" style="display:none;"></i><i class="fa fa-search" aria-hidden="true" id="searchIcon" title="Search Grants" alt="Search Grants"></i>
 																		</button></a></s:textfield>  
 								</div>
 								</div>
