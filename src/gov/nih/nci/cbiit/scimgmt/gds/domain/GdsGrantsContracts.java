@@ -22,6 +22,9 @@ public class GdsGrantsContracts {
 	private String lookupGrantContractNum;
 	private String applTypeCode;
 	private String activityCode;
+	private String cayCode;
+	
+
 	private String adminPhsOrgCode;
 	private Integer serialNum;
 	private Integer supportYear;
@@ -44,7 +47,7 @@ public class GdsGrantsContracts {
 	}
 	
 	public GdsGrantsContracts(Long applId, String grantContractNum, String lookupGrantContractNum, 
-			String applTypeCode, String activityCode, String adminPhsOrgCode,
+			String applTypeCode, String activityCode, String cayCode, String adminPhsOrgCode,
 			Integer serialNum, Integer supportYear, String suffixCode, String projectTitle, String piFirstName,
 			String piLastName, String piEmailAddress, String piInstitution, String pdFirstName, String pdLastName,
 			Date projectPeriodStartDate, Date projectPeriodEndDate, String applClassCode) {
@@ -54,6 +57,7 @@ public class GdsGrantsContracts {
 		this.lookupGrantContractNum = lookupGrantContractNum;
 		this.applTypeCode = applTypeCode;
 		this.activityCode = activityCode;
+		this.cayCode=cayCode;
 		this.adminPhsOrgCode = adminPhsOrgCode;
 		this.serialNum = serialNum;
 		this.supportYear = supportYear;
@@ -74,7 +78,7 @@ public class GdsGrantsContracts {
 	public String toString() {
 		return "{\"applId\":\"" + applId + "\",\"grantContractNum\":\"" + grantContractNum + "\",\"applClassCode\":\"" + applClassCode
 				+ "\",\"lookupGrantContractNum\":\"" + lookupGrantContractNum + "\", \"applTypeCode\":\"" + applTypeCode
-				+ "\",\"activityCode\":\"" + activityCode + "\", \"adminPhsOrgCode\":\"" + adminPhsOrgCode + "\", \"serialNum\":\"" + serialNum
+				+ "\",\"activityCode\":\"" + activityCode + "\",\"cayCode\":\"" + cayCode + "\", \"adminPhsOrgCode\":\"" + adminPhsOrgCode + "\", \"serialNum\":\"" + serialNum
 				+ "\", \"supportYear\":\"" + supportYear + "\", \"suffixCode\":\"" + suffixCode + "\", \"projectTitle\":\"" + projectTitle
 				+ "\", \"piFirstName\":\"" + piFirstName + "\",\"piLastName\":\"" + piLastName + "\",\"piEmailAddress\":\"" + piEmailAddress
 				+ "\",\"piInstitution\":\"" + piInstitution + "\",\"pdFirstName\":\"" + pdFirstName + "\",\"pdLastName\":\"" + pdLastName
@@ -128,6 +132,14 @@ public class GdsGrantsContracts {
 		this.activityCode = activityCode;
 	}
 	
+	@Column(name = "CAY_CODE")
+	public String getCayCode() {
+		return cayCode;
+	}
+
+	public void setCayCode(String cayCode) {
+		this.cayCode = cayCode;
+	}
 	@Column(name = "ADMIN_PHS_ORG_CODE", length = 2)
 	public String getAdminPhsOrgCode() {
 		return adminPhsOrgCode;
