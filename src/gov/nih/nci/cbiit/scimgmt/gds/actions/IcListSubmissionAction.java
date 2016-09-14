@@ -63,6 +63,10 @@ public class IcListSubmissionAction extends ManageSubmission {
 	
 	private List<Document> icFileDocs = new ArrayList<Document>();
 	
+	private String certFlag;
+	
+	private boolean ifIcSelected;
+	
 	private Document doc = null; // json object to be returned for UI refresh after upload
 	
 
@@ -130,6 +134,10 @@ public class IcListSubmissionAction extends ManageSubmission {
 		icIds = (new JSONArray(icIdList)).toString();
 	}
 	
+	public void validateSave(){	
+
+		validateIcListSubmission();
+	}
 	
 	public String save() {
 		
@@ -138,11 +146,31 @@ public class IcListSubmissionAction extends ManageSubmission {
 		return getIcList();
 	}
 	
+	public void validateSaveAndNext(){	
+
+		validateIcListSubmission();
+	}	
 	
 	public String saveAndNext() {
 		
 		saveIcList();
 		return SUCCESS;
+	}
+	
+	public void validateIcListSubmission(){
+		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(retrieveSelectedProject().getSubprojectFlag())) {
+			if(("Y").equalsIgnoreCase(certFlag) && (!ifIcSelected)){
+				this.addActionError(getText("error.ic.selection")); 
+			}
+				
+		} if(hasActionErrors()){
+			if(StringUtils.isNotBlank(getProjectId())){
+				getProject().setId(Long.valueOf(getProjectId()));
+			}
+			getIcList();
+			icIds="";
+			
+		}
 	}
 	
 	public String getIcStatusCodeIndividual(Long icId) {
@@ -378,6 +406,25 @@ public class IcListSubmissionAction extends ManageSubmission {
 
 	public void setDoc(Document doc) {
 		this.doc = doc;
+	}
+	
+	public boolean isIfIcSelected() {
+		return ifIcSelected;
+	}
+
+
+	public void setIfIcSelected(boolean ifIcSelected) {
+		this.ifIcSelected = ifIcSelected;
+	}
+
+
+	public String getCertFlag() {
+		return certFlag;
+	}
+
+
+	public void setCertFlag(String certFlag) {
+		this.certFlag = certFlag;
 	}
 	
 	public String getPageStatusCode() {
