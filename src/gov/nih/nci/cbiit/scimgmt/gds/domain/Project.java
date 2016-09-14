@@ -93,7 +93,10 @@ public class Project implements java.io.Serializable {
 	private String applClassCode;
 	private String activityCode;
 	private Project parent;
+	private String cayCode;
 	
+	
+
 	
 
 	public Project() {
@@ -780,5 +783,14 @@ public class Project implements java.io.Serializable {
 	 */
 	public void setParent(Project parent) {
 		this.parent = parent;
+	}
+	
+	@Transient
+	public String getCayCode() {
+		return cayCode;
+	}
+
+	public void setCayCode(String cayCode) {
+		this.cayCode = cayCode;
 	}
 }
