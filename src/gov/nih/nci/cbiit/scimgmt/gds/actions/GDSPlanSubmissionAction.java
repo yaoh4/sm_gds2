@@ -485,7 +485,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 						newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 						newObject.addProject(getProject());
 						// If child exists, then add answer to all children
-						List<Project> children = retrieveSubprojects(getProject());
+						List<Project> children = getSubprojects();
 						for(Project child: children) {
 							newObject.addProject(child);
 						}
@@ -500,7 +500,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 					newObject.addProject(getProject());
 					// If child exists, then add answer to all children
-					List<Project> children = retrieveSubprojects(getProject());
+					List<Project> children = getSubprojects();
 					for(Project child: children) {
 						newObject.addProject(child);
 					}

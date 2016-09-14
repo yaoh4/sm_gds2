@@ -288,5 +288,6 @@
 
 <!-- /container -->
 
+<script type="text/javascript" src="<s:url value="/controllers/gds.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/controllers/grantSearch.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/controllers/general.js"/>"></script>

@@ -21,6 +21,14 @@ function openMissingDataReport(id, action) {
 	var newWin = window.open(url, winName, features);
 }
 
+function openDetailsReport(id) {
+	var url = "/gds/manage/viewSubmissionDetails.action?projectId=" + id;
+	var winName = "Submission Details Report";
+	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+	var newWin = window.open(url, winName, features);
+}
+
+
 $(document).ready(function() {
 	var icItemsSize=$(".icCountList").length;
 	for(var size=0; size < icItemsSize; size++) {

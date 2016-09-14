@@ -61,6 +61,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		Long projectId = project.getId();
 		if(project.getParentProjectId() != null) {
 			projectId = project.getParentProjectId();
+			project.setParent(retrieveParentProject(project));
 		}
 		if(certs != null && !certs.isEmpty()) {
 			List<Document> docs = 

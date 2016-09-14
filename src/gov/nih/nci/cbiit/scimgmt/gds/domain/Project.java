@@ -92,6 +92,7 @@ public class Project implements java.io.Serializable {
 	private Long repoCount;
 	private String applClassCode;
 	private String activityCode;
+	private Project parent;
 	
 	
 
@@ -767,5 +768,17 @@ public class Project implements java.io.Serializable {
 
 	public void setActivityCode(String activityCode) {
 		this.activityCode = activityCode;
+	}
+
+	@Transient
+	public Project getParent() {
+		return parent;
+	}
+
+	/**
+	 * @param parent the parent to set
+	 */
+	public void setParent(Project parent) {
+		this.parent = parent;
 	}
 }

@@ -127,17 +127,21 @@ public class ManageSubmission extends BaseAction {
 		Long parentProjectId = project.getParentProjectId();
 		if(parentProjectId != null) {
 			Project parentProject =  manageProjectService.findById(Long.valueOf(parentProjectId));
+			loadGrantInfo(parentProject);
 			return parentProject;
 		} 
 		return null;
 	}
 	
-	public List<Project> retrieveSubprojects(Project project) {
+	public List<Project> getSubprojects() {
 		
 		Long projectId = project.getId();
 		if(projectId != null) {
-			List<Project> subproject =  manageProjectService.getSubprojects(projectId);
-			return subproject;
+			List<Project> subprojects =  manageProjectService.getSubprojects(projectId);
+			for(Project subproject: subprojects) {
+				loadGrantInfo(subproject);
+			}
+			return subprojects;
 		} 
 		return new ArrayList<Project>();
 	}
@@ -482,34 +486,34 @@ public class ManageSubmission extends BaseAction {
 		return true;
 	}
 	
+	public void loadGrantInfo() {
+		loadGrantInfo(getProject());
+	}
 	/**
 	 * This method retrieves grant information data from grantsContractsw if project has grant/contract tied to it.
 	 */
-	public void loadGrantInfo(){
-		
-		Project project = getProject();		
-		
+	public void loadGrantInfo(Project project){
 			
 			logger.debug("Retreiving Project grant information data from grantsContractsw for grantContract with applId: "+project.getApplId());
 			GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(project.getApplId());
 			if(StringUtils.equals(project.getDataLinkFlag(), "Y")){
 			if(grantContract != null){
-				getProject().setProjectTitle(grantContract.getProjectTitle());
-				getProject().setPiFirstName(grantContract.getPiFirstName());
-				getProject().setPiLastName(grantContract.getPiLastName());
-				getProject().setPiInstitution(grantContract.getPiInstitution());
-				getProject().setPiEmailAddress(grantContract.getPiEmailAddress());
-				getProject().setPdFirstName(grantContract.getPdFirstName());
-				getProject().setPdLastName(grantContract.getPdLastName());
-				getProject().setProjectStartDate(grantContract.getProjectPeriodStartDate());
-				getProject().setProjectEndDate(grantContract.getProjectPeriodEndDate());
-				getProject().setApplClassCode(grantContract.getApplClassCode());
-				getProject().setActivityCode(grantContract.getActivityCode());
+				project.setProjectTitle(grantContract.getProjectTitle());
+				project.setPiFirstName(grantContract.getPiFirstName());
+				project.setPiLastName(grantContract.getPiLastName());
+				project.setPiInstitution(grantContract.getPiInstitution());
+				project.setPiEmailAddress(grantContract.getPiEmailAddress());
+				project.setPdFirstName(grantContract.getPdFirstName());
+				project.setPdLastName(grantContract.getPdLastName());
+				project.setProjectStartDate(grantContract.getProjectPeriodStartDate());
+				project.setProjectEndDate(grantContract.getProjectPeriodEndDate());
+				project.setApplClassCode(grantContract.getApplClassCode());
+				project.setActivityCode(grantContract.getActivityCode());
 			}
 		}
 		else {
 			if(grantContract != null) 
-				getProject().setActivityCode(grantContract.getActivityCode());
+				project.setActivityCode(grantContract.getActivityCode());
 			
 		}
 	}

@@ -217,14 +217,6 @@ function showPrevLinkedSubmissions(){
 }
 
 
-function openDetailsReport(id) {
-	var url = "/gds/manage/viewSubmissionDetails.action?projectId=" + id;
-	var winName = "Submission Details Report";
-	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
-	var newWin = window.open(url, winName, features);
-}
-
-
 
 $(function(){
     $('a.has-spinner, button.has-spinner').click(function() {
