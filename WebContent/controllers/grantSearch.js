@@ -108,8 +108,8 @@ function populateGrantsContractsData(){
 		$("#grantsContractNum").prop('readOnly', true);
 	}
 	
-	if (json.activityCode !== "undefined") {
-		$("#cancerActivity").val(json.activityCode);
+	if (json.cayCode !== "undefined") {
+		$("#cancerActivity").val(json.cayCode);
 		$("#cancerActivity").prop('readOnly', true);
 	}
 	
@@ -170,8 +170,8 @@ function populateGrantsContractsData(){
 			$("#projectEndDate").val(json.projectPeriodEndDate);
 			$("#projectEndDate").prop('disabled', true);
 		}
-		if (json.activityCode !== "undefined") {
-			$("#cancerActivity").val(json.activityCode);
+		if (json.cayCode !== "undefined") {
+			$("#cancerActivity").val(json.cayCode);
 			$("#cancerActivity").prop('readOnly', true);
 		}
 		$("#canAct").show();
