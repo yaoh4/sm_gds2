@@ -508,12 +508,12 @@ public class ManageSubmission extends BaseAction {
 				project.setProjectStartDate(grantContract.getProjectPeriodStartDate());
 				project.setProjectEndDate(grantContract.getProjectPeriodEndDate());
 				project.setApplClassCode(grantContract.getApplClassCode());
-				project.setActivityCode(grantContract.getActivityCode());
+				project.setCayCode(grantContract.getCayCode());
 			}
 		}
 		else {
 			if(grantContract != null) 
-				project.setActivityCode(grantContract.getActivityCode());
+				project.setCayCode(grantContract.getCayCode());
 			
 		}
 	}
