@@ -56,7 +56,7 @@
     </tr>
     <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Cancer Activity:</strong></td>
-      <td colspan="4">${project.activityCode}</td>
+      <td colspan="4">${project.cayCode}</td>
     </tr>
    <tr class="display">
       <td style="white-space: nowrap"><strong>Grant/Intramural/Contract Project Title:</strong></td>
