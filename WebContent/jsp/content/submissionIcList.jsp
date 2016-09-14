@@ -60,7 +60,7 @@
 				name="project.certificationCompleteFlag" value="project.certificationCompleteFlag"
 				template="radiomap-div.ftl" />
 			</div> 
-          
+          <s:hidden id="certFlag" name="certFlag"/>
             <p>&nbsp;</p>
 
             <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
@@ -85,7 +85,8 @@
                  <!--  Show this column only for subproject -->
                     <td class="subprojectSelect" style="white-space: nowrap;display:none;">                 
 		                <input class="icSelect" type="checkbox" 
-	                      name="ic-selected" id="ic${cert.id}" value="${cert.id}">				 
+	                      name="ic-selected" id="ic${cert.id}" value="${cert.id}">	
+	                      <s:hidden id="selectIcs" name="ifIcSelected"/>		 
                     </td>
 
                 
