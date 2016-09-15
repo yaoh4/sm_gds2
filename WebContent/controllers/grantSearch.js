@@ -189,6 +189,8 @@ function populateGrantsContractsData(){
 	$("#generalInfoSection").show();
 	
 	//Set grant to linked
+	$("#link").css("background-color", "#d4d4d4");
+	$("#unlink").css("background-color", "#FFF");
 	$('#link').addClass('disabled');
 	$("#unlink").removeClass('disabled');
 	$(".unlink-group").prop('disabled', true);
