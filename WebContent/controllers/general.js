@@ -23,6 +23,7 @@ $(function(){
 	}
 });
 
+
 //Search/Edit button
 function openGrantsContractsSearchPage() {
 	
@@ -36,7 +37,6 @@ function openGrantsContractsSearchPage() {
 	$("#prevLinkedSubmissions").hide();
 	$("#generalInfoSection").hide();
 	$("#searchGrantsContracts").show();
-	$("#searchIcon").show();
 	$("#grantSearch").focus();	
 	//If user hits Enter key : 
 	$("#general_form").keydown(function( event ) {
@@ -49,12 +49,18 @@ function openGrantsContractsSearchPage() {
 	});		
 	
 }
-//switch of search and edit icons
+
 $( document ).ready(function() {
-	if($("#grantsContractNum").val()=='') {
-  $("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
-  $("#grantsContractNum").attr("placeholder", "Click on Search Icon");
-}
+	if($('#grantInput').val() != '')
+	{
+		$("#editIcon").show();
+		$("#searchIcon").hide();
+	}
+
+	else { 
+	$('#editIcon').hide();
+	$("#searchIcon").show();
+	}
 });
 
 
@@ -69,10 +75,7 @@ function linkUnlinkGrants(elem) {
 				refreshGrantsContractsData();
 				$("#link").css("background-color", "#d4d4d4");
 				$("#unlink").css("background-color", "#FFF");
-				$('#unlink').removeClass('disabled');
-		        $('#link').addClass('disabled');
-				
-			
+				$(".unlink-group").prop('disabled', true);
 				return true;
 			} else {
 				return true;
@@ -86,9 +89,7 @@ function linkUnlinkGrants(elem) {
 				$("#dataLinkFlag").val('N');
 				$("#unlink").css("background-color", "#d4d4d4");
 				$("#link").css("background-color", "#FFF");
-				$('#unlink').removeClass('disabled');
-		        $('#link').addClass('disabled');
-				
+				$(".unlink-group").prop('disabled', false);
 				refreshCancerActivityCode();
 				return true;
 			} else {
@@ -179,8 +180,8 @@ function refreshCancerActivityCode(){
 	  	type: 'post',
 	  	async:   false,
 	  	success: function(json){
-	  		if (json.cayCode !== "undefined") {
-	  			$("#cancerActivity").val(json.cayCode);
+	  		if (json.activityCode !== "undefined") {
+	  			$("#cancerActivity").val(json.activityCode);
 	  			$("#cancerActivity").prop('readOnly', true);
 	  		}
 		}, 
@@ -229,8 +230,8 @@ function refreshGrantsContractsData(){
 	  			var d = new Date(json.projectPeriodEndDate);
 	  			$("#projectEndDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
 	  		}	
-	  		if (json.cayCode !== "undefined") {
-	  			$("#cancerActivity").val(json.cayCode);
+	  		if (json.activityCode !== "undefined") {
+	  			$("#cancerActivity").val(json.activityCode);
 	  			$("#cancerActivity").prop('readOnly', true);
 	  		}
 	  		if (json.applId !== "undefined") {
@@ -247,13 +248,10 @@ function refreshGrantsContractsData(){
 	
 	if ($("#dataLinkFlag").attr("value") == 'Y') {
 		$("#unlink").show();
-	
 		$(".unlink-group").prop('disabled', true);
 		
 	} else {
 		$("#link").show();
-		
-	
 		$(".unlink-group").prop('disabled', false);
 	}
 
@@ -276,25 +274,11 @@ function refreshGrantsContractsData(){
 			$("#pEndDate").hide();
 	 }
 	 else if(docName == "DCEG" || docName == "CCR" ){
-		 $("#DivisionOffice").show();
-			$("#pBranch").show();
-			$("#grantDiv").show();
-			$("#title").show();
 		$("#canAct").hide();
 		$("#pdName").hide();
 		$("#pStartDate").hide();
 		$("#pEndDate").hide();			
 	}
-	 else{
-		 $("#DivisionOffice").show();
-			$("#pBranch").show();
-			$("#grantDiv").show();
-			$("#title").show();
-		    $("#canAct").show();
-			$("#pdName").show();
-			$("#pStartDate").show();
-			$("#pEndDate").show();
-	 }
 });
  
  $('.radio').on('change', function () {
@@ -311,10 +295,6 @@ function refreshGrantsContractsData(){
 			$("#pEndDate").hide();
 	 }
 	 else if(docName == "DCEG" || docName == "CCR"){
-		 $("#DivisionOffice").show();
-			$("#pBranch").show();
-			$("#grantDiv").show();
-			$("#title").show();
 		 $("#canAct").hide();
 			$("#pdName").hide();
 			$("#pStartDate").hide();
@@ -337,10 +317,6 @@ function refreshGrantsContractsData(){
 	   var projAnswer=$('input[type="radio"]:checked').val();
 	   var valueSelected = this.value;
 	   if(valueSelected == 'DCEG' || valueSelected == 'CCR'){
-		   $("#DivisionOffice").show();
-			$("#pBranch").show();
-			$("#grantDiv").show();
-			$("#title").show();
 		   $("#canAct").hide();
 		   $("#pdName").hide();
 			$("#pStartDate").hide();
