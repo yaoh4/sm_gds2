@@ -241,11 +241,11 @@ function refreshGrantsContractsData(){
  $(function () { 
 	
 	if ($("#dataLinkFlag").attr("value") == 'Y') {
-		$("#unlink").show();
+	
 		$(".unlink-group").prop('disabled', true);
 		
 	} else {
-		$("#link").show();
+		
 		$(".unlink-group").prop('disabled', false);
 	}
 
