@@ -548,9 +548,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 				this.addActionError(getText("programbranch.required")); 
 			}
 		
-		
-			if(StringUtils.isBlank(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
-				//Validation for Program/ Branch
+			//Validate only if grant is selected
+			if(!StringUtils.isBlank(applId)){
+				//Validation for Title
 				if(StringUtils.isBlank(getProject().getProjectTitle())){
 					this.addActionError(getText("projecttitle.required")); 
 				}
