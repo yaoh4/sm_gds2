@@ -243,13 +243,13 @@ function refreshGrantsContractsData(){
 	
 	if ($("#dataLinkFlag").attr("value") == 'Y') {
 		$("#unlink").show();
-		$('#unlink').addClass('disabled');
-		$('#link').removeClass('disabled');
+		$('#unlink').removeClass('disabled');
+		$('#link').addClass('disabled');
 		
 	} else {
 		$("#link").show();
-		$('#unlink').removeClass('disabled');
-		$('#link').addClass('disabled');
+		$('#unlink').addClass('disabled');
+		$('#link').removeClass('disabled');
 	}
 
 	
