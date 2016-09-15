@@ -142,7 +142,7 @@
                            </s:textfield>
                            </div>
                            </div>
-                           </div>
+                    </div>
                         
                         <div id="title">   
 					<div class="form-group row has-feedback">
