@@ -13,6 +13,7 @@ import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONArray;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,8 +46,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	private String grantContractNum;
 	private String selectedTypeOfProject;
 	private String applId;
+	private String valueSelected;
 
-	private List<DropDownOption> docList = new ArrayList<DropDownOption>();	
+	private List<DropDownOption> docList = new ArrayList<DropDownOption>();
+	private List<DropDownOption> progList = new ArrayList<DropDownOption>();
+	
+	
+
 	private List<DropDownOption> projectTypes = new ArrayList<DropDownOption>();
 	private List<DropDownOption> projectSubmissionReasons = new ArrayList<DropDownOption>();	
 	private List<GdsGrantsContracts> grantOrContractList = new ArrayList<GdsGrantsContracts>();	
@@ -118,6 +124,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		return SUCCESS;
 	}
 	
+	
+
 	/**
 	 * 
 	 * @throws Exception
@@ -267,7 +275,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	@SuppressWarnings("unchecked")
 	private void setUpLists(){
-		
 		logger.debug("Setting up page lists.");
 		if(docList.isEmpty()){
 			
@@ -277,6 +284,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());	
 		}
 		
+		 if(progList.isEmpty()){
+				List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
+				progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
+			}
+		 
 		if(projectSubmissionReasons.isEmpty()){			
 			projectSubmissionReasons = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST.toUpperCase());	
 		}		
@@ -284,7 +296,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		//If user is editing already saved project then pre-select saved project's DOC in the DOC dropdown list.
 		if(getProject() != null && StringUtils.isNotBlank(getProject().getDocAbbreviation())){
 			preSelectedDOC = getProject().getDocAbbreviation();
+			progList.clear();
+			List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
+			progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
 		}
+         
 	}
 	
 	
@@ -488,6 +504,12 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		return SUCCESS;
 	}
 	
+	public String getProgBranchList(){
+		progList.clear();
+		List<String> progListFromDb = manageProjectService.getSubOrgList(valueSelected);
+		progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
+		return SUCCESS;
+	}
 	/**
 	 * This method retrieves list of already linked submissions for a given grant.
 	 * 
@@ -774,4 +796,20 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	public void setPrevLinkedSubmissions(List<ProjectsVw> prevLinkedSubmissions) {
 		this.prevLinkedSubmissions = prevLinkedSubmissions;
 	}	
+	
+	public String getValueSelected() {
+		return valueSelected;
+	}
+
+	public void setValueSelected(String valueSelected) {
+		this.valueSelected = valueSelected;
+	}
+
+public List<DropDownOption> getProgList() {
+		return progList;
+	}
+
+	public void setProgList(List<DropDownOption> progList) {
+		this.progList = progList;
+	}
 }
