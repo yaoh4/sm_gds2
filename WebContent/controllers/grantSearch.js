@@ -187,6 +187,9 @@ function populateGrantsContractsData(){
 	$('#grantSearch').val('');
 	$("#searchGrantsContracts").hide();
 	$("#generalInfoSection").show();
+	$('#link').addClass('disabled');
+	$("#unlink").removeClass('disabled');
+	$(".unlink-group").prop('disabled', true);
 	$("#dataLinkFlag").val('Y');
 	
 }
