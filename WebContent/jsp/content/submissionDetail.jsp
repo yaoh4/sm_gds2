@@ -35,10 +35,10 @@
         style="margin-left: 10px;">
         <tr>
           <th class="tableHeader" width="50%" scope="col">Sub-project Submission Title</th>
-            <th class="tableHeader" width="25%" scope="col">Principal
+            <th class="tableHeader" width="30%" scope="col">Principal
               Investigator</th>
             <th class="tableHeader" width="5%" scope="col">Status</th>
-            <th class="tableHeader" width="20%" scope="col">Action</th>
+            <th class="tableHeader" width="15%" scope="col">Action</th>
         </tr>
            <s:iterator status="stat" var="subproject" value="subprojects">
             <tr>
@@ -46,7 +46,7 @@
               
               <td>${subproject.piFullName}</td>
               
-              <td style="white-space: nowrap">
+              <td style="white-space: nowrap;" align="center">
               <s:if test="%{getProjectStatusCode(#subproject).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
                 <img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"/>
               </s:if> <s:elseif
