@@ -345,5 +345,22 @@ function refreshGrantsContractsData(){
 			$("#pStartDate").show();
 			$("#pEndDate").show();
 	   }
+	   $.ajax({
+		  	url: 'getProgBranchList.action',
+		  	data : "valueSelected="+valueSelected,
+			dataType : "json",
+			async: true,
+			success : function(result){
+				var select=$('#programBranch');
+				select.find('option').remove();
+				$.each(result, function(key,value) {  
+	                            $.each(value, function (i,item) {
+	                                $('#programBranch').append($('<option></option>').val(item).text(item));
+	                            });
+	                                });
+			}, 
+			error: function(){}	
+		});
+	   
 	});
  
