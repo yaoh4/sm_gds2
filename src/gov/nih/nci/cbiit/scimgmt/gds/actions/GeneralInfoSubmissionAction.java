@@ -538,51 +538,58 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 				this.addActionError(getText("submissionReasonId.required")); 
 			}
 		}
-		//Validation for Program/ Branch
-		if(StringUtils.isBlank(getProject().getProgramBranch())){
-			this.addActionError(getText("programbranch.required")); 
-		}
 		
-		/*if(StringUtils.isBlank(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
-			//Validation for Program/ Branch
-			if(StringUtils.isBlank(getProject().getProjectTitle())){
-				this.addActionError(getText("projecttitle.required")); 
-			}
-
-			//Validation for PD first name.
-			if(StringUtils.isBlank(getProject().getPdFirstName())){
-				this.addActionError(getText("pd.firstname.required")); 
-			}
-
-			//Validation for PD last name.
-			if(StringUtils.isBlank(getProject().getPdLastName())){
-				this.addActionError(getText("pd.lastname.required")); 
-			}
-
-			//Validation for Project start date.
-			if(getProject().getProjectStartDate() == null){
-				this.addActionError(getText("project.start.date.required")); 
-			}
-
-			//Validation for Project end date.
-			if(getProject().getProjectEndDate() == null){
-				this.addActionError(getText("project.end.date.required")); 
-			}
+		//Exclude non-NIH funded submissions from the below validations
+		if(!getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
 			
-			if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null) {
-				Calendar startCal = new GregorianCalendar();
-				startCal.setTime(getProject().getProjectStartDate());
-				Calendar endCal = new GregorianCalendar();
-				endCal.setTime(getProject().getProjectEndDate());
-				if(startCal.get(Calendar.YEAR) > 9999 || endCal.get(Calendar.YEAR) > 9999){
-					this.addActionError(getText("error.daterange.year"));
+			
+			//Validation for Program/ Branch
+			if(StringUtils.isBlank(getProject().getProgramBranch())) {
+				this.addActionError(getText("programbranch.required")); 
+			}
+		
+		
+			if(StringUtils.isBlank(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
+				//Validation for Program/ Branch
+				if(StringUtils.isBlank(getProject().getProjectTitle())){
+					this.addActionError(getText("projecttitle.required")); 
+				}
+
+				//Validation for PD first name.
+				if(StringUtils.isBlank(getProject().getPdFirstName())){
+					this.addActionError(getText("pd.firstname.required")); 
+				}
+
+				//Validation for PD last name.
+				if(StringUtils.isBlank(getProject().getPdLastName())){
+					this.addActionError(getText("pd.lastname.required")); 
+				}
+
+				//Validation for Project start date.
+				if(getProject().getProjectStartDate() == null){
+					this.addActionError(getText("project.start.date.required")); 
+				}
+
+				//Validation for Project end date.
+				if(getProject().getProjectEndDate() == null){
+					this.addActionError(getText("project.end.date.required")); 
+				}
+			
+				if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null) {
+					Calendar startCal = new GregorianCalendar();
+					startCal.setTime(getProject().getProjectStartDate());
+					Calendar endCal = new GregorianCalendar();
+					endCal.setTime(getProject().getProjectEndDate());
+					if(startCal.get(Calendar.YEAR) > 9999 || endCal.get(Calendar.YEAR) > 9999){
+						this.addActionError(getText("error.daterange.year"));
+					}	
+				}
+			
+				if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null && getProject().getProjectStartDate().after(getProject().getProjectEndDate())){
+					this.addActionError(getText("error.daterange.outofsequence"));
 				}	
 			}
-			
-			if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null && getProject().getProjectStartDate().after(getProject().getProjectEndDate())){
-				this.addActionError(getText("error.daterange.outofsequence"));
-			}	
-		}*/
+		}
 		//Comments cannot be greater than 2000 characters.
 		if(!StringUtils.isBlank(getProject().getComments())) {
 			if(getProject().getComments().length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
