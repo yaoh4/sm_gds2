@@ -68,6 +68,7 @@ function linkUnlinkGrants(elem) {
 				// Re-populate the data from DB.
 				refreshGrantsContractsData();
 				$("#link").css("background-color", "#d4d4d4");
+				$("#link").show();
 				$("#unlink").css("background-color", "#FFF");
 				$(".unlink-group").prop('disabled', true);
 				return true;
@@ -83,6 +84,7 @@ function linkUnlinkGrants(elem) {
 				$("#dataLinkFlag").val('N');
 				$("#unlink").css("background-color", "#d4d4d4");
 				$("#link").css("background-color", "#FFF");
+				$("#link").show();
 				$(".unlink-group").prop('disabled', false);
 				refreshCancerActivityCode();
 				return true;
