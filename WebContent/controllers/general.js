@@ -49,7 +49,7 @@ function openGrantsContractsSearchPage() {
 	});		
 	
 }
-
+//switch of search and edit icons
 $( document ).ready(function() {
 	if($("#grantsContractNum").val()=='') {
   $("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
