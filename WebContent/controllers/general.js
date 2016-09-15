@@ -51,16 +51,11 @@ function openGrantsContractsSearchPage() {
 }
 
 $( document ).ready(function() {
-	if($('#grantInput').val() != '')
-	{
-		$("#editIcon").show();
-		$("#searchIcon").hide();
+	if($("#grantsContractNum").val()=='') {
+		  $("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
+		  $("#grantsContractNum").attr("placeholder", "Click on Search Icon");
 	}
-
-	else { 
-	$('#editIcon').hide();
-	$("#searchIcon").show();
-	}
+	
 });
 
 

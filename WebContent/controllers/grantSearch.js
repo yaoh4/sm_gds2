@@ -187,10 +187,15 @@ function populateGrantsContractsData(){
 	$('#grantSearch').val('');
 	$("#searchGrantsContracts").hide();
 	$("#generalInfoSection").show();
+	
+	//Set grant to linked
 	$('#link').addClass('disabled');
 	$("#unlink").removeClass('disabled');
 	$(".unlink-group").prop('disabled', true);
 	$("#dataLinkFlag").val('Y');
+	
+	//Replace search icon with edit icon since we already have a grant
+	$("#grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
 	
 }
 
