@@ -69,8 +69,8 @@ function linkUnlinkGrants(elem) {
 				refreshGrantsContractsData();
 				$("#link").css("background-color", "#d4d4d4");
 				$("#unlink").css("background-color", "#FFF");
-				$("#link").prop('disabled', true);
-				$("#unlink").prop('disabled', false);
+				$('#link').addClass('disabled');
+			
 				return true;
 			} else {
 				return true;
@@ -84,8 +84,7 @@ function linkUnlinkGrants(elem) {
 				$("#dataLinkFlag").val('N');
 				$("#unlink").css("background-color", "#d4d4d4");
 				$("#link").css("background-color", "#FFF");
-				$("#unlink").prop('disabled', true);
-				$("#link").prop('disabled', false);
+				$('#unlink').addClass('disabled');
 				refreshCancerActivityCode();
 				return true;
 			} else {
