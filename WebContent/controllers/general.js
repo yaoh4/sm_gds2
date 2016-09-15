@@ -69,7 +69,7 @@ function linkUnlinkGrants(elem) {
 				refreshGrantsContractsData();
 				$("#link").css("background-color", "#d4d4d4");
 				$("#unlink").css("background-color", "#FFF");
-				$('#link').addClass('disabled');
+				
 			
 				return true;
 			} else {
@@ -84,7 +84,7 @@ function linkUnlinkGrants(elem) {
 				$("#dataLinkFlag").val('N');
 				$("#unlink").css("background-color", "#d4d4d4");
 				$("#link").css("background-color", "#FFF");
-				$('#unlink').addClass('disabled');
+				
 				refreshCancerActivityCode();
 				return true;
 			} else {
@@ -243,11 +243,11 @@ function refreshGrantsContractsData(){
 	
 	if ($("#dataLinkFlag").attr("value") == 'Y') {
 		$("#unlink").show();
-		$(".unlink-group").prop('disabled', true);
+		$('#link').addClass('disabled');
 		
 	} else {
 		$("#link").show();
-		$(".unlink-group").prop('disabled', false);
+		$('#unlink').addClass('disabled');
 	}
 
 	
