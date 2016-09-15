@@ -74,21 +74,13 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	private List<Document> gdsPlanFile;
 	
-	private Map<Long, List<String>> answerMap = new HashMap<Long, List<String>>();
-	
-	private Map<Long, List<String>> otherTextMap = new HashMap<Long, List<String>>();
-	
 	private Document doc = null; // json object to be returned for UI refresh after upload
 	
 	private String comments;
 
 	private boolean warnOnly = true;
 	
-	private Set<Long> newSet = new HashSet<Long>();
-		
-	private Set<Long> oldSet = new HashSet<Long>();
 	
-	private Set<Long> otherSet = new HashSet<Long>();
 
 	
 	/**
@@ -179,14 +171,18 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			this.addActionError(getText("error.doc.fileNotUploaded"));
 		}
 		logger.debug("Validate save GDS Plan");
+		
 		// If Other repository is selected, verify that OtherText is entered.
-		if(answerMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID) != null && answerMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).contains(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID.toString())) {
-			if(otherTextMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID) == null) {
+		Map<Long, List<String>> answers = getAnswers();
+		Map<Long, List<String>> otherText = getOtherText();
+		
+		if(answers.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID) != null && answers.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).contains(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID.toString())) {
+			if(otherText.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID) == null) {
 				this.addActionError(getText("error.other.specify"));
 			} else {
-				otherTextMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).removeAll(Arrays.asList("", null));;
-				if(otherTextMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).isEmpty()) {
-					otherTextMap.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID);
+				otherText.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).removeAll(Arrays.asList("", null));;
+				if(otherText.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).isEmpty()) {
+					otherText.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID);
 					this.addActionError(getText("error.other.specify"));
 				}
 			}
@@ -335,17 +331,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		return SUCCESS;
 	}
 	
-	/**
-	 * Return true if answer should be pre-selected 
-	 * based on saved data for checkboxes
-	 */
-	public boolean getSelected(Long qId, String aId) {
-		
-		List<String> list = answerMap.get(qId);
-		if(list != null && list.contains(aId))
-			return true;
-		return false;
-	}
 	
 	/**
 	 * Return true if "Why is this project being submitted?" 
@@ -364,12 +349,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 
 		//Construct answer lists from DB objects
 		populateAnswersMap();
-		
+		Map<Long, List<String>> answers = getAnswers();
 		// Always reset the file upload or text radio button selection
-		if (answerMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID) != null
-				&& !answerMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID).isEmpty()) {
-			answerMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID).clear();
-			answerMap.get(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID)
+		if (answers.get(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID) != null
+				&& !answers.get(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID).isEmpty()) {
+			answers.get(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID).clear();
+			answers.get(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_ID)
 					.add(ApplicationConstants.PLAN_QUESTION_ANSWER_UPLOAD_OPTION_FILE_ID.toString());
 		}
 		
@@ -384,165 +369,11 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 
 	}
 	
-	/**
-	 * This method converts the PlanAnswerSelection objects to answers map
-	 * @throws Exception 
-	 */
-	private void populateAnswersMap() {
-
-		List<PlanAnswerSelection> savedList = new LinkedList<PlanAnswerSelection>(
-				getProject().getPlanAnswerSelections());
-
-		class PlanAnswerSelectionComparator implements Comparator<PlanAnswerSelection> {
-
-			public int compare(PlanAnswerSelection e1, PlanAnswerSelection e2) {
-				return e1.getPlanQuestionsAnswer().getQuestionId()
-						.compareTo(e2.getPlanQuestionsAnswer().getQuestionId());
-			}
-
-		}
-
-		Collections.sort(savedList, new PlanAnswerSelectionComparator());
- 
-		answerMap.clear();
-		Long prevId = null;
-		Long otherId = null;
-		List<String> ansList = new ArrayList<String>();
-		List<String> otherList = new ArrayList<String>();
-		for (PlanAnswerSelection e: savedList) {
-			Long qId = e.getPlanQuestionsAnswer().getQuestionId();
-			Long aId = e.getPlanQuestionsAnswer().getId();
-			if(prevId != null && prevId != qId) {
-				answerMap.put(prevId, ansList);
-				if(otherId !=  null) {
-					Collections.sort(otherList);
-					otherTextMap.put(otherId, otherList);
-					otherList = new ArrayList<String>();
-					otherId = null;
-				}
-				ansList = new ArrayList<String>();
-			}
-			prevId = qId;
-			ansList.add(aId.toString());
-			if(StringUtils.isNotBlank(e.getOtherText())) {
-				otherId = aId;
-				otherList.add(e.getOtherText());
-			}
-		}
-		if(!ansList.isEmpty()) {
-			answerMap.put(prevId, ansList);
-			if(otherId !=  null) {
-				Collections.sort(otherList);
-				otherTextMap.put(otherId, otherList);
-			}
-		}
-
-	}
 	
-	/**
-	 * This method converts the user answers to PlanAnswerSelection objects
-	 * @throws Exception 
-	 */
-	private void populatePlanAnswerSelection() throws Exception{
-				
-		for(Long id: oldSet) {
-			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
-				PlanAnswerSelection savedOther = planAnswerSelectionIterator.next();
-				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue()) {
-					planAnswerSelectionIterator.remove();
-				}
-			}
-		}
-		
-		for(Long id: otherSet) {
-			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
-				PlanAnswerSelection savedOther = planAnswerSelectionIterator.next();
-				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue() &&
-						StringUtils.isNotBlank(savedOther.getOtherText())) {
-					boolean found = false;
-					for(String otherText: otherTextMap.get(id)) {
-						if(StringUtils.equals(savedOther.getOtherText(), otherText))
-							found = true;
-						break;
-					}
-					if(!found) {
-						planAnswerSelectionIterator.remove();
-					}
-				}
-			}
-		}
-		
-		PlanAnswerSelection newObject = null;
-		for (Long id : newSet) {
-			PlanQuestionsAnswer planQuestionsAnswer = PlanQuestionList.getAnswerByAnswerId(id);
-			if(planQuestionsAnswer.getDisplayText().equalsIgnoreCase(ApplicationConstants.OTHER) && otherTextMap != null && !otherTextMap.isEmpty()) {
-				for(String otherText: otherTextMap.get(id)) {
-					newObject = getProject().getPlanAnswerSelectionByAnswerIdAndText(id, otherText);
-					if(newObject == null) {
-						newObject = new PlanAnswerSelection();
-						newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
-						newObject.setOtherText(otherText);
-						newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
-						newObject.addProject(getProject());
-						// If child exists, then add answer to all children
-						List<Project> children = getSubprojects();
-						for(Project child: children) {
-							newObject.addProject(child);
-						}
-						getProject().getPlanAnswerSelections().add(newObject);
-					}
-				}
-			} else {
-				newObject = getProject().getPlanAnswerSelectionByAnswerId(id);
-				if(newObject == null) {
-					newObject = new PlanAnswerSelection();
-					newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
-					newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
-					newObject.addProject(getProject());
-					// If child exists, then add answer to all children
-					List<Project> children = getSubprojects();
-					for(Project child: children) {
-						newObject.addProject(child);
-					}
-					getProject().getPlanAnswerSelections().add(newObject);
-				}
-			}
-		}
-
-	}
 	
-	/**
-	 * Construct new and old set of answers to be used for warning and
-	 * Plan Answer Selection object removal/creation
-	 */
-	private void populateSelectedRemovedSets(boolean warn) {
-		Set<Long> origSet = new HashSet<Long>();
-		newSet.clear();
-		oldSet.clear();
-		otherSet.clear();
-		
-		for (Entry<Long, List<String>> e : answerMap.entrySet()) {
-			for(String entry: e.getValue()) {
-				newSet.add(new Long(entry));
-				List<String> otherList = otherTextMap.get(new Long(entry));
-				if(otherList != null && !otherList.isEmpty()) {
-					otherSet.add(new Long(entry));
-				}
-			}
-		}
-		for (PlanAnswerSelection e: getProject().getPlanAnswerSelections()) {
-			origSet.add(e.getPlanQuestionsAnswer().getId());
-		}
-		
-		oldSet.addAll(origSet);
-		if(!warn) {
-			oldSet.removeAll(newSet); // deleted set
-		
-			newSet.removeAll(origSet); // added set
-		}
-		newSet.addAll(otherSet);
-		
-	}
+	
+	
+	
 	/**
 	 * Method to remove other files and db objects as necessary
 	 * 		
@@ -767,14 +598,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	public void setMap(Map<String, UIList> map) {
 		this.uiControlMap = map;
 	}
-
-	public List<PlanQuestionsAnswer> getAnswerListByQuestionId(Long qid) {
-		return PlanQuestionList.getAnswerListByQuestionId(qid);
-	}
-
-	public PlanQuestionsAnswer getQuestionById(Long qid) {
-		return PlanQuestionList.getQuestionById(qid);
-	}
+	
 
 	public PlanQuestionList getQuestionList() {
 		return questionList;
@@ -866,16 +690,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	}
 
 
-	public Map<Long, List<String>> getAnswers() {
-		return answerMap;
-	}
-
-
-	public void setAnswers(Map<Long, List<String>> answers) {
-		this.answerMap = answers;
-	}
-
-
 	public List<Document> getExcepMemoFile() {
 		return excepMemoFile;
 	}
@@ -894,17 +708,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	public void setGdsPlanFile(List<Document> gdsPlanFile) {
 		this.gdsPlanFile = gdsPlanFile;
 	}
-
-
-	public Map<Long, List<String>> getOtherText() {
-		return otherTextMap;
-	}
-
-
-	public void setOtherText(Map<Long, List<String>> otherText) {
-		this.otherTextMap = otherText;
-	}
-
+	
 
 	public String getComments() {
 		return comments;

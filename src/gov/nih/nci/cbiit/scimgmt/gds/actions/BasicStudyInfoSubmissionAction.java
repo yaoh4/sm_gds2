@@ -87,6 +87,11 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		getProject().setBsiReviewedFlag(bsiReviewedFlag);
 		getProject().setBsiComments(comments); 
 
+		if(getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
+			populateSelectedRemovedSets(false); // Re-populate the new and old set for save.
+			populatePlanAnswerSelection();
+		}
+		
 		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_BSI);
 		
 		setProject(retrieveSelectedProject());
@@ -219,6 +224,8 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	 */
 	private void setUpPageData() throws Exception{
 
+		populateAnswersMap();
+		
 		bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, getProject().getId());
 		
 		bsiReviewedFlag = getProject().getBsiReviewedFlag();

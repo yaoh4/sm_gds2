@@ -8,9 +8,17 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,11 +30,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
@@ -64,6 +74,15 @@ public class ManageSubmission extends BaseAction {
 	
 	protected List<MissingData> missingDataList = new ArrayList<MissingData>();
 	
+	private Map<Long, List<String>> answerMap = new HashMap<Long, List<String>>();
+	
+	private Map<Long, List<String>> otherTextMap = new HashMap<Long, List<String>>();
+	
+	protected Set<Long> newSet = new HashSet<Long>();
+	
+	protected Set<Long> oldSet = new HashSet<Long>();
+	
+	protected Set<Long> otherSet = new HashSet<Long>();
 	
 	/**
 	 * Execute method, for now used for navigation
@@ -569,6 +588,208 @@ public class ManageSubmission extends BaseAction {
 	public void setPage(Lookup page) {
 		this.page = page;
 	}
+	
+	
+	public Map<Long, List<String>> getAnswers() {
+		return answerMap;
+	}
+
+	public void setAnswers(Map<Long, List<String>> answers) {
+		this.answerMap = answers;
+	}
+	
+	public Map<Long, List<String>> getOtherText() {
+		return otherTextMap;
+	}
+
+	public void setOtherText(Map<Long, List<String>> otherText) {
+		this.otherTextMap = otherText;
+	}
+	
+	/**
+	 * Return true if answer should be pre-selected 
+	 * based on saved data for checkboxes
+	 */
+	public boolean getSelected(Long qId, String aId) {
+		
+		List<String> list = answerMap.get(qId);
+		if(list != null && list.contains(aId))
+			return true;
+		return false;
+	}
+	
+	public PlanQuestionsAnswer getQuestionById(Long qid) {
+		return PlanQuestionList.getQuestionById(qid);
+	}
+	
+	
+	public List<PlanQuestionsAnswer> getAnswerListByQuestionId(Long qid) {
+		return PlanQuestionList.getAnswerListByQuestionId(qid);
+	}
+
+	
+	/**
+	 * This method converts the PlanAnswerSelection objects to answers map
+	 * @throws Exception 
+	 */
+	protected void populateAnswersMap() {
+
+		List<PlanAnswerSelection> savedList = new LinkedList<PlanAnswerSelection>(
+				getProject().getPlanAnswerSelections());
+
+		class PlanAnswerSelectionComparator implements Comparator<PlanAnswerSelection> {
+
+			public int compare(PlanAnswerSelection e1, PlanAnswerSelection e2) {
+				return e1.getPlanQuestionsAnswer().getQuestionId()
+						.compareTo(e2.getPlanQuestionsAnswer().getQuestionId());
+			}
+
+		}
+
+		Collections.sort(savedList, new PlanAnswerSelectionComparator());
+ 
+		answerMap.clear();
+		Long prevId = null;
+		Long otherId = null;
+		List<String> ansList = new ArrayList<String>();
+		List<String> otherList = new ArrayList<String>();
+		for (PlanAnswerSelection e: savedList) {
+			Long qId = e.getPlanQuestionsAnswer().getQuestionId();
+			Long aId = e.getPlanQuestionsAnswer().getId();
+			if(prevId != null && prevId != qId) {
+				answerMap.put(prevId, ansList);
+				if(otherId !=  null) {
+					Collections.sort(otherList);
+					otherTextMap.put(otherId, otherList);
+					otherList = new ArrayList<String>();
+					otherId = null;
+				}
+				ansList = new ArrayList<String>();
+			}
+			prevId = qId;
+			ansList.add(aId.toString());
+			if(StringUtils.isNotBlank(e.getOtherText())) {
+				otherId = aId;
+				otherList.add(e.getOtherText());
+			}
+		}
+		if(!ansList.isEmpty()) {
+			answerMap.put(prevId, ansList);
+			if(otherId !=  null) {
+				Collections.sort(otherList);
+				otherTextMap.put(otherId, otherList);
+			}
+		}
+
+	}
+	
+	
+	/**
+	 * This method converts the user answers to PlanAnswerSelection objects
+	 * @throws Exception 
+	 */
+	protected void populatePlanAnswerSelection() throws Exception{
+				
+		for(Long id: oldSet) {
+			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
+				PlanAnswerSelection savedOther = planAnswerSelectionIterator.next();
+				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue()) {
+					planAnswerSelectionIterator.remove();
+				}
+			}
+		}
+		
+		for(Long id: otherSet) {
+			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
+				PlanAnswerSelection savedOther = planAnswerSelectionIterator.next();
+				if(savedOther.getPlanQuestionsAnswer().getId().longValue() == id.longValue() &&
+						StringUtils.isNotBlank(savedOther.getOtherText())) {
+					boolean found = false;
+					for(String otherText: otherTextMap.get(id)) {
+						if(StringUtils.equals(savedOther.getOtherText(), otherText))
+							found = true;
+						break;
+					}
+					if(!found) {
+						planAnswerSelectionIterator.remove();
+					}
+				}
+			}
+		}
+		
+		PlanAnswerSelection newObject = null;
+		for (Long id : newSet) {
+			PlanQuestionsAnswer planQuestionsAnswer = PlanQuestionList.getAnswerByAnswerId(id);
+			if(planQuestionsAnswer.getDisplayText().equalsIgnoreCase(ApplicationConstants.OTHER) && otherTextMap != null && !otherTextMap.isEmpty()) {
+				for(String otherText: otherTextMap.get(id)) {
+					newObject = getProject().getPlanAnswerSelectionByAnswerIdAndText(id, otherText);
+					if(newObject == null) {
+						newObject = new PlanAnswerSelection();
+						newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+						newObject.setOtherText(otherText);
+						newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
+						newObject.addProject(getProject());
+						// If child exists, then add answer to all children
+						List<Project> children = getSubprojects();
+						for(Project child: children) {
+							newObject.addProject(child);
+						}
+						getProject().getPlanAnswerSelections().add(newObject);
+					}
+				}
+			} else {
+				newObject = getProject().getPlanAnswerSelectionByAnswerId(id);
+				if(newObject == null) {
+					newObject = new PlanAnswerSelection();
+					newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+					newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
+					newObject.addProject(getProject());
+					// If child exists, then add answer to all children
+					List<Project> children = getSubprojects();
+					for(Project child: children) {
+						newObject.addProject(child);
+					}
+					getProject().getPlanAnswerSelections().add(newObject);
+				}
+			}
+		}
+
+	}
+	
+	
+	/**
+	 * Construct new and old set of answers to be used for warning and
+	 * Plan Answer Selection object removal/creation
+	 */
+	protected void populateSelectedRemovedSets(boolean warn) {
+		Set<Long> origSet = new HashSet<Long>();
+		newSet.clear();
+		oldSet.clear();
+		otherSet.clear();
+		
+		for (Entry<Long, List<String>> e : getAnswers().entrySet()) {
+			for(String entry: e.getValue()) {
+				newSet.add(new Long(entry));
+				List<String> otherList = getOtherText().get(new Long(entry));
+				if(otherList != null && !otherList.isEmpty()) {
+					otherSet.add(new Long(entry));
+				}
+			}
+		}
+		for (PlanAnswerSelection e: getProject().getPlanAnswerSelections()) {
+			origSet.add(e.getPlanQuestionsAnswer().getId());
+		}
+		
+		oldSet.addAll(origSet);
+		if(!warn) {
+			oldSet.removeAll(newSet); // deleted set
+		
+			newSet.removeAll(origSet); // added set
+		}
+		newSet.addAll(otherSet);
+		
+	}
+	
 	
 	protected String computePageStatus(Project project) {
 		//Override

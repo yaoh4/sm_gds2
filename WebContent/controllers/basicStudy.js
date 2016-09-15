@@ -8,6 +8,60 @@ $('body').on('click', 'a.history', function() {
     $("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
 });
 
+
+//Function that shows Other box
+$('#25').change(function () {
+    if( $(this).is(':checked')) {
+        $("#addRepo").show();
+    } else {
+    	$(".otherWrapper").first().children("i").remove();
+    	$(".other").val('');
+    	$(".otherWrapper").not(".otherWrapper:first").remove();
+        $("#addRepo").hide();
+    }
+}); 
+$('#25').change();
+
+
+//Function that controls the Adding of Additional Repositories
+$("#basic-study-form").on('click', '#addfield', function () {
+	
+	maxInputs = 10;
+	fieldCount = $(".otherWrapper").length;
+
+	if (fieldCount < maxInputs) // max input box allowed
+	{
+		// If its the second row, add a trash bin next to the first row.
+		if(fieldCount == 1) {
+			$(".otherWrapper").first().append('<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer">'
+					+ '</i></div>');
+		}
+		
+		// add input box
+		$(".otherWrapper").last().after('<div class="otherWrapper" style="margin-bottom: 15px; margin-top: 15px;">'
+			+ '<input type="text" maxlength="200" class="other" name="otherText[25]" id="field_'
+			+ fieldCount
+			+ '" placeholder="Name of Repository" />'
+			+ '<i class="fa fa-trash fa-lg delete removeclass" title="Delete"  aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 13px; cursor:pointer">'
+			+ '</i></div>');
+		
+	}
+});
+
+
+//Function that controls the Deleting of Additional Repositories
+$("#basic-study-form").on('click', '.removeclass', function () {//user click on remove text
+	$(this).parent('div').remove(); //remove text box
+	
+	fieldCount = $(".otherWrapper").length;
+	// If this was the second row, remove the trash bin from the first row.
+	if(fieldCount == 1) {
+		$(".otherWrapper").first().children("i").remove();
+	}
+	
+}); 
+
+
 // Data sharing plan file upload Ajax
 $("#basic-study-form").on('click', '#bsiUpload', function () {
 
