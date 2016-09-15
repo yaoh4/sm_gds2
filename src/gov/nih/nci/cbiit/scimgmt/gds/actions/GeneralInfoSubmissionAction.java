@@ -151,6 +151,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 					ans.addProject(project);
 				}
 				project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
+				project.setProgramBranch(parentProject.getProgramBranch());
 				//Create repository statuses for sub-project from parent
 				setupRepositoryStatuses(project);
 			}
@@ -553,16 +554,22 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		if(StringUtils.isBlank(getProject().getSubmissionTitle())){
 			this.addActionError(getText("submissionTitle.required")); 
 		}
-
+		
+		Long submissionReasonId = null;
+        
 		//Validation for SubmissionReason
 		if(getProject().getParentProjectId() == null){
-			if(getProject().getSubmissionReasonId() == null){
+			submissionReasonId = getProject().getSubmissionReasonId();
+			if(submissionReasonId == null){
 				this.addActionError(getText("submissionReasonId.required")); 
 			}
+		} else {
+			
+			submissionReasonId = retrieveParentProject().getSubmissionReasonId();
 		}
 		
 		//Exclude non-NIH funded submissions from the below validations
-		if(!getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
+		if(!submissionReasonId.equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
 			
 			
 			//Validation for Program/ Branch
