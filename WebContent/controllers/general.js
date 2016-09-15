@@ -294,6 +294,8 @@ function refreshGrantsContractsData(){
 		    $("#DivisionOffice").hide();
 			$("#pBranch").hide();
 			$("#grantDiv").hide();
+			$("#grantsContractNum").val('');
+			$("#applId").val('');
 			$("#title").hide();
 		    $("#canAct").hide();
 			$("#pdName").hide();
