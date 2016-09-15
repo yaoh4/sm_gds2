@@ -70,7 +70,16 @@ public class GdsSubmissionActionHelper {
 		}
 	}
 	
-	
+	public static List<DropDownOption> populateProgDropDownList(List<DropDownOption> dropDownList, List<String> progList){
+		for(String prog : progList ){
+			DropDownOption option = new DropDownOption(prog,prog);
+			dropDownList.add(option);
+		}
+		
+		return dropDownList;
+
+		
+	}
 	/**
 	 * Get the Lookup list for the given list name and prepare
 	 * the dropDown list.
