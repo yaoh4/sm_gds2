@@ -38,12 +38,12 @@
       <td colspan="4">&nbsp;</td>
     </tr>
     <tr class="display">
-      <td style="white-space: nowrap"><strong>Division/Office/Center:</strong></td>
+      <td style="white-space: nowrap"><strong>NCI Division/Office/Center:</strong></td>
       <s:hidden id="projAbbr" value="%{project.docAbbreviation}"/>
       <td colspan="4">${project.docAbbreviation}</td>
     </tr>
    <tr class="display">
-      <td style="white-space: nowrap"><strong>Program Branch:</strong></td>
+      <td style="white-space: nowrap"><strong>Branch/Program/Laboratory:</strong></td>
       <td colspan="4">${project.programBranch}</td>
     </tr>
     <tr>
