@@ -69,7 +69,7 @@
 						<div class="col-xs-5">
 							<label for="Division/Office/Center"><i
 								class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;
-								Division/Office/Center</label> 
+								NCI Division/Office/Center</label> 
 								<s:if test="project.parentProjectId==null">
 								<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue"  value="%{preSelectedDOC}"/>								
 						</s:if>
@@ -84,13 +84,14 @@
 					<div id="pBranch">
 						<div class="col-xs-5">
 							<label for="Program Branch"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Program
-								Branch</label> 
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Branch/Program/Laboratory</label> 
 								<s:if test="project.parentProjectId==null">
-								<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name"  value="%{project.programBranch}"  maxLength="30"/>
+								<s:select id="programBranch" cssClass="c-select form-control" name="project.programBranch" list="progList" listKey="optionKey" listValue="optionValue"  value="%{project.programBranch}"/>	
+				
 						</s:if>
 						<s:else>
-							<s:textfield name="project.programBranch" cssClass="form-control" id="programBranch" placeholder="Enter Full Branch Name"  value="%{project.programBranch}" readonly="true" maxLength="30"/>
+						<s:select id="programBranch" cssClass="c-select form-control" name="project.programBranch" list="progList" listKey="optionKey" listValue="optionValue"  contenteditable="true" readonly="true" value="%{project.programBranch}"/>	
+							
 						</s:else>
 						</div>
 						</div>
