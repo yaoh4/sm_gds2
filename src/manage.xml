@@ -258,6 +258,13 @@
 				<param name="root">grantOrContract</param>
 			 </result>
 		</action>
+		
+		<action name="getProgBranchList" method="getProgBranchList" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+			
+			<result name="success" type="json">
+				<param name="root">progList</param>
+			 </result>
+		</action>
 		<action name="createSubproject" method="createSubproject" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
 			  <result name="success" type="tiles">submissionGeneralInfo</result>
 		</action>	
