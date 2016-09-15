@@ -93,12 +93,12 @@ public interface ManageProjectService {
 
 	
 	/**
-	 * This method retrieves list of program/branch for the given sacCode for an org.
+	 * This method retrieves list of program/branch for the doc.
 	 * 
-	 * @param sacCode
+	 * @param doc
 	 * @return
 	 */
-	public List<String> getSubOrgList(String sacCode);
+	public List<String> getSubOrgList(String doc);
 	
 	
 	/**

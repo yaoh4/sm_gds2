@@ -16,6 +16,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.dao.ProjectsDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
@@ -190,13 +191,14 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	}
 	
 	/**
-	 * This method retrieves list of program/branch for the given sacCode for an org.
+	 * This method retrieves list of program/branch for the given doc.
 	 * 
-	 * @param sacCode
+	 * @param doc
 	 * @return
 	 */
-	public List<String> getSubOrgList(String sacCode) {
-		return projectsDao.getSubOrgList(sacCode);
+	public List<String> getSubOrgList(String doc) {
+		Organization organization = projectsDao.getOrganizationByDoc(doc);
+		return projectsDao.getSubOrgList(organization.getNihsac());
 	}
 
 	/**

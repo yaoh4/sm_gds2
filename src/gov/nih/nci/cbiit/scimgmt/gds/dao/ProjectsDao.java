@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
@@ -271,9 +272,25 @@ public class ProjectsDao {
 		}
 	}
 	
+	
+	public Organization getOrganizationByDoc(String doc) {
+		logger.debug("Retrieving  organization for docAbbreviation: " + doc);
+		try {
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Organization.class);	
+			criteria.add(Restrictions.eq("nihorgpath", doc));
+			Organization  organization = (Organization) criteria.uniqueResult();
+			return organization;
+
+		}catch (Throwable e) {
+			logger.error(e.getMessage(), e);
+			throw e;
+		}
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	public List<String> getSubOrgList(String sacCode) {
-		
+		logger.debug("Retrieving  subOrg list for sacCode: " + sacCode);
 		List<String> result = null;
 		Session session = sessionFactory.getCurrentSession();
 		try {		
