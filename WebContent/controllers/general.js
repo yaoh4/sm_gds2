@@ -23,7 +23,7 @@ $(function(){
 	}
 });
 
-//Edit button
+//Search/Edit button
 function openGrantsContractsSearchPage() {
 	
 	$("#messages").empty();
@@ -49,6 +49,13 @@ function openGrantsContractsSearchPage() {
 	});		
 	
 }
+
+$( document ).ready(function() {
+	if($("#grantsContractNum").val()=='') {
+  $("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
+  $("grantsContactNum").removeAttr("placeholder").addAttr("placeholder", "Click on Search Icon");
+}
+});
 
 
 
