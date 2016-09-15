@@ -188,6 +188,16 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum, String projectId) {
 		return projectsDao.getPrevLinkedSubmissionsForGrant(grantContractNum,projectId);
 	}
+	
+	/**
+	 * This method retrieves list of program/branch for the given sacCode for an org.
+	 * 
+	 * @param sacCode
+	 * @return
+	 */
+	public List<String> getSubOrgList(String sacCode) {
+		return projectsDao.getSubOrgList(sacCode);
+	}
 
 	/**
 	 * Retrieve Sub-projects based on parent project ID.

@@ -11,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -25,6 +27,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+
 
 /**
  * Dao object for domain model class Project.
@@ -266,5 +269,28 @@ public class ProjectsDao {
 			
 			throw e;
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String> getSubOrgList(String sacCode) {
+		
+		List<String> result = null;
+		Session session = sessionFactory.getCurrentSession();
+		try {		
+			final String hql = "select ltrim(sys_connect_by_path(nihOuAcronym,'/'),'/')"
+				+ " from ned_orgunit orgunit where orgunit.inactive_date is null"
+				+ " start with orgunit.nihsac = ?"
+				+ " connect by prior orgunit.nihsac = orgunit.nihparentsac";
+			
+			SQLQuery query = session.createSQLQuery(hql);
+			query.setString(0, sacCode);
+
+			result = query.list();
+
+		} catch (Throwable e) {
+			logger.error(e.getMessage(), e);
+			throw e;
+		}
+		return result;
 	}
 }

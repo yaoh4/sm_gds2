@@ -91,6 +91,16 @@ public interface ManageProjectService {
 	 */
 	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum, String projectId);
 
+	
+	/**
+	 * This method retrieves list of program/branch for the given sacCode for an org.
+	 * 
+	 * @param sacCode
+	 * @return
+	 */
+	public List<String> getSubOrgList(String sacCode);
+	
+	
 	/**
 	 * Retrieve Sub-projects based on parent project ID.
 	 * @param parentProjectId
