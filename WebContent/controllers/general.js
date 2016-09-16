@@ -267,7 +267,7 @@ function refreshGrantsContractsData(){
  
  $(function () {
 	 var docName=$('#DOC').find('option:selected').text();
-	 var projAnswer=$('input[type="radio"]:checked').val();
+	 var projAnswer= $("input[type='radio'].radioSelect:checked").val();
 	//if ($("#applClassCode").attr("value") == 'M') {  
 	 if(projAnswer == 29){
 		   hideGrantFields();
@@ -288,8 +288,8 @@ function refreshGrantsContractsData(){
 	
 });
  
- $('.radio').on('change', function () {
-	 var projAnswer=$('input[type="radio"]:checked').val();
+ $('.radioSelect').on('change', function () {
+	 var projAnswer= $("input[type='radio'].radioSelect:checked").val();
 	 var docName=$('#DOC').find('option:selected').text();
 	 if(projAnswer == 29){
 		    hideGrantFields();
@@ -313,7 +313,7 @@ function refreshGrantsContractsData(){
  
  $('#DOC').on('change', function () {
 	   var optionSelected = $("option:selected", this);
-	   var projAnswer=$('input[type="radio"]:checked').val();
+	   var projAnswer= $("input[type='radio'].radioSelect:checked").val();
 	   var valueSelected = this.value;
 	   if(valueSelected == 'DCEG' || valueSelected == 'CCR'){
 		   $("#DivisionOffice").show();
