@@ -543,6 +543,12 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 				getProject().setApplId(Long.valueOf(applId));
 				loadGrantInfo();
 			}
+			if(StringUtils.isNotBlank(getProject().getDocAbbreviation())){
+				preSelectedDOC = getProject().getDocAbbreviation();
+				progList.clear();
+				List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
+				progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
+			}
 		}
 	}	
 
