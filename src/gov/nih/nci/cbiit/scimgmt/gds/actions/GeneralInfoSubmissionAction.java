@@ -38,7 +38,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
  * @author tembharend
  */
 @SuppressWarnings("serial")
-public class GeneralInfoSubmissionAction extends ManageSubmission implements Preparable{
+public class GeneralInfoSubmissionAction extends ManageSubmission {
 
 	private static final Logger logger = LogManager.getLogger(GeneralInfoSubmissionAction.class);	
 
@@ -163,14 +163,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		setProjectId(project.getId().toString());
 	}
 
-	/**
-	 * If validation fails re-populate request scoped form data. 
-	 */
-	@Override
-	public void prepare() throws Exception {
-		setUpLists();	
-	}
-	
 	
 	
 	/**
@@ -543,12 +535,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 				getProject().setApplId(Long.valueOf(applId));
 				loadGrantInfo();
 			}
-			if(StringUtils.isNotBlank(getProject().getDocAbbreviation())){
-				preSelectedDOC = getProject().getDocAbbreviation();
-				progList.clear();
-				List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
-				progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
-			}
+			setUpLists();
 		}
 	}	
 
