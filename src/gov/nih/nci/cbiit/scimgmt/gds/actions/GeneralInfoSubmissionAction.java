@@ -91,6 +91,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		logger.debug("Saving Submission General Info.");		
 		saveProject();
 		addActionMessage(getText("project.save.success"));
+		setUpPageData();
 		return SUCCESS;
 	}
 	
@@ -158,7 +159,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		}		
 		project = super.saveProject(project, null);
 		setProject(project);
-		loadGrantInfo();
+		//loadGrantInfo();
 		setProjectId(project.getId().toString());
 	}
 
@@ -166,7 +167,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 * If validation fails re-populate request scoped form data. 
 	 */
 	@Override
-	public void prepare() throws Exception {		
+	public void prepare() throws Exception {
 		setUpLists();	
 	}
 	
