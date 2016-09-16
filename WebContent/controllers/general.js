@@ -338,12 +338,10 @@ function refreshGrantsContractsData(){
 			async: true,
 			success : function(result){
 				var select=$('#programBranch');
-				select.find('option').remove();
-				$.each(result, function(key,value) {  
-	                            $.each(value, function (i,item) {
-	                                $('#programBranch').append($('<option></option>').val(item).text(item));
-	                            });
-	                                });
+				select.find('option').remove();		 
+				$.each(result, function (i,item) {
+                    $('#programBranch').append($('<option></option>').val(item.optionKey).text(item.optionValue));                         
+                });
 			}, 
 			error: function(){}	
 		});
