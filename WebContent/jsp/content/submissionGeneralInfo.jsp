@@ -58,7 +58,7 @@
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 						<p class="question"> <br/> <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>	
-							<s:radio id="submissionReasonId" name="project.submissionReasonId" list="projectSubmissionReasons" template="radiomap-div.ftl"
+							<s:radio id="submissionReasonId" class="radioSelect" name="project.submissionReasonId" list="projectSubmissionReasons" template="radiomap-div.ftl"
 								listKey="optionKey" listValue="optionValue" />
 								
 						</div>
