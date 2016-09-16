@@ -66,10 +66,9 @@
 
 					<div class="form-group row has-feedback">
 					<div id="DivisionOffice">
-						<div class="col-xs-5">
-							<label for="Division/Office/Center"><i
-								class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;
-								NCI Division/Office/Center</label> 
+						<div class="col-xs-6">
+							<label for="NCI Division/Office/Center under which the submission is being created"><i
+								class="fa fa-asterisk" aria-hidden="true"></i>NCI Division/Office/Center under which the submission is being created</label> 
 								<s:if test="project.parentProjectId==null">
 								<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue"  value="%{preSelectedDOC}"/>								
 						</s:if>
@@ -82,7 +81,7 @@
 					
 					<div class="form-group row has-feedback">
 					<div id="pBranch">
-						<div class="col-xs-5">
+						<div class="col-xs-6">
 							<label for="Program Branch"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Branch/Program/Laboratory</label> 
 								<s:if test="project.parentProjectId==null">
@@ -114,7 +113,7 @@
 								</div>
 								</div>
 					
-							<div class="col-xs-5">
+							<div class="col-xs-5" style="margin-left:-15px">
 							<label>&nbsp;</label>
 							  <div class="position: relative; display: table; border-collapse: separate;">
 														
