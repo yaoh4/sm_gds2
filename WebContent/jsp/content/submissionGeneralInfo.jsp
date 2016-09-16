@@ -169,7 +169,7 @@
 					</div>
 
 					<div class="form-group row has-feedback">
-						<div class="col-xs-5 ">
+						<div class="col-xs-6">
 							<label for="Email of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
 								of Principal Investigator</label>
@@ -180,7 +180,7 @@
 					</div>
 
 					<div class="form-group row has-feedback">
-						<div class="col-xs-5 ">
+						<div class="col-xs-10">
 							<label for="Institution of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
 								of Principal Investigator</label>
@@ -202,7 +202,7 @@
 					</div>
 
 					<div class="form-group row has-feedback">
-						<div class="col-xs-5">
+						<div class="col-xs-6">
 							<label for="Email of Principal Investigator">Email of
 								Primary Contact</label>
 						<s:textfield name="project.pocEmailAddress" cssClass="form-control" id="PCemail" placeholder="Enter Vaild Email Address" data-error="Email address is invalid" value="%{project.pocEmailAddress}" maxLength="80"/>								
