@@ -643,12 +643,12 @@
                   </s:if>
                   <s:elseif
                     test="%{#r.lookupTByRegistrationStatusId.displayName == 'Completed'}">
-                    <img src="../images/complete.png" alt="Complete" width="18px"
-                      height="18px" title="Complete" />
+                    <img src="../images/pending.png" alt="Not Started" width="18px"
+                      height="18px" title="Not Started" />
                   </s:elseif>
                   <s:else>
-                    <img src="../images/pending.png" alt="Pending" width="18px"
-                      height="18px" title="Pending">
+                    <img src="../images/complete.png" alt="Completed" width="18px"
+                      height="18px" title="Completed">
                   </s:else>
                 </div>
               </td>
@@ -660,13 +660,13 @@
                       height="18px"  title="In Progress"/>
                   </s:if>
                   <s:elseif
-                    test="%{#r.lookupTBySubmissionStatusId.displayName == 'Completed'}">
-                    <img src="../images/complete.png" alt="Complete" width="18px"
-                      height="18px"  title="Complete"/>
+                    test="%{#r.lookupTBySubmissionStatusId.displayName == 'Not Started'}">
+                    <img src="../images/pending.png" alt="Not Started" width="18px"
+                      height="18px"  title="Not Started"/>
                   </s:elseif>
                   <s:else>
-                    <img src="../images/pending.png" alt="Pending" width="18px"
-                      height="18px" title="Pending">
+                    <img src="../images/complete.png" alt="Completed" width="18px"
+                      height="18px" title="Completed">
                   </s:else>
                 </div>
               </td>

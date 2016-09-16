@@ -50,12 +50,12 @@ $('body').on('click', 'a.project', function() {
 function setStatus(elem, elemDiv) {
 	$("#" + elemDiv).empty();
 	var elemVal = $("#" + elem).val();
-	if($("#" + elem).val() == 'COMPLETED') {
-		$("#" + elemDiv).prepend('<img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/>');
+	if($("#" + elem).val() == 'NOTSTARTED') {
+		$("#" + elemDiv).prepend('<img src="../images/pending.png" alt="Not Started" width="18px" height="18px" title="Not Started"/>');
 	} else if($("#" + elem).val() == 'INPROGRESS') {
 		$("#" + elemDiv).prepend('<img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>');
 	} else {
-		$("#" + elemDiv).prepend('<img src="../images/pending.png" alt="Not Started" width="18px" height="18px" title="Not Started"/>');
+		$("#" + elemDiv).prepend('<img src="../images/complete.png" alt="Completed" width="18px" height="18px" title="Completed"/>');
 	}
 }
 	
