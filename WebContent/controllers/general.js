@@ -54,6 +54,7 @@ $( document ).ready(function() {
 	if($("#grantsContractNum").val()=='') {
 		  $("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
 		  $("#grantsContractNum").attr("placeholder", "Click on Search Icon");
+		  $("#canAct").hide();
 	}
 	
 });
@@ -179,8 +180,8 @@ function refreshCancerActivityCode(){
 	  	type: 'post',
 	  	async:   false,
 	  	success: function(json){
-	  		if (json.activityCode !== "undefined") {
-	  			$("#cancerActivity").val(json.activityCode);
+	  		if (json.cayCode !== "undefined") {
+	  			$("#cancerActivity").val(json.cayCode);
 	  			$("#cancerActivity").prop('readOnly', true);
 	  		}
 		}, 
@@ -229,8 +230,8 @@ function refreshGrantsContractsData(){
 	  			var d = new Date(json.projectPeriodEndDate);
 	  			$("#projectEndDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
 	  		}	
-	  		if (json.activityCode !== "undefined") {
-	  			$("#cancerActivity").val(json.activityCode);
+	  		if (json.cayCode !== "undefined") {
+	  			$("#cancerActivity").val(json.cayCode);
 	  			$("#cancerActivity").prop('readOnly', true);
 	  		}
 	  		if (json.applId !== "undefined") {
@@ -279,11 +280,29 @@ function refreshGrantsContractsData(){
 			$("#pEndDate").hide();
 	 }
 	 else if(docName == "DCEG" || docName == "CCR" ){
+		 $("#DivisionOffice").show();
+			$("#pBranch").show();
+			$("#grantDiv").show();
+			$("#title").show();
 		$("#canAct").hide();
 		$("#pdName").hide();
 		$("#pStartDate").hide();
 		$("#pEndDate").hide();			
 	}
+	 else{
+		 $("#DivisionOffice").show();
+			$("#pBranch").show();
+			$("#grantDiv").show();
+			$("#title").show();
+			if($("#grantsContractNum").val()=='')
+			$("#canAct").hide();
+			else
+		    $("#canAct").show();
+			$("#pdName").show();
+			$("#pStartDate").show();
+			$("#pEndDate").show();
+	 }
+	
 });
  
  $('.radio').on('change', function () {
@@ -302,6 +321,10 @@ function refreshGrantsContractsData(){
 			$("#pEndDate").hide();
 	 }
 	 else if(docName == "DCEG" || docName == "CCR"){
+		 $("#DivisionOffice").show();
+			$("#pBranch").show();
+			$("#grantDiv").show();
+			$("#title").show();
 		 $("#canAct").hide();
 			$("#pdName").hide();
 			$("#pStartDate").hide();
@@ -312,7 +335,10 @@ function refreshGrantsContractsData(){
 			$("#pBranch").show();
 			$("#grantDiv").show();
 			$("#title").show();
-		    $("#canAct").show();
+			if($("#grantsContractNum").val()=='')
+				$("#canAct").hide();
+				else
+			    $("#canAct").show();
 			$("#pdName").show();
 			$("#pStartDate").show();
 			$("#pEndDate").show();
@@ -324,6 +350,10 @@ function refreshGrantsContractsData(){
 	   var projAnswer=$('input[type="radio"]:checked').val();
 	   var valueSelected = this.value;
 	   if(valueSelected == 'DCEG' || valueSelected == 'CCR'){
+		   $("#DivisionOffice").show();
+			$("#pBranch").show();
+			$("#grantDiv").show();
+			$("#title").show();
 		   $("#canAct").hide();
 		   $("#pdName").hide();
 			$("#pStartDate").hide();
@@ -344,7 +374,10 @@ function refreshGrantsContractsData(){
 			$("#pBranch").show();
 			$("#grantDiv").show();
 			$("#title").show();
-		    $("#canAct").show();
+			if($("#grantsContractNum").val()=='')
+				$("#canAct").hide();
+				else
+			    $("#canAct").show();
 			$("#pdName").show();
 			$("#pStartDate").show();
 			$("#pEndDate").show();
