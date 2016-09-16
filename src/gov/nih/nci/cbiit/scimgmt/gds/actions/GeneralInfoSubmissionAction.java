@@ -266,7 +266,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 		}
 		else{			
 			setProject(new Project());
-			getProject().setDataLinkFlag("Y"); // Initially set to linked.
+			getProject().setDataLinkFlag("N"); // Initially set to unlinked.
 		}
 		
 		setUpLists();				
@@ -530,8 +530,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	public void validateGeneralInfoSave(){	
 		
 		validateProjectDetails();
-		//validatePrincipleInvestigator();
-		//validatePrimaryContact();	
+		validatePrincipleInvestigator();
+		validatePrimaryContact();	
 		
 		//If user selected a grant from grantContract search page and then validation failed on general info page while saving
 		//then re-populate the grantContract information.
@@ -634,7 +634,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 	 */
 	public void validatePrincipleInvestigator(){	
 		
-		if(StringUtils.isBlank(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
+		if(!StringUtils.isBlank(applId) && !ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())){
 
 			//Validation for PI first name and last name.
 			if(!StringUtils.isBlank(getProject().getPiFirstName()) && StringUtils.isBlank(getProject().getPiLastName())){
