@@ -85,7 +85,7 @@ $(document).ready(function(){
                     '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>' +
                      
                     '&nbsp;&nbsp;&nbsp;<a href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i></a>' +
-                    '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Add Sub-project" title="Add Sub-project"></a></div></div></div>';
+                    '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Add New Sub-project" title="Add New Sub-project"></a></div></div></div>';
                 } },
                 {
                 "targets": -2, // Repository
