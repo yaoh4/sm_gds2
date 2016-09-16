@@ -562,9 +562,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 			submissionReasonId = getProject().getSubmissionReasonId();
 			if(submissionReasonId == null){
 				this.addActionError(getText("submissionReasonId.required")); 
+				return;
 			}
 		} else {
-			
 			submissionReasonId = retrieveParentProject().getSubmissionReasonId();
 		}
 		
@@ -577,8 +577,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission implements Pre
 				this.addActionError(getText("programbranch.required")); 
 			}
 		
-			//Validate only if grant is selected
-			if(!StringUtils.isBlank(applId)){
+			//Validate only if grant is selected and it is not linked
+			if(!StringUtils.isBlank(applId) && 
+					!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())){
 				//Validation for Title
 				if(StringUtils.isBlank(getProject().getProjectTitle())){
 					this.addActionError(getText("projecttitle.required")); 
