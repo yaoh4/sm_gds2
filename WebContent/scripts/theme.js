@@ -101,9 +101,9 @@ var stickyNav = function(){
 var scrollTop = $(window).scrollTop();
       
 if (scrollTop > stickyNavTop) { 
-    $('.nav').addClass('sticky');
+    $('.stickyDiv').addClass('sticky');
 } else {
-    $('.nav').removeClass('sticky'); 
+    $('.stickyDiv').removeClass('sticky'); 
 }
 };
  
