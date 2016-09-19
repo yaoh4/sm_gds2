@@ -11,6 +11,7 @@
 		<s:hidden name="projectId" value="%{project.id}"/>
 		<s:hidden name="project.subprojectFlag" id="subprojectFlag" value="%{project.subprojectFlag}"/>
 		<s:hidden id ="isDbGap" name="isDbGap" value="%{isDbGap}"/>	
+		<s:hidden id="dataSubmitted" name="dataSubmitted" value="%{dataSubmitted}"/>
 		
 		<s:set name="isAnticipatedSubDateDisabled" value="%{isAnticipatedSubDateDisabled()}" />
 		<!-- Begin Panel -->

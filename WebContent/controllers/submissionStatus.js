@@ -5,7 +5,8 @@ function enableDisableSubmissionStatus(registrationId){
 	var submissionId = registrationId.substring(registrationId.indexOf("_")+1,registrationId.length); 
 	var registrationStatus = $('#'+registrationId+' option:selected').text();
 		
-	if(registrationStatus == "Completed" || registrationStatus == "Not Applicable"){   
+	if((registrationStatus == "Completed" || registrationStatus == "Not Applicable")
+		&& $("#dataSubmitted").val() == "Y"){   
 		$("#projStatus_"+submissionId).attr('disabled',false);
 	}
 	else{ 

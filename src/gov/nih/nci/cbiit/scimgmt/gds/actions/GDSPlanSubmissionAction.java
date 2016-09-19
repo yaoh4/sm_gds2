@@ -486,15 +486,24 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 			else {
 				removeRepositoryStatuses(removeSet);
-				newSet.add(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
-				oldSet.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
+				List<String> repositoryIds = getAnswers().get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
+				if(!CollectionUtils.isEmpty(repositoryIds)) {
+					getAnswers().get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).add(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID.toString());
+				} else {
+					getAnswers().put(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, Arrays.asList(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID.toString()));
+				}
+				
 			}
 			
 		} else if (newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID)) {
 			// Answer is No, so make sure the dbGap is available.
 			if(!warnOnly) {
-				newSet.add(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
-				oldSet.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
+				List<String> repositoryIds = getAnswers().get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
+				if(!CollectionUtils.isEmpty(repositoryIds)) {
+					getAnswers().get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).add(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID.toString());
+				} else {
+					getAnswers().put(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, Arrays.asList(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID.toString()));
+				}
 			}
 		} else {
 			// Answer is Yes or not answered. Remove ALL repositories that were deleted

@@ -48,6 +48,8 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	private String isDbGap = "N";	
 	
 	private String repoStatusId;
+	
+	private String dataSubmitted = "Y";
 
 	/**
 	 * This method is responsible for loading the Repository status page and setting all the UI elements.
@@ -224,6 +226,11 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		setUpStatusLists();		
 		setUpRepositoryStatuses();	
 		Collections.sort(getProject().getRepositoryStatuses(),new RepositoryStatusComparator());
+		if(GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(getProject())) {
+			setDataSubmitted(ApplicationConstants.FLAG_YES);
+		} else {
+			setDataSubmitted(ApplicationConstants.FLAG_NO);
+		}
 	}
 
 	/**
@@ -251,37 +258,11 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 					getProject().getRepositoryStatuses().add(repositoryStatus);
 			}		
 		}
-		
-		if(GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(getProject())){
 			
-			setUpSelectdRepositoryStatuses();
-		}
-		else{
-			setUpDbGapRepositoryStatus();
-		}			
+		setUpSelectdRepositoryStatuses();
 	}
 
-	/**
-	 * If user did not make any selections for Repositories on the GDS plan page then display DbGap repository.
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 */
-	private void setUpDbGapRepositoryStatus() {
-
-		logger.debug("Adding DbGaP Repository status.");	
-		PlanAnswerSelection dbGapPlanAnswerSelection = new PlanAnswerSelection();
-		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelections()){
-			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DBGAP_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
-				dbGapPlanAnswerSelection = planAnswerSelection;
-				break;
-			}
-		}
-		if(!getSavedRepositoryStatuses().contains(dbGapPlanAnswerSelection.getId())){
-			isDbGap = "Y";
-			getProject().getRepositoryStatuses().add(createNewRepositoryStatus(true,dbGapPlanAnswerSelection));
-		}
-	}
-
+	
 	/**
 	 * If user made selections for Repositories on the GDS plan page then display all the selected repositories.
 	 * @throws InvocationTargetException 
@@ -298,7 +279,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){				
 
 				if(!getSavedRepositoryStatuses().contains(planAnswerSelection.getId())){
-					getProject().getRepositoryStatuses().add(createNewRepositoryStatus(false,planAnswerSelection));
+					getProject().getRepositoryStatuses().add(createNewRepositoryStatus(planAnswerSelection));
 				}
 			}
 		}		
@@ -328,7 +309,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	private RepositoryStatus createNewRepositoryStatus(boolean isDbGap, PlanAnswerSelection planAnswerSelection) {
+	private RepositoryStatus createNewRepositoryStatus(PlanAnswerSelection planAnswerSelection) {
 		
 		logger.debug("Creating a new repository status.");
 		
@@ -337,7 +318,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		//Setting default values.
 		repositoryStatus.setLookupTByRegistrationStatusId(lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 		
-		if(isDbGap){
+		if(!GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(getProject())){
 			repositoryStatus.setLookupTBySubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
 		}
 		else{
@@ -464,6 +445,20 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	
 	
 	
+	/**
+	 * @return the dataSubmitted
+	 */
+	public String getDataSubmitted() {
+		return dataSubmitted;
+	}
+
+	/**
+	 * @param dataSubmitted the dataSubmitted to set
+	 */
+	public void setDataSubmitted(String dataSubmitted) {
+		this.dataSubmitted = dataSubmitted;
+	}
+
 	/**
 	 * Invoked during save
 	 */
