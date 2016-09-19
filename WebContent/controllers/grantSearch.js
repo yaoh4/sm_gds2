@@ -78,12 +78,9 @@ function cancel() {
 	$('#grantSearch').val('');
 	$("#messages").empty();
 	
-	if($("#grantsContractNum").val().length > 0) {
-		$("#searchGrantsContracts").hide();
-		$("#generalInfoSection").show();
-	} else {
-		$('#general_form').attr('action', "newSubmission.action").submit();
-	}
+	$("#searchGrantsContracts").hide();
+	$("#generalInfoSection").show();
+
 
 };
 
@@ -106,7 +103,7 @@ function populateGrantsContractsData(){
 	if (json.grantContractNum !== "undefined") {
 		$("#grantsContractNum").val(json.grantContractNum);
 		$("#grantsContractNum").prop('readOnly', true);
-		$("#canAct").show();
+		//$("#canAct").show();
 	}
 	
 	if (json.cayCode !== "undefined") {
