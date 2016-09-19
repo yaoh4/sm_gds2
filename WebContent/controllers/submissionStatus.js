@@ -52,4 +52,7 @@ $(document).ready(function () {
 	if($("#isDbGap").val() == "Y"){
 		$("#isDbGap").val("N")
 	}
+	if($("#subprojectFlag").val().toUpperCase() == 'Y') {
+		$('#showMessage').show().css('display', 'inline'); 
+	}
 });
