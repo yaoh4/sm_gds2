@@ -52,13 +52,14 @@
 				    <div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
 				</div>
 			</div>
+			<div class="stickyDiv">
 			<s:include value="/jsp/layout/navbar.jsp" />
 
 		
 		 
 
     		<!--Page Header -->
-    		<div class="stickyDiv">
+    		
     		<s:if test="%{'newSubmission' eq #attr['navtab']}">
     			<s:if test="%{project == null || project.id == null}">
     				<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Create New Submission</h3></div></div>
