@@ -8,7 +8,7 @@
 
 <div class="logo-header"> </div>
 
-<!-- Fixed navbar -->
+
 
 <div id="wrap"> <%-- This will be closed after the footer --%>
 	<div class="navbar ">
@@ -52,7 +52,8 @@
 				    <div class="GDS"><h3 style="padding: 0px; margin:0px; display:inline;">Genomic Data Sharing Tracking System</h3></div>
 				</div>
 			</div>
-			<div class="stickyDiv">
+			<!-- Fixed navbar -->
+			<div class="stickyDiv" style="background: #fff;">
 			<s:include value="/jsp/layout/navbar.jsp" />
 
 		
