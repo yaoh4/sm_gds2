@@ -565,11 +565,11 @@ public class ProjectsVw implements java.io.Serializable {
 			&& !StringUtils.isBlank(this.repositoryPageStatusCode)) {
 				
 			//If all the pages are completed then Project is completed.
-			if((this.gdsPlanPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
-				|| ApplicationConstants.FLAG_YES.equals(getSubprojectFlag()))
-				&& this.icPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
-				&& this.bsiPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)
-				&& this.repositoryPageStatusCode.equalsIgnoreCase(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED)){
+			if((ApplicationConstants.FLAG_YES.equals(getSubprojectFlag())
+				|| ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(this.gdsPlanPageStatusCode))
+				&& ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(this.icPageStatusCode)
+				&& ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(this.bsiPageStatusCode)
+				&& ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(this.repositoryPageStatusCode)){
 				return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 			}
 		}
