@@ -128,7 +128,15 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	public String getTechnicalIssuesEmail() {
 		return gdsProperties.getProperty(ApplicationConstants.TECHNICAL_ISSUES_EMAIL);
 	}
-
+    
+	public String getBusinessPolicyDisplay() {
+		return gdsProperties.getProperty(ApplicationConstants.BUSINESS_POLICY_DISPLAY);
+	}
+	
+	public String getTechnicalIssuesDisplay() {
+	    return gdsProperties.getProperty(ApplicationConstants.TECHNICAL_ISSUES_DISPLAY);
+	}
+	
 	/**
 	 * Gets the NotAuthorized Error Message.
 	 * 
