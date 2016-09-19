@@ -307,7 +307,7 @@ font-weight:600;
 /*Main Project nav bar*/
 
 .navbar-default2 {
-  
+  margin-top: 180px;
       /*background: #123e57;*/
       border: none;
 }
@@ -354,7 +354,7 @@ font-weight:600;
 
 
 .navbar-default3 {
- 
+  margin-top: 100px;
       background: #123e57;
       border: none;
 
