@@ -248,7 +248,7 @@
             
             <tr class="odd">
               <td width="5%" style="border-right: 0px;">&nbsp;</td>
-              <td width="26%" style="border-left: 0px;">Project Submission</td>
+              <td width="26%" style="border-left: 0px;">Data Submission Status</td>
               <td>
                <s:hidden id="repoSub%{#repStat.index}" value="%{#repStatus.lookupTBySubmissionStatusId.code}"/>            	
               	<div id="repoSubDiv${repStat.index}" class="searchProgess">
