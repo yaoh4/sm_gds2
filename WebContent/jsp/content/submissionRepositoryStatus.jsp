@@ -9,6 +9,7 @@
 			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 	</div>	
 		<s:hidden name="projectId" value="%{project.id}"/>
+		<s:hidden name="project.subprojectFlag" id="subprojectFlag" value="%{project.subprojectFlag}"/>
 		<s:hidden id ="isDbGap" name="isDbGap" value="%{isDbGap}"/>	
 		
 		<s:set name="isAnticipatedSubDateDisabled" value="%{isAnticipatedSubDateDisabled()}" />
@@ -29,6 +30,9 @@
 					</div>
 				</div>
 				<div class="panel-body">
+				<div style="display:none" id="showMessage">
+               <span>You will be able to add/remove repositories only at the parent project level. Changes will then be reflected in this sub-project.</span>
+                  <br/><br/></div> 
 					<p>
 						You have indicated the following [<strong><s:property value="%{project.repositoryStatuses.size}"/></strong>] data
 						repositories for your project. Please complete the submission
