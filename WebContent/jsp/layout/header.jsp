@@ -42,8 +42,8 @@
 				      <li>
 				        <a href="#">Send Comments&nbsp;  <i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;&nbsp;</a>
 		                <ul>
-	               			<li><a href="mailto:${businessPolicyEmail}?subject=GDS" >Business Policy Questions</a></li>
-	               			<li><a href="mailto:${technicalIssuesEmail}?subject=GDS" >Technical Issues</a></li>												
+	               			<li><a href="mailto:${businessPolicyEmail}?subject=${businessPolicyDisplay}" >Business Policy Questions</a></li>
+	               			<li><a href="mailto:${technicalIssuesEmail}?subject=${technicalIssuesDisplay}" >Technical Issues</a></li>												
 	               		</ul>
 	               	  </li>
 	               	</ul>
