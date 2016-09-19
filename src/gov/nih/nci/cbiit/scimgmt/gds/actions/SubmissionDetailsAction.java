@@ -21,6 +21,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.model.ExportRow;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 import gov.nih.nci.cbiit.scimgmt.gds.util.RepositoryStatusComparator;
 
 /**
@@ -229,10 +230,14 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		setupMissingDataList(ApplicationConstants.PAGE_CODE_GDSPLAN, 
 				missingDataUtil.getMissingGdsPlanData(project));
 		}
-		setupMissingDataList(ApplicationConstants.PAGE_CODE_IC, 
+		
+		if(GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(getProject())) {
+			setupMissingDataList(ApplicationConstants.PAGE_CODE_IC, 
 				missingDataUtil.getMissingIcListData(project));
-		setupMissingDataList(ApplicationConstants.PAGE_CODE_BSI, 
+			setupMissingDataList(ApplicationConstants.PAGE_CODE_BSI, 
 				missingDataUtil.getMissingBsiData(project));
+		}
+		
 		setupMissingDataList(ApplicationConstants.PAGE_CODE_REPOSITORY, 
 				missingDataUtil.getMissingRepositoryListData(project));
 		

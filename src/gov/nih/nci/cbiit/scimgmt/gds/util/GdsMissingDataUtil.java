@@ -287,7 +287,7 @@ public class GdsMissingDataUtil {
 		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 			for(RepositoryStatus repoStatus: selection.getRepositoryStatuses()) {
 				
-				MissingData missingRepoData = computeMissingRepositoryData(repoStatus);
+				MissingData missingRepoData = computeMissingRepositoryData(project, repoStatus);
 				
 				if(missingRepoData.getChildList().size() > 0) {
 					missingData.addChild(missingRepoData);
@@ -307,7 +307,7 @@ public class GdsMissingDataUtil {
 		
 		List<MissingData> missingDataList = new ArrayList<MissingData>();
 		RepositoryStatus repoStatus = manageProjectService.findRepositoryById(repoStatusId);	
-		MissingData missingRepoData = computeMissingRepositoryData(repoStatus);	
+		MissingData missingRepoData = computeMissingRepositoryData(project, repoStatus);	
 		if(missingRepoData.getChildList().size() > 0) {
 				missingRepoData.setDisplayText("The following data is incomplete");
 				missingDataList.add(missingRepoData);
@@ -317,20 +317,22 @@ public class GdsMissingDataUtil {
 	}	
 	
 
-	private MissingData computeMissingRepositoryData(RepositoryStatus repoStatus) {
+	private MissingData computeMissingRepositoryData(Project project, RepositoryStatus repoStatus) {
 		MissingData missingRepoData = new MissingData(repoStatus.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText());
 		Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
 		Lookup registrationStatus = repoStatus.getLookupTByRegistrationStatusId();
 		Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
 		
-		if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
-				missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'."));
-		}
 		if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
 			missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'."));
 		}
-		if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
-			missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'."));
+		if(GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(project)) {
+			if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
+				missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'."));
+			}
+			if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
+				missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'."));
+			}
 		}
 		
 		return missingRepoData;
