@@ -66,6 +66,11 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		String subProjectFlag=project.getSubprojectFlag();
 		List<InstitutionalCertification> certs=project.getInstitutionalCertifications();
 		
+		//If this is a parent project, delete the subprojects
+		for(Project subproject: getSubprojects(projectId)) {
+			projectsDao.delete(subproject);
+		}
+		
 		//Then delete the project
 		projectsDao.delete(project);
 		

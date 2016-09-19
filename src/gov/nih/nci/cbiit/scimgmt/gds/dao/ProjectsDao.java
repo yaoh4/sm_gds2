@@ -2,6 +2,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.dao;
 // Generated Mar 7, 2016 1:12:03 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,20 +12,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
@@ -69,6 +68,28 @@ public class ProjectsDao {
 	public void delete(Project persistentInstance) {
 		logger.debug("deleting Project instance");
 		try {
+			if(persistentInstance.getSubprojectFlag().equalsIgnoreCase("N")) {
+				//Delete the answer selections if parent project only
+				for (Iterator<PlanAnswerSelection> iterator = persistentInstance.getPlanAnswerSelections().iterator(); iterator.hasNext();) {
+					PlanAnswerSelection ans = iterator.next();
+					sessionFactory.getCurrentSession().delete(ans); // it will remove all answers and repository
+					iterator.remove();
+				}
+			} else {
+				// If subproject, just remove the repository but not the answers
+				for(PlanAnswerSelection ans : persistentInstance.getPlanAnswerSelections()) {
+					for (Iterator<RepositoryStatus> iterator = ans.getRepositoryStatuses().iterator(); iterator.hasNext();) {
+						RepositoryStatus repo = iterator.next();
+						if(repo.getProject().getId().longValue() == persistentInstance.getId().longValue()) {
+							sessionFactory.getCurrentSession().delete(repo);
+							iterator.remove();
+						}
+					}
+					// Also remove the reference to the answers
+					ans.removeProject(persistentInstance);
+				}
+				
+			}
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			logger.debug("delete successful");
 		} catch (RuntimeException re) {
@@ -92,6 +113,21 @@ public class ProjectsDao {
 				detachedInstance.setCreatedDate(new Date());
 			}
 			Project result = (Project) sessionFactory.getCurrentSession().merge(detachedInstance);
+			for (Iterator<PlanAnswerSelection> iterator = result.getPlanAnswerSelections().iterator(); iterator.hasNext();) {
+				PlanAnswerSelection afterMerge = iterator.next();
+				boolean found = false;
+				for(PlanAnswerSelection beforeMerge : detachedInstance.getPlanAnswerSelections()) {
+					if(beforeMerge.getId() == null || afterMerge.getId() == null || afterMerge.getId().longValue() == beforeMerge.getId().longValue()) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					sessionFactory.getCurrentSession().delete(afterMerge);
+					iterator.remove();
+				}
+			}
+			result = (Project) sessionFactory.getCurrentSession().merge(result); // have to merge again because we removed the deleted object from association
 			logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {

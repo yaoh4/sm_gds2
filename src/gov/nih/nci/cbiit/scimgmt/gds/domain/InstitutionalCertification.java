@@ -2,30 +2,21 @@ package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Mar 4, 2016 12:46:29 PM by Hibernate Tools 4.0.0
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 
@@ -150,8 +141,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 		this.documents.add(document);
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "institutionalCertification", orphanRemoval=true)
-	@Cascade({CascadeType.ALL})
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "institutionalCertification", orphanRemoval=true)
 	public List<Study> getStudies() {
 		return this.studies;
 	}

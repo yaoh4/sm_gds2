@@ -2,8 +2,9 @@ package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Mar 28, 2016 10:25:57 AM by Hibernate Tools 4.0.0
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,12 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.util.CollectionUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
@@ -98,8 +95,7 @@ public class StudiesDulSet implements java.io.Serializable {
 		this.lastChangedBy = lastChangedBy;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "studiesDulSet", orphanRemoval=true)
-	@Cascade({CascadeType.ALL})
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "studiesDulSet", orphanRemoval=true)
 	public List<DulChecklistSelection> getDulChecklistSelections() {
 		return this.dulChecklistSelections;
 	}

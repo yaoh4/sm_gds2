@@ -72,6 +72,7 @@ public class ProjectsVw implements java.io.Serializable {
 
 	private Long subprojectCount;
 	private Long repoCount;
+	private boolean expandRepository = false;
 	
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<ProjectsVw> subprojects = new ArrayList<ProjectsVw>();
@@ -574,5 +575,43 @@ public class ProjectsVw implements java.io.Serializable {
 		}
 		
 		return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;	
+	}
+
+	@Transient
+	public boolean isExpandRepository() {
+		return expandRepository;
+	}
+
+	public void setExpandRepository(boolean expandRepository) {
+		this.expandRepository = expandRepository;
+	}
+	
+	/**
+	 * This method is for displaying the pi full name and hyper link for the email.
+	 * @return
+	 */
+	@Transient
+	public String getPiFullName(){
+		String lastName = piLastName;
+		String firstName = piFirstName;
+		String fullName = "";
+		if(lastName != null && lastName.length() > 0){
+			fullName = fullName + lastName;
+		}
+		if(lastName != null && lastName.length() > 0 && firstName != null && firstName.length() > 0){
+			fullName = fullName + ", ";
+		}
+		if(firstName != null && firstName.length() > 0){
+			fullName = fullName + firstName;
+		}
+		String email = piEmailAddress;
+		if(StringUtils.isBlank(fullName)){
+			return "";
+		}else if(email == null || fullName.trim().length() < 1 || email.trim().length() < 1 ){
+			return fullName;
+		}
+		else{
+			return "<a href='mailto:" + email + "'>" + fullName + "</a>";
+		}
 	}
 }

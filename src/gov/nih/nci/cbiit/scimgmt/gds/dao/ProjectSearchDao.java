@@ -18,8 +18,10 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,7 @@ import org.springframework.stereotype.Component;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
 import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchCriteria;
 import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchResult;
@@ -76,6 +79,7 @@ public class ProjectSearchDao {
 			
 			// Add user specific search criteria
 			addSearchCriteria(criteria, searchCriteria);
+			criteria.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);
 			
 			// Add pagination and retrieve data
 			if (searchCriteria.getLength() == -1) {
@@ -87,6 +91,13 @@ public class ProjectSearchDao {
 				totalRecords = getTotalResultCount(criteria);
 			}
 			
+			// Retrieve subproject matches
+			criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class, "project");
+			addContainingMatchingSubprojectCriteria(criteria, searchCriteria);
+			criteria.setProjection(Property.forName("id"));
+			criteria.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);
+			List<Long> projectIdsContainingMatchingSubproject = (List<Long>)criteria.list();
+			
 			// Convert list to submission and set total records
 			if(list != null && !list.isEmpty()) {
 				SubmissionSearchResult result = new SubmissionSearchResult();
@@ -94,6 +105,16 @@ public class ProjectSearchDao {
 				for(ProjectsVw p: list) {
 					Submission s = new Submission();
 					BeanUtils.copyProperties(p, s);
+					if(projectIdsContainingMatchingSubproject.contains(s.getId()))
+						s.setExpandSubproject(true);
+					if(StringUtils.isNotBlank(searchCriteria.getAccessionNumber())) {
+						for(RepositoryStatus r: p.getRepositoryStatuses()) {
+							if(StringUtils.containsIgnoreCase(r.getAccessionNumber(), searchCriteria.getAccessionNumber())) {
+								s.setExpandRepository(true);
+								break;
+							}
+						}
+					}
 					submissions.add(s);
 				}
 				result.setData(submissions);
@@ -130,9 +151,9 @@ public class ProjectSearchDao {
 
 		criteria.setMaxResults(0);
 		criteria.setFirstResult(0);
-		criteria.setProjection(Projections.rowCount());
-		Long rowCount = (Long) criteria.uniqueResult();
-		return rowCount.intValue();
+		criteria.setProjection(Projections.distinct(Projections.property("id")));
+		List<Long> rowCount = (List<Long>) criteria.list();
+		return rowCount.size();
 
 	}
 	
@@ -202,6 +223,8 @@ public class ProjectSearchDao {
 		
 		parentCriteria.add(Restrictions.ne("subprojectFlag", "Y"));
 		subprojectCriteria.add(Restrictions.eq("subprojectFlag", "Y"));
+		parentCriteria.add(Restrictions.eq("latestVersionFlag", "Y"));
+		subprojectCriteria.add(Restrictions.eq("latestVersionFlag", "Y"));
 		
 		if(StringUtils.equals(searchCriteria.getParentSearch(), "Y")) {
 			parentCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
@@ -242,8 +265,8 @@ public class ProjectSearchDao {
 		
 		// Project/Subproject Title partial search
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getProjectTitle()))) {
-			parentCriteria.add(Restrictions.ilike("projectTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
-			subprojectCriteria.add(Restrictions.ilike("projectTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
+			parentCriteria.add(Restrictions.ilike("projectSubmissionTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
+			subprojectCriteria.add(Restrictions.ilike("projectSubmissionTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
 		}
 		
 		// Principal Investigator first or last name partial search
@@ -273,6 +296,83 @@ public class ProjectSearchDao {
 		dc.add(parentCriteria);
 		dc.add(Subqueries.propertyIn("id", subprojectCriteria.setProjection(Projections.property("subproject.parentProject.id"))));
 		criteria.add(dc);
+
+		return criteria;
+	}
+	
+	/**
+	 * Adding user specific search criteria to retrieve subproject only
+	 * 
+	 * @param criteria
+	 * @param searchCriteria
+	 * @return
+	 */
+	private Criteria addContainingMatchingSubprojectCriteria(Criteria criteria, SubmissionSearchCriteria searchCriteria) {
+		logger.debug("adding search criteria for project submission search for projects containing matching subprojects: " + searchCriteria);
+
+		//Need to search for parent project latest and sub project latest
+		DetachedCriteria subprojectCriteria = DetachedCriteria.forClass(ProjectsVw.class,"subproject");
+		
+		subprojectCriteria.add(Restrictions.eq("subprojectFlag", "Y"));
+		
+		if(StringUtils.equals(searchCriteria.getParentSearch(), "Y")) {
+			subprojectCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
+		}
+
+		// My DOC
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getDoc()))) {
+			subprojectCriteria.add(Restrictions.eq("docAbbreviation", searchCriteria.getDoc()));
+		}
+		
+		// Program Director or My Project Submissions
+		if(searchCriteria.getPdNpnId() != null) {
+			// PD search
+			Disjunction dc = Restrictions.disjunction();
+			dc.add(Restrictions.eq("pdNpnId", searchCriteria.getPdNpnId()));
+			Conjunction c = Restrictions.conjunction();
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
+				c.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+			}
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
+				c.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+			}
+			dc.add(c);
+			subprojectCriteria.add(dc);
+		} else {
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
+				subprojectCriteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+			}
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
+				subprojectCriteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+			}
+		}
+		
+		// Project/Subproject Title partial search
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getProjectTitle()))) {
+			subprojectCriteria.add(Restrictions.ilike("projectSubmissionTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
+		}
+		
+		// Principal Investigator first or last name partial search
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPiFirstOrLastName()))) {
+			Disjunction dc = Restrictions.disjunction();
+			dc.add(Restrictions.ilike("piFirstName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("piLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
+			subprojectCriteria.add(dc);
+		}
+		
+		// Intramural(Z01)/Grant/Contract #
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getGrantContractNum()))) {
+			subprojectCriteria.add(Restrictions.ilike("grantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+		}
+
+		// Accession Number
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getAccessionNumber()))) {
+			criteria.createAlias("project.repositoryStatuses" , "repositoryStatuses");
+			subprojectCriteria.createCriteria("subproject.repositoryStatuses" , "repositoryStatuses");
+			subprojectCriteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
+		}
+		
+		criteria.add(Subqueries.propertyIn("id", subprojectCriteria.setProjection(Projections.property("subproject.parentProject.id"))));
 
 		return criteria;
 	}

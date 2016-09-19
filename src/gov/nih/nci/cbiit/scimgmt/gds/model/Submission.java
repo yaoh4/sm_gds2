@@ -44,6 +44,7 @@ public class Submission implements java.io.Serializable {
 	private String pdLastName;
 	private Long applId;
 	private Date anticipatedSubmissionDate;
+	private String projectSubmissionTitle;
 	private String gdsPlanPageStatusCode;
 	private String dataSharingExcepStatusCode;
 	private String icPageStatusCode;
@@ -51,6 +52,8 @@ public class Submission implements java.io.Serializable {
 	private String repositoryPageStatusCode;
 	private Long repoCount;
 	private Long subprojectCount;
+	private boolean expandSubproject = false;
+	private boolean expandRepository = false;
 
 	public Submission() {
 	}
@@ -335,6 +338,14 @@ public class Submission implements java.io.Serializable {
 		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 	}
 
+	public String getProjectSubmissionTitle() {
+		return projectSubmissionTitle;
+	}
+
+	public void setProjectSubmissionTitle(String projectSubmissionTitle) {
+		this.projectSubmissionTitle = projectSubmissionTitle;
+	}
+
 	public String getGdsPlanPageStatusCode() {
 		return gdsPlanPageStatusCode;
 	}
@@ -389,5 +400,21 @@ public class Submission implements java.io.Serializable {
 
 	public void setSubprojectCount(Long subprojectCount) {
 		this.subprojectCount = subprojectCount;
+	}
+
+	public boolean isExpandSubproject() {
+		return expandSubproject;
+	}
+
+	public void setExpandSubproject(boolean expandSubproject) {
+		this.expandSubproject = expandSubproject;
+	}
+
+	public boolean isExpandRepository() {
+		return expandRepository;
+	}
+
+	public void setExpandRepository(boolean expandRepository) {
+		this.expandRepository = expandRepository;
 	}
 }

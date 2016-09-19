@@ -10,8 +10,15 @@
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 			<h4 class="modal-title">Repository Data Submissions</h4>
 		</div>
-		<div class="modal-body">
-			<table width="100%" border="1" cellpadding="3"
+		<div class="repository-table">
+		<div class="repository-div">
+			<span> <a class="repository-control shown"
+				style="font-size: 12px; font-weight: bold; margin-left: 25px;"> <i
+					class="expand fa fa-minus-square" aria-hidden="true"></i>
+					&nbsp;Project Submission Status
+			</a>
+			</span>
+			<table style="width: 80%; margin-left: 100px;"
 				class="table  table-bordered">
 				<tbody>
 					<tr style="background: #e6e6e6;">
@@ -75,6 +82,7 @@
 					</s:iterator>
 				</tbody>
 			</table>
+		</div>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

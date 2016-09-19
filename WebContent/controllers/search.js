@@ -25,7 +25,8 @@ $(document).ready(function(){
 	
 	//data table initialization
 	var submissionTable = $("#submissionTable").DataTable ( {
-            "responsive": true,
+            "responsive": false,
+            "autoWidth": false,
             "processing": false,
             "serverSide": true,
             "stateSave": true,
@@ -49,8 +50,8 @@ $(document).ready(function(){
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + "<'row'<'col-sm-12'l>>",
             "columns": [
                 { "data": "id"},
+                { "data": "projectSubmissionTitle"},
                 { "data": "grantContractNum"},
-                { "data": "projectTitle"},
                 { "data": "piLastName"},
                 { "data": "piFirstName"},
                 { "data": "piEmailAddress"},
@@ -60,6 +61,8 @@ $(document).ready(function(){
                 { "data":  "bsiPageStatusCode"},
                 { "data":  "repoCount"},
                 { "data":  "subprojectCount"},
+                { "data":  "expandSubproject"},
+                { "data":  "expandRepository"},
                 { "data":  "repositoryPageStatusCode"},
                 { "data":  null}
             ],
@@ -78,6 +81,10 @@ $(document).ready(function(){
             },
             "columnDefs": [ 
                 {
+                "targets": [ 0, 4, 5, 10, 11, 12, 13 ],
+                "visible": false
+                },
+                {
                 "targets": -1, // Last column, action
                 "orderable": false,
                 "render": function (data, type, row, meta) {
@@ -89,37 +96,31 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": -2, // Repository
+                "width": "7%",
+                "className": "text-nowrap",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	 {
                 		 if(type === 'display') {
                      		if(data == "INPROGRESS") {
-                     			status = '<img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" />&nbsp;&nbsp;'
+                     			return '<div class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" />&nbsp;&nbsp;</div>'
                      		}
                      		else if(data == "COMPLETED") {
-                     			status = '<img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>&nbsp;&nbsp;'
+                     			return '<div class="searchProgess"><img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>&nbsp;&nbsp;</div>'
                      		}
                      		else if(data == "NOTSTARTED") {
-                     			status = '<img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px">&nbsp;&nbsp;'
+                     			return '<div class="searchProgess"><img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px">&nbsp;&nbsp;</div>'
                      	   	}
                 		 }
-                		if(row.repoCount != null && row.repoCount > 0) {
-                			return '<div class="searchProgess">' + status + '<a data-toggle="modal" onclick="getRepoInfo(' + row.id + ')" href="#repoModal">' + '<i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a></div>';
-                		}
                 	}
                 	return "";
                 } },
                 {
-                "targets": 0, // First column, view project id
+                "targets": 1, // First visible column, grant number.  id is column 0.
+                "className": "text-nowrap",
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
-                		if(row.subprojectCount != null && row.subprojectCount > 0) {
-                			return '<strong><a href="../manage/navigateToSubmissionDetail.action?projectId=' + data + '">'  + data + '</a></strong><br>' +
-                			'<a data-toggle="modal" onclick="getSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="Sub-projects" title="Sub-projects"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Sub-projects</a>';
-                		}
-                		else {
-                			return '<strong><a href="../manage/navigateToSubmissionDetail.action?projectId=' + data + '">'  + data + '</a></strong>';
-                		}
+                		return '<a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
                 	}
                 	return data;
                 } },
@@ -138,7 +139,7 @@ $(document).ready(function(){
                     }
                 } },
                 {
-                "targets": [6, 7, 8, 9, 12], // Status columns
+                "targets": [6, 7, 8, 9, 13], // Status columns
                 "width": "7%",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
@@ -158,6 +159,8 @@ $(document).ready(function(){
             ]
         });
         
+		
+	
 	$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search2.gif'></div>");
 
 	$("div.export").html("<a id='export-btn' href='#' aria-controls='submissionTable' tabindex='0' class='dt-button buttons-excel buttons-html5'><span>Export to Excel</span></a>");
@@ -172,11 +175,54 @@ $(document).ready(function(){
         if(processing) {
         	$('button.has-spinner').addClass('active');
         } else {
+        	submissionTable.rows().every( function () {
+    			if(this.data().expandSubproject) {
+    				cssClassSub = 'subproject-control match';
+    			} else {
+    				cssClassSub = 'subproject-control';
+    			}
+    			if(this.data().expandRepository) {
+    				cssClassRepo = 'repository-control match';
+    			} else {
+    				cssClassRepo = 'repository-control';
+    			}
+        		if(this.data().subprojectCount != null && this.data().subprojectCount > 0 &&
+        		   this.data().repoCount != null && this.data().repoCount > 0) {
+        			this.child([
+        			$(
+        				'<div class="repository-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="' + cssClassRepo + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
+        			),
+    				$(
+    					'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="' + cssClassSub + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+    	             )
+    	             ], 
+    	             this.node().className
+    				).show();
+        		}
+        		else if(this.data().repoCount != null && this.data().repoCount > 0) {
+        			this.child(
+    				$(
+    					'<div class="repository-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="' + cssClassRepo + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
+    	             ), 
+    	             this.node().className
+    				).show();
+        		}
+        		else if(this.data().subprojectCount != null && this.data().subprojectCount > 0) {
+        			this.child(
+    				$(
+    					'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="' + cssClassSub + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+    	             ), 
+    	             this.node().className
+    				).show();
+    			}
+            } );
+        	$('.subproject-control.match').click();
+        	$('.repository-control.match').click();
         	$('button.has-spinner').removeClass('active');
         }
     } )
     .dataTable();
-	
+    
 	$("#search-form").on('click', '#export-btn', function (e) {
 		e.preventDefault();
 		var queryString = $('#search-form').serialize();
@@ -215,39 +261,118 @@ $(document).ready(function(){
     		$("#directorName").val("");
     });
 
+    // Add event listener for opening and closing subproject
+	$('#submissionTable tbody').on('click', 'a.subproject-control', function() {
+		//Check if repository child row exists
+		var hasRepo = $(this).closest('tr').prev().find("div:first").hasClass("repository-div");
+		if(hasRepo) {
+			var tr = $(this).closest('tr').prev().prev();
+		} else {
+			var tr = $(this).closest('tr').prev();
+		}
+		var row = submissionTable.row(tr);
+	    var id = row.data().id;
+	    var accessionNum = $('#accessionNumber').val();
+
+	    // If subproject is shown, this is a toggle to close it.
+		if($(this).hasClass('shown')) {
+			if(!hasRepo) {
+				//It does not have repo, so just collapse it and toggle to plus sign
+				row.child(
+			    	$(
+			    		'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+			         ), 
+			             tr.get(0).className
+			   	).show();
+			} else {
+				//It has repo, so collapse and recreate with the repo row
+				row.child( [
+				               tr.next(),
+						       $(
+						        '<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+						        )
+						        
+						    ], tr.get(0).className ).show();
+			}
+		} else {
+			// Need subproject expand, so retrieve the data
+			$.ajax({
+				url: 'getSubprojects.action',
+				data: {'projectId': id, 'criteria.accessionNumber': accessionNum},
+				type: 'post',
+				async:   false,
+				success: function(msg){
+					result = $.trim(msg);
+					table = $(result).find(".subproject-table").html();
+					if (hasRepo) { // If repository is also expanded, then add the child row
+						row.child( [
+						        tr.next(),
+						        table, 
+						    ], tr.get(0).className ).show();
+					} else { // If repository child doesn't exist, just add the subproject row
+						row.child(table, tr.get(0).className).show();
+					}
+				}, 
+				error: function(){}	
+			});
+			
+		}
+	});
+	
+	// Add event listener for opening and closing repository
+	$('#submissionTable tbody').on('click', 'a.repository-control', function() {
+		var tr = $(this).closest('tr').prev();
+		var row = submissionTable.row(tr);
+		var id = row.data().id;
+		var hasSub = tr.next().next().find("div:first").hasClass("subproject-div");
+
+		// If repo is shown, this is a toggle to close it.
+		if($(this).hasClass('shown')) {
+			if(!hasSub) {
+				//It does not have subproject, so just collapse it and toggle to plus sign
+				row.child(
+		    		$(
+		    			'<div class="repository-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="repository-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
+		             ), 
+		             tr.get(0).className
+		   		).show();
+			}
+			else {
+				//It has subproject, so collapse and recreate with the subproject row
+				row.child( [
+					       $(
+					        '<div class="repository-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="repository-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
+					        ), 
+					        tr.next().next()
+					    ], tr.get(0).className ).show();
+			}
+		} else {
+			// Need repo expand, so retrieve the data
+			$.ajax({
+				url: 'getRepoInfo.action',
+				data: {projectId: id},
+				type: 'post',
+				async:   false,
+				success: function(msg){
+					result = $.trim(msg);
+					table = $(result).find(".repository-table").html();
+					if (hasSub) { // If subproject is also expanded, then add the child row
+						row.child( [
+						        table,
+						        tr.next().next()
+						    ], tr.get(0).className ).show();
+					} else { // If subproject child doesn't exist, just add the repository row
+						row.child(table, tr.get(0).className).show();
+					}
+				}, 
+				error: function(){}	
+			});
+			
+		}
+	});
+
 });
 
-function getRepoInfo(id) {
-	// Get html for modal display
-	$.ajax({
-	  	url: 'getRepoInfo.action',
-	  	data: {projectId: id},
-	  	type: 'post',
-	  	async:   false,
-	  	success: function(msg){
-			result = $.trim(msg);
-			$('#repoModal').html(result);
-		}, 
-		error: function(){}	
-	});
-
-}
-
-function getSubprojects(id) {
-	// Get html for modal display
-	$.ajax({
-	  	url: 'getSubprojects.action',
-	  	data: {projectId: id},
-	  	type: 'post',
-	  	async:   false,
-	  	success: function(msg){
-			result = $.trim(msg);
-			$('#existingSubProjects').html(result);
-		}, 
-		error: function(){}	
-	});
-
-}
 
 function deleteSubmission(projectId)
 {

@@ -4,23 +4,25 @@
 	<br />
 	<h3>Search Results</h3>
 	<br />
-	<table id="submissionTable" width="100%" cellpadding="0px" cellspacing="0" class="table table-striped table-bordered responsive" >
+	<table id="submissionTable" style="table-layout: fixed;" class="table table-striped table-bordered" >
         <thead>
         <tr>
-			<th width="15%" scope="col" style="whitespace:nowrap;" width="110px;">Project ID</th>
-			<th width="5%"  scope="col"  >Grant/<br />Intramural/Contract #</th>
-			<th width="20%" scope="col">Project Title</th>
-			<th width="11%" scope="col">Principal Investigator</th>
-			<th class="never">PI First Name</th>
-			<th class="never">PI Email</th>
-			<th width="6%"  scope="col">GDS Plan</th>
-			<th width="6%"  scope="col">Data<br /> Sharing<br /> Exception</th>
-			<th width="6%"  scope="col">IC</th>
-			<th width="6%"  scope="col">BSI</th>
-			<th class="never">Repository Count</th>
-			<th class="never">Sub-project Count</th>
-			<th style="whitespace:nowrap;" width="6%" scope="col">Submission<br/> Status</th>
-			<th width="11%"  scope="col" style="whitespace:nowrap;">Actions</th>
+			<th>Project ID</th>
+			<th>Project Submission Title</th>
+			<th>Grant/<br />Intramural/Contract #</th>
+			<th>Principal Investigator</th>
+			<th>PI First Name</th>
+			<th>PI Email</th>
+			<th>Genomic DSP</th>
+			<th>GDSP Excep.</th>
+			<th>IC</th>
+			<th>BSI</th>
+			<th>Repository Count</th>
+			<th>Sub-project Count</th>
+			<th>Expand Subproject</th>
+			<th>Expand Repository</th>
+			<th>Submission<br/> Status</th>
+			<th style="whitespace:nowrap;">Actions</th>
 		</tr>
         </thead>
     </table>

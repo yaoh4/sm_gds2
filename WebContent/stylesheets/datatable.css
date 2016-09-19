@@ -16,3 +16,10 @@ table.dataTable thead th, table.dataTable thead td {
 .repoModalTable {
 	font-size: 12px;
 }
+
+table.dataTable tbody tr.even{
+    background-color:#f9f9f9;
+}
+table.dataTable tbody tr.odd{
+    background-color:#ffffff;
+}

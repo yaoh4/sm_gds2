@@ -309,6 +309,14 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			for(ProjectsVw subproject: subprojectList) {
 				Collections.sort(subproject.getRepositoryStatuses(),new RepositoryStatusComparator());
 				setRepoList(subproject.getRepositoryStatuses());
+				if(StringUtils.isNotBlank(criteria.getAccessionNumber())) {
+					for(RepositoryStatus r: subproject.getRepositoryStatuses()) {
+						if(StringUtils.containsIgnoreCase(r.getAccessionNumber(), criteria.getAccessionNumber())) {
+							subproject.setExpandRepository(true);
+							break;
+						}
+					}
+				}
 			}
 		}
 		

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,11 +28,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Formula;
-
-import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 
 
 /**
@@ -528,8 +526,7 @@ public class Project implements java.io.Serializable {
 		return createdDate;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval=true)
-	@Cascade({CascadeType.ALL})
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval = true)
 	@OrderBy("createdDate DESC")
 	public List<PageStatus> getPageStatuses() {
 		return this.pageStatuses;
@@ -634,8 +631,7 @@ public class Project implements java.io.Serializable {
 		this.dataSharingExcepStatus = dataSharingExcepStatus;
 	}
 	
-	@ManyToMany(mappedBy="projects")
-	@Cascade({CascadeType.MERGE, CascadeType.DELETE_ORPHAN})
+	@ManyToMany(cascade = CascadeType.MERGE, mappedBy="projects")
 	public Set<PlanAnswerSelection> getPlanAnswerSelections() {
 		return this.planAnswerSelections;
 	}
