@@ -285,7 +285,9 @@ function humanNonhuman(load) {
 		if(!load)
 			$("#19").prop('checked', false ); // De-select Unrestricted
 		$("#19").prop('disabled', false); // Unrestricted
-		$("#21").prop('disabled', false); // dbGaP
+		// If dbGap is already disabled, leave it disabled. (i.e. if Controlled or Unrestricted is checked)
+		if (!$("#18").is(":checked") && !$("#19").is(":checked"))
+			$("#21").prop('disabled', false); // dbGaP
 	}
 }
 
