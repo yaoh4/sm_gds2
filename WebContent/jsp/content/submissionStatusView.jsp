@@ -34,7 +34,7 @@
           <tr style="background: #e6e6e6;">
             <th>Repositories</th>
             <th>Registration Status</th>
-            <th>Submission Status</th>
+            <th>Data Submission Status</th>
             <th>Study Released Status</th>
             <th>Accession Number</th>
           </tr>
