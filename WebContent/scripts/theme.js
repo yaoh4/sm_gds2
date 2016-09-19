@@ -92,5 +92,28 @@
 });
 
 
+//sticky navigation
+
+$(document).ready(function() {
+var stickyNavTop = $('.stickyDiv').offset().top;
+ 
+var stickyNav = function(){
+var scrollTop = $(window).scrollTop();
+      
+if (scrollTop > stickyNavTop) { 
+    $('.nav').addClass('sticky');
+} else {
+    $('.nav').removeClass('sticky'); 
+}
+};
+ 
+stickyNav();
+ 
+$(window).scroll(function() {
+  stickyNav();
+});
+});
+
+
 
  

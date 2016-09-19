@@ -1,6 +1,6 @@
 body { 
  position: relative;
-  padding-top: 250px; 
+  
    margin: 0;
   padding-bottom: 0px;
   font-family: 'Source Sans Pro';
@@ -1390,4 +1390,13 @@ ul.actionMessage {
     background-color: #FFF;
     border-color: #8c8c8c;
 
+}
+ /***********sticky menu bar**************/
+.sticky {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  border-top: 0;
 }

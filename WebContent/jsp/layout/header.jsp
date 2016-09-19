@@ -11,7 +11,7 @@
 <!-- Fixed navbar -->
 
 <div id="wrap"> <%-- This will be closed after the footer --%>
-	<div class="navbar  navbar-fixed-top">
+	<div class="navbar ">
 		<div class="row">
 			<div class="container">
 				<div id="logo" class="logoImage">
@@ -58,6 +58,7 @@
 		 
 
     		<!--Page Header -->
+    		<div class="stickyDiv">
     		<s:if test="%{'newSubmission' eq #attr['navtab']}">
     			<s:if test="%{project == null || project.id == null}">
     				<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Create New Submission</h3></div></div>
@@ -80,5 +81,6 @@
       		</s:else>
 			
 		</div>
+	</div>
 	</div>
 
