@@ -97,6 +97,16 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	
 	
 	/**
+	 * Retrieve ProjectsVw given an ID
+	 * 
+	 * @param projectId
+	 * @return ProjectsVw
+	 */
+	public ProjectsVw findProjectsVwById(Long projectId) {
+		return projectsDao.findProjectsVwById(projectId);
+	}
+	
+	/**
 	 * Retrieve IC given an ID
 	 * 
 	 * @param icId

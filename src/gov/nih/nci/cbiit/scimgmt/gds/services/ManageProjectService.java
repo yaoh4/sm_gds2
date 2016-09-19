@@ -35,6 +35,15 @@ public interface ManageProjectService {
 	
 	
 	/**
+	 * Retrieve ProjectsVw given an ID
+	 * 
+	 * @param projectId
+	 * @return ProjectsVw
+	 */
+	public ProjectsVw findProjectsVwById(Long projectId);
+	
+	
+	/**
 	 * Retrieve RepositoryStatus given an ID
 	 * 
 	 * @param repoId

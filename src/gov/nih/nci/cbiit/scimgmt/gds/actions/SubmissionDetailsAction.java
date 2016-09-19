@@ -181,7 +181,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 
 	public String getPageStatusCode() {
 		
-		return super.getProjectStatusCode(retrieveSelectedProject());
+		return super.getProjectStatusCode(getProject());
 	}
 	
 	
@@ -220,11 +220,15 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_SUBMISISON_DETAILS));
 		
 		Project project = retrieveSelectedProject();
+		setProject(project);
 		
 		GdsMissingDataUtil missingDataUtil = GdsMissingDataUtil.getInstance();		
 		
+		if(!ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
+		//GDS Plan is not present for sub-projects
 		setupMissingDataList(ApplicationConstants.PAGE_CODE_GDSPLAN, 
 				missingDataUtil.getMissingGdsPlanData(project));
+		}
 		setupMissingDataList(ApplicationConstants.PAGE_CODE_IC, 
 				missingDataUtil.getMissingIcListData(project));
 		setupMissingDataList(ApplicationConstants.PAGE_CODE_BSI, 

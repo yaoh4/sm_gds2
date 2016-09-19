@@ -157,6 +157,20 @@ public class ProjectsDao {
 	}
 	
 	
+	public ProjectsVw findProjectsVwById(Long id) {
+		ProjectsVw projectsVw = null;
+		try {
+			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);		
+			criteria.add(Restrictions.eq("id", id));
+			projectsVw = (ProjectsVw)criteria.uniqueResult();
+		} catch(Throwable e) {
+			logger.error("Unable to obtain ProjectsVw for id " + id);
+			throw e;
+		}
+		
+		return projectsVw;
+	}
+	
 	/**
 	 * Gets the IC by icId
 	 * 

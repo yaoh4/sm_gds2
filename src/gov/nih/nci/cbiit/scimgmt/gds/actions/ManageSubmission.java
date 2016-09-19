@@ -38,6 +38,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
@@ -241,20 +242,8 @@ public class ManageSubmission extends BaseAction {
 	
 	public String getProjectStatusCode(Project project) {
 		
-		List<PageStatus> statuses = project.getPageStatuses();
-		if(CollectionUtils.isEmpty(statuses)) {
-			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
-		}
-		
-		for(PageStatus status: statuses) {
-			String statusCode = status.getStatus().getCode();
-			if(statusCode.equals(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS) 
-				|| statusCode.equals(ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED)) {
-				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-			} 			
-		} 
-		
-		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		ProjectsVw projectsVw = manageProjectService.findProjectsVwById(project.getId());
+		return projectsVw.getProjectStatusCode();
 	}
 	
 	public String getExceptionMemoStatusCode() {
