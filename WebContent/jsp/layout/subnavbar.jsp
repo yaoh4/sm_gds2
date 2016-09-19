@@ -4,7 +4,7 @@
 <tiles:useAttribute id="subnavtab" name="subnavtab" />
 
 <!--Sub Navigation -->
-<div class="navbar navbar-default2 navbar-fixed-top" >  
+<div class="navbar navbar-default2" >  
 <div id="secNav"  class="row">
 <div class="container">
 	<div class="navbar-collapse main-nav subnav">

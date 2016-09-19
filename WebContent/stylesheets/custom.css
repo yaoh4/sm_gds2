@@ -187,10 +187,7 @@ table {
   margin: 5px 0px 0px 2px;
 }
 .GDS h3 {font-size:26px; font-weight:600;}
-.navbar-fixed-top {
-   
-    background-color: #FFF;
-}
+
 .logo-header {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -307,7 +304,7 @@ font-weight:600;
 /*Main Project nav bar*/
 
 .navbar-default2 {
-  margin-top: 180px;
+ 
       /*background: #123e57;*/
       border: none;
 }
