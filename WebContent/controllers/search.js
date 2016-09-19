@@ -86,6 +86,7 @@ $(document).ready(function(){
                 },
                 {
                 "targets": -1, // Last column, action
+                "width": "10%",
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     return '<div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>' +
@@ -117,7 +118,6 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": 1, // First visible column, grant number.  id is column 0.
-                "className": "text-nowrap",
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
                 		return '<a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';

@@ -20,7 +20,7 @@
 					&nbsp;Sub-Projects
 			</a>
 			</span>
-			<table style="width: 80%; margin-left: 100px;" cellpadding="0px" cellspacing="0"
+			<table style="width: 80%; margin-left: 100px;"
 				class="table table-bordered ">
 				<thead>
 					<tr class="modalTheader" >

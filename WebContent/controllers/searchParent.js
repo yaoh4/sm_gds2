@@ -25,7 +25,8 @@ $(document).ready(function(){
 	
 	//data table initialization
 	var parentTable = $("#parentTable").DataTable ( {
-            "responsive": true,
+            "responsive": false,
+            "autoWidth": false,
             "processing": false,
             "serverSide": true,
             "stateSave": true,
@@ -50,8 +51,8 @@ $(document).ready(function(){
             "columns": [
                 { "data": null},
                 { "data": "id"},
+                { "data": "projectSubmissionTitle"},
                 { "data": "grantContractNum"},
-                { "data": "projectTitle"},
                 { "data": "piLastName"},
                 { "data": "piFirstName"},
                 { "data": "piEmailAddress"},
@@ -76,7 +77,12 @@ $(document).ready(function(){
             },
             "columnDefs": [
                {
+            	"targets": [ 1, 5, 6, 11 ],
+            	"visible": false
+			   },
+               {
                 "targets": 0, // First column, radio select
+                "width": "7%",
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
@@ -85,16 +91,10 @@ $(document).ready(function(){
                 	return data;
                 } },
                 {
-                "targets": 1, // Second column, view project id
+                "targets": 2, // Second visible column, view project id link on submission title
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
-                		if(row.subprojectCount != null && row.subprojectCount > 0) {
-                			return '<strong><a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a></strong><br>' +
-                			'<a data-toggle="modal" onclick="getParentSubprojects(' + data + ')" href="#existingSubProjects"><img src="../images/subfolder.gif" alt="sub-project"><i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;Existing Sub-Projects</a>';
-                		}
-                		else {
-                			return '<strong><a href="../manage/navigateToGeneralInfo.action?projectId=' + data + '">'  + data + '</a></strong>';
-                		}
+                		return '<a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
                 	}
                 	return data;
                 } },
@@ -124,7 +124,7 @@ $(document).ready(function(){
                 		if(data == "COMPLETED") {
                 			return '<div class="searchProgess"><img src="../images/complete.png" alt="Complete" title="Complete" width="18px" height="18px"/></div>'
                 		}
-                		else if(data == "NOTSTARTED") {
+                		if(data == "NOTSTARTED") {
                 			return '<div class="searchProgess"><img src="../images/pending.png" alt="Pending" title="Pending" width="18px" height="18px"></div>'
                 		}
                 	}
@@ -145,6 +145,15 @@ $(document).ready(function(){
         if(processing) {
         	$('button.has-spinner').addClass('active');
         } else {
+        	parentTable.rows().every( function () {
+        		if(this.data().subprojectCount != null && this.data().subprojectCount > 0) {
+        			this.child(
+        			$(
+        				'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+        	         ), this.node().className
+        			).show();
+        		}
+        	} );
         	$('button.has-spinner').removeClass('active');
         }
     } )
@@ -170,24 +179,37 @@ $(document).ready(function(){
     		$("#directorName").val("");
     });
 
+    // Add event listener for opening and closing subproject
+    $('#parentTable tbody').on('click', 'a.subproject-control', function() {
+    	var tr = $(this).closest('tr').prev();
+    	var row = parentTable.row(tr);
+        var id = row.data().id;
+
+        // If subproject is shown, this is a toggle to close it.
+    	if($(this).hasClass('shown')) {
+    		row.child(
+    		$(
+    			'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+    		 ), tr.get(0).className
+    		).show();
+    	} else {
+    		// Need subproject expand, so retrieve the data
+    		$.ajax({
+    			url: 'getParentSubprojects.action',
+    			data: {'projectId': id},
+    			type: 'post',
+    			async:   false,
+    			success: function(msg){
+    				result = $.trim(msg);
+    				table = $(result).find(".subproject-table").html();
+    				row.child(table, tr.get(0).className).show();
+    			}, 
+    			error: function(){}	
+    		});
+    		
+    	}
+    });
 });
-
-
-function getParentSubprojects(id) {
-	// Get html for modal display
-	$.ajax({
-	  	url: 'getParentSubprojects.action',
-	  	data: {projectId: id},
-	  	type: 'post',
-	  	async:   false,
-	  	success: function(msg){
-			result = $.trim(msg);
-			$('#existingSubProjects').html(result);
-		}, 
-		error: function(){}	
-	});
-
-}
 
 //This function executes on click of Next button on Link to Parent page.
 function createNewSubProject()
