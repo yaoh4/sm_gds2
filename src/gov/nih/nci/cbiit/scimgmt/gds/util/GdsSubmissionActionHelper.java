@@ -71,8 +71,12 @@ public class GdsSubmissionActionHelper {
 	}
 	
 	public static List<DropDownOption> populateProgDropDownList(List<DropDownOption> dropDownList, List<String> progList){
-		for(String prog : progList ){
-			DropDownOption option = new DropDownOption(prog,prog);
+		DropDownOption option = new DropDownOption();
+		option.setOptionKey("");
+		option.setOptionValue("");
+		dropDownList.add(option);
+		for(String prog : progList ) {
+		    option = new DropDownOption(prog,prog);
 			dropDownList.add(option);
 		}
 		
