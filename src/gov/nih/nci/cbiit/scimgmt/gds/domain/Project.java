@@ -79,6 +79,7 @@ public class Project implements java.io.Serializable {
 	private Date createdDate;
 	private Date lastChangedDate;
 	private Lookup dataSharingExcepStatus;
+	private String applClassCode;
 	private List<PageStatus> pageStatuses = new ArrayList();
 	private Set<Document> documents = new HashSet(0);
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
@@ -88,7 +89,6 @@ public class Project implements java.io.Serializable {
 	
 	private Long subprojectCount;
 	private Long repoCount;
-	private String applClassCode;
 	private String activityCode;
 	private Project parent;
 	private String cayCode;
@@ -117,8 +117,8 @@ public class Project implements java.io.Serializable {
 				+ piInstitution + ", piEmailAddress=" + piEmailAddress + ", projectStartDate=" + projectStartDate
 				+ ", projectEndDate=" + projectEndDate + ", sciRevApprovalRcvdDate=" + sciRevApprovalRcvdDate
 				+ ", parentAccessionNum=" + parentAccessionNum + ", comments=" + comments + ", bsiReviewedFlag="
-				+ bsiReviewedFlag + ", versionNum=" + versionNum + ", createdBy="
-				+ createdBy + ", lastChangedBy=" + lastChangedBy
+				+ bsiReviewedFlag + ", versionNum=" + versionNum + ", createdBy=" + createdBy
+				+ ", lastChangedBy=" + lastChangedBy + ", applClassCode=" + applClassCode
 				+ ", subprojectFlag=" + subprojectFlag + ", parentProjectId=" + parentProjectId
 				+ ", latestVersionFlag=" + latestVersionFlag + ", projectGroupId=" + projectGroupId
 				+ ", subprojectGroupId=" + subprojectGroupId + ", submissionReasonId=" + submissionReasonId
@@ -135,7 +135,7 @@ public class Project implements java.io.Serializable {
 			String programBranch, String applicationNum, String piInstitution,
 			String piEmailAddress, Date projectStartDate, Date projectEndDate, Date sciRevApprovalRcvdDate,
 			String parentAccessionNum, String comments, String bsiReviewedFlag, Long versionNum,
-			String createdBy, String lastChangedBy, String subprojectFlag,
+			String createdBy, String lastChangedBy, String applClassCode, String subprojectFlag,
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
 			String pocFirstName, String pocLastName, String pdFirstName, String pdLastName, List pageStatuses, Set documents, String subprojectEligibleFlag, 
@@ -157,6 +157,7 @@ public class Project implements java.io.Serializable {
 		this.versionNum = versionNum;
 		this.createdBy = createdBy;
 		this.lastChangedBy = lastChangedBy;
+		this.applClassCode = applClassCode;
 		this.subprojectFlag = subprojectFlag;
 		this.parentProjectId = parentProjectId;
 		this.latestVersionFlag = latestVersionFlag;
@@ -623,6 +624,15 @@ public class Project implements java.io.Serializable {
 	public Lookup getDataSharingExcepStatus() {
 		return dataSharingExcepStatus;
 	}
+	
+	@Column(name = "APPL_CLASS_CODE", length = 3)
+	public String getApplClassCode() {
+		return applClassCode;
+	}
+	
+	public void setApplClassCode(String applClassCode) {
+		this.applClassCode = applClassCode;
+	}
 
 	/**
 	 * @param dataSharingExcepStatus the dataSharingExcepStatus to set
@@ -751,15 +761,6 @@ public class Project implements java.io.Serializable {
 		this.repoCount = repoCount;
 	}
 
-	@Transient 
-	public String getApplClassCode() {
-		return applClassCode;
-	}
-
-	public void setApplClassCode(String applClassCode) {
-		this.applClassCode = applClassCode;
-	}
-	
 	@Transient 
 	public String getActivityCode() {
 		return activityCode;
