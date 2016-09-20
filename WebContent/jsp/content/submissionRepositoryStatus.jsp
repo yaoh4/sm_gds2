@@ -75,7 +75,7 @@
 								</div>
 
 								<div class="col-xs-2">
-									<s:label for="%{'projStatus_' + #stat.index}" value="Project Submission Status" /> 
+									<s:label for="%{'projStatus_' + #stat.index}" value="Data Submission Status" /> 
 									<s:select id="%{'projStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTBySubmissionStatusId.id" onChange="enableDisableStudyReleased(this.id)" 
 												value="%{#repositoryStatus.lookupTBySubmissionStatusId.id}" cssClass="c-select form-control" disabled="true" list="projectSubmissionStatusList" listKey="optionKey" listValue="optionValue"/>											
 								</div>							
