@@ -46,8 +46,8 @@
                   
                 <td style="white-space: nowrap">
                 <s:hidden id="icReg%{#icStat.index}" value="%{getIcStatusCode(#ic.id)}"/>            	
-              	<div id="icDiv${icStat.index}" class="searchProgess">
-        		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
+              	<div id="icDiv${icStat.index}" class="searchProgress">
+        		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
         	  	</div>
                   </td>
                   
