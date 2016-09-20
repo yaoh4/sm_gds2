@@ -117,7 +117,7 @@ public class ProjectsDao {
 				PlanAnswerSelection afterMerge = iterator.next();
 				boolean found = false;
 				for(PlanAnswerSelection beforeMerge : detachedInstance.getPlanAnswerSelections()) {
-					if(beforeMerge.getId() == null || afterMerge.getId() == null || afterMerge.getId().longValue() == beforeMerge.getId().longValue()) {
+					if(afterMerge.getPlanQuestionsAnswer().getId().longValue() == beforeMerge.getPlanQuestionsAnswer().getId().longValue()) {
 						found = true;
 						break;
 					}
