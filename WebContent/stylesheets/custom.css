@@ -208,6 +208,11 @@ div#primNav.row { /*background:#f7f7f7;*/text-transform: uppercase;}
 
 
 }
+
+.navbar {
+  margin-bottom: 10px;
+}
+
 .navbar-default .navbar-nav>li>a {
     color: #686868;
     font-size: 14px;
