@@ -82,6 +82,7 @@ $(document).ready(function(){
 			   },
                {
                 "targets": 0, // First column, radio select
+                "className": "dt-center",
                 "width": "7%",
                 "orderable": false,
                 "render": function (data, type, row, meta) {
@@ -149,7 +150,7 @@ $(document).ready(function(){
         		if(this.data().subprojectCount != null && this.data().subprojectCount > 0) {
         			this.child(
         			$(
-        				'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+        				'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 70px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
         	         ), this.node().className
         			).show();
         		}
@@ -189,7 +190,7 @@ $(document).ready(function(){
     	if($(this).hasClass('shown')) {
     		row.child(
     		$(
-    			'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+    			'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 70px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
     		 ), tr.get(0).className
     		).show();
     	} else {
