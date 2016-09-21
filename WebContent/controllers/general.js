@@ -204,7 +204,7 @@ function refreshGrantsContractsData(){
 	  	success: function(json){
 	  		if (json.grantContractNum !== "undefined") {
 	  			$("#grantsContractNum").val(json.grantContractNum);
-	  			$("#linkButton").show();
+	  			
 	  		}
 	  		if (json.projectTitle !== "undefined") {
 	  			$("#projectTitle").val(json.projectTitle);

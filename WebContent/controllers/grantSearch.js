@@ -103,6 +103,7 @@ function populateGrantsContractsData(){
 	if (json.grantContractNum !== "undefined") {
 		$("#grantsContractNum").val(json.grantContractNum);
 		$("#grantsContractNum").prop('readOnly', true);
+		$("#linkButton").show();
 		//$("#canAct").show();
 	}
 	
