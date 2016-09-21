@@ -88,7 +88,7 @@ public class ProjectSearchDao {
 				list =  (List<ProjectsVw>) criteria.setFirstResult(searchCriteria.getStart())
 						.setMaxResults(searchCriteria.getLength())
 						.list();
-				totalRecords = getTotalResultCount(criteria);
+				totalRecords = getTotalResultCount(criteria, searchCriteria);
 			}
 			
 			// Retrieve subproject matches
@@ -147,11 +147,12 @@ public class ProjectSearchDao {
 	 *            the criteria
 	 * @return the total result count
 	 */
-	private int getTotalResultCount(Criteria criteria) {
+	private int getTotalResultCount(Criteria criteria, SubmissionSearchCriteria searchCriteria) {
 
 		criteria.setMaxResults(0);
 		criteria.setFirstResult(0);
-		criteria.setProjection(Projections.distinct(Projections.property("id")));
+		criteria.setProjection(Projections.property(searchCriteria.getSortBy()));
+		criteria.setProjection(Projections.property("id"));
 		List<Long> rowCount = (List<Long>) criteria.list();
 		return rowCount.size();
 
@@ -217,23 +218,33 @@ public class ProjectSearchDao {
 	private Criteria addSearchCriteria(Criteria criteria, SubmissionSearchCriteria searchCriteria) {
 		logger.debug("adding search criteria for project submission search: " + searchCriteria);
 
-		//Need to search for parent project latest and sub project latest
+		boolean accessionNumberSearch = StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getAccessionNumber()));
+		
+		//If search criteria has accession number, we need a detached parent criteria
+		DetachedCriteria parentDetachedCriteria = DetachedCriteria.forClass(ProjectsVw.class,"project");
 		Conjunction parentCriteria = Restrictions.conjunction();
+
+		//Need to search for parent project latest and sub project latest
 		DetachedCriteria subprojectCriteria = DetachedCriteria.forClass(ProjectsVw.class,"subproject");
 		
 		parentCriteria.add(Restrictions.ne("subprojectFlag", "Y"));
-		subprojectCriteria.add(Restrictions.eq("subprojectFlag", "Y"));
 		parentCriteria.add(Restrictions.eq("latestVersionFlag", "Y"));
+		parentDetachedCriteria.add(Restrictions.ne("subprojectFlag", "Y"));
+		parentDetachedCriteria.add(Restrictions.eq("latestVersionFlag", "Y"));
+
+		subprojectCriteria.add(Restrictions.eq("subprojectFlag", "Y"));
 		subprojectCriteria.add(Restrictions.eq("latestVersionFlag", "Y"));
 		
 		if(StringUtils.equals(searchCriteria.getParentSearch(), "Y")) {
 			parentCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
+			parentDetachedCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
 			subprojectCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
 		}
 
 		// My DOC
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getDoc()))) {
 			parentCriteria.add(Restrictions.eq("docAbbreviation", searchCriteria.getDoc()));
+			parentDetachedCriteria.add(Restrictions.eq("docAbbreviation", searchCriteria.getDoc()));
 			subprojectCriteria.add(Restrictions.eq("docAbbreviation", searchCriteria.getDoc()));
 		}
 		
@@ -251,14 +262,17 @@ public class ProjectSearchDao {
 			}
 			dc.add(c);
 			parentCriteria.add(dc);
+			parentDetachedCriteria.add(dc);
 			subprojectCriteria.add(dc);
 		} else {
 			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
 				parentCriteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+				parentDetachedCriteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
 				subprojectCriteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
 			}
 			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
 				parentCriteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+				parentDetachedCriteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
 				subprojectCriteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
 			}
 		}
@@ -266,6 +280,7 @@ public class ProjectSearchDao {
 		// Project/Subproject Title partial search
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getProjectTitle()))) {
 			parentCriteria.add(Restrictions.ilike("projectSubmissionTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
+			parentDetachedCriteria.add(Restrictions.ilike("projectSubmissionTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
 			subprojectCriteria.add(Restrictions.ilike("projectSubmissionTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
 		}
 		
@@ -275,25 +290,32 @@ public class ProjectSearchDao {
 			dc.add(Restrictions.ilike("piFirstName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
 			dc.add(Restrictions.ilike("piLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
 			parentCriteria.add(dc);
+			parentDetachedCriteria.add(dc);
 			subprojectCriteria.add(dc);
 		}
 		
 		// Intramural(Z01)/Grant/Contract #
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getGrantContractNum()))) {
 			parentCriteria.add(Restrictions.ilike("grantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+			parentDetachedCriteria.add(Restrictions.ilike("grantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
 			subprojectCriteria.add(Restrictions.ilike("grantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
 		}
 
 		// Accession Number
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getAccessionNumber()))) {
-			criteria.createAlias("project.repositoryStatuses" , "repositoryStatuses");
-			parentCriteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
+			parentDetachedCriteria.createAlias("project.repositoryStatuses" , "repositoryStatuses");
+			parentDetachedCriteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
 			subprojectCriteria.createCriteria("subproject.repositoryStatuses" , "repositoryStatuses");
 			subprojectCriteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
 		}
 		
 		Disjunction dc = Restrictions.disjunction();
-		dc.add(parentCriteria);
+		if(!accessionNumberSearch) {
+			dc.add(parentCriteria);
+		}
+		else {
+			dc.add(Subqueries.propertyIn("id", parentDetachedCriteria.setProjection(Projections.property("project.id"))));
+		}
 		dc.add(Subqueries.propertyIn("id", subprojectCriteria.setProjection(Projections.property("subproject.parentProject.id"))));
 		criteria.add(dc);
 
@@ -367,7 +389,6 @@ public class ProjectSearchDao {
 
 		// Accession Number
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getAccessionNumber()))) {
-			criteria.createAlias("project.repositoryStatuses" , "repositoryStatuses");
 			subprojectCriteria.createCriteria("subproject.repositoryStatuses" , "repositoryStatuses");
 			subprojectCriteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
 		}
