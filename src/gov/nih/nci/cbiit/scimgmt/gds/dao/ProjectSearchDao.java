@@ -151,10 +151,9 @@ public class ProjectSearchDao {
 
 		criteria.setMaxResults(0);
 		criteria.setFirstResult(0);
-		criteria.setProjection(Projections.property(searchCriteria.getSortBy()));
-		criteria.setProjection(Projections.property("id"));
-		List<Long> rowCount = (List<Long>) criteria.list();
-		return rowCount.size();
+		criteria.setProjection(Projections.rowCount());
+		Long rowCount = (Long) criteria.uniqueResult();
+		return rowCount.intValue();
 
 	}
 	
