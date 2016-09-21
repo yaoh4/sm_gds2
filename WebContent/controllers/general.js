@@ -55,6 +55,7 @@ $( document ).ready(function() {
 		  $("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
 		  $("#grantsContractNum").attr("placeholder", "Click on Search Icon");
 		  $("#canAct").hide();
+		  $("#linkButton").hide();
 	}
 	
 });

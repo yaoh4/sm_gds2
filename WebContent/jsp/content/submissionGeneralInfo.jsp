@@ -118,7 +118,7 @@
 							  <div class="position: relative; display: table; border-collapse: separate;">
 														
 							<s:hidden name="project.dataLinkFlag" id="dataLinkFlag" value="%{project.dataLinkFlag}">
-							<div class="btn-group">
+							<div class="btn-group" id="linkButton">
 															
 							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
 							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
