@@ -273,11 +273,13 @@ function refreshGrantsContractsData(){
  $(function () {
 	 var docName=$('#DOC').find('option:selected').text();
 	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
+	 var code= $("input[type='radio'].grantSelection:checked").val();
+	 $("#applClassCode").val(code);
 	//if ($("#applClassCode").attr("value") == 'M') {  
 	 if(projAnswer == 29){
 		   hideGrantFields();
 	 }
-	 else if(docName == "DCEG" || docName == "CCR" ){
+	 else if(code == 'M' ) {
 		 $("#DivisionOffice").show();
 			$("#pBranch").show();
 			$("#grantDiv").show();
@@ -292,16 +294,41 @@ function refreshGrantsContractsData(){
 	 }
 	
 });
- 
- $('.submissionReasonSelect').on('change', function () {
+ $('.grantSelection').on('change', function () {
 	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
-	 var docName=$('#DOC').find('option:selected').text();
+	 var code= $("input[type='radio'].grantSelection:checked").val();
+	 $("#applClassCode").val(code);
+	 $("#grantsContractNum").val('');
 	 if(projAnswer == 29){
 		    hideGrantFields();
 			$("#grantsContractNum").val('');
 			$("#applId").val('');
 	 }
-	 else if(docName == "DCEG" || docName == "CCR"){
+	 else if(code == 'M' ) {
+		 $("#DivisionOffice").show();
+			$("#pBranch").show();
+			$("#grantDiv").show();
+			$("#title").show();
+		    $("#canAct").hide();
+			$("#pdName").hide();
+			$("#pStartDate").hide();
+			$("#pEndDate").hide();
+	 }
+	 else{
+		 showGrantFields();
+	 }
+ });
+ 
+ $('.submissionReasonSelect').on('change', function () {
+	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
+	 var docName=$('#DOC').find('option:selected').text();
+	 var code= $("input[type='radio'].grantSelection:checked").val();
+	 if(projAnswer == 29){
+		    hideGrantFields();
+			$("#grantsContractNum").val('');
+			$("#applId").val('');
+	 }
+	 else if(code == 'M' ) {
 		 $("#DivisionOffice").show();
 			$("#pBranch").show();
 			$("#grantDiv").show();
@@ -320,7 +347,7 @@ function refreshGrantsContractsData(){
 	   var optionSelected = $("option:selected", this);
 	   var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
 	   var valueSelected = this.value;
-	   if(valueSelected == 'DCEG' || valueSelected == 'CCR'){
+	  /* if(valueSelected == 'DCEG' || valueSelected == 'CCR'){
 		   $("#DivisionOffice").show();
 			$("#pBranch").show();
 			$("#grantDiv").show();
@@ -335,7 +362,7 @@ function refreshGrantsContractsData(){
 	   }
 	   else{
 		  showGrantFields();
-	   }
+	   }*/
 	   $.ajax({
 		  	url: 'getProgBranchList.action',
 		  	data : "valueSelected="+valueSelected,
