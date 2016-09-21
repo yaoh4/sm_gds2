@@ -46,7 +46,12 @@
 				</p>
 
 				<div class="panel-body">
-
+                <div class="form-group row has-feedback">
+						<div class="col-xs-10">
+							 <s:radio  name="grantSelection" class="grantSelection" list="#{'G':'Extramural','M':'Intramural','C':'Contract'}" template="radiomap-div.ftl" value="%{project.applClassCode}"/>
+								
+						</div>
+					</div>
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="submissionTitle"><i
