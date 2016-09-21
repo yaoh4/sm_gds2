@@ -57,6 +57,9 @@ $( document ).ready(function() {
 		  $("#canAct").hide();
 		  $("#linkButton").hide();
 	}
+	else {
+		$("#linkButton").show();
+	}
 	
 });
 
