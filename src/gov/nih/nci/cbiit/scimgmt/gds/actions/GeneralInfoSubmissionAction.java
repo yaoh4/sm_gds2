@@ -47,6 +47,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String selectedTypeOfProject;
 	private String applId;
 	private String valueSelected;
+	private String grantSelection;
+
+	public String getGrantSelection() {
+		return grantSelection;
+	}
+
+	public void setGrantSelection(String grantSelection) {
+		this.grantSelection = grantSelection;
+	}
 
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();
 	private List<DropDownOption> progList = new ArrayList<DropDownOption>();
@@ -276,7 +285,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			List<Organization> docListFromDb = (List<Organization>) lookupService.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());
 			GdsSubmissionActionHelper.populateDocDropDownList(docList,docListFromDb);
 			
-			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());	
+			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());
+			if(preSelectedDOC == "CCR" || preSelectedDOC == "DCEG") {
+				grantSelection = "M";
+				getProject().setApplClassCode("M");
+			}
+			else {
+				grantSelection = "G";
+				getProject().setApplClassCode("G");
+			}
 		}
 		
 		 if(progList.isEmpty()){
