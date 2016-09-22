@@ -192,6 +192,7 @@ public class GdsSubmissionActionHelper {
 		
 		logger.debug("Copying transient project properties to persistent project properties.");
 		persistentProject.setSubmissionTitle(transientProject.getSubmissionTitle());
+		persistentProject.setApplClassCode(transientProject.getApplClassCode());
 		if(!persistentProject.getSubprojectFlag().equalsIgnoreCase(ApplicationConstants.FLAG_YES)) {
 			persistentProject.setSubmissionReasonId(transientProject.getSubmissionReasonId());
 		}
