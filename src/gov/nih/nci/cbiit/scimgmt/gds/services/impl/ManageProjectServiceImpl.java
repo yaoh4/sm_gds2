@@ -177,8 +177,8 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 * This method retrieves Intramural / Grant / Contract List
 	 * @return
 	 */
-	public List<GdsGrantsContracts> getGrantOrContractList(String grantContractNum){
-		return projectsDao.getGrantOrContractList(grantContractNum);
+	public List<GdsGrantsContracts> getGrantOrContractList(String grantContractNum,String applClassCode){
+		return projectsDao.getGrantOrContractList(grantContractNum,applClassCode);
 	}
 	
 	/**
