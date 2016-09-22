@@ -274,7 +274,6 @@ function refreshGrantsContractsData(){
 	 var docName=$('#DOC').find('option:selected').text();
 	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
 	 var code= $("input[type='radio'].grantSelection:checked").val();
-	 $("#applClassCode").val(code);
 	//if ($("#applClassCode").attr("value") == 'M') {  
 	 if(projAnswer == 29){
 		   hideGrantFields();
@@ -298,7 +297,18 @@ function refreshGrantsContractsData(){
 	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
 	 var code= $("input[type='radio'].grantSelection:checked").val();
 	 $("#applClassCode").val(code);
-	 $("#grantsContractNum").val('');
+	 
+	 if($("#grantsContractNum").val()!='') {
+	 var result = "Changing the selection will clear the Grant Number.<br /> Do you wish to continue?";
+		bootbox.confirm(result, function(ans) {
+			if (ans) {
+				$("#grantsContractNum").val('');
+				return true;
+			} else {
+				return true;
+			}
+		});
+	 }
 	 if(projAnswer == 29){
 		    hideGrantFields();
 			$("#grantsContractNum").val('');
