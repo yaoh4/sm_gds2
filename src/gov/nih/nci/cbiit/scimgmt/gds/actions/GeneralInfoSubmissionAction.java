@@ -48,20 +48,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String applId;
 	private String valueSelected;
 	private String grantSelection;
-
-	public String getGrantSelection() {
-		return grantSelection;
-	}
-
-	public void setGrantSelection(String grantSelection) {
-		this.grantSelection = grantSelection;
-	}
-
+	
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();
 	private List<DropDownOption> progList = new ArrayList<DropDownOption>();
 	
-	
-
 	private List<DropDownOption> projectTypes = new ArrayList<DropDownOption>();
 	private List<DropDownOption> projectSubmissionReasons = new ArrayList<DropDownOption>();	
 	private List<GdsGrantsContracts> grantOrContractList = new ArrayList<GdsGrantsContracts>();	
@@ -144,6 +134,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		if(StringUtils.isNotBlank(applId)){
 			getProject().setApplId(Long.valueOf(applId));
+		}
+		
+		if(StringUtils.isNotBlank(grantSelection)){
+			getProject().setApplClassCode(grantSelection);
 		}
 		
 		Project project = retrieveSelectedProject();		
@@ -270,7 +264,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			//Initially set to linked so that grant fields will not be editable
 			getProject().setDataLinkFlag(ApplicationConstants.FLAG_YES); 
 		}
-		
 		setUpLists();				
 	}
 	
@@ -288,12 +281,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());
 			if(preSelectedDOC == "CCR" || preSelectedDOC == "DCEG") {
 				grantSelection = "M";
-				getProject().setApplClassCode("M");
 			}
 			else {
 				grantSelection = "G";
-				getProject().setApplClassCode("G");
 			}
+			
+			if(getProject().getId() == null){
+			getProject().setApplClassCode(grantSelection);
+			}
+			
 		}
 		
 		 if(progList.isEmpty()){
@@ -493,7 +489,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	public String searchGrantOrContract(){
 
 		logger.debug("Searching grants / contracts.");
-		grantOrContractList = manageProjectService.getGrantOrContractList(grantContractNum);
+		grantOrContractList = manageProjectService.getGrantOrContractList(grantContractNum,grantSelection);
 		filterSingleQuotes();
 		return SUCCESS;
 	}
@@ -501,6 +497,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private void filterSingleQuotes() {
 		for(GdsGrantsContracts grantOrContract: grantOrContractList) {
 			grantOrContract.setProjectTitle(grantOrContract.getProjectTitle().replaceAll("'",""));
+			grantOrContract.setProjectTitle(grantOrContract.getProjectTitle().replaceAll("\"",""));
 		}
 	}
 
@@ -831,5 +828,13 @@ public List<DropDownOption> getProgList() {
 
 	public void setProgList(List<DropDownOption> progList) {
 		this.progList = progList;
+	}
+
+	public String getGrantSelection() {
+		return grantSelection;
+	}
+
+	public void setGrantSelection(String grantSelection) {
+		this.grantSelection = grantSelection;
 	}
 }
