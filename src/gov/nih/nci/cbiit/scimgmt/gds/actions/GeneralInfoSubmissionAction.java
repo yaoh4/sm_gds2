@@ -288,7 +288,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			}
 			
 			if(getProject().getId() == null && getProject().getParentProjectId() == null ){
-			getProject().setApplClassCode(grantSelection);
+			    getProject().setApplClassCode(grantSelection);
 			}
 			
 		}
