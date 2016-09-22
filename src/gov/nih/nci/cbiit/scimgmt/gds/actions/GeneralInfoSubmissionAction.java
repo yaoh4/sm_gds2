@@ -155,6 +155,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					ans.addProject(project);
 				}
 				project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
+				project.setApplClassCode(parentProject.getApplClassCode());
 				project.setProgramBranch(parentProject.getProgramBranch());
 				//Create repository statuses for sub-project from parent
 				setupRepositoryStatuses(project);
@@ -286,7 +287,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				grantSelection = "G";
 			}
 			
-			if(getProject().getId() == null){
+			if(getProject().getId() == null && getProject().getParentProjectId() == null ){
 			getProject().setApplClassCode(grantSelection);
 			}
 			
@@ -489,7 +490,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	public String searchGrantOrContract(){
 
 		logger.debug("Searching grants / contracts.");
-		grantOrContractList = manageProjectService.getGrantOrContractList(grantContractNum,grantSelection);
+		grantOrContractList = manageProjectService.getGrantOrContractList(grantContractNum,getProject().getApplClassCode());
 		filterSingleQuotes();
 		return SUCCESS;
 	}
