@@ -83,7 +83,7 @@ public interface ManageProjectService {
 	 * This method retrieves Intramural / Grant / Contract List
 	 * @return
 	 */
-	public List<GdsGrantsContracts> getGrantOrContractList(String grantContractNum);
+	public List<GdsGrantsContracts> getGrantOrContractList(String grantContractNum,String applClassCode);
 	
 	/**
 	 * This method returns grantContract for given applId
