@@ -105,9 +105,8 @@
                       <div id="grantDiv">
 					<div class="form-group row">
 					<div class="col-xs-5">
-							<label for="Grant #" id="grantLabel">Grant #</label>
-							<label for="Intramural #" id="intramuralLabel">Intramural #</label>
-							<label for="Contract #" id="contractLabel">Contract #</label>				
+							<label for="Grant #" id="grantLabel">Intramural/Grant/Contract  #</label>
+									
 
 				
 								<div class="input-group ">
