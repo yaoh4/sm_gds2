@@ -36,7 +36,7 @@
     <!-- Fixed navbar -->
 
     <div id="wrap">
-      <div class="navbar  navbar-fixed-top" style="min-width: 750px;">
+      <div class="navbar  navbar-fixed-top" style="min-width: 750px; background: #FFF;">
         <div class="row">
           <div class="container">
             <div style="margin-left: 750px; margin-top: 10px; margin-bottom: 0px;"><a href="" id="close"><i class="fa fa-times-circle fa-2x" aria-hidden="true"></i></a></div>
