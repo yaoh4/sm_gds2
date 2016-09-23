@@ -54,6 +54,7 @@ WebContent/WEB-INF/lib/junit-4.12.jar -text
 WebContent/WEB-INF/lib/log4j-api-2.5.jar -text
 WebContent/WEB-INF/lib/log4j-core-2.5.jar -text
 WebContent/WEB-INF/lib/mail.jar -text
+WebContent/WEB-INF/lib/mockito-all-1.10.19.jar -text
 WebContent/WEB-INF/lib/mvel2-2.0.11.jar -text
 WebContent/WEB-INF/lib/ognl-3.0.6.jar -text
 WebContent/WEB-INF/lib/org.apache.felix.framework-4.0.3.jar -text
