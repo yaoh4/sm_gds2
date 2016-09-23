@@ -288,7 +288,7 @@ function refreshGrantsContractsData(){
 		$("#pdName").hide();
 		$("#pStartDate").hide();
 		$("#pEndDate").hide();	
-		$("#grantsContractNum").removeAttr("disabled");
+		$("#grantsContractNum").removeAttr("readonly");
 			$("#projectTitle").removeAttr("disabled");
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
@@ -342,7 +342,7 @@ function refreshGrantsContractsData(){
 			$("#pdName").hide();
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();
-			$("#grantsContractNum").removeAttr("disabled");
+			$("#grantsContractNum").removeAttr("readonly");
 			$("#projectTitle").removeAttr("disabled");
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
@@ -381,7 +381,7 @@ function refreshGrantsContractsData(){
 			$("#pdName").hide();
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();
-			$("#grantsContractNum").removeAttr("disabled");
+			$("#grantsContractNum").removeAttr("readonly");
 			$("#projectTitle").removeAttr("disabled");
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
@@ -464,6 +464,10 @@ function refreshGrantsContractsData(){
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
 			$("#PIInstitute").removeAttr("disabled");
+			$("#fnPD").removeAttr("disabled");
+			$("#lnPD").removeAttr("disabled");
+			$("#projectStartDate").removeAttr("disabled");
+			$("#projectEndDate").removeAttr("disabled");
 		} else {
 			$("#canAct").show();
 		}
