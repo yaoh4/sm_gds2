@@ -323,12 +323,12 @@ function refreshGrantsContractsData(){
 			$("#pdName").hide();
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();
-			$("#grantsContractNum").removeClass("disabled");
-			$("#projectTitle").removeClass("disabled");
-			$("#fnPI").removeClass("disabled");
-			$("#lnPI").removeClass("disabled");
-			$("#piEmail").removeClass("disabled");
-			$("#piInstitute").removeClass("disabled");
+			$("#grantsContractNum").removeAttr("disabled");
+			$("#projectTitle").removeAttr("disabled");
+			$("#fnPI").removeAttr("disabled");
+			$("#lnPI").removeAttr("disabled");
+			$("#piEmail").removeAttr("disabled");
+			$("#piInstitute").removeAttr"disabled");
 			$("#intramuralLabel").show();
 			$("#grantLabel").hide();
 			$("#contractLabel").hide();	 
@@ -338,12 +338,12 @@ function refreshGrantsContractsData(){
 			$("#intramuralLabel").hide();
 			$("#grantLabel").hide();
 			$("#contractLabel").show();	 
-			$("#grantsContractNum").removeClass("disabled");
-			$("#projectTitle").removeClass("disabled");
-			$("#fnPI").removeClass("disabled");
-			$("#lnPI").removeClass("disabled");
-			$("#piEmail").removeClass("disabled");
-			$("#piInstitute").removeClass("disabled");
+			$("#grantsContractNum").removeAttr("disabled");
+			$("#projectTitle").removeAttr("disabled");
+			$("#fnPI").removeAttr("disabled");
+			$("#lnPI").removeAttr"disabled");
+			$("#piEmail").removeAttr("disabled");
+			$("#piInstitute").removeAttr("disabled");
 
 		}
 	 else{
@@ -351,12 +351,12 @@ function refreshGrantsContractsData(){
 		 $("#intramuralLabel").show();
 			$("#grantLabel").hide();
 			$("#contractLabel").hide();	
-			$("#grantsContractNum").addClass("disabled");
-			$("#projectTitle").addClass("disabled");
-			$("#fnPI").addClass("disabled");
-			$("#lnPI").addClass("disabled");
-			$("#piEmail").addClass("disabled");
-			$("#piInstitute").addClass("disabled"); 
+			$("#grantsContractNum").addAttr("disabled");
+			$("#projectTitle").addAttr("disabled");
+			$("#fnPI").addAttr("disabled");
+			$("#lnPI").addAttr("disabled");
+			$("#piEmail").addAttr("disabled");
+			$("#piInstitute").addAttr("disabled"); 
 	 }
  });
  
@@ -378,12 +378,12 @@ function refreshGrantsContractsData(){
 			$("#pdName").hide();
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();	
-			$("#grantsContractNum").removeClass("disabled");
-			$("#projectTitle").removeClass("disabled");
-			$("#fnPI").removeClass("disabled");
-			$("#lnPI").removeClass("disabled");
-			$("#piEmail").removeClass("disabled");
-			$("#piInstitute").removeClass("disabled");
+			$("#grantsContractNum").removeAttr("disabled");
+			$("#projectTitle").removeAttr("disabled");
+			$("#fnPI").removeAttr("disabled");
+			$("#lnPI").removeAttr("disabled");
+			$("#piEmail").removeAttr("disabled");
+			$("#piInstitute").removeAttr("disabled");
 			$("#intramuralLabel").show();
 			$("#grantLabel").hide();
 			$("#contractLabel").hide();	 
@@ -393,19 +393,25 @@ function refreshGrantsContractsData(){
 			$("#intramuralLabel").hide();
 			$("#grantLabel").hide();
 			$("#contractLabel").show();	 
-			$("#grantsContractNum").removeClass("disabled");
-			$("#projectTitle").removeClass("disabled");
-			$("#fnPI").removeClass("disabled");
-			$("#lnPI").removeClass("disabled");
-			$("#piEmail").removeClass("disabled");
-			$("#piInstitute").removeClass("disabled");
+			$("#grantsContractNum").removeAttr("disabled");
+			$("#projectTitle").removeAttr("disabled");
+			$("#fnPI").removeAttr("disabled");
+			$("#lnPI").removeAttr("disabled");
+			$("#piEmail").removeAttr("disabled");
+			$("#piInstitute").removeAttr("disabled");
 
 		}
 	 else{
 		 showGrantFields();
 		 $("#intramuralLabel").show();
 			$("#grantLabel").hide();
-			$("#contractLabel").hide();	 
+			$("#contractLabel").hide();	
+			$("#grantsContractNum").addAttr("disabled");
+			$("#projectTitle").addAttr("disabled");
+			$("#fnPI").addAttr("disabled");
+			$("#lnPI").addAttr("disabled");
+			$("#piEmail").addAttr("disabled");
+			$("#piInstitute").addAttr("disabled"); 
 		
 		
 	 }
