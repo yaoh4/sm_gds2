@@ -41,7 +41,7 @@ function setStatusIcon(elem, elemDiv) {
 	$("#" + elemDiv).empty();
 	var elemVal = $("#" + elem).val();
 	if($("#" + elem).val() == 'COMPLETED') {
-		$("#" + elemDiv).prepend('<img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/>');
+		$("#" + elemDiv).prepend('<img src="../images/complete.png" alt="Completed" width="18px" height="18px" title="Completed"/>');
 	} else if($("#" + elem).val() == 'INPROGRESS') {
 		$("#" + elemDiv).prepend('<img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>');
 	} else {
