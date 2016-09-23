@@ -286,10 +286,18 @@ function refreshGrantsContractsData(){
 		$("#canAct").hide();
 		$("#pdName").hide();
 		$("#pStartDate").hide();
-		$("#pEndDate").hide();			
+		$("#pEndDate").hide();	
+
+
+		$("#intramuralLabel").show();
+			$("#grantLabel").hide();
+			$("#contractLabel").hide();	 		
 	}
 	 else{
 		showGrantFields();
+		$("#grantLabel").hide();
+		$("#contractLabel").hide();	
+
 	 }
 	
 });
@@ -323,40 +331,20 @@ function refreshGrantsContractsData(){
 			$("#pdName").hide();
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();
-			$("#grantsContractNum").removeAttr("disabled");
-			$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#piInstitute").removeAttr"disabled");
+
 			$("#intramuralLabel").show();
 			$("#grantLabel").hide();
 			$("#contractLabel").hide();	 
+			
 		}
 
-	else if(code == 'C') {
-			$("#intramuralLabel").hide();
-			$("#grantLabel").hide();
-			$("#contractLabel").show();	 
-			$("#grantsContractNum").removeAttr("disabled");
-			$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr"disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#piInstitute").removeAttr("disabled");
 
-		}
 	 else{
 		 showGrantFields();
 		 $("#intramuralLabel").show();
 			$("#grantLabel").hide();
 			$("#contractLabel").hide();	
-			$("#grantsContractNum").addAttr("disabled");
-			$("#projectTitle").addAttr("disabled");
-			$("#fnPI").addAttr("disabled");
-			$("#lnPI").addAttr("disabled");
-			$("#piEmail").addAttr("disabled");
-			$("#piInstitute").addAttr("disabled"); 
+			
 	 }
  });
  
@@ -378,40 +366,19 @@ function refreshGrantsContractsData(){
 			$("#pdName").hide();
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();	
-			$("#grantsContractNum").removeAttr("disabled");
-			$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#piInstitute").removeAttr("disabled");
+			
 			$("#intramuralLabel").show();
 			$("#grantLabel").hide();
 			$("#contractLabel").hide();	 
 	 }
 
-	 else if(code == 'C') {
-			$("#intramuralLabel").hide();
-			$("#grantLabel").hide();
-			$("#contractLabel").show();	 
-			$("#grantsContractNum").removeAttr("disabled");
-			$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#piInstitute").removeAttr("disabled");
-
-		}
+	 
 	 else{
 		 showGrantFields();
 		 $("#intramuralLabel").show();
 			$("#grantLabel").hide();
 			$("#contractLabel").hide();	
-			$("#grantsContractNum").addAttr("disabled");
-			$("#projectTitle").addAttr("disabled");
-			$("#fnPI").addAttr("disabled");
-			$("#lnPI").addAttr("disabled");
-			$("#piEmail").addAttr("disabled");
-			$("#piInstitute").addAttr("disabled"); 
+			
 		
 		
 	 }
