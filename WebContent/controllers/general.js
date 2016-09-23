@@ -381,7 +381,7 @@ function refreshGrantsContractsData(){
 			$("#pdName").hide();
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();
-			$("#grantsContractNum").removeAttr("readonly");
+			$("#grantsContractNum").attr("readonly", "false");
 			$("#projectTitle").removeAttr("disabled");
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
@@ -468,6 +468,8 @@ function refreshGrantsContractsData(){
 			$("#lnPD").removeAttr("disabled");
 			$("#projectStartDate").removeAttr("disabled");
 			$("#projectEndDate").removeAttr("disabled");
+			$("#grantsContractNum").attr("readonly", "true");
+
 		} else {
 			$("#canAct").show();
 		}
