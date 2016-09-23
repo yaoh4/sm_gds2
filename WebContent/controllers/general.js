@@ -289,14 +289,11 @@ function refreshGrantsContractsData(){
 		$("#pEndDate").hide();	
 
 
-		$("#intramuralLabel").show();
-			$("#grantLabel").hide();
-			$("#contractLabel").hide();	 		
+				
 	}
 	 else{
 		showGrantFields();
-		$("#grantLabel").hide();
-		$("#contractLabel").hide();	
+
 
 	 }
 	
@@ -332,19 +329,14 @@ function refreshGrantsContractsData(){
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();
 
-			$("#intramuralLabel").show();
-			$("#grantLabel").hide();
-			$("#contractLabel").hide();	 
+			 
 			
 		}
 
 
 	 else{
 		 showGrantFields();
-		 $("#intramuralLabel").show();
-			$("#grantLabel").hide();
-			$("#contractLabel").hide();	
-			
+		 
 	 }
  });
  
@@ -367,17 +359,12 @@ function refreshGrantsContractsData(){
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();	
 			
-			$("#intramuralLabel").show();
-			$("#grantLabel").hide();
-			$("#contractLabel").hide();	 
 	 }
 
 	 
 	 else{
 		 showGrantFields();
-		 $("#intramuralLabel").show();
-			$("#grantLabel").hide();
-			$("#contractLabel").hide();	
+		
 			
 		
 		
