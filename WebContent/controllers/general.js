@@ -323,9 +323,40 @@ function refreshGrantsContractsData(){
 			$("#pdName").hide();
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();
-	 }
+			$("#grantsContractNum").removeClass("disabled");
+			$("#projectTitle").removeClass("disabled");
+			$("#fnPI").removeClass("disabled");
+			$("#lnPI").removeClass("disabled");
+			$("#piEmail").removeClass("disabled");
+			$("#piInstitute").removeClass("disabled");
+			$("#intramuralLabel").show();
+			$("#grantLabel").hide();
+			$("#contractLabel").hide();	 
+		}
+
+	else if(code == 'C') {
+			$("#intramuralLabel").hide();
+			$("#grantLabel").hide();
+			$("#contractLabel").show();	 
+			$("#grantsContractNum").removeClass("disabled");
+			$("#projectTitle").removeClass("disabled");
+			$("#fnPI").removeClass("disabled");
+			$("#lnPI").removeClass("disabled");
+			$("#piEmail").removeClass("disabled");
+			$("#piInstitute").removeClass("disabled");
+
+		}
 	 else{
 		 showGrantFields();
+		 $("#intramuralLabel").show();
+			$("#grantLabel").hide();
+			$("#contractLabel").hide();	
+			$("#grantsContractNum").addClass("disabled");
+			$("#projectTitle").addClass("disabled");
+			$("#fnPI").addClass("disabled");
+			$("#lnPI").addClass("disabled");
+			$("#piEmail").addClass("disabled");
+			$("#piInstitute").addClass("disabled"); 
 	 }
  });
  
@@ -346,10 +377,37 @@ function refreshGrantsContractsData(){
 		 $("#canAct").hide();
 			$("#pdName").hide();
 			$("#pStartDate").hide();
-			$("#pEndDate").hide();	 
+			$("#pEndDate").hide();	
+			$("#grantsContractNum").removeClass("disabled");
+			$("#projectTitle").removeClass("disabled");
+			$("#fnPI").removeClass("disabled");
+			$("#lnPI").removeClass("disabled");
+			$("#piEmail").removeClass("disabled");
+			$("#piInstitute").removeClass("disabled");
+			$("#intramuralLabel").show();
+			$("#grantLabel").hide();
+			$("#contractLabel").hide();	 
 	 }
+
+	 else if(code == 'C') {
+			$("#intramuralLabel").hide();
+			$("#grantLabel").hide();
+			$("#contractLabel").show();	 
+			$("#grantsContractNum").removeClass("disabled");
+			$("#projectTitle").removeClass("disabled");
+			$("#fnPI").removeClass("disabled");
+			$("#lnPI").removeClass("disabled");
+			$("#piEmail").removeClass("disabled");
+			$("#piInstitute").removeClass("disabled");
+
+		}
 	 else{
 		 showGrantFields();
+		 $("#intramuralLabel").show();
+			$("#grantLabel").hide();
+			$("#contractLabel").hide();	 
+		
+		
 	 }
  });
  

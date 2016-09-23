@@ -48,6 +48,7 @@
 				<div class="panel-body">
                 <div class="form-group row has-feedback">
 						<div class="col-xs-10">
+							<p class="question">This submission is:</p>
 							 <s:radio  name="grantSelection" class="grantSelection" list="#{'G':'Extramural','M':'Intramural','C':'Contract'}" template="radiomap-div.ftl" value="%{project.applClassCode}"/>
 								
 						</div>
@@ -104,8 +105,10 @@
                       <div id="grantDiv">
 					<div class="form-group row">
 					<div class="col-xs-5">
-							<label for="Intramural (Z01)/Grant/Contract #">Grant/Intramural/Contract #</label>
-											
+							<label for="Grant #" id="grantLabel">Grant #</label>
+							<label for="Intramural #" id="intramuralLabel">Intramural #</label>
+							<label for="Contract #" id="contractLabel">Contract #</label>				
+
 				
 								<div class="input-group ">
 								  <s:textfield name="project.applicationNum"  class="form-control" cssclass="form-control" readonly="true" id="grantsContractNum" placeholder="Click on Edit Icon" value="%{project.applicationNum}"/>
