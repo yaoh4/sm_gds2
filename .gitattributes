@@ -565,6 +565,10 @@ WebContent/stylesheets/font-awesome-4.6.3.min.css -text
 WebContent/stylesheets/non-responsive.css -text
 WebContent/stylesheets/styles.css -text
 WebContent/template/simple/radiomap-div.ftl -text
+WebContent/tests/qunit-2.0.1.js -text
+WebContent/tests/qunit-git.css -text
+WebContent/tests/test.html -text
+WebContent/tests/tests.js -text
 build/build.xml -text
 build/env.properties -text
 build/user.properties -text
@@ -1070,5 +1074,8 @@ src/gov/nih/nci/cbiit/scimgmt/gds/util/UIRuleUtil.java -text
 src/manage.xml -text
 src/search.xml -text
 src/struts.xml -text
+test/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmissionTest.java -text
+test/gov/nih/nci/cbiit/scimgmt/gds/applicationContext.xml -text
+test/gov/nih/nci/cbiit/scimgmt/gds/ehcache.xml -text
 test/gov/nih/nci/cbiit/scimgmt/gds/junit/HibernateMappingTest.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/junit/applicationContext.xml -text

@@ -215,14 +215,17 @@
               war="${basedir}/${app.distribution.dir}/${app.name.war}"/>
    </target>  
    <!-- run ALL targets -->
-   <target name="all" depends="clean,make_deployment_dirs,copy_properties_files,compile,war, tomcat.deploy"/>
-	
+   <target name="all" depends="clean,make_deployment_dirs,copy_properties_files,compile, junit, war, tomcat.deploy"/>
    <target name="junit" depends="compile, copy_properties_files">
-	  <junit showoutput="true" printsummary="yes" haltonfailure="no">
+	  <junit showoutput="true" printsummary="yes" haltonfailure="yes">
 	    <sysproperty key="conf.dir" value="${conf.dir}"/>
 		<classpath refid="project.classpath" />
 		<classpath location="${java.classes.dir}" />
 	   	<classpath location="${test.classes.dir}" />
+	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmissionTest" haltonfailure="yes" outfile="${distribution.dir}/result">
+	  		<formatter type="plain" />
+	  		<formatter type="xml" />
+	  	</test>
 	  </junit>
-	</target>
+   </target>
 </project>
