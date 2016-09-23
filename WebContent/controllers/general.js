@@ -56,11 +56,7 @@ $( document ).ready(function() {
 		  $("#grantsContractNum").attr("placeholder", "Click on Search Icon");
 		  $("#canAct").hide();
 		  $("#linkButton").hide();
-		  $("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#PIInstitute").removeAttr("disabled");
+	
 	}
 	else {
 		$("#linkButton").show();
@@ -301,21 +297,7 @@ function refreshGrantsContractsData(){
 				
 	}
 
-	 else if(code == 'C' ) {
-		
-			$("#grantsContractNum").removeAttr("disabled");
-			$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#PIInstitute").removeAttr("disabled");
-			$("fnPD").removeAttr("disabled");
-			$("lnPD").removeAttr("disabled");
-			$("projectStartDate").removeAttr("disabled");
-			$("projectEndDate").removeAttr("disabled");
-			 
-			
-		}
+
 
 	 else{
 		showGrantFields();
@@ -370,21 +352,7 @@ function refreshGrantsContractsData(){
 			 
 			
 		}
-	 else if(code == 'C' ) {
-		
-			$("#grantsContractNum").removeAttr("disabled");
-			$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#PIInstitute").removeAttr("disabled");
-			$("fnPD").removeAttr("disabled");
-			$("lnPD").removeAttr("disabled");
-			$("projectStartDate").removeAttr("disabled");
-			$("projectEndDate").removeAttr("disabled");
-			 
-			
-		}
+
 		
 
 
@@ -423,21 +391,7 @@ function refreshGrantsContractsData(){
 	 }
 
 
-	 	 else if(code == 'C' ) {
-		
-			$("#grantsContractNum").removeAttr("disabled");
-			$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#PIInstitute").removeAttr("disabled");
-			$("fnPD").removeAttr("disabled");
-			$("lnPD").removeAttr("disabled");
-			$("projectStartDate").removeAttr("disabled");
-			$("projectEndDate").removeAttr("disabled");
-			 
-			
-		}
+	 	
 
 	 
 	 else{
@@ -505,6 +459,11 @@ function refreshGrantsContractsData(){
 		$("#title").show();
 		if($("#grantsContractNum").val() == '') {
 			$("#canAct").hide();
+			$("#projectTitle").removeAttr("disabled");
+			$("#fnPI").removeAttr("disabled");
+			$("#lnPI").removeAttr("disabled");
+			$("#piEmail").removeAttr("disabled");
+			$("#PIInstitute").removeAttr("disabled");
 		} else {
 			$("#canAct").show();
 		}
