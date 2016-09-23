@@ -56,6 +56,11 @@ $( document ).ready(function() {
 		  $("#grantsContractNum").attr("placeholder", "Click on Search Icon");
 		  $("#canAct").hide();
 		  $("#linkButton").hide();
+		  $("#projectTitle").removeAttr("disabled");
+			$("#fnPI").removeAttr("disabled");
+			$("#lnPI").removeAttr("disabled");
+			$("#piEmail").removeAttr("disabled");
+			$("#pIInstitute").removeAttr("disabled");
 	}
 	else {
 		$("#linkButton").show();
