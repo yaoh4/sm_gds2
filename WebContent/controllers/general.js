@@ -60,7 +60,7 @@ $( document ).ready(function() {
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
-			$("#pIInstitute").removeAttr("disabled");
+			$("#PIInstitute").removeAttr("disabled");
 	}
 	else {
 		$("#linkButton").show();
@@ -297,7 +297,7 @@ function refreshGrantsContractsData(){
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
-			$("#pIInstitute").removeAttr("disabled");
+			$("#PIInstitute").removeAttr("disabled");
 				
 	}
 	 else{
@@ -319,7 +319,7 @@ function refreshGrantsContractsData(){
 				$("#grantsContractNum").val('');
 				$("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
 		  		$("#grantsContractNum").attr("placeholder", "Click on Search Icon");
-		  		$("#grantsContractNum").removeAttr("disabled");
+		  		$("#grantsContractNum").attr('readonly', false);
 		  		$("#canAct").hide();
 		  		$("#linkButton").hide();
 
@@ -348,7 +348,7 @@ function refreshGrantsContractsData(){
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
-			$("#pIInstitute").removeAttr("disabled");
+			$("#PIInstitute").removeAttr("disabled");
 
 			 
 			
@@ -384,7 +384,7 @@ function refreshGrantsContractsData(){
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
-			$("#pIInstitute").removeAttr("disabled");	
+			$("#PIInstitute").removeAttr("disabled");	
 			
 	 }
 
