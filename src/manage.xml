@@ -155,6 +155,9 @@
 		<action name="viewMissingBsiData" method="getMissingBsiData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionAction">
 			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
 		</action>
+		<action name="viewSubmissionDetails" method="viewOnly" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SubmissionDetailsAction">
+			<result name="success" type="dispatcher">/jsp/content/detailReport.jsp</result>		
+		</action>	
 		<action name="navigateToSubmissionDetail" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SubmissionDetailsAction">
 			 <result name="success" type="tiles">submissionDetail</result>
 		</action>
@@ -250,9 +253,6 @@
 			<result name="success" type="dispatcher">/jsp/content/searchGrantsContracts.jsp</result>	
 			<result name="input" type="dispatcher">/jsp/content/searchGrantsContracts.jsp</result>	
 		</action>
-		<action name="viewSubmissionDetails" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SubmissionDetailsAction">
-			<result name="success" type="dispatcher">/jsp/content/detailReport.jsp</result>		
-		</action>	
 		<action name="getGrantOrContractByApplId" method="getGrantOrContractByApplId" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
 			 <result name="success" type="json">
 				<param name="root">grantOrContract</param>

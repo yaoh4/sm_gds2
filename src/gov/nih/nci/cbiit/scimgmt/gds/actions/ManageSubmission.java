@@ -73,6 +73,8 @@ public class ManageSubmission extends BaseAction {
 	
 	private Lookup page;
 	
+	private String editFlag = ApplicationConstants.FLAG_NO;
+	
 	protected List<MissingData> missingDataList = new ArrayList<MissingData>();
 	
 	private Map<Long, List<String>> answerMap = new HashMap<Long, List<String>>();
@@ -580,6 +582,22 @@ public class ManageSubmission extends BaseAction {
 	}
 	
 	
+	/**
+	 * @return the editFlag
+	 */
+	public String getEditFlag() {
+		return editFlag;
+	}
+
+
+	/**
+	 * @param editFlag the editFlag to set
+	 */
+	public void setEditFlag(String editFlag) {
+		this.editFlag = editFlag;
+	}
+
+
 	public Map<Long, List<String>> getAnswers() {
 		return answerMap;
 	}

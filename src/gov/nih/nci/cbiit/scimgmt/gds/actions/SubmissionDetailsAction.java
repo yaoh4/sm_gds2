@@ -45,6 +45,21 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	@SuppressWarnings("unchecked")
 	public String execute() throws Exception {
 		
+		setupProjectData();
+		setEditFlag(ApplicationConstants.FLAG_YES);
+		
+		return SUCCESS;
+	}
+	
+	public String viewOnly() {
+		
+		setupProjectData();
+		setEditFlag(ApplicationConstants.FLAG_NO);
+		
+		return SUCCESS;
+	}
+	
+	private void setupProjectData() {
 		Project project = retrieveSelectedProject();
 		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
@@ -80,8 +95,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		}
 		
 		setProject(project);
-		
-		
+				
 		//Load general info
 		loadGrantInfo();
 		
@@ -94,9 +108,8 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		setGdsPlanFile(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, new Long(getProjectId())));
 		
 		setVersions(retrieveVersions(project));
-		
-		return SUCCESS;
 	}
+	
 	
 	/**
 	 * This method returns answers for the questions on gds plan page.

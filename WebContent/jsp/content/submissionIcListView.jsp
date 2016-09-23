@@ -4,31 +4,40 @@
 
 
 <div class="panel panel-default" id="searchGrant" style="margin-top: 20px;">
-        <div class="panel-heading">
-          <span class="clickable panel-collapsed">
+      <div class="panel-heading">
+        <span class="clickable panel-collapsed">
             <i class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
-          </span>
-          <div class="pheader" style="display:inline;"><h5>Institutional Certification(s)</h5></div>
+        </span>
+        <div class="pheader" style="display:inline;"><h5>Institutional Certification(s)</h5></div>
+        
+        <s:if test="%{editFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}"> 
           <div style="display:inline; float: right;">
             <a href="/gds/manage/listIc.action?projectId=${project.id}">
               <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>
             </a>
           </div>
+        </s:if>  
+          
         </div> <!--end panel header-->
         <div class="panel-body" style="display:none;">
        <s:if test="%{getPageStatus('IC').status.code.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_NOT_STARTED)}">
           No data entered.
         </s:if>
          <s:else>
-          <table width="100%" border="0" cellpadding="3"><tr><td width="30%" style="white-space: nowrap"><strong>All Institutional Certifications received?</strong><td><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td></tr></table>
+          <table width="100%" border="0" cellpadding="3">
+            <tr>
+              <td width="30%" style="white-space: nowrap"><strong>All Institutional Certifications received?</strong></td>
+              <td><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td>
+            </tr>
+          </table>
           <p>&nbsp;</p>
-          <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
+          <table width="100%" cellpadding="0px" cellspacing="0" style="table-layout:fixed;" class="table table-bordered">
             <tbody>
               <tr class="modalTheader">
-                <th class="tableHeader" align="center" width="23%">Institutional Certification Document</th>
-                <th class="tableHeader" align="center" width="19%">Status</th>
-                <th class="tableHeader" align="center" width="19%">Missing Data</th>
-                <th class="tableHeader" align="center" width="19%">Date Uploaded</th>
+                <th class="tableHeader" align="center">Institutional Certification Document</th>
+                <th class="tableHeader" align="center">Status</th>
+                <th class="tableHeader" align="center">Missing Data</th>
+                <th class="tableHeader" align="center">Date Uploaded</th>
                
               </tr>
                     
@@ -38,7 +47,7 @@
                 
                 <!--  FILE DISPLAY AND ICONS ROW -->    
                 <tr data-id="${ic.id}">
-                  <td style="white-space: nowrap">
+                  <td style="style="word-wrap:break-word;">
                     <a href="#" class="icDetails" id="icDetails${ic.id}">
                       <i class="expand fa fa-lg fa-plus-square" id="${ic.id}expand" aria-hidden="true" alt="view" title="view"></i></a>&nbsp;
                     <s:a href="javascript:openDocument(%{#ic.documents[0].id})"><s:property value="%{#ic.documents[0].fileName}" /></s:a>
