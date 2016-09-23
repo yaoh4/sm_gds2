@@ -292,7 +292,7 @@ function refreshGrantsContractsData(){
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
-			$("#piInstitute").removeAttr"disabled");
+			$("#piInstitute").removeAttr("disabled");
 
 
 				
@@ -344,7 +344,7 @@ function refreshGrantsContractsData(){
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
-			$("#piInstitute").removeAttr"disabled");
+			$("#piInstitute").removeAttr("disabled");
 
 			 
 			
@@ -380,7 +380,7 @@ function refreshGrantsContractsData(){
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
-			$("#piInstitute").removeAttr"disabled");	
+			$("#piInstitute").removeAttr("disabled");	
 			
 	 }
 
