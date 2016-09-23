@@ -140,10 +140,11 @@ function populateGrantsContractsData(){
 	
 	var applClassCode= json.applClassCode;	
 	 var docName=$('#DOC').find('option:selected').text();
+	 var code= $("input[type='radio'].grantSelection:checked").val();
 	
 	//For Intramural grants don't display PD first name, last name and project start date, end date.
 	//if(applClassCode != "M"){
-	 if(docName == "DCEG" || docName == "CCR" ){
+	 if(code == 'M'){
 		 $("#canAct").hide();
 		 $("#pdName").hide();
 			$("#pStartDate").hide();
