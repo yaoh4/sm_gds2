@@ -7,7 +7,7 @@ $(document).ready(function() {
 		$(".display").hide();
 		$(".conditionalDisplay").hide();
 	}
-	else if(projSub == 'DCEG' || projSub == 'CCR') {
+	else if(projSub == 'M') {
 		$(".display").show();
 		$(".conditionalDisplay").hide();
 	}
