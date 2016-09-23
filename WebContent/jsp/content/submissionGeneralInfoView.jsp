@@ -42,7 +42,7 @@
     </tr>
     <tr class="display">
       <td style="white-space: nowrap"><strong>NCI Division/Office/Center:</strong></td>
-      <s:hidden id="projAbbr" value="%{project.docAbbreviation}"/>
+      <s:hidden id="projAbbr" value="%{project.applClassCode}"/>
       <td colspan="4">${project.docAbbreviation}</td>
     </tr>
    <tr class="display">
@@ -58,8 +58,10 @@
       <td colspan="4">${project.applicationNum}</td>
     </tr>
     <tr class="conditionalDisplay">
+    <s:if test="project.cayCode != null">   
       <td style="white-space: nowrap"><strong>Cancer Activity:</strong></td>
       <td colspan="4">${project.cayCode}</td>
+      </s:if>
     </tr>
    <tr class="display">
       <td style="white-space: nowrap"><strong>Grant/Intramural/Contract Project Title:</strong></td>
