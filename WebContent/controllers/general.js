@@ -249,7 +249,7 @@ function refreshGrantsContractsData(){
 
 
 
- $(function () { 
+/* $(function () { 
 	
 	if ($("#dataLinkFlag").attr("value") == 'Y') {
 		$("#link").css("background-color", "#d4d4d4");
@@ -265,7 +265,7 @@ function refreshGrantsContractsData(){
 		$("#link").removeClass('disabled');
 		$(".unlink-group").prop('disabled', false);
 	}
- });
+ });*/
  
  
  $(function () {
@@ -276,6 +276,10 @@ function refreshGrantsContractsData(){
 		 hideGrantFields();
 	 }
 	 else if(code == 'M' ) {
+		 //If selection is 'Intramural', hide pd first and last
+		 //name, start and end date, and cancer activity field. 
+		 //Make all other fields including the grant number field
+		 //editable, and hide link/unlink button.
 	     $("#DivisionOffice").show();
 		 $("#pBranch").show();
 		 $("#grantDiv").show();
@@ -290,8 +294,15 @@ function refreshGrantsContractsData(){
 		 $("#lnPI").removeAttr("disabled");
 		 $("#piEmail").removeAttr("disabled");
 		 $("#PIInstitute").removeAttr("disabled");
+		 $("#linkButton").hide();
 	}
 	 else{
+		 //Show all fields. Make grant number field non-editable.
+		 //If grant number is empty: do not show the link-unlink
+		 //button, and cancer activity field, make all the grant 
+		 //specific fields including grant number non-editable. 
+		 //If grant number is not empty: If linked, make all grant
+		 //specific fields un-editable. Else make them editable.
 		showGrantFields();
 	 }
 });
@@ -302,9 +313,11 @@ function refreshGrantsContractsData(){
 	 $("#applClassCode").val(code);
 	 
 	 if($("#grantsContractNum").val()!='') {
-	 var result = "Changing the selection will clear the Grant Number.<br /> Do you wish to continue?";
+	   var result = "Changing the selection will clear the Grant Number.<br /> Do you wish to continue?";
 		bootbox.confirm(result, function(ans) {
 			if (ans) {
+				//Clear the grant number and grant specific fields. Remove
+				//the cancer activity field. Remove link-unlink button
 				$("#grantsContractNum").val('');
 				$("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
 		  		$("#grantsContractNum").attr("placeholder", "Click on Search Icon");
@@ -324,6 +337,10 @@ function refreshGrantsContractsData(){
 			$("#applId").val('');
 	 }
 	 else if(code == 'M' ) {
+		 //If selection is 'Intramural', hide pd first and last
+		 //name, start and end date, and cancer activity field. 
+		 //Make all other fields including the grant number field
+		 //editable, and hide link/unlink button.
 		 $("#DivisionOffice").show();
 			$("#pBranch").show();
 			$("#grantDiv").show();
@@ -338,8 +355,14 @@ function refreshGrantsContractsData(){
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
 			$("#PIInstitute").removeAttr("disabled");
+			$("#linkButton").hide();
 		}
 	 else{
+		//Show all fields. Make the grant number field 
+		 //non-editable. Since grant number is empty, do not
+		 //show the link unlink button, and cancer activity
+		 //field, amd make all the grant specific fields
+		 //also non-editable.
 		 showGrantFields();
 	 }
  });
@@ -354,11 +377,15 @@ function refreshGrantsContractsData(){
 			$("#applId").val('');
 	 }
 	 else if(code == 'M' ) {
-		 $("#DivisionOffice").show();
+		 //If selection is 'Intramural', hide pd first and last
+		 //name, start and end date, and cancer activity field. 
+		 //Make all other fields including the grant number field
+		 //editable, and hide link/unlink button.
+		    $("#DivisionOffice").show();
 			$("#pBranch").show();
 			$("#grantDiv").show();
 			$("#title").show();
-		 $("#canAct").hide();
+		    $("#canAct").hide();
 			$("#pdName").hide();
 			$("#pStartDate").hide();
 			$("#pEndDate").hide();
@@ -368,7 +395,15 @@ function refreshGrantsContractsData(){
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
 			$("#PIInstitute").removeAttr("disabled");	
+			$("#linkButton").hide();
+			
 	 } else {
+		//Show all fields. Make grant number field non-editable.
+		 //If grant number is empty: do not show the link-unlink
+		 //button, and cancer activity field, make all the grant 
+		 //specific fields including grant number non-editable. 
+		 //If grant number is not empty: If linked, make all grant
+		 //specific fields un-editable. Else make them editable.
 		 showGrantFields();
 	 }
  });
@@ -405,14 +440,23 @@ function refreshGrantsContractsData(){
 		$("#pEndDate").hide();
  }
  
+
+//Show all fields. Make grant number field non-editable.
+ //If grant number is empty: do not show the link-unlink
+ //button, and cancer activity field, make all the grant 
+ //specific fields including grant number non-editable. 
+ //If grant number is not empty: If linked, make all grant
+ //specific fields un-editable. Else make them editable.
  function  showGrantFields() {
-	 $("#DivisionOffice").show();
+	    $("#DivisionOffice").show();
 		$("#pBranch").show();
 		$("#grantDiv").show();
+		$("#grantsContractNum").attr('readonly', "true");
 		$("#title").show();
 		if($("#grantsContractNum").val() == '') {
 			$("#canAct").hide();
-			$("#projectTitle").removeAttr("disabled");
+			$(".unlink-group").prop('disabled', true);
+			/*$("#projectTitle").removeAttr("disabled");
 			$("#fnPI").removeAttr("disabled");
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
@@ -420,10 +464,22 @@ function refreshGrantsContractsData(){
 			$("#fnPD").removeAttr("disabled");
 			$("#lnPD").removeAttr("disabled");
 			$("#projectStartDate").removeAttr("disabled");
-			$("#projectEndDate").removeAttr("disabled");
-			$("#grantsContractNum").attr("readonly", "true");
+			$("#projectEndDate").removeAttr("disabled");*/
 		} else {
 			$("#canAct").show();
+			if ($("#dataLinkFlag").attr("value") == 'Y') {
+				$("#link").css("background-color", "#d4d4d4");
+				$("#unlink").css("background-color", "#FFF");
+				$('#link').addClass('disabled');
+				$("#unlink").removeClass('disabled');
+				$(".unlink-group").prop('disabled', true);
+			} else {
+				$("#unlink").css("background-color", "#d4d4d4");
+				$("#link").css("background-color", "#FFF");
+				$("#unlink").addClass('disabled');
+				$("#link").removeClass('disabled');
+				$(".unlink-group").prop('disabled', false);
+			}
 		}
 		$("#pdName").show();
 		$("#pStartDate").show();
