@@ -102,82 +102,84 @@ function populateGrantsContractsData(){
 		
 	if (json.grantContractNum !== "undefined") {
 		$("#grantsContractNum").val(json.grantContractNum);
-		$("#grantsContractNum").prop('readOnly', true);
-		$("#linkButton").show();
-		//$("#canAct").show();
-	}
-	
-	if (json.cayCode !== "undefined") {
-		$("#cancerActivity").val(json.cayCode);
-		$("#cancerActivity").prop('readOnly', true);
 	}
 	
 	if (json.projectTitle !== "undefined") {
 		$("#projectTitle").val(json.projectTitle);
-		$("#projectTitle").prop('disabled', true);
 	}
 	
 	if (json.piFirstName !== "undefined") {
 		$("#fnPI").val(json.piFirstName);
-		$("#fnPI").prop('disabled', true);
 	}
 	
 	if (json.piLastName !== "undefined") {
 		$("#lnPI").val(json.piLastName);
-		$("#lnPI").prop('disabled', true);
 	}
 	
 	if (json.piEmailAddress !== "undefined") {
 		$("#piEmail").val(json.piEmailAddress);
-		$("#piEmail").prop('disabled', true);
 	}
-	
 	
 	if (json.piInstitution !== "undefined") {
 		$("#PIInstitute").val(json.piInstitution);
-		$("#PIInstitute").prop('disabled', true);
 	}
 	
-	var applClassCode= json.applClassCode;	
-	 var docName=$('#DOC').find('option:selected').text();
+	 //var applClassCode= json.applClassCode;	
+	 //var docName=$('#DOC').find('option:selected').text();
 	 var code= $("input[type='radio'].grantSelection:checked").val();
 	
-	//For Intramural grants don't display PD first name, last name and project start date, end date.
-	//if(applClassCode != "M"){
+	 //For Intramural grants don't display PD first name, last name and project start date, end date.
+	 //if(applClassCode != "M"){
 	 if(code == 'M'){
-		 $("#canAct").hide();
-		 $("#pdName").hide();
-			$("#pStartDate").hide();
-			$("#pEndDate").hide();
+		$("#grantsContractNum").prop('readOnly', false);
+	    $(".unlink-group").prop('disabled', false);
+	    $("#canAct").hide();
+	    $("#pdName").hide();
+		$("#pStartDate").hide();
+		$("#pEndDate").hide();	
+		$("#linkButton").hide();
+		$("#dataLinkFlag").val('N');
 	}
-	else{
+	else{		
+		$("#grantsContractNum").prop('readOnly', true);
+		$(".unlink-group").prop('disabled', true);
+		
 		if (json.pdFirstName !== "undefined") {
 			$("#fnPD").val(json.pdFirstName);
-			$("#fnPD").prop('disabled', true);	
 		}
 			
 		if (json.pdLastName !== "undefined") {
 			$("#lnPD").val(json.pdLastName);
-			$("#lnPD").prop('disabled', true);
 		}
 		
 		if (json.projectPeriodStartDate !== "undefined") {
 			$("#projectStartDate").val(json.projectPeriodStartDate);
-			$("#projectStartDate").prop('disabled', true);
 		}
 		
 		if (json.projectPeriodEndDate !== "undefined") {
 			$("#projectEndDate").val(json.projectPeriodEndDate);
-			$("#projectEndDate").prop('disabled', true);
 		}
+		
 		if (json.cayCode !== "undefined") {
 			$("#cancerActivity").val(json.cayCode);
-			$("#cancerActivity").prop('readOnly', true);
 		}
+		
 		$("#canAct").show();
 		$("#pdName").show();
 		$("#pStartDate").show();
-		$("#pEndDate").show();				
+		$("#pEndDate").show();	
+		
+		//Set grant to linked
+		$("#link").css("background-color", "#d4d4d4");
+		$("#unlink").css("background-color", "#FFF");
+		$('#link').addClass('disabled');
+		$("#unlink").removeClass('disabled');
+		$("#linkButton").show();
+		$(".unlink-group").prop('disabled', true);
+		$("#dataLinkFlag").val('Y');
+		
+		//Replace search icon with edit icon since we already have a grant
+		$("#grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
 	}
 	
 	if (json.applId !== "undefined") {
@@ -187,18 +189,6 @@ function populateGrantsContractsData(){
 	$('#grantSearch').val('');
 	$("#searchGrantsContracts").hide();
 	$("#generalInfoSection").show();
-	
-	//Set grant to linked
-	$("#link").css("background-color", "#d4d4d4");
-	$("#unlink").css("background-color", "#FFF");
-	$('#link').addClass('disabled');
-	$("#unlink").removeClass('disabled');
-	$(".unlink-group").prop('disabled', true);
-	$("#dataLinkFlag").val('Y');
-	
-	//Replace search icon with edit icon since we already have a grant
-	$("#grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
-	
 }
 
 //This function displays table of already linked submissions.

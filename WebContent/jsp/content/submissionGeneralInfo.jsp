@@ -144,7 +144,7 @@
 					<div class="form-group row has-feedback">
                        <div class="col-xs-5">
                            <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
-                           <s:textfield name="cancerActivity" cssClass="form-control"  id="cancerActivity" value="%{project.cayCode}" placeholder=""  readonly="true">
+                           <s:textfield name="cancerActivity" cssClass="form-control unlink-group"  id="cancerActivity" value="%{project.cayCode}" placeholder=""  readonly="true">
                            </s:textfield>
                            </div>
                            </div>
