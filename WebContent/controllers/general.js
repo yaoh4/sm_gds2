@@ -65,7 +65,6 @@ $( document ).ready(function() {
 });
 
 
-
 function linkUnlinkGrants(elem) {
 	if($(elem).attr("id") == 'link') {
 		var result = "Linking will restore the auto-refresh of the Grant/Intramural/Contract data to the data source and delete any edits you migh have made.<br /> Do you wish to continue?";
@@ -266,46 +265,37 @@ function refreshGrantsContractsData(){
 		$("#link").removeClass('disabled');
 		$(".unlink-group").prop('disabled', false);
 	}
-
-	
-	
  });
  
+ 
  $(function () {
-	 var docName=$('#DOC').find('option:selected').text();
+	 //var docName=$('#DOC').find('option:selected').text();
 	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
 	 var code= $("input[type='radio'].grantSelection:checked").val();
-	//if ($("#applClassCode").attr("value") == 'M') {  
 	 if(projAnswer == 29){
-		   hideGrantFields();
+		 hideGrantFields();
 	 }
 	 else if(code == 'M' ) {
-		 $("#DivisionOffice").show();
-			$("#pBranch").show();
-			$("#grantDiv").show();
-			$("#title").show();
-		$("#canAct").hide();
-		$("#pdName").hide();
-		$("#pStartDate").hide();
-		$("#pEndDate").hide();	
-		$("#grantsContractNum").removeAttr("readonly");
-			$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#PIInstitute").removeAttr("disabled");
-				
+	     $("#DivisionOffice").show();
+		 $("#pBranch").show();
+		 $("#grantDiv").show();
+		 $("#title").show();
+		 $("#canAct").hide();
+		 $("#pdName").hide();
+		 $("#pStartDate").hide();
+		 $("#pEndDate").hide();	
+		 $("#grantsContractNum").removeAttr("readonly");
+		 $("#projectTitle").removeAttr("disabled");
+		 $("#fnPI").removeAttr("disabled");
+		 $("#lnPI").removeAttr("disabled");
+		 $("#piEmail").removeAttr("disabled");
+		 $("#PIInstitute").removeAttr("disabled");
 	}
-
-
-
 	 else{
 		showGrantFields();
-
-
 	 }
-	
 });
+ 
  $('.grantSelection').on('change', function () {
 	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
 	 var code= $("input[type='radio'].grantSelection:checked").val();
@@ -348,18 +338,9 @@ function refreshGrantsContractsData(){
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
 			$("#PIInstitute").removeAttr("disabled");
-
-			 
-			
 		}
-
-		
-
-
-
 	 else{
 		 showGrantFields();
-		 
 	 }
  });
  
@@ -387,42 +368,14 @@ function refreshGrantsContractsData(){
 			$("#lnPI").removeAttr("disabled");
 			$("#piEmail").removeAttr("disabled");
 			$("#PIInstitute").removeAttr("disabled");	
-			
-	 }
-
-
-	 	
-
-	 
-	 else{
+	 } else {
 		 showGrantFields();
-		
-			
-		
-		
 	 }
  });
  
  $('#DOC').on('change', function () {
-	   var optionSelected = $("option:selected", this);
-	   var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
-	   var valueSelected = this.value;
-	  /* if(valueSelected == 'DCEG' || valueSelected == 'CCR'){
-		   $("#DivisionOffice").show();
-			$("#pBranch").show();
-			$("#grantDiv").show();
-			$("#title").show();
-		   $("#canAct").hide();
-		   $("#pdName").hide();
-			$("#pStartDate").hide();
-			$("#pEndDate").hide();
-	   }
-	   else if(projAnswer == 29){
-		   hideGrantFields();
-	   }
-	   else{
-		  showGrantFields();
-	   }*/
+	   //var optionSelected = $("option:selected", this);
+	   var valueSelected = this.value;	 
 	   $.ajax({
 		  	url: 'getProgBranchList.action',
 		  	data : "valueSelected="+valueSelected,
@@ -469,7 +422,6 @@ function refreshGrantsContractsData(){
 			$("#projectStartDate").removeAttr("disabled");
 			$("#projectEndDate").removeAttr("disabled");
 			$("#grantsContractNum").attr("readonly", "true");
-
 		} else {
 			$("#canAct").show();
 		}
