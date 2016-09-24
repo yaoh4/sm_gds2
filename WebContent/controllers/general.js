@@ -308,62 +308,49 @@ function refreshGrantsContractsData(){
 });
  
  $('.grantSelection').on('change', function () {
-	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
 	 var code= $("input[type='radio'].grantSelection:checked").val();
-	 $("#applClassCode").val(code);
 	 
 	 if($("#grantsContractNum").val()!='') {
 	   var result = "Changing the selection will clear the Grant Number.<br /> Do you wish to continue?";
 		bootbox.confirm(result, function(ans) {
 			if (ans) {
 				//Clear the grant number and grant specific fields. Remove
-				//the cancer activity field. Remove link-unlink button
+				//the cancer activity field. Remove link-unlink button				
 				$("#grantsContractNum").val('');
+				$(".unlink-group").val('');
 				$("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
 		  		$("#grantsContractNum").attr("placeholder", "Click on Search Icon");
 		  		$("#grantsContractNum").attr('readonly', false);
 		  		$("#canAct").hide();
-		  		$("#linkButton").hide();
-
-				return true;
+		  		$("#applClassCode").val(code);
+		  		if(code == 'M' ) {
+		  			setupIntramuralFields();
+		  		} else {
+		  			showGrantFields();
+		  		}
 			} else {
+				var currentCode = $("#applClassCode").val();
+				$("#general_form_grantSelection" + currentCode).prop("checked", true);
 				return true;
 			}
 		});
-	 }
-	 if(projAnswer == 29){
-		    hideGrantFields();
-			$("#grantsContractNum").val('');
-			$("#applId").val('');
-	 }
-	 else if(code == 'M' ) {
+	 } else {
+	 
+		 $("#applClassCode").val(code);
+		 if(code == 'M' ) {
 		 //If selection is 'Intramural', hide pd first and last
 		 //name, start and end date, and cancer activity field. 
 		 //Make all other fields including the grant number field
 		 //editable, and hide link/unlink button.
-		 $("#DivisionOffice").show();
-			$("#pBranch").show();
-			$("#grantDiv").show();
-			$("#title").show();
-		    $("#canAct").hide();
-			$("#pdName").hide();
-			$("#pStartDate").hide();
-			$("#pEndDate").hide();
-			$("#grantsContractNum").removeAttr("readonly");
-			$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#PIInstitute").removeAttr("disabled");
-			$("#linkButton").hide();
-		}
-	 else{
+		 setupIntramuralFields();
+		} else {
 		//Show all fields. Make the grant number field 
 		 //non-editable. Since grant number is empty, do not
 		 //show the link unlink button, and cancer activity
 		 //field, amd make all the grant specific fields
 		 //also non-editable.
 		 showGrantFields();
+		}
 	 }
  });
  
@@ -440,6 +427,24 @@ function refreshGrantsContractsData(){
 		$("#pEndDate").hide();
  }
  
+ 
+ function setupIntramuralFields() {
+	 $("#DivisionOffice").show();
+		$("#pBranch").show();
+		$("#grantDiv").show();
+		$("#title").show();
+	    $("#canAct").hide();
+		$("#pdName").hide();
+		$("#pStartDate").hide();
+		$("#pEndDate").hide();
+		$("#grantsContractNum").removeAttr("readonly");
+		$("#projectTitle").removeAttr("disabled");
+		$("#fnPI").removeAttr("disabled");
+		$("#lnPI").removeAttr("disabled");
+		$("#piEmail").removeAttr("disabled");
+		$("#PIInstitute").removeAttr("disabled");
+		$("#linkButton").hide();
+ }
 
 //Show all fields. Make grant number field non-editable.
  //If grant number is empty: do not show the link-unlink
@@ -455,16 +460,8 @@ function refreshGrantsContractsData(){
 		$("#title").show();
 		if($("#grantsContractNum").val() == '') {
 			$("#canAct").hide();
+			$(".unlink-group").val('');
 			$(".unlink-group").prop('disabled', true);
-			/*$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#PIInstitute").removeAttr("disabled");
-			$("#fnPD").removeAttr("disabled");
-			$("#lnPD").removeAttr("disabled");
-			$("#projectStartDate").removeAttr("disabled");
-			$("#projectEndDate").removeAttr("disabled");*/
 		} else {
 			$("#canAct").show();
 			if ($("#dataLinkFlag").attr("value") == 'Y') {
