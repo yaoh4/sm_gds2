@@ -587,47 +587,51 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				this.addActionError(getText("programbranch.required")); 
 			}
 		
-			//Validate only if grant is selected and it is not linked
-			if(!StringUtils.isBlank(applId) && 
-					!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())){
-				//Validation for Title
-				if(StringUtils.isBlank(getProject().getProjectTitle())){
-					this.addActionError(getText("projecttitle.required")); 
-				}
-
-				//Validation for PD first name.
-				if(StringUtils.isBlank(getProject().getPdFirstName())){
-					this.addActionError(getText("pd.firstname.required")); 
-				}
-
-				//Validation for PD last name.
-				if(StringUtils.isBlank(getProject().getPdLastName())){
-					this.addActionError(getText("pd.lastname.required")); 
-				}
-
-				//Validation for Project start date.
-				if(getProject().getProjectStartDate() == null){
-					this.addActionError(getText("project.start.date.required")); 
-				}
-
-				//Validation for Project end date.
-				if(getProject().getProjectEndDate() == null){
-					this.addActionError(getText("project.end.date.required")); 
-				}
+			//Exclude Intramural also from the below validations
+			if(!ApplicationConstants.APPL_CLASS_CODE_INTRAMURAL.equals(getProject().getApplClassCode())) {
 			
-				if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null) {
-					Calendar startCal = new GregorianCalendar();
-					startCal.setTime(getProject().getProjectStartDate());
-					Calendar endCal = new GregorianCalendar();
-					endCal.setTime(getProject().getProjectEndDate());
-					if(startCal.get(Calendar.YEAR) > 9999 || endCal.get(Calendar.YEAR) > 9999){
+				//Validate only if grant is selected and it is not linked
+				if(!StringUtils.isBlank(applId) && 
+					!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())){
+					//Validation for Title
+					if(StringUtils.isBlank(getProject().getProjectTitle())){
+						this.addActionError(getText("projecttitle.required")); 
+					}
+
+					//Validation for PD first name.
+					if(StringUtils.isBlank(getProject().getPdFirstName())){
+						this.addActionError(getText("pd.firstname.required")); 
+					}
+
+					//Validation for PD last name.
+					if(StringUtils.isBlank(getProject().getPdLastName())){
+						this.addActionError(getText("pd.lastname.required")); 
+					}
+
+					//Validation for Project start date.
+					if(getProject().getProjectStartDate() == null){
+						this.addActionError(getText("project.start.date.required")); 
+					}
+
+					//Validation for Project end date.
+					if(getProject().getProjectEndDate() == null){
+						this.addActionError(getText("project.end.date.required")); 
+					}
+			
+					if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null) {
+						Calendar startCal = new GregorianCalendar();
+						startCal.setTime(getProject().getProjectStartDate());
+						Calendar endCal = new GregorianCalendar();
+						endCal.setTime(getProject().getProjectEndDate());
+						if(startCal.get(Calendar.YEAR) > 9999 || endCal.get(Calendar.YEAR) > 9999){
 						this.addActionError(getText("error.daterange.year"));
+						}	
+					}
+			
+					if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null && getProject().getProjectStartDate().after(getProject().getProjectEndDate())){
+						this.addActionError(getText("error.daterange.outofsequence"));
 					}	
 				}
-			
-				if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null && getProject().getProjectStartDate().after(getProject().getProjectEndDate())){
-					this.addActionError(getText("error.daterange.outofsequence"));
-				}	
 			}
 		}
 		//Comments cannot be greater than 2000 characters.
@@ -643,6 +647,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void validatePrincipleInvestigator(){	
 		
+		//If grant number is not empty and is unlinked ??
 		if(!StringUtils.isBlank(applId) && !ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())){
 
 			//Validation for PI first name and last name.

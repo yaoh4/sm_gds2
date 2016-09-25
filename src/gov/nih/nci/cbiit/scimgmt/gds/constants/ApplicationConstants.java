@@ -144,9 +144,9 @@ public interface ApplicationConstants {
 	
 	 
 	 //Type of grant or contract
-	 public static final String EXTRA_APPL_CLASS_CODE = "G";
-	 public static final String INTRA_APPL_CLASS_CODE = "M";
-	 public static final String CONTRACT_APPL_CLASS_CODE = "C";
+	 public static final String APPL_CLASS_CODE_EXTRAMURAL = "G";
+	 public static final String APPL_CLASS_CODE_INTRAMURAL = "M";
+	 public static final String APPL_CLASS_CODE_CONTRACT = "C";
 	 
 	 //Submission Type constants.	
 	 public static final Long SUBMISSION_TYPE_NEW_SUBPROJECT = 43L;

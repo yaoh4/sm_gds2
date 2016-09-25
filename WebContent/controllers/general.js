@@ -419,11 +419,7 @@ function refreshGrantsContractsData(){
 		$("#pStartDate").hide();
 		$("#pEndDate").hide();
 		$("#grantsContractNum").removeAttr("readonly");
-		$("#projectTitle").removeAttr("disabled");
-		$("#fnPI").removeAttr("disabled");
-		$("#lnPI").removeAttr("disabled");
-		$("#piEmail").removeAttr("disabled");
-		$("#PIInstitute").removeAttr("disabled");
+		$(".unlink-group").prop('disabled', false);
 		$("#linkButton").hide();
  }
 
