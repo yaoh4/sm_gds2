@@ -547,7 +547,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			if(StringUtils.isNotBlank(getProjectId())){
 				getProject().setId(Long.valueOf(getProjectId()));
 			}
-			if(StringUtils.isNotBlank(grantContractNum)){
+			if(StringUtils.isNotBlank(applId)){
 				getProject().setApplId(Long.valueOf(applId));
 				loadGrantInfo();
 			}
