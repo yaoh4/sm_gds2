@@ -206,8 +206,10 @@ public class GdsSubmissionActionHelper {
 		persistentProject.setComments(transientProject.getComments());
 		persistentProject.setDataLinkFlag(transientProject.getDataLinkFlag());
 		
-		//Set PI, PD, Title and Dates properties when grant is not tied to this project.
-		if(StringUtils.equals(transientProject.getDataLinkFlag(), "N")){	
+		//Set PI, PD, Title and Dates properties when grant is not linked or applClassCode
+		//is intramural.
+		if(StringUtils.equals(transientProject.getDataLinkFlag(), "N") ||
+				ApplicationConstants.APPL_CLASS_CODE_INTRAMURAL.equals(transientProject.getApplClassCode())){	
 			
 			logger.debug("Grant/Contract is not tied to this project. This is a manual entry.");
 			persistentProject.setProjectTitle(transientProject.getProjectTitle());
