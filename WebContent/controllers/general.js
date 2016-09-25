@@ -280,21 +280,7 @@ function refreshGrantsContractsData(){
 		 //name, start and end date, and cancer activity field. 
 		 //Make all other fields including the grant number field
 		 //editable, and hide link/unlink button.
-	     $("#DivisionOffice").show();
-		 $("#pBranch").show();
-		 $("#grantDiv").show();
-		 $("#title").show();
-		 $("#canAct").hide();
-		 $("#pdName").hide();
-		 $("#pStartDate").hide();
-		 $("#pEndDate").hide();	
-		 $("#grantsContractNum").removeAttr("readonly");
-		 $("#projectTitle").removeAttr("disabled");
-		 $("#fnPI").removeAttr("disabled");
-		 $("#lnPI").removeAttr("disabled");
-		 $("#piEmail").removeAttr("disabled");
-		 $("#PIInstitute").removeAttr("disabled");
-		 $("#linkButton").hide();
+		 setupIntramuralFields();
 	}
 	 else{
 		 //Show all fields. Make grant number field non-editable.
@@ -320,9 +306,14 @@ function refreshGrantsContractsData(){
 				$(".unlink-group").val('');
 				$("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
 		  		$("#grantsContractNum").attr("placeholder", "Click on Search Icon");
-		  		$("#grantsContractNum").attr('readonly', false);
 		  		$("#canAct").hide();
+		  		
+		  		//Setup the new applClassCode
 		  		$("#applClassCode").val(code);
+		  		
+		  		//Perform remaining actions depending on
+		  		//whether the new code is intramural
+		  		//or others.
 		  		if(code == 'M' ) {
 		  			setupIntramuralFields();
 		  		} else {
@@ -348,7 +339,7 @@ function refreshGrantsContractsData(){
 		 //non-editable. Since grant number is empty, do not
 		 //show the link unlink button, and cancer activity
 		 //field, amd make all the grant specific fields
-		 //also non-editable.
+		 //non-editable and blank.
 		 showGrantFields();
 		}
 	 }
@@ -356,9 +347,10 @@ function refreshGrantsContractsData(){
  
  $('.submissionReasonSelect').on('change', function () {
 	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
-	 var docName=$('#DOC').find('option:selected').text();
+	 //var docName=$('#DOC').find('option:selected').text();
 	 var code= $("input[type='radio'].grantSelection:checked").val();
 	 if(projAnswer == 29){
+		    $(".unlink-group").prop('disabled', false);
 		    hideGrantFields();
 			$("#grantsContractNum").val('');
 			$("#applId").val('');
@@ -368,29 +360,15 @@ function refreshGrantsContractsData(){
 		 //name, start and end date, and cancer activity field. 
 		 //Make all other fields including the grant number field
 		 //editable, and hide link/unlink button.
-		    $("#DivisionOffice").show();
-			$("#pBranch").show();
-			$("#grantDiv").show();
-			$("#title").show();
-		    $("#canAct").hide();
-			$("#pdName").hide();
-			$("#pStartDate").hide();
-			$("#pEndDate").hide();
-			$("#grantsContractNum").attr("readonly", "false");
-			$("#projectTitle").removeAttr("disabled");
-			$("#fnPI").removeAttr("disabled");
-			$("#lnPI").removeAttr("disabled");
-			$("#piEmail").removeAttr("disabled");
-			$("#PIInstitute").removeAttr("disabled");	
-			$("#linkButton").hide();
-			
+		 setupIntramuralFields();		 			
 	 } else {
 		//Show all fields. Make grant number field non-editable.
 		 //If grant number is empty: do not show the link-unlink
-		 //button, and cancer activity field, make all the grant 
-		 //specific fields including grant number non-editable. 
-		 //If grant number is not empty: If linked, make all grant
-		 //specific fields un-editable. Else make them editable.
+		 //button and cancer activity field, and make all the  
+		 //grant specific fields including grant number non-editable  
+		 //and blank. If grant number is not empty: If linked, 
+		 //make all grant specific fields un-editable. Else make 
+		 //them editable.
 		 showGrantFields();
 	 }
  });
@@ -427,7 +405,10 @@ function refreshGrantsContractsData(){
 		$("#pEndDate").hide();
  }
  
- 
+//If selection is 'Intramural', hide pd first and last
+ //name, start and end date, and cancer activity field. 
+ //Make all other fields including the grant number field
+ //editable, and hide link/unlink button.
  function setupIntramuralFields() {
 	 $("#DivisionOffice").show();
 		$("#pBranch").show();
@@ -448,10 +429,11 @@ function refreshGrantsContractsData(){
 
 //Show all fields. Make grant number field non-editable.
  //If grant number is empty: do not show the link-unlink
- //button, and cancer activity field, make all the grant 
- //specific fields including grant number non-editable. 
- //If grant number is not empty: If linked, make all grant
- //specific fields un-editable. Else make them editable.
+ //button and cancer activity field, and make all the  
+ //grant specific fields including grant number non-editable  
+ //and blank. If grant number is not empty: If linked, 
+ //make all grant specific fields un-editable. Else make 
+ //them editable.
  function  showGrantFields() {
 	    $("#DivisionOffice").show();
 		$("#pBranch").show();
@@ -459,6 +441,7 @@ function refreshGrantsContractsData(){
 		$("#grantsContractNum").attr('readonly', "true");
 		$("#title").show();
 		if($("#grantsContractNum").val() == '') {
+			$("#linkButton").hide();
 			$("#canAct").hide();
 			$(".unlink-group").val('');
 			$(".unlink-group").prop('disabled', true);
