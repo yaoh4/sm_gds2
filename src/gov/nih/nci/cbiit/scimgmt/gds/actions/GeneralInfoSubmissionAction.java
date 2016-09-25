@@ -547,7 +547,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			if(StringUtils.isNotBlank(getProjectId())){
 				getProject().setId(Long.valueOf(getProjectId()));
 			}
-			if(StringUtils.isNotBlank(applId)){
+			if(StringUtils.isNotBlank(grantContractNum)){
 				getProject().setApplId(Long.valueOf(applId));
 				loadGrantInfo();
 			}
@@ -677,19 +677,18 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void validatePrimaryContact(){		
 
-		if(StringUtils.isBlank(applId) || StringUtils.equals(getProject().getDataLinkFlag(), "N")){
-			//Validation for Primary Contact. 
-			if(StringUtils.isBlank(getProject().getPiFirstName()) && StringUtils.isBlank(getProject().getPiLastName())){
-				if(StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
-					this.addActionError(getText("primarycontact.required")); 
-				}
-				else if(!StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
-					this.addActionError(getText("primarycontact.lastname.required")); 
-				}
-				else if(StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())){
-					this.addActionError(getText("primarycontact.firstname.required")); 
-				}
-			}    		
+		//Validation for Primary Contact. 
+		if(StringUtils.isBlank(getProject().getPiFirstName()) && StringUtils.isBlank(getProject().getPiLastName())) {
+			if(StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
+				this.addActionError(getText("primarycontact.required")); 
+			}
+			else if(!StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
+				this.addActionError(getText("primarycontact.lastname.required")); 
+			}
+			else if(StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())){
+				this.addActionError(getText("primarycontact.firstname.required")); 
+			}
+			  		
 
 			//Validation for Primary contact.
 			if(!StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())
