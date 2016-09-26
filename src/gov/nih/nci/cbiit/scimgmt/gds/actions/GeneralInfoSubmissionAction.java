@@ -647,8 +647,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void validatePrincipleInvestigator(){	
 		
-		//If grant number is not empty and is unlinked ??
-		if(!StringUtils.isBlank(applId) && !ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())){
+		if(!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())) {
 
 			//Validation for PI first name and last name.
 			if(!StringUtils.isBlank(getProject().getPiFirstName()) && StringUtils.isBlank(getProject().getPiLastName())){

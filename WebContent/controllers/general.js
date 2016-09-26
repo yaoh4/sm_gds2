@@ -421,6 +421,7 @@ function refreshGrantsContractsData(){
 		$("#grantsContractNum").removeAttr("readonly");
 		$(".unlink-group").prop('disabled', false);
 		$("#linkButton").hide();
+		$("#dataLinkFlag").val('N');
  }
 
 //Show all fields. Make grant number field non-editable.
