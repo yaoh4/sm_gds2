@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -265,8 +266,17 @@ public class IcListSubmissionAction extends ManageSubmission {
 		manageProjectService.deleteIc(instCertId, project);
 		
 		setProject(retrieveSelectedProject());	
-		getProject().setCertificationCompleteFlag(null);
-
+		getProject().setCertificationCompleteFlag(ApplicationConstants.FLAG_NO);
+        List<InstitutionalCertification> icList = retrieveSelectedProject().getInstitutionalCertifications();
+		if(CollectionUtils.isEmpty(icList)) {
+			PageStatus pageStatus = new PageStatus(
+					lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
+					lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE,ApplicationConstants.PAGE_CODE_IC),
+					getProject(), loggedOnUser.getFullNameLF(), new Date());	
+			getProject().addUpdatePageStatus(pageStatus);
+			setProject(retrieveSelectedProject());
+			logger.debug("computer sttas" +getProject().getPageStatus("IC").getStatus().getCode());
+		}
 		return SUCCESS;
 	}
 	
