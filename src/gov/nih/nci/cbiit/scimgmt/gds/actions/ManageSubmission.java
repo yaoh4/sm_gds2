@@ -367,8 +367,7 @@ public class ManageSubmission extends BaseAction {
 		
 		//If submission reason is non-NIH fund, do not show IC and GDS Plan
 		if(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(project.getSubmissionReasonId())) {
-			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_IC) ||
-				page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_GDSPLAN)) {
+			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_GDSPLAN)) {
 				return false;
 			}
 		}
