@@ -677,22 +677,24 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	public void validatePrimaryContact(){		
 
 		//Validation for Primary Contact. 
-		if(StringUtils.isBlank(getProject().getPiFirstName()) && StringUtils.isBlank(getProject().getPiLastName())) {
-			if(StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
-				this.addActionError(getText("primarycontact.required")); 
-			}
-			else if(!StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
-				this.addActionError(getText("primarycontact.lastname.required")); 
-			}
-			else if(StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())){
-				this.addActionError(getText("primarycontact.firstname.required")); 
-			}
+		if(!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())) {
+			if(StringUtils.isBlank(getProject().getPiFirstName()) && StringUtils.isBlank(getProject().getPiLastName())) {
+				if(StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
+					this.addActionError(getText("primarycontact.required")); 
+				}
+				else if(!StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
+					this.addActionError(getText("primarycontact.lastname.required")); 
+				}
+				else if(StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())){
+					this.addActionError(getText("primarycontact.firstname.required")); 
+				}
 			  		
 
-			//Validation for Primary contact.
-			if(!StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())
+				//Validation for Primary contact.
+				if(!StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())
 					&& (StringUtils.isBlank(getProject().getPocEmailAddress()))){
-				this.addActionError(getText("primarycontact.email.required")); 
+					this.addActionError(getText("primarycontact.email.required")); 
+				}
 			}
 		}
 	}
