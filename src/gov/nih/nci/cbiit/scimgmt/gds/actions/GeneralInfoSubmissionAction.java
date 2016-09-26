@@ -262,8 +262,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}
 		else{			
 			setProject(new Project());
-			//Initially set to linked so that grant fields will not be editable
-			getProject().setDataLinkFlag(ApplicationConstants.FLAG_YES); 
+			//Initially set to unlinked since there is no grant number
+			getProject().setDataLinkFlag(ApplicationConstants.FLAG_NO); 
 		}
 		setUpLists();				
 	}
