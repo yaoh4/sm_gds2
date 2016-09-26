@@ -666,7 +666,7 @@ public class ManageSubmission extends BaseAction {
 			if(prevId != null && prevId != qId) {
 				answerMap.put(prevId, ansList);
 				if(otherId !=  null) {
-					Collections.sort(otherList);
+					Collections.sort(otherList, String.CASE_INSENSITIVE_ORDER);
 					otherTextMap.put(otherId, otherList);
 					otherList = new ArrayList<String>();
 					otherId = null;
@@ -683,7 +683,7 @@ public class ManageSubmission extends BaseAction {
 		if(!ansList.isEmpty()) {
 			answerMap.put(prevId, ansList);
 			if(otherId !=  null) {
-				Collections.sort(otherList);
+				Collections.sort(otherList, String.CASE_INSENSITIVE_ORDER);
 				otherTextMap.put(otherId, otherList);
 			}
 		}
@@ -713,9 +713,10 @@ public class ManageSubmission extends BaseAction {
 						StringUtils.isNotBlank(savedOther.getOtherText())) {
 					boolean found = false;
 					for(String otherText: otherTextMap.get(id)) {
-						if(StringUtils.equals(savedOther.getOtherText(), otherText))
+						if(StringUtils.equals(savedOther.getOtherText(), otherText)) {
 							found = true;
-						break;
+							break;
+						}
 					}
 					if(!found) {
 						planAnswerSelectionIterator.remove();

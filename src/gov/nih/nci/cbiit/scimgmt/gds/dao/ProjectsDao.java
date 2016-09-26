@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
@@ -20,6 +21,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
@@ -118,8 +120,16 @@ public class ProjectsDao {
 				boolean found = false;
 				for(PlanAnswerSelection beforeMerge : detachedInstance.getPlanAnswerSelections()) {
 					if(afterMerge.getPlanQuestionsAnswer().getId().longValue() == beforeMerge.getPlanQuestionsAnswer().getId().longValue()) {
-						found = true;
-						break;
+						if(afterMerge.getPlanQuestionsAnswer().getDisplayText().equalsIgnoreCase(ApplicationConstants.OTHER)) {
+							if(StringUtils.equalsIgnoreCase(afterMerge.getOtherText(), beforeMerge.getOtherText())) {
+								found = true;
+								break;
+							}
+						}
+						else {
+							found = true;
+							break;
+						}
 					}
 				}
 				if (!found) {
