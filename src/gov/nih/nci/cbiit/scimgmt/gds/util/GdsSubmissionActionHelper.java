@@ -293,6 +293,8 @@ public class GdsSubmissionActionHelper {
 		
 		boolean dataSubmittedYesFlag = false;
 		boolean exceptionRequestedNoFlag = false;
+		boolean exceptionRequestedYesFlag = false;
+		boolean exceptionApprovedNoFlag = false;
 		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelections()){
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
 				dataSubmittedYesFlag = true;
@@ -300,11 +302,23 @@ public class GdsSubmissionActionHelper {
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
 				exceptionRequestedNoFlag = true;
 			}
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+				exceptionRequestedYesFlag = true;
+			}
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+				exceptionApprovedNoFlag = true;
+			}
 		}
 		
 		if((project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY || 
 				project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY) &&
 				exceptionRequestedNoFlag) {
+			return true;
+		}
+		
+		if((project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY || 
+				project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY) &&
+				exceptionRequestedYesFlag && exceptionApprovedNoFlag) {
 			return true;
 		}
 		

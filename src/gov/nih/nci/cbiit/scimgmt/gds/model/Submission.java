@@ -54,7 +54,8 @@ public class Submission implements java.io.Serializable {
 	private Long subprojectCount;
 	private boolean expandSubproject = false;
 	private boolean expandRepository = false;
-
+	private String subprojectEligibleFlag;
+	
 	public Submission() {
 	}
 
@@ -416,5 +417,13 @@ public class Submission implements java.io.Serializable {
 
 	public void setExpandRepository(boolean expandRepository) {
 		this.expandRepository = expandRepository;
+	}
+	
+	public String getSubprojectEligibleFlag() {
+		return this.subprojectEligibleFlag;
+	}
+
+	public void setSubprojectEligibleFlag(String subprojectEligibleFlag) {
+		this.subprojectEligibleFlag = subprojectEligibleFlag;
 	}
 }
