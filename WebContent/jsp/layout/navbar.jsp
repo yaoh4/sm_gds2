@@ -38,12 +38,12 @@
 				</s:else>		
 				<s:if test="%{'search' eq #attr['navtab']}">
 					<li class="active"><s:a href="javascript: void(0)">
-							Search
+							Find Submissions
 						</s:a></li>
 				</s:if>
 				<s:else>
 					<li><s:a href="/gds/search/home.action">
-							Search
+							Find Submissions
 						</s:a></li>
 				</s:else>
 				</ul>
