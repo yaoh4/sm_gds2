@@ -332,7 +332,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				  lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 				repoStatus.setLookupTByStudyReleasedId(
 				  lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
-				repoStatus.setCreatedBy(loggedOnUser.getAdUserId());
+				repoStatus.setCreatedBy(loggedOnUser.getFullName());
 				repoStatus.setCreatedDate(new Date());
 				repoStatus.setProject(subProject);
 				repoStatus.setPlanAnswerSelectionTByRepositoryId(selection);
