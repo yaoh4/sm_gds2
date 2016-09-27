@@ -659,10 +659,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			
 				//Validation for PI first name and last name.
 				if(StringUtils.isBlank(getProject().getPiFirstName())){
-					this.addActionError(getText("pi.lastname.required")); 
+					this.addActionError(getText("pi.firstname.required")); 
 				}
 				if(StringUtils.isBlank(getProject().getPiLastName())){
-					this.addActionError(getText("pi.firstname.required")); 
+					this.addActionError(getText("pi.lastname.required")); 
 				}
 
 				//Validation for PI email.
