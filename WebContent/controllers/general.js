@@ -412,6 +412,8 @@ function refreshGrantsContractsData(){
  function setupIntramuralFields() {
 	 $("#DivisionOffice").show();
 		$("#pBranch").show();
+		$("#grantLabel").html('Intramural #');
+		$("#projectTitleLabel").html('Intramural Project Title');
 		$("#grantDiv").show();
 		$("#title").show();
 	    $("#canAct").hide();
@@ -434,6 +436,13 @@ function refreshGrantsContractsData(){
  function  showGrantFields() {
 	    $("#DivisionOffice").show();
 		$("#pBranch").show();
+		if($("#applClassCode").val() == 'G') {
+			$("#grantLabel").html('Grant #');
+			$("#projectTitleLabel").html('Grant Project Title');
+		} else {
+			$("#grantLabel").html('Contract #');
+			$("#projectTitleLabel").html('Contract Project Title');
+		}
 		$("#grantDiv").show();
 		$("#grantsContractNum").attr('readonly', "true");
 		$("#title").show();
