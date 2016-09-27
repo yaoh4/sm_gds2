@@ -587,17 +587,19 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				this.addActionError(getText("programbranch.required")); 
 			}
 		
-			//Exclude Intramural also from the below validations
-			if(!ApplicationConstants.APPL_CLASS_CODE_INTRAMURAL.equals(getProject().getApplClassCode())) {
 			
-				//Validate only if grant is selected and it is not linked
-				if(!StringUtils.isBlank(applId) && 
-					!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())){
-					//Validation for Title
-					if(StringUtils.isBlank(getProject().getProjectTitle())){
-						this.addActionError(getText("projecttitle.required")); 
-					}
+			
+			//Validate only if grant is selected and it is not linked
+			if(!StringUtils.isBlank(getProject().getApplicationNum()) && 
+				!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())){
+				//Validation for Title
+				if(StringUtils.isBlank(getProject().getProjectTitle())){
+					this.addActionError(getText("projecttitle.required")); 
+				}
 
+				//Exclude Intramural also from the below validations
+				if(!ApplicationConstants.APPL_CLASS_CODE_INTRAMURAL.equals(getProject().getApplClassCode())) {
+						
 					//Validation for PD first name.
 					if(StringUtils.isBlank(getProject().getPdFirstName())){
 						this.addActionError(getText("pd.firstname.required")); 
@@ -649,24 +651,29 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		if(!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())) {
 
-			//Validation for PI first name and last name.
-			if(!StringUtils.isBlank(getProject().getPiFirstName()) && StringUtils.isBlank(getProject().getPiLastName())){
-				this.addActionError(getText("pi.lastname.required")); 
-			}
-			else if(StringUtils.isBlank(getProject().getPiFirstName()) && !StringUtils.isBlank(getProject().getPiLastName())){
-				this.addActionError(getText("pi.firstname.required")); 
-			}
+			//If any piece for PI info is present, look for the others
+			if(!StringUtils.isBlank(getProject().getPiFirstName()) || 
+			   !StringUtils.isBlank(getProject().getPiLastName()) ||  
+			   !StringUtils.isBlank(getProject().getPiEmailAddress()) || 
+			   !StringUtils.isBlank(getProject().getPiInstitution())) {
+			
+				//Validation for PI first name and last name.
+				if(StringUtils.isBlank(getProject().getPiFirstName())){
+					this.addActionError(getText("pi.lastname.required")); 
+				}
+				if(StringUtils.isBlank(getProject().getPiLastName())){
+					this.addActionError(getText("pi.firstname.required")); 
+				}
 
-			//Validation for PI email.
-			if(!StringUtils.isBlank(getProject().getPiFirstName()) && !StringUtils.isBlank(getProject().getPiLastName())
-					&& (StringUtils.isBlank(getProject().getPiEmailAddress()))){
-				this.addActionError(getText("pi.email.required")); 
-			}
+				//Validation for PI email.
+				if(StringUtils.isBlank(getProject().getPiEmailAddress())){
+					this.addActionError(getText("pi.email.required")); 
+				}
 
-			//Validation for PI institution.
-			if(!StringUtils.isBlank(getProject().getPiFirstName()) && !StringUtils.isBlank(getProject().getPiLastName())
-					&& (StringUtils.isBlank(getProject().getPiInstitution()))){
-				this.addActionError(getText("pi.institution.required")); 
+				//Validation for PI institution.
+				if(StringUtils.isBlank(getProject().getPiInstitution())){
+					this.addActionError(getText("pi.institution.required")); 
+				}
 			}
 		}
 	}
