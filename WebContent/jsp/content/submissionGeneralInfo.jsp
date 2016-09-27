@@ -48,7 +48,7 @@
 				<div class="panel-body">
                 <div class="form-group row has-feedback">
 						<div class="col-xs-10">
-							<p class="question">This submission is:</p>
+							<p class="question">Research Type:</p>
 							 <s:radio  name="grantSelection" class="grantSelection" list="#{'G':'Extramural','M':'Intramural','C':'Contract'}" template="radiomap-div.ftl" value="%{project.applClassCode}"/>
 								
 						</div>
@@ -153,9 +153,8 @@
                         <div id="title">   
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
-							<label for="Project Title"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Intramural/Grant/Contract Project Title</label> 
-								<s:textfield name="project.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
+							<label for="Project Title">Intramural/Grant/Contract Project Title</label> 
+							<s:textfield name="project.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
 					</div>

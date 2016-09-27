@@ -190,7 +190,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 								!StringUtils.equals(repoStatus.getAccessionNumber(), storedRepoStatus.getAccessionNumber())) {
 					//There is a change to an existing repositoryStatus
 					storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().remove(storedRepoStatus);
-					repoStatus.setLastChangedBy(loggedOnUser.getFullNameLF());
+					repoStatus.setLastChangedBy(loggedOnUser.getFullName());
 					repoStatus.setCreatedBy(storedRepoStatus.getCreatedBy());
 					repoStatus.setCreatedDate(storedRepoStatus.getCreatedDate());
 					repoStatus.setProject(storedProject);
@@ -198,7 +198,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 				} 
 			} else {
 				Long planAnswerSelectionId = repoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
-				repoStatus.setCreatedBy(loggedOnUser.getAdUserId());
+				repoStatus.setCreatedBy(loggedOnUser.getFullName());
 				repoStatus.setCreatedDate(new Date());
 				repoStatus.setProject(storedProject);
 				storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().add(repoStatus);

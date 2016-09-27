@@ -206,7 +206,7 @@ public class ManageSubmission extends BaseAction {
 			PageStatus pageStatus = new PageStatus(
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, statusCode),
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
-				project, loggedOnUser.getFullNameLF(), new Date());	
+				project, loggedOnUser.getFullName(), new Date());	
 			project.addUpdatePageStatus(pageStatus);
 		} else  {
 			//We are in the General Info page. Check if this is a new submission
@@ -234,7 +234,7 @@ public class ManageSubmission extends BaseAction {
 			PageStatus pageStatus = new PageStatus(
 			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
 			lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
-			project, loggedOnUser.getFullNameLF(), new Date());
+			project, loggedOnUser.getFullName(), new Date());
 			pageStatuses.add(pageStatus);
 		}
 		

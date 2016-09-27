@@ -264,9 +264,8 @@ public class IcListSubmissionAction extends ManageSubmission {
 		Project project = retrieveSelectedProject();		
 		manageProjectService.deleteIc(instCertId, project);
 		
-		setProject(retrieveSelectedProject());	
+		setProject(retrieveSelectedProject());
 		getProject().setCertificationCompleteFlag(null);
-
 		return SUCCESS;
 	}
 	
