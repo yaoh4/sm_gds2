@@ -79,7 +79,7 @@
 				</s:else>
       		</s:if>
       		<s:else>
-      			<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Project Search</h3></div></div>
+      			<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Find Submissions</h3></div></div>
       		</s:else>
 			
 		</div>
