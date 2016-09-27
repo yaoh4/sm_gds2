@@ -54,7 +54,17 @@
       <td colspan="4">&nbsp;</td>
     </tr>
     <tr class="display">
-      <td style="white-space: nowrap"><strong>Grant/Intramural/Contract #:</strong></td>
+      <td style="white-space: nowrap">
+        <s:if test="%{project.applClassCode.equals(\"G\")}">
+      	  <strong>Grant #:</strong>
+      	</s:if>
+      	<s:elseif test="%{project.applClassCode.equals(\"M\")}">
+      	  <strong>Intramural #:</strong>
+      	</s:elseif>
+      	<s:else>
+      	  <strong>Contract #:</strong>
+      	</s:else>
+      </td>
       <td colspan="4">${project.applicationNum}</td>
     </tr>
     <tr class="conditionalDisplay">
@@ -64,7 +74,17 @@
       </s:if>
     </tr>
    <tr class="display">
-      <td style="white-space: nowrap"><strong>Grant/Intramural/Contract Project Title:</strong></td>
+      <td style="white-space: nowrap">
+        <s:if test="%{project.applClassCode.equals(\"G\")}">
+      	  <strong>Grant Project Title:</strong>
+      	</s:if>
+      	<s:elseif test="%{project.applClassCode.equals(\"M\")}">
+      	  <strong>Intramural Project Title:</strong>
+      	</s:elseif>
+      	<s:else>
+      	  <strong>Contract Project Title:</strong>
+      	</s:else>
+      </td>
       <td colspan="4">${project.projectTitle}</td>
     </tr>
     <tr class="display">

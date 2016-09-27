@@ -153,7 +153,7 @@
                         <div id="title">   
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
-							<label for="Project Title">Intramural/Grant/Contract Project Title</label> 
+							<label for="Project Title" id="projectTitleLabel">Intramural/Grant/Contract Project Title</label> 
 							<s:textfield name="project.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
