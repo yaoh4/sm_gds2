@@ -361,7 +361,7 @@ public class GdsMissingDataUtil {
 			String studyText = "Study Name: " + study.getStudyName();
 			MissingData missingStudyData = new MissingData(studyText);
 			if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())) {
-				String dulVerifiedText = "Data User Limitations Verified must be 'Yes'.";
+				String dulVerifiedText = "Data Use Limitation(s) Verified must be 'Yes'.";
 				missingStudyData.addChild(new MissingData(dulVerifiedText));					
 			}
 			//Other checks, if and when added will come here
