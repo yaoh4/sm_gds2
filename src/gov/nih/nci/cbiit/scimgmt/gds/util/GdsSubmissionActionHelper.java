@@ -176,7 +176,7 @@ public class GdsSubmissionActionHelper {
 				userNihSac = userNihSac.substring(0, userNihSac.length()-1);
 			}
 
-		} while(userNihSac.length() > ApplicationConstants.NED_PERSON_NIH_SAC_MIN_SIZE && StringUtils.isBlank(preSelectedDOC));
+		} while(userNihSac.length() >= ApplicationConstants.NED_PERSON_NIH_SAC_MIN_SIZE && StringUtils.isBlank(preSelectedDOC));
 
 		logger.debug("Logged on User's DOC is: "+preSelectedDOC);
 		return preSelectedDOC;
