@@ -280,17 +280,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			GdsSubmissionActionHelper.populateDocDropDownList(docList,docListFromDb);
 			
 			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());
-			if(preSelectedDOC == "CCR" || preSelectedDOC == "DCEG") {
+			if(preSelectedDOC.equalsIgnoreCase("DCEG") || preSelectedDOC.equalsIgnoreCase("CCR")) {
 				grantSelection = "M";
-			}
-			else {
+			} else {
 				grantSelection = "G";
 			}
 			
 			if(getProject().getId() == null && getProject().getParentProjectId() == null ){
 			    getProject().setApplClassCode(grantSelection);
 			}
-			
 		}
 		
 		 if(progList.isEmpty()){
