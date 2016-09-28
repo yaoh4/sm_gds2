@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;import java.util.HashMap;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -27,6 +28,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
@@ -148,6 +150,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		populateSelectedRemovedSets(false); // Re-populate the new and old set for save.
 		
 		populatePlanAnswerSelection();
+		
+		setupRepositoryStatuses(getProject(), false);
 
 		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
 		
@@ -159,6 +163,10 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
         return SUCCESS;
 	}
+	
+	
+	
+	
 	
 	/**
 	 * Validate Save Genomic Data Sharing Plan 
@@ -445,12 +453,28 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			if(warnOnly) {
 				if(getProject().getInstitutionalCertifications() != null && !getProject().getInstitutionalCertifications().isEmpty())
 					sb.append("All Institutional Certifications and Data Use Limitations. <br>");
-			}
-			else {
-				getProject().getInstitutionalCertifications().clear();
-				for(InstitutionalCertification ic: getProject().getInstitutionalCertifications()) {
-					//Also remove project from ic since this is a many to many relationship
-					ic.removeProject(getProject());
+			} else {
+					// Deleting all the ic`s permanently.
+					List<InstitutionalCertification> icList = getProject().getInstitutionalCertifications();
+					if (icList != null){
+						InstitutionalCertification icdup = null;
+						for(Iterator<InstitutionalCertification> i= getProject().getInstitutionalCertifications().iterator(); i.hasNext();) {
+							icdup = i.next();
+							manageProjectService.deleteIc(icdup.getId(), retrieveSelectedProject());
+							setProject(retrieveSelectedProject());	
+							i = getProject().getInstitutionalCertifications().iterator();
+						}
+					}
+				    getProject().setCertificationCompleteFlag(null);
+				    List<InstitutionalCertification> icListModified = retrieveSelectedProject().getInstitutionalCertifications();
+				      if (CollectionUtils.isEmpty(icListModified)) {
+					        PageStatus pageStatus = new PageStatus(
+							  lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
+							  lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE,ApplicationConstants.PAGE_CODE_IC),
+							  getProject(), loggedOnUser.getFullNameLF(), new Date());	
+					      getProject().addUpdatePageStatus(pageStatus);
+					      super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
+					      setProject(retrieveSelectedProject());
 				}
 			}
 			
@@ -735,7 +759,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	public String computePageStatus(Project project) {
 		String status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
-		
+		logger.debug("come here");
 		//No data has been entered
 		if(StringUtils.isBlank(project.getPlanComments()) && 
 			CollectionUtils.isEmpty(project.getPlanAnswerSelections())) {

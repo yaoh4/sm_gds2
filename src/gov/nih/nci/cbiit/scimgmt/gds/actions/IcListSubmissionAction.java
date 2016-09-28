@@ -173,15 +173,6 @@ public class IcListSubmissionAction extends ManageSubmission {
 		}
 	}
 	
-	public String getIcStatusCodeIndividual(Long icId) {
-		List<InstitutionalCertification> certs = retrieveSelectedProject().getInstitutionalCertifications();
-		for(InstitutionalCertification ic: certs) {
-			if(ic.getId().equals(icId)) {
-				return ic.getStatus();
-			}
-		}		
-		return null;
-	}
 	
 	/**
 	 * Saves the certificationComplete flag. Invoked from:
@@ -257,18 +248,21 @@ public class IcListSubmissionAction extends ManageSubmission {
 	 * 
 	 * @return
 	 */
-	public String deleteIc() {
+     public String deleteIc() {
 		
 		Long instCertId = Long.valueOf(getInstCertId());
 		
 		Project project = retrieveSelectedProject();		
 		manageProjectService.deleteIc(instCertId, project);
-		
-		setProject(retrieveSelectedProject());
+		setProject(retrieveSelectedProject());	
 		getProject().setCertificationCompleteFlag(null);
+        List<InstitutionalCertification> icList = retrieveSelectedProject().getInstitutionalCertifications();
+		if(CollectionUtils.isEmpty(icList)) {
+			super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_IC);
+			setProject(retrieveSelectedProject());
+		}
 		return SUCCESS;
 	}
-	
 	
 	/**
 	 * @return the instCertification
@@ -367,14 +361,6 @@ public class IcListSubmissionAction extends ManageSubmission {
 
 
 	/**
-	 * @return the icFileContentType
-	 */
-	public String getIcContentType() {
-		return icContentType;
-	}
-
-
-	/**
 	 * @param icFileContentType the icFileContentType to set
 	 */
 	public void setIcContentType(String icContentType) {
@@ -387,6 +373,14 @@ public class IcListSubmissionAction extends ManageSubmission {
 	 */
 	public List<Document> getIcFileDocs() {
 		return icFileDocs;
+	}
+
+
+	/**
+	 * @return the icFileContentType
+	 */
+	public String getIcContentType() {
+		return icContentType;
 	}
 
 
