@@ -158,7 +158,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				project.setApplClassCode(parentProject.getApplClassCode());
 				project.setProgramBranch(parentProject.getProgramBranch());
 				//Create repository statuses for sub-project from parent
-				setupRepositoryStatuses(project);
+				setupRepositoryStatuses(project, true);
 			}
 		}		
 		project = super.saveProject(project, null);
@@ -312,36 +312,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
          
 	}
 	
-	
-	/**
-	 * This method sets up Repository Statuses.
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 */
-	private void setupRepositoryStatuses(Project subProject) {
-		
-		logger.debug("Setting up Repository statuses.");
-		
-		Project parentProject = retrieveParentProject();
-		for(PlanAnswerSelection selection: parentProject.getPlanAnswerSelections()) {
-			if(!selection.getRepositoryStatuses().isEmpty()) {				
-				RepositoryStatus repoStatus = new RepositoryStatus();
-				repoStatus.setLookupTByRegistrationStatusId(
-				 lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
-				repoStatus.setLookupTBySubmissionStatusId(
-				  lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
-				repoStatus.setLookupTByStudyReleasedId(
-				  lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
-				repoStatus.setCreatedBy(loggedOnUser.getFullName());
-				repoStatus.setCreatedDate(new Date());
-				repoStatus.setProject(subProject);
-				repoStatus.setPlanAnswerSelectionTByRepositoryId(selection);
-				selection.getRepositoryStatuses().add(repoStatus);
-			}
-		}
-	}
-	
-
 	
 	
 	/**

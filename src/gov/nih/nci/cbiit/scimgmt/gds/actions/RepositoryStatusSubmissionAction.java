@@ -158,7 +158,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	}	
 
 	/**
-	 * Saves Project.
+	 * Saves Project with the updated repository statuses
 	 * 
 	 * @throws Exception
 	 */
@@ -181,28 +181,20 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		
 		for(RepositoryStatus repoStatus : getProject().getRepositoryStatuses()){
 			RepositoryStatus storedRepoStatus = repoMap.get(repoStatus.getId());
-			if(storedRepoStatus != null) {
-				Long planAnswerSelectionId = storedRepoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
+			Long planAnswerSelectionId = storedRepoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
 			
-				if(!repoStatus.getLookupTByRegistrationStatusId().getId().equals(storedRepoStatus.getLookupTByRegistrationStatusId().getId())
-						|| !repoStatus.getLookupTBySubmissionStatusId().getId().equals(storedRepoStatus.getLookupTBySubmissionStatusId().getId())
-						|| !repoStatus.getLookupTByStudyReleasedId().getId().equals(storedRepoStatus.getLookupTByStudyReleasedId().getId()) ||
-								!StringUtils.equals(repoStatus.getAccessionNumber(), storedRepoStatus.getAccessionNumber())) {
-					//There is a change to an existing repositoryStatus
-					storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().remove(storedRepoStatus);
-					repoStatus.setLastChangedBy(loggedOnUser.getFullName());
-					repoStatus.setCreatedBy(storedRepoStatus.getCreatedBy());
-					repoStatus.setCreatedDate(storedRepoStatus.getCreatedDate());
-					repoStatus.setProject(storedProject);
-					storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().add(repoStatus);
-				} 
-			} else {
-				Long planAnswerSelectionId = repoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
-				repoStatus.setCreatedBy(loggedOnUser.getFullName());
-				repoStatus.setCreatedDate(new Date());
+			if(!repoStatus.getLookupTByRegistrationStatusId().getId().equals(storedRepoStatus.getLookupTByRegistrationStatusId().getId())
+				|| !repoStatus.getLookupTBySubmissionStatusId().getId().equals(storedRepoStatus.getLookupTBySubmissionStatusId().getId())
+				|| !repoStatus.getLookupTByStudyReleasedId().getId().equals(storedRepoStatus.getLookupTByStudyReleasedId().getId()) ||
+					!StringUtils.equals(repoStatus.getAccessionNumber(), storedRepoStatus.getAccessionNumber())) {
+				//There is a change to an existing repositoryStatus
+				storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().remove(storedRepoStatus);
+				repoStatus.setLastChangedBy(loggedOnUser.getFullName());
+				repoStatus.setCreatedBy(storedRepoStatus.getCreatedBy());
+				repoStatus.setCreatedDate(storedRepoStatus.getCreatedDate());
 				repoStatus.setProject(storedProject);
 				storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().add(repoStatus);
-			}
+			} 
 		}
 		storedProject.setAnticipatedSubmissionDate(getProject().getAnticipatedSubmissionDate());
 		//Set the transient repositoryStatuses to enable computation of page status during save
@@ -225,7 +217,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		}
 		setProject(retrieveSelectedProject());
 		setUpStatusLists();		
-		setUpRepositoryStatuses();	
+		retrieveRepositoryStatuses();	
 		Collections.sort(getProject().getRepositoryStatuses(),new RepositoryStatusComparator());
 		if(GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(getProject())) {
 			setDataSubmitted(ApplicationConstants.FLAG_YES);
@@ -250,7 +242,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
 	 */
-	private void setUpRepositoryStatuses() {	
+	private void retrieveRepositoryStatuses() {	
 		logger.debug("Setting up Repository statuses.");
 	
 		for(PlanAnswerSelection selection: getProject().getPlanAnswerSelections()) {
@@ -259,78 +251,9 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 					getProject().getRepositoryStatuses().add(repositoryStatus);
 			}		
 		}
-			
-		setUpSelectdRepositoryStatuses();
 	}
 
 	
-	/**
-	 * If user made selections for Repositories on the GDS plan page then display all the selected repositories.
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 */
-	private void setUpSelectdRepositoryStatuses() {
-
-		logger.debug("Adding Repository statuses selected on GDS plan.");
-
-		
-		//Iterate through selections made on Gds plan page and add Empty repository status objects to Project if new selections are made/ its a new submission.
-		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelections()){
-
-			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){				
-
-				if(!getSavedRepositoryStatuses().contains(planAnswerSelection.getId())){
-					getProject().getRepositoryStatuses().add(createNewRepositoryStatus(planAnswerSelection));
-				}
-			}
-		}		
-	}
-	
-	/**
-	 * This method returns saved repository statuses ids.
-	 * @return
-	 */
-	private List<Long> getSavedRepositoryStatuses(){
-
-		//List to hold saved repository statuses.
-		List<Long> savedRepositoryStatuses = new ArrayList<Long>();	
-
-		for( RepositoryStatus savedRepositoryStatus : getProject().getRepositoryStatuses()){			
-			savedRepositoryStatuses.add(savedRepositoryStatus.getPlanAnswerSelectionTByRepositoryId().getId()); 
-		}
-		
-		return savedRepositoryStatuses;
-	}
-	
-	/**
-	 * Create a new default repository status.
-	 * @param isDbGap
-	 * @param planAnswerSelection
-	 * @return
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 */
-	private RepositoryStatus createNewRepositoryStatus(PlanAnswerSelection planAnswerSelection) {
-		
-		logger.debug("Creating a new repository status.");
-		
-		RepositoryStatus repositoryStatus = new RepositoryStatus();
-		
-		//Setting default values.
-		repositoryStatus.setLookupTByRegistrationStatusId(lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
-		
-		if(!GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(getProject())){
-			repositoryStatus.setLookupTBySubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
-		}
-		else{
-			repositoryStatus.setLookupTBySubmissionStatusId(lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
-		}
-		
-		repositoryStatus.setLookupTByStudyReleasedId(lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));	
-		repositoryStatus.setPlanAnswerSelectionTByRepositoryId(planAnswerSelection);
-		
-		return repositoryStatus;		
-	}
 	
 	/**
 	 * This method decides if Anticipated submission date should be disabled.

@@ -150,6 +150,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		populateSelectedRemovedSets(false); // Re-populate the new and old set for save.
 		
 		populatePlanAnswerSelection();
+		
+		setupRepositoryStatuses(getProject(), false);
 
 		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
 		
@@ -161,6 +163,10 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
         return SUCCESS;
 	}
+	
+	
+	
+	
 	
 	/**
 	 * Validate Save Genomic Data Sharing Plan 

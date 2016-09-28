@@ -39,6 +39,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
@@ -796,6 +797,42 @@ public class ManageSubmission extends BaseAction {
 		}
 		newSet.addAll(otherSet);
 		
+	}
+	
+	
+	/**
+	 * This method sets up Repository Statuses.
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 */
+	protected void setupRepositoryStatuses(Project project, boolean isSubproject) {
+		
+		logger.debug("Setting up Repository statuses.");
+		Project parent = project;
+		if(isSubproject) {
+			parent = retrieveParentProject();
+		}		
+		for(PlanAnswerSelection selection: parent.getPlanAnswerSelections()) {
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(selection.getPlanQuestionsAnswer().getQuestionId())) {
+				//Add a new repository status if this is a new selection by
+				//the user or this is a subproject. For sub-project, we are 
+				//copying the repository from the parent
+				if(selection.getRepositoryStatuses().isEmpty() || isSubproject) {			
+					RepositoryStatus repoStatus = new RepositoryStatus();
+					repoStatus.setLookupTByRegistrationStatusId(
+							lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+					repoStatus.setLookupTBySubmissionStatusId(
+							lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+					repoStatus.setLookupTByStudyReleasedId(
+							lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
+					repoStatus.setCreatedBy(loggedOnUser.getFullName());
+					repoStatus.setCreatedDate(new Date());
+					repoStatus.setProject(project);
+					repoStatus.setPlanAnswerSelectionTByRepositoryId(selection);
+					selection.getRepositoryStatuses().add(repoStatus);			
+				}
+			}
+		}
 	}
 	
 	
