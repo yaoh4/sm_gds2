@@ -621,7 +621,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		if(!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())) {
 
-			//If any piece for PI info is present, look for the others
+			//If any piece of PI info is present, look for the others
 			if(!StringUtils.isBlank(getProject().getPiFirstName()) || 
 			   !StringUtils.isBlank(getProject().getPiLastName()) ||  
 			   !StringUtils.isBlank(getProject().getPiEmailAddress()) || 
@@ -655,7 +655,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 
 		//Validation for Primary Contact. 
 		if(!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())) {
-			if(StringUtils.isBlank(getProject().getPiFirstName()) && StringUtils.isBlank(getProject().getPiLastName())) {
+			if(StringUtils.isBlank(getProject().getPiFirstName()) && 
+			   StringUtils.isBlank(getProject().getPiLastName()) &&
+			   StringUtils.isBlank(getProject().getPiEmailAddress()) &&
+			   StringUtils.isBlank(getProject().getPiInstitution())) {
 				if(StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
 					this.addActionError(getText("primarycontact.required")); 
 				}
