@@ -410,7 +410,10 @@ function refreshGrantsContractsData(){
  //Make all other fields including the grant number field
  //editable, and hide link/unlink button.
  function setupIntramuralFields() {
-	 $("#DivisionOffice").show();
+	 
+	 	var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
+	 
+	 	$("#DivisionOffice").show();
 		$("#pBranch").show();
 		$("#grantLabel").html('Intramural #');
 		$("#projectTitleLabel").html('Intramural Project Title');
@@ -424,6 +427,10 @@ function refreshGrantsContractsData(){
 		$(".unlink-group").prop('disabled', false);
 		$("#linkButton").hide();
 		$("#dataLinkFlag").val('N');
+		
+		 if(projAnswer == 29){
+			 hideGrantFields();
+		 }
  }
 
 //Show all fields. Make grant number field non-editable.
