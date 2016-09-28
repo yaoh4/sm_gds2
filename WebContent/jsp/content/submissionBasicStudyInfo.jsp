@@ -49,7 +49,8 @@
 				<div class="qSpacing">
 				
 				<!-- What repository will the data be submitted to? -->
-				<s:if test="%{project.submissionReasonId.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@SUBMISSION_REASON_NONNIHFUND)}">				
+				<s:if test="%{project.submissionReasonId.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@SUBMISSION_REASON_NONNIHFUND)
+						&& project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_NO)}">				
 				<div id="20" style="${map['20'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(20).getDisplayText()}" /></p>
