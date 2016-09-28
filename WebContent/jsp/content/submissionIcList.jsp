@@ -100,14 +100,14 @@
                   
                     
                 <td style="white-space: nowrap">
-                <s:hidden id="icReg%{#icStat.index}" value="%{getIcStatusCodeIndividual(#cert.id)}"/>            	
+                <s:hidden id="icReg%{#icStat.index}" value="%{#cert.status}"/>            	
               	<div id="icDiv${icStat.index}" class="searchProgess">
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
         	  	</div>
                   </td>
                   
                   <td style="white-space: nowrap">
-                   <s:if test="%{!getIcStatusCodeIndividual(#cert.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                   <s:if test="%{!(#cert.status.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED))}">
                    <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${cert.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a> &nbsp; &nbsp;
                   </s:if>
                   </td>

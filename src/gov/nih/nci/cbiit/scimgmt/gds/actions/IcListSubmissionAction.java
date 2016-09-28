@@ -173,15 +173,6 @@ public class IcListSubmissionAction extends ManageSubmission {
 		}
 	}
 	
-	public String getIcStatusCodeIndividual(Long icId) {
-		List<InstitutionalCertification> certs = retrieveSelectedProject().getInstitutionalCertifications();
-		for(InstitutionalCertification ic: certs) {
-			if(ic.getId().equals(icId)) {
-				return ic.getStatus();
-			}
-		}		
-		return null;
-	}
 	
 	/**
 	 * Saves the certificationComplete flag. Invoked from:
