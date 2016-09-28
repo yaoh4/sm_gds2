@@ -191,7 +191,11 @@ public class GdsGrantsContracts {
 	}
 	
 	public void setPiFirstName(String piFirstName) {
-		this.piFirstName = piFirstName;
+		if(piFirstName == null) {
+			this.piFirstName = "";
+		} else {
+			this.piFirstName = piFirstName;
+		}
 	}
 	
 	@Column(name = "PI_LAST_NAME", length = 30)
@@ -200,7 +204,11 @@ public class GdsGrantsContracts {
 	}
 	
 	public void setPiLastName(String piLastName) {
-		this.piLastName = piLastName;
+		if(piLastName == null) {
+			this.piLastName = "";
+		} else {
+			this.piLastName = piLastName;
+		}
 	}
 	
 	@Column(name = "PI_EMAIL_ADDRESS", length = 80)
@@ -209,7 +217,11 @@ public class GdsGrantsContracts {
 	}
 	
 	public void setPiEmailAddress(String piEmailAddress) {
-		this.piEmailAddress = piEmailAddress;
+		if(piEmailAddress == null) {
+			this.piEmailAddress = "";
+		} else {
+			this.piEmailAddress = piEmailAddress;
+		}
 	}
 	
 	@Column(name = "PI_INSTITUTION", length = 120)
@@ -218,7 +230,11 @@ public class GdsGrantsContracts {
 	}
 	
 	public void setPiInstitution(String piInstitution) {
-		this.piInstitution = piInstitution;
+		if(piInstitution == null) {
+			this.piInstitution = "";
+		} else {
+			this.piInstitution = piInstitution;
+		}
 	}
 	
 	@Column(name = "PD_FIRST_NAME", length = 30)
