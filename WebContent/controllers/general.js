@@ -297,7 +297,7 @@ function refreshGrantsContractsData(){
 	 var code= $("input[type='radio'].grantSelection:checked").val();
 	 
 	 if($("#grantsContractNum").val()!='') {
-	   var result = "Changing the selection will clear the Grant Number.<br /> Do you wish to continue?";
+	   var result = "Changing the Research type will clear the Extramural/Intramural/Contract#.<br /> Do you wish to continue?";
 		bootbox.confirm(result, function(ans) {
 			if (ans) {
 				//Clear the grant number and grant specific fields. Remove
