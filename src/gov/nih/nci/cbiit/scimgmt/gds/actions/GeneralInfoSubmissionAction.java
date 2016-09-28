@@ -286,7 +286,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				grantSelection = "G";
 			}
 			
-			if(getProject().getId() == null && getProject().getParentProjectId() == null ){
+			if(getProject().getId() == null && getProject().getParentProjectId() == null && StringUtils.isBlank(getProject().getApplClassCode()) ){
 			    getProject().setApplClassCode(grantSelection);
 			}
 		}
@@ -517,7 +517,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			}
 			if(StringUtils.isNotBlank(applId)){
 				getProject().setApplId(Long.valueOf(applId));
-				loadGrantInfo();
+				if(ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag()))
+					loadGrantInfo();
 			}
 			setUpLists();
 		}
