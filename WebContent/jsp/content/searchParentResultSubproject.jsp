@@ -15,7 +15,7 @@
 		<div class="subproject-table">
 		<div class="subproject-div">
 			<span> <a class="subproject-control shown"
-				style="font-size: 12px; font-weight: bold; margin-left: 70px;"> <i
+				style="font-size: 12px; margin-left: 70px;"> <i
 					class="expand fa fa-minus-square" aria-hidden="true"></i>
 					&nbsp;Sub-Projects
 			</a>

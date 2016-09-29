@@ -13,7 +13,7 @@
 		<div class="repository-table">
 		<div class="repository-div">
 			<span> <a class="repository-control shown"
-				style="font-size: 12px; font-weight: bold; margin-left: 25px;"> <i
+				style="font-size: 12px; margin-left: 25px;"> <i
 					class="expand fa fa-minus-square" aria-hidden="true"></i>
 					&nbsp;Project Submission Status
 			</a>

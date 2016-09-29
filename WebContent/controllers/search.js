@@ -127,7 +127,7 @@ $(document).ready(function(){
                 "targets": 1, // First visible column, grant number.  id is column 0.
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
-                		return '<a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
+                		return '<a style="font-weight: bold" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
                 	}
                 	return data;
                 } },
@@ -197,10 +197,10 @@ $(document).ready(function(){
         		   this.data().repoCount != null && this.data().repoCount > 0) {
         			this.child([
         			$(
-        				'<div class="repository-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="' + cssClassRepo + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
+        				'<div class="repository-div"><a style="font-size: 12px; margin-left: 25px;" class="' + cssClassRepo + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
         			),
     				$(
-    					'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="' + cssClassSub + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+    					'<div class="subproject-div"><a style="font-size: 12px; margin-left: 25px;" class="' + cssClassSub + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
     	             )
     	             ], 
     	             this.node().className
@@ -209,7 +209,7 @@ $(document).ready(function(){
         		else if(this.data().repoCount != null && this.data().repoCount > 0) {
         			this.child(
     				$(
-    					'<div class="repository-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="' + cssClassRepo + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
+    					'<div class="repository-div"><a style="font-size: 12px; margin-left: 25px;" class="' + cssClassRepo + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
     	             ), 
     	             this.node().className
     				).show();
@@ -217,7 +217,7 @@ $(document).ready(function(){
         		else if(this.data().subprojectCount != null && this.data().subprojectCount > 0) {
         			this.child(
     				$(
-    					'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="' + cssClassSub + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+    					'<div class="subproject-div"><a style="font-size: 12px; margin-left: 25px;" class="' + cssClassSub + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
     	             ), 
     	             this.node().className
     				).show();
@@ -287,7 +287,7 @@ $(document).ready(function(){
 				//It does not have repo, so just collapse it and toggle to plus sign
 				row.child(
 			    	$(
-			    		'<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+			    		'<div class="subproject-div"><a style="font-size: 12px; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
 			         ), 
 			             tr.get(0).className
 			   	).show();
@@ -296,7 +296,7 @@ $(document).ready(function(){
 				row.child( [
 				               tr.next(),
 						       $(
-						        '<div class="subproject-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+						        '<div class="subproject-div"><a style="font-size: 12px; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
 						        )
 						        
 						    ], tr.get(0).className ).show();
@@ -339,7 +339,7 @@ $(document).ready(function(){
 				//It does not have subproject, so just collapse it and toggle to plus sign
 				row.child(
 		    		$(
-		    			'<div class="repository-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="repository-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
+		    			'<div class="repository-div"><a style="font-size: 12px; margin-left: 25px;" class="repository-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
 		             ), 
 		             tr.get(0).className
 		   		).show();
@@ -348,7 +348,7 @@ $(document).ready(function(){
 				//It has subproject, so collapse and recreate with the subproject row
 				row.child( [
 					       $(
-					        '<div class="repository-div"><a style="font-size: 12px; font-weight: bold; margin-left: 25px;" class="repository-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
+					        '<div class="repository-div"><a style="font-size: 12px; margin-left: 25px;" class="repository-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
 					        ), 
 					        tr.next().next()
 					    ], tr.get(0).className ).show();

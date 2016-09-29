@@ -15,7 +15,7 @@
 		<div class="subproject-table">
 		<div class="subproject-div">
 			<span> <a class="subproject-control shown"
-				style="font-size: 12px; font-weight: bold; margin-left: 25px;"> <i
+				style="font-size: 12px; margin-left: 25px;"> <i
 					class="expand fa fa-minus-square" aria-hidden="true"></i>
 					&nbsp;Sub-Projects
 			</a>
@@ -143,7 +143,7 @@
 						<tr>
 							<td colspan="6">
 								<!--Repository Table --> <span> <a class="repoExpand"
-									style="font-size: 12px; font-weight: bold; margin-left: 25px;"> 
+									style="font-size: 12px; margin-left: 25px;"> 
 									<s:if test="%{#s.expandRepository}">
 										<i class="expand fa fa-minus-square" aria-hidden="true"></i>
 									</s:if>
