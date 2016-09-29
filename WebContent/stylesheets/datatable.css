@@ -18,7 +18,7 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 table.dataTable tbody tr.even{
-    background-color:#c6c6c6;
+    background-color:#e7f7ff;
 }
 table.dataTable tbody tr.odd{
     background-color:#ffffff;

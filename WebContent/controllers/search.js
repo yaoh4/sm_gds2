@@ -127,7 +127,7 @@ $(document).ready(function(){
                 "targets": 1, // First visible column, grant number.  id is column 0.
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
-                		return '<a style="font-weight: bold" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
+                		return '<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
                 	}
                 	return data;
                 } },
