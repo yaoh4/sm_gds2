@@ -542,7 +542,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		// And
 		// answer to "What type of access is the data to be made available through?" 
 		// is set to Unrestricted only or is changed from Controlled to Unrestricted only.
-		if(!oldSet.isEmpty() && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) &&
+		if(!oldSet.isEmpty() && !(!oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) &&
+				oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID) && !oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_CONTROLLED_ID)) 
+				&& !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) &&
 				newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_UNRESTRICTED_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_CONTROLLED_ID)) {
 			// a) The system will delete all DUL(s) created that contains DUL type of 
 			//    "Health/Medical/Biomedical", "Disease-specific" and/or "Other". 
