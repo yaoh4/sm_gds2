@@ -199,7 +199,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String saveAndNextSubmissionType(){
 		
-		if(Long.valueOf(getSelectedTypeOfProject()) == ApplicationConstants.SUBMISSION_TYPE_NEW_SUBPROJECT){
+		if(getSelectedTypeOfProject().equals(ApplicationConstants.SUBMISSION_TYPE_NEW_SUBPROJECT) || 
+				getSelectedTypeOfProject().equals(ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_PROJECT) ||
+				getSelectedTypeOfProject().equals(ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)){
 			return ApplicationConstants.LINK_TO_PARENT_PAGE;
 		}		
 		
@@ -212,6 +214,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String createSubproject(){
 
+		logger.debug("Create Sub-project");
 		Project subProject = new Project();
 		Project parentProject = retrieveSelectedProject();
 
@@ -225,6 +228,58 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		cleanUpSubProject(subProject);
 		setProject(subProject);
+		loadGrantInfo();
+		setUpLists();
+		return SUCCESS;
+	}
+	
+	/**
+	 * This method creates a new version of an existing Project.
+	 * @return
+	 */
+	public String createNewProjectVersion(){
+
+		logger.debug("Create New Verion of an existing Project");
+		
+		Project newProject = new Project();
+		Project existingProject = retrieveSelectedProject();
+
+		try {
+			ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
+			BeanUtils.copyProperties(existingProject, newProject);
+
+		} catch (Exception e) {
+			logger.error("Error occured while creating a new version of an existing project", e);
+		}		
+		
+		cleanUpSubProject(newProject);
+		setProject(newProject);
+		loadGrantInfo();
+		setUpLists();
+		return SUCCESS;
+	}
+	
+	/**
+	 * This method creates a new version of an existing Sub-Project.
+	 * @return
+	 */
+	public String createNewSubprojectVersion(){
+
+		logger.debug("Create New Verions of an existing Sub-Project");
+		
+		Project newSubproject = new Project();
+		Project existingSubproject = retrieveSelectedProject();
+
+		try {
+			ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
+			BeanUtils.copyProperties(existingSubproject, newSubproject);
+
+		} catch (Exception e) {
+			logger.error("Error creating a new version of an existing Subproject", e);
+		}		
+		
+		cleanUpSubProject(newSubproject);
+		setProject(newSubproject);
 		loadGrantInfo();
 		setUpLists();
 		return SUCCESS;

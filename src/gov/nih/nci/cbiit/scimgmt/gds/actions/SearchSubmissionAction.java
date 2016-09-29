@@ -344,6 +344,11 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 	 */
 	private void setUpLists(){
 		
+		// initialize criteria
+		String selectedTypeOfProject = criteria.getSelectedTypeOfProject();
+		criteria = new SubmissionSearchCriteria();
+		criteria.setSelectedTypeOfProject(selectedTypeOfProject);
+		
 		logger.debug("Setting up page lists.");
 		List<GdsPd> pdListDb = lookupService.getPdList(ApplicationConstants.PD_LIST);
 		if(pdList.isEmpty()){

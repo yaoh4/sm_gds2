@@ -21,6 +21,7 @@ public class SubmissionSearchCriteria {
     private String sortBy;
     private String sortDir;
     private String parentSearch;
+    private String selectedTypeOfProject;
     
 	public SubmissionSearchCriteria(){}
 
@@ -176,6 +177,14 @@ public class SubmissionSearchCriteria {
 
 	public void setParentSearch(String parentSearch) {
 		this.parentSearch = parentSearch;
+	}
+
+	public String getSelectedTypeOfProject() {
+		return selectedTypeOfProject;
+	}
+
+	public void setSelectedTypeOfProject(String selectedTypeOfProject) {
+		this.selectedTypeOfProject = selectedTypeOfProject;
 	}
 
 }

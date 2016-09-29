@@ -125,7 +125,12 @@
 													<i class="fa fa-trash fa-lg" aria-hidden="true"
 														alt="Delete" title="Delete"></i>
 												</s:a>
-												&nbsp;&nbsp;&nbsp; <a href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i></a>
+												&nbsp;&nbsp;&nbsp; 
+												
+												<s:if test="%{#s.projectStatusCode == 'COMPLETED'}">
+													<s:a href="../manage/createNewSubprojectVersion.action?projectId=%{#s.id}"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i>
+													</s:a>
+												</s:if>
 											</div>
 
 										</td>

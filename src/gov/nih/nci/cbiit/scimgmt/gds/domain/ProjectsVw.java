@@ -69,7 +69,8 @@ public class ProjectsVw implements java.io.Serializable {
 	private String dataSharingExcepStatusCode;
 	private String repositoryPageStatusCode;
 	private String subprojectEligibleFlag;
-
+	private String projectStatusCode;
+	
 	private Long subprojectCount;
 	private Long repoCount;
 	private boolean expandRepository = false;
@@ -555,26 +556,13 @@ public class ProjectsVw implements java.io.Serializable {
 	 * This method returns Project status.
 	 * @return String
 	 */
-	@Transient
+	@Formula(value = "case when (SUBPROJECT_FLAG='Y' or GDS_PLAN_PAGE_STATUS_CODE='COMPLETED') and IC_PAGE_STATUS_CODE='COMPLETED' and BSI_PAGE_STATUS_CODE='COMPLETED' and REPOSITORY_PAGE_STATUS_CODE ='COMPLETED' then 'COMPLETED' else 'INPROGRESS' end ")
 	public String getProjectStatusCode(){
-
-		if((!StringUtils.isBlank(this.gdsPlanPageStatusCode) || 
-			ApplicationConstants.FLAG_YES.equals(getSubprojectFlag()))
-			&& !StringUtils.isBlank(this.icPageStatusCode)	
-			&& !StringUtils.isBlank(this.bsiPageStatusCode)
-			&& !StringUtils.isBlank(this.repositoryPageStatusCode)) {
-				
-			//If all the pages are completed then Project is completed.
-			if((ApplicationConstants.FLAG_YES.equals(getSubprojectFlag())
-				|| ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(this.gdsPlanPageStatusCode))
-				&& ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(this.icPageStatusCode)
-				&& ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(this.bsiPageStatusCode)
-				&& ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(this.repositoryPageStatusCode)){
-				return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
-			}
-		}
-		
-		return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;	
+		return projectStatusCode;
+	}
+	
+	public void setProjectStatusCode(String projectStatusCode){
+		this.projectStatusCode = projectStatusCode;
 	}
 
 	@Transient

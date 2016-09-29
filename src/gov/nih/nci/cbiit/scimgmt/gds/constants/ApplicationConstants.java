@@ -149,7 +149,9 @@ public interface ApplicationConstants {
 	 public static final String APPL_CLASS_CODE_CONTRACT = "C";
 	 
 	 //Submission Type constants.	
-	 public static final Long SUBMISSION_TYPE_NEW_SUBPROJECT = 43L;
+	 public static final String SUBMISSION_TYPE_NEW_SUBPROJECT = "43";
+	 public static final String SUBMISSION_TYPE_NEW_VERSION_PROJECT = "44";
+	 public static final String SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT = "45";
 	 
 	 //Action forward constants
 	 public static final String EMPTY = "empty";

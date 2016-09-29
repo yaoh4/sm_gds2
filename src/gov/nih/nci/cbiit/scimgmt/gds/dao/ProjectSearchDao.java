@@ -26,6 +26,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
@@ -92,11 +93,14 @@ public class ProjectSearchDao {
 			}
 			
 			// Retrieve subproject matches
-			criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class, "project");
-			addContainingMatchingSubprojectCriteria(criteria, searchCriteria);
-			criteria.setProjection(Property.forName("id"));
-			criteria.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);
-			List<Long> projectIdsContainingMatchingSubproject = (List<Long>)criteria.list();
+			List<Long> projectIdsContainingMatchingSubproject = new ArrayList<Long>();
+			if(StringUtils.isBlank(searchCriteria.getSelectedTypeOfProject())) {
+				criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class, "project");
+				addContainingMatchingSubprojectCriteria(criteria, searchCriteria);
+				criteria.setProjection(Property.forName("id"));
+				criteria.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);
+				projectIdsContainingMatchingSubproject = (List<Long>)criteria.list();
+			}
 			
 			// Convert list to submission and set total records
 			if(list != null && !list.isEmpty()) {
@@ -237,7 +241,13 @@ public class ProjectSearchDao {
 		if(StringUtils.equals(searchCriteria.getParentSearch(), "Y")) {
 			parentCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
 			parentDetachedCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
-			subprojectCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
+		}
+		if(StringUtils.equals(searchCriteria.getSelectedTypeOfProject(), ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_PROJECT)) {
+			parentCriteria.add(Restrictions.eq("projectStatusCode", "COMPLETED"));
+			parentDetachedCriteria.add(Restrictions.eq("projectStatusCode", "COMPLETED"));
+		}
+		if(StringUtils.equals(searchCriteria.getSelectedTypeOfProject(), ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)) {
+			subprojectCriteria.add(Restrictions.eq("projectStatusCode", "COMPLETED"));
 		}
 
 		// My DOC
@@ -309,13 +319,17 @@ public class ProjectSearchDao {
 		}
 		
 		Disjunction dc = Restrictions.disjunction();
-		if(!accessionNumberSearch) {
+		if(!StringUtils.equals(searchCriteria.getSelectedTypeOfProject(), ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)
+			&& !accessionNumberSearch) {
 			dc.add(parentCriteria);
 		}
-		else {
+		else if(!StringUtils.equals(searchCriteria.getSelectedTypeOfProject(), ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)) {
 			dc.add(Subqueries.propertyIn("id", parentDetachedCriteria.setProjection(Projections.property("project.id"))));
 		}
-		dc.add(Subqueries.propertyIn("id", subprojectCriteria.setProjection(Projections.property("subproject.parentProject.id"))));
+		if(StringUtils.isBlank(searchCriteria.getSelectedTypeOfProject()) ||
+				StringUtils.equals(searchCriteria.getSelectedTypeOfProject(), ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)) {
+			dc.add(Subqueries.propertyIn("id", subprojectCriteria.setProjection(Projections.property("subproject.parentProject.id"))));
+		}
 		criteria.add(dc);
 
 		return criteria;

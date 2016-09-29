@@ -22,6 +22,7 @@
 			<th>Expand Subproject</th>
 			<th>Expand Repository</th>
 			<th>Subproject Eligible Flag</th>
+			<th>Project Status Code</th>
 			<th>Submission<br/> Status</th>
 			<th style="whitespace:nowrap;">Actions</th>
 		</tr>

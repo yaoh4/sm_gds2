@@ -64,6 +64,7 @@ $(document).ready(function(){
                 { "data":  "expandSubproject"},
                 { "data":  "expandRepository"},
                 { "data":  "subprojectEligibleFlag"},
+                { "data":  "projectStatusCode"},
                 { "data":  "repositoryPageStatusCode"},
                 { "data":  null}
             ],
@@ -82,7 +83,7 @@ $(document).ready(function(){
             },
             "columnDefs": [ 
                 {
-                "targets": [ 0, 4, 5, 10, 11, 12, 13, 14 ],
+                "targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15 ],
                 "visible": false
                 },
                 {
@@ -90,15 +91,16 @@ $(document).ready(function(){
                 "width": "10%",
                 "orderable": false,
                 "render": function (data, type, row, meta) {
-                	var addSubproject = '';
+                	var addNewVersion = '', addSubproject = '';
                 	if(row.subprojectEligibleFlag == "Y") {
-                		addSubproject = '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Add New Sub-project" title="Add New Sub-project"></a></div></div></div>';
+                		addSubproject = '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Add New Sub-project" title="Add New Sub-project"></a>';
+                	}
+                	if(row.projectStatusCode == "COMPLETED") {
+                		addNewVersion = '&nbsp;&nbsp;&nbsp;<a href="../manage/createNewProjectVersion.action?projectId=' + row.id + '"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i></a>';
                 	}
                     return '<div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>' +
                     '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>' +
-                     
-                    '&nbsp;&nbsp;&nbsp;<a href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i></a>' + addSubproject;
-                    ;
+                    addNewVersion + addSubproject + '</div>';
                 } },
                 {
                 "targets": -2, // Repository

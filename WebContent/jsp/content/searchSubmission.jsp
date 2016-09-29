@@ -15,19 +15,19 @@
 
 			<div class="form-group row">
 				<div class="col-xs-4">
-					<label for="Submission from">Submission from:</label> 
+					<label for="selectFrom">Submission from:</label> 
 					<s:select id="selectFrom" cssClass="c-select form-control" name="criteria.submissionFromId" list="submissionFromList" listKey="optionKey" listValue="optionValue" />
 				</div>
 
 				<div class="col-xs-4">
-					<label for="Program Director">Program Director:</label>
+					<label for="directorSelect">Program Director:</label>
 					<s:select id="directorSelect" name="criteria.pdNpnId"
 						value="criteria.pdNpnId" cssClass="c-select form-control" 
 						list="pdList" listKey="optionKey" listValue="optionValue" />
 				</div>
 
 				<div class="col-xs-4">
-					<label for="Intramural(Z01)/Grant/Contract #:">Grant/Intramural/Contract # :</label> 
+					<label for="grantNumber">Grant/Intramural/Contract # :</label> 
 					<s:textfield  name="criteria.grantContractNum" class="form-control" id="grantNumber" maxLength="30"/>
 				</div>
 
@@ -37,19 +37,19 @@
 
 			<div class="form-group row">
 				<div class="col-xs-4">
-					<label for="Project/Subproject Title">Project/Subproject
+					<label for="projectTitle">Project/Subproject
 						Title:</label> 
 					<s:textfield  name="criteria.projectTitle" class="form-control" id="projectTitle" maxLength="100"/>
 				</div>
 
 
 				<div class="col-xs-4">
-					<label for="Principal Investigator">Principal Investigator</label>
+					<label for="investigator">Principal Investigator</label>
 					<s:textfield  name="criteria.piFirstOrLastName" class="form-control" id="investigator" maxLength="120"/>
 				</div>
 
 				<div class="col-xs-4">
-					<label for="Accession Number">Accession Number</label> 
+					<label for="accessionNumber">Accession Number</label> 
 					<s:textfield  name="criteria.accessionNumber" class="form-control" id="accessionNumber" maxLength="30"/>
 				</div>
 
@@ -57,6 +57,7 @@
 			<!--end form group-->
 			<div class="searchButton">
 				<button type="button" class="btn btn-primary has-spinner" id="search-btn"><i class="fa fa-spinner fa-spin"></i> Search</button>
+				<s:submit action="navigateToSearch" value=" Clear " class="btn btn-default"/>
 			</div>
 
 		

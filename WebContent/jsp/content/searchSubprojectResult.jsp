@@ -7,7 +7,6 @@
 	<table id="parentTable" style="table-layout: fixed;" class="table table-striped table-bordered" >
         <thead>
         <tr>
-        	<th align="center">Select</th>
 			<th>Project ID</th>
 			<th>Project Submission Title</th>
 			<th>Grant/<br />Intramural/Contract #</th>
@@ -24,10 +23,10 @@
     </table>
 	
 	<div id="existingSubProjects" class="modal fade" role="dialog">
-		<s:include value="/jsp/content/searchParentResultSubproject.jsp"/>
+		<s:include value="/jsp/content/searchSubprojectResultSubproject.jsp"/>
 	</div>
 	
 </div>
 
 <script type="text/javascript"
-	src="<s:url value="/controllers/searchParent.js" />"></script>
+	src="<s:url value="/controllers/searchSubproject.js" />"></script>

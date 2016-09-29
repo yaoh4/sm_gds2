@@ -49,7 +49,6 @@ $(document).ready(function(){
             "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12'l>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "columns": [
-                { "data": null},
                 { "data": "id"},
                 { "data": "projectSubmissionTitle"},
                 { "data": "grantContractNum"},
@@ -77,22 +76,11 @@ $(document).ready(function(){
             },
             "columnDefs": [
                {
-            	"targets": [ 1, 5, 6, 11 ],
+            	"targets": [ 0, 4, 5, 10 ],
             	"visible": false
 			   },
                {
-                "targets": 0, // First column, radio select
-                "className": "dt-center",
-                "width": "7%",
-                "orderable": false,
-                "render": function (data, type, row, meta) {
-                	if(type === 'display') {
-                		return '<input type="radio" name="projectId" value="' + row.id + '"/>';
-                	}
-                	return data;
-                } },
-                {
-                "targets": 2, // Second visible column, view project id link on submission title
+                "targets": 1, // Second visible column, view project id link on submission title
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
                 		return '<a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
@@ -100,7 +88,7 @@ $(document).ready(function(){
                 	return data;
                 } },
                 {
-                "targets": 4, // PI email and name
+                "targets": 3, // PI email and name
                 "render": function (data, type, row, width,meta) {
                     if (type === 'display' && row.piEmailAddress != null && row.piEmailAddress != "" &&
                     		row.piLastName != null && row.piLastName != "" &&
@@ -114,7 +102,7 @@ $(document).ready(function(){
                     }
                 } },
                 {
-                "targets": [7, 8, 9, 10], // Status columns
+                "targets": [6, 7, 8, 9], // Status columns
                 "width": "7%",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
@@ -155,6 +143,7 @@ $(document).ready(function(){
         			).show();
         		}
         	} );
+        	$('.subproject-control').click();
         	$('button.has-spinner').removeClass('active');
         }
     } )
@@ -196,7 +185,7 @@ $(document).ready(function(){
     	} else {
     		// Need subproject expand, so retrieve the data
     		$.ajax({
-    			url: 'getParentSubprojects.action',
+    			url: 'getNewVersionSubprojects.action',
     			data: {'projectId': id},
     			type: 'post',
     			async:   false,
@@ -211,20 +200,16 @@ $(document).ready(function(){
     	}
     });
     
-  //This function executes on click of Next button on Link to Parent page.
+    //This function executes on click of Next button on Link to Parent page.
     $(".submitButton").click(function( event ) {
     	  event.preventDefault();
     	  if(!$('#selectedProject').val().length > 0) {
-    			$('div#messages').show();
-    			$(window).scrollTop(0);
-    			return false;
+  				$('div#messages').show();
+  				$(window).scrollTop(0);
+  				return false;
     	  }
     	  var myForm = document.getElementById("search-form");
-    	  if($('#selectedTypeOfProject').val() == "43") {
-    		  myForm.action="/gds/manage/createSubproject";
-    	  } else {
-    		  myForm.action="/gds/manage/createNewProjectVersion";
-    	  }
+    	  myForm.action="/gds/manage/createNewSubprojectVersion";
     	  myForm.submit();
     });
     
@@ -232,4 +217,6 @@ $(document).ready(function(){
     $('#parentTable tbody').on('click', "input[name='projectId']", function() {
     	$('#selectedProject').val($(this).val());
     });
+    
 });
+

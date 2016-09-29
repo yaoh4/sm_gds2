@@ -55,5 +55,10 @@
 			<result name="input" type="dispatcher">/jsp/content/searchParentResultSubproject.jsp</result>
 		</action>
 		
+		<action name="getNewVersionSubprojects" method="getSubprojects" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+			<result name="success" type="dispatcher">/jsp/content/searchSubprojectResultSubproject.jsp</result>
+			<result name="input" type="dispatcher">/jsp/content/searchSubprojectResultSubproject.jsp</result>
+		</action>
+		
 	</package>
 </struts>
