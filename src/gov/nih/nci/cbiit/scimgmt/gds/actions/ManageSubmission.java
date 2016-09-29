@@ -810,31 +810,50 @@ public class ManageSubmission extends BaseAction {
 		logger.debug("Setting up Repository statuses.");
 		Project parent = project;
 		if(isSubproject) {
+			//For subproject, we need to get the PlanAnswerSelection
+			//of the parent
 			parent = retrieveParentProject();
 		}		
 		for(PlanAnswerSelection selection: parent.getPlanAnswerSelections()) {
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(selection.getPlanQuestionsAnswer().getQuestionId())) {
-				//Add a new repository status if this is a new selection by
-				//the user or this is a subproject. For sub-project, we are 
-				//copying the repository from the parent
-				if(selection.getRepositoryStatuses().isEmpty() || isSubproject) {			
-					RepositoryStatus repoStatus = new RepositoryStatus();
-					repoStatus.setLookupTByRegistrationStatusId(
-							lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
-					repoStatus.setLookupTBySubmissionStatusId(
-							lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
-					repoStatus.setLookupTByStudyReleasedId(
-							lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
-					repoStatus.setCreatedBy(loggedOnUser.getFullName());
-					repoStatus.setCreatedDate(new Date());
+				
+				if(selection.getRepositoryStatuses().isEmpty() || isSubproject) {
+					//Add a new repository status if this is a new selection by
+					//the user or this is a subproject. 
+					RepositoryStatus repoStatus = createRepositoryStatus(selection);
 					repoStatus.setProject(project);
-					repoStatus.setPlanAnswerSelectionTByRepositoryId(selection);
-					selection.getRepositoryStatuses().add(repoStatus);			
+					
+					if(!isSubproject) {
+						//Add new repositoryStatus to the subprojects in this project
+						List<Project> subprojects = manageProjectService.getSubprojects(project.getId());
+						if(subprojects != null) {
+							for(Project subproject: subprojects) {
+								RepositoryStatus subRepoStatus = createRepositoryStatus(selection);
+								subRepoStatus.setProject(subproject);
+							}
+						}
+					}
 				}
 			}
 		}
 	}
 	
+	private RepositoryStatus createRepositoryStatus(PlanAnswerSelection selection) {
+		
+		RepositoryStatus repoStatus = new RepositoryStatus();
+		repoStatus.setLookupTByRegistrationStatusId(
+			lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+		repoStatus.setLookupTBySubmissionStatusId(
+			lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+		repoStatus.setLookupTByStudyReleasedId(
+			lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
+		repoStatus.setCreatedBy(loggedOnUser.getFullName());
+		repoStatus.setCreatedDate(new Date());
+		repoStatus.setPlanAnswerSelectionTByRepositoryId(selection);
+		selection.getRepositoryStatuses().add(repoStatus);
+	
+		return repoStatus;
+	}
 	
 	protected String computePageStatus(Project project) {
 		//Override
