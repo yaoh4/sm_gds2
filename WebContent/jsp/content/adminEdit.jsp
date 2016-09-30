@@ -338,8 +338,6 @@
 			</div>	<!--end search results-->
 			<div class="pageNav">
           <s:submit action="saveIcList" value=" Save " class="saved btn btn-default" style="margin-right:40px;"/>
-       
-          Save</s:submit>	
       </div>
 		  </div> <!--end panel body-->
 		</div> <!--end panel-->
