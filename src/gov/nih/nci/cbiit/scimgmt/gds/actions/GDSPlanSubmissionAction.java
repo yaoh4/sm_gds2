@@ -350,6 +350,34 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	}
 	
 	/**
+	 * This method deletes all the Ics on specific conditions in Geonomic Data Sharing Plan
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unused")
+	private void deleteIcs() throws Exception {
+		List<InstitutionalCertification> icList = getProject().getInstitutionalCertifications();
+		if (icList != null){
+			InstitutionalCertification icdup = null;
+			for(Iterator<InstitutionalCertification> i= getProject().getInstitutionalCertifications().iterator(); i.hasNext();) {
+				icdup = i.next();
+				manageProjectService.deleteIc(icdup.getId(), retrieveSelectedProject());
+				setProject(retrieveSelectedProject());	
+				i = getProject().getInstitutionalCertifications().iterator();
+			}
+		}
+	    getProject().setCertificationCompleteFlag(null);
+	    List<InstitutionalCertification> icListModified = retrieveSelectedProject().getInstitutionalCertifications();
+	      if (CollectionUtils.isEmpty(icListModified)) {
+		        PageStatus pageStatus = new PageStatus(
+				  lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
+				  lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE,ApplicationConstants.PAGE_CODE_IC),
+				  getProject(), loggedOnUser.getFullNameLF(), new Date());	
+		      getProject().addUpdatePageStatus(pageStatus);
+		      super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
+		      setProject(retrieveSelectedProject());
+	}
+	}
+	/**
 	 * This method sets up all data for Genomic Data Sharing Plan page.
 	 * @throws Exception 
 	 */
@@ -455,27 +483,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					sb.append("All Institutional Certifications and Data Use Limitations. <br>");
 			} else {
 					// Deleting all the ic`s permanently.
-					List<InstitutionalCertification> icList = getProject().getInstitutionalCertifications();
-					if (icList != null){
-						InstitutionalCertification icdup = null;
-						for(Iterator<InstitutionalCertification> i= getProject().getInstitutionalCertifications().iterator(); i.hasNext();) {
-							icdup = i.next();
-							manageProjectService.deleteIc(icdup.getId(), retrieveSelectedProject());
-							setProject(retrieveSelectedProject());	
-							i = getProject().getInstitutionalCertifications().iterator();
-						}
-					}
-				    getProject().setCertificationCompleteFlag(null);
-				    List<InstitutionalCertification> icListModified = retrieveSelectedProject().getInstitutionalCertifications();
-				      if (CollectionUtils.isEmpty(icListModified)) {
-					        PageStatus pageStatus = new PageStatus(
-							  lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
-							  lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE,ApplicationConstants.PAGE_CODE_IC),
-							  getProject(), loggedOnUser.getFullNameLF(), new Date());	
-					      getProject().addUpdatePageStatus(pageStatus);
-					      super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
-					      setProject(retrieveSelectedProject());
-				}
+				deleteIcs();
 			}
 			
 			// d) The system will delete answers to Has the GPA reviewed the Basic Study Information?
@@ -570,32 +578,18 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 		}
 		
-		// if the answer is non-human only, the institutional certifications should be deleted
-		if(newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID)) {
-			logger.debug("delete all insst certs");
-			List<InstitutionalCertification> icList = getProject().getInstitutionalCertifications();
-			if (icList != null){
-				InstitutionalCertification icdup = null;
-				for(Iterator<InstitutionalCertification> i= getProject().getInstitutionalCertifications().iterator(); i.hasNext();) {
-					icdup = i.next();
-					manageProjectService.deleteIc(icdup.getId(), retrieveSelectedProject());
-					setProject(retrieveSelectedProject());	
-					i = getProject().getInstitutionalCertifications().iterator();
-				}
-			}
-		    getProject().setCertificationCompleteFlag(null);
-		    List<InstitutionalCertification> icListModified = retrieveSelectedProject().getInstitutionalCertifications();
-		      if (CollectionUtils.isEmpty(icListModified)) {
-			        PageStatus pageStatus = new PageStatus(
-					  lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
-					  lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE,ApplicationConstants.PAGE_CODE_IC),
-					  getProject(), loggedOnUser.getFullNameLF(), new Date());	
-			      getProject().addUpdatePageStatus(pageStatus);
-			      super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
-			      setProject(retrieveSelectedProject());
-		}
-		}
-		
+		// If user selects 'Non-human' only, the system will delete the ICs and not show "Institutional Certifications" page
+        if(!oldSet.isEmpty() && !(oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && !oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID)) 
+                && newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID)) {
+          if(warnOnly) {
+                if(getProject().getInstitutionalCertifications() != null && !getProject().getInstitutionalCertifications().isEmpty())
+                       sb.append("All Institutional Certifications and Data Use Limitations. <br>");
+          } else {
+                // Delete the ICs
+        	  deleteIcs();
+          }
+   }      
+
 		// If answer to "Was this exception approved?" is changed from "Yes" to "No" or "Pending", 
 		// remove Exception Memo
 		if((newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) || newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID))
