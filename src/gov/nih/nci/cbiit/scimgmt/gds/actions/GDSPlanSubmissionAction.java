@@ -570,6 +570,32 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 		}
 		
+		// if the answer is non-human only, the institutional certifications should be deleted
+		if(newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID)) {
+			logger.debug("delete all insst certs");
+			List<InstitutionalCertification> icList = getProject().getInstitutionalCertifications();
+			if (icList != null){
+				InstitutionalCertification icdup = null;
+				for(Iterator<InstitutionalCertification> i= getProject().getInstitutionalCertifications().iterator(); i.hasNext();) {
+					icdup = i.next();
+					manageProjectService.deleteIc(icdup.getId(), retrieveSelectedProject());
+					setProject(retrieveSelectedProject());	
+					i = getProject().getInstitutionalCertifications().iterator();
+				}
+			}
+		    getProject().setCertificationCompleteFlag(null);
+		    List<InstitutionalCertification> icListModified = retrieveSelectedProject().getInstitutionalCertifications();
+		      if (CollectionUtils.isEmpty(icListModified)) {
+			        PageStatus pageStatus = new PageStatus(
+					  lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
+					  lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE,ApplicationConstants.PAGE_CODE_IC),
+					  getProject(), loggedOnUser.getFullNameLF(), new Date());	
+			      getProject().addUpdatePageStatus(pageStatus);
+			      super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
+			      setProject(retrieveSelectedProject());
+		}
+		}
+		
 		// If answer to "Was this exception approved?" is changed from "Yes" to "No" or "Pending", 
 		// remove Exception Memo
 		if((newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) || newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID))
