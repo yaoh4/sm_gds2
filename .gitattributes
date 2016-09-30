@@ -174,7 +174,9 @@ WebContent/images/subfolder.gif -text
 WebContent/images/version-divider.gif -text
 WebContent/index.jsp -text
 WebContent/jsp/content/adminEdit.htm -text
+WebContent/jsp/content/adminEdit.jsp -text
 WebContent/jsp/content/adminSearch.htm -text
+WebContent/jsp/content/adminSearch.jsp -text
 WebContent/jsp/content/detailReport.jsp -text
 WebContent/jsp/content/dulSetTemplate.jsp -text
 WebContent/jsp/content/manageDuls.jsp -text
@@ -1005,6 +1007,7 @@ screens/submission_details.htm -text
 screens/test.html -text
 screens/testsearch.htm -text
 src/UIRule.json -text
+src/admin.xml -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BaseAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BasicStudyInfoSubmissionAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ChangeUserAction.java -text

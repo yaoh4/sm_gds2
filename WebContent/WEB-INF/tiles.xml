@@ -103,4 +103,20 @@
 		<put-attribute name="body" value="/jsp/content/submissionCreateNew.jsp" />		
 	</definition>
 	
+	<definition name="adminSearch" extends="base.definition">		
+		<put-attribute name="navtab" value="admin" type="string" />
+		<put-attribute name="subnavtab" value="adminSearch" type="string" />	
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/adminSearch.jsp" />		
+	</definition>
+	
+	<definition name="adminEdit" extends="base.definition">		
+		<put-attribute name="navtab" value="admin" type="string" />	
+		<put-attribute name="subnavtab" value="adminEdit" type="string" />		
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/adminEdit.jsp" />		
+	</definition>
+	
+	
+	
 </tiles-definitions>

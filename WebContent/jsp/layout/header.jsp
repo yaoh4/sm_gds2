@@ -78,8 +78,12 @@
       				<s:include value="/jsp/layout/subnavbar.jsp" />
 				</s:else>
       		</s:if>
-      		<s:else>
+      		<s:elseif test="%{'search' eq #attr['navtab']}">
       			<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Find Submissions</h3></div></div>
+      		</s:elseif>
+      		<s:else>
+      			<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Administration</h3></div></div>
+      			<s:include value="/jsp/layout/subnavbar.jsp" />
       		</s:else>
 			
 		</div>

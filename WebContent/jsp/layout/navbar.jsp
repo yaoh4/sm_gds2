@@ -46,6 +46,16 @@
 							Find Submissions
 						</s:a></li>
 				</s:else>
+				<s:if test="%{'admin' eq #attr['navtab']}">
+					<li class="active"><s:a href="javascript: void(0)">
+							Administration
+						</s:a></li>
+				</s:if>
+				<s:else>
+					<li><s:a href="/gds/admin/navigateToAdminSearch.action">
+							Administration
+						</s:a></li>
+				</s:else> 
 				</ul>
 			</div>
 		</nav>

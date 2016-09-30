@@ -69,5 +69,5 @@
 	
 	<include file="manage.xml"/>
 	<include file="search.xml"/>
-	
+	<include file="admin.xml"/>
 </struts>

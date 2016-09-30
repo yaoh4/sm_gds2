@@ -89,6 +89,27 @@
 				</s:else>
 				<li class="divider-vertical"></li>				 
 			</s:if>
+			
+			<!-- -------Admin tab -->
+			<s:if test="%{'admin' eq #attr['navtab']}">
+				<s:if test="%{'searchAdmin' eq #attr['subnavtab']}">
+					<li class="active"><a href="javascript: void(0)">Search User Accounts</a></li>
+				</s:if>
+				<s:else>
+					<s:url namespace="/admin" var="searchAdminUrl" action="navigateToAdminSearch"></s:url>
+					<li><s:a href="%{searchAdminUrl}">Search User Accounts</s:a></li>
+				</s:else>
+				<li class="divider-vertical"></li>
+				<s:if test="%{'searchAdmin' eq #attr['subnavtab']}">
+					<li class="active"><a href="javascript: void(0)">Edit/Create User Accounts</a></li>
+				</s:if>
+				<s:else>
+					<s:url namespace="/admin" var="editAdminUrl" action="navigateToAdminEdit"></s:url>
+					<li><s:a href="%{editAdminUrl}">Edit/Create User Accounts</s:a></li>
+				</s:else>
+				<li class="divider-vertical"></li>
+				
+			</s:if>
 		</ul>
 	</div>
 </div>
