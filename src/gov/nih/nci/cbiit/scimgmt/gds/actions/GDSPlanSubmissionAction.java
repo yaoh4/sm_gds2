@@ -463,20 +463,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				}
 			}
 
-			// b) The system will delete all uploaded Institutional Certifications documents.
-			List<Document> icFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, getProject().getId());
-			if(warnOnly) {
-				if(icFile != null && !icFile.isEmpty())
-					sb.append("All uploaded Institutional Certification documents. <br>");
-			}
-			else {
-				for(Document document: icFile) {
-					setDocId(document.getId());
-					deleteFile();
-				}
-			}
-			
-			
+			// b) The system will delete all uploaded Institutional Certifications documents.			
 			// c) The system will delete all Institutional Certifications and Data Use Limitations.
 			if(warnOnly) {
 				if(getProject().getInstitutionalCertifications() != null && !getProject().getInstitutionalCertifications().isEmpty())
@@ -517,7 +504,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					sb.append("Repositories except dbGaP. <br>");
 			}
 			else {
-				removeRepositoryStatuses(removeSet);
 				List<String> repositoryIds = getAnswers().get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
 				if(!CollectionUtils.isEmpty(repositoryIds)) {
 					getAnswers().get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).add(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID.toString());
@@ -536,11 +522,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				} else {
 					getAnswers().put(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, Arrays.asList(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID.toString()));
 				}
-			}
-		} else {
-			// Answer is Yes or not answered. Remove ALL repositories that were deleted
-			if(!warnOnly) {
-				removeRepositoryStatuses(oldSet);
 			}
 		}
 		
@@ -616,34 +597,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		}
 		
 		return SUCCESS;
-	}
-
-
-	/**
-	 * Remove Repository that were unchecked.
-	 * 
-	 * @param oldSet 
-	 */
-	private void removeRepositoryStatuses(Set<Long> oldSet){	
-
-		if(getProject() != null) {		
-
-			// List to hold removed repository status
-			List<RepositoryStatus> removedRepositories = new ArrayList<RepositoryStatus>();	
-		
-			// Remove the deleted repository from PlanAnswerSelection object
-			for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = getProject().getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
-				PlanAnswerSelection selection = planAnswerSelectionIterator.next();
-				for(RepositoryStatus rep: selection.getRepositoryStatuses()) {
-					// Check if any of the repository has been removed.
-					if(oldSet.contains(rep.getPlanAnswerSelectionTByRepositoryId().getId())) { 
-						removedRepositories.add(rep);
-					}
-				}
-			}
-
-			getProject().getRepositoryStatuses().removeAll(removedRepositories);
-		}
 	}
 	
 	public Map<String, UIList> getMap() {
