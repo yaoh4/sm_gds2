@@ -465,8 +465,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 	private void filterSingleQuotes() {
 		for(GdsGrantsContracts grantOrContract: grantOrContractList) {
-			grantOrContract.setProjectTitle(grantOrContract.getProjectTitle().replaceAll("'",""));
-			grantOrContract.setProjectTitle(grantOrContract.getProjectTitle().replaceAll("\"",""));
+			grantOrContract.setProjectTitle(StringUtils.replaceChars(grantOrContract.getProjectTitle(), "'", ""));
+			grantOrContract.setProjectTitle(StringUtils.replaceChars(grantOrContract.getProjectTitle(), "\"", ""));
 		}
 	}
 
