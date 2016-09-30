@@ -22,6 +22,7 @@ public class SubmissionSearchCriteria {
     private String sortDir;
     private String parentSearch;
     private String selectedTypeOfProject;
+    private Long submissionReasonId;
     
 	public SubmissionSearchCriteria(){}
 
@@ -56,7 +57,7 @@ public class SubmissionSearchCriteria {
 		return (submissionFromId == null
 				/*|| submissionFromId.longValue() == ApplicationConstants.SEARCH_SUBMISSION_FROM_ALL.longValue()*/)
 				&& StringUtils.isBlank(pdFirstAndLastName) && StringUtils.isBlank(grantContractNum) && StringUtils.isBlank(projectTitle)
-				&& StringUtils.isBlank(accessionNumber) && StringUtils.isBlank(piFirstOrLastName);
+				&& StringUtils.isBlank(accessionNumber) && StringUtils.isBlank(piFirstOrLastName) && submissionReasonId == null;
 	}
 	
 	public Long getSubmissionFromId() {
@@ -185,6 +186,14 @@ public class SubmissionSearchCriteria {
 
 	public void setSelectedTypeOfProject(String selectedTypeOfProject) {
 		this.selectedTypeOfProject = selectedTypeOfProject;
+	}
+
+	public Long getSubmissionReasonId() {
+		return submissionReasonId;
+	}
+
+	public void setSubmissionReasonId(Long submissionReasonId) {
+		this.submissionReasonId = submissionReasonId;
 	}
 
 }

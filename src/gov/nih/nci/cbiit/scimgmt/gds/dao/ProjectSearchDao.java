@@ -318,6 +318,13 @@ public class ProjectSearchDao {
 			subprojectCriteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
 		}
 		
+		// Reason for Submission
+		if (searchCriteria.getSubmissionReasonId() != null) {
+			parentCriteria.add(Restrictions.eq("submissionReasonId", searchCriteria.getSubmissionReasonId()));
+			parentDetachedCriteria.add(Restrictions.eq("submissionReasonId", searchCriteria.getSubmissionReasonId()));
+			subprojectCriteria.add(Restrictions.eq("submissionReasonId", searchCriteria.getSubmissionReasonId()));
+		}
+				
 		Disjunction dc = Restrictions.disjunction();
 		if(!StringUtils.equals(searchCriteria.getSelectedTypeOfProject(), ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)
 			&& !accessionNumberSearch) {

@@ -58,7 +58,9 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 	
 	private List<DropDownOption> pdList = new ArrayList<DropDownOption>();	
 
-	private List<DropDownOption> submissionFromList = new ArrayList<DropDownOption>();	
+	private List<DropDownOption> submissionFromList = new ArrayList<DropDownOption>();
+	
+	private List<DropDownOption> submissionReasonList = new ArrayList<DropDownOption>();	
 	
 	private SubmissionSearchResult jsonResult = new SubmissionSearchResult();
 	
@@ -369,6 +371,9 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			submissionFromList = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.SEARCH_SUBMISSION_FROM.toUpperCase());	
 		}		
 
+		if(submissionReasonList.isEmpty()){			
+			submissionReasonList = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST.toUpperCase());	
+		}
 	}
 	
     public String getSortByProperty(HttpServletRequest request) {
@@ -402,6 +407,14 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 
 	public List<DropDownOption> getPdList() {
 		return pdList;
+	}
+	
+	public List<DropDownOption> getSubmissionReasonList() {
+		return submissionReasonList;
+	}
+	
+	public void setSubmissionReasonList(List<DropDownOption> submissionReasonList) {
+		this.submissionReasonList = submissionReasonList;
 	}
 
 	public void setPdList(List<DropDownOption> pdList) {
