@@ -1008,6 +1008,7 @@ screens/test.html -text
 screens/testsearch.htm -text
 src/UIRule.json -text
 src/admin.xml -text
+src/gov/nih/nci/cbiit/scimgmt/gds/actions/AdminAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BaseAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/BasicStudyInfoSubmissionAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ChangeUserAction.java -text
