@@ -22,101 +22,7 @@
          
       <div class="panel-body">
 
-	<!--Link to sub projects-->
-	<s:if test="%{subprojects.size > 0}">
-  	<div class="qSpacing">
-    <p class="question">
-      <a href="javascript:void"
-        class="subproject"><i class="expandS fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-projects
-    </p>
-    <div class="relatedSubs" style="display: none;">
-      <table style="width: 90%;" cellpadding="0px" cellspacing="0"
-        class="table table-bordered table-striped"
-        style="margin-left: 10px;">
-        <tr>
-          <th class="tableHeader" width="50%" scope="col">Sub-project Submission Title</th>
-            <th class="tableHeader" width="30%" scope="col">Principal
-              Investigator</th>
-            <th class="tableHeader" width="5%" scope="col">Status</th>
-            <th class="tableHeader" width="15%" scope="col">Action</th>
-        </tr>
-           <s:iterator status="stat" var="subproject" value="subprojects">
-            <tr>
-              <td>${subproject.submissionTitle}</td>
-              
-              <td>${subproject.piFullName}</td>
-              
-              <td style="white-space: nowrap;" align="center">
-              <s:if test="%{getProjectStatusCode(#subproject).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
-                <img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"/>
-              </s:if> <s:elseif
-                test="%{getProjectStatusCode(#subproject).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
-                <img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>
-              </s:elseif> <s:else>
-                <img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
-              </s:else></td>
-
-              <td><a href="#" onclick="openDetailsReport(${subproject.id})"> 
-            <s:hidden  id="prevSubId" value="%{subproject.id}"/>
-            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
-           <a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}">
-            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></td>
-              
-            </tr>
-        </s:iterator>
-      </table>
-    </div>
-  </div>
-</s:if>
-<!--  End link to sub projects -->
-   	  	  
-  <!--Link to Parent Project-->
-  <s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">         		           		      
-        <div class="qSpacing">
-    <p class="question">
-      <a href="javascript:void"
-        class="project"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Parent Project
-    </p>
-    <div class="related" style="display: none;">
-      <table style="width: 90%;" cellpadding="0px" cellspacing="0"
-        class="table table-bordered table-striped"
-        style="margin-left: 10px;">
-        <tr>
-          <th class="tableHeader" width="50%" scope="col">Parent Submission Title</th>
-            <th class="tableHeader" width="25%" scope="col">Principal
-              Investigator</th>
-            <th class="tableHeader" width="5%" scope="col">Status</th>
-            <th class="tableHeader" width="20%" scope="col">Action</th>
-        </tr>
-     
-            <tr>
-              <td>${project.parent.submissionTitle}</td>
-              
-              <td>${project.parent.piFullName}</td>
-              
-              <td style="white-space: nowrap">
-               <s:if test="%{getProjectStatusCode(project.parent).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
-                <img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"/>
-              </s:if> <s:elseif
-                test="%{getProjectStatusCode(project.parent).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
-                <img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>
-              </s:elseif> <s:else>
-                <img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
-              </s:else></td>
-
-              <td><a href="#" onclick="openDetailsReport(${project.parent.id})"> 
-            <s:hidden  id="prevSubId" value="%{project.parent.id}"/>
-            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
-           <a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}">
-            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></td>
-              
-            </tr>
-        
-      </table>
-    </div>
-  </div>
-  </s:if>
-<!-- End link to parent project -->
+	
 
         <table width="85%" style="table-layout:fixed;" class="table table-bordered">
           <caption style="display: none;">Status History</caption>
@@ -273,6 +179,102 @@
               
         </tbody>
       </table>
+      
+      <!--Link to sub projects-->
+  <s:if test="%{subprojects.size > 0}">
+    <div class="qSpacing">
+    <p class="question">
+      <a href="javascript:void"
+        class="subproject"><i class="expandS fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-projects
+    </p>
+    <div class="relatedSubs" style="display: none;">
+      <table style="width: 90%;" cellpadding="0px" cellspacing="0"
+        class="table table-bordered table-striped"
+        style="margin-left: 10px;">
+        <tr>
+          <th class="tableHeader" width="50%" scope="col">Sub-project Submission Title</th>
+            <th class="tableHeader" width="30%" scope="col">Principal
+              Investigator</th>
+            <th class="tableHeader" width="5%" scope="col">Submission Status</th>
+            <th class="tableHeader" width="15%" scope="col">Action</th>
+        </tr>
+           <s:iterator status="stat" var="subproject" value="subprojects">
+            <tr>
+              <td>${subproject.submissionTitle}</td>
+              
+              <td>${subproject.piFullName}</td>
+              
+              <td style="white-space: nowrap;" align="center">
+              <s:if test="%{getProjectStatusCode(#subproject).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
+                <img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"/>
+              </s:if> <s:elseif
+                test="%{getProjectStatusCode(#subproject).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                <img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>
+              </s:elseif> <s:else>
+                <img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
+              </s:else></td>
+
+              <td><a href="#" onclick="openDetailsReport(${subproject.id})"> 
+            <s:hidden  id="prevSubId" value="%{subproject.id}"/>
+            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
+           <a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}">
+            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></td>
+              
+            </tr>
+        </s:iterator>
+      </table>
+    </div>
+  </div>
+</s:if>
+<!--  End link to sub projects -->
+          
+  <!--Link to Parent Project-->
+  <s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">                                
+        <div class="qSpacing">
+    <p class="question">
+      <a href="javascript:void"
+        class="project"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Parent Project
+    </p>
+    <div class="related" style="display: none;">
+      <table style="width: 90%;" cellpadding="0px" cellspacing="0"
+        class="table table-bordered table-striped"
+        style="margin-left: 10px;">
+        <tr>
+          <th class="tableHeader" width="50%" scope="col">Parent Submission Title</th>
+            <th class="tableHeader" width="25%" scope="col">Principal
+              Investigator</th>
+            <th class="tableHeader" width="5%" scope="col">Submission Status</th>
+            <th class="tableHeader" width="20%" scope="col">Action</th>
+        </tr>
+     
+            <tr>
+              <td>${project.parent.submissionTitle}</td>
+              
+              <td>${project.parent.piFullName}</td>
+              
+              <td style="white-space: nowrap">
+               <s:if test="%{getProjectStatusCode(project.parent).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
+                <img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"/>
+              </s:if> <s:elseif
+                test="%{getProjectStatusCode(project.parent).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                <img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>
+              </s:elseif> <s:else>
+                <img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
+              </s:else></td>
+
+              <td><a href="#" onclick="openDetailsReport(${project.parent.id})"> 
+            <s:hidden  id="prevSubId" value="%{project.parent.id}"/>
+            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
+           <a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}">
+            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></td>
+              
+            </tr>
+        
+      </table>
+    </div>
+  </div>
+  </s:if>
+<!-- End link to parent project -->
     </div>
   </div>
 
