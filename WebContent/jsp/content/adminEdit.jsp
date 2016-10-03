@@ -194,7 +194,7 @@
 
 			  
 			</div>	<!--end search results-->
-			
+			<p>&nbsp;</p>
 		  </div> <!--end panel body-->
 		</div> <!--end panel-->
 				
