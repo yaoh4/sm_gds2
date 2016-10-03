@@ -60,17 +60,18 @@
 				name="project.certificationCompleteFlag" value="project.certificationCompleteFlag"
 				template="radiomap-div.ftl" />
 			</div> 
-          <s:hidden id="certFlag" name="certFlag"/>
+          <s:hidden id="certFlag" name="certFlag" />
             <p>&nbsp;</p>
 
             <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
               <tr class="modalTheader">
                <!--  Show this column header only for subproject -->
                 <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select</th>                      
-                <th class="tableHeader" align="center" width="60%">Institutional Certification Document</th>
+                <th class="tableHeader" align="center" width="40%">Institutional Certification Document</th>
                 <th class="tableHeader" align="center" width="10%">Status</th>
                 <th class="tableHeader" align="center" width="10%">Missing Data</th>
-                <th class="tableHeader" align="center" width="20%">Date Uploaded</th>               
+                <th class="tableHeader" align="center" width="20%">Date Uploaded</th>
+                <th class="tableHeader" align="center" width="20%">Uploaded By</th>                 
                 <th id="actionColumn" class="tableHeader" style="display:none;" align="center" width="10%">Actions</th>
               </tr>
                     
@@ -114,6 +115,10 @@
                 
                   <td style="white-space: nowrap"> 
                     <s:date name="%{#cert.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
+                  </td>
+                  
+                  <td style="white-space: nowrap"> 
+                     <s:property value="%{#cert.documents[0].uploadedBy}" />
                   </td>
                       
                   <td class="editDeleteBtns" style="white-space: nowrap; display:none;">
