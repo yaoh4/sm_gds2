@@ -139,7 +139,7 @@ $(document).ready(function(){
         			this.child(
         			$(
         				'<div class="subproject-div"><a style="font-size: 12px; margin-left: 70px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
-        	         ), this.node().className + " child"
+        	         ), this.node().className + " subrow"
         			).show();
         		}
         	} );
@@ -180,7 +180,7 @@ $(document).ready(function(){
     		row.child(
     		$(
     			'<div class="subproject-div"><a style="font-size: 12px; margin-left: 70px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
-    		 ), tr.get(0).className + " child"
+    		 ), tr.get(0).className + " subrow"
     		).show();
     	} else {
     		// Need subproject expand, so retrieve the data
@@ -192,7 +192,7 @@ $(document).ready(function(){
     			success: function(msg){
     				result = $.trim(msg);
     				table = $(result).find(".subproject-table").html();
-    				row.child(table, tr.get(0).className + " child").show();
+    				row.child(table, tr.get(0).className + " subrow").show();
     			}, 
     			error: function(){}	
     		});
