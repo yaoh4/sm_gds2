@@ -49,14 +49,6 @@
 				</div>
 
 				<div class="col-xs-4">
-					<label for="accessionNumber">Accession Number</label> 
-					<s:textfield  name="criteria.accessionNumber" class="form-control" id="accessionNumber" maxLength="30"/>
-				</div>
-
-			</div>
-			
-			<div class="form-group row">
-				<div class="col-xs-4">
 					<label for="submissionReasonId">Reason for Submission:</label>
 					<s:select id="submissionReasonId" name="criteria.submissionReasonId"
 						value="criteria.submissionReasonId" cssClass="c-select form-control" 
