@@ -71,7 +71,7 @@
                   </td>
                       
                   <td style="white-space: nowrap"> 
-                     <s:property value="%{#cert.documents[0].uploadedBy}" />
+                     <s:property value="%{#ic.documents[0].uploadedBy}" />
                   </td>
                 </tr>
                         
