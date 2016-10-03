@@ -203,7 +203,7 @@ $(document).ready(function(){
     					'<div class="subproject-div"><a style="font-size: 12px; margin-left: 25px;" class="' + cssClassSub + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
     	             )
     	             ], 
-    	             this.node().className
+    	             this.node().className + " child"
     				).show();
         		}
         		else if(this.data().repoCount != null && this.data().repoCount > 0) {
@@ -211,7 +211,7 @@ $(document).ready(function(){
     				$(
     					'<div class="repository-div"><a style="font-size: 12px; margin-left: 25px;" class="' + cssClassRepo + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
     	             ), 
-    	             this.node().className
+    	             this.node().className + " child"
     				).show();
         		}
         		else if(this.data().subprojectCount != null && this.data().subprojectCount > 0) {
@@ -219,7 +219,7 @@ $(document).ready(function(){
     				$(
     					'<div class="subproject-div"><a style="font-size: 12px; margin-left: 25px;" class="' + cssClassSub + '" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
     	             ), 
-    	             this.node().className
+    	             this.node().className + " child"
     				).show();
     			}
             } );
@@ -289,7 +289,7 @@ $(document).ready(function(){
 			    	$(
 			    		'<div class="subproject-div"><a style="font-size: 12px; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
 			         ), 
-			             tr.get(0).className
+			             tr.get(0).className + " child"
 			   	).show();
 			} else {
 				//It has repo, so collapse and recreate with the repo row
@@ -299,7 +299,7 @@ $(document).ready(function(){
 						        '<div class="subproject-div"><a style="font-size: 12px; margin-left: 25px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
 						        )
 						        
-						    ], tr.get(0).className ).show();
+						    ], tr.get(0).className + " child" ).show();
 			}
 		} else {
 			// Need subproject expand, so retrieve the data
@@ -315,9 +315,9 @@ $(document).ready(function(){
 						row.child( [
 						        tr.next(),
 						        table, 
-						    ], tr.get(0).className ).show();
+						    ], tr.get(0).className + " child" ).show();
 					} else { // If repository child doesn't exist, just add the subproject row
-						row.child(table, tr.get(0).className).show();
+						row.child(table, tr.get(0).className + " child").show();
 					}
 				}, 
 				error: function(){}	
@@ -341,7 +341,7 @@ $(document).ready(function(){
 		    		$(
 		    			'<div class="repository-div"><a style="font-size: 12px; margin-left: 25px;" class="repository-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
 		             ), 
-		             tr.get(0).className
+		             tr.get(0).className + " child"
 		   		).show();
 			}
 			else {
@@ -351,7 +351,7 @@ $(document).ready(function(){
 					        '<div class="repository-div"><a style="font-size: 12px; margin-left: 25px;" class="repository-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Project Submission Status</a></div>'
 					        ), 
 					        tr.next().next()
-					    ], tr.get(0).className ).show();
+					    ], tr.get(0).className + " child" ).show();
 			}
 		} else {
 			// Need repo expand, so retrieve the data
@@ -367,9 +367,9 @@ $(document).ready(function(){
 						row.child( [
 						        table,
 						        tr.next().next()
-						    ], tr.get(0).className ).show();
+						    ], tr.get(0).className + " child" ).show();
 					} else { // If subproject child doesn't exist, just add the repository row
-						row.child(table, tr.get(0).className).show();
+						row.child(table, tr.get(0).className + " child").show();
 					}
 				}, 
 				error: function(){}	
