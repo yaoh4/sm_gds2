@@ -38,7 +38,7 @@
                 <th class="tableHeader" align="center">Status</th>
                 <th class="tableHeader" align="center">Missing Data</th>
                 <th class="tableHeader" align="center">Date Uploaded</th>
-               
+               <th class="tableHeader" align="center">Uploaded By</th>
               </tr>
                     
               <s:iterator status="icStat" var="ic" value="project.institutionalCertifications">
@@ -70,7 +70,9 @@
                     <s:date name="%{#ic.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
                   </td>
                       
-                  
+                  <td style="white-space: nowrap"> 
+                     <s:property value="%{#cert.documents[0].uploadedBy}" />
+                  </td>
                 </tr>
                         
                    </div>          
