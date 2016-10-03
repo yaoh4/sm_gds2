@@ -209,6 +209,16 @@ public class ManageSubmission extends BaseAction {
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
 				project, loggedOnUser.getFullName(), new Date());	
 			project.addUpdatePageStatus(pageStatus);
+			//Also recompute repository page status if you are saving the GDS page
+			if(pageCode.equalsIgnoreCase(ApplicationConstants.PAGE_CODE_GDSPLAN)) {
+				RepositoryStatusSubmissionAction repoAction = new RepositoryStatusSubmissionAction();
+				statusCode = repoAction.computePageStatus(project);
+				pageStatus = new PageStatus(
+						lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, statusCode),
+						lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY),
+						project, loggedOnUser.getFullName(), new Date());	
+					project.addUpdatePageStatus(pageStatus);
+			}
 		} else  {
 			//We are in the General Info page. Check if this is a new submission
 			if (project.getId() == null) {
