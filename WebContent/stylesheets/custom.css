@@ -1402,3 +1402,31 @@ ul.actionMessage {
   z-index: 100;
   border-top: 0;
 }
+
+
+/**********Search Results Datatable ***********/
+.table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
+    /* border-top: 0; */
+    border-bottom: 0px;
+}
+
+.subrow {
+border-top: 0px !important;  
+border-bottom: 0px !important;
+}
+
+
+table.dataTable tbody tr td {
+  border-top: 2px solid ;
+ 
+}
+
+table.dataTable tbody tr td.even {
+  border-top: 0px !important ;
+ 
+}
+
+.subtable tbody tr td {
+  border-top: 1px !important ;
+}
+
