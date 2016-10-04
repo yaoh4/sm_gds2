@@ -20,8 +20,8 @@
 					&nbsp;Sub-Projects
 			</a>
 			</span>
-			<table style="width: 80%; margin-left: 100px;"
-				class="table table-bordered ">
+			<table style="width: 90%; margin-left: 40px; margin-top: 5px;"
+				class="table  table-bordered subtable">
 				<thead>
 					<tr class="modalTheader" >
 						<th width="16%" scope="col" style="background: #e6e6e6;border-bottom-color:#e6e6e6;color:#000 ">Sub-project Submission Title</th>

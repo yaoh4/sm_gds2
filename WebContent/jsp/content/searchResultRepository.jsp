@@ -18,8 +18,8 @@
 					&nbsp;Project Submission Status
 			</a>
 			</span>
-			<table style="width: 80%; margin-left: 100px;"
-				class="table  table-bordered">
+			<table style="width: 90%; margin-left: 40px; margin-top: 5px;"
+				class="table  table-bordered subtable">
 				<tbody>
 					<tr style="background: #e6e6e6;">
 						<th>Repositories</th>
