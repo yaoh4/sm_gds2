@@ -31,6 +31,7 @@ $(document).ready(function(){
             "serverSide": true,
             "stateSave": true,
             "destroy": true,
+            "fixedHeader": true,
             "deferLoading": 0,
             "ajax": {
                 "url": "search.action",
@@ -95,6 +96,15 @@ $(document).ready(function(){
                 "targets": 2, // Second visible column, view project id link on submission title
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
+                		if(row.subprojectCount != null && row.subprojectCount > 0) {
+                			if(row.expandSubproject || row.expandRepository) {
+                				cssClass = 'detail-control match';
+                			} else {
+                				cssClass = 'detail-control';
+                			}
+                			return '<a style="margin-right: 5px;" class="' + cssClass + '" href="javascript: void(0)"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>' +
+            				'<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
+                		}
                 		return '<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
                 	}
                 	return data;
@@ -146,15 +156,7 @@ $(document).ready(function(){
         if(processing) {
         	$('button.has-spinner').addClass('active');
         } else {
-        	parentTable.rows().every( function () {
-        		if(this.data().subprojectCount != null && this.data().subprojectCount > 0) {
-        			this.child(
-        			$(
-        				'<div class="subproject-div"><a style="font-size: 12px; margin-left: 70px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
-        	         ), this.node().className + " subrow"
-        			).show();
-        		}
-        	} );
+        	$('.detail-control.match').click();
         	$('button.has-spinner').removeClass('active');
         }
     } )
@@ -180,6 +182,27 @@ $(document).ready(function(){
     		$("#directorName").val("");
     });
 
+    // Add event listener for opening and closing row details
+	$('#parentTable tbody').on('click', 'a.detail-control', function() {
+	  var tr = $(this).closest('tr');
+	  var row = parentTable.row(tr);
+	  if (row.child.isShown()) {
+		  row.child.hide();
+		  tr.removeClass('shown');
+		  $(this).find("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
+	  } else {
+		if(row.data().subprojectCount != null && row.data().subprojectCount > 0) {
+			row.child(
+  			$(
+  				'<div class="subproject-div"><a style="font-size: 12px; margin-left: 70px;" class="subproject-control" href="javascript: void(0)">' + '<i class="expand fa fa-plus-square" aria-hidden="true"></i>&nbsp;Sub-projects</a></div>'
+  	         ), row.node().className + " subrow"
+  			).show();
+  		}
+		$(this).find("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
+		tr.next().find('.subproject-control').click();
+	  }
+	});
+	
     // Add event listener for opening and closing subproject
     $('#parentTable tbody').on('click', 'a.subproject-control', function() {
     	var tr = $(this).closest('tr').prev();
