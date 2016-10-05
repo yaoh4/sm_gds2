@@ -31,7 +31,7 @@ $(document).ready(function(){
             "serverSide": true,
             "stateSave": true,
             "destroy": true,
-            "fixedHeader": false,
+            "fixedHeader": true,
             "deferLoading": 0,
             "ajax": {
                 "url": "search.action",
@@ -107,7 +107,7 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": -2, // Repository
-                "width": "7%",
+                "width": "10%",
                 "className": "text-nowrap persist-header",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
@@ -443,47 +443,7 @@ function deleteSubmission(projectId)
 	});
 }
 
- //function for sticky header on table    
-function UpdateTableHeaders() {
-   $("#submissionTable th").each(function() {
-   
-       var el             = $(this),
-           offset         = el.offset(),
-           scrollTop      = $(window).scrollTop(),
-           floatingHeader = $(".floatingHeader", this)
-       
-       if ((scrollTop > offset.top) && (scrollTop < offset.top + el.height())) {
-           floatingHeader.css({
-            "visibility": "visible"
-           });
-       } else {
-           floatingHeader.css({
-            "visibility": "hidden"
-           });      
-       };
-   });
-}
-
-// DOM Ready function for sticky header on table     
-$(function() {
-
-   var clonedHeaderRow;
-
-   $("#submissionTable th").each(function() {
-       clonedHeaderRow = $(".persist-header", this);
-       clonedHeaderRow
-         .before(clonedHeaderRow.clone())
-         .css("width", clonedHeaderRow.width())
-         .addClass("floatingHeader");
-         
-   });
-   
-   $(window)
-    .scroll(UpdateTableHeaders)
-    .trigger("scroll");
-   
-});
-
+ 
 
 
 
