@@ -36,7 +36,8 @@ function enableDisableStudyReleased(submissionStatusId){
  $(function () {
       $('#repositoryDate .input-group.date').datepicker({
          orientation: "bottom auto",
-         todayHighlight: true
+         todayHighlight: true,
+         autoclose: true
       });
   });
   
