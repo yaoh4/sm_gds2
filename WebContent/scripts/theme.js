@@ -114,6 +114,18 @@ $(window).scroll(function() {
 });
 });
 
+$('#submissionTable').DataTable( {
+    fixedHeader: {
+        headerOffset: 100
+    }
+} );
+
+$('#submissionTable').DataTable( {
+    fixedHeader: {
+        headerOffset: $('.stickyDiv').outerHeight()
+    }
+} );
+
 
 
  
