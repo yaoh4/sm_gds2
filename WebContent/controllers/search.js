@@ -85,7 +85,8 @@ $(document).ready(function(){
             "columnDefs": [ 
                 {
                 "targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15 ],
-                "visible": false
+                "visible": false,
+                 "className": "persist-header",
                 },
                 {
                 "targets": -1, // Last column, action
@@ -444,7 +445,7 @@ function deleteSubmission(projectId)
 
  //function for sticky header on table    
 function UpdateTableHeaders() {
-   $("#submissionTable").each(function() {
+   $("#submissionTable th").each(function() {
    
        var el             = $(this),
            offset         = el.offset(),
@@ -468,7 +469,7 @@ $(function() {
 
    var clonedHeaderRow;
 
-   $("#submissionTable").each(function() {
+   $("#submissionTable th").each(function() {
        clonedHeaderRow = $(".persist-header", this);
        clonedHeaderRow
          .before(clonedHeaderRow.clone())
