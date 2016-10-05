@@ -89,7 +89,7 @@ $(document).ready(function(){
                 },
                 {
                 "targets": -1, // Last column, action
-                "width": "10%",
+                "width": "8%",
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                 	var addNewVersion = '', addSubproject = '';
