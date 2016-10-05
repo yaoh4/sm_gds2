@@ -63,7 +63,7 @@ $("#basic-study-form").on('click', '.removeclass', function () {//user click on 
 
 
 // Data sharing plan file upload Ajax
-$("#basic-study-form").on('click', '#bsiUpload', function () {
+$("#basic-study-form").on('change', '#bsi', function () {
 
 	$("#messages").empty();
 	

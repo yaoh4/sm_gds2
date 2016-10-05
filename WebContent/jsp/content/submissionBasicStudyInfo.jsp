@@ -114,24 +114,20 @@
 					<!--  File Upload -->
 					<p class="question">
 					<!-- <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
-						Upload File(s):
+						Upload Basic Study Information:
 					</p>
 					<!--BEGIN Uploader-->
 					<div class="qSpacing" id="bsiDiv">
-						<div class="col-lg-6">
+						<div>
 							<div class="input-group">
-								<input type="text" class="form-control"
-									placeholder="Choose File to Upload" readonly><label
+								<label
 									class="input-group-btn"> <span class="btn btn-default">
 										Choose File <s:file style="display: none;"
 											name="bsi" id="bsi" />
 								</span>
 								</label>
 							</div>
-						</div>
-						<button type="button" name="bsiUpload"
-							class="saved btn btn-primary has-spinner upload"
-							id="bsiUpload"><i class="fa fa-spinner fa-spin"></i> Upload File</button>				
+						</div>				
 						
 						<div class="loadFileHistory">
 							<s:include value="/jsp/content/submissionBasicStudyInfoFile.jsp" />

@@ -5,9 +5,9 @@
 <label for="exceptionMemo" style="width: auto; display: none;">Upload
 	Exception Memo</label>
 
-<div class="col-lg-6">
+<div style="margin-bottom: 10px;">
 	<div class="input-group">
-		<input type="text" class="form-control" placeholder="Choose File to Upload" readonly><label
+		<label
 			class="input-group-btn"> <span class="btn btn-default">
 				Choose File
 			<s:file style="display: none;" name="exceptionMemo" id="exceptionMemo" />
@@ -15,9 +15,6 @@
 		</label>
 	</div>
 </div>
-<button type="button" name="exceptionMemoUpload"
-		class="saved btn btn-primary has-spinner upload"
-		id="exceptionMemoUpload"><i class="fa fa-spinner fa-spin"></i> Upload File</button>	
 						
 <s:if test="%{excepMemoFile.size > 0}">
 	<p></p>

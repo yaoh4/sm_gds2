@@ -7,9 +7,9 @@
 <!--BEGIN Uploader-->
 <s:hidden name="docId" value="%{doc.id}" />
 
-<div class="col-lg-6">
+<div>
 	<div class="input-group">
-		<input type="text" class="form-control" placeholder="Choose File to Upload" readonly><label
+		<label
 			class="input-group-btn"> <span class="btn btn-default">
 				Choose File
 			<s:file style="display: none;" name="ic" id="ic" />
@@ -17,9 +17,6 @@
 		</label>
 	</div>
 </div>
-<button type="button" name="icUpload"
-		class="saved btn btn-primary has-spinner upload"
-		id="icUpload"><i class="fa fa-spinner fa-spin"></i> Upload File</button>
 
 <div id="loadIcFileHistory">
 	<s:if test="%{icFileDocs.size > 0}">

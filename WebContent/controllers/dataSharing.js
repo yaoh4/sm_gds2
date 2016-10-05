@@ -102,7 +102,7 @@ $("#19").change(function () {
 controlledUnrestricted(true);
 
 // Data sharing plan file upload Ajax
-$("#gds-form").on('click', '#dataSharingPlanUpload', function () {
+$("#gds-form").on('change', '#dataSharingPlan', function () {
 
 	var result = "";
 	var $form, fd;
@@ -135,7 +135,7 @@ $("#gds-form").on('click', '#dataSharingPlanUpload', function () {
 });
 
 // Exception memo file upload Ajax
-$("#gds-form").on('click', '#exceptionMemoUpload', function () {
+$("#gds-form").on('change', '#exceptionMemo', function () {
 	
 	var result = "";
 	var $form, fd;

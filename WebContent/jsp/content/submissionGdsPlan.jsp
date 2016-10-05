@@ -221,10 +221,8 @@
 					id="dataSharingPlanDiv">
 					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
 
-					<div class="col-lg-6">
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Choose File to Upload" readonly><label
+					<div style="margin-bottom: 10px;">
+						<div class="input-group"><label
 								class="input-group-btn"> <span class="btn btn-default">
 									Choose File <s:file style="display: none;" name="dataSharingPlan"
 										id="dataSharingPlan" />
@@ -232,9 +230,7 @@
 							</label>
 						</div>
 					</div>
-					<button type="button" name="dataSharingPlanUpload"
-						class="saved btn btn-primary has-spinner upload" id="dataSharingPlanUpload"><i class="fa fa-spinner fa-spin"></i> Upload File</button>
-					
+										
 					<div class="loadFileHistory">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>

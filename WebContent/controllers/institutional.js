@@ -290,7 +290,7 @@ $('#finalprov').on('change', function() {
 $(document).ready(function () {
 
 	// IC file upload Ajax
-	$("#institutional_form").on('click', '#icUpload', function () {
+	$("#institutional_form").on('change', '#ic', function () {
 
 		$("#messages").empty();
 		
