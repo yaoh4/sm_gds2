@@ -1434,3 +1434,9 @@ table.dataTable tbody tr td.even {
   border-top: 1px !important ;
 }
 
+.floatingHeader {
+  position: fixed;
+  top: 0;
+  visibility: hidden;
+}
+

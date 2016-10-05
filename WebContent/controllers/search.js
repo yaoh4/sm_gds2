@@ -90,6 +90,7 @@ $(document).ready(function(){
                 {
                 "targets": -1, // Last column, action
                 "width": "8%",
+                "className": "persist-header",
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                 	var addNewVersion = '', addSubproject = '';
@@ -106,7 +107,7 @@ $(document).ready(function(){
                 {
                 "targets": -2, // Repository
                 "width": "7%",
-                "className": "text-nowrap",
+                "className": "text-nowrap persist-header",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	 {
@@ -126,6 +127,7 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": 1, // First visible column, grant number.  id is column 0.
+                 "className": "persist-header",
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
                 		if(row.subprojectCount != null && row.subprojectCount > 0 ||
@@ -144,6 +146,7 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": 3, // PI email and name
+                 "className": "persist-header",
                 "render": function (data, type, row, width,meta) {
                     if (type === 'display' && row.piEmailAddress != null && row.piEmailAddress != "" &&
                     		row.piLastName != null && row.piLastName != "" &&
@@ -158,7 +161,8 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": [6, 7, 8, 9, 13], // Status columns
-                "width": "7%",
+                 "className": "persist-header",
+                "width": "10%",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
@@ -438,8 +442,46 @@ function deleteSubmission(projectId)
 	});
 }
 
-    
+ //function for sticky header on table    
+function UpdateTableHeaders() {
+   $("#submissionTable").each(function() {
+   
+       var el             = $(this),
+           offset         = el.offset(),
+           scrollTop      = $(window).scrollTop(),
+           floatingHeader = $(".floatingHeader", this)
+       
+       if ((scrollTop > offset.top) && (scrollTop < offset.top + el.height())) {
+           floatingHeader.css({
+            "visibility": "visible"
+           });
+       } else {
+           floatingHeader.css({
+            "visibility": "hidden"
+           });      
+       };
+   });
+}
 
+// DOM Ready function for sticky header on table     
+$(function() {
+
+   var clonedHeaderRow;
+
+   $("#submissionTable").each(function() {
+       clonedHeaderRow = $(".persist-header", this);
+       clonedHeaderRow
+         .before(clonedHeaderRow.clone())
+         .css("width", clonedHeaderRow.width())
+         .addClass("floatingHeader");
+         
+   });
+   
+   $(window)
+    .scroll(UpdateTableHeaders)
+    .trigger("scroll");
+   
+});
 
 
 
