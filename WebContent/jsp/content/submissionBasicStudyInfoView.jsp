@@ -21,10 +21,22 @@
           No data entered.
         </s:if>
         <s:else>
+        <s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID) != ''}">  	
+	  <tr>
+	    <td><strong> Repository(ies) the data will be submitted to:</strong></td>
+        <td> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_REPOSITORY_ID)}" /></td>
+	  </tr>
+      <tr>
+        <td style="white-space: nowrap">&nbsp;</td>
+        <td colspan="4">&nbsp;</td>
+      </tr>	  
+	</s:if>
+	     <p>&nbsp;</p>
         <s:if test="%{project.bsiReviewedFlag != null}">  
           <table width="100%" border="0" cellpadding="3" ><tr><td width="30%" style="white-space: nowrap"><strong>Has the GPA reviewed the Basic Study Information?</strong><td><s:property value="%{getDisplayNameByFlag(project.bsiReviewedFlag)}"/></td></tr></table>  
           </s:if>
           <p>&nbsp;</p>
+          
           <s:if test="%{bsiFile[0] != null}">
           <p><strong>Uploaded Basic Study Infomation Form:</strong><br>
             <table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
