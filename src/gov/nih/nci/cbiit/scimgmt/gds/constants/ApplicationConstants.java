@@ -96,12 +96,14 @@ public interface ApplicationConstants {
 			 
 	 public static final String DISPLAY_NAME_YES = "Yes";
 	 public static final String DISPLAY_NAME_NO = "No";
+	 public static final String DISPLAY_NAME_NA = "Not Applicable";
 	 
 	 //public static final Long NO_ID  = 19L;
 	 
 	 /* Data Constants for flags*/
 	 public static final String FLAG_YES = "Y";
 	 public static final String FLAG_NO = "N";
+	 public static final String FLAG_NA = "Q";
 	 
 	 /*Constants for page codes*/
 	 //public static final String PAGE_CODE_ICLIST = "ICLIST";
