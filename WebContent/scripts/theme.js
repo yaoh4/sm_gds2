@@ -98,7 +98,7 @@ $(document).ready(function() {
 var stickyNavTop = $('.stickyDiv').offset().top;
  
 var stickyNav = function(){
-var scrollTop1 = $(window).scrollTop1();
+var scrollTop1 = $(window).scrollTop();
       
 if (scrollTop1 > stickyNavTop) { 
     $('.stickyDiv').addClass('sticky');
