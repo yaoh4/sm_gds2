@@ -114,6 +114,10 @@ $(window).scroll(function() {
 });
 });
 
+$('#submissionTable').dataTable( {
+  "autoWidth": false
+} );
+
 
 
 
