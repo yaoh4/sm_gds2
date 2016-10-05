@@ -1,11 +1,10 @@
 ////for page institutional_dashboard.htm
 $(document).ready(function() {
-	if($("#subprojectFlag").val().toUpperCase() == 'Y') {
-	if ($('.alert').is(':visible')){
+	
+	if ($('.alert-danger').is(':visible')){
 		$("#radioCertCompleteY").prop('checked', true);
 		 $("#certFlag").val("Y");  
 	      }
-	}
 	
 
   if($("#icIds") != null && $("#icIds").val().length > 0) {
@@ -19,33 +18,32 @@ $(document).ready(function() {
 	});
   }
 	
+  if ($("#radioCertCompleteY").prop("checked") == true) {
+	  $("#certFlag").val("Y");
+  	     }
+  else if($("#radioCertCompleteN").prop("checked") == true){
+	  	$("#certFlag").val("N");
+  }
   
   if($("#subprojectFlag").val().toUpperCase() == 'Y') {
 	  
-	  if ($("#radioCertCompleteY").prop("checked") == true) {
-		  $("#certFlag").val("Y");
-	  	     }
-	  else if($("#radioCertCompleteN").prop("checked") == true){
-		  	$("#certFlag").val("N");
-	  }
-
 	  var atLeastOneIsChecked = $('input[name="ic-selected"]:checked').length > 0;
 	  $("#selectIcs").val(atLeastOneIsChecked);
 	  $('input:checkbox').change(function() {
    	   var atLeastOneIsChecked = $('input[name="ic-selected"]:checked').length > 0;
    		  $("#selectIcs").val(atLeastOneIsChecked);
-      });
-	  
-       $('input[type="radio"]').click(function() {
-    	   if ($("#radioCertCompleteY").prop("checked") == true) {
-    		   $("#certFlag").val("Y");
-	  		}
-	  else if($("#radioCertCompleteN").prop("checked") == true){
-		  $("#certFlag").val("N");
-	  }
-  });
-       
+      });    
   }
+  
+  $('input[type="radio"]').click(function() {
+	   if ($("#radioCertCompleteY").prop("checked") == true) {
+		   $("#certFlag").val("Y");
+ 		}
+ else if($("#radioCertCompleteN").prop("checked") == true){
+	  $("#certFlag").val("N");
+ }
+});
+  
   //show/hide Add Additional Instititional Certificates link if not subproject
   if($("#subprojectFlag").val().toUpperCase() == 'N') {
 	if ($("#radioCertCompleteY").prop("checked") == true) {
