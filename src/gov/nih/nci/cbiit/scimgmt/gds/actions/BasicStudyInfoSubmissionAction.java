@@ -307,7 +307,11 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		List<Document> docs = 
 				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, project.getId());
 		
-		if(!ApplicationConstants.FLAG_YES.equals(project.getBsiReviewedFlag()) 
+		if(ApplicationConstants.FLAG_NA.equalsIgnoreCase(project.getBsiReviewedFlag())) {
+			
+			return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		
+		} else if(!ApplicationConstants.FLAG_YES.equals(project.getBsiReviewedFlag()) 
 				|| CollectionUtils.isEmpty(docs)) {
 			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 		}
