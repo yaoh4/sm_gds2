@@ -31,7 +31,7 @@ $(document).ready(function(){
             "serverSide": true,
             "stateSave": true,
             "destroy": true,
-            "fixedHeader": true,
+            "fixedHeader": false,
             "deferLoading": 0,
             "ajax": {
                 "url": "search.action",
