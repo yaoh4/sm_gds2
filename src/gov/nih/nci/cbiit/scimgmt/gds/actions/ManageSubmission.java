@@ -465,6 +465,8 @@ public class ManageSubmission extends BaseAction {
 			 return ApplicationConstants.DISPLAY_NAME_YES;
 		} else if(ApplicationConstants.FLAG_NO.equals(flag)) {
 			return ApplicationConstants.DISPLAY_NAME_NO;
+		} else if(ApplicationConstants.FLAG_NA.equalsIgnoreCase(flag)){
+			return ApplicationConstants.DISPLAY_NAME_NA;
 		} else {
 			return flag;
 		}
