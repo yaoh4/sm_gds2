@@ -94,7 +94,11 @@ public class ProjectSearchDao {
 			
 			// Retrieve subproject matches
 			List<Long> projectIdsContainingMatchingSubproject = new ArrayList<Long>();
-			if(StringUtils.isBlank(searchCriteria.getSelectedTypeOfProject())) {
+			if(StringUtils.isBlank(searchCriteria.getSelectedTypeOfProject()) &&
+					(searchCriteria.getPdNpnId() != null ||
+					!StringUtils.isBlank(StringUtils.trim(searchCriteria.getProjectTitle())) || 
+					!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPiFirstOrLastName())) ||
+					!StringUtils.isBlank(StringUtils.trim(searchCriteria.getGrantContractNum())))) {
 				criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class, "project");
 				addContainingMatchingSubprojectCriteria(criteria, searchCriteria);
 				criteria.setProjection(Property.forName("id"));
