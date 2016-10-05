@@ -157,19 +157,29 @@ public class IcListSubmissionAction extends ManageSubmission {
 		return SUCCESS;
 	}
 	
-	public void validateIcListSubmission(){
+	public void validateIcListSubmission() {
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(retrieveSelectedProject().getSubprojectFlag())) {
-			if(("Y").equalsIgnoreCase(certFlag) && (!ifIcSelected)){
+			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(certFlag) && (!ifIcSelected)){
 				this.addActionError(getText("error.ic.selection")); 
 			}
-				
-		} if(hasActionErrors()){
+		}
+		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(retrieveSelectedProject().getSubprojectFlag())) {
+		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(certFlag)) {
+			List<InstitutionalCertification> icList = retrieveSelectedProject().getInstitutionalCertifications();
+			for(InstitutionalCertification ic: icList) {
+				if(!ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equals(ic.getStatus())) {
+					this.addActionError(getText("error.ic.complete.status"));
+					break;
+				}
+			}
+		}
+		
+		} if(hasActionErrors()) {
 			if(StringUtils.isNotBlank(getProjectId())){
 				getProject().setId(Long.valueOf(getProjectId()));
 			}
 			getIcList();
 			icIds="";
-			
 		}
 	}
 	
