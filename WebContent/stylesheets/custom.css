@@ -1436,9 +1436,9 @@ table.dataTable tbody tr td.even {
 
 section {
   position: relative;
-  border: 1px solid #000;
+ 
   padding-top: 37px;
-  background: #500;
+ 
 }
 section.positioned {
   position: absolute;
