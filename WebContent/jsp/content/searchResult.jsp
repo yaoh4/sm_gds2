@@ -4,9 +4,8 @@
 	<br />
 	<h3>Search Results</h3>
 	<br />
-
 	<table id="submissionTable" style="table-layout: fixed;" class="table table-striped table-bordered" >
-
+        <thead>
         <tr>
 			<th>Project ID</th>
 			<th>Project Submission Title</th>
@@ -27,10 +26,8 @@
 			<th>Submission<br/> Status</th>
 			<th style="whitespace:nowrap;">Actions</th>
 		</tr>
-
         </thead>
     </table>
-
 
 	<div id="repoModal" class="modal fade" role="dialog">
 		<s:include value="/jsp/content/searchResultRepository.jsp"/>
