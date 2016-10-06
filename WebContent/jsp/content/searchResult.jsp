@@ -4,6 +4,8 @@
 	<br />
 	<h3>Search Results</h3>
 	<br />
+	<section class="">
+  <div class="container1">
 	<table id="submissionTable" style="table-layout: fixed;" class="table table-striped table-bordered" >
         <thead>
         <tr>
@@ -28,6 +30,8 @@
 		</tr>
         </thead>
     </table>
+</div>
+</section>
 
 	<div id="repoModal" class="modal fade" role="dialog">
 		<s:include value="/jsp/content/searchResultRepository.jsp"/>
