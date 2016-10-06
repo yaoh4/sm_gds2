@@ -6,8 +6,7 @@
 	<br />
 
 	<table id="submissionTable" style="table-layout: fixed;" class="table table-striped table-bordered" >
-       	<section class="">
-  <div class="container1"> <thead>
+
         <tr>
 			<th>Project ID</th>
 			<th>Project Submission Title</th>
@@ -28,8 +27,7 @@
 			<th>Submission<br/> Status</th>
 			<th style="whitespace:nowrap;">Actions</th>
 		</tr>
-		</div>
-</section>
+
         </thead>
     </table>
 
