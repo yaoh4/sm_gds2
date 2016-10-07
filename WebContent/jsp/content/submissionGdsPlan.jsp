@@ -245,12 +245,13 @@
 					<div class="loadFileHistory">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>
-				</div>
+				
 
-				<div>
+				<div style="clear:both;">
 					<p class="question">Comments (2000 Characters):</p>
 					<s:textarea class="col-md-10" rows="3" maxlength="2000" name="comments"></s:textarea>
 				</div>
+			</div>
 			</div>
 			<!--end panel body-->
 		</div>
