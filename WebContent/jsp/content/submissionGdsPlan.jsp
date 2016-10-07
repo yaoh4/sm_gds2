@@ -69,7 +69,7 @@
 				</div>
 
 				<%-- Will there be any data submitted? --%>
-				<div id="8" style="${map['8'].style}" class="qSpacing">
+				<div id="8" style="${map['8'].style}; clear:both;" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(8).getDisplayText()}" /></p>
 					<s:set name="params" value="%{map[8].parameters}" />
@@ -217,11 +217,12 @@
 				</div>
 
 				<!--BEGIN HIDDEN Field for Uploader-->
-				<div class="qSpacing" style="margin-left: 30px; ${map['dataSharingPlanDiv'].style}"
+				<div style="width:600px;">
+				<div class="qSpacing" style="margin-left: 30px; float:left; width: 55%; ${map['dataSharingPlanDiv'].style}"
 					id="dataSharingPlanDiv">
-					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
+					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p></div>
 
-					<div style="margin-bottom: 10px;">
+					<div style="margin-bottom: 30px; float: left; width: 40%;">
 						<div class="input-group"><label
 								class="input-group-btn"> <span class="btn btn-default">
 									Choose File <s:file style="display: none;" name="dataSharingPlan"
@@ -230,8 +231,9 @@
 							</label>
 						</div>
 					</div>
+				</div>
 										
-					<div class="loadFileHistory">
+					<div class="loadFileHistory" style="clear:both;">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>
 				</div>
