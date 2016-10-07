@@ -7,7 +7,7 @@
 	Exception Memo</label>
 </div>
 
-<div style="margin-bottom: 30px; float:left; width:40%;">
+<div style="margin-bottom: 20px; float:left; width:40%;">
 	<div class="input-group">
 		<label
 			class="input-group-btn"> <span class="btn btn-default">
@@ -16,9 +16,10 @@
 		</span>
 		</label>
 	</div>
-	<div style="float: left; clear:both;"></div>
+
 </div>
 </div>
+<div style="clear:both;"></div>
 						
 <s:if test="%{excepMemoFile.size > 0}">
 	<p></p>

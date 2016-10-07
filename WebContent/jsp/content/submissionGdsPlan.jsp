@@ -230,12 +230,13 @@
 							</span>
 							</label>
 						</div>
-					</div>
-					<div style="float: left; clear:both;"></div>
+				<div>
+					
 				</div>
+				<div style="float: left; clear:both;"></div>
 
 										
-					<div class="loadFileHistory" style="clear:both;">
+					<div class="loadFileHistory">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>
 				</div>
