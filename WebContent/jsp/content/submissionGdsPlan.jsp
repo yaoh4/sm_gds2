@@ -69,7 +69,7 @@
 				</div>
 
 				<%-- Will there be any data submitted? --%>
-				<div id="8" style="${map['8'].style}; clear:both;" class="qSpacing">
+				<div id="8" style="${map['8'].style};" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(8).getDisplayText()}" /></p>
 					<s:set name="params" value="%{map[8].parameters}" />
@@ -231,7 +231,9 @@
 							</label>
 						</div>
 					</div>
+					<div style="float: left; clear:both;"></div>
 				</div>
+
 										
 					<div class="loadFileHistory" style="clear:both;">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
