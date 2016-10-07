@@ -1,13 +1,13 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <div style="width:600px;">
-<div style="width: 300px; float: left;">
+<div style="width: 60%; float: left;">
 	<p class="question">Upload Exception Memo: [to be uploaded by GPA]</p>
 
 <label for="exceptionMemo" style="width: auto; display: none;">Upload
 	Exception Memo</label>
 </div>
 
-<div style="margin-bottom: 10px; float:left; width:300px;">
+<div style="margin-bottom: 20px; float:left; width:20%;">
 	<div class="input-group">
 		<label
 			class="input-group-btn"> <span class="btn btn-default">
