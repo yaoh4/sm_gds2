@@ -217,23 +217,29 @@
 				</div>
 
 				<!--BEGIN HIDDEN Field for Uploader-->
-				<div style="width:600px;">
-				<div class="qSpacing" style="margin-left: 30px; float:left; width: 55%; ${map['dataSharingPlanDiv'].style}"
+			<div style="width:600px;">
+	
+				<div class="qSpacing" style="margin-left: 30px; float:left; width: 58%; ${map['dataSharingPlanDiv'].style}"
 					id="dataSharingPlanDiv">
-					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p></div>
-
-					<div style="margin-bottom: 30px; float: left; width: 40%;">
-						<div class="input-group"><label
-								class="input-group-btn"> <span class="btn btn-default">
-									Choose File <s:file style="display: none;" name="dataSharingPlan"
-										id="dataSharingPlan" />
-							</span>
-							</label>
-						</div>
-				<div>
-					
+					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
 				</div>
-				<div style="float: left; clear:both;"></div>
+
+					<div style="margin-bottom: 30px; float: left; width: 30%;">
+								<div class="input-group">
+									<label class="input-group-btn"> 
+										<span class="btn btn-default">
+										Choose File <s:file style="display: none;" name="dataSharingPlan"
+										id="dataSharingPlan" />
+										</span>
+									</label>
+								</div>
+					
+					</div>
+			
+			</div>
+
+
+				<div style="float: left; clear:both;">&nbsp;</div>
 
 										
 					<div class="loadFileHistory">
