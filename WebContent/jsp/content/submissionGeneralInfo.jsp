@@ -184,7 +184,8 @@
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
-
+                    
+                    <div id="piInstution">
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="Institution of Principal Investigator"><i
@@ -193,7 +194,8 @@
 								<s:textfield name="project.piInstitution" cssClass="form-control unlink-group" id="PIInstitute" placeholder="" value="%{project.piInstitution}"  maxLength="120"/>								
 						</div>
 					</div>
-
+                    </div>
+                    
 					<div class="row">
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="First Name of Principal Investigator">First
