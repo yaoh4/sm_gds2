@@ -30,8 +30,8 @@ $(document).ready(function(){
             "processing": false,
             "serverSide": true,
             "stateSave": true,
-            "destroy": true,
-            "fixedHeader": true,
+            "destroy": true,  
+            "fixedHeader": false,
             "deferLoading": 0,
             "ajax": {
                 "url": "search.action",
@@ -443,7 +443,13 @@ function deleteSubmission(projectId)
 	});
 }
 
- 
+$(document).ready(function() {
+    $('#submissionTable').DataTable( {
+        "scrollY":        "200px",
+        "scrollCollapse": true,
+        "paging":         true
+    } );
+} ); 
 
 
 
