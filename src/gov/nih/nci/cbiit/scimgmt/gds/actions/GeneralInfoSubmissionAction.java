@@ -693,10 +693,12 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				if(StringUtils.isBlank(getProject().getPiEmailAddress())){
 					this.addActionError(getText("pi.email.required")); 
 				}
-
+                   
 				//Validation for PI institution.
+				if(!("M").equalsIgnoreCase(grantSelection)) {
 				if(StringUtils.isBlank(getProject().getPiInstitution())){
 					this.addActionError(getText("pi.institution.required")); 
+					}
 				}
 			}
 		}
