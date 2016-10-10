@@ -255,7 +255,7 @@
 			</div>
 			<!--end panel body-->
 		</div>
-	</div>
+	
 	
 
 	<!--SAVE & NEXT BUTTONS-->
@@ -263,6 +263,7 @@
 		<s:submit action="saveGdsPlan" onclick="enableAllCheckbox();return warnGdsPlan()" value=" Save " class="saved btn btn-default"/>
 		<s:submit type="button" action="saveGdsPlanAndNext" onclick="enableAllCheckbox();return warnGdsPlanNext()" class="btn btn-project-primary">
 			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
+	</div>
 	</div>
 </s:form>
 
