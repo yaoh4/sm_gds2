@@ -89,12 +89,12 @@ $(document).ready(function(){
                 {
                 "targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15 ],
                 "visible": false,
-                 "className": "persist-header",
+                
                 },
                 {
                 "targets": -1, // Last column, action
                 "width": "8%",
-                "className": "persist-header",
+              
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                 	var addNewVersion = '', addSubproject = '';
@@ -111,7 +111,7 @@ $(document).ready(function(){
                 {
                 "targets": -2, // Repository
                 "width": "10%",
-                "className": "text-nowrap persist-header",
+                "className": "text-nowrap",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	 {
@@ -131,7 +131,7 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": 1, // First visible column, grant number.  id is column 0.
-                 "className": "persist-header",
+                 
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
                 		if(row.subprojectCount != null && row.subprojectCount > 0 ||
@@ -150,7 +150,7 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": 3, // PI email and name
-                 "className": "persist-header",
+                 
                 "render": function (data, type, row, width,meta) {
                     if (type === 'display' && row.piEmailAddress != null && row.piEmailAddress != "" &&
                     		row.piLastName != null && row.piLastName != "" &&
@@ -165,7 +165,7 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": [6, 7, 8, 9, 13], // Status columns
-                 "className": "persist-header",
+                 
                 "width": "10%",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
