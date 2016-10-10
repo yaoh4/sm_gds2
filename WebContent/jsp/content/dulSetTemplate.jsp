@@ -53,7 +53,7 @@
                       	<input type="text" class="form-control input_other" 
                       	  id="otherAddText0-0-${parentDul.id}"
                       	  name="otherAddText-0-0-${parentDul.id}" 
-                      	  placeholder="Please Be Specific" maxlength="100">
+                      	  placeholder="Please Be Specific" maxlength="350">
                       </span>
                     </s:if>
                     
