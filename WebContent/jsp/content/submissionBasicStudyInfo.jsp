@@ -112,12 +112,13 @@
 
 
 					<!--  File Upload -->
-					<p class="question">
+					<div style="width:600px;">
+					<div style="margin-left: 30px; float:left; width: 58%"><p class="question">
 					<!-- <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
 						Upload Basic Study Information:
-					</p>
+					</p></div>
 					<!--BEGIN Uploader-->
-					<div class="qSpacing" id="bsiDiv">
+					<div class="qSpacing" id="bsiDiv" style="margin-bottom: 30px; float: left; width: 30%;">
 						<div>
 							<div class="input-group">
 								<label
@@ -127,9 +128,11 @@
 								</span>
 								</label>
 							</div>
-						</div>				
+						</div>	
+
+						</div>			
 						
-						<div class="loadFileHistory">
+						<div class="loadFileHistory" style="clear:both;">
 							<s:include value="/jsp/content/submissionBasicStudyInfoFile.jsp" />
 						</div>
 					</div>

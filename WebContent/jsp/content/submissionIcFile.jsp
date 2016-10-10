@@ -1,13 +1,17 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
-
+<div style="width:600px;">
+<div style="margin-left: 30px; float:left; width: 58%;">	
 <p class="question">
 	<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>
 	Upload Institutional Certification
 </p>
+</div>
+
+
 <!--BEGIN Uploader-->
 <s:hidden name="docId" value="%{doc.id}" />
 
-<div>
+<div style="margin-bottom: 30px; float: left; width: 30%;">
 	<div class="input-group">
 		<label
 			class="input-group-btn"> <span class="btn btn-default">
@@ -16,6 +20,7 @@
 		</span>
 		</label>
 	</div>
+</div>
 </div>
 
 <div id="loadIcFileHistory">
