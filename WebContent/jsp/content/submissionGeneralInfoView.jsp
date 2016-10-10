@@ -99,10 +99,12 @@
       <td ><strong>Email:</strong></td>
       <td width="67%"><s:a href="mailto:%{project.piEmailAddress}?">${project.piEmailAddress}</s:a></td>
     </tr>
+    <s:if test="%{!project.applClassCode.equals(\"M\")}">
     <tr>
       <td style="white-space: nowrap"><strong>Institution:</strong></td>
       <td colspan="4">${project.piInstitution}</td>
     </tr>
+    </s:if>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
