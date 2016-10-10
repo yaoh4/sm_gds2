@@ -32,7 +32,7 @@ $(document).ready(function(){
             "stateSave": true,
             "destroy": true,  
             "fixedHeader": false,
-             "scrollY":  "600px",
+             "scrollY":  "300px",
             "scrollCollapse": true,
      
             "deferLoading": 0,
