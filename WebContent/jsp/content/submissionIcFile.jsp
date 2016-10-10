@@ -1,6 +1,6 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <div style="width:600px;">
-<div style="margin-left: 30px; float:left; width: 58%;">	
+<div style="margin-left: 30px; float:left; width: 42%;">	
 <p class="question">
 	<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>
 	Upload Institutional Certification

@@ -113,7 +113,7 @@
 
 					<!--  File Upload -->
 					<div style="width:600px;">
-					<div style="margin-left: 30px; float:left; width: 58%"><p class="question">
+					<div style="margin-left: 30px; float:left; width: 38%"><p class="question">
 					<!-- <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
 						Upload Basic Study Information:
 					</p></div>
