@@ -32,6 +32,9 @@ $(document).ready(function(){
             "stateSave": true,
             "destroy": true,  
             "fixedHeader": false,
+             "scrollY":  "200px",
+            "scrollCollapse": true,
+     
             "deferLoading": 0,
             "ajax": {
                 "url": "search.action",
