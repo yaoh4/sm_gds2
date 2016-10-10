@@ -32,7 +32,7 @@ $(document).ready(function(){
             "stateSave": true,
             "destroy": true,  
             "fixedHeader": false,
-             "scrollY":  "200px",
+             "scrollY":  "600px",
             "scrollCollapse": true,
      
             "deferLoading": 0,
@@ -446,13 +446,7 @@ function deleteSubmission(projectId)
 	});
 }
 
-$(document).ready(function() {
-    $('#submissionTable').DataTable( {
-        "scrollY":        "200px",
-        "scrollCollapse": true,
-        "paging":         true
-    } );
-} ); 
+
 
 
 
