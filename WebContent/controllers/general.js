@@ -420,6 +420,7 @@ function refreshGrantsContractsData(){
 		$("#grantDiv").show();
 		$("#title").show();
 	    $("#canAct").hide();
+	    $("#piInstution").hide();
 		$("#pdName").hide();
 		$("#pStartDate").hide();
 		$("#pEndDate").hide();
@@ -474,6 +475,7 @@ function refreshGrantsContractsData(){
 				$(".unlink-group").prop('disabled', false);
 			}
 		}
+		$("#piInstution").show();
 		$("#pdName").show();
 		$("#pStartDate").show();
 		$("#pEndDate").show();
