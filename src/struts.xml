@@ -49,7 +49,6 @@
 		</global-exception-mappings>	
 		
 		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.HomeAction">
-		<!-- <result name="success" type="redirect-action">manage/home</result>	-->	
 			<result name="success" type="redirect-action">search/home</result>				
 		</action>
 		

@@ -9,16 +9,6 @@
 		<nav>
 			<div id="mainNav" class="navbar-header" style="display:block;">
 				<ul class="nav navbar-nav navbar-main">
-			<!-- 	<s:if test="%{'home' eq #attr['navtab']}">
-					<li class="active"><s:a href="javascript: void(0)">
-						Home
-					</s:a></li>
-				</s:if>
-				<s:else>
-					<li><s:a href="/gds/search/home.action">
-					Home
-					</s:a></li>
-				</s:else> -->
 				<s:if test="%{'newSubmission' eq #attr['navtab']}">
 				<s:if test="%{project == null || project.id == null}">
 					<li class="active"><s:a href="javascript: void(0)">
