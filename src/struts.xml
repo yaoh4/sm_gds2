@@ -53,7 +53,7 @@
 		</action>
 		
 		<action name="sendErrorMessage" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ErrorMessageAction">
-			<result type="redirectAction" name="success">home</result>
+			<result type="redirectAction" name="success">search/home</result>
 		</action>	
 		
 		<action name="ChangeUser" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ChangeUserAction">
