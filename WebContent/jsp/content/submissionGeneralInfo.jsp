@@ -79,7 +79,7 @@
 								<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue"  value="%{preSelectedDOC}"/>								
 						</s:if>
 						<s:else>
-						<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue" contenteditable="true" readonly="true"  value="%{preSelectedDOC}"/>
+						<s:select id="DOC" cssClass="c-select form-control" name="project.docAbbreviation" list="docList" listKey="optionKey" listValue="optionValue" disabled="true"  value="%{preSelectedDOC}"/>
 						</s:else>
 						</div>
 						</div>
@@ -95,7 +95,7 @@
 				
 						</s:if>
 						<s:else>
-						<s:select id="programBranch" cssClass="c-select form-control" name="project.programBranch" list="progList" listKey="optionKey" listValue="optionValue"  contenteditable="true" readonly="true" value="%{project.programBranch}"/>	
+						<s:select id="programBranch" cssClass="c-select form-control" name="project.programBranch" list="progList" listKey="optionKey" listValue="optionValue"  disabled="true"  value="%{project.programBranch}"/>	
 							
 						</s:else>
 						</div>
