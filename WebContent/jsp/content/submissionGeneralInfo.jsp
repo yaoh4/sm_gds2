@@ -129,7 +129,7 @@
 															
 							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
 							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
-							<a href="javascript: void(0)" id="unlink" class="btn btn-default" title="Link" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
+							<a href="javascript: void(0)" id="unlink" class="btn btn-default" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
 														  
 							</div>
 	 
