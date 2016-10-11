@@ -23,12 +23,13 @@ public class SubmissionSearchCriteria {
     private String parentSearch;
     private String selectedTypeOfProject;
     private Long submissionReasonId;
+    private boolean excludeCompleted = false;
     
 	public SubmissionSearchCriteria(){}
 
 	public SubmissionSearchCriteria(Long submissionFromId, Long pdNpnId, 
 			String grantContractNum, String projectTitle, String accessionNumber, 
-			String piFirstOrLastName, String parentSearch) {
+			String piFirstOrLastName, String parentSearch, boolean excludeCompleted) {
 		this.submissionFromId = submissionFromId;
 		this.pdNpnId = pdNpnId;
 		this.grantContractNum = grantContractNum;
@@ -36,6 +37,7 @@ public class SubmissionSearchCriteria {
 		this.accessionNumber = accessionNumber;
 		this.piFirstOrLastName = piFirstOrLastName;
 		this.parentSearch = parentSearch;
+		this.excludeCompleted = excludeCompleted;
 	}
 
 	@Override
@@ -45,7 +47,7 @@ public class SubmissionSearchCriteria {
 				+ pdFirstAndLastName + ", grantContractNum=" + grantContractNum + ", projectTitle=" + projectTitle
 				+ ", accessionNumber=" + accessionNumber + ", piFirstOrLastName=" + piFirstOrLastName + ", doc=" + doc
 				+ ", start=" + start + ", length=" + length + ", sortBy=" + sortBy + ", sortDir=" + sortDir 
-				+ ", parentSearch=" + parentSearch + "]";
+				+ ", parentSearch=" + parentSearch + ", excludeCompleted=" + excludeCompleted + "]";
 	}
 	
 	/**
@@ -194,6 +196,14 @@ public class SubmissionSearchCriteria {
 
 	public void setSubmissionReasonId(Long submissionReasonId) {
 		this.submissionReasonId = submissionReasonId;
+	}
+
+	public boolean isExcludeCompleted() {
+		return excludeCompleted;
+	}
+
+	public void setExcludeCompleted(boolean excludeCompleted) {
+		this.excludeCompleted = excludeCompleted;
 	}
 
 }

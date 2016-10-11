@@ -37,8 +37,7 @@
 
 			<div class="form-group row">
 				<div class="col-xs-4">
-					<label for="projectTitle">Project/Subproject
-						Title:</label> 
+					<label for="projectTitle">Project Submission Title:</label> 
 					<s:textfield  name="criteria.projectTitle" class="form-control" id="projectTitle" maxLength="100"/>
 				</div>
 
@@ -55,6 +54,15 @@
 						list="submissionReasonList" listKey="optionKey" listValue="optionValue" emptyOption="true"/>
 				</div>
 			</div>
+
+			<div class="form-group row">
+				<div class="col-xs-4">
+					<s:checkbox id="exclude" name="criteria.excludeCompleted" /> 
+					<label for="exclude" style="font-weight: 600;">Exclude
+						Submissions in Completed Status</label>
+				</div>
+			</div>
+
 			<!--end form group-->
 			<div class="searchButton">
 				<button type="button" class="btn btn-primary has-spinner" id="search-btn"><i class="fa fa-spinner fa-spin"></i> Search</button>

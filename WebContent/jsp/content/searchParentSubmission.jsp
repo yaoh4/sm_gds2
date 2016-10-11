@@ -106,10 +106,10 @@
 					<div class="form-group row">
 						<div class="col-xs-4">
 							<s:if test="%{criteria.selectedTypeOfProject.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)}">
-								<label for="projectTitle">Subproject Title:</label>
+								<label for="projectTitle">Subproject Submission Title:</label>
 							</s:if>
 							<s:else>
-								<label for="projectTitle">Project Title:</label>
+								<label for="projectTitle">Project Submission Title:</label>
 							</s:else>
 							<s:textfield name="criteria.projectTitle" class="form-control"
 								id="projectTitle" maxLength="100"/>

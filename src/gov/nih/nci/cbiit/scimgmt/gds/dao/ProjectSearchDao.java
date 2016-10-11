@@ -328,6 +328,13 @@ public class ProjectSearchDao {
 			parentDetachedCriteria.add(Restrictions.eq("submissionReasonId", searchCriteria.getSubmissionReasonId()));
 			subprojectCriteria.add(Restrictions.eq("submissionReasonId", searchCriteria.getSubmissionReasonId()));
 		}
+		
+		// excludeCompleted
+		if (searchCriteria.isExcludeCompleted()) {
+			parentCriteria.add(Restrictions.ne("projectStatusCode", ApplicationConstants.PAGE_STATUS_CODE_COMPLETED));
+			parentDetachedCriteria.add(Restrictions.ne("projectStatusCode", ApplicationConstants.PAGE_STATUS_CODE_COMPLETED));
+			subprojectCriteria.add(Restrictions.ne("projectStatusCode", ApplicationConstants.PAGE_STATUS_CODE_COMPLETED));
+		}
 				
 		Disjunction dc = Restrictions.disjunction();
 		if(!StringUtils.equals(searchCriteria.getSelectedTypeOfProject(), ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)
@@ -417,6 +424,11 @@ public class ProjectSearchDao {
 			subprojectCriteria.add(Restrictions.eq("repositoryStatuses.accessionNumber", searchCriteria.getAccessionNumber().trim()));
 		}
 		
+		// excludeCompleted
+		if (searchCriteria.isExcludeCompleted()) {
+			subprojectCriteria.add(Restrictions.ne("projectStatusCode", ApplicationConstants.PAGE_STATUS_CODE_COMPLETED));
+		}
+				
 		criteria.add(Subqueries.propertyIn("id", subprojectCriteria.setProjection(Projections.property("subproject.parentProject.id"))));
 
 		return criteria;
