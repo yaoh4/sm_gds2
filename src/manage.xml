@@ -6,9 +6,12 @@
 	
 	<package name="manage" namespace="/manage" extends="default">
 	
-		<action name="home"	class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
-			 <result name="success" type="tiles">home</result>
+		<action name="testSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+			 <result name="success" type="tiles">testSearch</result>
 		</action>
+		<action name="home" method="createNewSubmission" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+			 <result name="success" type="tiles">createNewSubmission</result>
+		</action>	
 		<action name="newSubmission" method="createNewSubmission" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
 			 <result name="success" type="tiles">createNewSubmission</result>
 		</action>	
