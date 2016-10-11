@@ -113,7 +113,7 @@
 								  <s:textfield name="project.applicationNum"  maxlength="30" class="form-control" cssclass="form-control" readonly="true" id="grantsContractNum" placeholder="Click on Edit Icon" value="%{project.applicationNum}"/>
 								  <div class="input-group-btn">
                                     <a href="#" onclick="openGrantsContractsSearchPage()">
-																		<button class="btn btn-default" type="button" title="edit" style=" margin-left: -2px;">
+																		<button class="btn btn-default" type="button" title="Edit" style=" margin-left: -2px;">
 																			<i class="fa fa-pencil" aria-hidden="true"></i>
 																		</button></a> 
 								</div>

@@ -180,6 +180,7 @@ function populateGrantsContractsData(){
 		
 		//Replace search icon with edit icon since we already have a grant
 		$("#grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
+		$("#grantDiv button").attr("title", "Edit");
 	}
 	
 	if (json.applId !== "undefined") {

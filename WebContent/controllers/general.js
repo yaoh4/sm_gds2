@@ -53,6 +53,7 @@ function openGrantsContractsSearchPage() {
 $( document ).ready(function() {
 	if($("#grantsContractNum").val()=='') {
 		  $("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
+		  $("#grantDiv button").attr("title", "Search");
 		  $("#grantsContractNum").attr("placeholder", "Click on Search Icon");
 		  $("#canAct").hide();
 		  $("#linkButton").hide();
@@ -305,6 +306,7 @@ function refreshGrantsContractsData(){
 				$("#grantsContractNum").val('');
 				$(".unlink-group").val('');
 				$("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
+				$("#grantDiv button").attr("title", "Search");
 		  		$("#grantsContractNum").attr("placeholder", "Click on Search Icon");
 		  		$("#canAct").hide();
 		  		
