@@ -195,9 +195,9 @@ public class GdsSubmissionActionHelper {
 		persistentProject.setApplClassCode(transientProject.getApplClassCode());
 		if(!persistentProject.getSubprojectFlag().equalsIgnoreCase(ApplicationConstants.FLAG_YES)) {
 			persistentProject.setSubmissionReasonId(transientProject.getSubmissionReasonId());
+			persistentProject.setDocAbbreviation(transientProject.getDocAbbreviation());
+			persistentProject.setProgramBranch(transientProject.getProgramBranch());
 		}
-		persistentProject.setDocAbbreviation(transientProject.getDocAbbreviation());
-		persistentProject.setProgramBranch(transientProject.getProgramBranch());
 		persistentProject.setPocFirstName(transientProject.getPocFirstName());
 		persistentProject.setPocLastName(transientProject.getPocLastName());
 		persistentProject.setPocEmailAddress(transientProject.getPocEmailAddress());
