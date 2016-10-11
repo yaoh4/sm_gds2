@@ -156,6 +156,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				}
 				project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
 				project.setApplClassCode(parentProject.getApplClassCode());
+				project.setDocAbbreviation(parentProject.getDocAbbreviation());
 				project.setProgramBranch(parentProject.getProgramBranch());
 				//Create repository statuses for sub-project from parent
 				setupRepositoryStatuses(project, true);
@@ -361,8 +362,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			progList.clear();
 			List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
 			progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
-		}
-         
+			}
 	}
 	
 	
@@ -590,6 +590,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}
 		
 		Long submissionReasonId = null;
+		
         
 		//Validation for SubmissionReason
 		if(getProject().getParentProjectId() == null){
@@ -605,10 +606,16 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		//Exclude non-NIH funded submissions from the below validations
 		if(!submissionReasonId.equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
 			
-			
+			String progBranch="";
 			//Validation for Program/ Branch
-			if(StringUtils.isBlank(getProject().getProgramBranch())) {
-				this.addActionError(getText("programbranch.required")); 
+			if(getProject().getParentProjectId() == null){
+				progBranch = getProject().getProgramBranch();
+				if(StringUtils.isBlank(progBranch)) {
+					this.addActionError(getText("programbranch.required"));  
+					return;
+				}
+			} else {
+				progBranch = retrieveParentProject().getProgramBranch();
 			}
 		
 			
