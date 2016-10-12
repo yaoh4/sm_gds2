@@ -446,6 +446,13 @@ function deleteSubmission(projectId)
 }
 
 
+$('#submissionTable').DataTable( {
+    fixedHeader: {
+        headerOffset: 150
+    }
+} );
+
+
 
 
 

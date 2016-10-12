@@ -9,11 +9,11 @@
         <tr>
 			<th>Project ID</th>
 			<th>Project Submission Title</th>
-			<th>Grant / Intramural / Contract #</th>
+			<th>Grant/Intramural/<br> Contract #</th>
 			<th>Principal Investigator</th>
 			<th>PI First Name</th>
 			<th>PI Email</th>
-			<th width="6%">Genomic DSP</th>
+			<th width="7%">Genomic DSP</th>
 			<th width="6%">GDSP Excep.</th>
 			<th width="6%">IC</th>
 			<th width="6%">BSI</th>
@@ -23,7 +23,7 @@
 			<th>Expand Repository</th>
 			<th>Subproject Eligible Flag</th>
 			<th>Project Status Code</th>
-			<th width="7%">Submission<br/> Status</th>
+			<th width="9%">Submission<br/> Status</th>
 			<th width="10%" style="whitespace:nowrap;">Actions</th>
 		</tr>
         </thead>
