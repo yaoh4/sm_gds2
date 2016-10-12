@@ -92,7 +92,7 @@ $(document).ready(function(){
                 },
                 {
                 "targets": -1, // Last column, action
-                "width": "8%",
+               
               
                 "orderable": false,
                 "render": function (data, type, row, meta) {
@@ -109,7 +109,7 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": -2, // Repository
-                "width": "10%",
+                
                 "className": "text-nowrap",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
@@ -165,7 +165,7 @@ $(document).ready(function(){
                 {
                 "targets": [6, 7, 8, 9, 13], // Status columns
                  
-                "width": "10%",
+                
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
