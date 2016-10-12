@@ -9,14 +9,14 @@
         <tr>
 			<th>Project ID</th>
 			<th>Project Submission Title</th>
-			<th>Grant/<br />Intramural/Contract #</th>
+			<th>Grant / Intramural / Contract #</th>
 			<th>Principal Investigator</th>
 			<th>PI First Name</th>
 			<th>PI Email</th>
-			<th width="7%">Genomic DSP</th>
-			<th width="7%">GDSP Excep.</th>
-			<th width="7%">IC</th>
-			<th width="7%">BSI</th>
+			<th width="6%">Genomic DSP</th>
+			<th width="6%">GDSP Excep.</th>
+			<th width="6%">IC</th>
+			<th width="6%">BSI</th>
 			<th>Repository Count</th>
 			<th>Sub-project Count</th>
 			<th>Expand Subproject</th>

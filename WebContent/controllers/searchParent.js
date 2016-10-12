@@ -31,12 +31,8 @@ $(document).ready(function(){
             "serverSide": true,
             "stateSave": true,
             "destroy": true,
-            "fixedHeader": false,
-                         "scrollY":  "300px",
-                         "scrollX": 'false',
-
-           
-            "scrollCollapse": true,
+            "fixedHeader": true,
+          
             "deferLoading": 0,
             "ajax": {
                 "url": "search.action",
