@@ -13,17 +13,17 @@
 			<th>Principal Investigator</th>
 			<th>PI First Name</th>
 			<th>PI Email</th>
-			<th width="9%">Genomic<br/> DSP</th>
-			<th width="9%">GDSP Excep.</th>
-			<th width="9%">IC</th>
-			<th width="9%">BSI</th>
+			<th width="8%">Genomic<br/> DSP</th>
+			<th width="8%">GDSP Excep.</th>
+			<th width="8%">IC</th>
+			<th width="8%">BSI</th>
 			<th>Repository Count</th>
 			<th>Sub-project Count</th>
 			<th>Expand Subproject</th>
 			<th>Expand Repository</th>
 			<th>Subproject Eligible Flag</th>
 			<th>Project Status Code</th>
-			<th width="9%">Submission<br/> Status</th>
+			<th width="8%">Submission<br/> Status</th>
 			<th width="10%" style="whitespace:nowrap;">Actions</th>
 		</tr>
         </thead>
