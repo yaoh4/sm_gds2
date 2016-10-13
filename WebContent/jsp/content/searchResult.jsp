@@ -8,12 +8,12 @@
         <thead>
         <tr>
 			<th>Project ID</th>
-			<th>Project Submission Title</th>
+			<th>Project<br/> Submission Title</th>
 			<th>Grant/<br/>Intramural/Contract #</th>
 			<th>Principal Investigator</th>
 			<th>PI First Name</th>
 			<th>PI Email</th>
-			<th width="9%">Genomic DSP</th>
+			<th width="9%">Genomic<br/> DSP</th>
 			<th width="9%">GDSP Excep.</th>
 			<th width="9%">IC</th>
 			<th width="9%">BSI</th>
