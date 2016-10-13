@@ -71,6 +71,11 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Study</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectPlanAnswersMapping</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Organization</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.GdsPd</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw</value>
 			</list>
 		</property>
   		<property name="hibernateProperties">
