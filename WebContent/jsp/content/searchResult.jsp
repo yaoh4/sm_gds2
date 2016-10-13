@@ -9,7 +9,7 @@
         <tr>
 			<th>Project ID</th>
 			<th>Project Submission Title</th>
-			<th>Grant/Intramural/<br> Contract #</th>
+			<th>Grant/<br/>Intramural/Contract #</th>
 			<th>Principal Investigator</th>
 			<th>PI First Name</th>
 			<th>PI Email</th>

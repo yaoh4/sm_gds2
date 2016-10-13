@@ -32,7 +32,10 @@ $(document).ready(function(){
             "stateSave": true,
             "destroy": true,
             "fixedHeader": true,
-          
+               
+
+           
+            "scrollCollapse": true,
             "deferLoading": 0,
             "ajax": {
                 "url": "search.action",
@@ -85,7 +88,7 @@ $(document).ready(function(){
                {
                 "targets": 0, // First column, radio select
                 "className": "dt-center",
-                "width": "7%",
+                
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
@@ -126,7 +129,7 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": [7, 8, 9, 10], // Status columns
-                "width": "7%",
+                
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
