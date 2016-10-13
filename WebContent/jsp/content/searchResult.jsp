@@ -13,10 +13,10 @@
 			<th>Principal Investigator</th>
 			<th>PI First Name</th>
 			<th>PI Email</th>
-			<th width="7%">Genomic DSP</th>
-			<th width="6%">GDSP Excep.</th>
-			<th width="6%">IC</th>
-			<th width="6%">BSI</th>
+			<th width="9%">Genomic DSP</th>
+			<th width="9%">GDSP Excep.</th>
+			<th width="9%">IC</th>
+			<th width="9%">BSI</th>
 			<th>Repository Count</th>
 			<th>Sub-project Count</th>
 			<th>Expand Subproject</th>
