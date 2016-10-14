@@ -14,7 +14,7 @@
 			<th>PI First Name</th>
 			<th>PI Email</th>
 			<th width="8%">Genomic<br/> DSP</th>
-			<th width="8%">GDSP Excep.</th>
+			<th width="8%">GDSP<br/> Excep.</th>
 			<th width="8%">IC</th>
 			<th width="8%">BSI</th>
 			<th>Repository Count</th>
@@ -23,7 +23,7 @@
 			<th>Expand Repository</th>
 			<th>Subproject Eligible Flag</th>
 			<th>Project Status Code</th>
-			<th width="8%">Submission<br/> Status</th>
+			<th width="10%">Submission<br/> Status</th>
 			<th width="10%" style="whitespace:nowrap;">Actions</th>
 		</tr>
         </thead>
