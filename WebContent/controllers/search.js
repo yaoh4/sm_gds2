@@ -92,8 +92,6 @@ $(document).ready(function(){
                 },
                 {
                 "targets": -1, // Last column, action
-                  "width": "10%",
-              
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                 	var addNewVersion = '', addSubproject = '';
@@ -164,8 +162,6 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": [6, 7, 8, 9, 13], // Status columns
-                  "width": "8%",
-                
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
@@ -444,8 +440,6 @@ function deleteSubmission(projectId)
 		  }
 	});
 }
-
-
 
 
 

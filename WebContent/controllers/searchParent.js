@@ -129,7 +129,6 @@ $(document).ready(function(){
                 } },
                 {
                 "targets": [7, 8, 9, 10], // Status columns
-                 "width": "8%",
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
