@@ -125,7 +125,9 @@ $(document).ready(function(){
                 		}
                 		if(data == "NOTSTARTED") {
                 			return '<div class="searchProgess"><img src="../images/pending.png" alt="Pending" title="Pending" width="18px" height="18px"></div>'
-                		}
+                		} else {
+                 	   		return '<div style="text-align: center;">N/A</div>';
+                 	   	}
                 	}
                 	return data;
                 } },
