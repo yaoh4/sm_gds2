@@ -433,31 +433,6 @@ public class IcListSubmissionAction extends ManageSubmission {
 	public String getPageStatusCode() {
 		return super.getPageStatusCode(ApplicationConstants.PAGE_CODE_IC);
 	}
-	
-
-	
-	protected String computePageStatus(Project project) {
-		
-		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
-		
-		if(CollectionUtils.isEmpty(icList)) {
-			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
-		}
-			
-		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())) { 
-			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-		}
-		
-		//There is at least one IC and IC certification flag says done. So proceed to
-		//check if the ICs are all ok.
-		for(InstitutionalCertification ic: icList) {
-			if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
-				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-			}
-		}
-			
-		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
-	}
 
 	
 	public String getMissingIcListData() {

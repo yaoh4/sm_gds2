@@ -383,55 +383,6 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		this.dataSubmitted = dataSubmitted;
 	}
 
-	/**
-	 * Invoked during save
-	 */
-	public String computePageStatus(Project project) {
-		String status = ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
-		
-		
-		List<RepositoryStatus> repositoryStatuses = project.getRepositoryStatuses();
-		for(RepositoryStatus repoStatus: repositoryStatuses) {
-			
-			Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
-			Lookup registrationStatus = repoStatus.getLookupTBySubmissionStatusId();
-			Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
-			
-			if(ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID.equals(registrationStatus.getId())) {
-				//No need to check this repository further, since the submission status
-				//and study released fields will be disabled in this case
-				if(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equals(status)) {
-					//If previous repository is in complete status, then we are now
-					//in in-progress state
-					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-				}
-				continue;
-			}
-			
-			//If we get here, then the page status is either in progress or completed.
-			//Check in progress first
-			
-			//Submission status is not started or in progress, OR Registration 
-			//status is not started or in progress, OR study released is No.
-			if(ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID.equals(registrationStatus.getId())
-			||	(ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID.equals(submissionStatus.getId())
-				|| ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID.equals(submissionStatus.getId())) 
-			|| ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId())) {
-				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-			}
-			
-			//Neither not started, nor in in-progress status.Hence, completed
-			status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
-			
-		};
-		
-		if(project.getAnticipatedSubmissionDate() != null &&
-				ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED.equals(status)) {
-			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-		}
-		
-		return status;
-	}
 	
 	/**
 	 * Invoked during display of missing data report for a specific repository.

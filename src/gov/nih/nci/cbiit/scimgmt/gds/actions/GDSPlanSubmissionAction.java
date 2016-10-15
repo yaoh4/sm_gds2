@@ -365,18 +365,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				i = getProject().getInstitutionalCertifications().iterator();
 			}
 		}
-	    getProject().setCertificationCompleteFlag(null);
-	    List<InstitutionalCertification> icListModified = retrieveSelectedProject().getInstitutionalCertifications();
-	      if (CollectionUtils.isEmpty(icListModified)) {
-		        PageStatus pageStatus = new PageStatus(
-				  lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
-				  lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE,ApplicationConstants.PAGE_CODE_IC),
-				  getProject(), loggedOnUser.getFullNameLF(), new Date());	
-		      getProject().addUpdatePageStatus(pageStatus);
-		      super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
-		      setProject(retrieveSelectedProject());
+	    getProject().setCertificationCompleteFlag(null); 
+		super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
+		setProject(retrieveSelectedProject());
 	}
-	}
+	
+	
 	/**
 	 * This method sets up all data for Genomic Data Sharing Plan page.
 	 * @throws Exception 

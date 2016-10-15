@@ -537,19 +537,6 @@ public class Project implements java.io.Serializable {
 		this.pageStatuses = pageStatuses;
 	}
 	
-	public void addUpdatePageStatus(PageStatus pageStatus) {
-		if(!pageStatuses.isEmpty()) {
-			Iterator<PageStatus> pageIterator = pageStatuses.iterator();
-			while(pageIterator.hasNext()) {
-				PageStatus status = pageIterator.next();
-				if(status.getPage().getId().equals(pageStatus.getPage().getId())) {
-					pageIterator.remove();
-					break;
-				}
-			}
-		}
-		this.pageStatuses.add(pageStatus);
-	}
 	
 	public PageStatus getPageStatus(String pageCode) {
 		Iterator<PageStatus> statuses = getPageStatuses().iterator();

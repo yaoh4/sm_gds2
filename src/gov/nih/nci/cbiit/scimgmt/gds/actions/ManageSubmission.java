@@ -44,6 +44,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsPageStatusUtil;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 
 /**
@@ -199,53 +200,55 @@ public class ManageSubmission extends BaseAction {
 			project.setSubprojectEligibleFlag("N");
 		}
 		
-		//Set the page status on the project
-		if(pageCode != null) {
-			//We are not in the General Info page, so the project has
-			//already been saved, hence add a status only for this page
-			String statusCode = computePageStatus(project);
-			PageStatus pageStatus = new PageStatus(
-				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, statusCode),
-				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
-				project, loggedOnUser.getFullName(), new Date());	
-			project.addUpdatePageStatus(pageStatus);
-			//Also recompute repository page status if you are saving the GDS page
-			if(pageCode.equalsIgnoreCase(ApplicationConstants.PAGE_CODE_GDSPLAN)) {
-				RepositoryStatusSubmissionAction repoAction = new RepositoryStatusSubmissionAction();
-				statusCode = repoAction.computePageStatus(project);
-				pageStatus = new PageStatus(
-						lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, statusCode),
-						lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY),
-						project, loggedOnUser.getFullName(), new Date());	
-					project.addUpdatePageStatus(pageStatus);
-			}
-		} else  {
-			//We are in the General Info page. Check if this is a new submission
-			if (project.getId() == null) {
-				project.setPageStatuses(initPageStatuses(project));
-			}
-		}
-		
 		//Set the exception memo status
 		project.setDataSharingExcepStatus(
 			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, getExceptionMemoStatusCode(project)));
 		
+		project.setPageStatuses(computePageStatuses(project));
 		return manageProjectService.saveOrUpdate(project);
 	}
 
 	
-	public List<PageStatus> initPageStatuses(Project project) {
+	public List<PageStatus> computePageStatuses(Project project) {
 		List<PageStatus> pageStatuses = new ArrayList<PageStatus>();
 		
-		List<String> pageCodes = Arrays.asList(ApplicationConstants.PAGE_CODE_IC, 
-											   ApplicationConstants.PAGE_CODE_GDSPLAN, 
-											   ApplicationConstants.PAGE_CODE_BSI,
-											   ApplicationConstants.PAGE_CODE_REPOSITORY);
-		for(String pageCode: pageCodes) {
+		//GDS Plan page status
+		String status = GdsPageStatusUtil.getInstance().computeGdsPlanStatus(project);
+		if(status != null) {
 			PageStatus pageStatus = new PageStatus(
-			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
-			lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
-			project, loggedOnUser.getFullName(), new Date());
+				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
+				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_GDSPLAN),
+				project, loggedOnUser.getFullName(), new Date());
+			pageStatuses.add(pageStatus);
+		}
+		
+		//IC List status
+		status = GdsPageStatusUtil.getInstance().computeIcListStatus(project);
+		if(status != null) {
+			PageStatus pageStatus = new PageStatus(
+				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
+				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC),
+				project, loggedOnUser.getFullName(), new Date());
+			pageStatuses.add(pageStatus);
+		}
+		
+		//BSI Study Info status
+		status = GdsPageStatusUtil.getInstance().computeBsiStudyInfoStatus(project);
+		if(status != null) {
+			PageStatus pageStatus = new PageStatus(
+				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
+				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_BSI),
+				project, loggedOnUser.getFullName(), new Date());
+			pageStatuses.add(pageStatus);
+		}
+		
+		//Repository status
+		status = GdsPageStatusUtil.getInstance().computeRepositoryStatus(project);
+		if(status != null) {
+			PageStatus pageStatus = new PageStatus(
+				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
+				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY),
+				project, loggedOnUser.getFullName(), new Date());
 			pageStatuses.add(pageStatus);
 		}
 		
@@ -408,7 +411,7 @@ public class ManageSubmission extends BaseAction {
 			}
 		}
 		
-		// If the answer to "Will there be any data submitted?" is No.
+		//If the answer to "Will there be any data submitted?" is No.
 		// Don't show IC, BSI.
 		if (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
 			if(page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_IC) || page.equalsIgnoreCase(ApplicationConstants.PAGE_TYPE_BSI)) {
