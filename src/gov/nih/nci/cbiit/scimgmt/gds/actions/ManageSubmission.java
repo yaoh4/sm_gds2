@@ -183,7 +183,7 @@ public class ManageSubmission extends BaseAction {
 	/**
 	 * Save the project
 	 */
-	public Project saveProject(Project project, String pageCode) {
+	public Project saveProject(Project project) {
 		
 		//Temporary hard coding project property. 
 		project.setVersionNum(1l);

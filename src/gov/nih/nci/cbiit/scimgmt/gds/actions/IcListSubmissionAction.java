@@ -202,7 +202,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
 			storedProject.setInstitutionalCertifications(getSubProjectIcs(storedProject));
 		}		
-		setProject(saveProject(storedProject, ApplicationConstants.PAGE_CODE_IC));
+		setProject(saveProject(storedProject));
 	}
 	
 	
@@ -268,7 +268,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 		getProject().setCertificationCompleteFlag(null);
         List<InstitutionalCertification> icList = retrieveSelectedProject().getInstitutionalCertifications();
 		if(CollectionUtils.isEmpty(icList)) {
-			super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_IC);
+			super.saveProject(getProject());
 			setProject(retrieveSelectedProject());
 		}
 		return SUCCESS;

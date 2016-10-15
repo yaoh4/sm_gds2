@@ -153,7 +153,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		setupRepositoryStatuses(getProject(), false);
 
-		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
+		super.saveProject(getProject());
 		
 		setProject(retrieveSelectedProject());
 		
@@ -366,7 +366,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 		}
 	    getProject().setCertificationCompleteFlag(null); 
-		super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
+		super.saveProject(retrieveSelectedProject());
 		setProject(retrieveSelectedProject());
 	}
 	
@@ -467,6 +467,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				deleteIcs();
 			}
 			
+			boolean dataModified = false;
 			// d) The system will delete answers to Has the GPA reviewed the Basic Study Information?
 			if(warnOnly) {
 				if(StringUtils.isNotBlank(getProject().getBsiReviewedFlag()))
@@ -474,6 +475,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 			else {
 				getProject().setBsiReviewedFlag("");
+				dataModified = true;
 			}
 			
 			// e) The system will delete the uploaded Basic Study Info and the History of Uploaded Documents.
@@ -487,6 +489,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					setDocId(document.getId());
 					deleteFile();
 				}
+				getProject().setBsiComments("");
+				dataModified = true;
 			}
 			
 			// f) Remove repositories that were deleted except dbGaP, and add dbGap if it is not there.
@@ -498,13 +502,19 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					sb.append("Repositories except dbGaP. <br>");
 			}
 			else {
+				if(getProject().getAnticipatedSubmissionDate() != null) {
+					getProject().setAnticipatedSubmissionDate(null);
+				}
 				List<String> repositoryIds = getAnswers().get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
 				if(!CollectionUtils.isEmpty(repositoryIds)) {
 					getAnswers().get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).add(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID.toString());
 				} else {
 					getAnswers().put(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, Arrays.asList(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID.toString()));
 				}
-				
+			}
+			if(dataModified) {
+				super.saveProject(retrieveSelectedProject());
+				setProject(retrieveSelectedProject());
 			}
 			
 		} else if (newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID)) {
@@ -563,7 +573,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
                 // Delete the ICs
         	  deleteIcs();
           }
-   }      
+        }      
 
 		// If answer to "Was this exception approved?" is changed from "Yes" to "No" or "Pending", 
 		// remove Exception Memo

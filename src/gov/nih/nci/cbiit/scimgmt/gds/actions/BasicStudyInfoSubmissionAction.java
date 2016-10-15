@@ -93,7 +93,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 			setupRepositoryStatuses(getProject(), false);
 		}
 		
-		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_BSI);
+		super.saveProject(getProject());
 		
 		setProject(retrieveSelectedProject());
 		
