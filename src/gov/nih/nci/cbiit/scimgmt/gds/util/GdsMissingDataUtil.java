@@ -182,6 +182,25 @@ public class GdsMissingDataUtil {
 	public List<MissingData> getMissingIcListData(Project project) {
 		
 		List<MissingData> missingDataList = new ArrayList<MissingData>();
+		
+		//If user selects "Non-human" only,
+		//OR if the answer to "Will there be any data submitted?" is No.
+		//there is no IC, so return empty list
+		if((project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
+					 project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) != null)
+			|| (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null)) {
+			return missingDataList;
+		}
+				
+		// If user selects ONLY the "Other" repository in the "What repository will the data be submitted to?" 
+		//question GDS plan page, there is no IC, so return empty list
+		Set<PlanAnswerSelection> repoSet = project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
+		if(!CollectionUtils.isEmpty(repoSet) && repoSet.size() == 1) {
+			PlanAnswerSelection repo = repoSet.iterator().next();
+			if(repo.getPlanQuestionsAnswer().getId().longValue() == ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID.longValue()) {
+				return missingDataList;
+			}
+		}
 			
 		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
 			
