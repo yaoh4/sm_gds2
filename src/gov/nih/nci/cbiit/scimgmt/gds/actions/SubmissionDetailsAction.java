@@ -238,11 +238,9 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		
 		GdsMissingDataUtil missingDataUtil = GdsMissingDataUtil.getInstance();		
 		
-		if(!ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
-		//GDS Plan is not present for sub-projects
 		setupMissingDataList(ApplicationConstants.PAGE_CODE_GDSPLAN, 
 				missingDataUtil.getMissingGdsPlanData(project));
-		}
+		
 		
 		if(GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(getProject())) {
 			setupMissingDataList(ApplicationConstants.PAGE_CODE_IC, 

@@ -91,6 +91,13 @@ public class GdsMissingDataUtil {
 			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, project.getId());
 			
 		Long submissionReasonId = project.getSubmissionReasonId();
+		
+		if(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(submissionReasonId)
+			|| ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
+			//Return empty list
+			return missingDataList;
+		}
+		  
 			
 		if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
 			 || ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.equals(submissionReasonId)) {
@@ -148,8 +155,7 @@ public class GdsMissingDataUtil {
 		//If Exception not requested, or requested but not approved, or requested and approved but still
 		//data needs to be submitted
 		if(ApplicationConstants.SUBMISSION_REASON_NIHFUND.equals(submissionReasonId)
-				 || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(submissionReasonId)
-				 || (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+			|| (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
 			|| 	project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) != null
 			||	project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null)) {
 			
