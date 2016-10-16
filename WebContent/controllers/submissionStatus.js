@@ -4,17 +4,19 @@
 function enableDisableSubmissionStatus(registrationId){ 
 	var submissionId = registrationId.substring(registrationId.indexOf("_")+1,registrationId.length); 
 	var registrationStatus = $('#'+registrationId+' option:selected').text();
-		
-	if((registrationStatus == "Completed" || registrationStatus == "Not Applicable")
-		&& $("#dataSubmitted").val() == "Y"){   
-		$("#projStatus_"+submissionId).attr('disabled',false);
-	}
-	else{ 
-		if($("#isDbGap").val() == "N" && $("#projStatus_"+submissionId).is(':disabled') == false){
-			$("#projStatus_"+submissionId).val('13');
-		}
+	
+	if($("#dataSubmitted").val() == "N") {
+		//$("#projStatus_"+submissionId).val('15');
 		$("#projStatus_"+submissionId).attr('disabled',true);
-		}	
+	} else {
+		if(registrationStatus == "Completed" || registrationStatus == "Not Applicable")  {
+			$("#projStatus_"+submissionId).attr('disabled',false);
+		}
+		else { 
+			$("#projStatus_"+submissionId).val('13');
+			$("#projStatus_"+submissionId).attr('disabled',true);
+		}
+	}
 	
 	enableDisableStudyReleased("projStatus_"+submissionId);
 }
@@ -24,13 +26,18 @@ function enableDisableStudyReleased(submissionStatusId){
 	var studyReleasedId = submissionStatusId.substring(submissionStatusId.indexOf("_")+1,submissionStatusId.length);
 	var submissionStatus = $('#'+submissionStatusId+' option:selected').text();
 	
-	if((submissionStatus == "Completed") || (submissionStatus == "Not Applicable" && $("#isDbGap").val() == "N" && $("#"+submissionStatusId).is(':disabled') == false)){   
-		$("#studyRel_"+studyReleasedId).attr('disabled',false);
-	}
-	else{
-		$("#studyRel_"+studyReleasedId).val('17');
+	if($("#dataSubmitted").val() == "N") {
+		//$("#studyRel_"+studyReleasedId).val('17');
 		$("#studyRel_"+studyReleasedId).attr('disabled',true);
+	}
+	else {
+		if(submissionStatus == "Completed" || submissionStatus == "Not Applicable"){   
+			$("#studyRel_"+studyReleasedId).attr('disabled',false);
+		} else{
+			$("#studyRel_"+studyReleasedId).val('17');
+			$("#studyRel_"+studyReleasedId).attr('disabled',true);
 		}
+	}
 }
 
  $(function () {
@@ -51,9 +58,7 @@ $(document).ready(function () {
 	jQuery('#submission_status_form select[name*=lookupTByRegistrationStatusId]').each(function () { 
     enableDisableSubmissionStatus(this.id);
 	});
-	if($("#isDbGap").val() == "Y"){
-		$("#isDbGap").val("N")
-	}
+	
 	if($("#subprojectFlag").val().toUpperCase() == 'Y') {
 		$('#showMessage').show().css('display', 'inline'); 
 	}

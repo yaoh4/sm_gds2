@@ -467,7 +467,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				deleteIcs();
 			}
 			
-			boolean dataModified = false;
 			// d) The system will delete answers to Has the GPA reviewed the Basic Study Information?
 			if(warnOnly) {
 				if(StringUtils.isNotBlank(getProject().getBsiReviewedFlag()))
@@ -475,7 +474,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 			else {
 				getProject().setBsiReviewedFlag("");
-				dataModified = true;
 			}
 			
 			// e) The system will delete the uploaded Basic Study Info and the History of Uploaded Documents.
@@ -490,7 +488,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					deleteFile();
 				}
 				getProject().setBsiComments("");
-				dataModified = true;
 			}
 			
 			// f) Remove repositories that were deleted except dbGaP, and add dbGap if it is not there.
@@ -512,11 +509,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					getAnswers().put(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID, Arrays.asList(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID.toString()));
 				}
 			}
-			if(dataModified) {
-				super.saveProject(retrieveSelectedProject());
-				setProject(retrieveSelectedProject());
-			}
-			
+		
 		} else if (newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID)) {
 			// Answer is No, so make sure the dbGap is available.
 			if(!warnOnly) {

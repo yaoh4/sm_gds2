@@ -848,6 +848,15 @@ public class ManageSubmission extends BaseAction {
 							}
 						}
 					}
+				} else {
+					if(getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
+						RepositoryStatus repoStatus = selection.getRepositoryStatuses().iterator().next();
+						repoStatus.setLookupTBySubmissionStatusId(
+							lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
+						repoStatus.setLookupTByStudyReleasedId(
+							lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
+						repoStatus.setAccessionNumber("");
+					}
 				}
 			}
 		}

@@ -54,8 +54,10 @@ function setStatus(elem, elemDiv) {
 		$("#" + elemDiv).prepend('<img src="../images/pending.png" alt="Not Started" width="18px" height="18px" title="Not Started"/>');
 	} else if($("#" + elem).val() == 'INPROGRESS') {
 		$("#" + elemDiv).prepend('<img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>');
-	} else {
+	} else if($("#" + elem).val() == 'COMPLETED') {
 		$("#" + elemDiv).prepend('<img src="../images/complete.png" alt="Completed" width="18px" height="18px" title="Completed"/>');
+	} else {
+		$("#" + elemDiv).prepend('<span>N/A</span>');
 	}
 }
 	
