@@ -4,7 +4,7 @@
 
 <s:if test="%{gdsPlanFile.size > 0}">
 	<table style="width: 884px;" cellpadding="0px" cellspacing="0"
-		class="table table-bordered table-striped" style="margin-left: 10px;">
+		class="table table-bordered table-striped" style="margin-left: 15px;">
 		<tr>
 			<th class="tableHeader" align="center" width="10%">Document Title</th>
 			<th class="tableHeader" align="center" width="15%">File Name</th>
