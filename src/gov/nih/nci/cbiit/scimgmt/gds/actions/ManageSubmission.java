@@ -849,13 +849,22 @@ public class ManageSubmission extends BaseAction {
 						}
 					}
 				} else {
+					RepositoryStatus repoStatus = selection.getRepositoryStatuses().iterator().next();		
 					if(getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
-						RepositoryStatus repoStatus = selection.getRepositoryStatuses().iterator().next();
+						//If no data is to be submitted, then set the submission status to NA and study released to No
 						repoStatus.setLookupTBySubmissionStatusId(
 							lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
 						repoStatus.setLookupTByStudyReleasedId(
 							lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
 						repoStatus.setAccessionNumber("");
+					} else {
+						//If 'Will there be any data submitted' is 'Yes', then if registration status is not started,
+						//then restore the submission status to Not Started, else it may stay in
+						//the NA state if 'Will there be any data submitted' was set to No earlier.
+						if(repoStatus.getLookupTByRegistrationStatusId().getCode().equals(ApplicationConstants.NOT_STARTED)) {							
+							repoStatus.setLookupTBySubmissionStatusId(
+								lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));	
+						}
 					}
 				}
 			}

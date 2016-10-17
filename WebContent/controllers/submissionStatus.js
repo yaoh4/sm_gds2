@@ -56,7 +56,7 @@ function enableDisableStudyReleased(submissionStatusId){
 
 $(document).ready(function () { 
 	jQuery('#submission_status_form select[name*=lookupTByRegistrationStatusId]').each(function () { 
-    enableDisableSubmissionStatus(this.id);
+		enableDisableSubmissionStatus(this.id);
 	});
 	
 	if($("#subprojectFlag").val().toUpperCase() == 'Y') {
