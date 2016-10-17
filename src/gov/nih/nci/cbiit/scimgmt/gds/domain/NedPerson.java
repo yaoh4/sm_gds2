@@ -2,13 +2,9 @@ package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Mar 3, 2016 3:28:59 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -101,8 +97,6 @@ public class NedPerson implements java.io.Serializable {
 	private String nihpoc;
 	private Date inactiveDate;
 	private Date createdDate;
-	
-	private PersonRole personRole;
 
 	public NedPerson() {
 	}
@@ -915,16 +909,6 @@ public class NedPerson implements java.io.Serializable {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
-	}
-	
-	@OneToOne
-	@JoinColumn(name="NIHSSOUSERNAME", insertable = false, updatable = false)
-	public PersonRole getPersonRole() {
-		return personRole;
-	}
-	
-	public void setPersonRole(PersonRole personRole) {
-		this.personRole = personRole;
 	}
 
 	/**
