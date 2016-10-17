@@ -3,12 +3,12 @@
 <p></p>
 
 <s:if test="%{gdsPlanFile.size > 0}">
-	<table style="width: 90%;" cellpadding="0px" cellspacing="0"
+	<table style="width: 884px;" cellpadding="0px" cellspacing="0"
 		class="table table-bordered table-striped" style="margin-left: 10px;">
 		<tr>
 			<th class="tableHeader" align="center" width="10%">Document Title</th>
-			<th class="tableHeader" align="center" width="10%">File Name</th>
-			<th class="tableHeader" align="center" width="10%">Date</th>
+			<th class="tableHeader" align="center" width="15%">File Name</th>
+			<th class="tableHeader" align="center" width="5%">Date</th>
 			<th class="tableHeader" align="center" width="10%">Uploaded By</th>
 			<th class="tableHeader" align="center" width="5%">Action</th>
 		</tr>
@@ -39,8 +39,8 @@
 			<a href="javascript:void"
 				class="history"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;History of Uploaded Documents
 		</p>
-		<div class="uploadedHistory" style="display: none;">
-			<table style="width: 90%;" cellpadding="0px" cellspacing="0"
+		<div class="uploadedHistory" style="display: none; margin-left: 15px;">
+			<table style="width: 884px;" cellpadding="0px" cellspacing="0"
 				class="table table-bordered table-striped"
 				style="margin-left: 10px;">
 				<tr>

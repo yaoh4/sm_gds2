@@ -1,14 +1,14 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <div style="width:600px;">
-<div style="width: 55%; float: left;">
+<div style="width: 55%; float: left; margin-left: 15px;">
 	<p class="question">Upload Exception Memo: [to be uploaded by GPA]</p>
 
 <label for="exceptionMemo" style="width: auto; display: none;">Upload
 	Exception Memo</label>
-</div>
+
 
 <div style="margin-bottom: 20px; float:left; width:40%;">
-	<div class="input-group">
+	<div class="input-group" style="width: 94px;">
 		<label
 			class="input-group-btn"> <span class="btn btn-default">
 				Choose File
@@ -24,7 +24,7 @@
 <s:if test="%{excepMemoFile.size > 0}">
 	<p></p>
 	<div class="qSpacing" style="margin-top: 10px; margin-left: 15px;">
-	<table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
+	<table style="width: 884px;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
 		<tr>
 			<th class="tableHeader" align="center" >File Name</th>
 			<th class="tableHeader" align="center" >Date</th>

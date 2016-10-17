@@ -64,7 +64,7 @@
 				</div>
 
 				<div id="exceptionMemoDiv" style="${map['exceptionMemoDiv'].style}" 
-					class="qSpacing" style="margin-left: 30px;">
+					class="qSpacing">
 						<s:include value="/jsp/content/submissionGdsPlanMemo.jsp"/>
 				</div>
 
@@ -219,13 +219,13 @@
 				<!--BEGIN HIDDEN Field for Uploader-->
 			<div style="width:600px;">
 	
-				<div class="qSpacing" style="margin-left: 30px; float:left; width: 58%; ${map['dataSharingPlanDiv'].style}"
+				<div class="qSpacing" style="margin-left: 15px; float:left; width: 58%; ${map['dataSharingPlanDiv'].style}"
 					id="dataSharingPlanDiv">
 					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
 				</div>
 
-					<div style="margin-bottom: 30px; float: left; width: 30%;">
-								<div class="input-group">
+					<div style="margin-bottom: 30px; float: left; width: 30%; margin-left: 15px;">
+								<div class="input-group" style="width: 94px;">
 									<label class="input-group-btn"> 
 										<span class="btn btn-default">
 										Choose File <s:file style="display: none;" name="dataSharingPlan"
