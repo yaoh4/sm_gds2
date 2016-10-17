@@ -35,11 +35,13 @@ public interface ApplicationConstants {
 	 public static final String PROJECT_SUBMISSION_REASON_LIST = "project_sub_reason";
 	 public static final String PROJECT_TYPE_LIST = "project_type";
 	 public static final String SEARCH_SUBMISSION_FROM = "search_from";
+	 public static final String LIST_ROLE = "ROLE";
 	 
 	 /* Type discriminators */ 
 	 public static final String DOC_TYPE = "DOC_TYPE";
 	 public static final String PAGE_TYPE = "PAGE";
 	 public static final String PAGE_STATUS_TYPE = "PAGE_STATUS";
+	 public static final String ROLE_TYPE = "ROLE";
 	 
 	 public static final String DOC_LIST = "docList";
 	 public static final String PD_LIST = "pdList";
@@ -84,6 +86,7 @@ public interface ApplicationConstants {
 	 public static final Long PROJECT_SUBMISSION_STATUS_INPROGRESS_ID = 12L;
 	 public static final Long PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID = 13L;	
 	 public static final Long PROJECT_SUBMISSION_STATUS_COMPLETED_ID = 14L;
+	 public static final Long PROJECT_SUBMISSION_STATUS_NOTAPPLICABLE_ID = 15L;
 	 public static final Long REGISTRATION_STATUS_INPROGRESS_ID = 8L;
 	 public static final Long REGISTRATION_STATUS_NOTSTARTED_ID = 9L;
 	 public static final Long REGISTRATION_STATUS_COMPLETED_ID = 10L;
@@ -93,6 +96,9 @@ public interface ApplicationConstants {
 	 public static final Long SEARCH_SUBMISSION_FROM_MYDOC = 41L;
 	 public static final Long SEARCH_SUBMISSION_FROM_ALL = 42L;
 	 public static final Long IC_DUL_VERIFIED_YES_ID = 35L;
+	 public static final Long ROLE_GPA_ID = 52L;
+	 public static final Long ROLE_GPA_ADMIN_ID = 53L;
+	 
 			 
 	 public static final String DISPLAY_NAME_YES = "Yes";
 	 public static final String DISPLAY_NAME_NO = "No";

@@ -240,13 +240,21 @@ public class GdsPageStatusUtil {
 			return null;
 		}
 		
+		
+		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
+			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
+				if(repositoryStatus.getProject().getId() == project.getId())
+					project.getRepositoryStatuses().add(repositoryStatus);
+			}		
+		}
+		
 		String status = ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		
 		List<RepositoryStatus> repositoryStatuses = project.getRepositoryStatuses();
 		for(RepositoryStatus repoStatus: repositoryStatuses) {
 			
+			Lookup registrationStatus = repoStatus.getLookupTByRegistrationStatusId();
 			Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
-			Lookup registrationStatus = repoStatus.getLookupTBySubmissionStatusId();
 			Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
 			
 			if(ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID.equals(registrationStatus.getId())) {
@@ -263,12 +271,13 @@ public class GdsPageStatusUtil {
 			//If we get here, then the page status is either in progress or completed.
 			//Check in progress first
 			
-			//Submission status is not started or in progress, OR Registration 
-			//status is not started or in progress, OR study released is No.
+			//Registration Status In Progress, OR Submission Status Not Started or In Progress  
+			//or Not Applicable, OR Study Released is No.
 			if(ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID.equals(registrationStatus.getId())
 			||	(ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID.equals(submissionStatus.getId())
 				|| ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID.equals(submissionStatus.getId())) 
-			|| ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId())) {
+			|| (!ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTAPPLICABLE_ID.equals(submissionStatus.getId())
+					&& ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId()))) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
 			
