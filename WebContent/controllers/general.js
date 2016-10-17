@@ -296,6 +296,7 @@ function refreshGrantsContractsData(){
  
  $('.grantSelection').on('change', function () {
 	 var code= $("input[type='radio'].grantSelection:checked").val();
+	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
 	 
 	 if($("#grantsContractNum").val()!='') {
 	   var result = "Changing the Research type will clear the Extramural/Intramural/Contract#.<br /> Do you wish to continue?";
@@ -316,7 +317,13 @@ function refreshGrantsContractsData(){
 		  		//Perform remaining actions depending on
 		  		//whether the new code is intramural
 		  		//or others.
-		  		if(code == 'M' ) {
+		  		if(projAnswer == 29){
+		  			$(".unlink-group").prop('disabled', false);
+				    hideGrantFields();
+					$("#grantsContractNum").val('');
+					$("#applId").val('');
+		  		}
+		  		else if(code == 'M' ) {
 		  			setupIntramuralFields();
 		  		} else {
 		  			showGrantFields();
@@ -330,7 +337,13 @@ function refreshGrantsContractsData(){
 	 } else {
 	 
 		 $("#applClassCode").val(code);
-		 if(code == 'M' ) {
+		 if(projAnswer == 29){
+			 $(".unlink-group").prop('disabled', false);
+			    hideGrantFields();
+				$("#grantsContractNum").val('');
+				$("#applId").val('');
+		 }
+		 else if(code == 'M' ) {
 		 //If selection is 'Intramural', hide pd first and last
 		 //name, start and end date, and cancer activity field. 
 		 //Make all other fields including the grant number field
