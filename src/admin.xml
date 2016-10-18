@@ -10,11 +10,19 @@
 			 <result name="success" type="tiles">search</result>
 		</action>
 		
-		<action name="navigateToAdminSearch" method="search" class="gov.nih.nci.cbiit.scimgmt.gds.actions.AdminAction">
+		<action name="navigateToAdminSearch"  class="gov.nih.nci.cbiit.scimgmt.gds.actions.AdminAction">
 			 <result name="success" type="tiles">adminSearch</result>
 		</action>
 		
 		<action name="navigateToAdminEdit" method="edit" class="gov.nih.nci.cbiit.scimgmt.gds.actions.AdminAction">
+			 <result name="success" type="tiles">adminEdit</result>
+		</action>
+		
+		<action name="searchNedPersons"  method="searchNedPersons" class="gov.nih.nci.cbiit.scimgmt.gds.actions.AdminAction">
+			 <result name="success" type="tiles">adminSearch</result>
+		</action>
+		
+		<action name="searchGdsUsers" method="searchGdsUsers" class="gov.nih.nci.cbiit.scimgmt.gds.actions.AdminAction">
 			 <result name="success" type="tiles">adminEdit</result>
 		</action>
 		
