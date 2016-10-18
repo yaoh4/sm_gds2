@@ -59,6 +59,7 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Project</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping</value>

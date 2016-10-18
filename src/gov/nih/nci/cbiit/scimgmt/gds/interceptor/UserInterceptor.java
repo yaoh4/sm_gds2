@@ -1,7 +1,10 @@
 package gov.nih.nci.cbiit.scimgmt.gds.interceptor;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
+import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +32,9 @@ public class UserInterceptor extends AbstractInterceptor implements StrutsStatic
 
 	@Autowired
 	private UserRoleService userRoleService;
+	
+	@Autowired
+	private LookupService lookupService;
 
 	@Autowired
 	private NedPerson loggedOnUser;	
@@ -67,6 +73,13 @@ public class UserInterceptor extends AbstractInterceptor implements StrutsStatic
 				if (nedPerson == null) {
 					logger.error("NedPerson could not be found for userId:  " + remoteUser);
 					return ApplicationConstants.NOT_AUTHORIZED;
+				} else {
+					PersonRole personRole = nedPerson.getPersonRole();
+					if(personRole != null) {
+						Long roleId = personRole.getRoleId();
+						Lookup gdsRole = lookupService.getLookupById(ApplicationConstants.ROLE_TYPE, roleId);
+						logger.info("GDS role for user " + remoteUser + " is " + gdsRole.getDescription());
+					}
 				}
 
 				//When we do have user roles in the application, in UserInterceptor, 

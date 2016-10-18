@@ -5,11 +5,15 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
 
 /**
@@ -97,6 +101,8 @@ public class NedPerson implements java.io.Serializable {
 	private String nihpoc;
 	private Date inactiveDate;
 	private Date createdDate;
+	
+	private PersonRole personRole;
 
 	public NedPerson() {
 	}
@@ -910,6 +916,19 @@ public class NedPerson implements java.io.Serializable {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+	
+	
+	@OneToOne
+	@NotFound(action = NotFoundAction.IGNORE)
+	@JoinColumn(name="NIHSSOUSERNAME", insertable = false, updatable = false)
+	public PersonRole getPersonRole() {
+		return personRole;
+	}
+	
+	public void setPersonRole(PersonRole personRole) {
+		this.personRole = personRole;
+	}
+	
 
 	/**
 	 * Gets the full name.

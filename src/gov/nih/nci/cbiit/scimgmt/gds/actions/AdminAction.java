@@ -1,7 +1,15 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
+import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
+import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;
 
 /**
  * @author menons2
@@ -9,6 +17,11 @@ import org.apache.logging.log4j.Logger;
  */
 @SuppressWarnings("serial")
 public class AdminAction extends BaseAction {
+	
+	@Autowired
+	protected UserRoleService userRoleService;
+	
+	private RoleSearchCriteria searchCriteria = new RoleSearchCriteria();
 	
 	static Logger logger = LogManager.getLogger(AdminAction.class);
 	
@@ -26,8 +39,8 @@ public class AdminAction extends BaseAction {
 	
 	public String search() {
 		
-		//Get the search criteria
-		//RoleSearchcriteria criteria = getRoleSearchCriteria();
+		//Perform search
+		List<PersonRole> personRoles = userRoleService.searchPersonRole(getSearchCriteria());
 		
 		return SUCCESS;
 	}
@@ -35,7 +48,25 @@ public class AdminAction extends BaseAction {
 	
 	public String edit() {
 		
+		//Perform search
+		List<NedPerson> persons = userRoleService.searchNedPerson(getSearchCriteria());
 		return SUCCESS;
+	}
+
+
+	/**
+	 * @return the searchCriteria
+	 */
+	public RoleSearchCriteria getSearchCriteria() {
+		return searchCriteria;
+	}
+
+
+	/**
+	 * @param searchCriteria the searchCriteria to set
+	 */
+	public void setSearchCriteria(RoleSearchCriteria searchCriteria) {
+		this.searchCriteria = searchCriteria;
 	}
 
 }
