@@ -325,7 +325,7 @@ public class Project implements java.io.Serializable {
 		this.bsiComments = bsiComments;
 	}
 	
-	@Column(name = "BSI_REVIEWED_FLAG", length = 4)
+	@Column(name = "BSI_REVIEWED_ID", precision = 10, scale = 0)
 	public String getBsiReviewedFlag() {
 		return this.bsiReviewedFlag;
 	}
