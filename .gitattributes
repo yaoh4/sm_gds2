@@ -1058,6 +1058,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/interceptor/UserInterceptor.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/ExportRow.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/MissingData.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/ParentDulChecklist.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/model/RoleSearchCriteria.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/Submission.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/SubmissionSearchCriteria.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/SubmissionSearchResult.java -text
