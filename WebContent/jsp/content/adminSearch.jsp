@@ -68,12 +68,12 @@
 		    <div class="form-group row">
 
 		    	<div class="col-xs-5">
-					<label for="Intramural(Z01)/Grant/Contract #:">First Name:</label> 
+					<label for="First Name">First Name:</label> 
 					<input type="text" name="criteria.grantContractNum" maxlength="30" value="" id="grantNumber" class="form-control">
 				</div>
 
 				<div class="col-xs-5">
-					<label for="Intramural(Z01)/Grant/Contract #:">Last Name:</label> 
+					<label for="Last Name">Last Name:</label> 
 					<input type="text" name="criteria.grantContractNum" maxlength="30" value="" id="grantNumber" class="form-control">
 				</div>
 
@@ -84,11 +84,43 @@
 
 
 			<div class="col-xs-5">
-					<label for="Intramural(Z01)/Grant/Contract #:">Email:</label> 
-					<input type="text" name="criteria.grantContractNum" maxlength="30" value="" id="grantNumber" class="form-control">
-				</div>
+									<label for="Institutes/Centers">Institutes/Centers:</label>
+									<select name="" id="Institutes/Centers" class="c-select form-control">
+										<option value="">Select Institute/Center</option>
+										<option value="21">CC - Warren Grant Magnuson Clinical Center</option>
+										<option value="22">CIT - Center for Information Technology</option>
+										<option value="26">CSR - Center for Scientific Review</option>
+										<option value="25">FIC - John E Fogarty International Center</option>
+										<option value="27">NCATS - National Center for Advancing Translational Sciences</option>
+										<option value="23">NCCIH - National Center for Complementary and Integrative Health</option>
+										<option value="2">NCI - National Cancer Institute</option>
+										<option value="24">NCRR - National Center for Research Resources</option>
+										<option value="3">NEI - National Eye Institute</option>
+										<option value="5">NHGRI - National Human Genome Research Institute</option>
+										<option value="4">NHLBI - National Heart Lung and Blood Institute</option>
+										<option value="6">NIA - National Institute on Aging</option>
+										<option value="7">NIAAA - National Institute on Alcohol Abuse and Alcoholism</option>
+										<option value="8">NIAID - National Institute of Allergy and Infectious Diseases</option>
+										<option value="9">NIAMS - National Inst of Arthritis and Musculoskeletal and Skin Diseases</option>
+										<option value="84">NIBIB - National Institute of Biomedical Imaging and Bioengineering</option>
+										<option value="10">NICHD - National Institute of Child Health and Human Development</option>
+										<option value="14">NIDA - National Institute on Drug Abuse</option>
+										<option value="11">NIDCD - National Institute on Deafness and Communication Disorders</option>
+										<option value="12">NIDCR - National Institute of Dental and Craniofacial Research</option>
+										<option value="13">NIDDK - National Institute of Diabetes and Digestive and Kidney Diseases</option>
+										<option value="15">NIEHS - National Institute of Environmental Health Sciences</option>
+										<option value="16">NIGMS - National Institute of General Medical Sciences</option>
+										<option value="17">NIMH - National Institute of Mental Health</option>
+										<option value="83">NIMHD - National Institute on Minority Health and Health Disparities</option>
+										<option value="18">NINDS - National Institute of Neurological Disorders and Stroke</option>
+										<option value="19">NINR - National Institute of Nursing Research</option>
+										<option value="20">NLM - National Library of Medicine</option>
+										<option value="1">OD - Office of the Director</option>
+									</select>
+								</div>
+								
 					<div class="col-xs-5">
-					<label for="Program Director">User Role:</label>
+					<label for="User Role">User Role:</label>
 					<select name="criteria.pdNpnId" id="directorSelect" class="c-select form-control">
     <option value="">Select User Role</option>
      <option value="">GPA</option>
@@ -148,32 +180,33 @@
 			  <div id="prevLinkedSubmissions" tabindex="-1" style="display: none;"></div>
 			</div>	<!--end search results-->
 		  </div> <!--end panel body-->
-		</div> <!--end panel-->
+
 		
-		
-           
+	  
+
+
      </div> <!--  end Panel  -->
 	
 	  </div>
 		
-	  
+	 
+
+
+		
+			
+		
+		
+
+		</div>
+
 
 
 
 
 <!-- /container -->
 
-<script type="text/javascript" src="../../controllers/gds.js"></script>
-<script type="text/javascript" src="../../controllers/grantSearch.js"></script>
-<script type="text/javascript" src="../../controllers/general.js"></script>
+
 	</div>
 	<!-- end Content -->
 
-
-	
-
-
-
-
-
-</body></html>
+	</body></html>
