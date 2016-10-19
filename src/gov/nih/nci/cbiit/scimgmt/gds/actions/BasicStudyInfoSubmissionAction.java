@@ -14,7 +14,9 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
+import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 
 
 /**
@@ -38,7 +40,13 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 
 	private String comments;
 
-	private String bsiReviewedFlag;
+	private Long bsiReviewedId;
+	
+	private List<DropDownOption> bsiOptions = new ArrayList<DropDownOption>();
+
+	
+	
+
 
 	/**
 	 * Execute method for Basic Study Info.  
@@ -84,7 +92,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		setProject(retrieveSelectedProject());
 		
 		// Save user answer and comments
-		getProject().setBsiReviewedFlag(bsiReviewedFlag);
+		getProject().setBsiReviewedId(bsiReviewedId);
 		getProject().setBsiComments(comments); 
 
 		if(getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
@@ -229,10 +237,12 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		
 		bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, getProject().getId());
 		
-		bsiReviewedFlag = getProject().getBsiReviewedFlag();
+		bsiReviewedId = getProject().getBsiReviewedId();
 		
 		// Set comments
 		comments = getProject().getBsiComments();
+		
+		bsiOptions = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.BSI_REVIEWED.toUpperCase());	
 
 	}
 
@@ -285,15 +295,23 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-
-
-	public String getBsiReviewedFlag() {
-		return bsiReviewedFlag;
+     
+    public List<DropDownOption> getBsiOptions() {
+		return bsiOptions;
 	}
 
 
-	public void setBsiReviewedFlag(String bsiReviewedFlag) {
-		this.bsiReviewedFlag = bsiReviewedFlag;
+	public void setBsiOptions(List<DropDownOption> bsiOptions) {
+		this.bsiOptions = bsiOptions;
+	}
+
+	public Long getBsiReviewedId() {
+		return bsiReviewedId;
+	}
+
+
+	public void setBsiReviewedId(Long bsiReviewedId) {
+		this.bsiReviewedId = bsiReviewedId;
 	}
 	
 	public String getPageStatusCode() {
@@ -307,11 +325,11 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		List<Document> docs = 
 				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, project.getId());
 		
-		if(ApplicationConstants.FLAG_NA.equalsIgnoreCase(project.getBsiReviewedFlag())) {
+		if(ApplicationConstants.BSI_NA.equals(project.getBsiReviewedId())) {
 			
 			return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 		
-		} else if(!ApplicationConstants.FLAG_YES.equals(project.getBsiReviewedFlag()) 
+		}	else if(!ApplicationConstants.BSI_YES.equals(project.getBsiReviewedId()) 
 				|| CollectionUtils.isEmpty(docs)) {
 			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 		}
