@@ -295,7 +295,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		subProject.setParentProjectId(subProject.getId());	
 		subProject.setId(null);
 		subProject.setBsiComments(null);
-		subProject.setBsiReviewedFlag(null);
+		subProject.setBsiReviewedId(null);
 		subProject.setRepositoryStatuses(new ArrayList<RepositoryStatus>());
 		subProject.setAnticipatedSubmissionDate(null);
 		subProject.setPlanComments(null);
