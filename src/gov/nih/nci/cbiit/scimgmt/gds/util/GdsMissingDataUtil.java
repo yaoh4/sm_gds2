@@ -291,7 +291,7 @@ public class GdsMissingDataUtil {
 		
 		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
 		
-		if(!ApplicationConstants.FLAG_YES.equals(project.getBsiReviewedFlag())) {
+		if(!ApplicationConstants.BSI_YES.equals(project.getBsiReviewedId())) {
 			String displayText = "BSI Reviewed flag must be 'Yes'.";
 			MissingData missingData = new MissingData(displayText);
 			missingDataList.add(missingData);
