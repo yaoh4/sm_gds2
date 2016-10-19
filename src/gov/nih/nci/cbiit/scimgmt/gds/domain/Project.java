@@ -53,7 +53,7 @@ public class Project implements java.io.Serializable {
 	private String comments;
 	private String bsiComments;
 	private String planComments;
-	private String bsiReviewedFlag;
+	private Long bsiReviewedId;
 	private Long versionNum;
 	private String createdBy;
 	private String lastChangedBy;
@@ -116,8 +116,8 @@ public class Project implements java.io.Serializable {
 				+ ", applicationNum=" + applicationNum + ", piInstitution="
 				+ piInstitution + ", piEmailAddress=" + piEmailAddress + ", projectStartDate=" + projectStartDate
 				+ ", projectEndDate=" + projectEndDate + ", sciRevApprovalRcvdDate=" + sciRevApprovalRcvdDate
-				+ ", parentAccessionNum=" + parentAccessionNum + ", comments=" + comments + ", bsiReviewedFlag="
-				+ bsiReviewedFlag + ", versionNum=" + versionNum + ", createdBy=" + createdBy
+				+ ", parentAccessionNum=" + parentAccessionNum + ", comments=" + comments + ", bsiReviewedId="
+				+ bsiReviewedId + ", versionNum=" + versionNum + ", createdBy=" + createdBy
 				+ ", lastChangedBy=" + lastChangedBy + ", applClassCode=" + applClassCode
 				+ ", subprojectFlag=" + subprojectFlag + ", parentProjectId=" + parentProjectId
 				+ ", latestVersionFlag=" + latestVersionFlag + ", projectGroupId=" + projectGroupId
@@ -134,7 +134,7 @@ public class Project implements java.io.Serializable {
 	public Project(Long id, String projectIdentifierNum, String projectTitle, String docAbbreviation,
 			String programBranch, String applicationNum, String piInstitution,
 			String piEmailAddress, Date projectStartDate, Date projectEndDate, Date sciRevApprovalRcvdDate,
-			String parentAccessionNum, String comments, String bsiReviewedFlag, Long versionNum,
+			String parentAccessionNum, String comments, Long bsiReviewedId, Long versionNum,
 			String createdBy, String lastChangedBy, String applClassCode, String subprojectFlag,
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String certificationCompleteFlag, String piFirstName, String piLastName,
@@ -153,7 +153,7 @@ public class Project implements java.io.Serializable {
 		this.sciRevApprovalRcvdDate = sciRevApprovalRcvdDate;
 		this.parentAccessionNum = parentAccessionNum;
 		this.comments = comments;
-		this.bsiReviewedFlag = bsiReviewedFlag;
+		this.bsiReviewedId = bsiReviewedId;
 		this.versionNum = versionNum;
 		this.createdBy = createdBy;
 		this.lastChangedBy = lastChangedBy;
@@ -326,12 +326,12 @@ public class Project implements java.io.Serializable {
 	}
 	
 	@Column(name = "BSI_REVIEWED_ID", precision = 10, scale = 0)
-	public String getBsiReviewedFlag() {
-		return this.bsiReviewedFlag;
+	public Long getBsiReviewedId() {
+		return this.bsiReviewedId;
 	}
 
-	public void setBsiReviewedFlag(String bsiReviewedFlag) {
-		this.bsiReviewedFlag = bsiReviewedFlag;
+	public void setBsiReviewedId(Long bsiReviewedId) {
+		this.bsiReviewedId = bsiReviewedId;
 	}
 
 	@Column(name = "VERSION_NUM", nullable = false, precision = 10, scale = 0)
