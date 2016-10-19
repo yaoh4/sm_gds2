@@ -53,7 +53,7 @@
 						<div class="panel-body">
 							<h4>Search Criteria</h4>
 							<div class="form-group row">
-								<div class="checkbox"><label><input type="checkbox" value="" style="margin-left: -40px;">&nbsp;Only users with GDS Roles</label>
+								<div class="checkbox"><label><input type="checkbox" value="" style="margin-left: -40px;">&nbsp;&nbsp;Only users with GDS Roles</label>
 							</div>
 							<div class="col-xs-5">
 								<label for="First Name">First Name:</label>
@@ -186,7 +186,7 @@
 						</tbody></table>
 						
 						</div>	<!--end search results-->
-						<p>&nbsp;</p>
+						
 						</div> <!--end panel body-->
 						</div> <!--end panel-->
 						
@@ -202,8 +202,10 @@
 					
 					
 				</div>
+
 				<!-- /container -->
 			</div>
+			<p>&nbsp;</p>
 			<!-- end Content -->
 			<!-- Modal for Roles -->
 			<div id="myModal" class="modal fade" role="dialog">
