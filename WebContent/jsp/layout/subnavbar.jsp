@@ -99,7 +99,7 @@
 					<s:url namespace="/admin" var="searchAdminUrl" action="navigateToAdminSearch"></s:url>
 					<li><s:a href="%{searchAdminUrl}">Manage User Accounts</s:a></li>
 				</s:else>
-			
+			 </s:if>
 		</ul>
 	</div>
 </div>
