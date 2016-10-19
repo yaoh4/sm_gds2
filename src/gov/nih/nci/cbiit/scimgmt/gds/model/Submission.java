@@ -24,7 +24,7 @@ public class Submission implements java.io.Serializable {
 	private String comments;
 	private String bsiComments;
 	private String planComments;
-	private String bsiReviewedFlag;
+	private Long bsiReviewedId;
 	private Long versionNum;
 	private String createdBy;
 	private String lastChangedBy;
@@ -180,12 +180,12 @@ public class Submission implements java.io.Serializable {
 		this.bsiComments = bsiComments;
 	}
 
-	public String getBsiReviewedFlag() {
-		return this.bsiReviewedFlag;
+	public Long getBsiReviewedId() {
+		return this.bsiReviewedId;
 	}
 
-	public void setBsiReviewedFlag(String bsiReviewedFlag) {
-		this.bsiReviewedFlag = bsiReviewedFlag;
+	public void setBsiReviewedId(Long bsiReviewedId) {
+		this.bsiReviewedId = bsiReviewedId;
 	}
 
 	public Long getVersionNum() {

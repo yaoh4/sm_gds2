@@ -40,7 +40,7 @@ public class ProjectsVw implements java.io.Serializable {
 	private Date sciRevApprovalRcvdDate;
 	private String parentAccessionNum;
 	private String comments;
-	private String bsiReviewedFlag;
+	private Long bsiReviewedId;
 	private Long versionNum;
 	private String subprojectFlag;
 	private ProjectsVw parentProject;
@@ -84,7 +84,7 @@ public class ProjectsVw implements java.io.Serializable {
 	public ProjectsVw(Long id, String projectIdentifierNum, String projectTitle, String docAbbreviation,
 			String programBranch, String grantContractNum, String piInstitution, String piEmailAddress,
 			Date projectStartDate, Date projectEndDate, Date sciRevApprovalRcvdDate, String parentAccessionNum,
-			String comments, String bsiReviewedFlag, Long versionNum, String subprojectFlag,
+			String comments, Long bsiReviewedId, Long versionNum, String subprojectFlag,
 			ProjectsVw parentProject, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
 			Long submissionReasonId, String icCompleteFlag, String piFirstName, String piLastName,
 			String pocFirstName, String pocLastName, Long pdNpnId, String pdFirstName, String pdLastName,
@@ -105,7 +105,7 @@ public class ProjectsVw implements java.io.Serializable {
 		this.sciRevApprovalRcvdDate = sciRevApprovalRcvdDate;
 		this.parentAccessionNum = parentAccessionNum;
 		this.comments = comments;
-		this.bsiReviewedFlag = bsiReviewedFlag;
+		this.bsiReviewedId = bsiReviewedId;
 		this.versionNum = versionNum;
 		this.subprojectFlag = subprojectFlag;
 		this.parentProject = parentProject;
@@ -254,13 +254,13 @@ public class ProjectsVw implements java.io.Serializable {
 		this.comments = comments;
 	}
 
-	@Column(name = "BSI_REVIEWED_FLAG", length = 4)
-	public String getBsiReviewedFlag() {
-		return this.bsiReviewedFlag;
+	@Column(name = "BSI_REVIEWED_ID", precision = 10, scale = 0)
+	public Long getBsiReviewedId() {
+		return this.bsiReviewedId;
 	}
 
-	public void setBsiReviewedFlag(String bsiReviewedFlag) {
-		this.bsiReviewedFlag = bsiReviewedFlag;
+	public void setBsiReviewedId(Long bsiReviewedId) {
+		this.bsiReviewedId = bsiReviewedId;
 	}
 
 	@Column(name = "VERSION_NUM", nullable = false, precision = 10, scale = 0)
