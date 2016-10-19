@@ -157,7 +157,7 @@
 									<td>None</td>
                                     <td>&nbsp;</td>
                                     
-									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>/div></td>
+									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a></div></td>
 								</tr>
 								<tr>
 									<td>Laura Fist</td>
