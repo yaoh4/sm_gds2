@@ -83,7 +83,6 @@
       		</s:elseif>
       		<s:else>
       			<div class="pageHeader" id="pageHeader"><div class="titleWrapper container"><h3>Administration</h3></div></div>
-      			<s:include value="/jsp/layout/subnavbar.jsp" />
       		</s:else>
 			
 		</div>
