@@ -36,6 +36,7 @@ public interface ApplicationConstants {
 	 public static final String PROJECT_TYPE_LIST = "project_type";
 	 public static final String SEARCH_SUBMISSION_FROM = "search_from";
 	 public static final String LIST_ROLE = "ROLE";
+	 public static final String BSI_REVIEWED="bsi_reviewed";
 	 
 	 /* Type discriminators */ 
 	 public static final String DOC_TYPE = "DOC_TYPE";
@@ -165,5 +166,11 @@ public interface ApplicationConstants {
 	 public static final String EMPTY = "empty";
 	 public static final String SHOW_IC = "showIc";
 	 public static final String SHOW_BSI = "showBsi";
+	 
+	 // BSI Reviewed Flad ID
+	 public static final Long BSI_YES = 55L;
+	 public static final Long BSI_NO = 56L;
+	 public static final Long BSI_NA = 57L;
+	 
 	 
 }
