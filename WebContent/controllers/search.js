@@ -1,6 +1,8 @@
 //For Search Submission Result Data table
 $(document).ready(function(){
 
+	$('.stickyDiv').removeClass('stickyDiv');
+	
 	$.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) { 
 		bootbox.alert(message.substr(message.indexOf("-") + 1), function() {
       		return true;
