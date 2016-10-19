@@ -69,6 +69,7 @@
 							<div class="col-xs-5">
 								<label for="NCI Division/Office/Center">NCI Division/Office/Center:</label>
 								<select name="" id="DOC" class="c-select form-control">
+									<option value="CCR">All of NCI</option>
 									<option value="CCR">CCR</option>
 									<option value="DCB">DCB</option>
 									<option value="DCCPS">DCCPS</option>
@@ -93,10 +94,10 @@
 							</div>
 							
 							<div class="col-xs-5">
-								<label for="User Role">User Role:</label>
+								<label for="User Role">GDS User Role:</label>
 								<select name="criteria.pdNpnId" id="directorSelect" class="c-select form-control">
 									<option value="">Select User Role</option>
-									<option value="">None</option>
+								
 									<option value="">GPA</option>
 									<option value="">GPA Admin</option>
 									<option value="">GDS User - Edit</option>
@@ -130,7 +131,7 @@
 									<th width="20%"  align="left"   style="whitespace: nowrap; vertical-align:bottom;" scope="col">Email Address</th>
 									
 									<th width="8%"  align="left" style="vertical-align:bottom;" scope="col">NCI DOC</th>
-									<th width="20%"  align="left" style="vertical-align:bottom;" scope="col">Institutes/Centers</th>
+								
                                     
                                     <th width="12%"  align="left" style="vertical-align:bottom;" scope="col">Current Role(s)</th>
                                     <th width="20%"  align="left" style="vertical-align:bottom;" scope="col">Created/Updated by:</th>
@@ -142,8 +143,8 @@
 									<td>Catherine Fishman</td>
 									<td><a href="mailto:Fishmanc@mail.nih.gov">Fishmanc@mail.nih.gov</a></td>
 									<td>CBIIT </td>
-									<td>NCI - National Cancer Institute</td>
-									<td>PD/GPA Admin</td>
+							
+									<td>PD/GPA</td>
                                     <td>Catherine Fishman on 10/18/2016</td>
                                     
 									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
@@ -152,27 +153,27 @@
 									<td>John Fishman</td>
 									<td><a href="mailto:Fishmanc@mail.nih.gov">JFishman2@mail.nih.gov</a></td>
 									<td>DCEG</td>
-									<td>NCI - National Cancer Institute</td>
+								
 									<td>None</td>
                                     <td>&nbsp;</td>
                                     
-									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
+									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>/div></td>
 								</tr>
 								<tr>
 									<td>Laura Fist</td>
 									<td><a href="mailto:Fishmanc@mail.nih.gov">FistL@mail.nih.gov</a></td>
 									<td>CCR</td>
-									<td>NCI - National Cancer Institute</td>
+									
 									<td>None</td>
                                     <td>&nbsp;</td>
                                     
-									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
+									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a></div></td>
 								</tr>
 								<tr>
 									<td>Laura Fist</td>
 									<td><a href="mailto:Fishmanc@mail.nih.gov">FistL@mail.nih.gov</a></td>
 									<td>CCR </td>
-									<td>NCI - National Cancer Institute</td>
+								
 									<td>GDS User - Edit</td>
                                     <td>Catherine Fishman on 09/10/2016</td>
 									<td><div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=29"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
@@ -225,7 +226,7 @@
 									<td colspan="4" align="left" bgcolor="#FFFFFF" style="vertical-align:bottom; border-color: #FFF; " scope="col">&nbsp;</td>
 								</tr>
 								<tr>
-									<td width="6%" align="center" style="vertical-align:bottom; font-size: 11px;">GPA Admin</td>
+									
 									<td width="4%" align="center" style="vertical-align:bottom; font-size: 11px;">GPA</td>
 									<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">GDS User Edit</td>
 									<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">GDS User Read Only</td>
