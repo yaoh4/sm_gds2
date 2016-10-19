@@ -91,15 +91,15 @@
 			</s:if>
 			
 			<!-- -------Admin tab -->
-			<s:if test="%{'admin' eq #attr['navtab']}">
+			<!--<s:if test="%{'admin' eq #attr['navtab']}">
 				<s:if test="%{'searchAdmin' eq #attr['subnavtab']}">
 					<li class="active"><a href="javascript: void(0)">Manage User Accounts</a></li>
 				</s:if>
-				<!--<s:else>
+				<s:else>
 					<s:url namespace="/admin" var="searchAdminUrl" action="navigateToAdminSearch"></s:url>
 					<li><s:a href="%{searchAdminUrl}">Manage User Accounts</s:a></li>
-				</s:else>-->
-			 </s:if>
+				</s:else>
+			 </s:if>-->
 		</ul>
 	</div>
 </div>
