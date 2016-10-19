@@ -99,7 +99,7 @@
 									<option value="">Select User Role</option>
 								
 									<option value="">GPA</option>
-									<option value="">GPA Admin</option>
+								
 									<option value="">GDS User - Edit</option>
 									<option value="">GDS User - Read Only</option>
 									
@@ -236,8 +236,7 @@
 									<th width="13%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">Active PD Role?</th>
 								</tr>
 								<tr>
-									<td align="center" valign="middle"><form name="form1" method="post" action="">
-										<input type="radio" name="userRole" id="GPA Admin" value="GPA Admin"></form></td>
+									
 										<td align="center" valign="middle"><input type="radio" name="userRole" id="GPA" value="GPA"></td>
 										<td align="center" valign="middle"><input type="radio" name="userRole" id="GDS User Edit" value="GDS User Edit"></td>
 										<td align="center" valign="middle"><input type="radio" name="userRole" id="GDS User Read Only" value="GDS User Read Only"></td>
