@@ -222,7 +222,7 @@
 							<p>&nbsp;Only one selection per user can be made.</p>
 							<table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
 								<tbody><tr class="modalTheader">
-									<th class="tableHeader" scope="col" colspan="4">Select for:</th>
+									<th class="tableHeader" scope="col" colspan="3">Select for:</th>
 									<td colspan="4" align="left" bgcolor="#FFFFFF" style="vertical-align:bottom; border-color: #FFF; " scope="col">&nbsp;</td>
 								</tr>
 								<tr>
