@@ -469,11 +469,11 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			
 			// d) The system will delete answers to Has the GPA reviewed the Basic Study Information?
 			if(warnOnly) {
-				if(StringUtils.isNotBlank(getProject().getBsiReviewedFlag()))
+				if(getProject().getBsiReviewedId() != null)
 					sb.append("Answer to Has the GPA reviewed the Basic Study Information. <br>");
 			}
 			else {
-				getProject().setBsiReviewedFlag("");
+				getProject().setBsiReviewedId(null);
 			}
 			
 			// e) The system will delete the uploaded Basic Study Info and the History of Uploaded Documents.
