@@ -104,9 +104,9 @@
 						<!--<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
 						Has the GPA reviewed the Basic Study Information?&nbsp; &nbsp; &nbsp;</p>
 
-					<s:radio id="reviewed" list="#{'Y':'Yes','N':'No','Q':'Not Applicable'}"
-						name="bsiReviewedFlag" value="bsiReviewedFlag"
-						template="radiomap-div.ftl" />
+					<s:radio id="reviewed" list="bsiOptions"
+						name="bsiReviewedId" value="bsiReviewedId"
+						template="radiomap-div.ftl" listKey="optionKey" listValue="optionValue" />
 
 					<p>&nbsp;</p>
 
