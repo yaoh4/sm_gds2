@@ -209,15 +209,15 @@ public class GdsPageStatusUtil {
 		List<Document> docs = 
 				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, project.getId());
 		
-		if(project.getBsiReviewedFlag() == null
+		if(project.getBsiReviewedId() == null
 				&& StringUtils.isBlank(project.getBsiComments()) 
 				&& CollectionUtils.isEmpty(docs)) {
 			//If no data has been entered
 			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
-		} else {
+		}  else {
 			//If GPA has not reviewed or GPA has reviewed but no document has been uploaded
-			if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getBsiReviewedFlag())
-					|| (ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getBsiReviewedFlag())
+			if(ApplicationConstants.BSI_NO.equals(project.getBsiReviewedId())
+					|| (ApplicationConstants.BSI_YES.equals(project.getBsiReviewedId())
 							&& CollectionUtils.isEmpty(docs)) ) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
