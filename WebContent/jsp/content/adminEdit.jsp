@@ -33,7 +33,7 @@
 		<!--Begin Form -->
 		<form id="general_form" name="general_form" action="viewProject.action" method="post" class="dirty-check" data-toggle="validator" role="form">
 			<!-- Page navbar -->
-		
+			
 			
 			<div id="searchGrantsContracts" style="">
 				
@@ -46,184 +46,204 @@
 						
 						<div class="panel-heading">
 							<div class="pheader">
-								<h4>Edit/Create GDS User Accounts</h4>
+								<h4>Manage GDS User Accounts</h4>
 							</div>
 						</div>
 						<!--end panel header-->
 						<div class="panel-body">
+							<h4>Search Criteria</h4>
 							<div class="form-group row">
-								<div class="col-xs-5">
-									<label for="First Name">First Name:</label>
-									<input type="text" name="criteria.grantContractNum" maxlength="30" value="" id="grantNumber" class="form-control">
-								</div>
-								<div class="col-xs-5">
-									<label for="Last Name">Last Name:</label>
-									<input type="text" name="criteria.grantContractNum" maxlength="30" value="" id="grantNumber" class="form-control">
-								</div>
-								<div class="col-xs-10">
-									<label for="Institutes/Centers">Institutes/Centers:</label>
-									<select name="" id="Institutes/Centers" class="c-select form-control">
-										<option value="">Select Institute/Center</option>
-										<option value="21">CC - Warren Grant Magnuson Clinical Center</option>
-										<option value="22">CIT - Center for Information Technology</option>
-										<option value="26">CSR - Center for Scientific Review</option>
-										<option value="25">FIC - John E Fogarty International Center</option>
-										<option value="27">NCATS - National Center for Advancing Translational Sciences</option>
-										<option value="23">NCCIH - National Center for Complementary and Integrative Health</option>
-										<option value="2">NCI - National Cancer Institute</option>
-										<option value="24">NCRR - National Center for Research Resources</option>
-										<option value="3">NEI - National Eye Institute</option>
-										<option value="5">NHGRI - National Human Genome Research Institute</option>
-										<option value="4">NHLBI - National Heart Lung and Blood Institute</option>
-										<option value="6">NIA - National Institute on Aging</option>
-										<option value="7">NIAAA - National Institute on Alcohol Abuse and Alcoholism</option>
-										<option value="8">NIAID - National Institute of Allergy and Infectious Diseases</option>
-										<option value="9">NIAMS - National Inst of Arthritis and Musculoskeletal and Skin Diseases</option>
-										<option value="84">NIBIB - National Institute of Biomedical Imaging and Bioengineering</option>
-										<option value="10">NICHD - National Institute of Child Health and Human Development</option>
-										<option value="14">NIDA - National Institute on Drug Abuse</option>
-										<option value="11">NIDCD - National Institute on Deafness and Communication Disorders</option>
-										<option value="12">NIDCR - National Institute of Dental and Craniofacial Research</option>
-										<option value="13">NIDDK - National Institute of Diabetes and Digestive and Kidney Diseases</option>
-										<option value="15">NIEHS - National Institute of Environmental Health Sciences</option>
-										<option value="16">NIGMS - National Institute of General Medical Sciences</option>
-										<option value="17">NIMH - National Institute of Mental Health</option>
-										<option value="83">NIMHD - National Institute on Minority Health and Health Disparities</option>
-										<option value="18">NINDS - National Institute of Neurological Disorders and Stroke</option>
-										<option value="19">NINR - National Institute of Nursing Research</option>
-										<option value="20">NLM - National Library of Medicine</option>
-										<option value="1">OD - Office of the Director</option>
-									</select>
-								</div>
-								
-								
-								
-								
-								
-								
-								
-								<div class="searchFormat col-xs-10" style="float:right; margin-top: 10px; padding-left: 70px;">
-									<button type="button" class="btn btn-primary has-spinner" id="searchGrants" onclick="searchGrantsData()"><i class="fa fa-spinner fa-spin"></i> Search</button>
-									<button type="button" class="btn btn-default" id="reset" onclick="resetData()">Reset</button>
-									<p>&nbsp;</p>
-								</div>
+								<div class="checkbox"><label><input type="checkbox" value="" style="margin-left: -40px;">&nbsp;Only users with GDS Roles</label>
+							</div>
+							<div class="col-xs-5">
+								<label for="First Name">First Name:</label>
+								<input type="text" name="criteria.grantContractNum" maxlength="30" value="" id="grantNumber" class="form-control">
+							</div>
+							<div class="col-xs-5">
+								<label for="Last Name">Last Name:</label>
+								<input type="text" name="criteria.grantContractNum" maxlength="30" value="" id="grantNumber" class="form-control">
 							</div>
 							
-							<!--Begin Search Results-->
-							<div id="searchResults" style="margin-left: 10px;">
-								<h4>&nbsp;</h4>
-								<h4>Search Results</h4><br/>&nbsp;
-								<table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
-									<tbody><tr class="modalTheader">
-										
-										<th width="20%"  align="left" style="vertical-align:bottom;" scope="col">User Name</th>
-										<th width="20%"  align="left"   style="whitespace: nowrap; vertical-align:bottom;" scope="col">Email Address</th>
-										
-										<th width="12%"  align="left" style="vertical-align:bottom;" scope="col">Current Role(s)</th>
-										<th width="20%"  align="left" style="vertical-align:bottom;" scope="col">Institutes/Centers</th>
-										<th width="8%"  align="left" style="vertical-align:bottom;" scope="col">NCI DOC</th>
-										<th width="5%"  align="left" style="vertical-align:bottom;" scope="col">Actions</th>
-									</tr>
+							
+							
+							<div class="col-xs-5">
+								<label for="NCI Division/Office/Center">NCI Division/Office/Center:</label>
+								<select name="" id="DOC" class="c-select form-control">
+									<option value="CCR">CCR</option>
+									<option value="DCB">DCB</option>
+									<option value="DCCPS">DCCPS</option>
+									<option value="DCEG">DCEG</option>
+									<option value="DCP">DCP</option>
+									<option value="DCTD">DCTD</option>
+									<option value="DEA">DEA</option>
+									<option value="OD">OD</option>
+									<option value="OD CBIIT" selected="selected">OD CBIIT</option>
+									<option value="OD CCG">OD CCG</option>
+									<option value="OD CCT">OD CCT</option>
+									<option value="OD CGH">OD CGH</option>
+									<option value="OD CRCHD">OD CRCHD</option>
+									<option value="OD CSSI">OD CSSI</option>
+									<option value="OD OCC">OD OCC</option>
+									<option value="OD OCPL">OD OCPL</option>
+									<option value="OD OHAM">OD OHAM</option>
+									<option value="OD OSO">OD OSO</option>
+									<option value="OD OSPA">OD OSPA</option>
+									<option value="OD SBIR">OD SBIR</option>
+								</select>
+							</div>
+							
+							<div class="col-xs-5">
+								<label for="User Role">User Role:</label>
+								<select name="criteria.pdNpnId" id="directorSelect" class="c-select form-control">
+									<option value="">Select User Role</option>
+									<option value="">None</option>
+									<option value="">GPA</option>
+									<option value="">GPA Admin</option>
+									<option value="">GDS User - Edit</option>
+									<option value="">GDS User - Read Only</option>
 									
-									<tr>
-										<td>Catherine Fishman</td>
-										<td><a href="mailto:Fishmanc@mail.nih.gov">Fishmanc@mail.nih.gov</a></td>
-										<td>PD/GPA Admin</td>
-										<td>NCI - National Cancer Institute</td>
-										<td>CBIIT</td>
-										<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
-									</tr>
-									<tr>
-										<td>John Fishman</td>
-										<td><a href="mailto:Fishmanc@mail.nih.gov">JFishman2@mail.nih.gov</a></td>
-										<td>None</td>
-										<td>NCI - National Cancer Institute</td>
-										<td>DCEG</td>
-										<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
-									</tr>
-									<tr>
-										<td>Laura Fist</td>
-										<td><a href="mailto:Fishmanc@mail.nih.gov">FistL@mail.nih.gov</a></td>
-										<td>None</td>
-										<td>NCI - National Cancer Institute</td>
-										<td>CCR</td>
-										<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
-									</tr>
-									<tr>
-										<td>Laura Fist</td>
-										<td><a href="mailto:Fishmanc@mail.nih.gov">FistL@mail.nih.gov</a></td>
-										<td>GDS User - Edit</td>
-										<td>NCI - National Cancer Institute</td>
-										<td>CCR</td>
-										<td><div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=29"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
-									</tr>
-								</form>
-								
-								
-								
-								
-								
-							</tbody></table>
-							
-							</div>	<!--end search results-->
-							<p>&nbsp;</p>
-							</div> <!--end panel body-->
-							</div> <!--end panel-->
+									
+								</select>
+							</div>
 							
 							
 							
-							</div> <!--  end Panel  -->
 							
+							
+							
+							
+							<div class="searchFormat col-xs-10" style="float:right; margin-top: 10px; padding-left: 70px;">
+								<button type="button" class="btn btn-primary has-spinner" id="searchGrants" onclick="searchGrantsData()"><i class="fa fa-spinner fa-spin"></i> Search</button>
+								<button type="button" class="btn btn-default" id="reset" onclick="resetData()">Reset</button>
+								<p>&nbsp;</p>
+							</div>
 						</div>
 						
+						<!--Begin Search Results-->
+						<div id="searchResults" style="margin-left: 10px;">
+							<h4>&nbsp;</h4>
+							<h4>Search Results</h4><br/>&nbsp;
+							<table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
+								<tbody><tr class="modalTheader">
+									
+									<th width="20%"  align="left" style="vertical-align:bottom;" scope="col">User Name</th>
+									<th width="20%"  align="left"   style="whitespace: nowrap; vertical-align:bottom;" scope="col">Email Address</th>
+									
+									<th width="8%"  align="left" style="vertical-align:bottom;" scope="col">NCI DOC</th>
+									<th width="20%"  align="left" style="vertical-align:bottom;" scope="col">Institutes/Centers</th>
+                                    
+                                    <th width="12%"  align="left" style="vertical-align:bottom;" scope="col">Current Role(s)</th>
+                                    <th width="20%"  align="left" style="vertical-align:bottom;" scope="col">Created/Updated by:</th>
+									
+									<th width="5%"  align="left" style="vertical-align:bottom;" scope="col">Actions</th>
+								</tr>
+								
+								<tr>
+									<td>Catherine Fishman</td>
+									<td><a href="mailto:Fishmanc@mail.nih.gov">Fishmanc@mail.nih.gov</a></td>
+									<td>CBIIT </td>
+									<td>NCI - National Cancer Institute</td>
+									<td>PD/GPA Admin</td>
+                                    <td>Catherine Fishman on 10/18/2016</td>
+                                    
+									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
+								</tr>
+								<tr>
+									<td>John Fishman</td>
+									<td><a href="mailto:Fishmanc@mail.nih.gov">JFishman2@mail.nih.gov</a></td>
+									<td>DCEG</td>
+									<td>NCI - National Cancer Institute</td>
+									<td>None</td>
+                                    <td>&nbsp;</td>
+                                    
+									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
+								</tr>
+								<tr>
+									<td>Laura Fist</td>
+									<td><a href="mailto:Fishmanc@mail.nih.gov">FistL@mail.nih.gov</a></td>
+									<td>CCR</td>
+									<td>NCI - National Cancer Institute</td>
+									<td>None</td>
+                                    <td>&nbsp;</td>
+                                    
+									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
+								</tr>
+								<tr>
+									<td>Laura Fist</td>
+									<td><a href="mailto:Fishmanc@mail.nih.gov">FistL@mail.nih.gov</a></td>
+									<td>CCR </td>
+									<td>NCI - National Cancer Institute</td>
+									<td>GDS User - Edit</td>
+                                    <td>Catherine Fishman on 09/10/2016</td>
+									<td><div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=29"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
+								</tr>
+							</form>
+							
+							
+							
+							
+							
+						</tbody></table>
+						
+						</div>	<!--end search results-->
+						<p>&nbsp;</p>
+						</div> <!--end panel body-->
+						</div> <!--end panel-->
 						
 						
 						
-						
+						</div> <!--  end Panel  -->
 						
 					</div>
-					<!-- /container -->
+					
+					
+					
+					
+					
+					
 				</div>
-				<!-- end Content -->
-				<!-- Modal for Roles -->
-				<div id="myModal" class="modal fade" role="dialog">
-					<div class="modal-dialog modal-lg">
-						<!-- Modal content-->
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Edit/Add User Role</h4>
-							</div>
-							<div class="modal-body">
-								
-								<p>&nbsp;Only one selection per user can be made.</p>
-			<table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
-									<tbody><tr class="modalTheader">
-										<th class="tableHeader" scope="col" colspan="4">Select for:</th>
-										<td colspan="4" align="left" bgcolor="#FFFFFF" style="vertical-align:bottom; border-color: #FFF; " scope="col">&nbsp;</td>
-										</tr>
-									<tr>
-										<td width="6%" align="center" style="vertical-align:bottom; font-size: 11px;">GPA Admin</td>
-										<td width="4%" align="center" style="vertical-align:bottom; font-size: 11px;">GPA</td>
-										<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">GDS User Edit</td>
-										<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">GDS User Read Only</td>
-										<th width="28%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF; " scope="col">User Name</th>
-										<th width="31%" align="left" style="whitespace: nowrap; vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">Email Address</th>
-										<th width="8%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">DOC</th>
-										<th width="13%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">Active PD Role?</th>
+				<!-- /container -->
+			</div>
+			<!-- end Content -->
+			<!-- Modal for Roles -->
+			<div id="myModal" class="modal fade" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Edit/Add User Role</h4>
+						</div>
+						<div class="modal-body">
+							
+							<p>&nbsp;Only one selection per user can be made.</p>
+							<table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
+								<tbody><tr class="modalTheader">
+									<th class="tableHeader" scope="col" colspan="4">Select for:</th>
+									<td colspan="4" align="left" bgcolor="#FFFFFF" style="vertical-align:bottom; border-color: #FFF; " scope="col">&nbsp;</td>
+								</tr>
+								<tr>
+									<td width="6%" align="center" style="vertical-align:bottom; font-size: 11px;">GPA Admin</td>
+									<td width="4%" align="center" style="vertical-align:bottom; font-size: 11px;">GPA</td>
+									<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">GDS User Edit</td>
+									<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">GDS User Read Only</td>
+									<th width="28%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF; " scope="col">User Name</th>
+									<th width="31%" align="left" style="whitespace: nowrap; vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">Email Address</th>
+									<th width="8%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">DOC</th>
+									<th width="13%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">Active PD Role?</th>
+								</tr>
+								<tr>
+									<td align="center" valign="middle"><form name="form1" method="post" action="">
+										<input type="radio" name="userRole" id="GPA Admin" value="GPA Admin"></form></td>
+										<td align="center" valign="middle"><input type="radio" name="userRole" id="GPA" value="GPA"></td>
+										<td align="center" valign="middle"><input type="radio" name="userRole" id="GDS User Edit" value="GDS User Edit"></td>
+										<td align="center" valign="middle"><input type="radio" name="userRole" id="GDS User Read Only" value="GDS User Read Only"></td>
+										<td>Catherine Fishman</td>
+										<td><a href="mailto:Fishmanc@mail.nih.gov">Fishmanc@mail.nih.gov</a></td>
+										<td>DEA</td>
+										<td>Yes</td>
 									</tr>
-									<tr>
-										<td align="center" valign="middle"><form name="form1" method="post" action="">
-											<input type="radio" name="userRole" id="GPA Admin" value="GPA Admin"></form></td>
-											<td align="center" valign="middle"><input type="radio" name="userRole" id="GPA" value="GPA"></td>
-											<td align="center" valign="middle"><input type="radio" name="userRole" id="GDS User Edit" value="GDS User Edit"></td>
-											<td align="center" valign="middle"><input type="radio" name="userRole" id="GDS User Read Only" value="GDS User Read Only"></td>
-											<td>Catherine Fishman</td>
-											<td><a href="mailto:Fishmanc@mail.nih.gov">Fishmanc@mail.nih.gov</a></td>
-											<td>DEA</td>
-											<td>Yes</td>
-										</tr>
-										
+									
 									
 									
 									
