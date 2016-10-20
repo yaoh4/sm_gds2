@@ -16,26 +16,25 @@
 	<div style="clear:both;"></div>
 	
 </div>
-
 <s:if test="%{excepMemoFile.size > 0}">
-<div class="qSpacing">
+
 <p></p>
-<div class="qSpacing" style="margin-top: 10px; margin-left: 15px;">
-	<table style="width: 884px;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
-		<tr>
-			<th class="tableHeader" align="center" >File Name</th>
-			<th class="tableHeader" align="center" >Date</th>
-			<th class="tableHeader" align="center" >Uploaded By</th>
-		</tr>
-		<tr>
-			<td><s:a href="javascript:openDocument(%{excepMemoFile[0].id})"><s:property
-			value="%{excepMemoFile[0].fileName}" /></s:a></td>
-			<td style="white-space: nowrap">
-			<s:date name="%{excepMemoFile[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" /></td>
-			<td><s:property
-			value="%{excepMemoFile[0].uploadedBy}" /></td>
-		</tr>
-	</table>
-</div>
-</div>
+	<div class="qSpacing" style="margin-top: 10px; margin-left: 15px;">
+		<table style="width: 884px;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
+			<tr>
+				<th class="tableHeader" align="center" >File Name</th>
+				<th class="tableHeader" align="center" >Date</th>
+				<th class="tableHeader" align="center" >Uploaded By</th>
+			</tr>
+			<tr>
+				<td><s:a href="javascript:openDocument(%{excepMemoFile[0].id})"><s:property
+				value="%{excepMemoFile[0].fileName}" /></s:a></td>
+				<td style="white-space: nowrap">
+				<s:date name="%{excepMemoFile[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" /></td>
+				<td><s:property
+				value="%{excepMemoFile[0].uploadedBy}" /></td>
+			</tr>
+		</table>
+	</div>
+
 </s:if>
