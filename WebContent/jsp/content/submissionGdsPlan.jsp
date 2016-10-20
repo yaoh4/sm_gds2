@@ -64,12 +64,12 @@
 				</div>
 
 				<div id="exceptionMemoDiv" style="${map['exceptionMemoDiv'].style}" 
-					class="qSpacing">
+					class="qSpacing" style="margin-left: 30px;">
 						<s:include value="/jsp/content/submissionGdsPlanMemo.jsp"/>
 				</div>
 
 				<%-- Will there be any data submitted? --%>
-				<div id="8" style="${map['8'].style};" class="qSpacing">
+				<div id="8" style="${map['8'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(8).getDisplayText()}" /></p>
 					<s:set name="params" value="%{map[8].parameters}" />
@@ -144,7 +144,7 @@
 									<s:property value="%{#ans.additionalText}" />
 							</div> 
 							<s:if test="%{#ans.displayText=='Other'}">
-								<div id="addRepo" style="display: none;">
+								<div id="addRepo" style="display: none">
 									<!--Repo hidden field-->				
 									<s:if test="%{otherText[#ans.id].size > 0}">
 										<s:iterator value="%{otherText[#ans.id]}" var="other" status="otherStat">
@@ -217,45 +217,33 @@
 				</div>
 
 				<!--BEGIN HIDDEN Field for Uploader-->
-			<div style="width:600px; display:none;">
-	
-				<div class="qSpacing" style="margin-left: 15px; float:left; width: 58%; ${map['dataSharingPlanDiv'].style}"
+				<div class="qSpacing" style="margin-left: 30px; ${map['dataSharingPlanDiv'].style}"
 					id="dataSharingPlanDiv">
 					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
-				</div>
 
-					<div style="margin-bottom: 30px; float: left; width: 30%; margin-left: 15px;">
-								<div class="input-group" style="width: 94px;">
-									<label class="input-group-btn"> 
-										<span class="btn btn-default">
-										Choose File <s:file style="display: none;" name="dataSharingPlan"
+					<div style="margin-bottom: 10px;">
+						<div class="input-group"><label
+								class="input-group-btn"> <span class="btn btn-default">
+									Choose File <s:file style="display: none;" name="dataSharingPlan"
 										id="dataSharingPlan" />
-										</span>
-									</label>
-								</div>
-					
+							</span>
+							</label>
+						</div>
 					</div>
-			
-			</div>
-
-
-				<div style="float: left; clear:both;">&nbsp;</div>
-
 										
 					<div class="loadFileHistory">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>
-				
+				</div>
 
-				<div style="clear:both;">
+				<div>
 					<p class="question">Comments (2000 Characters):</p>
 					<s:textarea class="col-md-10" rows="3" maxlength="2000" name="comments"></s:textarea>
 				</div>
 			</div>
-			</div>
 			<!--end panel body-->
 		</div>
-	
+	</div>
 	
 
 	<!--SAVE & NEXT BUTTONS-->
@@ -263,7 +251,6 @@
 		<s:submit action="saveGdsPlan" onclick="enableAllCheckbox();return warnGdsPlan()" value=" Save " class="saved btn btn-default"/>
 		<s:submit type="button" action="saveGdsPlanAndNext" onclick="enableAllCheckbox();return warnGdsPlanNext()" class="btn btn-project-primary">
 			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
-	</div>
 	</div>
 </s:form>
 
