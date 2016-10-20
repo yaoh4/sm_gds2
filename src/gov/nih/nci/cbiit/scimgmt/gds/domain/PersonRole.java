@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 
 
+import java.text.DateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -110,6 +111,7 @@ public class PersonRole implements java.io.Serializable {
 		this.lastChangedDate = lastChangedDate;
 	}
 	
+	
 	@OneToOne(mappedBy="personRole", optional = false)
 	public NedPerson getNedPerson() {
 		return nedPerson;
@@ -120,12 +122,21 @@ public class PersonRole implements java.io.Serializable {
 	}
 
 	@Transient
-	public Date getUpdatedDate() {
+	public String getUpdatedDate() {
 		if(lastChangedDate != null) {
-			return lastChangedDate;
+			return DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(lastChangedDate);
+		}	
+		return DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(createdDate);
+	}
+	
+	
+	@Transient
+	public String getUpdatedBy() {
+		if(lastChangedBy != null) {
+			return lastChangedBy;
 		}
 		
-		return createdDate;
+		return createdBy;
 	}
-
+	
 }

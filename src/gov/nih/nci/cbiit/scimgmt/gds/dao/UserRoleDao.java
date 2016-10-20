@@ -93,7 +93,7 @@ public class UserRoleDao {
 			criteria.add(Restrictions.ilike("nedPerson.firstName", searchCriteria.getFirstName().trim(), MatchMode.EXACT));
 		}
 		if (StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getLastName()))) {
-			criteria.add(Restrictions.ilike("nedPerson.lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
+			//criteria.add(Restrictions.ilike("nedPerson.lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
 		}
 		if(searchCriteria.getRoleId() != null) {
 			criteria.add(Restrictions.eq("roleId", searchCriteria.getRoleId()));

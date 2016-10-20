@@ -1,41 +1,12 @@
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta charset="utf-8">
-	<title>GDS Tracking System</title>
-	<script src="../../scripts/jquery-1.12.3.min.js"></script>
-	<script src="../../scripts/bootstrap-3.3.6.min.js"></script>
-	<script src="../../scripts/bootbox-4.4.0.min.js"></script>
-	<script src="../../scripts/bootstrap-datepicker-1.6.1.min.js"></script>
-	<script src="../../scripts/datatables-1.10.12.min.js"></script>
-	<script src="../../scripts/jquery.validate-1.15.0.min.js"></script>
-	<script src="../../scripts/jquery.are-you-sure-1.9.0.js"></script>
-	<script src="../../scripts/theme.js"></script>
-	<script src="../../controllers/gds.js"></script>
-	<link href="../../stylesheets/bootstrap-3.3.6.min.css" rel="stylesheet" type="text/css" media="screen">
-	<!-- <link href="../../stylesheets/non-responsive.css" rel="stylesheet" type="text/css" media="screen" /> -->
-	<link href="../../stylesheets/bootstrap-datepicker-1.6.1.min.css" rel="stylesheet" type="text/css" media="screen">
-	<link href="../../stylesheets/datatables-1.10.12.min.css" rel="stylesheet" type="text/css" media="screen">
-	<link href="../../stylesheets/font-awesome-4.6.3.min.css" rel="stylesheet" type="text/css" media="screen">
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic,400italic" rel="stylesheet" type="text/css">
-	<link href="../../stylesheets/custom.css" rel="stylesheet" type="text/css" media="screen">
-	<link href="../../stylesheets/datatable.css" rel="stylesheet" type="text/css" media="screen">
-	<link href="../../stylesheets/styles.css" rel="stylesheet" type="text/css" media="screen">
-	<script src="../../struts/utils.js" type="text/javascript"></script>
-</head>
-<body>
-	<!-- Header -->
+<%@ taglib uri="/struts-tags" prefix="s"%>
 	
-	<div id="messages" class="container"></div>
-	<!-- Content start -->
-	<div class="container">
-		
+	
 		<!--Begin Form -->
-		<form id="general_form" name="general_form" action="viewProject.action" method="post" class="dirty-check" data-toggle="validator" role="form">
+		<form id="admin_form" name="admin_form" action="searchGdsUsers.action" method="post" data-toggle="validator" role="form">
 			<!-- Page navbar -->
 			
 			
-			<div id="searchGrantsContracts" style="">
+			<div id="adminSearch" style="">
 				
 				
 				
@@ -57,11 +28,11 @@
 							</div>
 							<div class="col-xs-5">
 								<label for="First Name">First Name:</label>
-								<input type="text" name="criteria.grantContractNum" maxlength="30" value="" id="grantNumber" class="form-control">
+								<input type="text" name="criteria.firstName" maxlength="30" value="" id="firstName" class="form-control">
 							</div>
 							<div class="col-xs-5">
 								<label for="Last Name">Last Name:</label>
-								<input type="text" name="criteria.grantContractNum" maxlength="30" value="" id="grantNumber" class="form-control">
+								<input type="text" name="criteria.lastName" maxlength="30" value="" id="lastName" class="form-control">
 							</div>
 							
 							
@@ -95,13 +66,13 @@
 							
 							<div class="col-xs-5">
 								<label for="User Role">GDS User Role:</label>
-								<select name="criteria.pdNpnId" id="directorSelect" class="c-select form-control">
+								<select name="criteria.roleId" id="role" class="c-select form-control">
 									<option value="">Select User Role</option>
 								
-									<option value="">GPA</option>
+									<option>GPA</option>
 								
-									<option value="">GDS User - Edit</option>
-									<option value="">GDS User - Read Only</option>
+									<option>GDS User - Edit</option>
+									<option>GDS User - Read Only</option>
 									
 									
 								</select>
@@ -114,16 +85,21 @@
 							
 							
 							<div class="searchFormat col-xs-10" style="float:right; margin-top: 10px; padding-left: 70px;">
-								<button type="button" class="btn btn-primary has-spinner" id="searchGrants" onclick="searchGrantsData()"><i class="fa fa-spinner fa-spin"></i> Search</button>
+								<button type="button" class="btn btn-primary has-spinner" id="search" onclick="searchGdsUsers()"><i class="fa fa-spinner fa-spin"></i> Search</button>
 								<button type="button" class="btn btn-default" id="reset" onclick="resetData()">Reset</button>
 								<p>&nbsp;</p>
 							</div>
 						</div>
 						
 						<!--Begin Search Results-->
+						
+						
+						
+						
 						<div id="searchResults" style="margin-left: 10px;">
 							<h4>&nbsp;</h4>
 							<h4>Search Results</h4><br/>&nbsp;
+							
 							<table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
 								<tbody><tr class="modalTheader">
 									
@@ -139,50 +115,37 @@
 									<th width="5%"  align="left" style="vertical-align:bottom;" scope="col">Actions</th>
 								</tr>
 								
-								<tr>
-									<td>Catherine Fishman</td>
-									<td><a href="mailto:Fishmanc@mail.nih.gov">Fishmanc@mail.nih.gov</a></td>
+								
+								<s:if test="%{personRoles.size > 0}">
+				  			<s:iterator value="personRoles" var="personRole" status="stat">
+				    			<s:if test="#stat.index /2 == 0">
+					  			<tr class="tableContent">
+								</s:if>
+								<s:else>
+					  			<tr class="tableContentOdd">
+								</s:else>					    	
+																
+								<td>${personRole.nedPerson.fullName}</td>
+									<td><a href="mailto:${personRole.nedPerson.email}">${personRole.nedPerson.email}</a></td>
 									<td>CBIIT </td>
 							
 									<td>PD/GPA</td>
-                                    <td>Catherine Fishman on 10/18/2016</td>
+                                    <td>${personRole.updatedBy} on ${personRole.updatedDate}</td>
                                     
 									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
-								</tr>
-								<tr>
-									<td>John Fishman</td>
-									<td><a href="mailto:Fishmanc@mail.nih.gov">JFishman2@mail.nih.gov</a></td>
-									<td>DCEG</td>
 								
-									<td>None</td>
-                                    <td>&nbsp;</td>
-                                    
-									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a></div></td>
-								</tr>
-								<tr>
-									<td>Laura Fist</td>
-									<td><a href="mailto:Fishmanc@mail.nih.gov">FistL@mail.nih.gov</a></td>
-									<td>CCR</td>
-									
-									<td>None</td>
-                                    <td>&nbsp;</td>
-                                    
-									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a></div></td>
-								</tr>
-								<tr>
-									<td>Laura Fist</td>
-									<td><a href="mailto:Fishmanc@mail.nih.gov">FistL@mail.nih.gov</a></td>
-									<td>CCR </td>
+								 
+									</tr>
 								
-									<td>GDS User - Edit</td>
-                                    <td>Catherine Fishman on 09/10/2016</td>
-									<td><div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=29"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
-								</tr>
-							</form>
-							
-							
-							
-							
+								</s:iterator>
+								</s:if>
+								
+								<s:else>
+				  					<tr class="tableContent">
+				    					<td colspan="4">Nothing found to display.</td>
+				  					</tr>
+								</s:else>
+								
 							
 						</tbody></table>
 						
@@ -201,11 +164,9 @@
 					
 					
 					
-					
-				</div>
-
-				<!-- /container -->
-			</div>
+					</form>
+				
+			
 			<p>&nbsp;</p>
 			<!-- end Content -->
 			<!-- Modal for Roles -->
@@ -262,4 +223,8 @@
 					</div>
 				</div>
 				
-			</body></html>
+			
+
+<script type="text/javascript" src="<s:url value="/controllers/gds.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/controllers/admin.js"/>"></script>
+			

@@ -1,5 +1,6 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +23,9 @@ public class AdminAction extends BaseAction {
 	@Autowired
 	protected UserRoleService userRoleService;
 	
-	private RoleSearchCriteria searchCriteria = new RoleSearchCriteria();
+	private RoleSearchCriteria criteria = new RoleSearchCriteria();
+	
+	private List<PersonRole> personRoles = new ArrayList<PersonRole>();
 	
 	static Logger logger = LogManager.getLogger(AdminAction.class);
 	
@@ -37,23 +40,14 @@ public class AdminAction extends BaseAction {
         return SUCCESS;
 	}
 	
-	public String edit() {
-		
-		
-		return SUCCESS;
-	}
-	
-	
-	
 	
 	public String searchNedPersons() {
 		//Perform search
-		RoleSearchCriteria searchCriteria = getSearchCriteria();
-		if(!isSearchCriteriaValid(searchCriteria)) {
+		if(!isSearchCriteriaValid(criteria)) {
 			addActionError("Please enter at least one of last name or doc as search criteria");
 			return INPUT;
 		}
-		List<NedPerson> persons = userRoleService.searchNedPerson(getSearchCriteria());
+		List<NedPerson> persons = userRoleService.searchNedPerson(getCriteria());
 		if(persons == null || persons.isEmpty()) {
 			logger.debug("No results found for given search criteria in searchNedPerson");
 		}
@@ -64,14 +58,13 @@ public class AdminAction extends BaseAction {
 	
 	public String searchGdsUsers() {
 		
-		RoleSearchCriteria searchCriteria = getSearchCriteria();
-		if(!isSearchCriteriaValid(searchCriteria)) {
+		if(!isSearchCriteriaValid(getCriteria())) {
 			addActionError("Please enter at least one of last name, role or doc as search criteria");
 			return INPUT;
 		}
 		
 		//Perform search
-		List<PersonRole> personRoles = userRoleService.searchPersonRole(getSearchCriteria());
+		personRoles = userRoleService.searchPersonRole(getCriteria());
 		if(personRoles == null || personRoles.isEmpty()) {
 			logger.debug("No results found for given search criteria in searchGdsUsers");
 		}
@@ -88,16 +81,30 @@ public class AdminAction extends BaseAction {
 	/**
 	 * @return the searchCriteria
 	 */
-	public RoleSearchCriteria getSearchCriteria() {
-		return searchCriteria;
+	public RoleSearchCriteria getCriteria() {
+		return criteria;
 	}
 
 
 	/**
 	 * @param searchCriteria the searchCriteria to set
 	 */
-	public void setSearchCriteria(RoleSearchCriteria searchCriteria) {
-		this.searchCriteria = searchCriteria;
+	public void setSearchCriteria(RoleSearchCriteria criteria) {
+		this.criteria = criteria;
+	}
+
+	/**
+	 * @return the personRoles
+	 */
+	public List<PersonRole> getPersonRoles() {
+		return personRoles;
+	}
+
+	/**
+	 * @param personRoles the personRoles to set
+	 */
+	public void setPersonRoles(List<PersonRole> personRoles) {
+		this.personRoles = personRoles;
 	}
 
 }
