@@ -144,7 +144,7 @@
 									<s:property value="%{#ans.additionalText}" />
 							</div> 
 							<s:if test="%{#ans.displayText=='Other'}">
-								<div id="addRepo" style="display: none">
+								<div id="addRepo" style="display: none;">
 									<!--Repo hidden field-->				
 									<s:if test="%{otherText[#ans.id].size > 0}">
 										<s:iterator value="%{otherText[#ans.id]}" var="other" status="otherStat">
