@@ -25,6 +25,7 @@ public interface ApplicationConstants {
 	public static final String LINK_TO_PARENT_PAGE = "linkToParentProject";	
 	
 	/*List discriminators*/
+	 public static final String GDS_ROLE_LIST = "ROLE";
 	 public static final String REGISTRATION_STATUS_LIST = "registration_status";
 	 public static final String PROJECT_SUBMISSION_STATUS_LIST = "project_sub_status";
 	 public static final String STUDY_RELEASED_LIST = "study_released";

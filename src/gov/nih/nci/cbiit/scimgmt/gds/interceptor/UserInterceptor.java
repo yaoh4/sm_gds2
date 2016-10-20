@@ -76,7 +76,7 @@ public class UserInterceptor extends AbstractInterceptor implements StrutsStatic
 				} else {
 					PersonRole personRole = nedPerson.getPersonRole();
 					if(personRole != null) {
-						Long roleId = personRole.getRoleId();
+						Long roleId = personRole.getRole().getId();
 						Lookup gdsRole = lookupService.getLookupById(ApplicationConstants.ROLE_TYPE, roleId);
 						logger.info("GDS role for user " + remoteUser + " is " + gdsRole.getDescription());
 					}

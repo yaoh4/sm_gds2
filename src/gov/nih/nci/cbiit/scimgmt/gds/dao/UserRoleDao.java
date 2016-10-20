@@ -96,7 +96,7 @@ public class UserRoleDao {
 			criteria.add(Restrictions.ilike("nedPerson.lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
 		}
 		if(searchCriteria.getRoleId() != null) {
-			criteria.add(Restrictions.eq("roleId", searchCriteria.getRoleId()));
+			criteria.add(Restrictions.eq("role.id", searchCriteria.getRoleId()));
 		}
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
 			criteria.add(Restrictions.ilike("nedPerson.nihOrgPath", searchCriteria.getDoc()));

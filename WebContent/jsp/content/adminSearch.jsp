@@ -66,16 +66,13 @@
 							
 							<div class="col-xs-5">
 								<label for="User Role">GDS User Role:</label>
-								<select name="criteria.roleId" id="role" class="c-select form-control">
-									<option value="">Select User Role</option>
 								
-									<option>GPA</option>
-								
-									<option>GDS User - Edit</option>
-									<option>GDS User - Read Only</option>
-									
-									
-								</select>
+								<s:select name="criteria.roleId" id="role"
+                    			value="Select User Role"
+                    			class="c-select form-control"
+                    			list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@GDS_ROLE_LIST)}"
+                    			listKey="optionKey" listValue="optionValue"
+                    			emptyOption="true"/>							
 							</div>
 							
 							
@@ -129,7 +126,7 @@
 									<td><a href="mailto:${personRole.nedPerson.email}">${personRole.nedPerson.email}</a></td>
 									<td>CBIIT </td>
 							
-									<td>PD/GPA</td>
+									<td>${personRole.role.description}</td>
                                     <td>${personRole.updatedBy} on ${personRole.updatedDate}</td>
                                     
 									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>

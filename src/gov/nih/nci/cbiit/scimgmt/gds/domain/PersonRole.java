@@ -22,8 +22,8 @@ import javax.persistence.Transient;
 public class PersonRole implements java.io.Serializable {
 
 	private String nihNetworkId;
-	//private Lookup role;
-	private Long roleId;
+	private Lookup role;
+	//private Long roleId;
 	private String createdBy;
 	private String lastChangedBy;
 	private Date createdDate;
@@ -34,9 +34,9 @@ public class PersonRole implements java.io.Serializable {
 	public PersonRole() {
 	}
 
-	public PersonRole(String nihNetworkId, Long roleId, Date createdDate) {
+	public PersonRole(String nihNetworkId, Lookup role, Date createdDate) {
 		this.nihNetworkId = nihNetworkId;
-		this.roleId = roleId;
+		this.role = role;
 		this.createdDate = createdDate;
 	}
 
@@ -52,16 +52,16 @@ public class PersonRole implements java.io.Serializable {
 	}
 	
 	
-	@Column(name="ROLE_ID", nullable = false, length = 30)
+	/*@Column(name="ROLE_ID", nullable = false, length = 30)
 	public Long getRoleId() {
 		return roleId;
 	}
 	
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
-	}
+	}*/
 	
-	/*@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ROLE_ID", nullable = false)
 	public Lookup getRole() {
 		return this.role;
@@ -69,7 +69,7 @@ public class PersonRole implements java.io.Serializable {
 
 	public void setRole(Lookup role) {
 		this.role = role;
-	}*/
+	}
 	
 
 	@Column(name = "CREATED_BY", length = 120)
