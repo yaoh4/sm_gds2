@@ -114,18 +114,18 @@
 
 					<!--  File Upload -->
 					<div style="width:600px;">
-					<div style="margin-left: 30px; float:left; width: 38%"><p class="question">
+					<div style="margin-left: 15px; float:left; width: 38%"><p class="question">
 					<!-- <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
 						Upload Basic Study Information:
 					</p></div>
 					<!--BEGIN Uploader-->
-					<div class="qSpacing" id="bsiDiv" style="margin-bottom: 30px; float: left; width: 30%; margin-left: 15px;">
+					<div class="qSpacing" id="bsiDiv" style="margin-bottom: 30px; float: left; width: 30%;">
 						<div>
 							<div class="input-group" style="width: 94px;">
 								<label
 									class="input-group-btn"> <span class="btn btn-default">
 										Choose File <s:file style="display: none;"
-											name="bsi" id="bsi" />	Q2
+											name="bsi" id="bsi" />
 								</span>
 								</label>
 							</div>

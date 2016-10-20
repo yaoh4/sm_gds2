@@ -217,7 +217,7 @@
 				</div>
 
 				<!--BEGIN HIDDEN Field for Uploader-->
-			<div style="width:600px;">
+			<div style="width:600px; display:none;">
 	
 				<div class="qSpacing" style="margin-left: 15px; float:left; width: 58%; ${map['dataSharingPlanDiv'].style}"
 					id="dataSharingPlanDiv">
