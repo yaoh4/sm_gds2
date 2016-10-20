@@ -96,6 +96,9 @@ $(document).ready(function(){
                 "targets": -1, // Last column, action
                 "orderable": false,
                 "render": function (data, type, row, meta) {
+                	if($("#readonly").val() == "true") {
+                		return '<div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a></div>'
+                	}
                 	var addNewVersion = '', addSubproject = '';
                 	if(row.subprojectEligibleFlag == "Y") {
                 		addSubproject = '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Add New Sub-project" title="Add New Sub-project"></a>';

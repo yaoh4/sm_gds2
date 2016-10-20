@@ -111,6 +111,16 @@
 									<tr>
 										<td>
 											<div style="white-space: nowrap;">
+											  <s:if test="isReadOnlyUser()">
+											  	<!--icon div-->
+												&nbsp;&nbsp;&nbsp;
+												<s:a
+													href="../manage/navigateToSubmissionDetail.action?projectId=%{#s.id}">
+													<i class="fa fa-file-text fa-lg" aria-hidden="true"
+														alt="View" title="View"></i>
+												</s:a>
+											  </s:if>
+											  <s:else>
 												<!--icon div-->
 												&nbsp;&nbsp;&nbsp;
 												<s:a
@@ -131,6 +141,7 @@
 													<s:a href="../manage/createNewSubprojectVersion.action?projectId=%{#s.id}"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i>
 													</s:a>
 												</s:if>
+											  </s:else>
 											</div>
 
 										</td>

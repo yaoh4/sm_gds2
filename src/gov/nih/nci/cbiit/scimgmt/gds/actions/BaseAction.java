@@ -169,4 +169,15 @@ public class BaseAction extends ActionSupport implements SessionAware {
 		this.inputStream = inputStream;
 	}
 	
+	/**
+	 * Checks if is Read only user
+	 * 
+	 * @return true, if is Read only user
+	 */
+	public boolean isReadOnlyUser() {
+		if(loggedOnUser.getPersonRole() == null)
+			return false;
+		return (loggedOnUser.getPersonRole().getRole() == null? false: loggedOnUser.getPersonRole().getRole().getId().equals(ApplicationConstants.ROLE_READ_ONLY_USER_ID));
+	}
+	
 }

@@ -2,6 +2,7 @@
 
 <s:form action="search" namespace="/search" id="search-form">
 	<s:hidden id="directorName" name="criteria.pdFirstAndLastName"/>
+	<s:hidden id="readonly" value="%{isReadOnlyUser()}"/>
 	<div class="panel project-panel-primary">
 
 		<div class="panel-heading">

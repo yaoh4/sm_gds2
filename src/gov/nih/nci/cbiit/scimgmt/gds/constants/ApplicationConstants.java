@@ -99,7 +99,8 @@ public interface ApplicationConstants {
 	 public static final Long SEARCH_SUBMISSION_FROM_ALL = 42L;
 	 public static final Long IC_DUL_VERIFIED_YES_ID = 35L;
 	 public static final Long ROLE_GPA_ID = 52L;
-	 public static final Long ROLE_GPA_ADMIN_ID = 53L;
+	 public static final Long ROLE_READ_ONLY_USER_ID = 53L;
+	 public static final Long ROLE_EDIT_USER_ID = 58L;
 	 
 			 
 	 public static final String DISPLAY_NAME_YES = "Yes";

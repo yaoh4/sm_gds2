@@ -37,7 +37,10 @@
           </thead>
           <tbody>
             <tr class="odd">
-              <td colspan="2"><a href="/gds/manage/navigateToGeneralInfo.action?projectId=${project.id}">Project Created</a></td>
+              <td colspan="2">
+              <s:if test="!isReadOnlyUser()">
+              	<a href="/gds/manage/navigateToGeneralInfo.action?projectId=${project.id}">Project Created</a>
+              </s:if><s:else>Project Created</s:else></td>
               <td><div class="searchProgess">
         <img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/></div></td>
               <td><s:date name="%{project.updatedDate}" format="MM/dd/yyyy"/> </td>
@@ -46,7 +49,9 @@
             </tr>
 		  <s:if test="%{showPage('GDSPLAN')}">
             <tr >
-              <td colspan="2"> <a href="/gds/manage/editGdsPlan.action?projectId=${project.id}">Genomic DSP</a></td>
+              <td colspan="2">
+              <s:if test="!isReadOnlyUser()"><a href="/gds/manage/editGdsPlan.action?projectId=${project.id}">Genomic DSP</a>
+              </s:if><s:else>Genomic DSP</s:else></td>
       
               <td>
                <s:hidden id="gdsPlan" value="%{getPageStatus('GDSPLAN').status.code}"/>
@@ -83,7 +88,9 @@
 		  
 		  <s:if test="%{showPage('IC')}">
             <tr >
-              <td colspan="2"> <a href="/gds/manage/listIc.action?projectId=${project.id}">Institutional Certification</a></td>
+              <td colspan="2">
+              <s:if test="!isReadOnlyUser()"><a href="/gds/manage/listIc.action?projectId=${project.id}">Institutional Certification</a>
+              </s:if><s:else>Institutional Certification</s:else></td>
               <td>
                <s:hidden id="ic" value="%{getPageStatus('IC').status.code}"/>
               	<div id="icDiv" class="searchProgess">               
@@ -101,7 +108,9 @@
           </s:if>
           <s:if test="%{showPage('BSI')}">
             <tr class="odd">
-              <td colspan="2"> <a href="/gds/manage/navigateToBasicStudyInfo.action?projectId=${project.id}">Basic Study Information</a></td>
+              <td colspan="2">
+              <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToBasicStudyInfo.action?projectId=${project.id}">Basic Study Information</a>
+              </s:if><s:else>Basic Study Information</s:else></td>
               <td>
               <s:hidden id="bsi" value="%{getPageStatus('BSI').status.code}"/>
               	<div id="bsiDiv" class="searchProgess">
@@ -120,14 +129,24 @@
         <s:iterator status="repStat" var="repStatus" value="project.repositoryStatuses">
           <div class="repoItem">      
             <tr class="repoRow">
-              <td colspan="3" style="word-wrap:break-word;"><a href="/gds/manage/navigateToRepositoryStatus.action?projectId=${project.id}">Submission Status for Repository: 
+              <td colspan="3" style="word-wrap:break-word;">
+              <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToRepositoryStatus.action?projectId=${project.id}">Submission Status for Repository: 
                <s:if test="%{#repStatus.planAnswerSelectionTByRepositoryId.otherText != null}">
                   <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
                      - <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.otherText" />
                </s:if>
                <s:else>
                   <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
-               </s:else></a></td>
+               </s:else></a>
+              </s:if><s:else>Submission Status for Repository: 
+               <s:if test="%{#repStatus.planAnswerSelectionTByRepositoryId.otherText != null}">
+                  <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
+                     - <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.otherText" />
+               </s:if>
+               <s:else>
+                  <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
+               </s:else>
+			  </s:else></td>
              <td><s:date name="%{#repStatus.updatedDate}" format="MM/dd/yyyy"/></td>
              <td align="center">
              <s:hidden value="%{getRepositoryStatusCode(#repStatus.id)}"/> 
@@ -217,8 +236,8 @@
               <td><a href="#" onclick="openDetailsReport(${subproject.id})"> 
             <s:hidden  id="prevSubId" value="%{subproject.id}"/>
             <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
-           <a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}">
-            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></td>
+            <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}">
+            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
               
             </tr>
         </s:iterator>
@@ -265,8 +284,8 @@
               <td><a href="#" onclick="openDetailsReport(${project.parent.id})"> 
             <s:hidden  id="prevSubId" value="%{project.parent.id}"/>
             <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
-           <a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}">
-            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></td>
+            <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}">
+            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
               
             </tr>
         

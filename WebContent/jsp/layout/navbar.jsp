@@ -9,6 +9,7 @@
 		<nav>
 			<div id="mainNav" class="navbar-header" style="display:block;">
 				<ul class="nav navbar-nav navbar-main">
+				<s:if test="!isReadOnlyUser()">
 				<s:if test="%{'newSubmission' eq #attr['navtab']}">
 				<s:if test="%{project == null || project.id == null}">
 					<li class="active"><s:a href="javascript: void(0)">
@@ -25,7 +26,8 @@
 					<li><s:a href="/gds/manage/newSubmission.action">
 							Create New Submission
 						</s:a></li>
-				</s:else>		
+				</s:else>	
+				</s:if>	
 				<s:if test="%{'search' eq #attr['navtab']}">
 					<li class="active"><s:a href="javascript: void(0)">
 							Find Submissions
@@ -36,6 +38,7 @@
 							Find Submissions
 						</s:a></li>
 				</s:else>
+				<s:if test="!isReadOnlyUser()">
 				<s:if test="%{'admin' eq #attr['navtab']}">
 					<li class="active"><s:a href="javascript: void(0)">
 							Administration
@@ -46,6 +49,7 @@
 							Administration
 						</s:a></li>
 				</s:else> 
+				</s:if>
 				</ul>
 			</div>
 		</nav>
