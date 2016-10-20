@@ -3,7 +3,7 @@
 <p></p>
 
 <s:if test="%{bsiFile.size > 0}">
-	<table style="width: 90%;" cellpadding="0px" cellspacing="0"
+	<table style="width: 884px;" cellpadding="0px" cellspacing="0"
 		class="table table-bordered table-striped" style="margin-left: 10px;">
 		<tr>
 			<th class="tableHeader" align="center" width="10%">Document Title</th>
@@ -40,7 +40,7 @@
 				class="history"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>
 		</p>
 		<div class="uploadedHistory" style="display: none;">
-			<table style="width: 90%;" cellpadding="0px" cellspacing="0"
+			<table style="width: 884px;" cellpadding="0px" cellspacing="0"
 				class="table table-bordered table-striped"
 				style="margin-left: 10px;">
 				<tr>
