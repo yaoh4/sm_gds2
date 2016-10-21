@@ -322,6 +322,7 @@ function refreshGrantsContractsData(){
 				    hideGrantFields();
 					$("#grantsContractNum").val('');
 					$("#applId").val('');
+					$("#dataLinkFlag").val('N');
 		  		}
 		  		else if(code == 'M' ) {
 		  			setupIntramuralFields();
@@ -342,6 +343,7 @@ function refreshGrantsContractsData(){
 			    hideGrantFields();
 				$("#grantsContractNum").val('');
 				$("#applId").val('');
+				$("#dataLinkFlag").val('N');
 		 }
 		 else if(code == 'M' ) {
 		 //If selection is 'Intramural', hide pd first and last
@@ -369,6 +371,7 @@ function refreshGrantsContractsData(){
 		    hideGrantFields();
 			$("#grantsContractNum").val('');
 			$("#applId").val('');
+			$("#dataLinkFlag").val('N');
 	 }
 	 else if(code == 'M' ) {
 		 //If selection is 'Intramural', hide pd first and last
