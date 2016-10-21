@@ -1056,6 +1056,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/domain/Property.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/RepositoryStatus.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/StudiesDulSet.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Study.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/UserRole.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/interceptor/UserInterceptor.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/ExportRow.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/model/MissingData.java -text
