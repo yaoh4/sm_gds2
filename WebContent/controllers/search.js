@@ -99,16 +99,18 @@ $(document).ready(function(){
                 	if($("#readonly").val() == "true") {
                 		return '<div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a></div>'
                 	}
-                	var addNewVersion = '', addSubproject = '';
+                	var addNewVersion = '', addSubproject = '', deleteSubmission = '';
                 	if(row.subprojectEligibleFlag == "Y") {
                 		addSubproject = '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Add New Sub-project" title="Add New Sub-project"></a>';
                 	}
                 	if(row.projectStatusCode == "COMPLETED") {
                 		addNewVersion = '&nbsp;&nbsp;&nbsp;<a href="../manage/createNewProjectVersion.action?projectId=' + row.id + '"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i></a>';
                 	}
+                	if($("#gpa").val() == "true") {
+                		deleteSubmission = '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>';
+                	}
                     return '<div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>' +
-                    '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>' +
-                    addNewVersion + addSubproject + '</div>';
+                    deleteSubmission + addNewVersion + addSubproject + '</div>';
                 } },
                 {
                 "targets": -2, // Repository

@@ -170,6 +170,17 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	}
 	
 	/**
+	 * Checks if is Genomic Program Administrator
+	 * 
+	 * @return true, if user has GPA role
+	 */
+	public boolean isGPA() {
+		if(loggedOnUser.getPersonRole() == null)
+			return false;
+		return (loggedOnUser.getPersonRole().getRole() == null? false: loggedOnUser.getPersonRole().getRole().getId().equals(ApplicationConstants.ROLE_GPA_ID));
+	}
+	
+	/**
 	 * Checks if is Read only user
 	 * 
 	 * @return true, if is Read only user

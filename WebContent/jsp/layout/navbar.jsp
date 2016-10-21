@@ -38,7 +38,7 @@
 							Find Submissions
 						</s:a></li>
 				</s:else>
-				<s:if test="!isReadOnlyUser()">
+				<s:if test="isGPA()">
 				<s:if test="%{'admin' eq #attr['navtab']}">
 					<li class="active"><s:a href="javascript: void(0)">
 							Administration

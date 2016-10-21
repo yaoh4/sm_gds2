@@ -130,12 +130,14 @@
 												</s:a>
 												&nbsp;&nbsp;&nbsp;
 
+											  	<s:if test="isGPA()">
 												<s:a onclick="deleteSubmission(%{#s.id})" href="javascript: void(0)"
 													class="editor_remove">
 													<i class="fa fa-trash fa-lg" aria-hidden="true"
 														alt="Delete" title="Delete"></i>
 												</s:a>
 												&nbsp;&nbsp;&nbsp; 
+												</s:if>
 												
 												<s:if test="%{#s.projectStatusCode == 'COMPLETED'}">
 													<s:a href="../manage/createNewSubprojectVersion.action?projectId=%{#s.id}"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i>
