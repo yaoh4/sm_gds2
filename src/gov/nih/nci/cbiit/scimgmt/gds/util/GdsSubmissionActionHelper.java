@@ -84,6 +84,30 @@ public class GdsSubmissionActionHelper {
 
 		
 	}
+	
+	
+	/**
+	 * Get the Lookup list for the given list name and prepare
+	 * the dropDown list.
+	 * 
+	 * @param listName
+	 * @return
+	 */
+	public static List<DropDownOption> getDocDropDownList() {
+		List<DropDownOption> dropDownList = new ArrayList<DropDownOption>();
+		List<Organization> orgList = (List<Organization>)getInstance().lookupService.getDocList(ApplicationConstants.DOC_LIST);
+		if(!CollectionUtils.isEmpty(orgList)) {
+			for(Organization org: orgList) {
+				DropDownOption option = new DropDownOption(org.getNihsac(), org.getNihorgpath());
+				dropDownList.add(option);
+			}	
+		}
+		
+		return dropDownList;
+		
+	}
+	
+	
 	/**
 	 * Get the Lookup list for the given list name and prepare
 	 * the dropDown list.

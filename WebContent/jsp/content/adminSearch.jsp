@@ -39,29 +39,14 @@
 							
 							<div class="col-xs-5">
 								<label for="NCI Division/Office/Center">NCI Division/Office/Center:</label>
-								<select name="" id="DOC" class="c-select form-control">
-									<option value="CCR">All of NCI</option>
-									<option value="CCR">CCR</option>
-									<option value="DCB">DCB</option>
-									<option value="DCCPS">DCCPS</option>
-									<option value="DCEG">DCEG</option>
-									<option value="DCP">DCP</option>
-									<option value="DCTD">DCTD</option>
-									<option value="DEA">DEA</option>
-									<option value="OD">OD</option>
-									<option value="OD CBIIT" selected="selected">OD CBIIT</option>
-									<option value="OD CCG">OD CCG</option>
-									<option value="OD CCT">OD CCT</option>
-									<option value="OD CGH">OD CGH</option>
-									<option value="OD CRCHD">OD CRCHD</option>
-									<option value="OD CSSI">OD CSSI</option>
-									<option value="OD OCC">OD OCC</option>
-									<option value="OD OCPL">OD OCPL</option>
-									<option value="OD OHAM">OD OHAM</option>
-									<option value="OD OSO">OD OSO</option>
-									<option value="OD OSPA">OD OSPA</option>
-									<option value="OD SBIR">OD SBIR</option>
-								</select>
+								
+								<s:select name="criteria.doc" id="doc"								
+								cssClass="c-select form-control" 
+								list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getDocDropDownList()}"                   			 
+								listKey="optionKey" listValue="optionValue" 
+								headerKey="HNC" headerValue="All"
+								emptyOption="false"/>
+						
 							</div>
 							
 							<div class="col-xs-5">
@@ -72,7 +57,8 @@
                     			class="c-select form-control"
                     			list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@GDS_ROLE_LIST)}"
                     			listKey="optionKey" listValue="optionValue"
-                    			emptyOption="true"/>							
+                    			headerKey="" headerValue="Select GDS User"
+                    			emptyOption="false"/>							
 							</div>
 							
 							
@@ -124,7 +110,7 @@
 																
 								<td>${personRole.nedPerson.fullName}</td>
 									<td><a href="mailto:${personRole.nedPerson.email}">${personRole.nedPerson.email}</a></td>
-									<td>CBIIT </td>
+									<td>${personRole.nedPerson.orgpath} </td>
 							
 									<td>${personRole.role.description}</td>
                                     <td>${personRole.updatedBy} on ${personRole.updatedDate}</td>

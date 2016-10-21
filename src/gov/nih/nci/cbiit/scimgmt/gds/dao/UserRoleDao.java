@@ -99,7 +99,7 @@ public class UserRoleDao {
 			criteria.add(Restrictions.eq("role.id", searchCriteria.getRoleId()));
 		}
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
-			criteria.add(Restrictions.ilike("nedPerson.nihOrgPath", searchCriteria.getDoc()));
+			criteria.add(Restrictions.ilike("nedPerson.nihsac", searchCriteria.getDoc(), MatchMode.START));
 		}
 		return criteria;
 	}
@@ -131,7 +131,7 @@ public class UserRoleDao {
 			criteria.add(Restrictions.ilike("lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
 		}
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
-			criteria.add(Restrictions.ilike("nihOrgPath", searchCriteria.getDoc()));
+			criteria.add(Restrictions.ilike("nihsac", searchCriteria.getDoc(), MatchMode.START));
 		}
 		return criteria;
 	}
