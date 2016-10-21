@@ -39,9 +39,9 @@ function searchUsers() {
 		//	$("#adminEdit").html(result);
 		//}
 		//else {
-			bootbox.alert(result, function() {
-	  			return true;
-			});
+		//	bootbox.alert(result, function() {
+	  	//		return true;
+		//	});
 		//}
 	}
 	

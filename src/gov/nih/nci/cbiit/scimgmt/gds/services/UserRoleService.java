@@ -51,5 +51,23 @@ public interface UserRoleService {
 	 * @return criteria
 	 * 
 	 */
-	public abstract List<NedPerson> searchNedPerson(RoleSearchCriteria searchCriteria); 
+	public abstract List<NedPerson> searchNedPerson(RoleSearchCriteria searchCriteria);
+	
+	
+	/**
+	 * Inserts or Updates the PersonRole
+	 * 
+	 * @param personRole
+	 * @return saved PersonRole
+	 */
+	public PersonRole saveOrUpdatePersonRole(PersonRole personRole);
+	
+	
+	/**
+	 * Deletes a PersonRole from the DB 
+	 * 
+	 * @param networkId
+	 * @return boolean
+	 */
+	public boolean deletePersonRole(String networkId);
 }

@@ -4,6 +4,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.UserRoleDao;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
@@ -60,4 +61,37 @@ public class UserRoleServiceImpl implements UserRoleService {
 		logger.debug("searchNedPerson('" + searchCriteria + "')");
 		return userRoleDao.searchNedPerson(searchCriteria);
 	}
+	
+	
+	/**
+	 * Inserts or Updates the PersonRole
+	 * 
+	 * @param personRole
+	 * @return saved PersonRole
+	 */
+	public PersonRole saveOrUpdatePersonRole(PersonRole personRole) {
+		PersonRole result =  userRoleDao.merge(personRole);
+				
+		return result;
+	}
+	
+	
+	/**
+	 * Deletes a PersonRole from the DB 
+	 * 
+	 * @param networkId
+	 * @return boolean
+	 */
+	public boolean deletePersonRole(String networkId) {
+		
+		PersonRole personRole = userRoleDao.findByNetworkId(networkId);
+		if(personRole == null)
+			return false;
+		
+		userRoleDao.delete(personRole);
+		
+		return true;
+	}
+	
+
 }

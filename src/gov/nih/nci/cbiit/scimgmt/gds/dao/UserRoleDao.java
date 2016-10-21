@@ -1,7 +1,10 @@
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
 
 import java.util.List;
@@ -28,6 +31,9 @@ public class UserRoleDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	protected NedPerson loggedOnUser;
 
 	/**
 	 * Find Ned person by user id. 
@@ -122,6 +128,7 @@ public class UserRoleDao {
 		}
 	}
 	
+	
 	private Criteria setupPersonSearchCriteria(Criteria criteria, RoleSearchCriteria searchCriteria) {
 		
 		if(StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getFirstName()))) {
@@ -134,6 +141,66 @@ public class UserRoleDao {
 			criteria.add(Restrictions.ilike("nihsac", searchCriteria.getDoc(), MatchMode.START));
 		}
 		return criteria;
+	}
+	
+	
+	public PersonRole merge(PersonRole detachedInstance) {
+		String networkId = detachedInstance.getNihNetworkId();
+		logger.debug("merging PersonRole instance");
+		try {
+			if(networkId != null){
+				//Already saved role				
+				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(PersonRole.class, networkId));
+				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());				
+			}
+			else{
+				//New submission
+				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId());				
+			}
+			PersonRole result = (PersonRole) sessionFactory.getCurrentSession().merge(detachedInstance);
+			logger.debug("merge successful for PersonRole with networkId "  + networkId);
+			return result;
+		} catch (RuntimeException re) {
+			logger.error("merge failed for PersonRole  " + networkId, re);
+			throw re;
+		}
+	}
+	
+	
+	/**
+	 * Deletes the personRole
+	 * 
+	 * @param persistentInstance
+	 */
+	public void delete(PersonRole persistentInstance) {
+		logger.debug("deleting PersonRole instance");
+		try {
+			sessionFactory.getCurrentSession().delete(persistentInstance);
+			logger.debug("delete successful");
+		} catch (RuntimeException re) {
+			logger.error("delete failed", re);
+			throw re;
+		}
+	}
+	
+	
+	/**
+	 * Gets the PersonRole by nihNetworkId
+	 * 
+	 * @param networkId
+	 * @return
+	 */
+	public PersonRole findByNetworkId(String networkId) {
+		logger.debug("getting PersonRole instance with networkId: " + networkId);
+		try {
+			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonRole.class);
+			criteria.add(Restrictions.eq("nihNetworkId", networkId));
+			 PersonRole personRole = (PersonRole) criteria.uniqueResult();
+			return personRole;
+		} catch (RuntimeException re) {
+			logger.error("Unable to find PersonRole by nihNetworkId " + networkId, re);
+			throw re;
+		}
 	}
 	
 }

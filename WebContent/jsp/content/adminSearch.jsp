@@ -24,7 +24,7 @@
 						<div class="panel-body">
 							<h4>Search Criteria</h4>
 							<div class="form-group row">
-								<div class="checkbox"><label><input type="checkbox" value="" style="margin-left: -40px;">&nbsp;&nbsp;Only users with GDS Roles</label>
+								<div class="checkbox"><label><input type="checkbox" id="gdsUsersOnly" name="gdsUsersOnly" style="margin-left: -40px;">&nbsp;&nbsp;Only users with GDS Roles</label>
 							</div>
 							<div class="col-xs-5">
 								<label for="First Name">First Name:</label>
@@ -68,7 +68,7 @@
 							
 							
 							<div class="searchFormat col-xs-10" style="float:right; margin-top: 10px; padding-left: 70px;">
-								<button type="button" class="btn btn-primary has-spinner" id="search" onclick="searchGdsUsers()"><i class="fa fa-spinner fa-spin"></i> Search</button>
+								<button type="button" class="btn btn-primary has-spinner" id="search" onclick="searchUsers()"><i class="fa fa-spinner fa-spin"></i> Search</button>
 								<button type="button" class="btn btn-default" id="reset" onclick="resetData()">Reset</button>
 								<p>&nbsp;</p>
 							</div>
@@ -100,7 +100,7 @@
 								
 								
 								<s:if test="%{personRoles.size > 0}">
-				  			<s:iterator value="personRoles" var="personRole" status="stat">
+				  				<s:iterator value="personRoles" var="personRole" status="stat">
 				    			<s:if test="#stat.index /2 == 0">
 					  			<tr class="tableContent">
 								</s:if>
@@ -110,10 +110,35 @@
 																
 								<td>${personRole.nedPerson.fullName}</td>
 									<td><a href="mailto:${personRole.nedPerson.email}">${personRole.nedPerson.email}</a></td>
-									<td>${personRole.nedPerson.orgpath} </td>
-							
+									<td>${personRole.nedPerson.orgpath} </td>							
 									<td>${personRole.role.description}</td>
                                     <td>${personRole.updatedBy} on ${personRole.updatedDate}</td>
+                                    
+                                    <td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
+								 
+									</tr>
+								
+								</s:iterator>
+								</s:if>
+								
+								
+								<s:elseif test="%{nedPersons.size > 0}">
+				  				<s:iterator value="nedPersons" var="nedPerson" status="stat">
+				    			<s:if test="#stat.index /2 == 0">
+					  			<tr class="tableContent">
+								</s:if>
+								<s:else>
+					  			<tr class="tableContentOdd">
+								</s:else>					    	
+																
+								<td>${nedPerson.fullName}</td>
+									<td><a href="mailto:${nedPerson.email}">${nedPerson.email}</a></td>
+									<td>${nedPerson.orgpath} </td>
+									<s:if test="%{#nedPerson.personRole != null}">
+									<td>${nedPerson.personRole.role.description}</td>
+                                    <td>${nedPerson.personRole.updatedBy} on ${nedPerson.personRole.updatedDate}</td>
+                                    </s:if>
+                                    <s:else><td></td><td></td></s:else>
                                     
 									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
 								
@@ -121,7 +146,9 @@
 									</tr>
 								
 								</s:iterator>
-								</s:if>
+								</s:elseif>
+								
+								
 								
 								<s:else>
 				  					<tr class="tableContent">
