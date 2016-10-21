@@ -28,7 +28,7 @@ public class UserRole implements java.io.Serializable {
 	private String createdBy;
 	private Date createdDate;
 	
-	private NedPerson nedPerson;
+	//private NedPerson nedPerson;
 	
 	public UserRole() {
 	}
@@ -55,7 +55,7 @@ public class UserRole implements java.io.Serializable {
 	}
 	
 	
-	@Column(name="GDS_ROLE", length = 30)
+	@Column(name="GDS_ROLE_CODE", length = 30)
 	public Lookup getGdsRole() {
 		return gdsRole;
 	}
@@ -110,12 +110,12 @@ public class UserRole implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 	
-	@OneToOne(mappedBy="userRole", optional = false)
+	/*@OneToOne(mappedBy="userRole", optional = false)
 	public NedPerson getNedPerson() {
 		return nedPerson;
 	}
 
 	public void setNedPerson(NedPerson nedPerson) {
 		this.nedPerson = nedPerson;
-	}
+	}*/
 }
