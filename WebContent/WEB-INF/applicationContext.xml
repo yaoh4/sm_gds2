@@ -73,6 +73,7 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.GdsPd</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole</value>
 			</list>
 		</property>
   		<property name="hibernateProperties">
