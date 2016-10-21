@@ -8,11 +8,6 @@ $(document).ready(function() {
     });
 
 
-//for legend icon
-
-$('#myTable_wrapper').prepend('<div style="display:inline; float: right;"><img alt="legend for progress icons" src="images/legend-search.gif" /></div>')
-
-
     //for ellipsis on search results
 
 $(".ellipsis").hide();

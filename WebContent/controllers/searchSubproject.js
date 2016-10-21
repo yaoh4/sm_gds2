@@ -161,10 +161,6 @@ $(document).ready(function(){
     });
 
 
-    //for legend icon
-    $('#myTable_wrapper').prepend('<div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search.gif" /></div>')
-
-
     $("#directorSelect").change(function() {
     	if($(this).find("option:selected").val() != "")
     		$("#directorName").val($(this).find("option:selected").text());

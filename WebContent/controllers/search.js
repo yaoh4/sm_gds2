@@ -192,8 +192,11 @@ $(document).ready(function(){
         });
         
 		
-	
-	$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search2.gif'></div>");
+	if($("#readonly").val() == "true") {
+		$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search3.gif'></div>");
+	} else {
+		$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search2.gif'></div>");
+	}
 
 	$("div.export").html("<a id='export-btn' href='#' aria-controls='submissionTable' tabindex='0' class='dt-button buttons-excel buttons-html5'><span>Export to Excel</span></a>");
 
@@ -232,13 +235,6 @@ $(document).ready(function(){
         $("div.desc").hide();
         $("#" + test).show();
     });
-
-
-    //for legend icon
-    $('#myTable_wrapper').prepend('<div style="display:inline; float: right;"><img alt="legend for progress icons" src="../images/legend-search2.gif" /></div>')
-
-
-
 
     // Sub-Project Repository Submission Status
     $('body').on('click', 'a.repoExpand', function() {
