@@ -65,7 +65,7 @@ public class NedPerson implements java.io.Serializable {
 	private Date nihmodifytimestamp;
 	private String nihorgacronym;
 	private String nihorgname;
-	private String orgPath;
+	private String orgpath;
 	private String nihouacronym;
 	private String nihouname;
 	private String nihphysicaladdress;
@@ -124,7 +124,7 @@ public class NedPerson implements java.io.Serializable {
 			String nihipd, String nihlibraryauth, String nihmailstop, String adUserId,
 			String nihmdslinktohelp, String nihmdslinktoph, String nihmixcasecommonsn, String lastName,
 			String nihmodifiersname, Date nihmodifytimestamp, String nihorgacronym, String nihorgname,
-			String orgPath, String nihouacronym, String nihouname, String nihphysicaladdress,
+			String orgpath, String nihouacronym, String nihouname, String nihphysicaladdress,
 			String nihphyspostalcode, String nihsac, String nihsite, String nihssodomain, String nihssousername,
 			String nihsuffixqualifier, String nihsummerstatus, String nihtty, Boolean nihuidquality,
 			Date nihuidvalidationts, String nihuidvalidator, String nihuniquemail, String orgStatus,
@@ -175,7 +175,7 @@ public class NedPerson implements java.io.Serializable {
 		this.nihmodifytimestamp = nihmodifytimestamp;
 		this.nihorgacronym = nihorgacronym;
 		this.nihorgname = nihorgname;
-		this.orgPath = orgPath;
+		this.orgpath = orgpath;
 		this.nihouacronym = nihouacronym;
 		this.nihouname = nihouname;
 		this.nihphysicaladdress = nihphysicaladdress;
@@ -594,11 +594,11 @@ public class NedPerson implements java.io.Serializable {
 
 	@Column(name = "NIHORGPATH", length = 768)
 	public String getOrgpath() {
-		return this.orgPath;
+		return this.orgpath;
 	}
 
-	public void setOrgpath(String orgPath) {
-		this.orgPath = orgPath;
+	public void setOrgpath(String orgpath) {
+		this.orgpath = orgpath;
 	}
 
 	@Column(name = "NIHOUACRONYM", length = 192)
