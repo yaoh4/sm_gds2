@@ -21,19 +21,21 @@ import javax.persistence.Transient;
 public class UserRole implements java.io.Serializable {
 
 	private String nihNetworkId;
-	private String gdsRoleCode;
+	private Lookup gdsRole;
 	private String pdFlag;
 	private String activeFlag;
 	private String createdByFullName;
 	private String createdBy;
 	private Date createdDate;
 	
+	private NedPerson nedPerson;
+	
 	public UserRole() {
 	}
 
-	public UserRole(String nihNetworkId, String gdsRoleCode, String pdFlag, String activeFlag, String createdByFullName, String createdBy, Date createdDate) {
+	public UserRole(String nihNetworkId, Lookup gdsRole, String pdFlag, String activeFlag, String createdByFullName, String createdBy, Date createdDate) {
 		this.nihNetworkId = nihNetworkId;
-		this.gdsRoleCode = gdsRoleCode;
+		this.gdsRole = gdsRole;
 		this.pdFlag = pdFlag;
 		this.activeFlag = activeFlag;
 		this.createdByFullName = createdByFullName;
@@ -53,13 +55,13 @@ public class UserRole implements java.io.Serializable {
 	}
 	
 	
-	@Column(name="GDS_ROLE_CODE", length = 30)
-	public String getGdsRoleCode() {
-		return gdsRoleCode;
+	@Column(name="GDS_ROLE", length = 30)
+	public Lookup getGdsRole() {
+		return gdsRole;
 	}
 
-	public void setGdsRoleCode(String gdsRoleCode) {
-		this.gdsRoleCode = gdsRoleCode;
+	public void setGdsRole(Lookup gdsRole) {
+		this.gdsRole = gdsRole;
 	}
 
 	@Column(name="PD_FLAG", length = 4)
@@ -106,5 +108,14 @@ public class UserRole implements java.io.Serializable {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+	
+	@OneToOne(mappedBy="userRole", optional = false)
+	public NedPerson getNedPerson() {
+		return nedPerson;
+	}
+
+	public void setNedPerson(NedPerson nedPerson) {
+		this.nedPerson = nedPerson;
 	}
 }
