@@ -234,18 +234,16 @@
 					<div class="loadFileHistory">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>
-				</div><!--end HIDDEN Field for Uploader-->
+				</div>
 
 				<div>
 					<p class="question">Comments (2000 Characters):</p>
 					<s:textarea class="col-md-10" rows="3" maxlength="2000" name="comments"></s:textarea>
 				</div>
-			
-			</div><!--end panel body-->
-
-			</div><!--end panel-->
-
-
+			</div>
+			<!--end panel body-->
+		</div>
+	</div>
 	
 
 	<!--SAVE & NEXT BUTTONS-->
@@ -254,11 +252,7 @@
 		<s:submit type="button" action="saveGdsPlanAndNext" onclick="enableAllCheckbox();return warnGdsPlanNext()" class="btn btn-project-primary">
 			Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>
 	</div>
-
-
-
 </s:form>
-</div> <!--end content-->
 
 <script type="text/javascript"
 	src="<s:url value="/scripts/ckeditor/ckeditor.js" />"></script>
