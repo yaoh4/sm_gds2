@@ -3,11 +3,11 @@
 
 
 
-<div class="question" style="width:58%; float:left; margin-left:15px;">Upload Exception Memo: [to be uploaded by GPA]
+<p class="question" style="width:58%; float:left; margin-left:15px;">Upload Exception Memo: [to be uploaded by GPA]
 
 <label for="exceptionMemo" style="width: auto; display: none;">Upload
 	Exception Memo</label>
-</div>
+</p>
 
 	<div class="input-group" style="width: 94px; float: left; margin-bottom: 20px;" >
 		<label
