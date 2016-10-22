@@ -2,14 +2,14 @@
 
 <div style="width:600px;">
 	<div style="width:58%; float:left; margin-left:15px;">
+
 <p class="question">Upload Exception Memo: [to be uploaded by GPA]</p>
 
 <label for="exceptionMemo" style="width: auto; display: none;">Upload
 	Exception Memo</label>
 </div>
 
-<div  style="margin-bottom: 20px; float:left; width:30%;">
-	<div class="input-group" style="width: 94px;" >
+	<div class="input-group" style="width: 94px; float: left; margin-bottom: 20px;" >
 		<label
 			class="input-group-btn"> <span class="btn btn-default">
 				Choose File
@@ -18,7 +18,7 @@
 		</label>
 	</div>
 </div>
-</div>
+
 						
 <s:if test="%{excepMemoFile.size > 0}">
 	<p></p>
