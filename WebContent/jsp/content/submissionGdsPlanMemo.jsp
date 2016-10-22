@@ -1,6 +1,6 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<div style="width:600px;">
+
 	<div style="width:58%; float:left; margin-left:15px;">
 
 <p class="question">Upload Exception Memo: [to be uploaded by GPA]</p>
@@ -17,7 +17,7 @@
 		</span>
 		</label>
 	</div>
-</div>
+
 
 						
 <s:if test="%{excepMemoFile.size > 0}">
