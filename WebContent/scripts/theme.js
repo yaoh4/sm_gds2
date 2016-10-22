@@ -76,7 +76,7 @@
 
 //Check to see if the window is top if not then display button
     $(window).scroll(function(){
-        if ($(this).scrollTop() > 100) {
+        if ($(this).scrollTop() > 600) {
             $('.back-to-top').fadeIn();
         } else {
             $('.back-to-top').fadeOut();
