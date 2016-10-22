@@ -44,7 +44,7 @@
 								cssClass="c-select form-control" 
 								list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getDocDropDownList()}"                   			 
 								listKey="optionKey" listValue="optionValue" 
-								headerKey="HNC" headerValue="All"
+								headerKey="" headerValue="All"
 								emptyOption="false"/>
 						
 							</div>
