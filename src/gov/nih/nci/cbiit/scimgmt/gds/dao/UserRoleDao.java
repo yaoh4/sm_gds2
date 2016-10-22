@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +107,11 @@ public class UserRoleDao {
 		}
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
 			criteria.add(Restrictions.ilike("nedPerson.nihsac", searchCriteria.getDoc(), MatchMode.START));
+		} else {
+			Conjunction conjunction = Restrictions.conjunction();
+			conjunction.add(Restrictions.ilike("nedPerson.nihorgacronym", loggedOnUser.getNihorgacronym(), MatchMode.EXACT));
+			conjunction.add(Restrictions.not(Restrictions.in("nedPerson.nihsac", new String[]{"HNC17Y", "HNC1R", "HNC1-5", "HNC17"})));
+			criteria.add(conjunction);		
 		}
 		return criteria;
 	}
@@ -139,6 +145,11 @@ public class UserRoleDao {
 		}
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
 			criteria.add(Restrictions.ilike("nihsac", searchCriteria.getDoc(), MatchMode.START));
+		} else {
+			Conjunction conjunction = Restrictions.conjunction();
+			conjunction.add(Restrictions.ilike("nihorgacronym", loggedOnUser.getNihorgacronym(), MatchMode.EXACT));
+			conjunction.add(Restrictions.not(Restrictions.in("nihsac", new String[]{"HNC17Y", "HNC1R", "HNC1-5", "HNC17"})));
+			criteria.add(conjunction);		
 		}
 		return criteria;
 	}
