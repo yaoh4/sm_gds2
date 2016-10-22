@@ -7,7 +7,7 @@ function searchUsers() {
 	var role = $('#role').val();
 	var doc = $('#doc').val();
 	var gdsUsersFlag = $('#gdsUsersOnly').is(':checked');
-	if($('#lastName').val().length == 0 && $('#role').val().length == 0 && $('#doc').val() == "HNC") {
+	if($('#lastName').val().length == 0 && $('#role').val().length == 0) {
 		var errorMsg = "Please enter at least one of Last Name or GDS User Role as search criteria";
 		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
 		window.scrollTo(0,0);
@@ -48,25 +48,33 @@ function searchUsers() {
 };
 
 
-/*function deletePersonRole(userId) {
+function deletePersonRole(nihNetworkId) {
 	//$form = $("#admin_form");
     //fd = new FormData($form[0]);
-	$.ajax({
-	  	url: url,
-	  	type: 'post',
-	  	processData: false,
-	    contentType: false,
-	    data: userId,
-	  	async:   false,
-	  	success: function(msg){
-			result = $.trim(msg);
-			$("#searchResults").html($(result).find("#searchResults").html());
-		}, 
-		error: function(){}	
+	var warn = "Are you sure you want to delete this role ?"
+	$('#userId').val(nihNetworkId);
+	$form = $("#admin_form");
+    fd = new FormData($form[0]);
+	bootbox.confirm(warn, function(ans) {
+		if (ans) {
+			$.ajax({
+				url: 'deleteGdsUser.action',
+				type: 'post',
+				processData: false,
+				contentType: false,
+				data: fd,
+				async:   false,
+				success: function(msg){
+					result = $.trim(msg);
+					$("#searchResults").html($(result).find("#searchResults").html());
+				}, 
+				error: function(){}	
+			});
+		}
+		return true;
 	});
-	$('button.has-spinner').toggleClass('active');
 
-}*/
+}
 
 //Reset button
 function resetData() {

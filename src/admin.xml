@@ -25,5 +25,10 @@
 			<result name="input" type="dispatcher">/jsp/content/adminSearch.jsp</result>
 		</action>
 		
+		
+		<action name="deleteGdsUser" method="deleteGdsUser" class="gov.nih.nci.cbiit.scimgmt.gds.actions.AdminAction">
+			<result name="success" type="dispatcher">/jsp/content/adminSearch.jsp</result>
+			<result name="input" type="dispatcher">/jsp/content/adminSearch.jsp</result>
+		</action>
 	</package>
 </struts>

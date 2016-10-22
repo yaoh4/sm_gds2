@@ -26,9 +26,9 @@ import com.opensymphony.xwork2.ActionSupport;
 public class BaseAction extends ActionSupport implements SessionAware {
 
 	static Logger logger = LogManager.getLogger(BaseAction.class);
-		
+	
 	@SuppressWarnings("unused")
-	private Map<String, Object> session;
+	protected Map<String, Object> session;
 	
 	@Autowired
 	protected NedPerson loggedOnUser;	
@@ -45,7 +45,7 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 		
-	}	
+	}		
 
 	/**
 	 * @return the loggedOnUser

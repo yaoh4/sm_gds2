@@ -77,7 +77,7 @@ public class AdminAction extends BaseAction {
 			logger.debug("No results found for given search criteria in searchGdsUsers");
 		} else {
 			//Save the criteria in session for retrieving later
-			ActionContext.getContext().getSession().put("roleSearchCriteria", getCriteria());
+			session.put("roleSearchCriteria", getCriteria());
 		}
 		return SUCCESS;
 	}
@@ -89,7 +89,7 @@ public class AdminAction extends BaseAction {
 
 		userRoleService.deletePersonRole(getUserId());
 			
-		setCriteria((RoleSearchCriteria)ActionContext.getContext().getSession().get("roleSearchCriteria"));
+		setCriteria((RoleSearchCriteria)session.get("roleSearchCriteria"));
 		personRoles = userRoleService.searchPersonRole(getCriteria());
 		
 		return SUCCESS;

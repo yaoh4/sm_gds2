@@ -8,7 +8,7 @@
 			
 			<div id="adminSearch" style="">
 				
-				
+			<s:hidden id="userId" name="userId"/>			
 				
 				
 				<!-- Begin Panel -->
@@ -114,7 +114,7 @@
 									<td>${personRole.role.description}</td>
                                     <td>${personRole.updatedBy} on ${personRole.updatedDate}</td>
                                     
-                                    <td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
+                                    <td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deletePersonRole('${personRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
 								 
 									</tr>
 								
@@ -140,7 +140,12 @@
                                     </s:if>
                                     <s:else><td></td><td></td></s:else>
                                     
-									<td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(29)" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
+									<td><div style="white-space: nowrap; font-size: 14px;">
+									  <a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;									 
+									  <s:if test="%{#nedPerson.personRole != null}">
+									    <a onclick="deletePersonRole('${nedPerson.personRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>
+									  </s:if>
+									</div></td>
 								
 								 
 									</tr>
