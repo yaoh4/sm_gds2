@@ -1,9 +1,9 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
 
-	<div style="width:58%; float:left; margin-left:15px;">
 
-<p class="question">Upload Exception Memo: [to be uploaded by GPA]</p>
+
+<div class="question" style="width:58%; float:left; margin-left:15px;">Upload Exception Memo: [to be uploaded by GPA]
 
 <label for="exceptionMemo" style="width: auto; display: none;">Upload
 	Exception Memo</label>
