@@ -52,10 +52,10 @@
 							<div class="col-xs-5">
 								<label for="User Role">GDS User Role:</label>
 								
-								<s:select name="criteria.roleId" id="role"
+								<s:select name="criteria.roleCode" id="role"
                     			value="Select User Role"
                     			class="c-select form-control"
-                    			list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@GDS_ROLE_LIST)}"
+                    			list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownCodeList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@GDS_ROLE_LIST)}"
                     			listKey="optionKey" listValue="optionValue"
                     			headerKey="" headerValue="Select GDS User"
                     			emptyOption="false"/>							
@@ -99,8 +99,8 @@
 								</tr>
 								
 								
-								<s:if test="%{personRoles.size > 0}">
-				  				<s:iterator value="personRoles" var="personRole" status="stat">
+								<s:if test="%{userRoles.size > 0}">
+				  				<s:iterator value="userRoles" var="userRole" status="stat">
 				    			<s:if test="#stat.index /2 == 0">
 					  			<tr class="tableContent">
 								</s:if>
@@ -108,13 +108,13 @@
 					  			<tr class="tableContentOdd">
 								</s:else>					    	
 																
-								<td>${personRole.nedPerson.fullName}</td>
-									<td><a href="mailto:${personRole.nedPerson.email}">${personRole.nedPerson.email}</a></td>
-									<td>${personRole.nedPerson.orgpath} </td>							
-									<td>${personRole.role.description}</td>
-                                    <td>${personRole.updatedBy} on ${personRole.updatedDate}</td>
+								<td>${userRole.nedPerson.fullName}</td>
+									<td><a href="mailto:${userRole.nedPerson.email}">${userRole.nedPerson.email}</a></td>
+									<td>${userRole.nedPerson.orgpath} </td>							
+									<td><s:property value="%{getLookupDisplayNamebyCode(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@GDS_ROLE_LIST, #userRole.gdsRoleCode)}"/></td>
+                                    <td>${userRole.updatedByFullName} on ${userRole.updatedDate}</td>
                                     
-                                    <td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deletePersonRole('${personRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
+                                    <td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deletePersonRole('${userRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
 								 
 									</tr>
 								
@@ -134,16 +134,16 @@
 								<td>${nedPerson.fullName}</td>
 									<td><a href="mailto:${nedPerson.email}">${nedPerson.email}</a></td>
 									<td>${nedPerson.orgpath} </td>
-									<s:if test="%{#nedPerson.personRole != null}">
-									<td>${nedPerson.personRole.role.description}</td>
-                                    <td>${nedPerson.personRole.updatedBy} on ${nedPerson.personRole.updatedDate}</td>
+									<s:if test="%{#nedPerson.userRole != null && #nedPerson.userRole.gdsRoleCode != null}">
+									<td><s:property value="%{getLookupDisplayNamebyCode(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@GDS_ROLE_LIST, #nedPerson.userRole.gdsRoleCode)}"/></td>
+                                    <td>${nedPerson.userRole.updatedByFullName} on ${nedPerson.userRole.updatedDate}</td>
                                     </s:if>
                                     <s:else><td></td><td></td></s:else>
                                     
 									<td><div style="white-space: nowrap; font-size: 14px;">
 									  <a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;									 
-									  <s:if test="%{#nedPerson.personRole != null}">
-									    <a onclick="deletePersonRole('${nedPerson.personRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>
+									  <s:if test="%{#nedPerson.userRole != null && #nedPerson.userRole.gdsRoleCode != null}">
+									    <a onclick="deletePersonRole('${nedPerson.userRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>
 									  </s:if>
 									</div></td>
 								

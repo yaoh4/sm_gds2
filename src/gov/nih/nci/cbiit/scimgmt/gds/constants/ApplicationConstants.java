@@ -142,6 +142,10 @@ public interface ApplicationConstants {
 	 public static final String PAGE_TYPE_BSI = "BSI";
 	 public static final String PAGE_TYPE_STATUS = "REPOSITORY";
 	 
+	 public static final String ROLE_GPA_CODE = "GPA";
+	 public static final String ROLE_READ_ONLY_USER_CODE = "READUSER";
+	 public static final String ROLE_EDIT_USER_CODE = "EDITUSER";
+	
 	 public static final Long IC_PARENT_DUL_ID_GENERAL_RESEARCH_USE = 1L;
 	 public static final Long IC_PARENT_DUL_ID_HEALTH_MEDICAL_BIOMEDICAL = 6L;
 	 public static final Long IC_PARENT_DUL_ID_DISEASE_SPECIFIC = 13L;
@@ -152,7 +156,7 @@ public interface ApplicationConstants {
 	 
 	 public static final Long IC_GPA_APPROVED_YES_ID = 18L;
 	 public static final Long IC_GPA_APPROVED_NO_ID = 19L;
-	
+	 
 	 
 	 //Type of grant or contract
 	 public static final String APPL_CLASS_CODE_EXTRAMURAL = "G";

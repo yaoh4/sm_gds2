@@ -8,23 +8,23 @@ public class RoleSearchCriteria {
 	
 	private String lastName;
 	private String firstName;
-	private Long roleId;
+	private String roleCode;
 	private String doc;
     
 	public RoleSearchCriteria(){}
 
 	public RoleSearchCriteria(String lastName, String firstName, 
-			Long roleId, String doc) {
+			String roleCode, String doc) {
 		this.lastName = firstName;
 		this.firstName = firstName;
-		this.roleId = roleId;
+		this.roleCode = roleCode;
 		this.doc = doc;
 	}
 
 	@Override
 	public String toString() {
 		return "RoleSearchCriteria [firstName=" + firstName + ", lastName=" 
-				+ lastName + ", roleId=" + roleId + ", doc=" + doc + "]";
+				+ lastName + ", roleId=" + roleCode + ", doc=" + doc + "]";
 	}
 	
 	/**
@@ -32,10 +32,10 @@ public class RoleSearchCriteria {
 	 * 
 	 * @return true, if is blank
 	 */
-	public boolean isBlank() {
-		return (roleId == null && doc == null
+	/*public boolean isBlank() {
+		return (StringUtils.isBlank(roleCode) && doc == null
 				&& StringUtils.isBlank(firstName) && StringUtils.isBlank(lastName));
-	}
+	}*/
 
 	/**
 	 * @return the lastName
@@ -68,15 +68,15 @@ public class RoleSearchCriteria {
 	/**
 	 * @return the roleId
 	 */
-	public Long getRoleId() {
-		return roleId;
+	public String getRoleCode() {
+		return roleCode;
 	}
 
 	/**
 	 * @param roleId the roleId to set
 	 */
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
 	}
 
 	/**

@@ -4,9 +4,9 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
 import gov.nih.nci.cbiit.scimgmt.gds.dao.UserRoleDao;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
 import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;
 
@@ -41,17 +41,17 @@ public class UserRoleServiceImpl implements UserRoleService {
 	/**
 	 * This method retrieves PersonRole from DB for given userId. 
 	 */
-	public PersonRole findPersonRoleByUserId(String userId) {
-		logger.debug("findPersonRoleByUserId('" + userId + "')");
-		return userRoleDao.findPersonRoleByUserId(userId);
+	public UserRole findUserRoleByUserId(String userId) {
+		logger.debug("findUserRoleByUserId('" + userId + "')");
+		return userRoleDao.findUserRoleByUserId(userId);
 	}
 	
 	/**
 	 * This method retrieves List of PersonRole from DB for given roleId. 
 	 */
-	public List<PersonRole> searchPersonRole(RoleSearchCriteria searchCriteria) {
-		logger.debug("searchPersonRole('" + searchCriteria + "')");
-		return userRoleDao.searchPersonRole(searchCriteria);
+	public List<UserRole> searchUserRole(RoleSearchCriteria searchCriteria) {
+		logger.debug("searchUserRole('" + searchCriteria + "')");
+		return userRoleDao.searchUserRole(searchCriteria);
 	}
 	
 	/**
@@ -84,7 +84,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 	 */
 	public boolean deletePersonRole(String networkId) {
 		
-		PersonRole personRole = userRoleDao.findByNetworkId(networkId);
+		PersonRole personRole = userRoleDao.findPersonRole(networkId);
 		if(personRole == null)
 			return false;
 		

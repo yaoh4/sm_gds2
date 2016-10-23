@@ -110,7 +110,7 @@ public class GdsSubmissionActionHelper {
 	
 	/**
 	 * Get the Lookup list for the given list name and prepare
-	 * the dropDown list.
+	 * the dropDown list with the lookup ID as optionKey.
 	 * 
 	 * @param listName
 	 * @return
@@ -129,6 +129,27 @@ public class GdsSubmissionActionHelper {
 		
 	}
 	
+	
+	/**
+	 * Get the Lookup list for the given list name and prepare
+	 * the dropDown list with lookup Code as optionKey.
+	 * 
+	 * @param listName
+	 * @return
+	 */
+	public static List<DropDownOption> getLookupDropDownCodeList(String listName) {
+		List<DropDownOption> dropDownList = new ArrayList<DropDownOption>();
+		List<Lookup> lookupList = getInstance().lookupService.getLookupList(listName);
+		if(!CollectionUtils.isEmpty(lookupList)) {
+			for(Lookup lookup: lookupList) {
+				DropDownOption option = new DropDownOption(lookup.getCode().toString(), lookup.getDisplayName());
+				dropDownList.add(option);
+			}	
+		}
+		
+		return dropDownList;
+		
+	}
 	
 	/**
 	 * Retrieve list of parent dulChecklists to display text for

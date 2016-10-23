@@ -462,6 +462,18 @@ public class ManageSubmission extends BaseAction {
 		return null;
 	}
 	
+	/**
+	 * Get Lookup object by list name and code
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public  String getLookupDisplayNamebyCode(String listName, String code) {
+		Lookup lookup = lookupService.getLookupByCode(listName, code);
+		
+		return lookup.getDisplayName();
+	}
+	
 	
 	public String getDisplayNameByFlag(String flag) {
 		if(ApplicationConstants.FLAG_YES.equals(flag)) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
 
 
@@ -24,23 +25,23 @@ public interface UserRoleService {
 
 	
 	/**
-	 * Find PersonRole by user id.
+	 * Find UserRole by user id.
 	 * 
 	 * @param userId
-	 * @return PersonRole
+	 * @return UserRole
 	 * @throws Exception 
 	 */
-	public PersonRole findPersonRoleByUserId(final String userId);
+	public UserRole findUserRoleByUserId(final String userId);
 	
 	
 	/**
-	 * This method retrieves list of PersonRoles matching the 
+	 * This method retrieves list of UserRoles matching the 
 	 * given criteria. 
 	 * 
 	 * @param searchCriteria
 	 * @return criteria
 	 */
-	public abstract List<PersonRole> searchPersonRole(RoleSearchCriteria searchCriteria); 
+	public abstract List<UserRole> searchUserRole(RoleSearchCriteria searchCriteria); 
 
 	
 	/**

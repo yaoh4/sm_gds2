@@ -5,6 +5,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
 
 import java.util.List;
@@ -57,33 +58,33 @@ public class UserRoleDao {
 		}
 	}
 	
-	public PersonRole findPersonRoleByUserId(final String userId) {
-		logger.info("finding PersonRole by userId: '" + userId + "'");
+	public UserRole findUserRoleByUserId(final String userId) {
+		logger.info("finding UserRole by userId: '" + userId + "'");
 		Session sess = null;	
 
 		try {
 			sess = sessionFactory.getCurrentSession();
-			final Criteria criteria = sess.createCriteria(PersonRole.class);
+			final Criteria criteria = sess.createCriteria(UserRole.class);
 			criteria.add(Restrictions.ilike("nihNetworkId", userId, MatchMode.EXACT));
-			return (PersonRole) criteria.uniqueResult();
+			return (UserRole) criteria.uniqueResult();
 			
 			
 		} catch (Throwable re) {
-			logger.error("Exception occurred while finding PersonRole by userId: "+userId, re);
+			logger.error("Exception occurred while finding UserRole by userId: "+userId, re);
 			throw re;
 		}
 	}
 	
 
-	public List<PersonRole> searchPersonRole(RoleSearchCriteria searchCriteria) {
+	public List<UserRole> searchUserRole(RoleSearchCriteria searchCriteria) {
 		Session sess = null;
 
 		try {
 			sess = sessionFactory.getCurrentSession();
-			Criteria criteria = sess.createCriteria(PersonRole.class);
+			Criteria criteria = sess.createCriteria(UserRole.class);
 			criteria = setupRoleSearchCriteria(criteria, searchCriteria);
 			
-			List<PersonRole> roles =  criteria.list();
+			List<UserRole> roles =  criteria.list();
 			return roles;
 			
 		} catch (Throwable re) {
@@ -102,8 +103,8 @@ public class UserRoleDao {
 		if (StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getLastName()))) {
 			criteria.add(Restrictions.ilike("nedPerson.lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
 		}
-		if(searchCriteria.getRoleId() != null) {
-			criteria.add(Restrictions.eq("role.id", searchCriteria.getRoleId()));
+		if(searchCriteria.getRoleCode() != null) {
+			criteria.add(Restrictions.eq("gdsRoleCode", searchCriteria.getRoleCode()));
 		}
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
 			criteria.add(Restrictions.ilike("nedPerson.nihsac", searchCriteria.getDoc(), MatchMode.START));
@@ -201,7 +202,7 @@ public class UserRoleDao {
 	 * @param networkId
 	 * @return
 	 */
-	public PersonRole findByNetworkId(String networkId) {
+	public PersonRole findPersonRole(String networkId) {
 		logger.debug("getting PersonRole instance with networkId: " + networkId);
 		try {
 			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonRole.class);

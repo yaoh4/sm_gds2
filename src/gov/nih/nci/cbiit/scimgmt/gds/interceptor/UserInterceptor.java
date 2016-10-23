@@ -4,6 +4,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;
 
@@ -74,10 +75,10 @@ public class UserInterceptor extends AbstractInterceptor implements StrutsStatic
 					logger.error("NedPerson could not be found for userId:  " + remoteUser);
 					return ApplicationConstants.NOT_AUTHORIZED;
 				} else {
-					PersonRole personRole = nedPerson.getPersonRole();
-					if(personRole != null) {
-						Long roleId = personRole.getRole().getId();
-						Lookup gdsRole = lookupService.getLookupById(ApplicationConstants.ROLE_TYPE, roleId);
+					UserRole userRole = nedPerson.getUserRole();
+					if(userRole != null) {
+						String roleCode = userRole.getGdsRoleCode();
+						Lookup gdsRole = lookupService.getLookupByCode(ApplicationConstants.ROLE_TYPE, roleCode);
 						logger.info("GDS role for user " + remoteUser + " is " + gdsRole.getDescription());
 					}
 				}

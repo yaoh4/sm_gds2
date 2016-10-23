@@ -102,8 +102,8 @@ public class NedPerson implements java.io.Serializable {
 	private Date inactiveDate;
 	private Date createdDate;
 	
-	private PersonRole personRole;
-	//private UserRole userRole;
+	//private PersonRole personRole;
+	private UserRole userRole;
 
 	public NedPerson() {
 	}
@@ -919,7 +919,7 @@ public class NedPerson implements java.io.Serializable {
 	}
 	
 	
-	@OneToOne
+	/*@OneToOne
 	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name="NIHSSOUSERNAME", insertable = false, updatable = false)
 	public PersonRole getPersonRole() {
@@ -928,9 +928,9 @@ public class NedPerson implements java.io.Serializable {
 	
 	public void setPersonRole(PersonRole personRole) {
 		this.personRole = personRole;
-	}
+	}*/
 	
-	/*@OneToOne
+	@OneToOne
 	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name="NIHSSOUSERNAME", insertable = false, updatable = false)
 	public UserRole getUserRole() {
@@ -939,7 +939,7 @@ public class NedPerson implements java.io.Serializable {
 	
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
-	}*/
+	}
 	
 
 	/**

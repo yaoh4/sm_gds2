@@ -175,9 +175,9 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	 * @return true, if user has GPA role
 	 */
 	public boolean isGPA() {
-		if(loggedOnUser.getPersonRole() == null)
+		if(loggedOnUser.getUserRole() == null)
 			return false;
-		return (loggedOnUser.getPersonRole().getRole() == null? false: loggedOnUser.getPersonRole().getRole().getId().equals(ApplicationConstants.ROLE_GPA_ID));
+		return (loggedOnUser.getUserRole().getGdsRoleCode() == null? false: loggedOnUser.getUserRole().getGdsRoleCode().equals(ApplicationConstants.ROLE_GPA_CODE));
 	}
 	
 	/**
@@ -186,9 +186,9 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	 * @return true, if is Read only user
 	 */
 	public boolean isReadOnlyUser() {
-		if(loggedOnUser.getPersonRole() == null)
+		if(loggedOnUser.getUserRole() == null)
 			return false;
-		return (loggedOnUser.getPersonRole().getRole() == null? false: loggedOnUser.getPersonRole().getRole().getId().equals(ApplicationConstants.ROLE_READ_ONLY_USER_ID));
+		return (loggedOnUser.getUserRole().getGdsRoleCode() == null? false: loggedOnUser.getUserRole().getGdsRoleCode().equals(ApplicationConstants.ROLE_READ_ONLY_USER_CODE));
 	}
 	
 }

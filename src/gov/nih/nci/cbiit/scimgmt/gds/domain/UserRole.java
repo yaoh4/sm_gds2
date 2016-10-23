@@ -31,7 +31,7 @@ public class UserRole implements java.io.Serializable {
 	private String lastChangedBy; 
 	private Date lastChangedDate;
 	
-	//private NedPerson nedPerson;
+	private NedPerson nedPerson;
 	
 	public UserRole() {
 	}
@@ -125,14 +125,14 @@ public class UserRole implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 	
-	/*@OneToOne(mappedBy="userRole", optional = false)
+	@OneToOne(mappedBy="userRole", optional = false)
 	public NedPerson getNedPerson() {
 		return nedPerson;
 	}
 
 	public void setNedPerson(NedPerson nedPerson) {
 		this.nedPerson = nedPerson;
-	}*/
+	}
   
 	@Column(name = "LAST_CHANGED_BY", length = 120)
 	public String getLastChangedBy() {
@@ -163,7 +163,7 @@ public class UserRole implements java.io.Serializable {
 	}
 	
 	@Transient
-	public String getFullName(){
+	public String getUpdatedByFullName(){
 		if(lastChangedByFullName != null) {
 			return lastChangedByFullName;
 		}
