@@ -8,6 +8,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -160,20 +161,22 @@ public class UserRoleDao {
 		String networkId = detachedInstance.getNihNetworkId();
 		logger.debug("merging PersonRole instance");
 		try {
-			if(networkId != null){
-				//Already saved role				
+			if(detachedInstance.getCreatedBy() != null){
+				//Already saved GDS role				
 				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(PersonRole.class, networkId));
-				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());				
+				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());
+				detachedInstance.setLastChangedDate(new Date());
 			}
 			else{
-				//New submission
-				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId());				
+				//New GDS role
+				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId());	
+				detachedInstance.setCreatedDate(new Date());
 			}
 			PersonRole result = (PersonRole) sessionFactory.getCurrentSession().merge(detachedInstance);
 			logger.debug("merge successful for PersonRole with networkId "  + networkId);
 			return result;
 		} catch (RuntimeException re) {
-			logger.error("merge failed for PersonRole  " + networkId, re);
+			logger.error("merge failed for PersonRole with networkId " + networkId, re);
 			throw re;
 		}
 	}

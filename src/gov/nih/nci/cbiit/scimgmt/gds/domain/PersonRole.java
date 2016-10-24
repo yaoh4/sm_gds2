@@ -23,6 +23,7 @@ public class PersonRole implements java.io.Serializable {
 
 	private String nihNetworkId;
 	private Lookup role;
+	private String activeFlag;
 	//private Long roleId;
 	private String createdBy;
 	private String lastChangedBy;
@@ -71,6 +72,16 @@ public class PersonRole implements java.io.Serializable {
 		this.role = role;
 	}
 	
+
+	@Column(name = "ACTIVE_FLAG", length = 4)
+	public String getActiveFlag() {
+		return activeFlag;
+	}
+
+	
+	public void setActiveFlag(String activeFlag) {
+		this.activeFlag = activeFlag;
+	}
 
 	@Column(name = "CREATED_BY", length = 120)
 	public String getCreatedBy() {
