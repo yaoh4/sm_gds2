@@ -183,7 +183,7 @@
 								
 								<s:else>
 				  					<tr class="tableContent">
-				    					<td colspan="4">Nothing found to display.</td>
+				    					<td colspan="6">Nothing found to display.</td>
 				  					</tr>
 								</s:else>
 								
