@@ -64,9 +64,6 @@ public class ManageSubmission extends BaseAction {
 	@Autowired 
 	protected FileUploadService fileUploadService;	
 	
-	@Autowired
-	protected LookupService lookupService;
-	
 	private Project project;
 	
 	private Long docId;
@@ -446,47 +443,6 @@ public class ManageSubmission extends BaseAction {
 		this.docId = docId;
 	}
 
-	
-	/**
-	 * Get Lookup object by list name and code
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public  String getLookupDisplayNamebyId(Long id) {
-		List<Lookup> list = (List<Lookup>) lookupService.getAllLookupLists();
-		for(Lookup entry: list) {
-			if (entry.getId().equals(id))
-				return entry.getDisplayName();
-		}
-		return null;
-	}
-	
-	/**
-	 * Get Lookup object by list name and code
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public  String getLookupDisplayNamebyCode(String listName, String code) {
-		Lookup lookup = lookupService.getLookupByCode(listName, code);
-		
-		return lookup.getDisplayName();
-	}
-	
-	
-	public String getDisplayNameByFlag(String flag) {
-		if(ApplicationConstants.FLAG_YES.equals(flag)) {
-			 return ApplicationConstants.DISPLAY_NAME_YES;
-		} else if(ApplicationConstants.FLAG_NO.equals(flag)) {
-			return ApplicationConstants.DISPLAY_NAME_NO;
-		} else if(ApplicationConstants.FLAG_NA.equalsIgnoreCase(flag)){
-			return ApplicationConstants.DISPLAY_NAME_NA;
-		} else {
-			return flag;
-		}
-	}
-	
 	
 	/**
 	 * Validate Upload File

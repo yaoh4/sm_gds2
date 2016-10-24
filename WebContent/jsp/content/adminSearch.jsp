@@ -93,30 +93,43 @@
 								
                                     
                                     <th width="12%"  align="left" style="vertical-align:bottom;" scope="col">Current Role(s)</th>
-                                    <th width="20%"  align="left" style="vertical-align:bottom;" scope="col">Created/Updated by:</th>
+                                    <th width="20%"  align="left" style="vertical-align:bottom;" scope="col">Created/Updated by</th>
 									
 									<th width="5%"  align="left" style="vertical-align:bottom;" scope="col">Actions</th>
 								</tr>
 								
-								
 								<s:if test="%{userRoles.size > 0}">
 				  				<s:iterator value="userRoles" var="userRole" status="stat">
 				    			<s:if test="#stat.index /2 == 0">
-					  			<tr class="tableContent">
+					  			  <tr class="tableContent">
 								</s:if>
 								<s:else>
-					  			<tr class="tableContentOdd">
-								</s:else>					    	
-																
-								<td>${userRole.nedPerson.fullName}</td>
+					  			  <tr class="tableContentOdd">
+								</s:else>	
+								    <s:hidden id="%{#userRole.nihNetworkId}FullName" value="%{#userRole.nedPerson.fullName}"/>
+												    																
+								    <td>${userRole.nedPerson.fullName}</td>
 									<td><a href="mailto:${userRole.nedPerson.email}">${userRole.nedPerson.email}</a></td>
 									<td>${userRole.nedPerson.orgpath} </td>							
-									<td><s:property value="%{getLookupDisplayNamebyCode(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@GDS_ROLE_LIST, #userRole.gdsRoleCode)}"/></td>
-                                    <td>${userRole.updatedByFullName} on ${userRole.updatedDate}</td>
-                                    
-                                    <td><div style="white-space: nowrap; font-size: 14px;"><a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a onclick="deletePersonRole('${userRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a></div></td>
-								 
-									</tr>
+									<td>
+									  <s:property value="%{getLookupDisplayNameByCode(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@GDS_ROLE_LIST, #userRole.gdsRoleCode)}"/>																		  
+									  <s:if test="%{#userRole.pdFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
+									    <s:if test="%{#userRole.gdsRoleCode != null}">
+									      /
+									    </s:if>
+									    Program Director
+									  </s:if>
+									</td>
+                                    <td>
+                                      <s:if test="%{#userRole.gdsRoleCode != null}">
+                                        ${userRole.updatedByFullName} on ${userRole.updatedDate}
+                                      </s:if>
+                                    </td>                                   
+                                    <td><div style="white-space: nowrap; font-size: 14px;">
+                                      <a onclick="createEditRole('${userRole.nihNetworkId}')" href="javascript: void(0)" data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                      <a onclick="deletePersonRole('${userRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>
+                                    </div></td>								 
+								</tr>
 								
 								</s:iterator>
 								</s:if>
@@ -134,14 +147,27 @@
 								<td>${nedPerson.fullName}</td>
 									<td><a href="mailto:${nedPerson.email}">${nedPerson.email}</a></td>
 									<td>${nedPerson.orgpath} </td>
-									<s:if test="%{#nedPerson.userRole != null && #nedPerson.userRole.gdsRoleCode != null}">
-									<td><s:property value="%{getLookupDisplayNamebyCode(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@GDS_ROLE_LIST, #nedPerson.userRole.gdsRoleCode)}"/></td>
-                                    <td>${nedPerson.userRole.updatedByFullName} on ${nedPerson.userRole.updatedDate}</td>
+									<td>
+									  <s:if test="%{#nedPerson.userRole != null}">
+									    <s:if test="%{#nedPerson.userRole.gdsRoleCode != null}">
+									      <s:property value="%{getLookupDisplayNameByCode(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@GDS_ROLE_LIST, #nedPerson.userRole.gdsRoleCode)}"/>                                  
+                                        </s:if>
+                                        <s:if test="%{#nedPerson.userRole.pdFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
+                                          <s:if test="%{#nedPerson.userRole.gdsRoleCode != null}">
+                                          /
+                                          </s:if>
+									      Program Director
+									    </s:if>
+									  </s:if>
+									</td>
+									<td>
+									<s:if test="%{#nedPerson.userRole != null && #nedPerson.userRole.gdsRoleCode != null}">									 
+                                      ${nedPerson.userRole.updatedByFullName} on ${nedPerson.userRole.updatedDate}                                   
                                     </s:if>
-                                    <s:else><td></td><td></td></s:else>
+                                    </td>
                                     
 									<td><div style="white-space: nowrap; font-size: 14px;">
-									  <a data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;									 
+									  <a onclick="createEditRole('${nedPerson.userRole.nihNetworkId}')" data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;									 
 									  <s:if test="%{#nedPerson.userRole != null && #nedPerson.userRole.gdsRoleCode != null}">
 									    <a onclick="deletePersonRole('${nedPerson.userRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>
 									  </s:if>
@@ -179,7 +205,7 @@
 					
 					
 					
-					</form>
+					
 				
 			
 			<p>&nbsp;</p>
@@ -187,6 +213,7 @@
 			<!-- Modal for Roles -->
 			<div id="myModal" class="modal fade" role="dialog">
 				<div class="modal-dialog modal-lg">
+				
 					<!-- Modal content-->
 					<div class="modal-content">
 						<div class="modal-header">
@@ -212,14 +239,21 @@
 									<th width="13%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">Active PD Role?</th>
 								</tr>
 								<tr>
-									
-										<td align="center" valign="middle"><input type="radio" name="userRole" id="GPA" value="GPA"></td>
-										<td align="center" valign="middle"><input type="radio" name="userRole" id="GDS User Edit" value="GDS User Edit"></td>
-										<td align="center" valign="middle"><input type="radio" name="userRole" id="GDS User Read Only" value="GDS User Read Only"></td>
-										<td>Catherine Fishman</td>
-										<td><a href="mailto:Fishmanc@mail.nih.gov">Fishmanc@mail.nih.gov</a></td>
-										<td>DEA</td>
-										<td>Yes</td>
+										<s:hidden id="gdsRoleCode" name="selectedUserRole.gdsRoleCode"/>
+										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="GPA" value="GPA"></td>
+										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="EDITUSER" value="EDITUSER"></td>
+										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="READUSER" value="READUSER"></td>
+										<td>${selectedUserRole.nedPerson.fullName}</td>
+										<td><a href="mailto:${selectedUserRole.nedPerson.email}">${selectedUserRole.nedPerson.email}</a></td>
+										<td>${selectedUserRole.nedPerson.orgpath}</td>
+										<td>
+										<s:if test="%{#userRole.pdFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
+										  Yes
+										</s:if>
+										<s:else>
+										  No
+										</s:else>
+										</td>
 									</tr>
 									
 									
@@ -231,14 +265,14 @@
 								</tbody></table>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+								<button type="button" class="btn btn-default" onclick="savePersonRole()" data-dismiss="modal">Save</button>
 								<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				
-			
+</form>			
 
 <script type="text/javascript" src="<s:url value="/controllers/gds.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/controllers/admin.js"/>"></script>

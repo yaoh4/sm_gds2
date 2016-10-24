@@ -5,10 +5,13 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsProperties;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +32,9 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	
 	@SuppressWarnings("unused")
 	protected Map<String, Object> session;
+	
+	@Autowired
+	protected LookupService lookupService;
 	
 	@Autowired
 	protected NedPerson loggedOnUser;	
@@ -189,6 +195,48 @@ public class BaseAction extends ActionSupport implements SessionAware {
 		if(loggedOnUser.getUserRole() == null)
 			return false;
 		return (loggedOnUser.getUserRole().getGdsRoleCode() == null? false: loggedOnUser.getUserRole().getGdsRoleCode().equals(ApplicationConstants.ROLE_READ_ONLY_USER_CODE));
+	}
+	
+	/**
+	 * Get Lookup object by list name and code
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public  String getLookupDisplayNamebyId(Long id) {
+		List<Lookup> list = (List<Lookup>) lookupService.getAllLookupLists();
+		for(Lookup entry: list) {
+			if (entry.getId().equals(id))
+				return entry.getDisplayName();
+		}
+		return null;
+	}
+	
+	/**
+	 * Get Lookup object by list name and code
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public  String getLookupDisplayNameByCode(String listName, String code) {
+		if(code != null) {
+			Lookup lookup = lookupService.getLookupByCode(listName, code);
+			return lookup.getDisplayName();
+		}
+		return "";
+	}
+	
+	
+	public String getDisplayNameByFlag(String flag) {
+		if(ApplicationConstants.FLAG_YES.equals(flag)) {
+			 return ApplicationConstants.DISPLAY_NAME_YES;
+		} else if(ApplicationConstants.FLAG_NO.equals(flag)) {
+			return ApplicationConstants.DISPLAY_NAME_NO;
+		} else if(ApplicationConstants.FLAG_NA.equalsIgnoreCase(flag)){
+			return ApplicationConstants.DISPLAY_NAME_NA;
+		} else {
+			return flag;
+		}
 	}
 	
 }

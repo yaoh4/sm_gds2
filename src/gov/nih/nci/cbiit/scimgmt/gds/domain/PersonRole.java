@@ -112,15 +112,6 @@ public class PersonRole implements java.io.Serializable {
 	}
 	
 	
-	/*@OneToOne(mappedBy="personRole", optional = false)
-	public NedPerson getNedPerson() {
-		return nedPerson;
-	}
-
-	public void setNedPerson(NedPerson nedPerson) {
-		this.nedPerson = nedPerson;
-	}*/
-
 	@Transient
 	public String getUpdatedDate() {
 		if(lastChangedDate != null) {

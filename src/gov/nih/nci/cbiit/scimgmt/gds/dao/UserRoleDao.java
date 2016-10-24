@@ -88,7 +88,7 @@ public class UserRoleDao {
 			return roles;
 			
 		} catch (Throwable re) {
-			logger.error("Exception occurred during searchPersonRole " + re);
+			logger.error("Exception occurred during searchUserRole " + re);
 			throw re;
 		}
 	}

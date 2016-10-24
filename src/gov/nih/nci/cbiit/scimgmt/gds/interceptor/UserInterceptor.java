@@ -3,7 +3,6 @@ package gov.nih.nci.cbiit.scimgmt.gds.interceptor;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;

@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 
 
+import java.text.DateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -154,12 +155,11 @@ public class UserRole implements java.io.Serializable {
 	}
 	
 	@Transient
-	public Date getUpdatedDate() {
+	public String getUpdatedDate() {
 		if(lastChangedDate != null) {
-			return lastChangedDate;
-		}
-		
-		return createdDate;
+			return DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(lastChangedDate);
+		}	
+		return DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(createdDate);
 	}
 	
 	@Transient

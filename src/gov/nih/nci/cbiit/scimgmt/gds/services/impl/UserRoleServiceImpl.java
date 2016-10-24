@@ -39,7 +39,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 	
 	
 	/**
-	 * This method retrieves PersonRole from DB for given userId. 
+	 * This method retrieves UserRole from DB for given userId. 
 	 */
 	public UserRole findUserRoleByUserId(String userId) {
 		logger.debug("findUserRoleByUserId('" + userId + "')");

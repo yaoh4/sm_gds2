@@ -37,6 +37,10 @@ public class AdminAction extends BaseAction {
 	
 	private String userId;
 	
+	private UserRole selectedUserRole;
+	
+	private String userRoleCode;
+	
 	static Logger logger = LogManager.getLogger(AdminAction.class);
 	
 	/**
@@ -98,19 +102,42 @@ public class AdminAction extends BaseAction {
 		
 	}
 	
+	public String selectGdsUser() throws Exception {
+		
+		logger.debug("selectGdsUser()");
+
+		selectedUserRole = userRoleService.findUserRoleByUserId(getUserId());
+			
+		//setCriteria((RoleSearchCriteria)session.get("roleSearchCriteria"));
+		//userRoles = userRoleService.searchUserRole(getCriteria());
+		
+		return SUCCESS;
+	}
+	
+	
+	public String saveGdsUser() {
+		
+		String gdsRoleCode = getUserRoleCode();
+		String networkId  = getUserId();
+		
+		
+		
+		return SUCCESS;
+	}
+	
 	
 	private boolean isSearchCriteriaValid(RoleSearchCriteria searchCriteria) {
 		return !StringUtils.isBlank(searchCriteria.getLastName())
 			|| !StringUtils.isBlank(searchCriteria.getRoleCode());
 	}
 
+	
 	/**
 	 * @return the searchCriteria
 	 */
 	public RoleSearchCriteria getCriteria() {
 		return criteria;
 	}
-
 
 	
 	/**
@@ -119,21 +146,6 @@ public class AdminAction extends BaseAction {
 	public void setCriteria(RoleSearchCriteria criteria) {
 		this.criteria = criteria;
 	}
-
-
-	/**
-	 * @return the personRoles
-	 */
-	//public List<PersonRole> getPersonRoles() {
-	//	return personRoles;
-	//}
-
-	/**
-	 * @param personRoles the personRoles to set
-	 */
-	//public void setPersonRoles(List<PersonRole> personRoles) {
-	//	this.personRoles = personRoles;
-	//}
 
 
 	/**
@@ -197,6 +209,38 @@ public class AdminAction extends BaseAction {
 	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+
+	/**
+	 * @return the selectedUserRole
+	 */
+	public UserRole getSelectedUserRole() {
+		return selectedUserRole;
+	}
+
+
+	/**
+	 * @param selectedUserRole the selectedUserRole to set
+	 */
+	public void setSelectedUserRole(UserRole selectedUserRole) {
+		this.selectedUserRole = selectedUserRole;
+	}
+
+
+	/**
+	 * @return the userRoleCode
+	 */
+	public String getUserRoleCode() {
+		return userRoleCode;
+	}
+
+
+	/**
+	 * @param userRoleCode the userRoleCode to set
+	 */
+	public void setUserRoleCode(String userRoleCode) {
+		this.userRoleCode = userRoleCode;
 	}
 
 

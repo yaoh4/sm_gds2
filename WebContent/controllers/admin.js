@@ -7,11 +7,11 @@ function searchUsers() {
 	var role = $('#role').val();
 	var doc = $('#doc').val();
 	var gdsUsersFlag = $('#gdsUsersOnly').is(':checked');
-	if($('#lastName').val().length == 0 && $('#role').val().length == 0) {
-		var errorMsg = "Please enter at least one of Last Name or GDS User Role as search criteria";
-		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
-		window.scrollTo(0,0);
-	} else {	
+	//if($('#lastName').val().length == 0 && $('#role').val().length == 0) {
+	//	var errorMsg = "Please enter at least one of Last Name or GDS User Role as search criteria";
+	//	$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
+	//	window.scrollTo(0,0);
+	//} else {	
 		if(gdsUsersFlag == true || role != "") {
 			url = "searchGdsUsers.action";
 		} else {
@@ -43,7 +43,7 @@ function searchUsers() {
 	  	//		return true;
 		//	});
 		//}
-	}
+	//}
 	
 };
 
@@ -87,6 +87,50 @@ function resetData() {
 	$(".tableContentOdd").remove();
 	parent.append('<tr class="tableContent"><td colspan="4">Nothing found to display.</td></tr>');
 };
+
+
+function createEditRole(networkId) {
+	//var fullName = $('#' + networkId + 'FullName').val();
+	//$('#fullName').val(fullName);
+	$('#userId').val(networkId);
+	$form = $("#admin_form");
+    fd = new FormData($form[0]);
+	$.ajax({
+	  	url: "selectGdsUser.action",
+	  	type: 'post',
+	  	processData: false,
+	    contentType: false,
+	    data: fd,
+	  	async:   false,
+	  	success: function(msg){
+			result = $.trim(msg);
+			$("#myModal").html($(result).find("#myModal").html());
+			var gdsRole = $('#gdsRoleCode').val();
+			$("#" + gdsRole).prop('checked', true);
+			$('#myModal').modal('show');
+		}, 
+		error: function(){}	
+	});
+}
+
+
+function savePersonRole() {
+	$form = $("#admin_form");
+    fd = new FormData($form[0]);
+	$.ajax({
+	  	url: "saveGdsUser.action",
+	  	type: 'post',
+	  	processData: false,
+	    contentType: false,
+	    data: fd,
+	  	async:   false,
+	  	success: function(msg){
+			result = $.trim(msg);
+			$("#searchResults").html($(result).find("#searchResults").html());
+		}, 
+		error: function(){}	
+	});
+}
 
 //confirm Edit
 function confirmEdit(elem){
