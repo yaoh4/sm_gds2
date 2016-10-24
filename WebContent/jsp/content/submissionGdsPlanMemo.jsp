@@ -17,6 +17,7 @@
 		</span>
 		</label>
 	</div>
+	<div style="clear:both;"></div>
 
 
 						
