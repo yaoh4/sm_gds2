@@ -35,6 +35,12 @@ public interface UserRoleService {
 	
 	
 	/**
+	 * Find PersonRole by userId. 
+	 * @return PersonRole
+	 */
+	public PersonRole findPersonRoleByUserId(String userId);
+	
+	/**
 	 * This method retrieves list of UserRoles matching the 
 	 * given criteria. 
 	 * 

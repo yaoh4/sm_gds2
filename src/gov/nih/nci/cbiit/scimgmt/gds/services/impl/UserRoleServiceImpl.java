@@ -46,6 +46,15 @@ public class UserRoleServiceImpl implements UserRoleService {
 		return userRoleDao.findUserRoleByUserId(userId);
 	}
 	
+	
+	/**
+	 * This method retrieves PersonRole from DB for given userId. 
+	 */
+	public PersonRole findPersonRoleByUserId(String userId) {
+		logger.debug("findPersonRoleByUserId('" + userId + "')");
+		return userRoleDao.findPersonRole(userId);
+	}
+	
 	/**
 	 * This method retrieves List of PersonRole from DB for given roleId. 
 	 */

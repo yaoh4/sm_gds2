@@ -2,6 +2,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,8 @@ import org.springframework.util.CollectionUtils;
 import com.opensymphony.xwork2.ActionContext;
 
 import org.apache.commons.lang.StringUtils;
+
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
@@ -120,9 +123,18 @@ public class AdminAction extends BaseAction {
 		String gdsRoleCode = getUserRoleCode();
 		String networkId  = getUserId();
 		
+		PersonRole personRole = userRoleService.findPersonRoleByUserId(networkId);
+		personRole.setRole(lookupService.getLookupByCode(ApplicationConstants.GDS_ROLE_LIST, gdsRoleCode));
+		personRole.setLastChangedBy(loggedOnUser.getAdUserId());
+		personRole.setLastChangedDate(new Date());
 		
+		personRole = userRoleService.saveOrUpdatePersonRole(personRole);
 		
-		return SUCCESS;
+		if(!StringUtils.isBlank(getCriteria().getRoleCode())) {
+			return searchGdsUsers();
+		} else {
+			return searchNedPersons();
+		}
 	}
 	
 	
