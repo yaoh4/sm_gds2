@@ -104,6 +104,9 @@ public class UserInterceptor extends AbstractInterceptor implements StrutsStatic
 	 * @return true, if successful
 	 */
 	private boolean hasValidRole(final NedPerson user) {
-		return true;
+		if(user.getUserRole() != null)
+			return true;
+		else
+			return false;
 	}	
 }
