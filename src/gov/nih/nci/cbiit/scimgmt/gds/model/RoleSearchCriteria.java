@@ -10,6 +10,7 @@ public class RoleSearchCriteria {
 	private String firstName;
 	private String roleCode;
 	private String doc;
+	private boolean gdsUsersOnly;
     
 	public RoleSearchCriteria(){}
 
@@ -91,6 +92,20 @@ public class RoleSearchCriteria {
 	 */
 	public void setDoc(String doc) {
 		this.doc = doc;
+	}
+
+	/**
+	 * @return the gdsUserOnly
+	 */
+	public boolean getGdsUsersOnly() {
+		return gdsUsersOnly;
+	}
+
+	/**
+	 * @param gdsUsersOnly the gdsUserOnly to set
+	 */
+	public void setGdsUsersOnly(boolean gdsUsersOnly) {
+		this.gdsUsersOnly = gdsUsersOnly;
 	}
 
 }

@@ -44,6 +44,8 @@ public class AdminAction extends BaseAction {
 	
 	private String userRoleCode;
 	
+	private String gdsUserOnly;
+	
 	static Logger logger = LogManager.getLogger(AdminAction.class);
 	
 	/**
@@ -133,10 +135,10 @@ public class AdminAction extends BaseAction {
 			personRole.setLastChangedDate(new Date());
 		}
 		personRole.setRole(lookupService.getLookupByCode(ApplicationConstants.GDS_ROLE_LIST, gdsRoleCode));
-		
+	
 		personRole = userRoleService.saveOrUpdatePersonRole(personRole);
 		
-		if(!StringUtils.isBlank(getCriteria().getRoleCode())) {
+		if(criteria.getGdsUsersOnly() == true || StringUtils.isNotBlank(getCriteria().getRoleCode())) {
 			return searchGdsUsers();
 		} else {
 			return searchNedPersons();

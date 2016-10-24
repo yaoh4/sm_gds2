@@ -24,7 +24,7 @@
 						<div class="panel-body">
 							<h4>Search Criteria</h4>
 							<div class="form-group row">
-								<div class="checkbox"><label><input type="checkbox" id="gdsUsersOnly" name="gdsUsersOnly" style="margin-left: -40px;">&nbsp;&nbsp;Only users with GDS Roles</label>
+								<div class="checkbox"><label><input type="checkbox" id="gdsUsersOnly" name="criteria.gdsUsersOnly" value="true" style="margin-left: -40px;">&nbsp;&nbsp;Only users with GDS Roles</label>
 							</div>
 							<div class="col-xs-5">
 								<label for="First Name">First Name:</label>
