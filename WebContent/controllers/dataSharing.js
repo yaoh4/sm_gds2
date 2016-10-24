@@ -64,6 +64,7 @@ $("#gds-form").on('click', '.removeclass', function () {//user click on remove t
 // Make sure to hide the "Will there be any data submitted?" question.
 $("#3").change(function () {
 	applyUiRule(this,'3','8','hide');
+	applyUiRule(this,'3','exceptionMemoDiv','hide');
 });
 
 // If "Copy/paste into a text box" is not selected, 
