@@ -103,7 +103,7 @@ public class UserRoleDao {
 		if (StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getLastName()))) {
 			criteria.add(Restrictions.ilike("nedPerson.lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
 		}
-		if(searchCriteria.getRoleCode() != null) {
+		if(StringUtils.isNotBlank(searchCriteria.getRoleCode())) {
 			criteria.add(Restrictions.eq("gdsRoleCode", searchCriteria.getRoleCode()));
 		}
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
