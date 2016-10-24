@@ -126,7 +126,7 @@
                                       </s:if>
                                     </td>                                   
                                     <td><div style="white-space: nowrap; font-size: 14px;">
-                                      <a onclick="createEditRole('${userRole.nihNetworkId}')" href="javascript: void(0)" data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                      <a onclick="createEditRole('${userRole.nihNetworkId}')" href="javascript: void(0)" data-toggle="modal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;
                                       <a onclick="deletePersonRole('${userRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>
                                     </div></td>								 
 								</tr>
@@ -167,7 +167,7 @@
                                     </td>
                                     
 									<td><div style="white-space: nowrap; font-size: 14px;">
-									  <a onclick="createEditRole('${nedPerson.userRole.nihNetworkId}')" data-toggle="modal" href="#myModal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;									 
+									  <a onclick="createEditRole('${nedPerson.userRole.nihNetworkId}')" href="javascript: void(0)" data-toggle="modal"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;									 
 									  <s:if test="%{#nedPerson.userRole != null && #nedPerson.userRole.gdsRoleCode != null}">
 									    <a onclick="deletePersonRole('${nedPerson.userRole.nihNetworkId}')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>
 									  </s:if>
