@@ -231,11 +231,11 @@
 								<tr>
 									
 									<td width="4%" align="center" style="vertical-align:bottom; font-size: 11px;">GPA</td>
-									<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">GDS User Edit</td>
-									<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">GDS User Read Only</td>
+									<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">Edit User</td>
+									<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">Read-Only User</td>
 									<th width="28%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF; " scope="col">User Name</th>
 									<th width="31%" align="left" style="whitespace: nowrap; vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">Email Address</th>
-									<th width="8%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">DOC</th>
+									<th width="8%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">NCI DOC</th>
 									<th width="13%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">Active PD Role?</th>
 								</tr>
 								<tr>
