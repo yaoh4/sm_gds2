@@ -1,6 +1,6 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<p class="question">
+<p class="question" style="width:23.5%; float:left;">
 	<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>
 	Upload Institutional Certification
 </p>
@@ -8,7 +8,7 @@
 <s:hidden name="docId" value="%{doc.id}" />
 
 <div>
-	<div class="input-group">
+	<div class="input-group" style="width: 94px; float: left; margin-bottom: 20px;">
 		<label
 			class="input-group-btn"> <span class="btn btn-default">
 				Choose File

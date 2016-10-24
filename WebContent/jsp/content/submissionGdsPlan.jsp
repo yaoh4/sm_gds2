@@ -219,17 +219,17 @@
 				<!--BEGIN HIDDEN Field for Uploader-->
 				<div class="qSpacing" style="margin-left: 30px; ${map['dataSharingPlanDiv'].style}"
 					id="dataSharingPlanDiv">
-					<p class="question">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
+					<p class="question" style="width:33.5%; float:left;">Upload Data Sharing Plan: [to be uploaded by GPA]</p>
 
-					<div style="margin-bottom: 10px;">
-						<div class="input-group"><label
+				
+						<div class="input-group" style="width: 94px; float: left; margin-bottom: 20px;"><label
 								class="input-group-btn"> <span class="btn btn-default">
 									Choose File <s:file style="display: none;" name="dataSharingPlan"
 										id="dataSharingPlan" />
 							</span>
 							</label>
 						</div>
-					</div>
+					
 										
 					<div class="loadFileHistory">
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
