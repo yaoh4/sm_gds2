@@ -124,9 +124,15 @@ public class AdminAction extends BaseAction {
 		String networkId  = getUserId();
 		
 		PersonRole personRole = userRoleService.findPersonRoleByUserId(networkId);
+		if(personRole == null) {
+			personRole = new PersonRole();
+			personRole.setNihNetworkId(networkId);
+			personRole.setCreatedBy(loggedOnUser.getAdUserId());
+		} else {
+			personRole.setLastChangedBy(loggedOnUser.getAdUserId());
+			personRole.setLastChangedDate(new Date());
+		}
 		personRole.setRole(lookupService.getLookupByCode(ApplicationConstants.GDS_ROLE_LIST, gdsRoleCode));
-		personRole.setLastChangedBy(loggedOnUser.getAdUserId());
-		personRole.setLastChangedDate(new Date());
 		
 		personRole = userRoleService.saveOrUpdatePersonRole(personRole);
 		

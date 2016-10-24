@@ -7,11 +7,11 @@ function searchUsers() {
 	var role = $('#role').val();
 	var doc = $('#doc').val();
 	var gdsUsersFlag = $('#gdsUsersOnly').is(':checked');
-	//if($('#lastName').val().length == 0 && $('#role').val().length == 0) {
-	//	var errorMsg = "Please enter at least one of Last Name or GDS User Role as search criteria";
-	//	$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
-	//	window.scrollTo(0,0);
-	//} else {	
+	if($('#lastName').val().length == 0 && $('#role').val().length == 0) {
+		var errorMsg = "Please enter at least one of Last Name or GDS User Role as search criteria";
+		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
+		window.scrollTo(0,0);
+	} else {	
 		if(gdsUsersFlag == true || role != "") {
 			url = "searchGdsUsers.action";
 		} else {
@@ -35,22 +35,12 @@ function searchUsers() {
 			error: function(){}	
 		});
 		$('button.has-spinner').toggleClass('active');
-		//if(result.indexOf('<div') == 0) {
-		//	$("#adminEdit").html(result);
-		//}
-		//else {
-		//	bootbox.alert(result, function() {
-	  	//		return true;
-		//	});
-		//}
-	//}
+	}
 	
 };
 
 
 function deletePersonRole(nihNetworkId) {
-	//$form = $("#admin_form");
-    //fd = new FormData($form[0]);
 	var warn = "Are you sure you want to delete this role ?"
 	$('#userId').val(nihNetworkId);
 	$form = $("#admin_form");
@@ -90,8 +80,6 @@ function resetData() {
 
 
 function createEditRole(networkId) {
-	//var fullName = $('#' + networkId + 'FullName').val();
-	//$('#fullName').val(fullName);
 	$('#userId').val(networkId);
 	$form = $("#admin_form");
     fd = new FormData($form[0]);
@@ -111,6 +99,7 @@ function createEditRole(networkId) {
 		}, 
 		error: function(){}	
 	});
+	$('#myModal').modal('show');
 }
 
 
