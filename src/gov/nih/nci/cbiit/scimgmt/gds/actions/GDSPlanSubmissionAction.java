@@ -569,9 +569,12 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
         }      
 
 		// If answer to "Was this exception approved?" is changed from "Yes" to "No" or "Pending", 
+        // OR If answer to "Is there a data sharing exception requested for this project?" is changed from "Yes" to "No"
 		// remove Exception Memo
-		if((newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) || newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID))
-				&& oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID)) {
+		if(((newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) || newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID))
+				&& oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID)) || 
+				(newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) &&
+						oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID))) {
 			excepMemoFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, getProject().getId());
 			if(warnOnly) {
 				if(excepMemoFile != null && !excepMemoFile.isEmpty())
