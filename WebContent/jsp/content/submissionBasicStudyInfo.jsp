@@ -52,9 +52,12 @@
 				<s:if test="%{project.submissionReasonId.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@SUBMISSION_REASON_NONNIHFUND)
 						&& project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_NO)}">				
 				<div id="20" style="${map['20'].style}" class="qSpacing">
+					
 					<p class="question"><s:property
-							value="%{getQuestionById(20).getDisplayText()}" /></p>
-
+							value="%{getQuestionById(20).getDisplayText()}" /> &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></p>
+                          
 					<s:iterator value="%{getAnswerListByQuestionId(20)}" var="ans"
 						status="stat">
 						<s:set name="params" value="%{map[#ans.id].parameters}" />
@@ -102,8 +105,10 @@
 
 					<p class="question" style="display: inline;">
 						<!--<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
-						Has the GPA reviewed the Basic Study Information?&nbsp; &nbsp; &nbsp;</p>
-
+						Has the GPA reviewed the Basic Study Information?&nbsp; &nbsp;</p>
+						<a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a>
 					<s:radio id="reviewed" list="bsiOptions"
 						name="bsiReviewedId" value="bsiReviewedId"
 						template="radiomap-div.ftl" listKey="optionKey" listValue="optionValue" />
