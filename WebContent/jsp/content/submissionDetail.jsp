@@ -28,7 +28,9 @@
           <caption style="display: none;">Status History</caption>
           <thead>
             <tr class="active">
-              <th colspan="2" class="sortable" style="width: 45%;" abbr="Year">Milestones</th>
+              <th colspan="2" class="sortable" style="width: 45%;" abbr="Year">Milestones
+               &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+              <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></th>
               <th width="25%" class="sortable" style="width: 10%;" abbr="Org">Current Status</th>
               <th width="29%" class="sortable" style="width: 20%;" abbr="Role">Last Action Date</th>
               <th width="29%" class="sortable" style="width: 10%;" abbr="Role">Missing Data</th>
@@ -205,7 +207,8 @@
     <p class="question">
       <a href="javascript:void"
         class="subproject"><i class="expandS fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-projects
-    </p>
+    &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+    <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></p>
     <div class="relatedSubs" style="display: none;">
       <table style="width: 90%;" cellpadding="0px" cellspacing="0"
         class="table table-bordered table-striped"
@@ -253,7 +256,8 @@
     <p class="question">
       <a href="javascript:void"
         class="project"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Parent Project
-    </p>
+    &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+    <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></p>
     <div class="related" style="display: none;">
       <table style="width: 90%;" cellpadding="0px" cellspacing="0"
         class="table table-bordered table-striped"
