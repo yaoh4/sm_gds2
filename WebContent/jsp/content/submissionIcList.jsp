@@ -49,7 +49,11 @@
           <div style="display:none" id="showSpan">
                <span>You will be able to add/edit Institutional Certification and/or DUL only at the parent project level. Changes will then be reflected in this sub-project. </span>
              <br/><br/></div> 
-            <p class="question" style="display:inline;">Has the GPA received and reviewed all Institutional Certifications?&nbsp; &nbsp; &nbsp;
+            <p class="question" style="display:inline;">Has the GPA received and reviewed all Institutional Certifications?
+            &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+            <i class="helpfile fa fa-question-circle fa-1x"
+		     aria-hidden="true"></i></a>
+               &nbsp;
               <div style="display:none" id="addICBtn">
                 <s:submit action="editIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
               </div>
