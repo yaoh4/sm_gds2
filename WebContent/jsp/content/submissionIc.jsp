@@ -54,7 +54,10 @@
 		
 			  <div class="form-group row">
 			   <div class="col-xs-3">
-                  <label for="Provisional or Final?">Provisional or Final?</label>
+                  <label for="Provisional or Final?">Provisional or Final? </label>
+                  &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a>
                   <s:select name="instCertification.provisionalFinalCode"
                     value="instCertification.provisionalFinalCode"
                     class="c-select form-control"
@@ -65,6 +68,9 @@
                 
                 <div class="col-xs-3">
                   <label for="Approved by GPA">Approved by GPA</label>
+                  &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a>
                   <s:select name="instCertification.gpaApprovalCode"
                   	value="instCertification.gpaApprovalCode"
                     class="c-select form-control"
@@ -76,6 +82,9 @@
              
                 <div id="memo" class="col-xs-3">
                   <label for="Project Submission Status">IC Memo for Use in Future Projects?</label>
+                  &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a>
                   <s:select name="instCertification.futureProjectUseCode"
                     value="instCertification.futureProjectUseCode"
                     class="c-select form-control"
@@ -140,7 +149,9 @@
                               <div class="col-xs-3">
                                 <label class="label_sn" for="Study Name">
                                   <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>
-                                  Study Name
+                                  Study Name &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                                  <i class="helpfile fa fa-question-circle fa-1x"
+							      aria-hidden="true"></i></a>
                                 </label>
                                 <input type="text" class="form-control input_sn" placeholder="Full Name of Study" 
                               	    id="studyName-${studiesIdx}"  maxlength="100"
@@ -149,7 +160,9 @@
                               </div>
                               					
                               <div class="col-xs-3">
-                                <label class="label_in" for="Provisional or Final?">Institution</label>
+                                <label class="label_in" for="Provisional or Final?">Institution &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                                    <i class="helpfile fa fa-question-circle fa-1x"
+							          aria-hidden="true"></i></a></label>
                                 <input type="text" class="form-control input_in" placeholder="Full Name of Institution"
                               		id="institution-${studiesIdx}" maxlength="120"
 									name="instCertification.studies[<s:property value='#studiesStat.index'/>].institution"
@@ -157,7 +170,11 @@
                               
                               </div>
                               <div class="DULv col-xs-3">
-                                <label for="Data Use Limitation(s) Verified?" class="label_dulV">Data Use Limitation(s) Verified?</label>
+                                <label for="Data Use Limitation(s) Verified?" class="label_dulV">Data Use Limitation(s) Verified?
+                                &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                                <i class="helpfile fa fa-question-circle fa-1x"
+							    aria-hidden="true"></i></a>
+                                </label>
                                 <s:select name="instCertification.studies[%{#studiesStat.index}].dulVerificationId"
                         			value="instCertification.studies[#studiesStat.index].dulVerificationId"
                         			class="c-select form-control"
