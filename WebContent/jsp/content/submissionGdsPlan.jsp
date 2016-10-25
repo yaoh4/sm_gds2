@@ -44,6 +44,9 @@
 						<a href="http://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/about-policy#exceptions"
 							target="_blank">View Exception Process&nbsp;<i
 							class="fa fa-external-link" aria-hidden="true"></i></a> ]
+							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a>
 					</p>
 					<s:set name="params" value="%{map[1].parameters}" />
 					<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(1)}"
@@ -55,7 +58,10 @@
 				<%-- Was this exception approved? --%>
 				<div id="4" style="${map['4'].style}" class="qSpacing">
 					<p class="question"><s:property
-							value="%{getQuestionById(4).getDisplayText()}" /></p>
+							value="%{getQuestionById(4).getDisplayText()}" />
+							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></p>
 					<s:set name="params" value="%{map[4].parameters}" />
 					<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(4)}"
 						listKey="id" listValue="displayText" name="answers[4]"
@@ -71,7 +77,10 @@
 				<%-- Will there be any data submitted? --%>
 				<div id="8" style="${map['8'].style}" class="qSpacing">
 					<p class="question"><s:property
-							value="%{getQuestionById(8).getDisplayText()}" /></p>
+							value="%{getQuestionById(8).getDisplayText()}" />
+							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></p>
 					<s:set name="params" value="%{map[8].parameters}" />
 					<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(8)}"
 						listKey="id" listValue="displayText" name="answers[8]"
@@ -82,7 +91,10 @@
 				<%-- What specimen type does the data submission pertain to? --%>
 				<div id="11" style="${map['11'].style}" class="qSpacing">
 					<p class="question"><s:property
-							value="%{getQuestionById(11).getDisplayText()}" /></p>
+							value="%{getQuestionById(11).getDisplayText()}" />
+							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></p>
 					<s:iterator value="%{getAnswerListByQuestionId(11)}" var="ans"
 						status="stat">
 						<s:set name="params" value="%{map[#ans.id].parameters}" />
@@ -98,7 +110,10 @@
 				<%-- What type of data will be submitted? --%>
 				<div id="14" style="${map['14'].style}" class="qSpacing">
 					<p class="question"><s:property
-							value="%{getQuestionById(14).getDisplayText()}" /></p>
+							value="%{getQuestionById(14).getDisplayText()}" />
+							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></p>
 					<s:iterator value="%{getAnswerListByQuestionId(14)}" var="ans"
 						status="stat">
 						<s:set name="params" value="%{map[#ans.id].parameters}" />
@@ -114,7 +129,10 @@
 				<%-- What type of access is the data to be made available through? --%>
 				<div id="17" style="${map['17'].style}" class="qSpacing">
 					<p class="question"><s:property
-							value="%{getQuestionById(17).getDisplayText()}" /></p>
+							value="%{getQuestionById(17).getDisplayText()}" />
+							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></p>
 					<s:iterator value="%{getAnswerListByQuestionId(17)}" var="ans"
 						status="stat">
 						<s:set name="params" value="%{map[#ans.id].parameters}" />
@@ -130,7 +148,10 @@
 				<%-- What repository will the data be submitted to? --%>
 				<div id="20" style="${map['20'].style}" class="qSpacing">
 					<p class="question"><s:property
-							value="%{getQuestionById(20).getDisplayText()}" /></p>
+							value="%{getQuestionById(20).getDisplayText()}" />
+							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></p>
 
 					<s:iterator value="%{getAnswerListByQuestionId(20)}" var="ans"
 						status="stat">
@@ -178,7 +199,10 @@
 				<s:if test="%{requiredByGdsPolicy == true}">
 					<div id="26" style="${map['26'].style}" class="qSpacing">
 						<p class="question"><s:property
-							value="%{getQuestionById(26).getDisplayText()}" /></p>
+							value="%{getQuestionById(26).getDisplayText()}" />
+							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></p>
 						<s:set name="params" value="%{map[26].parameters}" />
 					<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(26)}"
 						listKey="id" listValue="displayText" name="answers[26]"
@@ -194,12 +218,9 @@
 						<s:if test="%{requiredByGdsPolicy == false}">
 							(Optional)
 						</s:if>
-						<a data-toggle="tooltip" id="popover" data-placement="right"
-							data-trigger="hover" style="font-size: 12px;"
-							title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tortor justo, sodales ut erat eu, malesuada fringilla massa. Quisque sapien felis, vestibulum sed suscipit sit amet,."
-							data-content=""> <i class="fa fa-question-circle fa-1x"
-							aria-hidden="true"></i>
-						</a>
+						&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a>
 					</p>
 					<s:set name="params" value="%{map[29].parameters}" />
 				<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(29)}"
