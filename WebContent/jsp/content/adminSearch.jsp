@@ -246,8 +246,8 @@
 										<td>${selectedUserRole.nedPerson.fullName}</td>
 										<td><a href="mailto:${selectedUserRole.nedPerson.email}">${selectedUserRole.nedPerson.email}</a></td>
 										<td>${selectedUserRole.nedPerson.orgpath}</td>
-										<td>
-										<s:if test="%{#userRole.pdFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
+										<td>										  
+										<s:if test="%{selectedUserRole.pdFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
 										  Yes
 										</s:if>
 										<s:else>
