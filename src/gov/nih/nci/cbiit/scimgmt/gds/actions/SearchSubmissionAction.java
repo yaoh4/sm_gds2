@@ -211,14 +211,12 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			// Prepare headers
 	     	ExportRow exportRow = new ExportRow();
 			List<String> header = new ArrayList<String>();
-			header.add("Project ID");
-			header.add("Subproject Count");
+			header.add("Project Submission Title");
 			header.add("Intramural/Grant/Contract");
-			header.add("Project Title");
 			header.add("Principal Investigator Name");
 			header.add("Principal Investigator Email");
-			header.add("GDS Plan");
-			header.add("Data Sharing Exception");
+			header.add("Genomic DSP");
+			header.add("GDSP Exception");
 			header.add("IC");
 			header.add("BSI");
 			header.add("Submission Status");
@@ -231,17 +229,15 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 				for(Submission submission : jsonResult.getData()) {
 					exportRow = new ExportRow();
 					List<String> row = new ArrayList<>();
-					row.add(submission.getId().toString());
-					row.add((submission.getSubprojectCount() == null? "" : submission.getSubprojectCount().toString()));
+					row.add(submission.getProjectSubmissionTitle());
 					row.add(submission.getGrantContractNum());
-					row.add(submission.getProjectTitle());
 					row.add((submission.getPiLastName() == null ? "" : submission.getPiLastName() + ", " + submission.getPiFirstName()));
 					row.add(submission.getPiEmailAddress());
-					row.add(submission.getGdsPlanPageStatusCode());
-					row.add(submission.getDataSharingExcepStatusCode());
-					row.add(submission.getIcPageStatusCode());
-					row.add(submission.getBsiPageStatusCode());
-					row.add((submission.getRepoCount() == null ? "" : submission.getRepositoryPageStatusCode()));
+					row.add((StringUtils.isBlank(submission.getGdsPlanPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getGdsPlanPageStatusCode()).getDescription()));
+					row.add((StringUtils.isBlank(submission.getDataSharingExcepStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getDataSharingExcepStatusCode()).getDescription()));
+					row.add((StringUtils.isBlank(submission.getIcPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getIcPageStatusCode()).getDescription()));
+					row.add((StringUtils.isBlank(submission.getBsiPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getBsiPageStatusCode()).getDescription()));
+					row.add((submission.getRepoCount() == null || StringUtils.isBlank(submission.getRepositoryPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getRepositoryPageStatusCode()).getDescription()));
 					exportRow.setRow(row);
 					rows.add(exportRow);
 				
