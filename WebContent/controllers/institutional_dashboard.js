@@ -129,6 +129,14 @@ $(document).on('click', '.header', function () {
 
 });
 
+$(".helpfile").click(function() {
+	
+	var url = "https://gds-dev.nci.nih.gov/documentation/application/Institutional_Certifications_help.pdf";
+	var winName = "Submission IC Help File";
+	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+	var newWin = window.open(url, winName, features);
+});
+
 });
 
 
