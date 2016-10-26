@@ -32,6 +32,14 @@ $(document).ready(function() {
 		setStatus("icReg" + size, "icDiv" + size);
 	}
 	
+	$(".helpfile").click(function(){
+		
+		var url = "https://gds-dev.nci.nih.gov/documentation/application/Submission_Details_help.pdf";
+		var winName = "Submission Details Help File";
+		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+		var newWin = window.open(url, winName, features);
+	});
+	
 });
 
 //Show and hide subproject
