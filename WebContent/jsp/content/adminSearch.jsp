@@ -28,11 +28,11 @@
 							</div>
 							<div class="col-xs-5">
 								<label for="First Name">First Name:</label>
-								<input type="text" name="criteria.firstName" maxlength="30" value="" id="firstName" class="form-control">
+								<input type="text" name="criteria.firstName" maxlength="35" value="" id="firstName" class="form-control">
 							</div>
 							<div class="col-xs-5">
 								<label for="Last Name">Last Name:</label>
-								<input type="text" name="criteria.lastName" maxlength="30" value="" id="lastName" class="form-control">
+								<input type="text" name="criteria.lastName" maxlength="60" value="" id="lastName" class="form-control">
 							</div>
 							
 							
