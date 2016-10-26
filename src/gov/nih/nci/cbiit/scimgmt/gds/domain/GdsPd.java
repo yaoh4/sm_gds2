@@ -17,27 +17,24 @@ public class GdsPd {
 	private String miName;
 	private String lastName;
 	private String pdFullNameDescrip;
-	private String pdCode;
 
 
 	public GdsPd(){
 		
 	}
 	
-	public GdsPd(Long npnId, String firstName, String miName, String lastName, String pdFullNameDescrip,
-			String pdCode) {
+	public GdsPd(Long npnId, String firstName, String miName, String lastName, String pdFullNameDescrip) {
 		this.npnId = npnId;
 		this.firstName = firstName;
 		this.miName = miName;
 		this.lastName = lastName;
 		this.pdFullNameDescrip = pdFullNameDescrip;
-		this.pdCode = pdCode;
 	}
 
 	@Override
 	public String toString() {
 		return "GdsPd [npnId=" + npnId + ", firstName=" + firstName + ", miName=" + miName + ", lastName=" + lastName
-				+ ", pdFullNameDescrip=" + pdFullNameDescrip + ", pdCode=" + pdCode + "]";
+				+ ", pdFullNameDescrip=" + pdFullNameDescrip + "]";
 	}
 
 	@Id
@@ -50,16 +47,8 @@ public class GdsPd {
 		this.npnId = npnId;
 	}
 	
-	@Column(name = "PD_CODE", length = 3)
-	public String getPdCode() {
-		return pdCode;
-	}
 	
-	public void setPdCode(String pdCode) {
-		this.pdCode = pdCode;
-	}
-	
-	@Column(name = "PD_FULL_NAME_DESCRIP", length = 2)
+	@Column(name = "PD_FULL_NAME", length = 2)
 	public String getPdFullNameDescrip() {
 		return pdFullNameDescrip;
 	}

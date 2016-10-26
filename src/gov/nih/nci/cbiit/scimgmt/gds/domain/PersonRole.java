@@ -18,7 +18,7 @@ import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "PERSON_ROLES_T")
+@Table(name = "USER_ROLES_T")
 public class PersonRole implements java.io.Serializable {
 
 	private String nihNetworkId;
