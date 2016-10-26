@@ -62,4 +62,12 @@ $(document).ready(function () {
 	if($("#subprojectFlag").val().toUpperCase() == 'Y') {
 		$('#showMessage').show().css('display', 'inline'); 
 	}
+	
+	$(".helpfile").click(function(){
+		
+		var url = "https://gds-dev.nci.nih.gov/documentation/application/Submission_Status_help.pdf";
+		var winName = "Submission Status Help File";
+		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+		var newWin = window.open(url, winName, features);
+	});
 });
