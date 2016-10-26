@@ -167,6 +167,14 @@ $("#gds-form").on('change', '#exceptionMemo', function () {
 	}
 });
 
+$(".helpfile").click(function(){
+	var url = "https://gds-dev.nci.nih.gov/documentation/application/GDS_Plan_help.pdf";
+	var winName = "Submission GDS Plan Help File";
+	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+	var newWin = window.open(url, winName, features);
+});
+
+
 });
 
 function removeDocument(docId, projectId)
