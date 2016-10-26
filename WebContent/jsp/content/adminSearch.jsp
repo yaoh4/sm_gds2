@@ -240,9 +240,15 @@
 								</tr>
 								<tr>
 										<s:hidden id="gdsRoleCode" name="selectedUserRole.gdsRoleCode"/>
-										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="GPA" value="GPA"></td>
-										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="EDITUSER" value="EDITUSER"></td>
-										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="READUSER" value="READUSER"></td>
+										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="GPA" value="GPA"></td>										
+										<s:if test="%{selectedUserRole.pdFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">										  
+										  <td align="center" valign="middle">  <input type="radio" name="userRoleCode" id="EDITUSER" value="EDITUSER" disabled></td>
+										  <td align="center" valign="middle"><input type="radio" name="userRoleCode" id="READUSER" value="READUSER" disabled></td>										
+										</s:if>
+										<s:else>
+										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="EDITUSER" value="EDITUSER"></td>								
+										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="READUSER" value="READUSER"></td>				
+										</s:else>										
 										<td>${selectedUserRole.nedPerson.fullName}</td>
 										<td><a href="mailto:${selectedUserRole.nedPerson.email}">${selectedUserRole.nedPerson.email}</a></td>
 										<td>${selectedUserRole.nedPerson.orgpath}</td>

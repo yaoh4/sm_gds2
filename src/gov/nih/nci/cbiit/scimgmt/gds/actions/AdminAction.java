@@ -69,6 +69,9 @@ public class AdminAction extends BaseAction {
 		nedPersons = userRoleService.searchNedPerson(getCriteria());
 		if(CollectionUtils.isEmpty(nedPersons)) {
 			logger.debug("No results found for given search criteria in searchNedPerson");
+		} else {
+			//Save the criteria in session for retrieving later
+			session.put("roleSearchCriteria", getCriteria());
 		}
 		
 		return SUCCESS;
@@ -99,12 +102,12 @@ public class AdminAction extends BaseAction {
 		logger.debug("deleteGdsUser()");
 
 		userRoleService.deletePersonRole(getUserId());
-			
-		setCriteria((RoleSearchCriteria)session.get("roleSearchCriteria"));
-		userRoles = userRoleService.searchUserRole(getCriteria());
 		
-		return SUCCESS;
-		
+		if(criteria.getGdsUsersOnly() == true || StringUtils.isNotBlank(getCriteria().getRoleCode())) {
+			return searchGdsUsers();
+		} else {
+			return searchNedPersons();
+		}	
 	}
 	
 	public String selectGdsUser() throws Exception {
@@ -113,9 +116,6 @@ public class AdminAction extends BaseAction {
 
 		selectedUserRole = userRoleService.findUserRoleByUserId(getUserId());
 			
-		//setCriteria((RoleSearchCriteria)session.get("roleSearchCriteria"));
-		//userRoles = userRoleService.searchUserRole(getCriteria());
-		
 		return SUCCESS;
 	}
 	
