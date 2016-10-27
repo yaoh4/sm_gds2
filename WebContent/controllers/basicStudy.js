@@ -23,6 +23,14 @@ $('#25').change(function () {
 $('#25').change();
 
 
+$(".helpfile").click(function(){
+	
+	var url = "https://gds-dev.nci.nih.gov/documentation/application/BSI_help.pdf";
+	var winName = "Submission BSI Help File";
+	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+	var newWin = window.open(url, winName, features);
+});
+
 //Function that controls the Adding of Additional Repositories
 $("#basic-study-form").on('click', '#addfield', function () {
 	

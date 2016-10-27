@@ -7,7 +7,7 @@
 <div class="content">
 	<div class="inside">
 		<fieldset>
-			<h2><s:property value="%{notAuthorizedErrorMessage}"/> <s:a href="mailto:%{gdsContactEmail}"><s:property value="gdsContactEmail"/></s:a>.</h2>
+			<h3><s:property value="%{notAuthorizedErrorMessage}"/> <s:a href="mailto:%{gdsContactEmail}"><s:property value="gdsContactEmail"/></s:a>.</h3>
 		</fieldset>
 	</div>
 </div>
