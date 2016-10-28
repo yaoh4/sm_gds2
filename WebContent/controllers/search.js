@@ -411,6 +411,16 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#selectFrom").change(function () {
+		var submissionFromId = $("#selectFrom").val();
+		if(submissionFromId == 40) {
+			$("#directorSelect").val($("#directorSelect option:first").val());
+			$('#directorSelect').attr('disabled', 'disabled');
+		} else {
+			$('#directorSelect').removeAttr('disabled');
+		}
+	});
+	$("#selectFrom").change();
 });
 
 

@@ -94,9 +94,10 @@ public interface ApplicationConstants {
 	 public static final Long REGISTRATION_STATUS_COMPLETED_ID = 10L;
 	 public static final Long PROJECT_STUDY_RELEASED_YES_ID = 16L;
 	 public static final Long PROJECT_STUDY_RELEASED_NO_ID = 17L;
-	 public static final Long SEARCH_MY_PROJECT_SUBMISSIONS = 40L;
+	 public static final Long SEARCH_MY_SUBMISSIONS = 40L;
 	 public static final Long SEARCH_SUBMISSION_FROM_MYDOC = 41L;
 	 public static final Long SEARCH_SUBMISSION_FROM_ALL = 42L;
+	 public static final Long SEARCH_MY_CREATED_SUBMISSIONS = 60L;
 	 public static final Long IC_DUL_VERIFIED_YES_ID = 35L;
 	 public static final Long ROLE_GPA_ID = 52L;
 	 public static final Long ROLE_READ_ONLY_USER_ID = 53L;

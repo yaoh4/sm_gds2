@@ -22,10 +22,8 @@
 				</div>
 
 				<div class="col-xs-4">
-					<label for="directorSelect">Program Director:</label>
-					<s:select id="directorSelect" name="criteria.pdNpnId"
-						value="criteria.pdNpnId" cssClass="c-select form-control" 
-						list="pdList" listKey="optionKey" listValue="optionValue" />
+					<label for="projectTitle">Project Submission Title:</label> 
+					<s:textfield  name="criteria.projectTitle" class="form-control" id="projectTitle" maxLength="100"/>
 				</div>
 
 				<div class="col-xs-4">
@@ -38,9 +36,12 @@
 
 
 			<div class="form-group row">
+			
 				<div class="col-xs-4">
-					<label for="projectTitle">Project Submission Title:</label> 
-					<s:textfield  name="criteria.projectTitle" class="form-control" id="projectTitle" maxLength="100"/>
+					<label for="submissionReasonId">Reason for Submission:</label>
+					<s:select id="submissionReasonId" name="criteria.submissionReasonId"
+						value="criteria.submissionReasonId" cssClass="c-select form-control" 
+						list="submissionReasonList" listKey="optionKey" listValue="optionValue" emptyOption="true"/>
 				</div>
 
 
@@ -50,11 +51,12 @@
 				</div>
 
 				<div class="col-xs-4">
-					<label for="submissionReasonId">Reason for Submission:</label>
-					<s:select id="submissionReasonId" name="criteria.submissionReasonId"
-						value="criteria.submissionReasonId" cssClass="c-select form-control" 
-						list="submissionReasonList" listKey="optionKey" listValue="optionValue" emptyOption="true"/>
+					<label for="directorSelect">Program Director:</label>
+					<s:select id="directorSelect" name="criteria.pdNpnId"
+						value="criteria.pdNpnId" cssClass="c-select form-control" 
+						list="pdList" listKey="optionKey" listValue="optionValue" />
 				</div>
+
 			</div>
 
 			<div class="form-group row">

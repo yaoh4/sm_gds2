@@ -79,6 +79,7 @@ public class PropertyListDao {
 			try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Lookup.class);
 			criteria.add(Restrictions.ilike("discriminator", listName, MatchMode.EXACT));
+			criteria.addOrder(Order.asc("orderNum"));
 			lookups = criteria.list();
 			} catch (Throwable e) {
 				logger.error("Error retrieving lookup list for listName " + listName, e);
