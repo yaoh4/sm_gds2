@@ -64,6 +64,9 @@
 										<img src="../images/pending.png" alt="Pending" width="18px"
 											height="18px" title="Pending">
 									</s:elseif>
+									<s:else>
+										<div style="text-align: center;">N/A</div>
+									</s:else>
 								</div>
 							</td>
 							<td>
@@ -83,6 +86,9 @@
 										<img src="../images/pending.png" alt="Pending" width="18px"
 											height="18px" title="Pending">
 									</s:elseif>
+									<s:else>
+										<div style="text-align: center;">N/A</div>
+									</s:else>
 								</div>
 							</td>
 							<td>
@@ -102,6 +108,9 @@
 										<img src="../images/pending.png" alt="Pending" width="18px"
 											height="18px" title="Pending">
 									</s:elseif>
+									<s:else>
+										<div style="text-align: center;">N/A</div>
+									</s:else>
 								</div>
 							</td>
 
@@ -207,9 +216,13 @@
 																<img src="../images/complete.png" alt="Complete"
 																	title="Complete" width="18px" height="18px" />
 															</s:elseif>
-															<s:else>
+															<s:elseif
+																test="%{#r.lookupTByRegistrationStatusId.displayName == 'Not Started'}">
 																<img src="../images/pending.png" alt="Pending"
 																	title="Pending" width="18px" height="18px">
+															</s:elseif>
+															<s:else>
+																<div style="text-align: center;">N/A</div>
 															</s:else>
 														</div>
 													</td>
@@ -225,9 +238,13 @@
 																<img src="../images/complete.png" alt="Complete"
 																	title="Complete" width="18px" height="18px" />
 															</s:elseif>
-															<s:else>
+															<s:elseif
+																test="%{#r.lookupTBySubmissionStatusId.displayName == 'Not Started'}">
 																<img src="../images/pending.png" alt="Pending"
 																	title="Pending" width="18px" height="18px">
+															</s:elseif>
+															<s:else>
+																<div style="text-align: center;">N/A</div>
 															</s:else>
 														</div>
 													</td>

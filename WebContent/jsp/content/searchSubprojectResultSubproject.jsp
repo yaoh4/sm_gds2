@@ -64,6 +64,9 @@
 										<img src="../images/pending.png" alt="Pending" width="18px"
 											height="18px" title="Pending">
 									</s:elseif>
+									<s:else>
+										<div style="text-align: center;">N/A</div>
+									</s:else>
 								</div>
 							</td>
 							<td>
@@ -83,6 +86,9 @@
 										<img src="../images/pending.png" alt="Pending" width="18px"
 											height="18px" title="Pending">
 									</s:elseif>
+									<s:else>
+										<div style="text-align: center;">N/A</div>
+									</s:else>
 								</div>
 							</td>
 						</tr>
