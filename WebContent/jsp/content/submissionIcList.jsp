@@ -139,7 +139,7 @@
                 </div>    
                 <!--Begin view details-->
                 <tr>
-			      <td colspan="5">
+			      <td colspan="6">
                     <div id="contentDivImg${cert.id}" style="display: none">
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tr>
