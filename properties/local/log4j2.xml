@@ -4,13 +4,19 @@
 		<Console name="CONSOLE" target="SYSTEM_OUT">
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
-		<File name="APPLOG"  filename="/local/content/web/gds/logs/gds.log" bufferedIO="false"  advertise="false">
+		<RollingFile name="RollingFile"  filename="C://var//log/gds.log" filePattern="C://var//log/gds-%d{MM-dd-yyyy}.log" bufferedIO="false"  advertise="false">>
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
-		</File>
+		
+			<Policies>
+				<OnStartupTriggeringPolicy />
+  				<SizeBasedTriggeringPolicy size="250 MB" />
+  				<TimeBasedTriggeringPolicy />
+  			</Policies>
+  		</RollingFile>
 	</Appenders>
 	<Loggers>
 		<logger name="gov.nih.nci.cbiit.scimgmt.gds" level="debug" >
-			<AppenderRef ref="APPLOG"/>
+			<AppenderRef ref="RollingFile"/>
 		</logger>
 		<Root level="error">
         	<AppenderRef ref="CONSOLE"/>
