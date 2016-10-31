@@ -256,4 +256,15 @@ $(document).ready(function(){
     $('#parentTable tbody').on('click', "input[name='projectId']", function() {
     	$('#selectedProject').val($(this).val());
     });
+    
+	$("#selectFrom").change(function () {
+		var submissionFromId = $("#selectFrom").val();
+		if(submissionFromId == 40) {
+			$("#directorSelect").val($("#directorSelect option:first").val());
+			$('#directorSelect').attr('disabled', 'disabled');
+		} else {
+			$('#directorSelect').removeAttr('disabled');
+		}
+	});
+	$("#selectFrom").change();
 });

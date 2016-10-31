@@ -87,10 +87,14 @@
 						</div>
 
 						<div class="col-xs-4">
-							<label for="directorSelect">Program Director:</label>
-							<s:select id="directorSelect" name="criteria.pdNpnId"
-								value="criteria.pdNpnId" cssClass="c-select form-control"
-								list="pdList" listKey="optionKey" listValue="optionValue" />
+							<s:if test="%{criteria.selectedTypeOfProject.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)}">
+								<label for="projectTitle">Subproject Submission Title:</label>
+							</s:if>
+							<s:else>
+								<label for="projectTitle">Project Submission Title:</label>
+							</s:else>
+							<s:textfield name="criteria.projectTitle" class="form-control"
+								id="projectTitle" maxLength="100"/>
 						</div>
 
 						<div class="col-xs-4">
@@ -105,16 +109,13 @@
 
 					<div class="form-group row">
 						<div class="col-xs-4">
-							<s:if test="%{criteria.selectedTypeOfProject.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)}">
-								<label for="projectTitle">Subproject Submission Title:</label>
-							</s:if>
-							<s:else>
-								<label for="projectTitle">Project Submission Title:</label>
-							</s:else>
-							<s:textfield name="criteria.projectTitle" class="form-control"
-								id="projectTitle" maxLength="100"/>
+							<label for="submissionReasonId">Reason for Submission:</label>
+							<s:select id="submissionReasonId"
+								name="criteria.submissionReasonId"
+								value="criteria.submissionReasonId"
+								cssClass="c-select form-control" list="submissionReasonList"
+								listKey="optionKey" listValue="optionValue" emptyOption="true"/>
 						</div>
-
 
 						<div class="col-xs-4">
 							<label for="investigator">Principal
@@ -124,13 +125,12 @@
 						</div>
 
 						<div class="col-xs-4">
-							<label for="submissionReasonId">Reason for Submission:</label>
-							<s:select id="submissionReasonId"
-								name="criteria.submissionReasonId"
-								value="criteria.submissionReasonId"
-								cssClass="c-select form-control" list="submissionReasonList"
-								listKey="optionKey" listValue="optionValue" emptyOption="true"/>
+							<label for="directorSelect">Program Director:</label>
+							<s:select id="directorSelect" name="criteria.pdNpnId"
+								value="criteria.pdNpnId" cssClass="c-select form-control"
+								list="pdList" listKey="optionKey" listValue="optionValue" />
 						</div>
+
 					</div>
 					<!--end form group-->
 					<div class="searchButton">
