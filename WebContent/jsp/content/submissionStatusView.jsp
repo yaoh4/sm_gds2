@@ -73,10 +73,14 @@
                     <img src="../images/pending.png" alt="Not Started" width="18px"
                       height="18px" title="Not Started" />
                   </s:elseif>
-                  <s:else>
+                  <s:elseif
+                  	test="%{#r.lookupTByRegistrationStatusId.displayName == 'Completed'}">
                     <img src="../images/complete.png" alt="Completed" width="18px"
                       height="18px" title="Completed">
-                  </s:else>
+                  </s:elseif>
+                  <s:else>
+				  	<div style="text-align: center;">N/A</div>
+				  </s:else>
                 </div>
               </td>
               <td>
@@ -91,10 +95,14 @@
                     <img src="../images/pending.png" alt="Not Started" width="18px"
                       height="18px"  title="Not Started"/>
                   </s:elseif>
-                  <s:else>
+                  <s:elseif
+                  	test="%{#r.lookupTBySubmissionStatusId.displayName == 'Completed'}">
                     <img src="../images/complete.png" alt="Completed" width="18px"
                       height="18px" title="Completed">
-                  </s:else>
+                  </s:elseif>
+                  <s:else>
+				  	<div style="text-align: center;">N/A</div>
+				  </s:else>
                 </div>
               </td>
               <td><s:property
