@@ -58,6 +58,7 @@
 		
 		<action name="ChangeUser" class="gov.nih.nci.cbiit.scimgmt.gds.actions.ChangeUserAction">
 			<result name="success" type="redirect-action">home</result>
+			<result name="notAuthorized" type="tiles">notAuthorized</result>
 		</action>	
 		
 		<action name="SysAdmin" method="execute" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SysAdminAction">
