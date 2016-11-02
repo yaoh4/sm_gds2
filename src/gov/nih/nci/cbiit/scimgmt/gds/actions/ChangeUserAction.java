@@ -35,6 +35,9 @@ public class ChangeUserAction extends BaseAction {
 			logger.debug("Changing User to: "+user);
 			String loggedOnUserEmail = loggedOnUser.getEmail();
 			NedPerson nedPerson =  userRoleService.findNedPersonByUserId(user);
+			if (nedPerson == null) {
+				return ApplicationConstants.NOT_AUTHORIZED;
+			}
 			nedPerson.setEmail(loggedOnUserEmail);
 			BeanUtils.copyProperties(nedPerson, loggedOnUser);				
 		}

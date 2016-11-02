@@ -32,8 +32,18 @@
 				</div>
 				<div class="panel-body">
 				<div style="display:none" id="showMessage">
-               <span>You will be able to add/remove repositories only at the parent project level. Changes will then be reflected in this sub-project.</span>
-                  <br/><br/></div> 
+                  <span>You will be able to add/remove repositories only at the parent project level. Changes will then be reflected in this sub-project.</span>
+                  <br/><br/>
+                </div> 
+                <s:if test="%{project.repositoryStatuses.size == 0 && project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_NO)}">
+                  <s:if test="%{project.submissionReasonId.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@SUBMISSION_REASON_NONNIHFUND)}">
+                    <span><strong>To track the Submission Status of the repositories for this submission, please select the applicable repositories on the Basic Study Information  page</strong></span>
+                  </s:if>
+                  <s:else>
+                    <span><strong>To track the Submission Status of the repositories for this submission, please select the applicable repositories on the Genomic Data Sharing Plan page</strong></span>
+                  </s:else>
+                </s:if>
+                <s:else>
 					<p>
 						You have indicated the following [<strong><s:property value="%{project.repositoryStatuses.size}"/></strong>] data
 						repositories for your project. Please complete the submission
@@ -122,7 +132,9 @@
 						</div>						
 					</s:div><!--end listed repository -->
 					</s:iterator>
+				  </s:else>
 				</div>
+				
 			</div>
 		</div>
 		<!--end main panel-->

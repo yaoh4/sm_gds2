@@ -272,12 +272,11 @@ public class GdsPageStatusUtil {
 			//Check in progress first
 			
 			//Registration Status In Progress, OR Submission Status Not Started or In Progress  
-			//or Not Applicable, OR Study Released is No.
+			//OR Study Released is No.
 			if(ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID.equals(registrationStatus.getId())
 			||	(ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID.equals(submissionStatus.getId())
 				|| ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID.equals(submissionStatus.getId())) 
-			|| (!ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTAPPLICABLE_ID.equals(submissionStatus.getId())
-					&& ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId()))) {
+			|| (ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId()))) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
 			
