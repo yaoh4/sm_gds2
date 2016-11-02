@@ -360,10 +360,11 @@ public class GdsMissingDataUtil {
 			if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
 				missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'."));
 			}
-			if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
-				missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'."));
-			}
 		}
+		if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
+				missingRepoData.addChild(new MissingData("Study Released must have a value of 'Yes'."));
+		}
+		
 		
 		return missingRepoData;
 	}
