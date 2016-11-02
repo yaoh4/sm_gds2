@@ -477,6 +477,11 @@ function refreshGrantsContractsData(){
 			$("#canAct").hide();
 			$(".unlink-group").val('');
 			$(".unlink-group").prop('disabled', true);
+			
+			//Since grant is empty, ensure search icon is showing
+			$("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
+			$("#grantDiv button").attr("title", "Search");
+	  		$("#grantsContractNum").attr("placeholder", "Click on Search Icon");
 		} else {
 			$("#canAct").show();
 			if ($("#dataLinkFlag").attr("value") == 'Y') {

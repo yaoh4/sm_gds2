@@ -34,6 +34,7 @@ public class Lookup implements java.io.Serializable {
 	private Date lastChangedDate;
 	private String lastChangedBy;
 	private String discriminator;
+	private Long orderNum;
 
 	public Lookup() {
 	}
@@ -141,6 +142,15 @@ public class Lookup implements java.io.Serializable {
 
 	public void setDiscriminator(String discriminator) {
 		this.discriminator = discriminator;
+	}
+
+	@Column(name = "ORDER_NUM", precision = 10, scale = 0)
+	public Long getOrderNum() {
+		return orderNum;
+	}
+
+	public void setOrderNum(Long orderNum) {
+		this.orderNum = orderNum;
 	}
 
 }

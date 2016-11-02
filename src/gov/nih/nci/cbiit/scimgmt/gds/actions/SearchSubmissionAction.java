@@ -129,9 +129,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 	
 	private void populateCriteria() {
 
-		if(criteria.getSubmissionFromId() == ApplicationConstants.SEARCH_MY_PROJECT_SUBMISSIONS) {
-			criteria.setPdFirstName(loggedOnUser.getFirstName());
-			criteria.setPdLastName(loggedOnUser.getLastName());
+		if(criteria.getSubmissionFromId() == ApplicationConstants.SEARCH_MY_SUBMISSIONS) {
+			criteria.setPdNpnId(loggedOnUser.getUserRole().getPdNpnId());
 		}
 		if(criteria.getSubmissionFromId() == ApplicationConstants.SEARCH_SUBMISSION_FROM_MYDOC) {
 			List<Organization> docListFromDb = (List<Organization>) lookupService.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());	
@@ -364,7 +363,21 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		}
 		
 		if(submissionFromList.isEmpty()){			
-			submissionFromList = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.SEARCH_SUBMISSION_FROM.toUpperCase());	
+			submissionFromList = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.SEARCH_SUBMISSION_FROM.toUpperCase());
+			
+			if(!StringUtils.equals(loggedOnUser.getUserRole().getGdsRoleCode(), ApplicationConstants.ROLE_GPA_CODE)) {
+				submissionFromList.remove(0);
+				if(!StringUtils.equals(loggedOnUser.getUserRole().getPdFlag(),"Y")) {
+					submissionFromList.remove(0);
+					if(!StringUtils.equals(loggedOnUser.getUserRole().getGdsRoleCode(), ApplicationConstants.ROLE_EDIT_USER_CODE)) {
+						submissionFromList.remove(0);
+					}
+				}
+			} else {
+				if(!StringUtils.equals(loggedOnUser.getUserRole().getPdFlag(),"Y")) {
+					submissionFromList.remove(1);
+				}
+			}
 		}		
 
 		if(submissionReasonList.isEmpty()){			

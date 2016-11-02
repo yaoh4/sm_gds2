@@ -261,22 +261,12 @@ public class ProjectSearchDao {
 			subprojectCriteria.add(Restrictions.eq("docAbbreviation", searchCriteria.getDoc()));
 		}
 		
-		// Program Director or My Project Submissions
+		// Program Director or My Submissions
 		if(searchCriteria.getPdNpnId() != null) {
 			// PD search
-			Disjunction dc = Restrictions.disjunction();
-			dc.add(Restrictions.eq("pdNpnId", searchCriteria.getPdNpnId()));
-			Conjunction c = Restrictions.conjunction();
-			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
-				c.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
-			}
-			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
-				c.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
-			}
-			dc.add(c);
-			parentCriteria.add(dc);
-			parentDetachedCriteria.add(dc);
-			subprojectCriteria.add(dc);
+			parentCriteria.add(Restrictions.eq("pdNpnId", searchCriteria.getPdNpnId()));
+			parentDetachedCriteria.add(Restrictions.eq("pdNpnId", searchCriteria.getPdNpnId()));
+			subprojectCriteria.add(Restrictions.eq("pdNpnId", searchCriteria.getPdNpnId()));
 		} else {
 			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
 				parentCriteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
@@ -288,6 +278,13 @@ public class ProjectSearchDao {
 				parentDetachedCriteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
 				subprojectCriteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
 			}
+		}
+		
+		// My Created Submissions
+		if(searchCriteria.getSubmissionFromId() == ApplicationConstants.SEARCH_MY_CREATED_SUBMISSIONS) {
+			parentCriteria.add(Restrictions.ilike("createdBy", loggedOnUser.getAdUserId(), MatchMode.ANYWHERE));
+			parentDetachedCriteria.add(Restrictions.ilike("createdBy", loggedOnUser.getAdUserId(), MatchMode.ANYWHERE));
+			subprojectCriteria.add(Restrictions.ilike("createdBy", loggedOnUser.getAdUserId(), MatchMode.ANYWHERE));
 		}
 		
 		// Project/Subproject Title partial search

@@ -74,6 +74,7 @@ public class ProjectsVw implements java.io.Serializable {
 	private Long subprojectCount;
 	private Long repoCount;
 	private boolean expandRepository = false;
+	private String createdBy;
 	
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<ProjectsVw> subprojects = new ArrayList<ProjectsVw>();
@@ -601,5 +602,14 @@ public class ProjectsVw implements java.io.Serializable {
 		else{
 			return "<a href='mailto:" + email + "'>" + fullName + "</a>";
 		}
+	}
+
+	@Column(name = "CREATED_BY", nullable = false, length = 120)
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 }

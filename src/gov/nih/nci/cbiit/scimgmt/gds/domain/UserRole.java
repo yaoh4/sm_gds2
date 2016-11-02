@@ -31,6 +31,7 @@ public class UserRole implements java.io.Serializable {
 	private String lastChangedByFullName;
 	private String lastChangedBy; 
 	private Date lastChangedDate;
+	private Long pdNpnId;
 	
 	private NedPerson nedPerson;
 	
@@ -169,6 +170,15 @@ public class UserRole implements java.io.Serializable {
 		}
 		
 		return createdByFullName;
+	}
+
+	@Column(name = "PD_NPN_ID", precision = 10, scale = 0)
+	public Long getPdNpnId() {
+		return pdNpnId;
+	}
+
+	public void setPdNpnId(Long pdNpnId) {
+		this.pdNpnId = pdNpnId;
 	}
 	
 }

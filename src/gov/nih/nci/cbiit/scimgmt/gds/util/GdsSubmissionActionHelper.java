@@ -15,16 +15,12 @@ import org.springframework.util.CollectionUtils;
 import org.xml.sax.SAXException;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
-import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 

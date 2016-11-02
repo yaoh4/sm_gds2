@@ -2,18 +2,23 @@
 <Configuration status="INFO">
 	<Appenders>
 		<Console name="CONSOLE" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<PatternLayout pattern="%d [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
-		<File name="APPLOG"  filename="/local/content/web/gds/logs/gds.log" bufferedIO="false" advertiseURI="https://gds-dev.nci.nih.gov/conf/gds/logs/gds.log" advertise="true">
-			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
-		</File>
+		<RollingFile name="RollingFile"  filename="/local/content/web/gds/logs/gds.log" filePattern="/local/content/web/gds/logs/gds.log-%d{yyyyMMdd-HHmmss}"
+                 ignoreExceptions="false" bufferedIO="false" advertiseURI="https://gds-test.nci.nih.gov/conf/gds/logs/gds.log" advertise="true">
+			<PatternLayout pattern="%d [%t] %-5level %logger{36} - %msg%n" />
+			<Policies>
+  				<SizeBasedTriggeringPolicy size="10 MB" />
+  			</Policies>
+  		</RollingFile>
 	</Appenders>
 	<Loggers>
 		<logger name="gov.nih.nci.cbiit.scimgmt.gds" level="debug" >
-			<AppenderRef ref="APPLOG"/>
+			<AppenderRef ref="RollingFile"/>
 		</logger>
 		<Root level="error">
         	<AppenderRef ref="CONSOLE"/>
         </Root>
 	</Loggers>
+	
 </Configuration>
