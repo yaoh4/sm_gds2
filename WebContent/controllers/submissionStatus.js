@@ -28,7 +28,7 @@ function enableDisableStudyReleased(submissionStatusId){
 	
 	if($("#dataSubmitted").val() == "N") {
 		//$("#studyRel_"+studyReleasedId).val('17');
-		$("#studyRel_"+studyReleasedId).attr('disabled',true);
+		$("#studyRel_"+studyReleasedId).attr('disabled',false);
 	}
 	else {
 		if(submissionStatus == "Completed" || submissionStatus == "Not Applicable"){   
