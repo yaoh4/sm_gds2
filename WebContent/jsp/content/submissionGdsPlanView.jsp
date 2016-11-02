@@ -163,7 +163,7 @@
           <table style="width: 95%;  margin-top: 10px;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
             <tbody>
               <tr class="modalTheader">
-                  <th class="tableHeader" align="center" width="10%">Documnent Title</th>
+                  <th class="tableHeader" align="center" width="10%">Document Title</th>
                   <th class="tableHeader" align="center" width="10%">File Name</th>
                   <th class="tableHeader" align="center" width="10%">Date</th>
                   <th class="tableHeader" align="center" width="10%">Uploaded By</th>
