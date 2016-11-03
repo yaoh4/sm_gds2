@@ -83,8 +83,8 @@
 							<h4>&nbsp;</h4>
 							<h4>Search Results</h4><br/>&nbsp;
 							
-							<table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
-								<tbody><tr class="modalTheader">
+							<table id="adminTable" style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
+								<thead><tr class="modalTheader">
 									
 									<th width="20%"  align="left" style="vertical-align:bottom;" scope="col">User Name</th>
 									<th width="20%"  align="left"   style="whitespace: nowrap; vertical-align:bottom;" scope="col">Email Address</th>
@@ -97,7 +97,8 @@
 									
 									<th width="5%"  align="left" style="vertical-align:bottom;" scope="col">Actions</th>
 								</tr>
-								
+								</thead>
+								<tbody>
 								<s:if test="%{userRoles.size > 0}">
 				  				<s:iterator value="userRoles" var="userRole" status="stat">
 				    			<s:if test="#stat.index /2 == 0">
@@ -108,7 +109,7 @@
 								</s:else>	
 								    <s:hidden id="%{#userRole.nihNetworkId}FullName" value="%{#userRole.nedPerson.fullName}"/>
 												    																
-								    <td>${userRole.nedPerson.fullName}</td>
+								    <td>${userRole.nedPerson.fullNameLF}</td>
 									<td><a href="mailto:${userRole.nedPerson.email}">${userRole.nedPerson.email}</a></td>
 									<td>${userRole.nedPerson.orgpath} </td>							
 									<td>
@@ -178,14 +179,6 @@
 								
 								</s:iterator>
 								</s:elseif>
-								
-								
-								
-								<s:else>
-				  					<tr class="tableContent">
-				    					<td colspan="6">Nothing found to display.</td>
-				  					</tr>
-								</s:else>
 								
 							
 						</tbody></table>
