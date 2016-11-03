@@ -215,7 +215,7 @@ public class ManageSubmission extends BaseAction {
 			PageStatus pageStatus = new PageStatus(
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_GDSPLAN),
-				project, loggedOnUser.getFullName(), new Date());
+				project, loggedOnUser.getAdUserId(), new Date());
 			pageStatuses.add(pageStatus);
 		}
 		
@@ -225,7 +225,7 @@ public class ManageSubmission extends BaseAction {
 			PageStatus pageStatus = new PageStatus(
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC),
-				project, loggedOnUser.getFullName(), new Date());
+				project, loggedOnUser.getAdUserId(), new Date());
 			pageStatuses.add(pageStatus);
 		}
 		
@@ -235,7 +235,7 @@ public class ManageSubmission extends BaseAction {
 			PageStatus pageStatus = new PageStatus(
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_BSI),
-				project, loggedOnUser.getFullName(), new Date());
+				project, loggedOnUser.getAdUserId(), new Date());
 			pageStatuses.add(pageStatus);
 		}
 		
@@ -245,7 +245,7 @@ public class ManageSubmission extends BaseAction {
 			PageStatus pageStatus = new PageStatus(
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
 				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY),
-				project, loggedOnUser.getFullName(), new Date());
+				project, loggedOnUser.getAdUserId(), new Date());
 			pageStatuses.add(pageStatus);
 		}
 		
@@ -842,7 +842,7 @@ public class ManageSubmission extends BaseAction {
 			lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 		repoStatus.setLookupTByStudyReleasedId(
 			lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
-		repoStatus.setCreatedBy(loggedOnUser.getFullName());
+		repoStatus.setCreatedBy(loggedOnUser.getAdUserId());
 		repoStatus.setCreatedDate(new Date());
 		repoStatus.setPlanAnswerSelectionTByRepositoryId(selection);
 		selection.getRepositoryStatuses().add(repoStatus);

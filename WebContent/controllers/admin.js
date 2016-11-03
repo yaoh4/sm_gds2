@@ -1,5 +1,44 @@
+$(document).ready(function(){
 
+	$.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) { 
+		bootbox.alert(message.substr(message.indexOf("-") + 1), function() {
+      		return true;
+    	});
+	};
+	
+	reinitTable();
+      	
+});
 
+function reinitTable() {
+	//data table initialization
+	$("#adminTable").DataTable ( {
+            "responsive": false,
+            "autoWidth": false,
+            "processing": false,
+            "serverSide": false,
+            "dom": "<'row'<'col-sm-12'i><br/>>" +
+            "<'row'<tr>>" + "<'row'<'col-sm-12'lp>>",
+            "searching": false,
+            "pageLength": 5,
+            "lengthMenu": [5, 10, 25, 50, 100],
+            "language": {
+                "info": "Viewing [_START_ to _END_] out of [_TOTAL_] records  ",
+                "lengthMenu": "Change result display: _MENU_",
+                "infoEmpty": " ",
+                "emptyTable": "Nothing found to display.",
+                "paginate": {
+                	previous: '<span aria-hidden="true">&laquo;</span>',
+                	next: '<span aria-hidden="true">&raquo;</span>'
+                }
+            },
+            "columnDefs": [ 
+            {
+            "targets": [ -1 ],
+            "orderable": false
+            }]
+        });
+}
 //Search button
 function searchUsers() {
 	$("#messages").empty();
@@ -31,6 +70,7 @@ function searchUsers() {
 		  	success: function(msg){
 				result = $.trim(msg);
 				$("#searchResults").html($(result).find("#searchResults").html());
+				reinitTable();
 			}, 
 			error: function(){}	
 		});
@@ -57,6 +97,7 @@ function deletePersonRole(nihNetworkId) {
 				success: function(msg){
 					result = $.trim(msg);
 					$("#searchResults").html($(result).find("#searchResults").html());
+					reinitTable();
 				}, 
 				error: function(){}	
 			});
@@ -116,6 +157,7 @@ function savePersonRole() {
 	  	success: function(msg){
 			result = $.trim(msg);
 			$("#searchResults").html($(result).find("#searchResults").html());
+			reinitTable();
 		}, 
 		error: function(){}	
 	});

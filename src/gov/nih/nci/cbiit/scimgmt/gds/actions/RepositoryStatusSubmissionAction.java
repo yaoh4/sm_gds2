@@ -189,7 +189,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 					!StringUtils.equals(repoStatus.getAccessionNumber(), storedRepoStatus.getAccessionNumber())) {
 				//There is a change to an existing repositoryStatus
 				storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().remove(storedRepoStatus);
-				repoStatus.setLastChangedBy(loggedOnUser.getFullName());
+				repoStatus.setLastChangedBy(loggedOnUser.getAdUserId());
 				repoStatus.setCreatedBy(storedRepoStatus.getCreatedBy());
 				repoStatus.setCreatedDate(storedRepoStatus.getCreatedDate());
 				repoStatus.setProject(storedProject);

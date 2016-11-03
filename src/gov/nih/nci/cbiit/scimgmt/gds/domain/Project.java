@@ -92,6 +92,8 @@ public class Project implements java.io.Serializable {
 	private String activityCode;
 	private Project parent;
 	private String cayCode;
+	private NedPerson createdByPerson;
+	private NedPerson lastChangedByPerson;
 	
 	
 
@@ -361,10 +363,42 @@ public class Project implements java.io.Serializable {
 		this.lastChangedBy = lastChangedBy;
 	}
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY", referencedColumnName="NIHSSOUSERNAME", nullable=true, insertable=false, updatable=false)
+	public NedPerson getCreatedByPerson() {
+		return this.createdByPerson;
+	}
+	
+	public void setCreatedByPerson(NedPerson person) {
+		this.createdByPerson = person;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "LAST_CHANGED_BY", referencedColumnName="NIHSSOUSERNAME", nullable=true, insertable=false, updatable=false)
+	public NedPerson getLastChangedByPerson() {
+		return this.lastChangedByPerson;
+	}
+	
+	public void setLastChangedByPerson(NedPerson person) {
+		this.lastChangedByPerson = person;
+	}
+	
+	
 	@Transient
 	public String getUpdatedBy() {
+		//If lastChangedBy present return that info
 		if(lastChangedBy != null) {
-			return lastChangedBy;
+			if(getLastChangedByPerson() != null) {
+				return getLastChangedByPerson().getFullName();
+			} else {
+				//Person may be left, so return the stored user id
+				return lastChangedBy;
+			}
+		}
+		
+		//Else get createdBy info
+		if(getCreatedByPerson() != null) {
+			return getCreatedByPerson().getFullName();
 		}
 		
 		return createdBy;
