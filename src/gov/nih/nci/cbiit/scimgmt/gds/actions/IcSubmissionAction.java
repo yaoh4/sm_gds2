@@ -504,7 +504,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			//This is a new ic, so add it to the project
 			project.getInstitutionalCertifications().add(instCert);
 		}
-		project = saveProject(project);
+		project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
 		setProject(project);
 		
 		// Update CertId

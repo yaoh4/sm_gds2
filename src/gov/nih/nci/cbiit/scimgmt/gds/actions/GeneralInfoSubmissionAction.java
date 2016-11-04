@@ -162,7 +162,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				setupRepositoryStatuses(project, true);
 			}
 		}		
-		project = super.saveProject(project);
+		project = super.saveProject(project, null);
 		setProject(project);
 		//loadGrantInfo();
 		setProjectId(project.getId().toString());

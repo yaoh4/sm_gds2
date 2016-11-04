@@ -180,7 +180,7 @@ public class ManageSubmission extends BaseAction {
 	/**
 	 * Save the project
 	 */
-	public Project saveProject(Project project) {
+	public Project saveProject(Project project, String page) {
 		
 		//Temporary hard coding project property. 
 		project.setVersionNum(1l);
@@ -201,57 +201,69 @@ public class ManageSubmission extends BaseAction {
 		project.setDataSharingExcepStatus(
 			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, getExceptionMemoStatusCode(project)));
 		
-		project.setPageStatuses(computePageStatuses(project));
+		project.setPageStatuses(computePageStatuses(project, page));
 		return manageProjectService.saveOrUpdate(project);
 	}
 
 	
-	public List<PageStatus> computePageStatuses(Project project) {
+	public List<PageStatus> computePageStatuses(Project project, String modifiedPageCode) {
+		
 		List<PageStatus> pageStatuses = new ArrayList<PageStatus>();
 		
 		//GDS Plan page status
 		String status = GdsPageStatusUtil.getInstance().computeGdsPlanStatus(project);
-		if(status != null) {
-			PageStatus pageStatus = new PageStatus(
-				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
-				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_GDSPLAN),
-				project, loggedOnUser.getAdUserId(), new Date());
+		PageStatus pageStatus = updatePageStatus(project, ApplicationConstants.PAGE_CODE_GDSPLAN, status,	
+				ApplicationConstants.PAGE_CODE_GDSPLAN.equals(modifiedPageCode) ? true : false);
+		if(pageStatus != null) {
 			pageStatuses.add(pageStatus);
 		}
 		
 		//IC List status
 		status = GdsPageStatusUtil.getInstance().computeIcListStatus(project);
-		if(status != null) {
-			PageStatus pageStatus = new PageStatus(
-				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
-				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC),
-				project, loggedOnUser.getAdUserId(), new Date());
+		pageStatus = updatePageStatus(project, ApplicationConstants.PAGE_CODE_IC, status,	
+				ApplicationConstants.PAGE_CODE_IC.equals(modifiedPageCode) ? true : false);
+		if(pageStatus != null) {
 			pageStatuses.add(pageStatus);
 		}
 		
 		//BSI Study Info status
 		status = GdsPageStatusUtil.getInstance().computeBsiStudyInfoStatus(project);
-		if(status != null) {
-			PageStatus pageStatus = new PageStatus(
-				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
-				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_BSI),
-				project, loggedOnUser.getAdUserId(), new Date());
+		pageStatus = updatePageStatus(project, ApplicationConstants.PAGE_CODE_BSI, status,	
+				ApplicationConstants.PAGE_CODE_BSI.equals(modifiedPageCode) ? true : false);
+		if(pageStatus != null) {
 			pageStatuses.add(pageStatus);
 		}
 		
 		//Repository status
 		status = GdsPageStatusUtil.getInstance().computeRepositoryStatus(project);
-		if(status != null) {
-			PageStatus pageStatus = new PageStatus(
-				lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status),
-				lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY),
-				project, loggedOnUser.getAdUserId(), new Date());
+		pageStatus = updatePageStatus(project, ApplicationConstants.PAGE_CODE_REPOSITORY, status,	
+				ApplicationConstants.PAGE_CODE_REPOSITORY.equals(modifiedPageCode) ? true : false);
+		if(pageStatus != null) {
 			pageStatuses.add(pageStatus);
 		}
 		
 		return pageStatuses;
 	}
 	
+	
+	private PageStatus updatePageStatus(Project project, String pageCode, 
+			String status, boolean userUpdated) {
+		
+		if(status != null) {
+			//Get the existing pageStatus
+			PageStatus pageStatus = getPageStatus(project, pageCode);
+		
+			//Update the status
+			pageStatus.setStatus(lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status));
+			if(userUpdated) {
+				pageStatus.setLastChangedBy(loggedOnUser.getAdUserId());
+				pageStatus.setLastChangedDate(new Date());
+			}
+			return pageStatus;
+		}
+		
+		return null;
+	}
 	
 	public String getProjectStatusCode(Project project) {
 		
@@ -521,9 +533,14 @@ public class ManageSubmission extends BaseAction {
 		return getPageStatus(pageCode).getStatus().getCode();
 	}
 	
+	
 	public PageStatus getPageStatus(String pageCode) {
+		return getPageStatus(getProject(), pageCode);
+	}
+	
+	private PageStatus getPageStatus(Project project, String pageCode) {
 		PageStatus pageStatus = 
-			getProject().getPageStatus(pageCode);
+			project.getPageStatus(pageCode);
 		if(pageStatus == null) {
 			return new PageStatus(
 					lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
