@@ -236,9 +236,9 @@
                 <img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
               </s:else></td>
 
-              <td><a href="#" onclick="openDetailsReport(${subproject.id})"> 
+              <td><s:if test="isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}"> 
             <s:hidden  id="prevSubId" value="%{subproject.id}"/>
-            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
+            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a></s:if> &nbsp;&nbsp;&nbsp;
             <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}">
             <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
               
@@ -285,9 +285,9 @@
                 <img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
               </s:else></td>
 
-              <td><a href="#" onclick="openDetailsReport(${project.parent.id})"> 
+              <td><s:if test="isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}"> 
             <s:hidden  id="prevSubId" value="%{project.parent.id}"/>
-            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
+            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a></s:if> &nbsp;&nbsp;&nbsp;
             <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}">
             <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
               
