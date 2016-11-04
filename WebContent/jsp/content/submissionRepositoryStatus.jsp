@@ -89,7 +89,7 @@
 									&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
                                    <i class="helpfile fa fa-question-circle fa-1x"
 							       aria-hidden="true"></i></a>
-									<s:select id="%{'regStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByRegistrationStatusId.id" onChange="enableDisableSubmissionStatus(this.id)" 
+									<s:select id="%{'regStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByRegistrationStatusId.id" onChange="processRegistrationStatusSelected(this.id)" 
 												value="%{#repositoryStatus.lookupTByRegistrationStatusId.id}" cssClass="c-select form-control"  list="registrationStatusList" listKey="optionKey" listValue="optionValue"/>											
 								</div>
 
@@ -100,7 +100,7 @@
 							        aria-hidden="true"></i></a>
 									
 
-									<s:select id="%{'projStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTBySubmissionStatusId.id" onChange="enableDisableStudyReleased(this.id)" 
+									<s:select id="%{'projStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTBySubmissionStatusId.id" onChange="processSubmissionStatusSelected(this.id)" 
 												value="%{#repositoryStatus.lookupTBySubmissionStatusId.id}" cssClass="c-select form-control" disabled="true" list="projectSubmissionStatusList" listKey="optionKey" listValue="optionValue"/>											
 								</div>							
 
