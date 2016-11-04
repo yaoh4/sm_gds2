@@ -291,6 +291,13 @@ public class GdsMissingDataUtil {
 		
 		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
 		
+		  if(project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) && CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
+		    	String displayText = "At least one repository selection is required.";
+				MissingData missingData = new MissingData(displayText);
+				missingDataList.add(missingData);
+		    }
+		
+		if(!ApplicationConstants.BSI_NA.equals(project.getBsiReviewedId())){
 		if(!ApplicationConstants.BSI_YES.equals(project.getBsiReviewedId())) {
 			String displayText = "BSI Reviewed flag must be 'Yes'.";
 			MissingData missingData = new MissingData(displayText);
@@ -304,7 +311,8 @@ public class GdsMissingDataUtil {
 			MissingData missingData = new MissingData(displayText);
 			missingDataList.add(missingData);
 		}
-		
+		}
+	
 		return missingDataList;
 	}
 	
