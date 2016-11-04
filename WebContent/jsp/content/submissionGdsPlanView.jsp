@@ -98,7 +98,7 @@
      
 	<s:if test="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID) != ''}">
 	  <tr>	
-	    <td><strong>Types of specimens the data submission pertain to:</strpmg></td>
+	    <td width="30%" style="white-space: nowrap;"><strong>Types of specimens the data submission pertain to:</strpmg></td>
         <td> <s:property value="%{getAnswerForQuestionInGdsPlan(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PLAN_QUESTION_ANSWER_SPECIMEN_ID)}" /></td>
 	  </tr>
 	  <tr>
