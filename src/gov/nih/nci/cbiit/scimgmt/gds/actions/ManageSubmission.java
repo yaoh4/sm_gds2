@@ -732,11 +732,6 @@ public class ManageSubmission extends BaseAction {
 						newObject.setOtherText(otherText);
 						newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 						newObject.addProject(getProject());
-						// If child exists, then add answer to all children
-						List<Project> children = getSubprojects();
-						for(Project child: children) {
-							newObject.addProject(child);
-						}
 						getProject().getPlanAnswerSelections().add(newObject);
 					}
 				}
@@ -747,11 +742,6 @@ public class ManageSubmission extends BaseAction {
 					newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 					newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 					newObject.addProject(getProject());
-					// If child exists, then add answer to all children
-					List<Project> children = getSubprojects();
-					for(Project child: children) {
-						newObject.addProject(child);
-					}
 					getProject().getPlanAnswerSelections().add(newObject);
 				}
 			}
@@ -799,34 +789,17 @@ public class ManageSubmission extends BaseAction {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
 	 */
-	protected void setupRepositoryStatuses(Project project, boolean isSubproject) {
+	protected void setupRepositoryStatuses(Project project) {
 		
 		logger.debug("Setting up Repository statuses.");
-		Project parent = project;
-		if(isSubproject) {
-			//For subproject, we need to get the PlanAnswerSelection
-			//of the parent
-			parent = retrieveParentProject();
-		}		
-		for(PlanAnswerSelection selection: parent.getPlanAnswerSelections()) {
+		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(selection.getPlanQuestionsAnswer().getQuestionId())) {
 				
-				if(selection.getRepositoryStatuses().isEmpty() || isSubproject) {
+				if(selection.getRepositoryStatuses().isEmpty()) {
 					//Add a new repository status if this is a new selection by
 					//the user or this is a subproject. 
 					RepositoryStatus repoStatus = createRepositoryStatus(selection);
 					repoStatus.setProject(project);
-					
-					if(!isSubproject) {
-						//Add new repositoryStatus to the subprojects in this project
-						List<Project> subprojects = manageProjectService.getSubprojects(project.getId());
-						if(subprojects != null) {
-							for(Project subproject: subprojects) {
-								RepositoryStatus subRepoStatus = createRepositoryStatus(selection);
-								subRepoStatus.setProject(subproject);
-							}
-						}
-					}
 				} else {
 					RepositoryStatus repoStatus = selection.getRepositoryStatuses().iterator().next();		
 					if(getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
@@ -850,7 +823,7 @@ public class ManageSubmission extends BaseAction {
 		}
 	}
 	
-	private RepositoryStatus createRepositoryStatus(PlanAnswerSelection selection) {
+	protected RepositoryStatus createRepositoryStatus(PlanAnswerSelection selection) {
 		
 		RepositoryStatus repoStatus = new RepositoryStatus();
 		repoStatus.setLookupTByRegistrationStatusId(

@@ -151,7 +151,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		populatePlanAnswerSelection();
 		
-		setupRepositoryStatuses(getProject(), false);
+		setupRepositoryStatuses(getProject());
 
 		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
 		

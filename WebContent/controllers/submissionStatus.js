@@ -73,4 +73,13 @@ $(document).ready(function () {
 		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
 		var newWin = window.open(url, winName, features);
 	});
+	
+	$(".repoSelect").change(function(){
+		if( $(this).is(':checked')) {
+			$(this).parent().parent().parent().children('div.panel-body').show();
+	    } else {
+	    	$(this).parent().parent().parent().children('div.panel-body').hide();
+	    }
+	});
+	$(".repoSelect").change();
 });

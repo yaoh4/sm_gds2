@@ -98,7 +98,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		if(getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
 			populateSelectedRemovedSets(false); // Re-populate the new and old set for save.
 			populatePlanAnswerSelection();
-			setupRepositoryStatuses(getProject(), false);
+			setupRepositoryStatuses(getProject());
 		}
 		
 		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_BSI);
