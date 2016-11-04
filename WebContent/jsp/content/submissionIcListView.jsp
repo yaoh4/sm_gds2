@@ -35,7 +35,7 @@
             <tbody>
               <tr class="modalTheader">
                 <th class="tableHeader" align="center">Institutional Certification Document</th>
-                <th class="tableHeader" align="center">Status</th>
+                <th class="tableHeader" align="center" style="width: 10%;">Status</th>
                 <th class="tableHeader" align="center">Missing Data</th>
                 <th class="tableHeader" align="center">Date Uploaded</th>
                <th class="tableHeader" align="center">Uploaded By</th>
