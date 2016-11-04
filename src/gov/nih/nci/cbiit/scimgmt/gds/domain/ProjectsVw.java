@@ -557,7 +557,7 @@ public class ProjectsVw implements java.io.Serializable {
 	 * This method returns Project status.
 	 * @return String
 	 */
-	@Formula(value = "case when (SUBPROJECT_FLAG='Y' or GDS_PLAN_PAGE_STATUS_CODE='COMPLETED') and IC_PAGE_STATUS_CODE='COMPLETED' and BSI_PAGE_STATUS_CODE='COMPLETED' and REPOSITORY_PAGE_STATUS_CODE ='COMPLETED' then 'COMPLETED' else 'INPROGRESS' end ")
+	@Formula(value = "case when (SUBPROJECT_FLAG='Y' or GDS_PLAN_PAGE_STATUS_CODE='COMPLETED' or GDS_PLAN_PAGE_STATUS_CODE IS NULL) and IC_PAGE_STATUS_CODE='COMPLETED' and BSI_PAGE_STATUS_CODE='COMPLETED' and REPOSITORY_PAGE_STATUS_CODE ='COMPLETED' then 'COMPLETED' else 'INPROGRESS' end ")
 	public String getProjectStatusCode(){
 		return projectStatusCode;
 	}
