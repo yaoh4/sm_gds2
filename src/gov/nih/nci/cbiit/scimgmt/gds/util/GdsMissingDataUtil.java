@@ -173,8 +173,13 @@ public class GdsMissingDataUtil {
 				MissingData missingData = new MissingData("The question 'What type of access is the data to be made available through ?' has not been answered.");
 				missingDataList.add(missingData);
 			}
+			
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
+				MissingData missingData = new MissingData("The question 'What repository will the data be submitted to ?' has not been answered.");
+				missingDataList.add(missingData);
+			}
 		}
-				
+			
 		return missingDataList;
 	}
 	
@@ -292,7 +297,7 @@ public class GdsMissingDataUtil {
 		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
 		
 		  if(project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) && CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
-		    	String displayText = "At least one repository selection is required.";
+		    	String displayText = "The question 'What repository will the data be submitted to ?' has not been answered.";
 				MissingData missingData = new MissingData(displayText);
 				missingDataList.add(missingData);
 		    }
