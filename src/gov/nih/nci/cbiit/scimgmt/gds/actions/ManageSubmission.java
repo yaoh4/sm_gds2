@@ -545,7 +545,7 @@ public class ManageSubmission extends BaseAction {
 			return new PageStatus(
 					lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
 					lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
-					project, null, null);
+					project, null, new Date());
 		}
 		return pageStatus;
 	}
