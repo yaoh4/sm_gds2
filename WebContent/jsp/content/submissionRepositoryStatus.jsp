@@ -66,6 +66,9 @@
 					<s:div class="panel panel-default" id="%{'repositoryStatus_' + #stat.index}">
 						<div class="panel-heading">
 							<div class="pheader">
+								<s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
+									<s:checkbox cssClass="repoSelect" value="%{#repositoryStatus.selected}" name="project.repositoryStatuses[%{#stat.index}].selected" cssStyle="margin-right: 5px;" id="%{'selected_' + #stat.index}" />
+								</s:if>
 								<h5 class="adjustText">
 								<s:if test="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.otherText != null}" >
 									<s:property value="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText}"/> - <s:property value="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.otherText}"/>

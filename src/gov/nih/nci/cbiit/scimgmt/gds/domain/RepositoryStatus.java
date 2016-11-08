@@ -40,6 +40,7 @@ public class RepositoryStatus implements java.io.Serializable {
 	private String lastChangedBy;
 	private Date createdDate;
 	private Date lastChangedDate;
+	private boolean selected = false;
 	
 	private NedPerson createdByPerson;
 	private NedPerson lastChangedByPerson;
@@ -263,6 +264,15 @@ public class RepositoryStatus implements java.io.Serializable {
 		}
 			
 		return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+	}
+
+	@Transient
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 }

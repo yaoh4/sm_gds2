@@ -151,9 +151,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		populatePlanAnswerSelection();
 		
-		setupRepositoryStatuses(getProject(), false);
+		setupRepositoryStatuses(getProject());
 
-		super.saveProject(getProject());
+		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
 		
 		setProject(retrieveSelectedProject());
 		
@@ -366,7 +366,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			}
 		}
 	    getProject().setCertificationCompleteFlag(null); 
-		super.saveProject(retrieveSelectedProject());
+		super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
 		setProject(retrieveSelectedProject());
 	}
 	

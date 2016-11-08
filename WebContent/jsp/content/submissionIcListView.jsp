@@ -35,7 +35,7 @@
             <tbody>
               <tr class="modalTheader">
                 <th class="tableHeader" align="center">Institutional Certification Document</th>
-                <th class="tableHeader" align="center">Status</th>
+                <th class="tableHeader" align="center" style="width: 10%;">Status</th>
                 <th class="tableHeader" align="center">Missing Data</th>
                 <th class="tableHeader" align="center">Date Uploaded</th>
                <th class="tableHeader" align="center">Uploaded By</th>
@@ -79,7 +79,7 @@
               <!--Begin view details-->
              
                 <tr>
-                  <td colspan="4">
+                  <td colspan="5">
                     <div id="contentDivImg${ic.id}" style="display: none;">  
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tbody>

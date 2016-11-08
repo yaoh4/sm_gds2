@@ -1,13 +1,13 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -17,12 +17,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
-import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
@@ -168,6 +166,46 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			throw new Exception(getText("error.projectid.null"));
 		}
 		Project storedProject = retrieveSelectedProject();
+		if(storedProject.getSubprojectFlag().equalsIgnoreCase("Y")) {
+			//Add all selected parent repository (Plan Answer selection) to this project if it is already not added
+			Project parent = retrieveParentProject(storedProject);
+			for(PlanAnswerSelection parentAnswer: parent.getPlanAnswerSelections()) {
+				if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(parentAnswer.getPlanQuestionsAnswer().getQuestionId())) {
+					boolean found=false, selected = false;
+					for(RepositoryStatus repoStatus : getProject().getRepositoryStatuses()) {
+						if(repoStatus.getPlanAnswerSelectionTByRepositoryId().getId().longValue() == parentAnswer.getId().longValue()){
+							if(repoStatus.isSelected()) {
+								selected = true;
+								break;
+							}	
+						}
+					}
+					RepositoryStatus childRepository = null;
+					for(PlanAnswerSelection childAnswer: storedProject.getPlanAnswerSelections()) {
+						if(childAnswer.getPlanQuestionsAnswer().getId() == parentAnswer.getPlanQuestionsAnswer().getId()) {
+							found = true;
+							for (RepositoryStatus r: childAnswer.getRepositoryStatuses()) {
+								if(r.getProject().getId().longValue() == storedProject.getId().longValue())
+									childRepository = r;
+							}
+							// If found but not selected, remove subproject from the answer set and also remove repository.
+							if(!selected) {
+								childAnswer.removeProject(storedProject);
+								parentAnswer.getRepositoryStatuses().remove(childRepository);
+							}
+							break;
+						}
+					}
+					if(!found && selected) {
+						parentAnswer.addProject(storedProject);
+						storedProject.getPlanAnswerSelections().add(parentAnswer);
+					}
+					
+				}
+			}
+			
+		}
+
 		Set<PlanAnswerSelection> answers = storedProject.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
 		HashMap<Long, RepositoryStatus> repoMap = new HashMap<Long, RepositoryStatus>();
 		for(PlanAnswerSelection answer: answers) {
@@ -180,26 +218,36 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		}
 		
 		for(RepositoryStatus repoStatus : getProject().getRepositoryStatuses()){
-			RepositoryStatus storedRepoStatus = repoMap.get(repoStatus.getId());
-			Long planAnswerSelectionId = storedRepoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
+		  RepositoryStatus storedRepoStatus = repoMap.get(repoStatus.getId());
+		  if(storedProject.getSubprojectFlag().equalsIgnoreCase("N") || repoStatus.isSelected()) {
+			if(storedRepoStatus != null) {
+				Long planAnswerSelectionId = storedRepoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
 			
-			if(!repoStatus.getLookupTByRegistrationStatusId().getId().equals(storedRepoStatus.getLookupTByRegistrationStatusId().getId())
-				|| !repoStatus.getLookupTBySubmissionStatusId().getId().equals(storedRepoStatus.getLookupTBySubmissionStatusId().getId())
-				|| !repoStatus.getLookupTByStudyReleasedId().getId().equals(storedRepoStatus.getLookupTByStudyReleasedId().getId()) ||
-					!StringUtils.equals(repoStatus.getAccessionNumber(), storedRepoStatus.getAccessionNumber())) {
-				//There is a change to an existing repositoryStatus
-				storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().remove(storedRepoStatus);
-				repoStatus.setLastChangedBy(loggedOnUser.getAdUserId());
-				repoStatus.setCreatedBy(storedRepoStatus.getCreatedBy());
-				repoStatus.setCreatedDate(storedRepoStatus.getCreatedDate());
+				if(!repoStatus.getLookupTByRegistrationStatusId().getId().equals(storedRepoStatus.getLookupTByRegistrationStatusId().getId())
+						|| !repoStatus.getLookupTBySubmissionStatusId().getId().equals(storedRepoStatus.getLookupTBySubmissionStatusId().getId())
+						|| !repoStatus.getLookupTByStudyReleasedId().getId().equals(storedRepoStatus.getLookupTByStudyReleasedId().getId()) ||
+						!StringUtils.equals(repoStatus.getAccessionNumber(), storedRepoStatus.getAccessionNumber())) {
+					//There is a change to an existing repositoryStatus
+					storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().remove(storedRepoStatus);
+					repoStatus.setLastChangedBy(loggedOnUser.getAdUserId());
+					repoStatus.setCreatedBy(storedRepoStatus.getCreatedBy());
+					repoStatus.setCreatedDate(storedRepoStatus.getCreatedDate());
+					repoStatus.setProject(storedProject);
+					storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().add(repoStatus);
+				} 
+			} else {
+				Long planAnswerSelectionId = repoStatus.getPlanAnswerSelectionTByRepositoryId().getId();
+				repoStatus.setCreatedBy(loggedOnUser.getFullName());
+				repoStatus.setCreatedDate(new Date());
 				repoStatus.setProject(storedProject);
 				storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().add(repoStatus);
-			} 
+			}
+		  }
 		}
 		storedProject.setAnticipatedSubmissionDate(getProject().getAnticipatedSubmissionDate());
 		//Set the transient repositoryStatuses to enable computation of page status during save
 		storedProject.setRepositoryStatuses(getProject().getRepositoryStatuses());
-		super.saveProject(storedProject);
+		super.saveProject(storedProject, ApplicationConstants.PAGE_CODE_REPOSITORY);
 		setUpPageData();
 	}
 	
@@ -216,8 +264,12 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			throw new Exception(getText("error.projectid.null"));
 		}
 		setProject(retrieveSelectedProject());
-		setUpStatusLists();		
-		retrieveRepositoryStatuses();	
+		setUpStatusLists();
+		if(getProject().getSubprojectFlag().equalsIgnoreCase("Y")) {
+			retrieveSubprojectRepositoryStatuses();
+		} else {
+			retrieveRepositoryStatuses();
+		}
 		Collections.sort(getProject().getRepositoryStatuses(),new RepositoryStatusComparator());
 		if(GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(getProject())) {
 			setDataSubmitted(ApplicationConstants.FLAG_YES);
@@ -253,6 +305,46 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		}
 	}
 
+	/**
+	 * This method sets up Repository Statuses for Subprojects
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 */
+	private void retrieveSubprojectRepositoryStatuses() throws Exception {	
+		logger.debug("Setting up Subproject Repository statuses.");
+	
+
+		Project parent = retrieveParentProject();
+		for(PlanAnswerSelection parentAnswer: parent.getPlanAnswerSelections()) {
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(parentAnswer.getPlanQuestionsAnswer().getQuestionId())) {
+				boolean found = false, myAnswer = false;
+				for(PlanAnswerSelection childAnswer: getProject().getPlanAnswerSelections()) {
+					for (Project p: childAnswer.getProjects()) {
+						if(p.getId().longValue() == getProject().getId().longValue()) {
+							myAnswer = true;
+							break;
+						}
+					}
+					found = false;
+					if(myAnswer && childAnswer.getPlanQuestionsAnswer().getId() == parentAnswer.getPlanQuestionsAnswer().getId()) {
+						found = true;
+						for(RepositoryStatus childRepo: childAnswer.getRepositoryStatuses()) {
+							if(childRepo.getProject().getId() == getProject().getId()) {
+								childRepo.setSelected(true);
+								getProject().getRepositoryStatuses().add(childRepo);
+							}
+						}
+						break;
+					}
+				}
+				if(!found) {
+					RepositoryStatus newRepo = createRepositoryStatus(parentAnswer);
+					newRepo.setProject(getProject());
+					getProject().getRepositoryStatuses().add(newRepo);
+				}
+			}
+		}
+	}
 	
 	
 	/**

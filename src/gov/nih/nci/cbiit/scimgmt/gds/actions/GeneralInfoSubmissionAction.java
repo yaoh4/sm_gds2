@@ -150,19 +150,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			// For new Sub project, populate child table from parent
 			if(project.getId() == null && project.getParentProjectId() != null) {
 				Project parentProject = retrieveParentProject(project);
-				project.setPlanAnswerSelections(parentProject.getPlanAnswerSelections());
-				for(PlanAnswerSelection ans: project.getPlanAnswerSelections()) {
-					ans.addProject(project);
-				}
 				project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
 				project.setApplClassCode(parentProject.getApplClassCode());
 				project.setDocAbbreviation(parentProject.getDocAbbreviation());
 				project.setProgramBranch(parentProject.getProgramBranch());
-				//Create repository statuses for sub-project from parent
-				setupRepositoryStatuses(project, true);
 			}
 		}		
-		project = super.saveProject(project);
+		project = super.saveProject(project, null);
 		setProject(project);
 		//loadGrantInfo();
 		setProjectId(project.getId().toString());
