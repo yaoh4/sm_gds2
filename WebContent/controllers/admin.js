@@ -109,10 +109,13 @@ function deletePersonRole(nihNetworkId) {
 
 //Reset button
 function resetData() {
-	
+	$('#gdsUsersOnly').prop('checked', false);
 	$("#messages").empty();
 	$('#lastName').val('');
 	$('#firstName').val('');
+	$('#doc option:eq(0)').prop('selected', true);
+	$('#role option:eq(0)').prop('selected', true);
+	
 	var parent = $(".tableContent").parent();
 	$(".tableContent").remove();
 	$(".tableContentOdd").remove();
@@ -122,6 +125,12 @@ function resetData() {
 
 function createEditRole(networkId) {
 	$('#userId').val(networkId);
+	if($('#userId').val().length == 0) {
+		var errorMsg = "Cannot assign role to selected user: Incomplete NED record";
+		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
+		window.scrollTo(0,0);
+		return;
+	} 
 	$form = $("#admin_form");
     fd = new FormData($form[0]);
 	$.ajax({
