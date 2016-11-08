@@ -231,10 +231,8 @@ public class GdsPageStatusUtil {
 			if(ApplicationConstants.BSI_NO.equals(project.getBsiReviewedId())
 					|| (ApplicationConstants.BSI_YES.equals(project.getBsiReviewedId())
 							&& CollectionUtils.isEmpty(docs)) || (project.getBsiReviewedId() == null && !CollectionUtils.isEmpty(docs))) {
-				logger.debug("not represneting prop");
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-			}
-			else if(project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) && CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
+			} else if(project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) && CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
 					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
 		}
