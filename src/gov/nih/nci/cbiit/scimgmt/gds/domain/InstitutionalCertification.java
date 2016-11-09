@@ -18,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.util.CollectionUtils;
+
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 
 /**
@@ -189,8 +191,15 @@ public class InstitutionalCertification implements java.io.Serializable {
 		}
 		List<Study> studies = getStudies();
 		for(Study study: studies) {
-			if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())) {
+			if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())
+				&& !ApplicationConstants.IC_DUL_VERIFIED_NOT_APPLICABLE_ID.equals(study.getDulVerificationId())) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+			
+			if(ApplicationConstants.IC_PROV_FINAL_ID_FINAL.equals(getProvisionalFinalCode())) {
+				if(CollectionUtils.isEmpty(study.getStudiesDulSets())) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
 			}
 		}		
 		return status;
