@@ -208,7 +208,11 @@ public class IcSubmissionAction extends ManageSubmission {
 	private InstitutionalCertification retrieveIC(Long instCertId) {
 	
 		if(instCertId != null) {
-			Project project = retrieveSelectedProject();
+			
+			Project project = getProject();
+			if(project == null) {
+				project = retrieveSelectedProject();
+			}
 			List<InstitutionalCertification> certs = project.getInstitutionalCertifications();
 			if(!CollectionUtils.isEmpty(certs)) {
 				for(InstitutionalCertification cert: certs) {
@@ -719,7 +723,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	public String getPageStatusCode() {
-		return instCertification.getStatus();
+		return retrieveIC(Long.valueOf(instCertification.getId())).getStatus();
 	}
 	
 
