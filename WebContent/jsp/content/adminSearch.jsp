@@ -82,6 +82,7 @@
 						<div id="searchResults" style="margin-left: 10px;">
 							<h4>&nbsp;</h4>
 							<h4>Search Results</h4><br/>&nbsp;
+							 <div style="float:right;"><img src="../images/legend-search4.gif"></div>
 							
 							<table id="adminTable" style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
 								<thead><tr class="modalTheader">
