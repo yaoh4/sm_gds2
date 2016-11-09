@@ -38,7 +38,7 @@
 							
 							
 							<div class="col-xs-5">
-								<label for="NCI Division/Office/Center">NCI Division/Office/Center:</label>
+								<label for="NCI Division/Office/Center">Division/Office/Center:</label>
 								
 								<s:select name="criteria.doc" id="doc"								
 								cssClass="c-select form-control" 
@@ -69,7 +69,7 @@
 							
 							<div class="searchFormat col-xs-10" style="float:right; margin-top: 10px; padding-left: 70px;">
 								<button type="button" class="btn btn-primary has-spinner" id="search" onclick="searchUsers()"><i class="fa fa-spinner fa-spin"></i> Search</button>
-								<button type="button" class="btn btn-default" id="reset" onclick="resetData()">Reset</button>
+								<button type="button" class="btn btn-default" id="reset" onclick="resetData()">Clear</button>
 								<p>&nbsp;</p>
 							</div>
 						</div>
@@ -89,7 +89,7 @@
 									<th width="20%"  align="left" style="vertical-align:bottom;" scope="col">User Name</th>
 									<th width="20%"  align="left"   style="whitespace: nowrap; vertical-align:bottom;" scope="col">Email Address</th>
 									
-									<th width="8%"  align="left" style="vertical-align:bottom;" scope="col">NCI DOC</th>
+									<th width="8%"  align="left" style="vertical-align:bottom;" scope="col">DOC</th>
 								
                                     
                                     <th width="12%"  align="left" style="vertical-align:bottom;" scope="col">Current Role(s)</th>
@@ -228,7 +228,7 @@
 									<td width="5%" align="center" style="vertical-align:bottom; font-size: 11px;">Read-Only User</td>
 									<th width="28%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF; " scope="col">User Name</th>
 									<th width="31%" align="left" style="whitespace: nowrap; vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">Email Address</th>
-									<th width="8%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">NCI DOC</th>
+									<th width="8%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">DOC</th>
 									<th width="13%" align="left" style="vertical-align:bottom; background-color: #14819b; color: #FFF;" scope="col">Active PD Role?</th>
 								</tr>
 								<tr>
