@@ -184,9 +184,16 @@
 												class="other" placeholder="Name of Repository" />
 										</s:div>
 									</s:else>
-									<div style="margin-left: 75px; margin-top: 15px;">
-										<input id="addfield" type="button" class="btn btn-default" value="Add Another Repository" />
-									</div>
+									<s:if test="%{otherText[#ans.id].size lt 10}">
+										<div id="anotherButton" style="margin-left: 75px; margin-top: 15px;">
+											<input id="addfield" type="button" class="btn btn-default" value="Add Another Repository" />
+										</div>
+									</s:if>
+									<s:else>
+										<div id="anotherButton" style="display: none; margin-left: 75px; margin-top: 15px;">
+											<input id="addfield" type="button" class="btn btn-default" value="Add Another Repository" />
+										</div>
+									</s:else>
 								</div>
 							</s:if>
 						</div>

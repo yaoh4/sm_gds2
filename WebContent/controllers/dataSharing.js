@@ -17,6 +17,7 @@ $('#25').change(function () {
     	$(".otherWrapper").first().children("i").remove();
     	$(".other").val('');
     	$(".otherWrapper").not(".otherWrapper:first").remove();
+    	$("#anotherButton").show();
         $("#addRepo").hide();
     }
 }); 
@@ -45,6 +46,10 @@ $("#gds-form").on('click', '#addfield', function () {
 			+ '<i class="fa fa-trash fa-lg delete removeclass" title="Delete"  aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 13px; cursor:pointer">'
 			+ '</i></div>');
 		
+		// If max is reached, then remove the add button
+		if ((fieldCount + 1) == maxInputs) {
+			$("#anotherButton").hide();
+		}
 	}
 });
 
@@ -57,7 +62,7 @@ $("#gds-form").on('click', '.removeclass', function () {//user click on remove t
 	if(fieldCount == 1) {
 		$(".otherWrapper").first().children("i").remove();
 	}
-	
+	$("#anotherButton").show();
 }); 
 
 // If "Is there a data sharing exception requested for this project?" is changed to No,
