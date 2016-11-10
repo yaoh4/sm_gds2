@@ -72,6 +72,9 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 
+	public ProjectGrantContract() {
+	}
+	
 	public ProjectGrantContract(String grantContractNum, String projectTitle,
 			String programBranch, String applicationNum, String piInstitution,
 			String piEmailAddress, Date projectStartDate, Date projectEndDate,
@@ -190,7 +193,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY", referencedColumnName="NIHSSOUSERNAME", nullable=true, insertable=false, updatable=false)
+	@JoinColumn(name = "CREATED_BY", nullable=true, insertable=false, updatable=false)
 	public NedPerson getCreatedByPerson() {
 		return this.createdByPerson;
 	}
@@ -200,7 +203,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "LAST_CHANGED_BY", referencedColumnName="NIHSSOUSERNAME", nullable=true, insertable=false, updatable=false)
+	@JoinColumn(name = "LAST_CHANGED_BY", nullable=true, insertable=false, updatable=false)
 	public NedPerson getLastChangedByPerson() {
 		return this.lastChangedByPerson;
 	}

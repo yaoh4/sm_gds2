@@ -214,7 +214,6 @@ public class NedPerson implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Id
 	@Column(name = "UNIQUEIDENTIFIER", nullable = false, length = 30)
 	public String getNedId() {
 		return this.nedId;
@@ -665,6 +664,7 @@ public class NedPerson implements java.io.Serializable {
 		this.nihssodomain = nihssodomain;
 	}
 
+	@Id
 	@Column(name = "NIHSSOUSERNAME", length = 60)
 	public String getNihssousername() {
 		return this.nihssousername;

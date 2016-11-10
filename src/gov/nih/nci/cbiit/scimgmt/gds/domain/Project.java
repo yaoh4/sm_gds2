@@ -85,6 +85,7 @@ public class Project implements java.io.Serializable {
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<InstitutionalCertification> institutionalCertifications = new ArrayList<InstitutionalCertification>();
+	private List<ProjectGrantContract> projectGrantContracts = new ArrayList<ProjectGrantContract>();
 	
 	
 	private Long subprojectCount;
@@ -364,7 +365,7 @@ public class Project implements java.io.Serializable {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY", referencedColumnName="NIHSSOUSERNAME", nullable=true, insertable=false, updatable=false)
+	@JoinColumn(name = "CREATED_BY", nullable=true, insertable=false, updatable=false)
 	public NedPerson getCreatedByPerson() {
 		return this.createdByPerson;
 	}
@@ -374,7 +375,7 @@ public class Project implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "LAST_CHANGED_BY", referencedColumnName="NIHSSOUSERNAME", nullable=true, insertable=false, updatable=false)
+	@JoinColumn(name = "LAST_CHANGED_BY", nullable=true, insertable=false, updatable=false)
 	public NedPerson getLastChangedByPerson() {
 		return this.lastChangedByPerson;
 	}
@@ -810,5 +811,14 @@ public class Project implements java.io.Serializable {
 
 	public void setCayCode(String cayCode) {
 		this.cayCode = cayCode;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval = true)
+	public List<ProjectGrantContract> getProjectGrantContracts() {
+		return projectGrantContracts;
+	}
+
+	public void setProjectGrantContracts(List<ProjectGrantContract> projectGrantContracts) {
+		this.projectGrantContracts = projectGrantContracts;
 	}
 }
