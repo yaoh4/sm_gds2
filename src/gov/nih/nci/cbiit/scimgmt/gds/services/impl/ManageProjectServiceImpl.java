@@ -68,6 +68,10 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		
 		//If this is a parent project, delete the subprojects
 		for(Project subproject: getSubprojects(projectId)) {
+			docs = documentsDao.findByProjectId(subproject.getId());
+			for(Document doc : docs) {
+				documentsDao.delete(doc);
+			}
 			projectsDao.delete(subproject);
 		}
 		
