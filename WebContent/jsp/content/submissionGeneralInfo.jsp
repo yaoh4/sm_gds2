@@ -100,7 +100,12 @@
 						</div>
 					</div>
                       
-                      <div id="grantDiv">
+
+					<!--START EXTRAMURAL GRANT BOX -->
+					<div class="panel panel-default">
+  					<div class="panel-heading">EXTRAMURAL</div>
+  					<div class="panel-body">
+                      <div id="extraGrantDiv">
 					<div class="form-group row">
 					<div class="col-xs-5">
 							<label for="Grant #" id="grantLabel">Intramural/Grant/Contract  #</label>									
@@ -264,6 +269,184 @@
 
 						</div>
 					</div>
+
+				</div> <!--end panel body-->
+				</div> <!--end panel -->
+
+
+					<!--START INTRAMURAL GRANT BOX -->
+					 <div class="panel panel-default">
+  <div class="panel-heading">INTRAMURAL</div>
+  <div class="panel-body">
+
+
+					 <div id="intraGrantDiv">
+					<div class="form-group row">
+					<div class="col-xs-5">
+							<label for="Grant #" id="grantLabel">Intramural/Grant/Contract  #</label>									
+
+								<s:hidden name="extramuralGrant.grantContractType"  value="%{extramuralGrant.grantContractType}"/>
+								<s:hidden name="extramuralGrant.primaryGrantContractFlag"  value="%{extramuralGrant.primaryGrantContractFlag}"/>
+								<s:hidden name="extramuralGrant.createdBy"  value="%{extramuralGrant.createdBy}"/>
+								
+								<div class="input-group ">
+								  <s:textfield name="extrmuralGrant.grantContractNum"  maxlength="271" class="form-control" cssclass="form-control" readonly="true" id="grantsContractNum" placeholder="Click on Edit Icon" value="%{extramuralGrant.grantContractNum}"/>
+								  <div class="input-group-btn">
+                                    <a href="#" onclick="openGrantsContractsSearchPage()">
+																		<button class="btn btn-default" type="button" title="Edit" style=" margin-left: -2px;">
+																			<i class="fa fa-pencil" aria-hidden="true"></i>
+																		</button></a> 
+								</div>
+								</div>
+								</div>
+					
+							<div class="col-xs-5" style="margin-left:-15px">
+							<label>&nbsp;</label>
+							  <div class="position: relative; display: table; border-collapse: separate;">
+														
+							<s:hidden name="extramuralGrant.dataLinkFlag" id="dataLinkFlag" value="%{extramuralGrant.dataLinkFlag}">
+							<s:if test="isGPA()">
+							<div class="btn-group" id="linkButton">
+															
+							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
+							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
+							<a href="javascript: void(0)" id="unlink" class="btn btn-default" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
+														  
+							</div>
+	 						</s:if>
+							</s:hidden>
+						</div>
+						</div>
+					</div>
+
+					</div>
+					
+					<div id="canAct">
+					<div class="form-group row has-feedback">
+                       <div class="col-xs-5">
+                           <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
+                           <s:textfield name="cancerActivity" cssClass="form-control unlink-group"  id="cancerActivity" value="%{project.cayCode}" placeholder=""  readonly="true">
+                           </s:textfield>
+                           </div>
+                           </div>
+                    </div>
+                        
+                        <div id="title">   
+					<div class="form-group row has-feedback">
+						<div class="col-xs-10">
+							<label for="Project Title" id="projectTitleLabel">Intramural/Grant/Contract Project Title</label> 
+							<s:textfield name="extramural.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
+						</div>
+					</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-xs-5 has-feedback">
+							<label for="First Name of Principal Investigator"><i
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
+								Name of Principal Investigator</label> 
+								<s:textfield name="extramuralGrant.piFirstName" cssClass="form-control unlink-group" id="fnPI" placeholder="" value="%{project.piFirstName}"  maxLength="30"/>
+						</div>
+						<div class="form-group col-xs-5 has-feedback">
+							<label for="Last Name of Principal Investigator"><i
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
+								Name of Principal Investigator</label>
+								<s:textfield name="extramuralGrant.piLastName" cssClass="form-control unlink-group" id="lnPI" placeholder="" value="%{project.piLastName}"  maxLength="30"/>								
+						</div>
+					</div>
+
+					<div class="form-group row has-feedback">
+						<div class="col-xs-6">
+							<label for="Email of Principal Investigator"><i
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
+								of Principal Investigator</label>
+								<s:textfield name="extramural.piEmailAddress" cssClass="form-control unlink-group" id="piEmail" placeholder="Enter Vaild Email Address"
+								data-error="Email address is invalid" value="%{extramuralGrant.piEmailAddress}"  maxLength="80"/>								
+						</div>
+						<div class="help-block with-errors" style="margin-left: 15px"></div>
+					</div>
+                    
+                    <div id="piInstution">
+					<div class="form-group row has-feedback">
+						<div class="col-xs-10">
+							<label for="Institution of Principal Investigator"><i
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
+								of Principal Investigator</label>
+								<s:textfield name="extramuralGrant.piInstitution" cssClass="form-control unlink-group" id="PIInstitute" placeholder="" value="%{extramuralGrant.piInstitution}"  maxLength="120"/>								
+						</div>
+					</div>
+                    </div>
+                    
+					<div class="row">
+						<div class="form-group col-xs-5 has-feedback">
+							<label for="First Name of Principal Investigator">First
+								Name of Primary Contact</label> 
+								<s:textfield name="extramuralGrant.pocFirstName" cssClass="form-control" id="fnPC" placeholder="Required if No Principal Investigator" value="%{extramuralGrant.pocFirstName}" maxLength="30"/>								
+						</div>
+						<div class="form-group col-xs-5 has-feedback">
+							<label for="Last Name of Primary Contact">Last Name of
+								Primary Contact</label> 
+								<s:textfield name="extramuralGrant.pocLastName" cssClass="form-control" id="lnPC" placeholder="Required if No Principal Investigator" value="%{extramuralGrant.pocLastName}" maxLength="30"/>								
+						</div>
+					</div>
+
+					<div class="form-group row has-feedback">
+						<div class="col-xs-6">
+							<label for="Email of Principal Investigator">Email of
+								Primary Contact</label>
+						<s:textfield name="extramuralGrant.pocEmailAddress" cssClass="form-control" id="PCemail" placeholder="Enter Vaild Email Address" data-error="Email address is invalid" value="%{extramuralGrant.pocEmailAddress}" maxLength="80"/>								
+						</div>
+						<div class="help-block with-errors" style="margin-left: 15px"></div>
+					</div>
+					
+					<div id="pdName" class="row pdirector ">
+						<div class="form-group col-xs-5 has-feedback">
+							<label for="First Name of Program Director"><i
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
+								Name of Program Director</label>
+								<s:textfield name="extramuralGrant.pdFirstName" cssClass="form-control unlink-group" id="fnPD" placeholder="" value="%{extramuralGrant.pdFirstName}"  maxLength="30"/>								
+						</div>
+						<div class="form-group col-xs-5 has-feedback">
+							<label for="Last Name of Program Director"><i
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>Last
+								Name of Program Director</label>
+								<s:textfield name="extramuralGrant.pdLastName" cssClass="form-control unlink-group" id="lnPD" placeholder="" value="%{extramuralGrant.pdLastName}"  maxLength="30"/>								
+						</div>
+					</div>
+				</div>
+
+				<div class="row pdates">
+					<div id="pStartDate"
+						class="form-group col-xs-2 projectDates has-feedback">
+						<label for="Project Start Date"><i
+							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
+							Start Date</label>
+						<div class="input-group date">
+						
+						<s:textfield name="project.projectStartDate" cssClass="form-control unlink-group" id="projectStartDate" value="%{projectStartDate}" />	
+						<span
+								class="input-group-addon"><i
+								class="glyphicon glyphicon-th"></i></span>
+
+						</div>
+					</div>
+
+					<div id="pEndDate"
+						class="form-group col-xs-2 projectDates has-feedback">
+						<label for="Project End Date"><i
+							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
+							End Date</label>
+						<div class="input-group date">
+						<s:textfield name="project.projectEndDate" cssClass="form-control unlink-group" id="projectEndDate" value="%{projectEndDate}" />	
+							<span
+								class="input-group-addon"><i
+								class="glyphicon glyphicon-th"></i></span>
+
+						</div>
+					</div>
+
+				</div> <!--end panel body-->
+				</div> <!--end panel -->
 
 					<div class="form-group row  col-xs-12" style="padding-left: 30px;">
 
