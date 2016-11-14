@@ -67,6 +67,7 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole</value>				
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Project</value>
+				
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Study</value>
@@ -76,6 +77,7 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Organization</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.GdsPd</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract</value>				
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole</value>
 			</list>

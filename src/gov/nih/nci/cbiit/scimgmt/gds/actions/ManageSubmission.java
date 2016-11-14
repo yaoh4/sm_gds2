@@ -38,6 +38,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
@@ -85,6 +86,10 @@ public class ManageSubmission extends BaseAction {
 	protected Set<Long> oldSet = new HashSet<Long>();
 	
 	protected Set<Long> otherSet = new HashSet<Long>();
+	
+	private ProjectGrantContract intramuralGrant = new ProjectGrantContract();
+	private ProjectGrantContract extramuralGrant = new ProjectGrantContract();
+	
 	
 	/**
 	 * Execute method, for now used for navigation
@@ -493,40 +498,48 @@ public class ManageSubmission extends BaseAction {
 	 */
 	public void loadGrantInfo(Project project){
 			
-			logger.debug("Retreiving Project grant information data from grantsContractsw for grantContract with applId: "+project.getApplId());
-			GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(project.getApplId());
-			if(StringUtils.equals(project.getDataLinkFlag(), "Y") &&
-					!ApplicationConstants.APPL_CLASS_CODE_INTRAMURAL.equals(project.getApplClassCode())){
-			if(grantContract != null){
-				project.setProjectTitle(grantContract.getProjectTitle());
-				project.setPiFirstName(grantContract.getPiFirstName());
-				project.setPiLastName(grantContract.getPiLastName());
-				project.setPiInstitution(grantContract.getPiInstitution());
-				project.setPiEmailAddress(grantContract.getPiEmailAddress());
-				project.setPdFirstName(grantContract.getPdFirstName());
-				project.setPdLastName(grantContract.getPdLastName());
-				project.setProjectStartDate(grantContract.getProjectPeriodStartDate());
-				project.setProjectEndDate(grantContract.getProjectPeriodEndDate());
-				//project.setApplClassCode(grantContract.getApplClassCode());
-				project.setCayCode(grantContract.getCayCode());
-			}
-		}
-		else {
-			if(grantContract != null) 
-				project.setCayCode(grantContract.getCayCode());
+		ProjectGrantContract extramuralGrantContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
+		if(extramuralGrantContract != null) {
+			if(extramuralGrantContract.getApplId() != null && 
+				ApplicationConstants.FLAG_YES.equals(extramuralGrantContract.getDataLinkFlag())) {
 			
+				GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(extramuralGrantContract.getApplId());
+				if(grantContract != null){
+					extramuralGrantContract.setProjectTitle(grantContract.getProjectTitle());
+					extramuralGrantContract.setPiFirstName(grantContract.getPiFirstName());
+					extramuralGrantContract.setPiLastName(grantContract.getPiLastName());
+					extramuralGrantContract.setPiInstitution(grantContract.getPiInstitution());
+					extramuralGrantContract.setPiEmailAddress(grantContract.getPiEmailAddress());
+					extramuralGrantContract.setPdFirstName(grantContract.getPdFirstName());
+					extramuralGrantContract.setPdLastName(grantContract.getPdLastName());
+					extramuralGrantContract.setProjectStartDate(grantContract.getProjectPeriodStartDate());
+					extramuralGrantContract.setProjectEndDate(grantContract.getProjectPeriodEndDate());
+					//project.setApplClassCode(grantContract.getApplClassCode());
+					extramuralGrantContract.setCayCode(grantContract.getCayCode());
+				}
+			}
+			
+			setExtramuralGrant(extramuralGrantContract);
 		}
+		
+		
+		ProjectGrantContract intramuralGrantContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+		if(intramuralGrantContract != null) {
+			setIntramuralGrant(intramuralGrantContract);
+		}		
 	}
 	
+	
+	
 	//Get project start date
-	public String getProjectStartDate() {		
+	/*public String getProjectStartDate() {		
 		return dateFormat.format(getProject().getProjectStartDate());
-	}
+	}*/
 
 	//Get project end date
-	public String getProjectEndDate() {
+	/*public String getProjectEndDate() {
 		return dateFormat.format(getProject().getProjectEndDate());
-	}
+	}*/
 	
 	//Invoked to display status on individual pages
 	public String getPageStatusCode(String pageCode) {
@@ -608,6 +621,38 @@ public class ManageSubmission extends BaseAction {
 		this.otherTextMap = otherText;
 	}
 	
+	/**
+	 * @return the intramuralGrant
+	 */
+	public ProjectGrantContract getIntramuralGrant() {
+		return intramuralGrant;
+	}
+
+
+	/**
+	 * @param intramuralGrant the intramuralGrant to set
+	 */
+	public void setIntramuralGrant(ProjectGrantContract intramuralGrant) {
+		this.intramuralGrant = intramuralGrant;
+	}
+
+
+	/**
+	 * @return the extramuralGrant
+	 */
+	public ProjectGrantContract getExtramuralGrant() {
+		return extramuralGrant;
+	}
+
+
+	/**
+	 * @param extramuralGrant the extramuralGrant to set
+	 */
+	public void setExtramuralGrant(ProjectGrantContract extramuralGrant) {
+		this.extramuralGrant = extramuralGrant;
+	}
+
+
 	/**
 	 * Return true if answer should be pre-selected 
 	 * based on saved data for checkboxes

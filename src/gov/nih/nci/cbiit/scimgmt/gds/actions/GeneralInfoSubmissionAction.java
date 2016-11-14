@@ -26,6 +26,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
@@ -48,6 +49,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String applId;
 	private String valueSelected;
 	private String grantSelection;
+	
 	
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();
 	private List<DropDownOption> progList = new ArrayList<DropDownOption>();
@@ -132,16 +134,42 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void saveProject() throws Exception{
 		
-		if(StringUtils.isNotBlank(applId)){
-			getProject().setApplId(Long.valueOf(applId));
+		/*if(grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL)
+			|| grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH)){
+			getProject().addProjectGrantContract(getExtramuralGrant());
+		} else {
+			getProject().removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
 		}
 		
-		if(StringUtils.isNotBlank(grantSelection)){
-			getProject().setApplClassCode(grantSelection);
-		}
+		if(grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL)
+				|| grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH)){
+			getProject().addProjectGrantContract(getIntramuralGrant());
+		} else {
+			getProject().removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+		}*/
 		
 		Project project = retrieveSelectedProject();		
 		if(project != null){
+			ProjectGrantContract storedExtramuralContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
+			if( storedExtramuralContract != null) {
+				if(getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL) != null) {
+					getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).setId(storedExtramuralContract.getId());
+					getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).setCreatedDate(storedExtramuralContract.getCreatedDate());
+					
+				}
+				project.removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
+			}
+			
+			ProjectGrantContract storedIntramuralContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+			if( storedIntramuralContract != null) {
+				if(getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL) != null) {
+					getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL).setId(storedIntramuralContract.getId());
+					getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL).setCreatedDate(storedIntramuralContract.getCreatedDate());
+				}
+				project.removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+			}
+			
+			
 			performDataCleanup(getProject(),project);
 			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(),project);		
 		}
@@ -151,7 +179,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			if(project.getId() == null && project.getParentProjectId() != null) {
 				Project parentProject = retrieveParentProject(project);
 				project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
-				project.setApplClassCode(parentProject.getApplClassCode());
+				project.setProjectGrantsContracts(parentProject.getProjectGrantsContracts());
 				project.setDocAbbreviation(parentProject.getDocAbbreviation());
 				project.setProgramBranch(parentProject.getProgramBranch());
 			}
@@ -303,19 +331,24 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * This method sets up all data for General Info Page.
 	 */
 	private void setUpPageData(){
-
+ 
 		logger.debug("Setting up page data.");
+		setUpLists();	
 		Project project = retrieveSelectedProject();
 		if(project != null){
 			setProject(project);	
 			loadGrantInfo();
+			setGrantSelection(getProject().getGrantSelection());
 		}
 		else{			
 			setProject(new Project());
 			//Initially set to unlinked since there is no grant number
-			getProject().setDataLinkFlag(ApplicationConstants.FLAG_NO); 
-		}
-		setUpLists();				
+			getExtramuralGrant().setDataLinkFlag(ApplicationConstants.FLAG_NO); 
+			getExtramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
+			getExtramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
+			getIntramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+			getIntramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
+		}			
 	}
 	
 	/**
@@ -331,20 +364,17 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			
 			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());
 			if(preSelectedDOC.equalsIgnoreCase("DCEG") || preSelectedDOC.equalsIgnoreCase("CCR")) {
-				grantSelection = "M";
+				grantSelection = ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL;
 			} else {
-				grantSelection = "G";
+				grantSelection = ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL;
 			}
 			
-			if(getProject().getId() == null && getProject().getParentProjectId() == null && StringUtils.isBlank(getProject().getApplClassCode()) ){
-			    getProject().setApplClassCode(grantSelection);
-			}
 		}
 		
-		 if(progList.isEmpty()){
+		if(progList.isEmpty()){
 				List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
 				progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
-			}
+		}
 		 
 		if(projectSubmissionReasons.isEmpty()){			
 			projectSubmissionReasons = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST.toUpperCase());	
@@ -355,8 +385,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			preSelectedDOC = getProject().getDocAbbreviation();
 			progList.clear();
 			List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
-			progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
-			}
+			progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);			
+		}
 	}
 	
 	
@@ -506,8 +536,14 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String searchGrantOrContract(){
 
+		String applClassCode = null;
+		if(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL.equals(getGrantSelection())) {
+			applClassCode = ApplicationConstants.APPL_CLASS_CODE_EXTRAMURAL;
+		} else if(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL.equals(getGrantSelection())) {
+			applClassCode = ApplicationConstants.APPL_CLASS_CODE_INTRAMURAL;
+		}
 		logger.debug("Searching grants / contracts.");
-		grantOrContractList = manageProjectService.getGrantOrContractList(grantContractNum,getProject().getApplClassCode());
+		grantOrContractList = manageProjectService.getGrantOrContractList(grantContractNum, applClassCode);
 		filterSingleQuotes();
 		return SUCCESS;
 	}
@@ -554,9 +590,28 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void validateGeneralInfoSave(){	
 		
+		if(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL.equals(grantSelection)
+				|| ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH.equals(grantSelection)) {
+			//Retrieve extramural data from UI			
+			getProject().setPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL, getExtramuralGrant());
+			//validate grant data
+			validateGrantData(getExtramuralGrant());
+			validatePrincipleInvestigator(getExtramuralGrant());
+			validatePrimaryContact(getExtramuralGrant());
+		}
+		
+		if(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL.equals(grantSelection)
+				|| ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH.equals(grantSelection)) {
+			//Retrieve intramural grant from UI
+			getProject().setPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL, getIntramuralGrant());
+			//validate grant data
+			validateGrantData(getIntramuralGrant());
+			validatePrincipleInvestigator(getIntramuralGrant());
+			validatePrimaryContact(getIntramuralGrant());
+		}
+		
 		validateProjectDetails();
-		validatePrincipleInvestigator();
-		validatePrimaryContact();	
+		
 		
 		//If user selected a grant from grantContract search page and then validation failed on general info page while saving
 		//then re-populate the grantContract information.
@@ -564,13 +619,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			if(StringUtils.isNotBlank(getProjectId())){
 				getProject().setId(Long.valueOf(getProjectId()));
 			}
-			if(StringUtils.isNotBlank(applId)){
-				getProject().setApplId(Long.valueOf(applId));
-				if(ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag()))
-					loadGrantInfo();
-			}
+			
+			loadGrantInfo();
+			
 			setUpLists();
-		}
+		} 
 	}	
 
 	/**
@@ -584,7 +637,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}
 		
 		Long submissionReasonId = null;
-		
         
 		//Validation for SubmissionReason
 		if(getProject().getParentProjectId() == null){
@@ -611,55 +663,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			} else {
 				progBranch = retrieveParentProject().getProgramBranch();
 			}
-		
-			
-			
-			//Validate only if grant is selected and it is not linked
-			if(!StringUtils.isBlank(getProject().getApplicationNum()) && 
-				!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())){
-				//Validation for Title
-				if(StringUtils.isBlank(getProject().getProjectTitle())){
-					this.addActionError(getText("projecttitle.required")); 
-				}
-
-				//Exclude Intramural also from the below validations
-				if(!ApplicationConstants.APPL_CLASS_CODE_INTRAMURAL.equals(getProject().getApplClassCode())) {
-						
-					//Validation for PD first name.
-					if(StringUtils.isBlank(getProject().getPdFirstName())){
-						this.addActionError(getText("pd.firstname.required")); 
-					}
-
-					//Validation for PD last name.
-					if(StringUtils.isBlank(getProject().getPdLastName())){
-						this.addActionError(getText("pd.lastname.required")); 
-					}
-
-					//Validation for Project start date.
-					if(getProject().getProjectStartDate() == null){
-						this.addActionError(getText("project.start.date.required")); 
-					}
-
-					//Validation for Project end date.
-					if(getProject().getProjectEndDate() == null){
-						this.addActionError(getText("project.end.date.required")); 
-					}
-			
-					if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null) {
-						Calendar startCal = new GregorianCalendar();
-						startCal.setTime(getProject().getProjectStartDate());
-						Calendar endCal = new GregorianCalendar();
-						endCal.setTime(getProject().getProjectEndDate());
-						if(startCal.get(Calendar.YEAR) > 9999 || endCal.get(Calendar.YEAR) > 9999){
-						this.addActionError(getText("error.daterange.year"));
-						}	
-					}
-			
-					if(getProject().getProjectStartDate() != null && getProject().getProjectEndDate() != null && getProject().getProjectStartDate().after(getProject().getProjectEndDate())){
-						this.addActionError(getText("error.daterange.outofsequence"));
-					}	
-				}
-			}
 		}
 		//Comments cannot be greater than 2000 characters.
 		if(!StringUtils.isBlank(getProject().getComments())) {
@@ -668,37 +671,97 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			}
 		}	
 	}
+		
+		
+	private void validateGrantData(ProjectGrantContract projectGrantContract) {
+		
+		//Validate only if grant is selected and it is not linked
+		if(projectGrantContract != null &&
+				!StringUtils.isBlank(projectGrantContract.getGrantContractNum()) && 
+				!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag())){
+			//Validation for Title
+			if(StringUtils.isBlank(projectGrantContract.getProjectTitle())){
+				this.addActionError(getText("projecttitle.required")); 
+			}
 
+			//Exclude Intramural also from the below validations
+			if(ApplicationConstants.APPL_CLASS_CODE_EXTRAMURAL.equals(projectGrantContract.getApplClassCode())) {
+				
+				//Validation for PD first name.
+				if(StringUtils.isBlank(projectGrantContract.getPdFirstName())){
+					this.addActionError(getText("pd.firstname.required")); 
+				}
+
+				//Validation for PD last name.
+				if(StringUtils.isBlank(projectGrantContract.getPdLastName())){
+					this.addActionError(getText("pd.lastname.required")); 
+				}
+
+				//Validation for Project start date.
+				if(projectGrantContract.getProjectStartDate() == null){
+					this.addActionError(getText("project.start.date.required")); 
+				}
+
+				//Validation for Project end date.
+				if(projectGrantContract.getProjectEndDate() == null){
+					this.addActionError(getText("project.end.date.required")); 
+				}
+	
+				if(projectGrantContract.getProjectStartDate() != null 
+						&& projectGrantContract.getProjectEndDate() != null) {
+					Calendar startCal = new GregorianCalendar();
+					startCal.setTime(projectGrantContract.getProjectStartDate());
+					Calendar endCal = new GregorianCalendar();
+					endCal.setTime(projectGrantContract.getProjectEndDate());
+					if(startCal.get(Calendar.YEAR) > 9999 || endCal.get(Calendar.YEAR) > 9999){
+						this.addActionError(getText("error.daterange.year"));
+					}	
+				}
+	
+				if(projectGrantContract.getProjectStartDate() != null 
+					&& projectGrantContract.getProjectEndDate() != null 
+					&& projectGrantContract.getProjectStartDate().after(projectGrantContract.getProjectEndDate())){
+					this.addActionError(getText("error.daterange.outofsequence"));
+				}	
+			}
+		}
+		
+	}
+
+	
 	/**
 	 * Validates Principle investigator information.
 	 */
-	public void validatePrincipleInvestigator(){	
+	public void validatePrincipleInvestigator(ProjectGrantContract projectGrantContract){
 		
-		if(!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())) {
+		//If the grant is present and the data link flag is not present, then do the validation
+		if(projectGrantContract != null && 
+				!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag())) {
 
 			//If any piece of PI info is present, look for the others
-			if(!StringUtils.isBlank(getProject().getPiFirstName()) || 
-			   !StringUtils.isBlank(getProject().getPiLastName()) ||  
-			   !StringUtils.isBlank(getProject().getPiEmailAddress()) || 
-			   !StringUtils.isBlank(getProject().getPiInstitution())) {
+			if(!StringUtils.isBlank(projectGrantContract.getPiFirstName()) || 
+			   !StringUtils.isBlank(projectGrantContract.getPiLastName()) ||  
+			   !StringUtils.isBlank(projectGrantContract.getPiEmailAddress()) || 
+			   !StringUtils.isBlank(projectGrantContract.getPiInstitution())) {
 			
 				//Validation for PI first name and last name.
-				if(StringUtils.isBlank(getProject().getPiFirstName())){
+				if(StringUtils.isBlank(projectGrantContract.getPiFirstName())){
 					this.addActionError(getText("pi.firstname.required")); 
 				}
-				if(StringUtils.isBlank(getProject().getPiLastName())){
+				if(StringUtils.isBlank(projectGrantContract.getPiLastName())){
 					this.addActionError(getText("pi.lastname.required")); 
 				}
 
 				//Validation for PI email.
-				if(StringUtils.isBlank(getProject().getPiEmailAddress())){
+				if(StringUtils.isBlank(projectGrantContract.getPiEmailAddress())){
 					this.addActionError(getText("pi.email.required")); 
 				}
                    
 				//Validation for PI institution.
-				if(!("M").equalsIgnoreCase(grantSelection)) {
-				if(StringUtils.isBlank(getProject().getPiInstitution())){
-					this.addActionError(getText("pi.institution.required")); 
+				if((ApplicationConstants.APPL_CLASS_CODE_EXTRAMURAL).equalsIgnoreCase(
+						projectGrantContract.getGrantContractType())) {
+					if(StringUtils.isBlank(projectGrantContract.getPiInstitution())){
+						this.addActionError(getText("pi.institution.required")); 
 					}
 				}
 			}
@@ -708,28 +771,30 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	/**
 	 * Validates Primary contact information.
 	 */
-	public void validatePrimaryContact(){		
+	public void validatePrimaryContact(ProjectGrantContract projectGrantContract){		
 
+		//If the grant is present and the data link flag is not present, then do the validation
+		if(projectGrantContract != null && 
+				!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag())) {
 		//Validation for Primary Contact. 
-		if(!ApplicationConstants.FLAG_YES.equals(getProject().getDataLinkFlag())) {
-			if(StringUtils.isBlank(getProject().getPiFirstName()) && 
-			   StringUtils.isBlank(getProject().getPiLastName()) &&
-			   StringUtils.isBlank(getProject().getPiEmailAddress()) &&
-			   StringUtils.isBlank(getProject().getPiInstitution())) {
-				if(StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
+			if(StringUtils.isBlank(projectGrantContract.getPiFirstName()) && 
+			   StringUtils.isBlank(projectGrantContract.getPiLastName()) &&
+			   StringUtils.isBlank(projectGrantContract.getPiEmailAddress()) &&
+			   StringUtils.isBlank(projectGrantContract.getPiInstitution())) {
+				if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName())){
 					this.addActionError(getText("primarycontact.required")); 
 				}
-				else if(!StringUtils.isBlank(getProject().getPocFirstName()) && StringUtils.isBlank(getProject().getPocLastName())){
+				else if(!StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName())){
 					this.addActionError(getText("primarycontact.lastname.required")); 
 				}
-				else if(StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())){
+				else if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && !StringUtils.isBlank(projectGrantContract.getPocLastName())){
 					this.addActionError(getText("primarycontact.firstname.required")); 
 				}
 			  		
 
 				//Validation for Primary contact.
-				if(!StringUtils.isBlank(getProject().getPocFirstName()) && !StringUtils.isBlank(getProject().getPocLastName())
-					&& (StringUtils.isBlank(getProject().getPocEmailAddress()))){
+				if(!StringUtils.isBlank(projectGrantContract.getPocFirstName()) && !StringUtils.isBlank(projectGrantContract.getPocLastName())
+					&& (StringUtils.isBlank(projectGrantContract.getPocEmailAddress()))){
 					this.addActionError(getText("primarycontact.email.required")); 
 				}
 			}

@@ -21,6 +21,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 
@@ -233,52 +234,37 @@ public class GdsSubmissionActionHelper {
 		
 		logger.debug("Copying transient project properties to persistent project properties.");
 		persistentProject.setSubmissionTitle(transientProject.getSubmissionTitle());
-		persistentProject.setApplClassCode(transientProject.getApplClassCode());
 		if(!persistentProject.getSubprojectFlag().equalsIgnoreCase(ApplicationConstants.FLAG_YES)) {
 			persistentProject.setSubmissionReasonId(transientProject.getSubmissionReasonId());
 			persistentProject.setDocAbbreviation(transientProject.getDocAbbreviation());
 			persistentProject.setProgramBranch(transientProject.getProgramBranch());
 		}
-		persistentProject.setPocFirstName(transientProject.getPocFirstName());
-		persistentProject.setPocLastName(transientProject.getPocLastName());
-		persistentProject.setPocEmailAddress(transientProject.getPocEmailAddress());
-		persistentProject.setApplicationNum(transientProject.getApplicationNum());
-		persistentProject.setApplId(transientProject.getApplId());
 		persistentProject.setComments(transientProject.getComments());
-		persistentProject.setDataLinkFlag(transientProject.getDataLinkFlag());
 		
-		//Set PI, PD, Title and Dates properties when grant is not linked or applClassCode
-		//is intramural.
-		if(StringUtils.equals(transientProject.getDataLinkFlag(), "N") ||
-				ApplicationConstants.APPL_CLASS_CODE_INTRAMURAL.equals(transientProject.getApplClassCode())){	
-			
-			logger.debug("Grant/Contract is not tied to this project. This is a manual entry.");
-			persistentProject.setProjectTitle(transientProject.getProjectTitle());
-			persistentProject.setPiFirstName(transientProject.getPiFirstName());
-			persistentProject.setPiLastName(transientProject.getPiLastName());
-			persistentProject.setPiEmailAddress(transientProject.getPiEmailAddress());
-			persistentProject.setPiInstitution(transientProject.getPiInstitution());		
-			persistentProject.setPdFirstName(transientProject.getPdFirstName());
-			persistentProject.setPdLastName(transientProject.getPdLastName());
-			persistentProject.setProjectStartDate(transientProject.getProjectStartDate());
-			persistentProject.setProjectEndDate(transientProject.getProjectEndDate());
+		//Set PI, PD, Title and Dates properties for extramural grant when 
+		//grant is not linked 
+		ProjectGrantContract extramuralGrant = transientProject.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
+		if(extramuralGrant != null) {
+			//If project is being saved with the linked data, then wipe out old PI, PD, Title and Dates properties.
+			if(StringUtils.equals(extramuralGrant.getDataLinkFlag(), "Y")) {			
+				logger.debug("Grant/Contract is tied to the already saved project which was manually entered. Nullify old PI, PD, Title and Dates properties.");
+				extramuralGrant.setProjectTitle(null);
+				extramuralGrant.setPiFirstName(null);
+				extramuralGrant.setPiLastName(null);
+				extramuralGrant.setPiEmailAddress(null);
+				extramuralGrant.setPiInstitution(null);		
+				extramuralGrant.setPdFirstName(null);
+				extramuralGrant.setPdLastName(null);
+				extramuralGrant.setProjectStartDate(null);
+				extramuralGrant.setProjectEndDate(null);			
+			}
+			persistentProject.setPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL, extramuralGrant);	
 		}
-		//If a grant is tied to the already saved project which was manually entered then wipe out old PI, PD, Title and Dates properties.
-		else if(StringUtils.equals(transientProject.getDataLinkFlag(), "Y")){
-			
-			logger.debug("Grant/Contract is tied to the already saved project which was manually entered. Nullify old PI, PD, Title and Dates properties.");
-			persistentProject.setApplId(transientProject.getApplId());
-			persistentProject.setProjectTitle(null);
-			persistentProject.setPiFirstName(null);
-			persistentProject.setPiLastName(null);
-			persistentProject.setPiEmailAddress(null);
-			persistentProject.setPiInstitution(null);		
-			persistentProject.setPdFirstName(null);
-			persistentProject.setPdLastName(null);
-			persistentProject.setProjectStartDate(null);
-			persistentProject.setProjectEndDate(null);
-			
-		}		
+		
+		ProjectGrantContract intramuralGrant = transientProject.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+		if(intramuralGrant != null) {
+			persistentProject.setPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL, intramuralGrant);	
+		}
 		return persistentProject;
 	}
 	

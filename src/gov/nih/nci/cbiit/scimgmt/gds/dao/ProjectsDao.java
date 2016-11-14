@@ -27,6 +27,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 
@@ -107,13 +108,27 @@ public class ProjectsDao {
 			if(id != null){
 				//Already saved submission				
 				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Project.class, id));
-				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());				
+				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());	
+				detachedInstance.setLastChangedDate(new Date());
+				for(ProjectGrantContract grantContract: detachedInstance.getProjectGrantsContracts()) {
+					//TBD - Uncomment after DB issue is fixed
+					//grantContract.setLastChangedBy(loggedOnUser.getAdUserId());
+					grantContract.setLastChangedDate(new Date());
+					grantContract.setProject(detachedInstance);
+				}
 			}
 			else{
 				//New submission
 				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId());	
 				detachedInstance.setCreatedDate(new Date());
+				for(ProjectGrantContract grantContract: detachedInstance.getProjectGrantsContracts()) {
+					grantContract.setCreatedBy(loggedOnUser.getAdUserId());
+					grantContract.setCreatedDate(new Date());
+					grantContract.setProject(detachedInstance);
+				}
 			}
+			//TBD - Remove once the trigger is fixed
+			detachedInstance.setProjectGroupId(1L);
 			Project result = (Project) sessionFactory.getCurrentSession().merge(detachedInstance);
 			for (Iterator<PlanAnswerSelection> iterator = result.getPlanAnswerSelections().iterator(); iterator.hasNext();) {
 				PlanAnswerSelection afterMerge = iterator.next();

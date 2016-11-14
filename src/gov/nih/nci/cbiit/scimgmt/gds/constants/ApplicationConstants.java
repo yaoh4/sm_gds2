@@ -48,6 +48,10 @@ public interface ApplicationConstants {
 	 public static final String DOC_LIST = "docList";
 	 public static final String PD_LIST = "pdList";
 	 
+	 public static final String GRANT_CONTRACT_TYPE_EXTRAMURAL = "Extramural";
+	 public static final String GRANT_CONTRACT_TYPE_INTRAMURAL = "Intramural";
+	 public static final String GRANT_CONTRACT_TYPE_BOTH = "Both";
+	 
 	 /* Numeric constants */
 	 public static final Long PLAN_QUESTION_ANSWER_REPOSITORY_ID = 20L;
 	 public static final Long PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID = 21L;
