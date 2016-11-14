@@ -345,7 +345,7 @@ public class Project implements java.io.Serializable {
 	}
 
 	
-	@Column(name = "GROUP_ID", precision = 10, scale = 0)
+	@Column(name = "PROJECT_GROUP_ID", precision = 10, scale = 0)
 	public Long getProjectGroupId() {
 		return this.projectGroupId;
 	}

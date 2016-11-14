@@ -110,9 +110,8 @@ public class ProjectsDao {
 				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Project.class, id));
 				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());	
 				detachedInstance.setLastChangedDate(new Date());
-				for(ProjectGrantContract grantContract: detachedInstance.getProjectGrantsContracts()) {
-					//TBD - Uncomment after DB issue is fixed
-					//grantContract.setLastChangedBy(loggedOnUser.getAdUserId());
+				for(ProjectGrantContract grantContract: detachedInstance.getProjectGrantsContracts()) {				
+					grantContract.setLastChangedBy(loggedOnUser.getAdUserId());
 					grantContract.setLastChangedDate(new Date());
 					grantContract.setProject(detachedInstance);
 				}
@@ -128,7 +127,7 @@ public class ProjectsDao {
 				}
 			}
 			//TBD - Remove once the trigger is fixed
-			detachedInstance.setProjectGroupId(1L);
+			//detachedInstance.setProjectGroupId(1L);
 			Project result = (Project) sessionFactory.getCurrentSession().merge(detachedInstance);
 			for (Iterator<PlanAnswerSelection> iterator = result.getPlanAnswerSelections().iterator(); iterator.hasNext();) {
 				PlanAnswerSelection afterMerge = iterator.next();
