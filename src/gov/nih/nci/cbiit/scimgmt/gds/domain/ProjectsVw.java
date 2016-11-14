@@ -46,7 +46,6 @@ public class ProjectsVw implements java.io.Serializable {
 	private ProjectsVw parentProject;
 	private String latestVersionFlag;
 	private Long projectGroupId;
-	private Long subprojectGroupId;
 	private Long submissionReasonId;
 	private String icCompleteFlag;
 	private String piFirstName;
@@ -86,7 +85,7 @@ public class ProjectsVw implements java.io.Serializable {
 			String programBranch, String grantContractNum, String piInstitution, String piEmailAddress,
 			Date projectStartDate, Date projectEndDate, Date sciRevApprovalRcvdDate, String parentAccessionNum,
 			String comments, Long bsiReviewedId, Long versionNum, String subprojectFlag,
-			ProjectsVw parentProject, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
+			ProjectsVw parentProject, String latestVersionFlag, Long projectGroupId, 
 			Long submissionReasonId, String icCompleteFlag, String piFirstName, String piLastName,
 			String pocFirstName, String pocLastName, Long pdNpnId, String pdFirstName, String pdLastName,
 			String pocEmailAddress, String planComments, Long applId, String bsiComments,
@@ -112,7 +111,6 @@ public class ProjectsVw implements java.io.Serializable {
 		this.parentProject = parentProject;
 		this.latestVersionFlag = latestVersionFlag;
 		this.projectGroupId = projectGroupId;
-		this.subprojectGroupId = subprojectGroupId;
 		this.submissionReasonId = submissionReasonId;
 		this.icCompleteFlag = icCompleteFlag;
 		this.piFirstName = piFirstName;
@@ -308,15 +306,6 @@ public class ProjectsVw implements java.io.Serializable {
 
 	public void setProjectGroupId(Long projectGroupId) {
 		this.projectGroupId = projectGroupId;
-	}
-
-	@Column(name = "SUBPROJECT_GROUP_ID", precision = 10, scale = 0)
-	public Long getSubprojectGroupId() {
-		return this.subprojectGroupId;
-	}
-
-	public void setSubprojectGroupId(Long subprojectGroupId) {
-		this.subprojectGroupId = subprojectGroupId;
 	}
 
 	@Column(name = "SUBMISSION_REASON_ID", nullable = false, precision = 10, scale = 0)
