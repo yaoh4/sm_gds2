@@ -167,7 +167,7 @@
 					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Intramural/Grant/Contract Project Title</label> 
-							<s:textfield name="extramural.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
+							<s:textfield name="extramuralGrant.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
 					</div>

@@ -229,16 +229,15 @@ public class ProjectsDao {
 			if(applClassCode !=null) {
 				criteria.add(Restrictions.eq("applClassCode", applClassCode));
 			}
-			List<GdsGrantsContracts> grantsListlist = criteria.list();		
+			List<GdsGrantsContracts> grantsListlist = criteria.list();
 			
 			//If multiple records exist then always pick the latest grant.
 			if(grantsListlist.size() > 1){	
 				criteria.add(Restrictions.eqProperty("lookupGrantContractNum","grantContractNum"));
-				if(applClassCode !=null) {
 				criteria.add(Restrictions.eq("applClassCode", applClassCode));
-				}
 				grantsListlist = criteria.list();
 			}
+			
 			return grantsListlist;
 
 		}catch (RuntimeException re) {
@@ -280,7 +279,9 @@ public class ProjectsDao {
 		logger.info("Retrieving already linked submissions for grantContractNum: "+grantContractNum);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);	
-			criteria.add(Restrictions.ilike("grantContractNum", grantContractNum,MatchMode.ANYWHERE));
+			criteria.add(Restrictions.or(
+					Restrictions.ilike("extGrantContractNum", grantContractNum,MatchMode.ANYWHERE),
+					Restrictions.ilike("intGrantContractNum", grantContractNum,MatchMode.ANYWHERE)));
 			if(!projectId.isEmpty()){
 			criteria.add(Restrictions.ne("id", Long.valueOf(projectId)));
 			criteria.add(Restrictions.or(
