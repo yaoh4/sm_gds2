@@ -52,6 +52,10 @@ public interface ApplicationConstants {
 	 public static final String GRANT_CONTRACT_TYPE_INTRAMURAL = "Intramural";
 	 public static final String GRANT_CONTRACT_TYPE_BOTH = "Both";
 	 
+	 public static final String SEARCH_TYPE_EXTRAMURAL = "extramural";
+	 public static final String SEARCH_TYPE_INTRAMURAL = "intramural";
+	 
+	 
 	 /* Numeric constants */
 	 public static final Long PLAN_QUESTION_ANSWER_REPOSITORY_ID = 20L;
 	 public static final Long PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID = 21L;

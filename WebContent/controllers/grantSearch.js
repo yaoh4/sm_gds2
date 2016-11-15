@@ -93,6 +93,8 @@ function cancel() {
 //Next button
 function populateGrantsContractsData(){
 	
+	var idPrefix = $("#grantContractIdPrefix").val();
+	var searchType = $("#searchType").val();
 	$("#messages").empty();
 	var grantContract = $("input[name=selectedGrantContract]:checked").val();
 	
@@ -106,47 +108,49 @@ function populateGrantsContractsData(){
 	var json = jQuery.parseJSON(grantContract);	
 		
 	if (json.grantContractNum !== "undefined") {
-		$("#grantsContractNum").val(json.grantContractNum);
+		$("#" + idPrefix + "_grantsContractNum").val(json.grantContractNum);
 	}
 	
-	if (json.projectTitle !== "undefined") {
-		$("#projectTitle").val(json.projectTitle);
-	}
+	if(searchType == 'extramural' || searchType == 'intramural') {
+		if (json.projectTitle !== "undefined") {
+			$("#" + idPrefix + "_projectTitle").val(json.projectTitle);
+		}
 	
-	if (json.piFirstName !== "undefined") {
-		$("#fnPI").val(json.piFirstName);
-	}
+		if (json.piFirstName !== "undefined") {
+			$("#" + idPrefix + "_fnPI").val(json.piFirstName);
+		}
 	
-	if (json.piLastName !== "undefined") {
-		$("#lnPI").val(json.piLastName);
-	}
+		if (json.piLastName !== "undefined") {
+			$("#" + idPrefix + "_lnPI").val(json.piLastName);
+		}
 	
-	if (json.piEmailAddress !== "undefined") {
-		$("#piEmail").val(json.piEmailAddress);
-	}
+		if (json.piEmailAddress !== "undefined") {
+			$("#" + idPrefix  + "_piEmail").val(json.piEmailAddress);
+		}
 	
-	if (json.piInstitution !== "undefined") {
-		$("#PIInstitute").val(json.piInstitution);
+		if (json.piInstitution !== "undefined") {
+			$("#" + idPrefix + "_PIInstitute").val(json.piInstitution);
+		}
 	}
 	
 	 //var applClassCode= json.applClassCode;	
 	 //var docName=$('#DOC').find('option:selected').text();
-	 var code= $("input[type='radio'].grantSelection:checked").val();
+	 //var code= $("input[type='radio'].grantSelection:checked").val();
 	
 	 //For Intramural grants don't display PD first name, last name and project start date, end date.
 	 //if(applClassCode != "M"){
-	 if(code == 'M'){
-		$("#grantsContractNum").prop('readOnly', false);
-	    $(".unlink-group").prop('disabled', false);
-	    $("#canAct").hide();
-	    $("#pdName").hide();
-		$("#pStartDate").hide();
-		$("#pEndDate").hide();	
-		$("#linkButton").hide();
+	 if(searchType == 'intramural'){
+		$("#" + idPrefix + "_grantsContractNum").prop('readOnly', false);
+	    //$(".unlink-group").prop('disabled', false);
+	    //$("#canAct").hide();
+	    //$("#pdName").hide();
+		//$("#pStartDate").hide();
+		//$("#pEndDate").hide();	
+		//$("#linkButton").hide();
 		$("#dataLinkFlag").val('N');
 	}
-	else{		
-		$("#grantsContractNum").prop('readOnly', true);
+	else if(searchType == 'extramural'){		
+		$("#" + idPrefix + "grantsContractNum").prop('readOnly', true);
 		$(".unlink-group").prop('disabled', true);
 		
 		if (json.pdFirstName !== "undefined") {
@@ -169,10 +173,10 @@ function populateGrantsContractsData(){
 			$("#cancerActivity").val(json.cayCode);
 		}
 		
-		$("#canAct").show();
-		$("#pdName").show();
-		$("#pStartDate").show();
-		$("#pEndDate").show();	
+		//$("#canAct").show();
+		//$("#pdName").show();
+		//$("#pStartDate").show();
+		//$("#pEndDate").show();	
 		
 		//Set grant to linked
 		$("#link").css("background-color", "#d4d4d4");
@@ -184,8 +188,8 @@ function populateGrantsContractsData(){
 		$("#dataLinkFlag").val('Y');
 		
 		//Replace search icon with edit icon since we already have a grant
-		$("#grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
-		$("#grantDiv button").attr("title", "Edit");
+		$("#" + idPrefix + "_grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
+		$("#" + idPrefix + "_grantDiv button").attr("title", "Edit");
 	}
 	
 	if (json.applId !== "undefined") {

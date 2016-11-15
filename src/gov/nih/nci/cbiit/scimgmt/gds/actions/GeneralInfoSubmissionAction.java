@@ -49,6 +49,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String applId;
 	private String valueSelected;
 	private String grantSelection;
+	private String searchType;
 	
 	
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();
@@ -537,9 +538,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	public String searchGrantOrContract(){
 
 		String applClassCode = null;
-		if(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL.equals(getGrantSelection())) {
+		if(ApplicationConstants.SEARCH_TYPE_EXTRAMURAL.equals(getSearchType())) {
 			applClassCode = ApplicationConstants.APPL_CLASS_CODE_EXTRAMURAL;
-		} else if(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL.equals(getGrantSelection())) {
+		} else if(ApplicationConstants.SEARCH_TYPE_INTRAMURAL.equals(getGrantSelection())) {
 			applClassCode = ApplicationConstants.APPL_CLASS_CODE_INTRAMURAL;
 		}
 		logger.debug("Searching grants / contracts.");
@@ -611,6 +612,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}
 		
 		validateProjectDetails();
+		
 		
 		
 		//If user selected a grant from grantContract search page and then validation failed on general info page while saving
@@ -945,4 +947,19 @@ public List<DropDownOption> getProgList() {
 	public void setGrantSelection(String grantSelection) {
 		this.grantSelection = grantSelection;
 	}
+
+	/**
+	 * @return the searchType
+	 */
+	public String getSearchType() {
+		return searchType;
+	}
+
+	/**
+	 * @param searchType the searchType to set
+	 */
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
 }

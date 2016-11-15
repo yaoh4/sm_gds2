@@ -25,8 +25,10 @@ $(function(){
 
 
 //Search/Edit button
-function openGrantsContractsSearchPage() {
+function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 	
+	$("#searchType").val(searchType);
+	$("#grantContractIdPrefix").val(grantContractIdPrefix);
 	$("#messages").empty();
 	$('#grantSearch').val('');
 	var parent = $(".tableContent").parent();
@@ -51,16 +53,29 @@ function openGrantsContractsSearchPage() {
 }
 
 $( document ).ready(function() {
-	if($("#grantsContractNum").val()=='') {
-		  $("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
-		  $("#grantDiv button").attr("title", "Search");
-		  $("#grantsContractNum").attr("placeholder", "Click on Search Icon");
-		  $("#canAct").hide();
-		  $("#linkButton").hide();
-	
+	var code= $("input[type='radio'].grantSelection:checked").val();
+	if(code == 'Extramural' || code == 'Both') {
+		if($("#extramural_grantsContractNum").val()=='') {
+			$("#extramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
+			$("#extramural_grantDiv button").attr("title", "Search");
+			$("#extramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
+			$("#canAct").hide();
+			$("#linkButton").hide();
+		} else {
+			$("#linkButton").show();
+		}
 	}
-	else {
-		$("#linkButton").show();
+	
+	if(code == 'Intramural' || code == 'Both') {
+		if($("#intramural_grantsContractNum").val()=='') {
+			$("#intramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
+			$("#intramural_grantDiv button").attr("title", "Search");
+			$("#intramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
+			$("#canAct").hide();
+			$("#linkButton").hide();
+		} else {
+			$("#linkButton").show();
+		}
 	}
 	
 });
