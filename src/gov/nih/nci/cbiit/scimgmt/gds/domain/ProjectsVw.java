@@ -71,7 +71,54 @@ public class ProjectsVw implements java.io.Serializable {
 	public ProjectsVw() {
 	}
 
-
+	public ProjectsVw(Long id, String docAbbreviation, String parentAccessionNum, Long versionNum,
+			String subprojectFlag, ProjectsVw parentProject, String latestVersionFlag, Long projectGroupId,
+			Long submissionReasonId, String projectSubmissionTitle, String gdsPlanPageStatusCode,
+			String dataSharingExcepStatusCode, String icPageStatusCode, String bsiPageStatusCode,
+			String repositoryPageStatusCode, String subprojectEligibleFlag, String projectStatusCode,
+			String extGrantContractNum, String extPiInstitution, String extPiEmailAddress, String extPiFirstName,
+			String extPiLastName, Long extPdNpnId, String extPdFirstName, String extPdLastName,
+			String intGrantContractNum, String intPiInstitution, String intPiEmailAddress, String intPiFirstName,
+			String intPiLastName, Long intPdNpnId, String intPdFirstName, String intPdLastName, Long subprojectCount,
+			Long repoCount, boolean expandRepository, String createdBy) {
+		this.id = id;
+		this.docAbbreviation = docAbbreviation;
+		this.parentAccessionNum = parentAccessionNum;
+		this.versionNum = versionNum;
+		this.subprojectFlag = subprojectFlag;
+		this.parentProject = parentProject;
+		this.latestVersionFlag = latestVersionFlag;
+		this.projectGroupId = projectGroupId;
+		this.submissionReasonId = submissionReasonId;
+		this.projectSubmissionTitle = projectSubmissionTitle;
+		this.gdsPlanPageStatusCode = gdsPlanPageStatusCode;
+		this.dataSharingExcepStatusCode = dataSharingExcepStatusCode;
+		this.icPageStatusCode = icPageStatusCode;
+		this.bsiPageStatusCode = bsiPageStatusCode;
+		this.repositoryPageStatusCode = repositoryPageStatusCode;
+		this.subprojectEligibleFlag = subprojectEligibleFlag;
+		this.projectStatusCode = projectStatusCode;
+		this.extGrantContractNum = extGrantContractNum;
+		this.extPiInstitution = extPiInstitution;
+		this.extPiEmailAddress = extPiEmailAddress;
+		this.extPiFirstName = extPiFirstName;
+		this.extPiLastName = extPiLastName;
+		this.extPdNpnId = extPdNpnId;
+		this.extPdFirstName = extPdFirstName;
+		this.extPdLastName = extPdLastName;
+		this.intGrantContractNum = intGrantContractNum;
+		this.intPiInstitution = intPiInstitution;
+		this.intPiEmailAddress = intPiEmailAddress;
+		this.intPiFirstName = intPiFirstName;
+		this.intPiLastName = intPiLastName;
+		this.intPdNpnId = intPdNpnId;
+		this.intPdFirstName = intPdFirstName;
+		this.intPdLastName = intPdLastName;
+		this.subprojectCount = subprojectCount;
+		this.repoCount = repoCount;
+		this.expandRepository = expandRepository;
+		this.createdBy = createdBy;
+	}
 
 	@Id
 	@Column(name = "ID", nullable = false, precision = 10, scale = 0)
@@ -210,11 +257,11 @@ public class ProjectsVw implements java.io.Serializable {
 		this.extPdNpnId = extPdNpnId;
 	}
 
+	@Column(name = "EXT_PD_FIRST_NAME", length = 120)
 	public String getExtPdFirstName() {
 		return extPdFirstName;
 	}
 
-	@Column(name = "EXT_PD_FIRST_NAME", length = 120)
 	public void setExtPdFirstName(String extPdFirstName) {
 		this.extPdFirstName = extPdFirstName;
 	}
@@ -246,11 +293,11 @@ public class ProjectsVw implements java.io.Serializable {
 		this.intPiInstitution = intPiInstitution;
 	}
 
+	@Column(name = "INT_PI_EMAIL_ADDRESS", length = 320)
 	public String getIntPiEmailAddress() {
 		return intPiEmailAddress;
 	}
-
-	@Column(name = "INT_PI_EMAIL_ADDRESS", length = 320)
+	
 	public void setIntPiEmailAddress(String intPiEmailAddress) {
 		this.intPiEmailAddress = intPiEmailAddress;
 	}
