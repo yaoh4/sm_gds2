@@ -192,7 +192,7 @@
 							<label for="Email of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
 								of Principal Investigator</label>
-								<s:textfield name="extramural.piEmailAddress" cssClass="form-control unlink-group" id="extramural_piEmail" placeholder="Enter Vaild Email Address"
+								<s:textfield name="extramuralGrant.piEmailAddress" cssClass="form-control unlink-group" id="extramural_piEmail" placeholder="Enter Vaild Email Address"
 								data-error="Email address is invalid" value="%{extramuralGrant.piEmailAddress}"  maxLength="80"/>								
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
@@ -211,7 +211,7 @@
                     
 					<div class="row">
 						<div class="col-xs-5 has-feedback">
-							<label for="First Name of Principal Investigator">First
+							<label for="First Name of Primary Contact">First
 								Name of Primary Contact</label> 
 								<s:textfield name="extramuralGrant.pocFirstName" cssClass="form-control" id="fnPC" placeholder="Required if No Principal Investigator" value="%{extramuralGrant.pocFirstName}" maxLength="30"/>								
 						</div>
@@ -342,7 +342,7 @@
 					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Intramural/Grant/Contract Project Title</label> 
-							<s:textfield name="intramural.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
+							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
 					</div>
@@ -386,7 +386,7 @@
                     
 					<div class="row">
 						<div class="col-xs-5 has-feedback">
-							<label for="First Name of Principal Investigator">First
+							<label for="First Name of Primary Contact">First
 								Name of Primary Contact</label> 
 								<s:textfield name="intramuralGrant.pocFirstName" cssClass="form-control" id="fnPC" placeholder="Required if No Principal Investigator" value="%{intramuralGrant.pocFirstName}" maxLength="30"/>								
 						</div>
