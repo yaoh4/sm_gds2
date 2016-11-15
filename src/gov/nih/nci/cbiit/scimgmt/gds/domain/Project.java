@@ -85,8 +85,7 @@ public class Project implements java.io.Serializable {
 	private Set<PlanAnswerSelection> planAnswerSelections = new HashSet(0);
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<InstitutionalCertification> institutionalCertifications = new ArrayList<InstitutionalCertification>();
-	private List<ProjectGrantContract> projectGrantContracts = new ArrayList<ProjectGrantContract>();
-	
+
 	
 	private Long subprojectCount;
 	private Long repoCount;
@@ -814,12 +813,4 @@ public class Project implements java.io.Serializable {
 		this.cayCode = cayCode;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval = true)
-	public List<ProjectGrantContract> getProjectGrantContracts() {
-		return projectGrantContracts;
-	}
-
-	public void setProjectGrantContracts(List<ProjectGrantContract> projectGrantContracts) {
-		this.projectGrantContracts = projectGrantContracts;
-	}
 }
