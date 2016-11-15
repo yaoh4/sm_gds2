@@ -57,15 +57,19 @@ $(document).ready(function(){
                 { "data": null},
                 { "data": "id"},
                 { "data": "projectSubmissionTitle"},
-                { "data": "grantContractNum"},
-                { "data": "piLastName"},
-                { "data": "piFirstName"},
-                { "data": "piEmailAddress"},
-                { "data":  "gdsPlanPageStatusCode"},
-                { "data":  "dataSharingExcepStatusCode"},
-                { "data":  "icPageStatusCode"},
-                { "data":  "bsiPageStatusCode"},
-                { "data":  "subprojectCount"}
+                { "data": "extGrantContractNum"},
+                { "data": "extPiLastName"},
+                { "data": "extPiFirstName"},
+                { "data": "extPiEmailAddress"},
+                { "data": "gdsPlanPageStatusCode"},
+                { "data": "dataSharingExcepStatusCode"},
+                { "data": "icPageStatusCode"},
+                { "data": "bsiPageStatusCode"},
+                { "data": "subprojectCount"},
+                { "data": "intGrantContractNum"},
+                { "data": "intPiLastName"},
+                { "data": "intPiFirstName"},
+                { "data": "intPiEmailAddress"}
             ],
             "searching": false,
             "pageLength": 5,
@@ -82,7 +86,7 @@ $(document).ready(function(){
             },
             "columnDefs": [
                {
-            	"targets": [ 1, 5, 6, 11 ],
+            	"targets": [ 1, 5, 6, 11, 12, 13, 14, 15 ],
             	"visible": false
 			   },
                {
@@ -114,18 +118,52 @@ $(document).ready(function(){
                 	return data;
                 } },
                 {
+                    "targets": 3, // Grant #
+                     
+                    "render": function (data, type, row, meta) {
+                    	grant = '';
+                    	if(data != null) {
+                    		grant = data;
+                    	}
+                    	if(row.intGrantContractNum != null) {
+                    		if(grant != '') {
+                    			grant = grant + '<br>'
+                    		}
+                    		grant = grant + row.intGrantContractNum
+                    	}
+                    	if(type == 'display') {
+                    		return grant;
+                    	}
+                    	return data;
+                } },
+                {
                 "targets": 4, // PI email and name
                 "render": function (data, type, row, width,meta) {
-                    if (type === 'display' && row.piEmailAddress != null && row.piEmailAddress != "" &&
-                    		row.piLastName != null && row.piLastName != "" &&
-                    		row.piFirstName != null && row.piFirstName != "") {
-                        return '<a href="mailto: ' + row.piEmailAddress + '">' + data + ', ' + row.piFirstName + '</a>';
-                    } else if (row.piLastName != null && row.piLastName != "" &&
-                    		row.piFirstName != null && row.piFirstName != ""){
-                    	return data + ', ' + row.piFirstName;
-                    } else {
-                        return data;
+                	extPi = '';
+                    if (type == 'display' && row.extPiEmailAddress != null && row.extPiEmailAddress != "" &&
+                    		row.extPiLastName != null && row.extPiLastName != "" &&
+                    		row.extPiFirstName != null && row.extPiFirstName != "") {
+                    	extPi = '<a href="mailto: ' + row.extPiEmailAddress + '">' + data + ', ' + row.extPiFirstName + '</a>';
+                    } else if (row.extPiLastName != null && row.extPiLastName != "" &&
+                    		row.extPiFirstName != null && row.extPiFirstName != ""){
+                    	extPi =  data + ', ' + row.extPiFirstName;
                     }
+                    intPi = '';
+                    if (type == 'display' && row.intPiEmailAddress != null && row.intPiEmailAddress != "" &&
+                    		row.intPiLastName != null && row.intPiLastName != "" &&
+                    		row.intPiFirstName != null && row.intPiFirstName != "") {
+                    	intPi = '<a href="mailto: ' + row.intPiEmailAddress + '">' + data + ', ' + row.intPiFirstName + '</a>';
+                    } else if (row.intPiLastName != null && row.intPiLastName != "" &&
+                    		row.intPiFirstName != null && row.intPiFirstName != ""){
+                    	intPi =  data + ', ' + row.intPiFirstName;
+                    }
+                    if(extPi == '') {
+                    	return intPi;
+                    }
+                    if(intPi == '') {
+                    	return extPi
+                    }
+                    return extPi + '<br>' + intPi;
                 } },
                 {
                 "targets": [7, 8, 9, 10], // Status columns

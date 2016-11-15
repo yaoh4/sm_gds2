@@ -60,22 +60,22 @@ $(document).ready(function(){
                 { "data": "extPiLastName"},
                 { "data": "extPiFirstName"},
                 { "data": "extPiEmailAddress"},
-                { "data":  "gdsPlanPageStatusCode"},
-                { "data":  "dataSharingExcepStatusCode"},
-                { "data":  "icPageStatusCode"},
-                { "data":  "bsiPageStatusCode"},
-                { "data":  "repoCount"},
-                { "data":  "subprojectCount"},
-                { "data":  "expandSubproject"},
-                { "data":  "expandRepository"},
-                { "data":  "subprojectEligibleFlag"},
-                { "data":  "projectStatusCode"},
+                { "data": "gdsPlanPageStatusCode"},
+                { "data": "dataSharingExcepStatusCode"},
+                { "data": "icPageStatusCode"},
+                { "data": "bsiPageStatusCode"},
+                { "data": "repoCount"},
+                { "data": "subprojectCount"},
+                { "data": "expandSubproject"},
+                { "data": "expandRepository"},
+                { "data": "subprojectEligibleFlag"},
+                { "data": "projectStatusCode"},
                 { "data": "intGrantContractNum"},
                 { "data": "intPiLastName"},
                 { "data": "intPiFirstName"},
                 { "data": "intPiEmailAddress"},
-                { "data":  "repositoryPageStatusCode"},
-                { "data":  null}
+                { "data": "repositoryPageStatusCode"},
+                { "data": null}
             ],
             "searching": false,
             "pageLength": 5,
@@ -167,7 +167,10 @@ $(document).ready(function(){
                     		grant = data;
                     	}
                     	if(row.intGrantContractNum != null) {
-                    		grant = grant + '<br>' + row.intGrantContractNum
+                    		if(grant != '') {
+                    			grant = grant + '<br>'
+                    		}
+                    		grant = grant + row.intGrantContractNum
                     	}
                     	if(type == 'display') {
                     		return grant;
@@ -178,16 +181,31 @@ $(document).ready(function(){
                 "targets": 3, // PI email and name
                  
                 "render": function (data, type, row, width,meta) {
+                	extPi = '';
                     if (type == 'display' && row.extPiEmailAddress != null && row.extPiEmailAddress != "" &&
                     		row.extPiLastName != null && row.extPiLastName != "" &&
                     		row.extPiFirstName != null && row.extPiFirstName != "") {
-                        return '<a href="mailto: ' + row.extPiEmailAddress + '">' + data + ', ' + row.extPiFirstName + '</a>' + '<br>' + '<a href="mailto: ' + row.extPiEmailAddress + '">' + data + ', ' + row.extPiFirstName + '</a>';
+                    	extPi = '<a href="mailto: ' + row.extPiEmailAddress + '">' + data + ', ' + row.extPiFirstName + '</a>';
                     } else if (row.extPiLastName != null && row.extPiLastName != "" &&
                     		row.extPiFirstName != null && row.extPiFirstName != ""){
-                    	return data + ', ' + row.extPiFirstName;
-                    } else {
-                        return data;
+                    	extPi =  data + ', ' + row.extPiFirstName;
                     }
+                    intPi = '';
+                    if (type == 'display' && row.intPiEmailAddress != null && row.intPiEmailAddress != "" &&
+                    		row.intPiLastName != null && row.intPiLastName != "" &&
+                    		row.intPiFirstName != null && row.intPiFirstName != "") {
+                    	intPi = '<a href="mailto: ' + row.intPiEmailAddress + '">' + data + ', ' + row.intPiFirstName + '</a>';
+                    } else if (row.intPiLastName != null && row.intPiLastName != "" &&
+                    		row.intPiFirstName != null && row.intPiFirstName != ""){
+                    	intPi =  data + ', ' + row.intPiFirstName;
+                    }
+                    if(extPi == '') {
+                    	return intPi;
+                    }
+                    if(intPi == '') {
+                    	return extPi
+                    }
+                    return extPi + '<br>' + intPi;
                 } },
                 {
                 "targets": [6, 7, 8, 9, 13], // Status columns

@@ -19,6 +19,10 @@
 			<th width="8%">IC</th>
 			<th width="8%">BSI</th>
 			<th>Subproject Count</th>
+			<th>Grant/<br/>Intramural/Contract # 2</th>
+			<th>Principal Investigator 2</th>
+			<th>PI First Name 2</th>
+			<th>PI Email 2</th>
 		</tr>
         </thead>
     </table>
