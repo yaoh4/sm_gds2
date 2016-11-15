@@ -879,6 +879,11 @@ float: left;
   width: 400px;
 }
 
+.muralBox {
+  margin-left: 65px; 
+  margin-top:15px;
+}
+
 /******GDS Data Sharing Page****************************/
 
 .qSpacing {

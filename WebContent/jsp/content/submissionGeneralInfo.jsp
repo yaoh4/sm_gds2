@@ -44,13 +44,6 @@
 				</p>
 
 				<div class="panel-body">
-                <div class="form-group row has-feedback">
-						<div class="col-xs-10">
-							<p class="question">Research Type:</p>
-							 <s:radio  name="grantSelection" class="grantSelection" list="#{'Extramural':'Extramural','Intramural':'Intramural','Both':'Both'}" template="radiomap-div.ftl" value="%{grantSelection}"/>
-								
-						</div>
-					</div>
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="submissionTitle"><i
@@ -58,7 +51,7 @@
 								<s:textfield name="project.submissionTitle" cssClass="form-control" id="submissionTitle" placeholder="" value="%{project.submissionTitle}" maxLength="100"/>
 						</div>
 					</div>
-					
+
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 						<p class="question"> <br/> <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>	
@@ -67,6 +60,18 @@
 								
 						</div>
 					</div>
+
+
+                <div class="form-group row has-feedback">
+						<div class="col-xs-10">
+							<p class="question">Research Type:</p>
+							 <s:radio  name="grantSelection" class="grantSelection" list="#{'Extramural':'Extramural','Intramural':'Intramural','Both':'Both'}" template="radiomap-div.ftl" value="%{grantSelection}"/>
+								
+						</div>
+					</div>
+					
+					
+					
 
 					<div class="form-group row has-feedback">
 					<div id="DivisionOffice">
@@ -100,13 +105,13 @@
 						</div>
 					</div>
                       
-
+                    
 					<!--START EXTRAMURAL GRANT BOX -->
-					<div class="panel panel-default">
-  					<div class="panel-heading">EXTRAMURAL</div>
+					<div class="panel panel-default muralBox">
+  					<div class="panel-heading" style="font-weight: bold;">EXTRAMURAL</div>
   					<div class="panel-body">
                       <div id="extraGrantDiv">
-					<div class="form-group row">
+					<div class="row">
 					<div class="col-xs-5">
 							<label for="Grant #" id="grantLabel">Intramural/Grant/Contract  #</label>									
 
@@ -147,7 +152,7 @@
 					</div>
 					
 					<div id="canAct">
-					<div class="form-group row has-feedback">
+					<div class="row has-feedback">
                        <div class="col-xs-5">
                            <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
                            <s:textfield name="cancerActivity" cssClass="form-control unlink-group"  id="cancerActivity" value="%{project.cayCode}" placeholder=""  readonly="true">
@@ -157,7 +162,7 @@
                     </div>
                         
                         <div id="title">   
-					<div class="form-group row has-feedback">
+					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Intramural/Grant/Contract Project Title</label> 
 							<s:textfield name="extramural.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
@@ -166,13 +171,13 @@
 					</div>
 
 					<div class="row">
-						<div class="form-group col-xs-5 has-feedback">
+						<div class="col-xs-5 has-feedback">
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
 								<s:textfield name="extramuralGrant.piFirstName" cssClass="form-control unlink-group" id="fnPI" placeholder="" value="%{project.piFirstName}"  maxLength="30"/>
 						</div>
-						<div class="form-group col-xs-5 has-feedback">
+						<div class="col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
@@ -180,7 +185,7 @@
 						</div>
 					</div>
 
-					<div class="form-group row has-feedback">
+					<div class="row has-feedback">
 						<div class="col-xs-6">
 							<label for="Email of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
@@ -192,7 +197,7 @@
 					</div>
                     
                     <div id="piInstution">
-					<div class="form-group row has-feedback">
+					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Institution of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
@@ -203,19 +208,19 @@
                     </div>
                     
 					<div class="row">
-						<div class="form-group col-xs-5 has-feedback">
+						<div class="col-xs-5 has-feedback">
 							<label for="First Name of Principal Investigator">First
 								Name of Primary Contact</label> 
 								<s:textfield name="extramuralGrant.pocFirstName" cssClass="form-control" id="fnPC" placeholder="Required if No Principal Investigator" value="%{extramuralGrant.pocFirstName}" maxLength="30"/>								
 						</div>
-						<div class="form-group col-xs-5 has-feedback">
+						<div class="col-xs-5 has-feedback">
 							<label for="Last Name of Primary Contact">Last Name of
 								Primary Contact</label> 
 								<s:textfield name="extramuralGrant.pocLastName" cssClass="form-control" id="lnPC" placeholder="Required if No Principal Investigator" value="%{extramuralGrant.pocLastName}" maxLength="30"/>								
 						</div>
 					</div>
 
-					<div class="form-group row has-feedback">
+					<div class="row has-feedback">
 						<div class="col-xs-6">
 							<label for="Email of Principal Investigator">Email of
 								Primary Contact</label>
@@ -225,13 +230,13 @@
 					</div>
 					
 					<div id="pdName" class="row pdirector ">
-						<div class="form-group col-xs-5 has-feedback">
+						<div class="col-xs-5 has-feedback">
 							<label for="First Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
 								Name of Program Director</label>
 								<s:textfield name="extramuralGrant.pdFirstName" cssClass="form-control unlink-group" id="fnPD" placeholder="" value="%{extramuralGrant.pdFirstName}"  maxLength="30"/>								
 						</div>
-						<div class="form-group col-xs-5 has-feedback">
+						<div class="col-xs-5 has-feedback">
 							<label for="Last Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>Last
 								Name of Program Director</label>
@@ -242,7 +247,7 @@
 
 				<div class="row pdates">
 					<div id="pStartDate"
-						class="form-group col-xs-2 projectDates has-feedback">
+						class="col-xs-2 projectDates has-feedback">
 						<label for="Project Start Date"><i
 							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
 							Start Date</label>
@@ -257,7 +262,7 @@
 					</div>
 
 					<div id="pEndDate"
-						class="form-group col-xs-2 projectDates has-feedback">
+						class="col-xs-2 projectDates has-feedback">
 						<label for="Project End Date"><i
 							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
 							End Date</label>
@@ -275,13 +280,13 @@
 
 
 					<!--START INTRAMURAL GRANT BOX -->
-					 <div class="panel panel-default">
-  <div class="panel-heading">INTRAMURAL</div>
+					 <div class="panel panel-default muralBox">
+  <div class="panel-heading" style="font-weight: bold;">INTRAMURAL</div>
   <div class="panel-body">
 
 
 					 <div id="intraGrantDiv">
-					<div class="form-group row">
+					<div class="row">
 					<div class="col-xs-5">
 							<label for="Grant #" id="grantLabel">Intramural/Grant/Contract  #</label>									
 
@@ -322,7 +327,7 @@
 					</div>
 					
 					<div id="canAct">
-					<div class="form-group row has-feedback">
+					<div class="row has-feedback">
                        <div class="col-xs-5">
                            <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
                            <s:textfield name="cancerActivity" cssClass="form-control unlink-group"  id="cancerActivity" value="%{project.cayCode}" placeholder=""  readonly="true">
@@ -332,7 +337,7 @@
                     </div>
                         
                         <div id="title">   
-					<div class="form-group row has-feedback">
+					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Intramural/Grant/Contract Project Title</label> 
 							<s:textfield name="extramural.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
@@ -341,7 +346,7 @@
 					</div>
 
 					<div class="row">
-						<div class="form-group col-xs-5 has-feedback">
+						<div class="col-xs-5 has-feedback">
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
@@ -355,7 +360,7 @@
 						</div>
 					</div>
 
-					<div class="form-group row has-feedback">
+					<div class="row has-feedback">
 						<div class="col-xs-6">
 							<label for="Email of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
@@ -367,7 +372,7 @@
 					</div>
                     
                     <div id="piInstution">
-					<div class="form-group row has-feedback">
+					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Institution of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
@@ -378,7 +383,7 @@
                     </div>
                     
 					<div class="row">
-						<div class="form-group col-xs-5 has-feedback">
+						<div class="col-xs-5 has-feedback">
 							<label for="First Name of Principal Investigator">First
 								Name of Primary Contact</label> 
 								<s:textfield name="extramuralGrant.pocFirstName" cssClass="form-control" id="fnPC" placeholder="Required if No Principal Investigator" value="%{extramuralGrant.pocFirstName}" maxLength="30"/>								
@@ -390,7 +395,7 @@
 						</div>
 					</div>
 
-					<div class="form-group row has-feedback">
+					<div class="row has-feedback">
 						<div class="col-xs-6">
 							<label for="Email of Principal Investigator">Email of
 								Primary Contact</label>
@@ -400,13 +405,13 @@
 					</div>
 					
 					<div id="pdName" class="row pdirector ">
-						<div class="form-group col-xs-5 has-feedback">
+						<div class="col-xs-5 has-feedback">
 							<label for="First Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
 								Name of Program Director</label>
 								<s:textfield name="extramuralGrant.pdFirstName" cssClass="form-control unlink-group" id="fnPD" placeholder="" value="%{extramuralGrant.pdFirstName}"  maxLength="30"/>								
 						</div>
-						<div class="form-group col-xs-5 has-feedback">
+						<div class="col-xs-5 has-feedback">
 							<label for="Last Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>Last
 								Name of Program Director</label>
@@ -417,7 +422,7 @@
 
 				<div class="row pdates">
 					<div id="pStartDate"
-						class="form-group col-xs-2 projectDates has-feedback">
+						class="col-xs-2 projectDates has-feedback">
 						<label for="Project Start Date"><i
 							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
 							Start Date</label>
@@ -432,7 +437,7 @@
 					</div>
 
 					<div id="pEndDate"
-						class="form-group col-xs-2 projectDates has-feedback">
+						class="col-xs-2 projectDates has-feedback">
 						<label for="Project End Date"><i
 							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
 							End Date</label>
