@@ -240,7 +240,7 @@
             <s:hidden  id="prevSubId" value="%{subproject.id}"/>
             <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a></s:if> &nbsp;&nbsp;&nbsp;
             <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}">
-            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
+            <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
               
             </tr>
         </s:iterator>
@@ -289,9 +289,10 @@
             <s:hidden  id="prevSubId" value="%{project.parent.id}"/>
             <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a></s:if> &nbsp;&nbsp;&nbsp;
             <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}">
-            <i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
+            <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
               
             </tr>
+        
         
       </table>
     </div>
