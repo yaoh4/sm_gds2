@@ -264,19 +264,19 @@ public class ProjectSearchDao {
 		// Program Director or My Submissions
 		if(searchCriteria.getPdNpnId() != null) {
 			// PD search
-			parentCriteria.add(Restrictions.eq("pdNpnId", searchCriteria.getPdNpnId()));
-			parentDetachedCriteria.add(Restrictions.eq("pdNpnId", searchCriteria.getPdNpnId()));
-			subprojectCriteria.add(Restrictions.eq("pdNpnId", searchCriteria.getPdNpnId()));
+			parentCriteria.add(Restrictions.eq("extPdNpnId", searchCriteria.getPdNpnId()));
+			parentDetachedCriteria.add(Restrictions.eq("extPdNpnId", searchCriteria.getPdNpnId()));
+			subprojectCriteria.add(Restrictions.eq("extPdNpnId", searchCriteria.getPdNpnId()));
 		} else {
 			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
-				parentCriteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
-				parentDetachedCriteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
-				subprojectCriteria.add(Restrictions.ilike("pdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+				parentCriteria.add(Restrictions.ilike("extPdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+				parentDetachedCriteria.add(Restrictions.ilike("extPdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+				subprojectCriteria.add(Restrictions.ilike("extPdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
 			}
 			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
-				parentCriteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
-				parentDetachedCriteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
-				subprojectCriteria.add(Restrictions.ilike("pdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+				parentCriteria.add(Restrictions.ilike("extPdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+				parentDetachedCriteria.add(Restrictions.ilike("extPdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+				subprojectCriteria.add(Restrictions.ilike("extPdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
 			}
 		}
 		
@@ -297,8 +297,8 @@ public class ProjectSearchDao {
 		// Principal Investigator first or last name partial search
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPiFirstOrLastName()))) {
 			Disjunction dc = Restrictions.disjunction();
-			dc.add(Restrictions.ilike("piFirstName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
-			dc.add(Restrictions.ilike("piLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("extPiFirstName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("extPiLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
 			parentCriteria.add(dc);
 			parentDetachedCriteria.add(dc);
 			subprojectCriteria.add(dc);
@@ -306,9 +306,9 @@ public class ProjectSearchDao {
 		
 		// Intramural(Z01)/Grant/Contract #
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getGrantContractNum()))) {
-			parentCriteria.add(Restrictions.ilike("grantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
-			parentDetachedCriteria.add(Restrictions.ilike("grantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
-			subprojectCriteria.add(Restrictions.ilike("grantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+			parentCriteria.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+			parentDetachedCriteria.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+			subprojectCriteria.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
 		}
 
 		// Accession Number

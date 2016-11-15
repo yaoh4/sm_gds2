@@ -229,9 +229,9 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 					exportRow = new ExportRow();
 					List<String> row = new ArrayList<>();
 					row.add(submission.getProjectSubmissionTitle());
-					row.add(submission.getGrantContractNum());
-					row.add((submission.getPiLastName() == null ? "" : submission.getPiLastName() + ", " + submission.getPiFirstName()));
-					row.add(submission.getPiEmailAddress());
+					row.add(submission.getExtGrantContractNum());
+					row.add((submission.getExtPiLastName() == null ? "" : submission.getExtPiLastName() + ", " + submission.getExtPiFirstName()));
+					row.add(submission.getExtPiEmailAddress());
 					row.add((StringUtils.isBlank(submission.getGdsPlanPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getGdsPlanPageStatusCode()).getDescription()));
 					row.add((StringUtils.isBlank(submission.getDataSharingExcepStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getDataSharingExcepStatusCode()).getDescription()));
 					row.add((StringUtils.isBlank(submission.getIcPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getIcPageStatusCode()).getDescription()));

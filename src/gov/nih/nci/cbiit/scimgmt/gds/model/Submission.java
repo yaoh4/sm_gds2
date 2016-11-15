@@ -1,7 +1,5 @@
 package gov.nih.nci.cbiit.scimgmt.gds.model;
 
-import java.util.Date;
-
 
 /**
  * Submission object which is used for data table result display
@@ -10,52 +8,44 @@ import java.util.Date;
 public class Submission implements java.io.Serializable {
 
 	private Long id;
-	private String projectIdentifierNum;
-	private String projectTitle;
 	private String docAbbreviation;
-	private String programBranch;
-	private String grantContractNum;
-	private String piInstitution;
-	private String piEmailAddress;
-	private Date projectStartDate;
-	private Date projectEndDate;
-	private Date sciRevApprovalRcvdDate;
 	private String parentAccessionNum;
-	private String comments;
-	private String bsiComments;
-	private String planComments;
-	private Long bsiReviewedId;
 	private Long versionNum;
-	private String createdBy;
-	private String lastChangedBy;
 	private String subprojectFlag;
-	private Long parentProjectId;
 	private String latestVersionFlag;
 	private Long projectGroupId;
-	private Long subprojectGroupId;
 	private Long submissionReasonId;
-	private String certificationCompleteFlag;
-	private String piFirstName;
-	private String piLastName;
-	private String pocFirstName;
-	private String pocLastName;
-	private String pocEmailAddress;
-	private String pdFirstName;
-	private String pdLastName;
-	private Long applId;
-	private Date anticipatedSubmissionDate;
 	private String projectSubmissionTitle;
 	private String gdsPlanPageStatusCode;
 	private String dataSharingExcepStatusCode;
 	private String icPageStatusCode;
 	private String bsiPageStatusCode;
 	private String repositoryPageStatusCode;
+	private String subprojectEligibleFlag;
+	private String projectStatusCode;
+	
+	private String extGrantContractNum;
+	private String extPiInstitution;
+	private String extPiEmailAddress;
+	private String extPiFirstName;
+	private String extPiLastName;
+	private Long extPdNpnId;
+	private String extPdFirstName;
+	private String extPdLastName;
+	
+	private String intGrantContractNum;
+	private String intPiInstitution;
+	private String intPiEmailAddress;
+	private String intPiFirstName;
+	private String intPiLastName;
+	private Long intPdNpnId;
+	private String intPdFirstName;
+	private String intPdLastName;
+	
 	private Long repoCount;
 	private Long subprojectCount;
 	private boolean expandSubproject = false;
 	private boolean expandRepository = false;
-	private String subprojectEligibleFlag;
-	private String projectStatusCode;
 	
 	public Submission() {
 	}
@@ -68,84 +58,12 @@ public class Submission implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public String getProjectIdentifierNum() {
-		return this.projectIdentifierNum;
-	}
-
-	public void setProjectIdentifierNum(String projectIdentifierNum) {
-		this.projectIdentifierNum = projectIdentifierNum;
-	}
-
-	public String getProjectTitle() {
-		return this.projectTitle;
-	}
-
-	public void setProjectTitle(String projectTitle) {
-		this.projectTitle = projectTitle;
-	}
-
 	public String getDocAbbreviation() {
 		return this.docAbbreviation;
 	}
 
 	public void setDocAbbreviation(String docAbbreviation) {
 		this.docAbbreviation = docAbbreviation;
-	}
-
-	public String getProgramBranch() {
-		return this.programBranch;
-	}
-
-	public void setProgramBranch(String programBranch) {
-		this.programBranch = programBranch;
-	}
-
-	public String getGrantContractNum() {
-		return this.grantContractNum;
-	}
-
-	public void setGrantContractNum(String grantContractNum) {
-		this.grantContractNum = grantContractNum;
-	}
-
-	public String getPiInstitution() {
-		return this.piInstitution;
-	}
-
-	public void setPiInstitution(String piInstitution) {
-		this.piInstitution = piInstitution;
-	}
-	
-	public String getPiEmailAddress() {
-		return this.piEmailAddress;
-	}
-
-	public void setPiEmailAddress(String piEmailAddress) {
-		this.piEmailAddress = piEmailAddress;
-	}
-
-	public Date getProjectStartDate() {
-		return this.projectStartDate;
-	}
-
-	public void setProjectStartDate(Date projectStartDate) {
-		this.projectStartDate = projectStartDate;
-	}
-
-	public Date getProjectEndDate() {
-		return this.projectEndDate;
-	}
-
-	public void setProjectEndDate(Date projectEndDate) {
-		this.projectEndDate = projectEndDate;
-	}
-
-	public Date getSciRevApprovalRcvdDate() {
-		return this.sciRevApprovalRcvdDate;
-	}
-
-	public void setSciRevApprovalRcvdDate(Date sciRevApprovalRcvdDate) {
-		this.sciRevApprovalRcvdDate = sciRevApprovalRcvdDate;
 	}
 
 	public String getParentAccessionNum() {
@@ -156,38 +74,6 @@ public class Submission implements java.io.Serializable {
 		this.parentAccessionNum = parentAccessionNum;
 	}
 
-	public String getComments() {
-		return this.comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
-	public String getPlanComments() {
-		return this.planComments;
-	}
-
-	public void setPlanComments(String planComments) {
-		this.planComments = planComments;
-	}
-
-	public String getBsiComments() {
-		return this.bsiComments;
-	}
-
-	public void setBsiComments(String bsiComments) {
-		this.bsiComments = bsiComments;
-	}
-
-	public Long getBsiReviewedId() {
-		return this.bsiReviewedId;
-	}
-
-	public void setBsiReviewedId(Long bsiReviewedId) {
-		this.bsiReviewedId = bsiReviewedId;
-	}
-
 	public Long getVersionNum() {
 		return this.versionNum;
 	}
@@ -196,36 +82,12 @@ public class Submission implements java.io.Serializable {
 		this.versionNum = versionNum;
 	}
 
-	public String getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getLastChangedBy() {
-		return this.lastChangedBy;
-	}
-
-	public void setLastChangedBy(String lastChangedBy) {
-		this.lastChangedBy = lastChangedBy;
-	}
-
 	public String getSubprojectFlag() {
 		return this.subprojectFlag;
 	}
 
 	public void setSubprojectFlag(String subprojectFlag) {
 		this.subprojectFlag = subprojectFlag;
-	}
-
-	public Long getParentProjectId() {
-		return this.parentProjectId;
-	}
-
-	public void setParentProjectId(Long parentProjectId) {
-		this.parentProjectId = parentProjectId;
 	}
 
 	public String getLatestVersionFlag() {
@@ -244,100 +106,12 @@ public class Submission implements java.io.Serializable {
 		this.projectGroupId = projectGroupId;
 	}
 
-	public Long getSubprojectGroupId() {
-		return this.subprojectGroupId;
-	}
-
-	public void setSubprojectGroupId(Long subprojectGroupId) {
-		this.subprojectGroupId = subprojectGroupId;
-	}
-
 	public Long getSubmissionReasonId() {
 		return this.submissionReasonId;
 	}
 
 	public void setSubmissionReasonId(Long submissionReasonId) {
 		this.submissionReasonId = submissionReasonId;
-	}
-
-	public String getCertificationCompleteFlag() {
-		return this.certificationCompleteFlag;
-	}
-
-	public void setCertificationCompleteFlag(String certificationCompleteFlag) {
-		this.certificationCompleteFlag = certificationCompleteFlag;
-	}
-
-	public String getPiFirstName() {
-		return this.piFirstName;
-	}
-
-	public void setPiFirstName(String piFirstName) {
-		this.piFirstName = piFirstName;
-	}
-
-	public String getPiLastName() {
-		return this.piLastName;
-	}
-
-	public void setPiLastName(String piLastName) {
-		this.piLastName = piLastName;
-	}
-
-	public String getPocFirstName() {
-		return this.pocFirstName;
-	}
-
-	public void setPocFirstName(String pocFirstName) {
-		this.pocFirstName = pocFirstName;
-	}
-
-	public String getPocLastName() {
-		return this.pocLastName;
-	}
-
-	public void setPocLastName(String pocLastName) {
-		this.pocLastName = pocLastName;
-	}
-
-	public String getPocEmailAddress() {
-		return pocEmailAddress;
-	}
-
-	public void setPocEmailAddress(String pocEmailAddress) {
-		this.pocEmailAddress = pocEmailAddress;
-	}
-
-	public String getPdFirstName() {
-		return this.pdFirstName;
-	}
-
-	public void setPdFirstName(String pdFirstName) {
-		this.pdFirstName = pdFirstName;
-	}
-
-	public String getPdLastName() {
-		return this.pdLastName;
-	}
-
-	public void setPdLastName(String pdLastName) {
-		this.pdLastName = pdLastName;
-	}
-	
-	public Long getApplId() {
-		return applId;
-	}
-
-	public void setApplId(Long applId) {
-		this.applId = applId;
-	}
-
-	public Date getAnticipatedSubmissionDate() {
-		return anticipatedSubmissionDate;
-	}
-
-	public void setAnticipatedSubmissionDate(Date anticipatedSubmissionDate) {
-		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 	}
 
 	public String getProjectSubmissionTitle() {
@@ -434,5 +208,133 @@ public class Submission implements java.io.Serializable {
 	
 	public void setProjectStatusCode(String projectStatusCode){
 		this.projectStatusCode = projectStatusCode;
+	}
+
+	public String getExtGrantContractNum() {
+		return extGrantContractNum;
+	}
+
+	public void setExtGrantContractNum(String extGrantContractNum) {
+		this.extGrantContractNum = extGrantContractNum;
+	}
+
+	public String getExtPiInstitution() {
+		return extPiInstitution;
+	}
+
+	public void setExtPiInstitution(String extPiInstitution) {
+		this.extPiInstitution = extPiInstitution;
+	}
+
+	public String getExtPiEmailAddress() {
+		return extPiEmailAddress;
+	}
+
+	public void setExtPiEmailAddress(String extPiEmailAddress) {
+		this.extPiEmailAddress = extPiEmailAddress;
+	}
+
+	public String getExtPiFirstName() {
+		return extPiFirstName;
+	}
+
+	public void setExtPiFirstName(String extPiFirstName) {
+		this.extPiFirstName = extPiFirstName;
+	}
+
+	public String getExtPiLastName() {
+		return extPiLastName;
+	}
+
+	public void setExtPiLastName(String extPiLastName) {
+		this.extPiLastName = extPiLastName;
+	}
+
+	public Long getExtPdNpnId() {
+		return extPdNpnId;
+	}
+
+	public void setExtPdNpnId(Long extPdNpnId) {
+		this.extPdNpnId = extPdNpnId;
+	}
+
+	public String getExtPdFirstName() {
+		return extPdFirstName;
+	}
+
+	public void setExtPdFirstName(String extPdFirstName) {
+		this.extPdFirstName = extPdFirstName;
+	}
+
+	public String getExtPdLastName() {
+		return extPdLastName;
+	}
+
+	public void setExtPdLastName(String extPdLastName) {
+		this.extPdLastName = extPdLastName;
+	}
+
+	public String getIntGrantContractNum() {
+		return intGrantContractNum;
+	}
+
+	public void setIntGrantContractNum(String intGrantContractNum) {
+		this.intGrantContractNum = intGrantContractNum;
+	}
+
+	public String getIntPiInstitution() {
+		return intPiInstitution;
+	}
+
+	public void setIntPiInstitution(String intPiInstitution) {
+		this.intPiInstitution = intPiInstitution;
+	}
+
+	public String getIntPiEmailAddress() {
+		return intPiEmailAddress;
+	}
+
+	public void setIntPiEmailAddress(String intPiEmailAddress) {
+		this.intPiEmailAddress = intPiEmailAddress;
+	}
+
+	public String getIntPiFirstName() {
+		return intPiFirstName;
+	}
+
+	public void setIntPiFirstName(String intPiFirstName) {
+		this.intPiFirstName = intPiFirstName;
+	}
+
+	public String getIntPiLastName() {
+		return intPiLastName;
+	}
+
+	public void setIntPiLastName(String intPiLastName) {
+		this.intPiLastName = intPiLastName;
+	}
+
+	public Long getIntPdNpnId() {
+		return intPdNpnId;
+	}
+
+	public void setIntPdNpnId(Long intPdNpnId) {
+		this.intPdNpnId = intPdNpnId;
+	}
+
+	public String getIntPdFirstName() {
+		return intPdFirstName;
+	}
+
+	public void setIntPdFirstName(String intPdFirstName) {
+		this.intPdFirstName = intPdFirstName;
+	}
+
+	public String getIntPdLastName() {
+		return intPdLastName;
+	}
+
+	public void setIntPdLastName(String intPdLastName) {
+		this.intPdLastName = intPdLastName;
 	}
 }

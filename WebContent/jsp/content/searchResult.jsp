@@ -23,6 +23,10 @@
 			<th>Expand Repository</th>
 			<th>Subproject Eligible Flag</th>
 			<th>Project Status Code</th>
+			<th>Grant/<br/>Intramural/Contract # 2</th>
+			<th>Principal Investigator 2</th>
+			<th>PI First Name 2</th>
+			<th>PI Email 2</th>
 			<th width="10%">Submission<br/> Status</th>
 			<th width="10%" style="whitespace:nowrap;">Actions</th>
 		</tr>

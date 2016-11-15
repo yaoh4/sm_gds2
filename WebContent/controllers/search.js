@@ -17,7 +17,7 @@ $(document).ready(function(){
 	   $.each( this.serializeArray(), function(i,o){
 	      var n = o.name, v = o.value;
 	        
-	      obj[n] = obj[n] === undefined ? v
+	      obj[n] = obj[n] == undefined ? v
 	         : $.isArray( obj[n] ) ? obj[n].concat( v )
 	         : [ obj[n], v ];
 	   });
@@ -56,10 +56,10 @@ $(document).ready(function(){
             "columns": [
                 { "data": "id"},
                 { "data": "projectSubmissionTitle"},
-                { "data": "grantContractNum"},
-                { "data": "piLastName"},
-                { "data": "piFirstName"},
-                { "data": "piEmailAddress"},
+                { "data": "extGrantContractNum"},
+                { "data": "extPiLastName"},
+                { "data": "extPiFirstName"},
+                { "data": "extPiEmailAddress"},
                 { "data":  "gdsPlanPageStatusCode"},
                 { "data":  "dataSharingExcepStatusCode"},
                 { "data":  "icPageStatusCode"},
@@ -70,6 +70,10 @@ $(document).ready(function(){
                 { "data":  "expandRepository"},
                 { "data":  "subprojectEligibleFlag"},
                 { "data":  "projectStatusCode"},
+                { "data": "intGrantContractNum"},
+                { "data": "intPiLastName"},
+                { "data": "intPiFirstName"},
+                { "data": "intPiEmailAddress"},
                 { "data":  "repositoryPageStatusCode"},
                 { "data":  null}
             ],
@@ -88,7 +92,7 @@ $(document).ready(function(){
             },
             "columnDefs": [ 
                 {
-                "targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15 ],
+                "targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ],
                 "visible": false,
                 
                 },
@@ -119,7 +123,7 @@ $(document).ready(function(){
                 "orderable": true,
                 "render": function (data, type, row, meta) {
                 	 {
-                		 if(type === 'display') {
+                		 if(type == 'display') {
                      		if(data == "INPROGRESS") {
                      			return '<div class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" />&nbsp;&nbsp;</div>'
                      		}
@@ -136,10 +140,10 @@ $(document).ready(function(){
                 	return "";
                 } },
                 {
-                "targets": 1, // First visible column, grant number.  id is column 0.
+                "targets": 1, // First visible column, submission title.  id is column 0.
                  
                 "render": function (data, type, row, meta) {
-                	if(type === 'display') {
+                	if(type == 'display') {
                 		if(row.subprojectCount != null && row.subprojectCount > 0 ||
                 				row.repoCount != null && row.repoCount > 0) {
                 			if(row.expandSubproject || row.expandRepository) {
@@ -155,16 +159,32 @@ $(document).ready(function(){
                 	return data;
                 } },
                 {
+                    "targets": 2, // Grant #
+                     
+                    "render": function (data, type, row, meta) {
+                    	grant = '';
+                    	if(data != null) {
+                    		grant = data;
+                    	}
+                    	if(row.intGrantContractNum != null) {
+                    		grant = grant + '<br>' + row.intGrantContractNum
+                    	}
+                    	if(type == 'display') {
+                    		return grant;
+                    	}
+                    	return data;
+                } },
+                {
                 "targets": 3, // PI email and name
                  
                 "render": function (data, type, row, width,meta) {
-                    if (type === 'display' && row.piEmailAddress != null && row.piEmailAddress != "" &&
-                    		row.piLastName != null && row.piLastName != "" &&
-                    		row.piFirstName != null && row.piFirstName != "") {
-                        return '<a href="mailto: ' + row.piEmailAddress + '">' + data + ', ' + row.piFirstName + '</a>';
-                    } else if (row.piLastName != null && row.piLastName != "" &&
-                    		row.piFirstName != null && row.piFirstName != ""){
-                    	return data + ', ' + row.piFirstName;
+                    if (type == 'display' && row.extPiEmailAddress != null && row.extPiEmailAddress != "" &&
+                    		row.extPiLastName != null && row.extPiLastName != "" &&
+                    		row.extPiFirstName != null && row.extPiFirstName != "") {
+                        return '<a href="mailto: ' + row.extPiEmailAddress + '">' + data + ', ' + row.extPiFirstName + '</a>' + '<br>' + '<a href="mailto: ' + row.extPiEmailAddress + '">' + data + ', ' + row.extPiFirstName + '</a>';
+                    } else if (row.extPiLastName != null && row.extPiLastName != "" &&
+                    		row.extPiFirstName != null && row.extPiFirstName != ""){
+                    	return data + ', ' + row.extPiFirstName;
                     } else {
                         return data;
                     }
@@ -173,7 +193,7 @@ $(document).ready(function(){
                 "targets": [6, 7, 8, 9, 13], // Status columns
                 "orderable": true,
                 "render": function (data, type, row, meta) {
-                	if(type === 'display') {
+                	if(type == 'display') {
                 		if(data == "INPROGRESS") {
                 			return '<div class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px" /></div>'
                 		}
