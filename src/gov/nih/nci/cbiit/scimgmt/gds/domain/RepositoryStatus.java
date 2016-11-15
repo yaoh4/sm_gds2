@@ -174,7 +174,7 @@ public class RepositoryStatus implements java.io.Serializable {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY", referencedColumnName="NIHSSOUSERNAME", nullable=true, insertable=false, updatable=false)
+	@JoinColumn(name = "CREATED_BY", nullable=true, insertable=false, updatable=false)
 	public NedPerson getCreatedByPerson() {
 		return this.createdByPerson;
 	}
@@ -184,7 +184,7 @@ public class RepositoryStatus implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "LAST_CHANGED_BY", referencedColumnName="NIHSSOUSERNAME", nullable=true, insertable=false, updatable=false)
+	@JoinColumn(name = "LAST_CHANGED_BY", nullable=true, insertable=false, updatable=false)
 	public NedPerson getLastChangedByPerson() {
 		return this.lastChangedByPerson;
 	}
@@ -196,21 +196,23 @@ public class RepositoryStatus implements java.io.Serializable {
 	
 	@Transient
 	public String getUpdatedBy() {
+		//If lastChangedBy present return that info
 		if(lastChangedBy != null) {
-			if(getLastChangedByPerson() != null) {
+			try {
 				return getLastChangedByPerson().getFullName();
-			} else {
+			} catch (Exception e) {
 				//Person may be left, so return the stored user id
 				return lastChangedBy;
 			}
 		}
 		
 		//Else get createdBy info
-		if(getCreatedByPerson() != null) {
+		try {
 			return getCreatedByPerson().getFullName();
-		}
+		} catch (Exception e) {
 		
 		return createdBy;
+		}
 	}
 	
 	@Temporal(TemporalType.TIMESTAMP)
