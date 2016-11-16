@@ -565,7 +565,7 @@ public class Project implements java.io.Serializable {
 	public void setAssociatedGrants(List<ProjectGrantContract> associatedGrants){
 		removeAssociatedGrants();
 		for(ProjectGrantContract grantContract:associatedGrants){
-			grantContract.setPrimaryGrantContractFlag("N");
+			grantContract.setPrimaryGrantContractFlag(ApplicationConstants.FLAG_NO);
 		addProjectGrantContract(grantContract);
 		}
 	}
