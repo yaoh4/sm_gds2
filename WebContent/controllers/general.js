@@ -54,6 +54,19 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 
 $( document ).ready(function() {
 	var code= $("input[type='radio'].grantSelection:checked").val();
+	var code= $("input[type='radio'].grants:checked").val();
+	if(code == 'Y'){
+		 $("#addGrant").show();
+		 var fieldCount = $(".otherWrapper1").length;
+			for(var j = 0; j < fieldCount; j++) {
+				var num=$("#grants_" + j + "_grantsContractNum").val();
+			if(num ==''){
+				$("#grants_"+ j + "_icon").removeClass("fa fa-pencil").addClass("fa fa-search");
+				  $("#grants_" + j + "_button").attr("title", "Search");
+				  $("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
+			}
+			}
+	}
 	if(code == 'Extramural' || code == 'Both') {
 		if($("#extramural_grantsContractNum").val()=='') {
 			$("#extramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
@@ -518,3 +531,86 @@ function refreshGrantsContractsData(){
 		$("#pStartDate").show();
 		$("#pEndDate").show();
  }
+ 
+ $("#general_form").on('click', '#grantButton', function () {
+		maxInputs = 10;
+		fieldCount = $(".otherWrapper1").length;
+
+		if (fieldCount < maxInputs) // max input box allowed
+		{
+			// If its the second row, add a trash bin next to the first row.
+			if(fieldCount == 1) {
+				
+				$(".otherWrapper1").first().append('<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer">'
+						+ '</i></div>');
+			}		
+			
+			// add input box
+			$(".otherWrapper1").last().after('<div class="input-group otherWrapper1 ">'
+			  + '<input type="text" name="associatedSecondaryGrants.grantContractNum" maxlength="271" class="form-control other" cssclass="form-control" id="grants_'
+				+ fieldCount
+				+'_grantsContractNum" placeholder="Click on Edit Icon"/>'
+			 + '<div class="input-group-btn">'
+	         + '<a href="#" onclick="openGrantsContractsSearchPage(\'all\', \'grants_'
+	         + fieldCount
+	        +'\')">'     
+			 + '<button class="btn btn-default"  type="button" title="Edit" id="grants_'
+			 + fieldCount
+			 +'_button" style=" margin-left: -2px;">'
+			+ '<i class="fa fa-pencil"  id="grants_'
+			+ fieldCount
+			+'_icon" aria-hidden="true"></i>'
+			+ '</button></a></div>'
+			+ '<i class="fa fa-trash fa-lg delete removeclass" title="Delete"  aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 13px; cursor:pointer">'
+			+ '</i></div>');
+			
+			
+			//if grantfield is empty
+					//for(var j = 0; j < fieldCount; j++) {
+						var num=$("#grants_" + fieldCount + "_grantsContractNum").val();
+					if(num ==''){
+						$("#grants_"+ fieldCount + "_icon").removeClass("fa fa-pencil").addClass("fa fa-search");
+						  $("#grants_" + fieldCount + "_button").attr("title", "Search");
+						  $("#grants_" + fieldCount + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
+					}
+					//}
+					
+			// If max is reached, then remove the add button
+			if ((fieldCount + 1) == maxInputs) {
+				$("#anotherButtons").hide();
+			}
+		}
+	});
+
+	$("#general_form").on('click', '.removeclass', function () {//user click on remove text
+		$(this).parent('div').remove(); //remove text box
+		
+		fieldCount = $(".otherWrapper1").length;
+		// If this was the second row, remove the trash bin from the first row.
+		if(fieldCount == 1) {
+			$(".otherWrapper1").first().children("i").remove();
+		}
+		$("#anotherButtons").show();
+	}); 
+	
+	$('.grants').on('change', function () {
+		var code= $("input[type='radio'].grants:checked").val();
+		if(code == 'Y'){
+			 $("#addGrant").show();
+			 var fieldCount = $(".otherWrapper1").length;
+				for(var j = 0; j < fieldCount; j++) {
+					var num=$("#grants_" + j + "_grantsContractNum").val();
+				if(num ==''){
+					$("#grants_"+ j + "_icon").removeClass("fa fa-pencil").addClass("fa fa-search");
+					  $("#grants_" + j + "_button").attr("title", "Search");
+					  $("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
+				}
+				}
+		}
+		else{
+			$(".otherWrapper1").first().children("i").remove();
+	    	$(".other").val('');
+	    	$(".otherWrapper1").not(".otherWrapper1:first").remove();
+	        $("#addGrant").hide();
+		}
+	});
