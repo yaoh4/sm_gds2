@@ -68,6 +68,7 @@
 									<s:property escape="false" value="#s.intPiFullName" />
 								</s:else>
 							</td>
+							<td>
 								<div class="searchProgess">
 									<s:if
 										test="%{#s.icPageStatusCode == 'INPROGRESS'}">
