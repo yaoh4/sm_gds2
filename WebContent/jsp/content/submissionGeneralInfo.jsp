@@ -453,6 +453,52 @@
 					</div>
 
 				</div> <!--end panel body-->
+				<div class="form-group row">
+					<div class="col-xs-5">
+										
+							<label for="Additional_Grants"><i
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Are there any additional Grants or Contracts associated with the submission?</label>
+								 <s:radio  name="grants" class="grants" list="#{'Y':'Yes','N':'No'}" template="radiomap-div.ftl"/>
+					           
+					     <!--    <div id="addGrant" style="display: none">   -->   
+ 					  
+					            <s:if test="%{associatedSecondaryGrants.size > 0}">
+										<s:iterator value="%{associatedSecondaryGrants}" var="otherGrants" status="stat">
+											<s:div class="input-group otherWrapper1 ">
+								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_0_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Edit Icon" value="%{#otherGrants.grantContractNum}"/>
+								  <div class="input-group-btn">
+                                    <a href="#" onclick="openGrantsContractsSearchPage('all','grants_0')">
+																		<button class="btn btn-default" type="button" id="grants_0_button" title="Edit" style=" margin-left: -2px;">
+																			<i class="fa fa-pencil" id="grants_0_icon" aria-hidden="true"></i>
+																		</button></a> 
+								</div>
+								</s:div>
+										</s:iterator>
+									</s:if>					  
+					             <s:else>
+									<!--Repo hidden field-->
+								<s:div class="input-group otherWrapper1 ">
+								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_0_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Edit Icon"/>
+								  <div class="input-group-btn">
+                                    <a href="#" onclick="openGrantsContractsSearchPage('all','grants_0')">
+																		<button class="btn btn-default" type="button" id="grants_0_button" title="Edit" style=" margin-left: -2px;">
+																			<i class="fa fa-pencil" id="grants_0_icon" aria-hidden="true"></i>
+																		</button></a> 
+								</div>
+								</s:div>
+								</s:else>
+									<div id="anotherButtons" style="margin-left: 75px; margin-top: 15px;">
+										<input id="grantButton" type="button" class="btn btn-default" value="Add Another Grant" />
+									</div>
+								</div>
+								</div>
+								<div class="col-xs-5" style="margin-left:-15px">
+							<label>&nbsp;</label>
+							  <div class="position: relative; display: table; border-collapse: separate;">
+						</div>
+						</div>
+						</div>
+						</div>
 				</div> <!--end panel -->
 
 					<div class="form-group row  col-xs-12" style="padding-left: 30px;">
