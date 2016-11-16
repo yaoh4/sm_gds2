@@ -175,6 +175,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			}
 			
 			
+			
 			performDataCleanup(getProject(),project);
 			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(),project);		
 		}
@@ -615,7 +616,19 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			validatePrimaryContact(getIntramuralGrant());
 		}
 		
-		getProject().setAssociatedGrants(getAssociatedSecondaryGrants());
+		
+		Iterator<ProjectGrantContract> iterator = getAssociatedSecondaryGrants().iterator();
+		while(iterator.hasNext()) {
+			ProjectGrantContract grantContract = iterator.next();
+			if(StringUtils.isBlank(grantContract.getGrantContractNum())){
+				iterator.remove();
+				break;
+			}
+		}
+		
+		if(getAssociatedSecondaryGrants() != null) {
+			getProject().setAssociatedGrants(getAssociatedSecondaryGrants());
+		}
 		
 		validateProjectDetails();
 		
@@ -642,6 +655,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		//Validation for Program/ Branch
 		if(StringUtils.isBlank(getProject().getSubmissionTitle())){
 			this.addActionError(getText("submissionTitle.required")); 
+		}
+		
+		if(grantsAdditional == 0) {
+			this.addActionError("Additional Grants answer required");
 		}
 		
 		Long submissionReasonId = null;
