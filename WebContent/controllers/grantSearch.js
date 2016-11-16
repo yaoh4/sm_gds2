@@ -192,6 +192,11 @@ function populateGrantsContractsData(){
 		$("#" + idPrefix + "_grantDiv button").attr("title", "Edit");
 	}
 	
+	 
+			$("#" + idPrefix +"_icon").removeClass("fa fa-search").addClass("fa fa-pencil");
+			 $("#" + idPrefix + "_button" ).attr("title", "Edit");
+			 $("#" + idPrefix + "_grantsContractNum").attr("placeholder", "Click on Edit Icon");
+
 	if (json.applId !== "undefined") {
 		$("#applId").val(json.applId);			
 	}
@@ -282,6 +287,7 @@ $('.icDetails').on('click', function(e) {
 $("#close").click(function(){
     window.close();
 });
+
 
 
 
