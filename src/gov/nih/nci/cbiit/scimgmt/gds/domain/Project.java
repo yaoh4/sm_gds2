@@ -502,6 +502,18 @@ public class Project implements java.io.Serializable {
 	}
 	
 	@Transient
+	public void removeAssociatedGrants(){
+		Iterator<ProjectGrantContract> iterator = projectGrantsContracts.iterator();
+		while(iterator.hasNext()) {
+			ProjectGrantContract grantContract = iterator.next();
+			if(ApplicationConstants.FLAG_NO.equals(grantContract.getPrimaryGrantContractFlag())){
+				iterator.remove();
+				break;
+			}
+		}
+	}
+	
+	@Transient
 	public void removePrimaryGrant(String grantContractType) {
 		
 		Iterator<ProjectGrantContract> iterator = projectGrantsContracts.iterator();
@@ -534,6 +546,30 @@ public class Project implements java.io.Serializable {
 		addProjectGrantContract(projectGrantContract);
 	}
 
+	
+	
+	@Transient
+	public List<ProjectGrantContract> getAssociatedGrants() {
+		List<ProjectGrantContract> associatedGrants=new ArrayList<ProjectGrantContract>();
+		for(ProjectGrantContract grantContract: projectGrantsContracts) {
+			if(grantContract.getGrantContractNum() !=null) {
+			if(ApplicationConstants.FLAG_NO.equals(grantContract.getPrimaryGrantContractFlag())){
+				associatedGrants.add(grantContract);
+				}
+			}
+		}
+		return associatedGrants;
+	}
+
+	@Transient
+	public void setAssociatedGrants(List<ProjectGrantContract> associatedGrants){
+		removeAssociatedGrants();
+		for(ProjectGrantContract grantContract:associatedGrants){
+			grantContract.setPrimaryGrantContractFlag("N");
+		addProjectGrantContract(grantContract);
+		}
+	}
+	
 	
 	@Transient
 	public String getGrantSelection() {
