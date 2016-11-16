@@ -376,7 +376,8 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			persistentProject.getRepositoryStatuses().get(i).setComments(transientProject.getRepositoryStatuses().get(i).getComments());
 			persistentProject.getRepositoryStatuses().get(i).setLookupTBySubmissionStatusId(transientProject.getRepositoryStatuses().get(i).getLookupTBySubmissionStatusId());
 			persistentProject.getRepositoryStatuses().get(i).setLookupTByRegistrationStatusId(transientProject.getRepositoryStatuses().get(i).getLookupTByRegistrationStatusId());
-			persistentProject.getRepositoryStatuses().get(i).setLookupTByStudyReleasedId(transientProject.getRepositoryStatuses().get(i).getLookupTByStudyReleasedId());				
+			persistentProject.getRepositoryStatuses().get(i).setLookupTByStudyReleasedId(transientProject.getRepositoryStatuses().get(i).getLookupTByStudyReleasedId());
+			persistentProject.getRepositoryStatuses().get(i).setSelected(transientProject.getRepositoryStatuses().get(i).isSelected());
 		}
 		setProject(persistentProject);	
 	}
