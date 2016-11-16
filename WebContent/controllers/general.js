@@ -55,7 +55,7 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 $( document ).ready(function() {
 	var code= $("input[type='radio'].grantSelection:checked").val();
 	var code= $("input[type='radio'].grants:checked").val();
-	if(code == 'Y'){
+	if(code == 1){
 		 $("#addGrant").show();
 		 var fieldCount = $(".otherWrapper1").length;
 			for(var j = 0; j < fieldCount; j++) {
@@ -595,7 +595,7 @@ function refreshGrantsContractsData(){
 	
 	$('.grants').on('change', function () {
 		var code= $("input[type='radio'].grants:checked").val();
-		if(code == 'Y'){
+		if(code == 1){
 			 $("#addGrant").show();
 			 var fieldCount = $(".otherWrapper1").length;
 				for(var j = 0; j < fieldCount; j++) {

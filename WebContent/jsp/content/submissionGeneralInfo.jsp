@@ -458,10 +458,10 @@
 										
 							<label for="Additional_Grants"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Are there any additional Grants or Contracts associated with the submission?</label>
-								 <s:radio  name="grants" class="grants" list="#{'Y':'Yes','N':'No'}" template="radiomap-div.ftl"/>
-					           
-					     <!--    <div id="addGrant" style="display: none">   -->   
- 					  
+								 <s:radio  name="grantsAdditional" class="grants" list="#{'1':'Yes','2':'No'}" template="radiomap-div.ftl"/>
+								 
+				
+					         <div id="addGrant" style="display: none">  
 					            <s:if test="%{associatedSecondaryGrants.size > 0}">
 										<s:iterator value="%{associatedSecondaryGrants}" var="otherGrants" status="stat">
 											<s:div class="input-group otherWrapper1 ">
@@ -491,6 +491,7 @@
 										<input id="grantButton" type="button" class="btn btn-default" value="Add Another Grant" />
 									</div>
 								</div>
+								
 								</div>
 								<div class="col-xs-5" style="margin-left:-15px">
 							<label>&nbsp;</label>
