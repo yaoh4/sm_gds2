@@ -412,7 +412,7 @@
 								<s:textfield name="intramuralGrant.pdLastName" cssClass="form-control unlink-group" id="lnPD" placeholder="" value="%{intramuralGrant.pdLastName}"  maxLength="30"/>								
 						</div>
 					</div>
-				</div>
+			
 
 				
 
