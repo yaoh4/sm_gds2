@@ -265,6 +265,11 @@ public class GdsSubmissionActionHelper {
 		if(intramuralGrant != null) {
 			persistentProject.setPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL, intramuralGrant);	
 		}
+
+		List<ProjectGrantContract> associatedGrants=transientProject.getAssociatedGrants();
+		if(associatedGrants !=null) {
+			persistentProject.setAssociatedGrants(associatedGrants);
+		}
 		return persistentProject;
 	}
 	
