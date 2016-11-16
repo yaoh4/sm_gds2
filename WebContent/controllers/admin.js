@@ -17,19 +17,19 @@ function reinitTable() {
             "autoWidth": false,
             "processing": false,
             "serverSide": false,
-            "dom": "<'row'<'col-sm-12'i><br/>>" +
-            "<'row'<tr>>" + "<'row'<'col-sm-12'lp>>",
+            "dom": "<'row'<'col-sm-12'l>>" + "<'row'<'col-sm-5'i><'col-sm-7'p><br/>>" +
+            "<'row'<tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + "<'row'<'col-sm-12'l>>",
             "searching": false,
             "pageLength": 5,
             "lengthMenu": [5, 10, 25, 50, 100],
             "language": {
-                "info": "Viewing [_START_ to _END_] out of [_TOTAL_] records  ",
-                "lengthMenu": "Change result display: _MENU_",
+                "info": "_TOTAL_ records (_START_ to _END_)  ",
+                "lengthMenu": "_MENU_ per page",
                 "infoEmpty": " ",
                 "emptyTable": "Nothing found to display.",
                 "paginate": {
-                	previous: '<span aria-hidden="true">&laquo;</span>',
-                	next: '<span aria-hidden="true">&raquo;</span>'
+                	previous: '<i id="paginationicon" class="fa fa-caret-left" aria-hidden="true"></i>',
+                	next: '<i id="paginationicon" class="fa fa-caret-right" aria-hidden="true"></i>'
                 }
             },
             "columnDefs": [ 
