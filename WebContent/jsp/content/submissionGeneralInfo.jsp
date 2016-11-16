@@ -115,7 +115,7 @@
                       <div id="extramural_grantDiv">
 					<div class="row">
 					<div class="col-xs-5">
-							<label for="Grant #" id="grantLabel">Intramural/Grant/Contract  #</label>									
+							<label for="Grant #" id="grantLabel">Extramural# or Contract#</label>									
 
 								<s:hidden name="extramuralGrant.grantContractType"  value="%{extramuralGrant.grantContractType}"/>
 								<s:hidden name="extramuralGrant.primaryGrantContractFlag"  value="%{extramuralGrant.primaryGrantContractFlag}"/>
@@ -166,7 +166,7 @@
                         <div id="title">   
 					<div class="row has-feedback">
 						<div class="col-xs-10">
-							<label for="Project Title" id="projectTitleLabel">Intramural/Grant/Contract Project Title</label> 
+							<label for="Project Title" id="projectTitleLabel">Extramural or Contract Project Title</label> 
 							<s:textfield name="extramuralGrant.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
@@ -245,7 +245,7 @@
 								<s:textfield name="extramuralGrant.pdLastName" cssClass="form-control unlink-group" id="lnPD" placeholder="" value="%{extramuralGrant.pdLastName}"  maxLength="30"/>								
 						</div>
 					</div>
-				</div>
+				
 
 				<div class="row pdates">
 					<div id="pStartDate"
@@ -276,6 +276,7 @@
 
 						</div>
 					</div>
+					</div>
 
 				</div> <!--end panel body-->
 				</div> <!--end panel -->
@@ -290,7 +291,7 @@
 					 <div id="intramural_grantDiv">
 					<div class="row">
 					<div class="col-xs-5">
-							<label for="Grant #" id="grantLabel">Intramural/Grant/Contract  #</label>									
+							<label for="Grant #" id="grantLabel">Intramural# or Contract#</label>									
 
 								<s:hidden name="intramuralGrant.grantContractType"  value="%{intramuralGrant.grantContractType}"/>
 								<s:hidden name="intramuralGrant.primaryGrantContractFlag"  value="%{intramuralGrant.primaryGrantContractFlag}"/>
@@ -341,7 +342,7 @@
                         <div id="title">   
 					<div class="row has-feedback">
 						<div class="col-xs-10">
-							<label for="Project Title" id="projectTitleLabel">Intramural/Grant/Contract Project Title</label> 
+							<label for="Project Title" id="projectTitleLabel">Intramural or Contract Project Title</label> 
 							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
@@ -373,16 +374,7 @@
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
                     
-                    <div id="piInstution">
-					<div class="row has-feedback">
-						<div class="col-xs-10">
-							<label for="Institution of Principal Investigator"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
-								of Principal Investigator</label>
-								<s:textfield name="intramuralGrant.piInstitution" cssClass="form-control unlink-group" id="intramural_PIInstitute" placeholder="" value="%{intramuralGrant.piInstitution}"  maxLength="120"/>								
-						</div>
-					</div>
-                    </div>
+                    
                     
 					<div class="row">
 						<div class="col-xs-5 has-feedback">
@@ -422,37 +414,13 @@
 					</div>
 				</div>
 
-				<div class="row pdates">
-					<div id="pStartDate"
-						class="col-xs-2 projectDates has-feedback">
-						<label for="Project Start Date"><i
-							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
-							Start Date</label>
-						<div class="input-group date">
-						
-						<s:textfield name="intramuralGrant.projectStartDate" cssClass="form-control unlink-group" id="projectStartDate" value="%{intramuralGrant.projectStartDate}" />	
-						<span
-								class="input-group-addon"><i
-								class="glyphicon glyphicon-th"></i></span>
-
-						</div>
-					</div>
-
-					<div id="pEndDate"
-						class="col-xs-2 projectDates has-feedback">
-						<label for="Project End Date"><i
-							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
-							End Date</label>
-						<div class="input-group date">
-						<s:textfield name="intramuralGrant.projectEndDate" cssClass="form-control unlink-group" id="projectEndDate" value="%{extramuralGrant.projectEndDate}" />	
-							<span
-								class="input-group-addon"><i
-								class="glyphicon glyphicon-th"></i></span>
-
-						</div>
-					</div>
+				
 
 				</div> <!--end panel body-->
+				
+				</div> <!--end panel -->
+
+
 				<div class="form-group row">
 					<div class="col-xs-5">
 										
@@ -499,14 +467,14 @@
 						</div>
 						</div>
 						</div>
-						</div>
-				</div> <!--end panel -->
+						
 
 					<div class="form-group row  col-xs-12" style="padding-left: 30px;">
 
 						<label for="general info comments" class="label_stCom">Comments (2000 Characters):</label><br />
 						<s:textarea cssClass="col-md-12 form-control input " rows="3" maxlength="2000"
 							name="project.comments" id="gComments"></s:textarea>
+					</div>
 					</div>
 
 

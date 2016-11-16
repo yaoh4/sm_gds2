@@ -882,6 +882,7 @@ float: left;
 .muralBox {
   margin-left: 65px; 
   margin-top:15px;
+  padding-bottom: 15px;
 }
 
 /******GDS Data Sharing Page****************************/
