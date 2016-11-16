@@ -50,8 +50,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String valueSelected;
 	private String grantSelection;
 	private String searchType;
+	private int grantsAdditional;
 	
-	
+
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();
 	private List<DropDownOption> progList = new ArrayList<DropDownOption>();
 	
@@ -60,6 +61,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private List<GdsGrantsContracts> grantOrContractList = new ArrayList<GdsGrantsContracts>();	
 	private List<ProjectsVw> prevLinkedSubmissions = new ArrayList<ProjectsVw>();
 	private GdsGrantsContracts grantOrContract;	
+	private List<ProjectGrantContract> secondaryGrantNum =new ArrayList<ProjectGrantContract>();
+
+	
 
 	@Autowired
 	protected SearchProjectService searchProjectService;	
@@ -90,7 +94,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String save() throws Exception {  	
 
-		logger.debug("Saving Submission General Info.");		
+		logger.debug("Saving Submission General Info.");
 		saveProject();
 		addActionMessage(getText("project.save.success"));
 		setUpPageData();
@@ -611,6 +615,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			validatePrimaryContact(getIntramuralGrant());
 		}
 		
+		getProject().setAssociatedGrants(getAssociatedSecondaryGrants());
+		
 		validateProjectDetails();
 		
 		
@@ -960,6 +966,24 @@ public List<DropDownOption> getProgList() {
 	 */
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
+	}
+	
+	public List<ProjectGrantContract> getSecondaryGrantNum() {
+		return secondaryGrantNum;
+	}
+
+	public void setSecondaryGrantNum(List<ProjectGrantContract> secondaryGrantNum) {
+		this.secondaryGrantNum = secondaryGrantNum;
+	}
+	
+
+	
+	public int getGrantsAdditional() {
+		return grantsAdditional;
+	}
+
+	public void setGrantsAdditional(int grantsAdditional) {
+		this.grantsAdditional = grantsAdditional;
 	}
 
 }

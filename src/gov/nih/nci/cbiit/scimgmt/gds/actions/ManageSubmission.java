@@ -89,8 +89,13 @@ public class ManageSubmission extends BaseAction {
 	
 	private ProjectGrantContract intramuralGrant = new ProjectGrantContract();
 	private ProjectGrantContract extramuralGrant = new ProjectGrantContract();
+	private List<ProjectGrantContract> associatedSecondaryGrants =new ArrayList<ProjectGrantContract>(); 
 	
 	
+
+	
+
+
 	/**
 	 * Execute method, for now used for navigation
 	 * 
@@ -527,6 +532,11 @@ public class ManageSubmission extends BaseAction {
 		if(intramuralGrantContract != null) {
 			setIntramuralGrant(intramuralGrantContract);
 		}		
+		
+		List<ProjectGrantContract> associatedGrants = project.getAssociatedGrants();
+		if(associatedGrants != null) {
+		setAssociatedSecondaryGrants(associatedGrants);
+		}
 	}
 	
 	
@@ -634,6 +644,15 @@ public class ManageSubmission extends BaseAction {
 	 */
 	public void setIntramuralGrant(ProjectGrantContract intramuralGrant) {
 		this.intramuralGrant = intramuralGrant;
+	}
+     
+	public List<ProjectGrantContract> getAssociatedSecondaryGrants() {
+		return associatedSecondaryGrants;
+	}
+
+
+	public void setAssociatedSecondaryGrants(List<ProjectGrantContract> associatedSecondaryGrants) {
+		this.associatedSecondaryGrants = associatedSecondaryGrants;
 	}
 
 
