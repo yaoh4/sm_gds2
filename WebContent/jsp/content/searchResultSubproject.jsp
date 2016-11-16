@@ -44,10 +44,30 @@
 							</s:else>
 							<td><s:a href="../manage/navigateToSubmissionDetail.action?projectId=%{#s.id}">
 								<s:property value="#s.projectSubmissionTitle" /></s:a></td>
-							<td><s:property value="#s.grantContractNum" /></td>
-							<td style="white-space: nowrap"><s:property escape="false"
-									value="#s.piFullName" /></td>
 							<td>
+								<s:if test="%{#s.extGrantContractNum == ''}">
+									<s:property value="#s.intGrantContractNum" />
+								</s:if>
+								<s:elseif test="%{#s.intGrantContractNum == ''}">
+									<s:property value="#s.extGrantContractNum" />
+								</s:elseif>
+								<s:else>
+									<s:property value="#s.extGrantContractNum" /><br>
+									<s:property value="#s.intGrantContractNum" />
+								</s:else>
+							</td>
+							<td style="white-space: nowrap">
+								<s:if test="%{#s.extPiFullName == ''}">
+									<s:property escape="false" value="#s.intPiFullName" />
+								</s:if>
+								<s:elseif test="%{#s.intPiFullName == ''}">
+									<s:property escape="false" value="#s.extPiFullName" />
+								</s:elseif>
+								<s:else>
+									<s:property escape="false" value="#s.extPiFullName" /><br>
+									<s:property escape="false" value="#s.intPiFullName" />
+								</s:else>
+							</td>
 								<div class="searchProgess">
 									<s:if
 										test="%{#s.icPageStatusCode == 'INPROGRESS'}">

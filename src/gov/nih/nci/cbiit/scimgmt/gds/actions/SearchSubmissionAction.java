@@ -211,12 +211,9 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 	     	ExportRow exportRow = new ExportRow();
 			List<String> header = new ArrayList<String>();
 			header.add("Project Submission Title");
-			header.add("Extramural Grant/Contract");
-			header.add("Extramural Principal Investigator Name");
-			header.add("Extramural Principal Investigator Email");
-			header.add("Intramural Grant/Contract");
-			header.add("Intramural Principal Investigator Name");
-			header.add("Intramural Principal Investigator Email");
+			header.add("Grant/Intramural/Contract #");
+			header.add("Principal Investigator Name");
+			header.add("Principal Investigator Email");
 			header.add("Genomic DSP");
 			header.add("GDSP Exception");
 			header.add("IC");
@@ -231,13 +228,24 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 				for(Submission submission : jsonResult.getData()) {
 					exportRow = new ExportRow();
 					List<String> row = new ArrayList<>();
+					String extPiName = (submission.getExtPiLastName() == null ? "" : submission.getExtPiLastName() + ", " + submission.getExtPiFirstName());
+					String intPiName = (submission.getIntPiLastName() == null ? "" : submission.getIntPiLastName() + ", " + submission.getIntPiFirstName());
 					row.add(submission.getProjectSubmissionTitle());
-					row.add(submission.getExtGrantContractNum());
-					row.add((submission.getExtPiLastName() == null ? "" : submission.getExtPiLastName() + ", " + submission.getExtPiFirstName()));
-					row.add(submission.getExtPiEmailAddress());
-					row.add(submission.getIntGrantContractNum());
-					row.add((submission.getIntPiLastName() == null ? "" : submission.getExtPiLastName() + ", " + submission.getExtPiFirstName()));
-					row.add(submission.getIntPiEmailAddress());
+					row.add((StringUtils.isBlank(submission.getExtGrantContractNum()))
+						? submission.getIntGrantContractNum()
+						: (StringUtils.isBlank(submission.getIntGrantContractNum()))
+								? submission.getExtGrantContractNum()
+								: submission.getExtGrantContractNum() + ", " + submission.getIntGrantContractNum());
+					row.add((StringUtils.isBlank(extPiName))
+							? intPiName
+							: (StringUtils.isBlank(intPiName))
+									? extPiName
+									: extPiName + ", " + intPiName);
+					row.add((StringUtils.isBlank(submission.getExtPiEmailAddress()))
+							? submission.getIntPiEmailAddress()
+							: (StringUtils.isBlank(submission.getIntPiEmailAddress()))
+									? submission.getExtPiEmailAddress()
+									: submission.getExtPiEmailAddress() + ", " + submission.getIntPiEmailAddress());
 					row.add((StringUtils.isBlank(submission.getGdsPlanPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getGdsPlanPageStatusCode()).getDescription()));
 					row.add((StringUtils.isBlank(submission.getDataSharingExcepStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getDataSharingExcepStatusCode()).getDescription()));
 					row.add((StringUtils.isBlank(submission.getIcPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getIcPageStatusCode()).getDescription()));
