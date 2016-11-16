@@ -234,7 +234,9 @@ public class ProjectsDao {
 			//If multiple records exist then always pick the latest grant.
 			if(grantsListlist.size() > 1){	
 				criteria.add(Restrictions.eqProperty("lookupGrantContractNum","grantContractNum"));
+				if(applClassCode !=null) {
 				criteria.add(Restrictions.eq("applClassCode", applClassCode));
+				}
 				grantsListlist = criteria.list();
 			}
 			
