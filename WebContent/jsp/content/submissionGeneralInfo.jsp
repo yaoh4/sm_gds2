@@ -54,7 +54,7 @@
 						</div>
 					</div>
 
-					<div class="form-group row has-feedback">
+					<div class="form-group row has-feedback" id="submissionReason">
 						<div class="col-xs-10">
 						<p class="question"> <br/> <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>	
 							<s:radio id="submissionReasonId" class="submissionReasonSelect" name="project.submissionReasonId" list="projectSubmissionReasons" template="radiomap-div.ftl"
@@ -64,7 +64,7 @@
 					</div>
 
 
-                <div class="form-group row has-feedback">
+                <div class="form-group row has-feedback" id="researchType">
 						<div class="col-xs-10">
 							<p class="question">Research Type:</p>
 							 <s:radio  name="grantSelection" class="grantSelection" list="#{'Extramural':'Extramural','Intramural':'Intramural','Both':'Both'}" template="radiomap-div.ftl" value="%{grantSelection}"/>
@@ -109,10 +109,10 @@
                    
  
 					<!--START EXTRAMURAL GRANT BOX -->
-					<div class="panel panel-default muralBox">
-  					<div class="panel-heading" style="font-weight: bold;">EXTRAMURAL</div>
+					<div class="panel panel-default muralBox" id="extramuralDiv">
+  					<div class="panel-heading" style="font-weight: bold;"><div id="extramuralHeading" style="display:none;">EXTRAMURAL</div><div id="nonfundedLabel" style="display:none;">NON-NIH FUNDED GRANT</div></div>
   					<div class="panel-body">
-                      <div id="extramural_grantDiv">
+                      <div id="extramural_grantDiv" style="display:none;">
 					<div class="row">
 					<div class="col-xs-5">
 							<label for="Grant #" id="grantLabel">Grant# or Contract#</label>									
@@ -283,7 +283,7 @@
 
 
 					<!--START INTRAMURAL GRANT BOX -->
-					 <div class="panel panel-default muralBox">
+					 <div class="panel panel-default muralBox" id="intramuralDiv" style="display:none;">
   <div class="panel-heading" style="font-weight: bold;">INTRAMURAL</div>
   <div class="panel-body">
 
@@ -414,14 +414,14 @@
 
 
 				<div class="form-group row">
-					<div class="col-xs-5">
+					<div class="col-xs-12">
 										
 							<label for="Additional_Grants"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Are there any additional Grants or Contracts associated with the submission?</label>
 								 <s:radio  name="grantsAdditional" class="grants" list="#{'1':'Yes','2':'No'}" template="radiomap-div.ftl"/>
 								 
 				
-					         <div id="addGrant" style="display: none">  
+					         <div id="addGrant" style="display: none" class="col-xs-5">  
 					            <s:if test="%{associatedSecondaryGrants.size > 0}">
 										<s:iterator value="%{associatedSecondaryGrants}" var="otherGrants" status="stat">
 											<s:div class="input-group otherWrapper1 ">
