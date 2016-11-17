@@ -50,7 +50,7 @@ if ($("#general_form_grantSelectionBoth").prop("checked", true)) {
 	$("#nonfundedLabel").hide();
 }
 
-else if ($("#general_form_grantSelectionIntramural").prop("checked", true)) {
+if ($("#general_form_grantSelectionIntramural").prop("checked", true)) {
     $("#intramuralDiv").show();
 	$("#nonfundedLabel").hide();
 	$("#extramuralDiv").hide();
@@ -58,7 +58,7 @@ else if ($("#general_form_grantSelectionIntramural").prop("checked", true)) {
 	$("#nonfundedLabel").hide();
 }
 
-else {
+if ($("#general_form_grantSelectionExtramural").prop("checked", true)) {
 	$("#intramuralDiv").hide();
 	$("#nonfundedLabel").hide();
 	$("#extramuralDiv").show();
