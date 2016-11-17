@@ -49,7 +49,7 @@ $("#intramuralDiv").show();
 	$("#nonfundedLabel").hide();
 }
 
-if $("#general_form_grantSelectionIntramural").prop("checked", true) {
+if ($("#general_form_grantSelectionIntramural").prop("checked", true)) {
 $("#intramuralDiv").show();
 	$("#nonfundedLabel").hide();
 	$("#extramuralDiv").hide();
