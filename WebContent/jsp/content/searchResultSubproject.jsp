@@ -45,10 +45,10 @@
 							<td><s:a href="../manage/navigateToSubmissionDetail.action?projectId=%{#s.id}">
 								<s:property value="#s.projectSubmissionTitle" /></s:a></td>
 							<td>
-								<s:if test="%{#s.extGrantContractNum == ''}">
+								<s:if test="%{#s.extGrantContractNum == '' || #s.extGrantContractNum == null}">
 									<s:property value="#s.intGrantContractNum" />
 								</s:if>
-								<s:elseif test="%{#s.intGrantContractNum == ''}">
+								<s:elseif test="%{#s.intGrantContractNum == '' || #s.intGrantContractNum == null}}">
 									<s:property value="#s.extGrantContractNum" />
 								</s:elseif>
 								<s:else>
@@ -57,10 +57,10 @@
 								</s:else>
 							</td>
 							<td style="white-space: nowrap">
-								<s:if test="%{#s.extPiFullName == ''}">
+								<s:if test="%{#s.extPiFullName == '' || #s.extPiFullName == null}">
 									<s:property escape="false" value="#s.intPiFullName" />
 								</s:if>
-								<s:elseif test="%{#s.intPiFullName == ''}">
+								<s:elseif test="%{#s.intPiFullName == '' || #s.intPiFullName == null}">
 									<s:property escape="false" value="#s.extPiFullName" />
 								</s:elseif>
 								<s:else>

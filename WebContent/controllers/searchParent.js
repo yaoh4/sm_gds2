@@ -152,10 +152,10 @@ $(document).ready(function(){
                     if (type == 'display' && row.intPiEmailAddress != null && row.intPiEmailAddress != "" &&
                     		row.intPiLastName != null && row.intPiLastName != "" &&
                     		row.intPiFirstName != null && row.intPiFirstName != "") {
-                    	intPi = '<a href="mailto: ' + row.intPiEmailAddress + '">' + data + ', ' + row.intPiFirstName + '</a>';
+                    	intPi = '<a href="mailto: ' + row.intPiEmailAddress + '">' + row.intPiLastName + ', ' + row.intPiFirstName + '</a>';
                     } else if (row.intPiLastName != null && row.intPiLastName != "" &&
                     		row.intPiFirstName != null && row.intPiFirstName != ""){
-                    	intPi =  data + ', ' + row.intPiFirstName;
+                    	intPi =  row.intPiLastName + ', ' + row.intPiFirstName;
                     }
                     if(extPi == '') {
                     	return intPi;
