@@ -42,15 +42,15 @@ $(function(){
 $("#general_form").on('click', '#researchType', function () {
 
 if ($("#general_form_grantSelectionBoth").prop("checked", true)) {
-$("#intramuralDiv").show();
+    $("#intramuralDiv").show();
 	$("#nonfundedLabel").hide();
 	$("#extramuralDiv").show();
 	$("#extramuralHeading").show();
 	$("#nonfundedLabel").hide();
 }
 
-if ($("#general_form_grantSelectionIntramural").prop("checked", true)) {
-$("#intramuralDiv").show();
+else if ($("#general_form_grantSelectionIntramural").prop("checked", true)) {
+    $("#intramuralDiv").show();
 	$("#nonfundedLabel").hide();
 	$("#extramuralDiv").hide();
 	$("#extramuralHeading").hide();
