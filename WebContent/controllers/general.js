@@ -62,7 +62,9 @@ $( document ).ready(function() {
 	$("#DpBranch").show();
 	$("#extramuralDiv").show();
 	$("#extramuralHeading").show();
-}
+	$("#extramural_grantDiv").show();
+
+});
 
 
 //Optional Submission – Non-NIH Funded
@@ -88,11 +90,13 @@ else {
 	$("#DpBranch").show();
 	$("#extramuralDiv").show();
 	$("#extramuralHeading").show();
+	$("#extramural_grantDiv").show();
+	
 	
 
 }
 	
-}
+});
 
 //Research Type 
 $("#general_form").on('click', '#researchType', function () {
@@ -122,7 +126,7 @@ else {
 
 }
 	
-}
+});
 
 
 
