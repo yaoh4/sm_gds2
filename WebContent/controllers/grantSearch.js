@@ -192,10 +192,10 @@ function populateGrantsContractsData(){
 		$("#" + idPrefix + "_grantDiv button").attr("title", "Edit");
 	}
 	
-	 
-			$("#" + idPrefix +"_icon").removeClass("fa fa-search").addClass("fa fa-pencil");
-			 $("#" + idPrefix + "_button" ).attr("title", "Edit");
-			 $("#" + idPrefix + "_grantsContractNum").attr("placeholder", "Click on Edit Icon");
+	        $("#" + idPrefix + "_grantsContractNum").attr("placeholder", "Click on Edit Icon");
+	        $("#" + idPrefix +"_div").find("i").removeClass("fa fa-search").addClass("fa fa-pencil");
+			$("#" + idPrefix +"_div").find("button").attr("title", "Edit");
+			
 
 	if (json.applId !== "undefined") {
 		$("#applId").val(json.applId);			
