@@ -419,31 +419,34 @@
 							<label for="Additional_Grants"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Are there any additional Grants or Contracts associated with the submission?</label>
 								 <s:radio  name="grantsAdditional" class="grants" list="#{'1':'Yes','2':'No'}" template="radiomap-div.ftl"/>
-								 
-				
-					         <div id="addGrant" style="display: none" class="col-xs-5">  
+
+					         <div id="addGrant" style="display: none"> 
 					            <s:if test="%{associatedSecondaryGrants.size > 0}">
 										<s:iterator value="%{associatedSecondaryGrants}" var="otherGrants" status="stat">
-											<s:div class="input-group otherWrapper1 ">
-								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_0_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Edit Icon" value="%{#otherGrants.grantContractNum}"/>
+								<s:div class="input-group otherWrapper1">
+								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_%{#stat.index}_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Edit Icon" value="%{#otherGrants.grantContractNum}"/>
+								
 								  <div class="input-group-btn">
-                                    <a href="#" onclick="openGrantsContractsSearchPage('all','grants_0')">
-																		<button class="btn btn-default" type="button" id="grants_0_button" title="Edit" style=" margin-left: -2px;">
-																			<i class="fa fa-pencil" id="grants_0_icon" aria-hidden="true"></i>
-																		</button></a> 
+                                    <s:a href="#" id="grants_%{#stat.index}_div" onclick="openGrantsContractsSearchPage('all','grants_%{#stat.index}')">
+									<button class="btn btn-default" type="button"  title="Edit" style=" margin-left: -2px;">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+																		</button></s:a> 
 								</div>
+								<s:if test="%{associatedSecondaryGrants.size > 1}">
+													<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer"></i>
+												</s:if>
 								</s:div>
 										</s:iterator>
 									</s:if>					  
 					             <s:else>
 									<!--Repo hidden field-->
-								<s:div class="input-group otherWrapper1 ">
+								<s:div class="input-group otherWrapper1">
 								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_0_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Edit Icon"/>
 								  <div class="input-group-btn">
-                                    <a href="#" onclick="openGrantsContractsSearchPage('all','grants_0')">
-																		<button class="btn btn-default" type="button" id="grants_0_button" title="Edit" style=" margin-left: -2px;">
-																			<i class="fa fa-pencil" id="grants_0_icon" aria-hidden="true"></i>
-																		</button></a> 
+                                    <s:a href="#" id="grants_0_div" onclick="openGrantsContractsSearchPage('all','grants_0')">
+																		<button class="btn btn-default" type="button"  title="Edit" style=" margin-left: -2px;">
+																			<i class="fa fa-pencil"  aria-hidden="true"></i>
+																		</button></s:a> 
 								</div>
 								</s:div>
 								</s:else>
