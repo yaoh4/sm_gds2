@@ -41,7 +41,7 @@ $(function(){
 //Research Type 
 $("#general_form").on('click', '#researchType', function () {
 
-if $("#general_form_grantSelectionBoth").prop("checked", true) {
+if ($("#general_form_grantSelectionBoth").prop("checked", true)) {
 $("#intramuralDiv").show();
 	$("#nonfundedLabel").hide();
 	$("#extramuralDiv").show();
