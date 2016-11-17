@@ -39,7 +39,8 @@ $(function(){
 
 
 //Research Type 
-$("#general_form").on('click', '#researchType', function () {
+$(function () {
+        $("input[name='grantSelection']").click(function () {
 
 if ($("#general_form_grantSelectionBoth").prop("checked", true)) {
     $("#intramuralDiv").show();
@@ -67,3 +68,5 @@ else {
 }
 	
 });
+
+});        
