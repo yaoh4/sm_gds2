@@ -51,7 +51,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String valueSelected;
 	private String grantSelection;
 	private String searchType;
-	private int grantsAdditional;
+	private String grantsAdditional;
 	
 
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();
@@ -177,13 +177,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			
 			List<ProjectGrantContract> grants1=getProject().getAssociatedGrants();
 			List<ProjectGrantContract> grants2= project.getAssociatedGrants();
-			logger.debug("old set is" +grants1);
-			logger.debug("new set is" +grants2);
 			if(grants1.isEmpty()) {
 				for(ProjectGrantContract newSet :grants2) {
 					project.removeAssociatedGrant(newSet);
 				}
-			}
+			 }
 	     
 			for(ProjectGrantContract  oldSet: grants1 ) {
 				for(ProjectGrantContract newSet :grants2) {
@@ -193,6 +191,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					project.removeAssociatedGrant(newSet);
 				}
 			}
+			
 			performDataCleanup(getProject(),project);
 			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(),project);		
 		}
@@ -362,6 +361,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			setProject(project);	
 			loadGrantInfo();
 			setGrantSelection(getProject().getGrantSelection());
+			if(getAssociatedSecondaryGrants().isEmpty()) {
+				grantsAdditional = ApplicationConstants.FLAG_NO;
+			} else {
+				grantsAdditional = ApplicationConstants.FLAG_YES;
+			}
 		}
 		else{			
 			setProject(new Project());
@@ -672,12 +676,12 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void validateAdditionalGrants(){
 		
-		if(grantsAdditional == 1) {
+		if(ApplicationConstants.FLAG_YES.equals(grantsAdditional)) {
 			List<ProjectGrantContract> grants = getAssociatedSecondaryGrants();
 			for(ProjectGrantContract grant: grants) {
 				if(StringUtils.isBlank(grant.getGrantContractNum())) {
-					this.addActionError("Please Enter a Grant Number");
-					return;
+					this.addActionError(getText("grant.number.required"));
+					break;
 				}
 			}
 			
@@ -693,8 +697,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			this.addActionError(getText("submissionTitle.required")); 
 		}
 		
-		if(grantsAdditional == 0) {
-			this.addActionError("Additional Grants answer required");
+		if(StringUtils.isBlank(grantsAdditional)) {
+			this.addActionError(getText("additional.grants.required"));
 		}
 		
 		Long submissionReasonId = null;
@@ -1046,11 +1050,11 @@ public List<DropDownOption> getProgList() {
 	
 
 	
-	public int getGrantsAdditional() {
+	public String getGrantsAdditional() {
 		return grantsAdditional;
 	}
 
-	public void setGrantsAdditional(int grantsAdditional) {
+	public void setGrantsAdditional(String grantsAdditional) {
 		this.grantsAdditional = grantsAdditional;
 	}
 
