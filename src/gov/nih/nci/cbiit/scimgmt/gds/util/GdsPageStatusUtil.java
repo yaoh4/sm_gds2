@@ -249,9 +249,9 @@ public class GdsPageStatusUtil {
 	 */
 	public String computeRepositoryStatus(Project project) {
 		
-		// If there are no repositories selected, don't show the repository page.
+		// If there are no repositories selected, status should be not started.
 		if (project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).isEmpty()) {
-			return null;
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
 		
