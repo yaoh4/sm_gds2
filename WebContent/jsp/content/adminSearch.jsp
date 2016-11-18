@@ -22,9 +22,15 @@
 						</div>
 						<!--end panel header-->
 						<div class="panel-body">
-							<h4>Search Criteria</h4>
+							<h4>Search Criteria &nbsp;<a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></h4>
 							<div class="form-group row">
-								<div class="checkbox"><label><input type="checkbox" id="gdsUsersOnly" name="criteria.gdsUsersOnly" value="true" style="margin-left: -40px;">&nbsp;&nbsp;Only users with GDS Roles</label>
+								<div class="checkbox"><label><input type="checkbox" id="gdsUsersOnly" name="criteria.gdsUsersOnly" value="true" style="margin-left: -40px;">&nbsp;&nbsp;Only users with GDS Roles
+								&nbsp;<a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a>
+								</label>
 							</div>
 							<div class="col-xs-5">
 								<label for="First Name">First Name:</label>
@@ -81,7 +87,9 @@
 						
 						<div id="searchResults" style="margin-left: 10px;">
 							<h3>&nbsp;</h3>
-							<h3>Search Results</h3><br/>&nbsp;
+							<h3>Search Results &nbsp;<a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></h3><br/>&nbsp;
 							 <div style="float:right;"><img src="../images/legend-search4.gif"></div>
 							
 							<table id="adminTable" style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
@@ -212,7 +220,9 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Edit/Add User Role</h4>
+							<h4 class="modal-title">Edit/Add User Role &nbsp;<a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a></h4>
 						</div>
 						<div class="modal-body">
 							
