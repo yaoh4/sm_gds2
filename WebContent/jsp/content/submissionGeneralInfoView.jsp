@@ -2,7 +2,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 
-  <div class="panel panel-default" id="searchGrant" style="margin-top: 20px;">
+  <div class="panel panel-default"  style="margin-top: 20px;">
       <div class="panel-heading"><span class="clickable panel-collapsed"><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i></span>
         <div class="pheader" style="display:inline;"><h5>General Information</h5></div>
         <s:if test="%{!isReadOnlyUser() && editFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}"> 
@@ -42,7 +42,7 @@
     </tr>
     <tr class="display">
       <td style="white-space: nowrap"><strong>NCI Division/Office/Center:</strong></td>
-      <s:hidden id="projAbbr" value="%{project.applClassCode}"/>
+     <!-- <s:hidden id="projAbbr" value="%{project.applClassCode}"/> -->
       <td colspan="4">${project.docAbbreviation}</td>
     </tr>
    <tr class="display">
@@ -55,37 +55,37 @@
     </tr>
     <tr class="display">
       <td style="white-space: nowrap">
-        <s:if test="%{project.applClassCode.equals(\"G\")}">
+        <s:if test="%{extramuralGrant.applClassCode.equals(\"G\")}">
       	  <strong>Grant #:</strong>
       	</s:if>
-      	<s:elseif test="%{project.applClassCode.equals(\"M\")}">
+      	<s:elseif test="%{extramuralGrant.applClassCode.equals(\"M\")}">
       	  <strong>Intramural #:</strong>
       	</s:elseif>
       	<s:else>
       	  <strong>Contract #:</strong>
       	</s:else>
       </td>
-      <td colspan="4">${project.applicationNum}</td>
+      <td colspan="4">${extramuralGrant.grantContractNum}</td>
     </tr>
     <tr class="conditionalDisplay">
-    <s:if test="project.cayCode != null">   
+    <s:if test="extramuralGrant.cayCode != null">   
       <td style="white-space: nowrap"><strong>Cancer Activity:</strong></td>
-      <td colspan="4">${project.cayCode}</td>
+      <td colspan="4">${extramuralGrant.cayCode}</td>
       </s:if>
     </tr>
    <tr class="display">
       <td style="white-space: nowrap">
-        <s:if test="%{project.applClassCode.equals(\"G\")}">
+        <s:if test="%{extramuralGrant.applClassCode.equals(\"G\")}">
       	  <strong>Grant Project Title:</strong>
       	</s:if>
-      	<s:elseif test="%{project.applClassCode.equals(\"M\")}">
-      	  <strong>Intramural Project Title:</strong>
+      		<s:elseif test="%{extramuralGrant.applClassCode.equals(\"M\")}">
+      	  <strong>Intramural #:</strong>
       	</s:elseif>
       	<s:else>
       	  <strong>Contract Project Title:</strong>
       	</s:else>
       </td>
-      <td colspan="4">${project.projectTitle}</td>
+      <td colspan="4">${extramuralGrant.projectTitle}</td>
     </tr>
     <tr class="display">
       <td style="white-space: nowrap">&nbsp;</td>
@@ -93,18 +93,16 @@
     </tr>
     <tr>
       <td style="white-space: nowrap"><strong>Principal Investigator:</strong></td>
-      <td style="white-space: nowrap" colspan="4">${project.piFirstName} ${project.piLastName}</td>
+      <td style="white-space: nowrap" colspan="4">${extramuralGrant.piFirstName} ${extramuralGrant.piLastName}</td>
        </tr>
        <tr>
       <td ><strong>Email:</strong></td>
-      <td width="67%"><s:a href="mailto:%{project.piEmailAddress}?">${project.piEmailAddress}</s:a></td>
+      <td width="67%"><s:a href="mailto:%{extramuralGrant.piEmailAddress}?">${extramuralGrant.piEmailAddress}</s:a></td>
     </tr>
-    <s:if test="%{!project.applClassCode.equals(\"M\")}">
     <tr>
       <td style="white-space: nowrap"><strong>Institution:</strong></td>
-      <td colspan="4">${project.piInstitution}</td>
+      <td colspan="4">${extramuralGrant.piInstitution}</td>
     </tr>
-    </s:if>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
@@ -112,16 +110,16 @@
       
 
     <tr>
-      <s:if test="project.pocFirstName != null && project.pocLastName != null">
+      <s:if test="extramuralGrant.pocFirstName != null && extramuralGrant.pocLastName != null">
       <td style="white-space: nowrap"><strong>Primary Contact: </strong></td>
-      <td colspan="4">${project.pocFirstName} ${project.pocLastName} 
+      <td colspan="4">${extramuralGrant.pocFirstName} ${extramuralGrant.pocLastName} 
           </s:if>
        
     </tr>
     <tr>
-      <s:if test="project.pocEmailAddress != null">      
+      <s:if test="extramuralGrant.pocEmailAddress != null">      
       <td style="white-space: nowrap"><strong>Email:</strong></td>
-      <td colspan="4"><s:a href="mailto:%{project.pocEmailAddress}?">${project.pocEmailAddress}</s:a></td>
+      <td colspan="4"><s:a href="mailto:%{extramuralGrant.pocEmailAddress}?">${extramuralGrant.pocEmailAddress}</s:a></td>
       </s:if>
     </tr>
     <tr>
@@ -130,7 +128,7 @@
     </tr>
     <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Program Director:</strong></td>
-      <td colspan="4">${project.pdFirstName} ${project.pdLastName}</td>
+      <td colspan="4">${extramuralGrant.pdFirstName} ${extramuralGrant.pdLastName}</td>
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
@@ -138,11 +136,11 @@
     </tr>
    <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Project Start Date:</strong></td>
-      <td colspan="4"><s:property value="%{projectStartDate}" /></td>
+      <td colspan="4"><s:property value="%{extramuralGrant.projectStartDate}" /></td>
     </tr>
    <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Project End Date: </strong></td>
-      <td colspan="4"><s:property value="%{projectEndDate}" /></td>
+      <td colspan="4"><s:property value="%{extramuralGrant.projectEndDate}" /></td>
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
