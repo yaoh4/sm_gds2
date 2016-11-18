@@ -234,16 +234,15 @@ public class ProjectsDao {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsGrantsContracts.class);	
 			criteria.add(Restrictions.ilike("lookupGrantContractNum", grantContractNum,MatchMode.ANYWHERE));
 			if(applClassCode !=null) {
-				criteria.add(Restrictions.eq("applClassCode", applClassCode));
+				criteria.add(Restrictions.or(
+					Restrictions.eq("applClassCode", applClassCode),
+					Restrictions.eq("applClassCode", ApplicationConstants.APPL_CLASS_CODE_CONTRACT)));
 			}
 			List<GdsGrantsContracts> grantsListlist = criteria.list();
 			
 			//If multiple records exist then always pick the latest grant.
 			if(grantsListlist.size() > 1){	
 				criteria.add(Restrictions.eqProperty("lookupGrantContractNum","grantContractNum"));
-				if(applClassCode !=null) {
-				criteria.add(Restrictions.eq("applClassCode", applClassCode));
-				}
 				grantsListlist = criteria.list();
 			}
 			

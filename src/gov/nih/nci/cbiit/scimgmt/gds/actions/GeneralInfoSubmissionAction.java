@@ -562,7 +562,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		String applClassCode = null;
 		if(ApplicationConstants.SEARCH_TYPE_EXTRAMURAL.equals(getSearchType())) {
 			applClassCode = ApplicationConstants.APPL_CLASS_CODE_EXTRAMURAL;
-		} else if(ApplicationConstants.SEARCH_TYPE_INTRAMURAL.equals(getGrantSelection())) {
+		} else if(ApplicationConstants.SEARCH_TYPE_INTRAMURAL.equals(getSearchType())) {
 			applClassCode = ApplicationConstants.APPL_CLASS_CODE_INTRAMURAL;
 		}
 		logger.debug("Searching grants / contracts.");
