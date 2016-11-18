@@ -194,9 +194,11 @@
     <s:if test="%{associatedSecondaryGrants.size > 0}">
     <tr>
         <td style="white-space: nowrap"><strong>Additional Grants:</strong></td>
+        <td>
        <s:iterator value="associatedSecondaryGrants" var="r" status="stat">
-       <td colspan="4">${r.grantContractNum} </td>
+         ${r.grantContractNum},
        </s:iterator>
+       </td>
       </tr>
       </s:if>
     <tr>
