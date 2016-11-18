@@ -115,7 +115,7 @@
                       <div id="extramural_grantDiv" style="display:none;">
 					<div class="row">
 					<div class="col-xs-5">
-							<label for="Grant #" id="grantLabel">Grant# or Contract#</label>									
+							<label for="Grant #">Grant# or Contract#</label>									
 
 								<s:hidden name="extramuralGrant.grantContractType"  value="%{extramuralGrant.grantContractType}"/>
 								<s:hidden name="extramuralGrant.primaryGrantContractFlag"  value="%{extramuralGrant.primaryGrantContractFlag}"/>
