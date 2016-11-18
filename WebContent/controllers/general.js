@@ -81,24 +81,24 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 
 $( document ).ready(function() {
 	var code= $("input[type='radio'].grantSelection:checked").val();
-	var code= $("input[type='radio'].grants:checked").val();
-	
-	 if($("#projectId").val()) {
+	var grants= $("input[type='radio'].grants:checked").val();
+	/* if($("#projectId").val()) {
 		  var $nonempty = $('.other').filter(function() {
 		    return this.value != ''
 		  });
 
 		  if ($nonempty.length != 0) {
-			  var value = 1;
+			  var value = 'Y';
 			  $("input[name=grantsAdditional][value=" + value + "]").attr('checked', 'checked');
 			 
 		  }
 		  else {
-			  var value = 2;
+			  var value = 'N';
 			  $("input[name=grantsAdditional][value=" + value + "]").attr('checked', 'checked');
 		  }
-	  }
-	if(code == 1){
+	  }*/
+	
+	if(grants == 'Y'){
 		 $("#addGrant").show();
 		 var fieldCount = $(".otherWrapper1").length;
 			for(var j = 0; j < fieldCount; j++) {
@@ -640,7 +640,7 @@ function refreshGrantsContractsData(){
 	
 	$('.grants').on('change', function () {
 		var code= $("input[type='radio'].grants:checked").val();
-		if(code == 1){
+		if(code == 'Y'){
 			 $("#addGrant").show();
 			 var fieldCount = $(".otherWrapper1").length;
 				for(var j = 0; j < fieldCount; j++) {
