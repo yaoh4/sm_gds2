@@ -542,14 +542,14 @@ public class ManageSubmission extends BaseAction {
 	
 	
 	//Get project start date
-	/*public String getProjectStartDate() {		
-		return dateFormat.format(getProject().getProjectStartDate());
-	}*/
+	public String getProjectStartDate() {		
+		return dateFormat.format(extramuralGrant.getProjectStartDate());
+	}
 
 	//Get project end date
-	/*public String getProjectEndDate() {
-		return dateFormat.format(getProject().getProjectEndDate());
-	}*/
+	public String getProjectEndDate() {
+		return dateFormat.format(extramuralGrant.getProjectEndDate());
+	}
 	
 	//Invoked to display status on individual pages
 	public String getPageStatusCode(String pageCode) {

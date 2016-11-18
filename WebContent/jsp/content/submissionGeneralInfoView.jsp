@@ -21,8 +21,8 @@
            No data entered.
          </s:if>
          <s:else>
-
-                  <table width="100%" border="0" cellpadding="3">
+		<s:hidden id="grantSelection"  value="%{project.grantSelection}"/>
+        <table width="100%" border="0" cellpadding="3">
     <tr>
       <td width="30%" style="white-space: nowrap"><strong>Project Submission Title:</strong></td>
       <td colspan="4">${project.submissionTitle}</td>
@@ -53,14 +53,14 @@
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
+    
+    
+    <!-- ----EXTRAMURAL FIELDS    -->
     <tr class="display">
       <td style="white-space: nowrap">
         <s:if test="%{extramuralGrant.applClassCode.equals(\"G\")}">
       	  <strong>Grant #:</strong>
       	</s:if>
-      	<s:elseif test="%{extramuralGrant.applClassCode.equals(\"M\")}">
-      	  <strong>Intramural #:</strong>
-      	</s:elseif>
       	<s:else>
       	  <strong>Contract #:</strong>
       	</s:else>
@@ -78,9 +78,6 @@
         <s:if test="%{extramuralGrant.applClassCode.equals(\"G\")}">
       	  <strong>Grant Project Title:</strong>
       	</s:if>
-      		<s:elseif test="%{extramuralGrant.applClassCode.equals(\"M\")}">
-      	  <strong>Intramural #:</strong>
-      	</s:elseif>
       	<s:else>
       	  <strong>Contract Project Title:</strong>
       	</s:else>
@@ -100,21 +97,14 @@
       <td width="67%"><s:a href="mailto:%{extramuralGrant.piEmailAddress}?">${extramuralGrant.piEmailAddress}</s:a></td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><strong>Institution:</strong></td>
-      <td colspan="4">${extramuralGrant.piInstitution}</td>
-    </tr>
-    <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
-      
-
     <tr>
       <s:if test="extramuralGrant.pocFirstName != null && extramuralGrant.pocLastName != null">
       <td style="white-space: nowrap"><strong>Primary Contact: </strong></td>
       <td colspan="4">${extramuralGrant.pocFirstName} ${extramuralGrant.pocLastName} 
-          </s:if>
-       
+      </s:if>
     </tr>
     <tr>
       <s:if test="extramuralGrant.pocEmailAddress != null">      
@@ -136,16 +126,82 @@
     </tr>
    <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Project Start Date:</strong></td>
-      <td colspan="4"><s:property value="%{extramuralGrant.projectStartDate}" /></td>
+      <td colspan="4"><s:property value="%{projectStartDate}" /></td>
     </tr>
    <tr class="conditionalDisplay">
       <td style="white-space: nowrap"><strong>Project End Date: </strong></td>
-      <td colspan="4"><s:property value="%{extramuralGrant.projectEndDate}" /></td>
+      <td colspan="4"><s:property value="%{projectEndDate}" /></td>
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
+    
+    
+    <!-- -INTRAMURAL FIELDS -->
+    <tr class="display">
+      <td style="white-space: nowrap">
+        <s:if test="%{intramuralGrant.applClassCode.equals(\"M\")}">
+      	  <strong>Intramural #:</strong>
+      	</s:if>
+      	<s:else>
+      	  <strong>Contract #:</strong>
+      	</s:else>
+      </td>
+      <td colspan="4">${intramuralGrant.grantContractNum}</td>
+    </tr>
+   <tr class="display">
+      <td style="white-space: nowrap">
+        <s:if test="%{intramuralGrant.applClassCode.equals(\"M\")}">
+      	  <strong>Intramural Project Title:</strong>
+      	</s:if>
+      	<s:else>
+      	  <strong>Contract Project Title:</strong>
+      	</s:else>
+      </td>
+      <td colspan="4">${intramuralGrant.projectTitle}</td>
+    </tr>
+    <tr class="display">
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap"><strong>Principal Investigator:</strong></td>
+      <td style="white-space: nowrap" colspan="4">${intramuralGrant.piFirstName} ${intramuralGrant.piLastName}</td>
+       </tr>
+       <tr>
+      <td ><strong>Email:</strong></td>
+      <td width="67%"><s:a href="mailto:%{intramuralGrant.piEmailAddress}?">${intramuralGrant.piEmailAddress}</s:a></td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+      
+    <tr>
+      <s:if test="intramuralGrant.pocFirstName != null && intramuralGrant.pocLastName != null">
+      <td style="white-space: nowrap"><strong>Primary Contact: </strong></td>
+      <td colspan="4">${intramuralGrant.pocFirstName} ${intramuralGrant.pocLastName} 
+          </s:if>
+       
+    </tr>
+    <tr>
+      <s:if test="intramuralGrant.pocEmailAddress != null">      
+      <td style="white-space: nowrap"><strong>Email:</strong></td>
+      <td colspan="4"><s:a href="mailto:%{intramuralGrant.pocEmailAddress}?">${intramuralGrant.pocEmailAddress}</s:a></td>
+      </s:if>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap">&nbsp;</td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    
+    
+    
   </table>
          </s:else>
         </div><!--end panel body-->
