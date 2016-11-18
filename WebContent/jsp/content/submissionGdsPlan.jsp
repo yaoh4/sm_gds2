@@ -4,6 +4,7 @@
 <s:form id="gds-form" cssClass="dirty-check" action="saveGdsPlan" namespace="manage" method="post"
 			enctype="multipart/form-data" data-toggle="validator" role="form">
 	<s:hidden name="projectId" value="%{project.id}"/>
+	<s:hidden name="project.subprojectFlag" id="subprojectFlag" value="%{project.subprojectFlag}"/>
 	<!-- Page navbar -->
 	<div class="pageNav">
 		<s:submit action="saveGdsPlan" onclick="enableAllCheckbox();return warnGdsPlan()" value=" Save " class="saved btn btn-default"/>
