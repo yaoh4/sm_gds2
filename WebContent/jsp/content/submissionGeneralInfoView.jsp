@@ -191,6 +191,14 @@
       <td colspan="4"><s:a href="mailto:%{intramuralGrant.pocEmailAddress}?">${intramuralGrant.pocEmailAddress}</s:a></td>
       </s:if>
     </tr>
+    <s:if test="%{associatedSecondaryGrants.size > 0}">
+    <tr>
+        <td style="white-space: nowrap"><strong>Additional Grants:</strong></td>
+       <s:iterator value="associatedSecondaryGrants" var="r" status="stat">
+       <td colspan="4">${r.grantContractNum} </td>
+       </s:iterator>
+      </tr>
+      </s:if>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
@@ -199,8 +207,6 @@
       <td style="white-space: nowrap">&nbsp;</td>
       <td colspan="4">&nbsp;</td>
     </tr>
-    
-    
     
   </table>
          </s:else>
