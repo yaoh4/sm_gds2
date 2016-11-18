@@ -335,7 +335,7 @@
 					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Intramural or Contract Project Title</label> 
-							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
+							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{intramuralGrant.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
 					</div>
@@ -345,13 +345,13 @@
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
-								<s:textfield name="intramuralGrant.piFirstName" cssClass="form-control unlink-group" id="intramural_fnPI" placeholder="" value="%{project.piFirstName}"  maxLength="30"/>
+								<s:textfield name="intramuralGrant.piFirstName" cssClass="form-control unlink-group" id="intramural_fnPI" placeholder="" value="%{intramuralGrant.piFirstName}"  maxLength="30"/>
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
-								<s:textfield name="intramuralGrant.piLastName" cssClass="form-control unlink-group" id="intramural_lnPI" placeholder="" value="%{project.piLastName}"  maxLength="30"/>								
+								<s:textfield name="intramuralGrant.piLastName" cssClass="form-control unlink-group" id="intramural_lnPI" placeholder="" value="%{intramuralGrant.piLastName}"  maxLength="30"/>								
 						</div>
 					</div>
 
