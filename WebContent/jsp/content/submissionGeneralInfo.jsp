@@ -114,7 +114,7 @@
   					<div class="panel-body">
                       <div id="extramural_grantDiv" style="display:none;">
 					<div class="row">
-					<div class="col-xs-5">
+					<div class="col-xs-5" id="exGrantSearch">
 							<label for="Grant #">Grant# or Contract#</label>									
 
 								<s:hidden name="extramuralGrant.grantContractType"  value="%{extramuralGrant.grantContractType}"/>
@@ -428,8 +428,8 @@
 								
 								  <div class="input-group-btn">
                                     <s:a href="#" id="grants_%{#stat.index}_div" onclick="openGrantsContractsSearchPage('all','grants_%{#stat.index}')">
-									<button class="btn btn-default" type="button"  title="Search" style=" margin-left: -2px;">
-									<i class="fa fa-search" aria-hidden="true"></i>
+									<button class="btn btn-default" type="button"  title="Edit" style=" margin-left: -2px;">
+									<i class="fa fa-edit" aria-hidden="true"></i>
 																		</button></s:a> 
 								</div>
 								<s:if test="%{associatedSecondaryGrants.size > 1}">
