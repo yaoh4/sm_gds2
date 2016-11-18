@@ -227,7 +227,7 @@
       <td colspan="6">  
 <div class="well">
   <table style="width: 90%;">
-    <tr>
+    <tr style="background-color: #f5f5f5;">
   <td style="white-space: nowrap">
           <strong>Additional Grants:</strong></td>
         <td>
