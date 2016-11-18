@@ -23,6 +23,27 @@ $(function(){
 	}
 });
 
+//setting up default questions/grant boxes
+$(document).ready(function() {
+	$("#intramuralDiv").hide();
+	$("#nonfundedLabel").hide();
+	$("#researchType").show();
+	$("#DivisionOffice").show();
+	$("#DpBranch").show();
+	$("#extramuralDiv").show();
+	$("#extramuralHeading").show();
+	$("#extramural_grantDiv").show();
+
+});
+
+//Research Type 
+
+$("input[name='grantSelection']").click(function () {
+    $('#extramuralDiv').css('display', ($(this).val() === 'Extramural') ? 'block':'none');
+     $('#intramuralDiv').css('display', ($(this).val() === 'Intramural') ? 'block':'none');
+      $('#extramuralDiv, #intramuralDiv').css('display', ($(this).val() === 'Both') ? 'block':'display');
+});
+
 
 //Search/Edit button
 function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
@@ -52,46 +73,18 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 	
 }
 
-$( document ).ready(function() {	
-
-	$("#intramuralDiv").hide();
-	$("#nonfundedLabel").hide();
-	$("#researchType").show();
-	$("#DivisionOffice").show();
-	$("#DpBranch").show();
-	$("#extramuralDiv").show();
-	$("#extramuralHeading").show();
-	$("#extramural_grantDiv").show();
-	
-	  if($("#projectId").val()) {
-		  var $nonempty = $('.other').filter(function() {
-		    return this.value != ''
-		  });
-
-		  if ($nonempty.length != 0) {
-			  var value = 1;
-			  $("input[name=grantsAdditional][value=" + value + "]").attr('checked', 'checked');
-			 
-		  }
-		  else {
-			  var value = 2;
-			  $("input[name=grantsAdditional][value=" + value + "]").attr('checked', 'checked');
-		  }
-	  }
-		
+$( document ).ready(function() {
 	var code= $("input[type='radio'].grantSelection:checked").val();
 	var code= $("input[type='radio'].grants:checked").val();
-	
 	if(code == 1){
 		 $("#addGrant").show();
 		 var fieldCount = $(".otherWrapper1").length;
 			for(var j = 0; j < fieldCount; j++) {
 				var num=$("#grants_" + j + "_grantsContractNum").val();
 			if(num ==''){
-				$("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon")
-				$("#grants_" + j +"_div").find("i").removeClass("fa fa-pencil").addClass("fa fa-search");
-				$("#grants_" + j +"_div").find("button").attr("title", "Search");
-								 
+				$("#grants_"+ j + "_icon").removeClass("fa fa-pencil").addClass("fa fa-search");
+				  $("#grants_" + j + "_button").attr("title", "Search");
+				  $("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
 			}
 			}
 	}
@@ -560,40 +553,6 @@ function refreshGrantsContractsData(){
 		$("#pEndDate").show();
  }
  
- //Research Type Added By Janene
-$(function () {
-        $("input[name='grantSelection']").click(function () {
-
-if ($("#general_form_grantSelectionBoth").prop("checked", true)) {
-    $("#intramuralDiv").show();
-	$("#nonfundedLabel").hide();
-	$("#extramuralDiv").show();
-	$("#extramuralHeading").show();
-	$("#nonfundedLabel").hide();
-}
-
-if ($("#general_form_grantSelectionIntramural").prop("checked", true)) {
-    $("#intramuralDiv").show();
-	$("#nonfundedLabel").hide();
-	$("#extramuralDiv").hide();
-	$("#extramuralHeading").hide();
-	$("#nonfundedLabel").hide();
-}
-
-if ($("#general_form_grantSelectionExtramural").prop("checked", true)) {
-	$("#intramuralDiv").hide();
-	$("#nonfundedLabel").hide();
-	$("#extramuralDiv").show();
-	$("#extramuralHeading").show();
-	$("#nonfundedLabel").hide();
-
-}
-	
-});
-
-});  
- 
- 
  $("#general_form").on('click', '#grantButton', function () {
 		maxInputs = 10;
 		fieldCount = $(".otherWrapper1").length;
@@ -603,39 +562,39 @@ if ($("#general_form_grantSelectionExtramural").prop("checked", true)) {
 			// If its the second row, add a trash bin next to the first row.
 			if(fieldCount == 1) {
 				
-				$(".otherWrapper1").first().append('<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer">'
+				$(".otherWrapper1").first().append('<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer">'
 						+ '</i></div>');
 			}		
 			
 			// add input box
-			$(".otherWrapper1").last().after('<div class="input-group otherWrapper1' 		
-			    +'">'
+			$(".otherWrapper1").last().after('<div class="input-group otherWrapper1 ">'
 			  + '<input type="text" name="associatedSecondaryGrants.grantContractNum" maxlength="271" class="form-control other" cssclass="form-control" id="grants_'
 				+ fieldCount
 				+'_grantsContractNum" placeholder="Click on Edit Icon"/>'
-			 + '<div class="input-group-btn"'
-	         + '<a href="#" id="grants_'
-	         + fieldCount
-	         +'_div" onclick="openGrantsContractsSearchPage(\'all\', \'grants_'
+			 + '<div class="input-group-btn">'
+	         + '<a href="#" onclick="openGrantsContractsSearchPage(\'all\', \'grants_'
 	         + fieldCount
 	        +'\')">'     
-			 + '<button class="btn btn-default"'
-			+'type="button" title="Edit"' 
-			 +' style=" margin-left: -2px;">'
-			+ '<i class="fa fa-pencil" '
-			+' aria-hidden="true"></i>'
+			 + '<button class="btn btn-default"  type="button" title="Edit" id="grants_'
+			 + fieldCount
+			 +'_button" style=" margin-left: -2px;">'
+			+ '<i class="fa fa-pencil"  id="grants_'
+			+ fieldCount
+			+'_icon" aria-hidden="true"></i>'
 			+ '</button></a></div>'
 			+ '<i class="fa fa-trash fa-lg delete removeclass" title="Delete"  aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 13px; cursor:pointer">'
 			+ '</i></div>');
 			
 			
 			//if grantfield is empty
-					var num=$("#grants_" + fieldCount + "_grantsContractNum").val();
-					if(num =='') {
-						$("#grants_" + fieldCount + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
-						$("#grants_" + fieldCount +"_div").find("i").removeClass("fa fa-pencil").addClass("fa fa-search");
-						$("#grants_" + fieldCount +"_div").find("button").attr("title", "Search");
+					//for(var j = 0; j < fieldCount; j++) {
+						var num=$("#grants_" + fieldCount + "_grantsContractNum").val();
+					if(num ==''){
+						$("#grants_"+ fieldCount + "_icon").removeClass("fa fa-pencil").addClass("fa fa-search");
+						  $("#grants_" + fieldCount + "_button").attr("title", "Search");
+						  $("#grants_" + fieldCount + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
 					}
+					//}
 					
 			// If max is reached, then remove the add button
 			if ((fieldCount + 1) == maxInputs) {
@@ -644,36 +603,32 @@ if ($("#general_form_grantSelectionExtramural").prop("checked", true)) {
 		}
 	});
 
- 
-    //user click on remove text
-	$("#general_form").on('click', '.removeclass', function () {
+	$("#general_form").on('click', '.removeclass', function () {//user click on remove text
 		$(this).parent('div').remove(); //remove text box
 		
 		fieldCount = $(".otherWrapper1").length;
 		// If this was the second row, remove the trash bin from the first row.
 		if(fieldCount == 1) {
 			$(".otherWrapper1").first().children("i").remove();
-			}
+		}
 		$("#anotherButtons").show();
 	}); 
 	
-	// change the Answer of Additional Grants
 	$('.grants').on('change', function () {
 		var code= $("input[type='radio'].grants:checked").val();
-		if(code == 1) {
+		if(code == 1){
 			 $("#addGrant").show();
 			 var fieldCount = $(".otherWrapper1").length;
 				for(var j = 0; j < fieldCount; j++) {
 					var num=$("#grants_" + j + "_grantsContractNum").val();
-				if(num =='') {
-					 $("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
-					 $("#grants_" + j +"_div").find("i").removeClass("fa fa-pencil").addClass("fa fa-search");
-					 $("#grants_" + j +"_div").find("button").attr("title", "Search");
-					 
-					}
+				if(num ==''){
+					$("#grants_"+ j + "_icon").removeClass("fa fa-pencil").addClass("fa fa-search");
+					  $("#grants_" + j + "_button").attr("title", "Search");
+					  $("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
 				}
-				
-		} else {
+				}
+		}
+		else{
 			$(".otherWrapper1").first().children("i").remove();
 	    	$(".other").val('');
 	    	$(".otherWrapper1").not(".otherWrapper1:first").remove();
