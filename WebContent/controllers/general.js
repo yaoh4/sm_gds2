@@ -82,15 +82,31 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 $( document ).ready(function() {
 	var code= $("input[type='radio'].grantSelection:checked").val();
 	var code= $("input[type='radio'].grants:checked").val();
+	
+	 if($("#projectId").val()) {
+		  var $nonempty = $('.other').filter(function() {
+		    return this.value != ''
+		  });
+
+		  if ($nonempty.length != 0) {
+			  var value = 1;
+			  $("input[name=grantsAdditional][value=" + value + "]").attr('checked', 'checked');
+			 
+		  }
+		  else {
+			  var value = 2;
+			  $("input[name=grantsAdditional][value=" + value + "]").attr('checked', 'checked');
+		  }
+	  }
 	if(code == 1){
 		 $("#addGrant").show();
 		 var fieldCount = $(".otherWrapper1").length;
 			for(var j = 0; j < fieldCount; j++) {
 				var num=$("#grants_" + j + "_grantsContractNum").val();
 			if(num ==''){
-				$("#grants_"+ j + "_icon").removeClass("fa fa-pencil").addClass("fa fa-search");
-				  $("#grants_" + j + "_button").attr("title", "Search");
-				  $("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
+				$("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon")
+				$("#grants_" + j +"_div").find("i").removeClass("fa fa-pencil").addClass("fa fa-search");
+				$("#grants_" + j +"_div").find("button").attr("title", "Search");
 			}
 			}
 	}
@@ -573,32 +589,34 @@ function refreshGrantsContractsData(){
 			}		
 			
 			// add input box
-			$(".otherWrapper1").last().after('<div class="input-group otherWrapper1 ">'
-			  + '<input type="text" name="associatedSecondaryGrants.grantContractNum" maxlength="271" class="form-control other" cssclass="form-control" id="grants_'
-				+ fieldCount
-				+'_grantsContractNum" placeholder="Click on Edit Icon"/>'
-			 + '<div class="input-group-btn">'
-	         + '<a href="#" onclick="openGrantsContractsSearchPage(\'all\', \'grants_'
-	         + fieldCount
-	        +'\')">'     
-			 + '<button class="btn btn-default"  type="button" title="Edit" id="grants_'
-			 + fieldCount
-			 +'_button" style=" margin-left: -2px;">'
-			+ '<i class="fa fa-pencil"  id="grants_'
-			+ fieldCount
-			+'_icon" aria-hidden="true"></i>'
-			+ '</button></a></div>'
-			+ '<i class="fa fa-trash fa-lg delete removeclass" title="Delete"  aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 13px; cursor:pointer">'
-			+ '</i></div>');
+			$(".otherWrapper1").last().after('<div class="input-group otherWrapper1' 		
+				    +'">'
+				  + '<input type="text" name="associatedSecondaryGrants.grantContractNum" maxlength="271" class="form-control other" cssclass="form-control" id="grants_'
+					+ fieldCount
+					+'_grantsContractNum" placeholder="Click on Edit Icon"/>'
+				 + '<div class="input-group-btn"'
+		         + '<a href="#" id="grants_'
+		         + fieldCount
+		         +'_div" onclick="openGrantsContractsSearchPage(\'all\', \'grants_'
+		         + fieldCount
+		        +'\')">'     
+				 + '<button class="btn btn-default"'
+				+'type="button" title="Edit"' 
+				 +' style=" margin-left: -2px;">'
+				+ '<i class="fa fa-pencil" '
+				+' aria-hidden="true"></i>'
+				+ '</button></a></div>'
+				+ '<i class="fa fa-trash fa-lg delete removeclass" title="Delete"  aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 13px; cursor:pointer">'
+				+ '</i></div>');
 			
 			
 			//if grantfield is empty
 					//for(var j = 0; j < fieldCount; j++) {
 						var num=$("#grants_" + fieldCount + "_grantsContractNum").val();
 					if(num ==''){
-						$("#grants_"+ fieldCount + "_icon").removeClass("fa fa-pencil").addClass("fa fa-search");
-						  $("#grants_" + fieldCount + "_button").attr("title", "Search");
-						  $("#grants_" + fieldCount + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
+						$("#grants_" + fieldCount + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
+						$("#grants_" + fieldCount +"_div").find("i").removeClass("fa fa-pencil").addClass("fa fa-search");
+						$("#grants_" + fieldCount +"_div").find("button").attr("title", "Search");
 					}
 					//}
 					
@@ -628,9 +646,9 @@ function refreshGrantsContractsData(){
 				for(var j = 0; j < fieldCount; j++) {
 					var num=$("#grants_" + j + "_grantsContractNum").val();
 				if(num ==''){
-					$("#grants_"+ j + "_icon").removeClass("fa fa-pencil").addClass("fa fa-search");
-					  $("#grants_" + j + "_button").attr("title", "Search");
-					  $("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
+					 $("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
+					 $("#grants_" + j +"_div").find("i").removeClass("fa fa-pencil").addClass("fa fa-search");
+					 $("#grants_" + j +"_div").find("button").attr("title", "Search");
 				}
 				}
 		}
