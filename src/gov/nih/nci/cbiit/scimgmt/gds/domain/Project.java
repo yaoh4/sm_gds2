@@ -514,6 +514,19 @@ public class Project implements java.io.Serializable {
 	}
 	
 	@Transient
+	public void removeAssociatedGrant(ProjectGrantContract projectGrantContract) {
+		Iterator<ProjectGrantContract> iterator = projectGrantsContracts.iterator();
+		while(iterator.hasNext()) {
+			ProjectGrantContract grantContract = iterator.next();
+			if(ApplicationConstants.FLAG_NO.equals(grantContract.getPrimaryGrantContractFlag())
+					&& projectGrantContract.getGrantContractNum().equals(grantContract.getGrantContractNum())){
+				iterator.remove();
+				break;
+			}
+		}
+	}
+	
+	@Transient
 	public void removePrimaryGrant(String grantContractType) {
 		
 		Iterator<ProjectGrantContract> iterator = projectGrantsContracts.iterator();
@@ -565,8 +578,10 @@ public class Project implements java.io.Serializable {
 	public void setAssociatedGrants(List<ProjectGrantContract> associatedGrants){
 		removeAssociatedGrants();
 		for(ProjectGrantContract grantContract:associatedGrants){
+			if(grantContract.getGrantContractNum() != null) {
 			grantContract.setPrimaryGrantContractFlag(ApplicationConstants.FLAG_NO);
-		addProjectGrantContract(grantContract);
+		    addProjectGrantContract(grantContract);
+		}
 		}
 	}
 	
