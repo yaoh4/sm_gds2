@@ -519,7 +519,7 @@ public class ManageSubmission extends BaseAction {
 					extramuralGrantContract.setPdLastName(grantContract.getPdLastName());
 					extramuralGrantContract.setProjectStartDate(grantContract.getProjectPeriodStartDate());
 					extramuralGrantContract.setProjectEndDate(grantContract.getProjectPeriodEndDate());
-					//project.setApplClassCode(grantContract.getApplClassCode());
+					extramuralGrantContract.setApplClassCode(grantContract.getApplClassCode());
 					extramuralGrantContract.setCayCode(grantContract.getCayCode());
 				}
 			}

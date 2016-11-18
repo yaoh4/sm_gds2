@@ -45,6 +45,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 
 	private String preSelectedDOC;
 	private String grantContractNum;
+	private String linkedGrantContractNum;
 	private String selectedTypeOfProject;
 	private String applId;
 	private String valueSelected;
@@ -614,7 +615,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		if(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL.equals(grantSelection)
 				|| ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH.equals(grantSelection)) {
-			//Retrieve extramural data from UI			
+			//Retrieve extramural data from UI	
+			getExtramuralGrant().setGrantContractNum(getLinkedGrantContractNum());
 			getProject().setPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL, getExtramuralGrant());
 			//validate grant data
 			validateGrantData(getExtramuralGrant());
@@ -923,6 +925,21 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	public void setGrantContractNum(String grantContractNum) {
 		this.grantContractNum = grantContractNum;
 	}
+
+	/**
+	 * @return the linkedGrantContractNum
+	 */
+	public String getLinkedGrantContractNum() {
+		return linkedGrantContractNum;
+	}
+
+	/**
+	 * @param linkedGrantContractNum the linkedGrantContractNum to set
+	 */
+	public void setLinkedGrantContractNum(String linkedGrantContractNum) {
+		this.linkedGrantContractNum = linkedGrantContractNum;
+	}
+
 
 	/**
 	 * @return the projectSubmissionReasons

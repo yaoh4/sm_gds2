@@ -120,6 +120,8 @@
 								<s:hidden name="extramuralGrant.grantContractType"  value="%{extramuralGrant.grantContractType}"/>
 								<s:hidden name="extramuralGrant.primaryGrantContractFlag"  value="%{extramuralGrant.primaryGrantContractFlag}"/>
 								<s:hidden name="extramuralGrant.createdBy"  value="%{extramuralGrant.createdBy}"/>
+								<s:hidden name="extramuralGrant.applId"  id="extramural_applId" value="%{extramuralGrant.applId}"/>								
+								<s:hidden name="linkedGrantContractNum" id="linkedGrantContractNum" value="%{extramuralGrant.grantContractNum}"/>
 								
 								<div class="input-group ">
 								  <s:textfield name="extrmuralGrant.grantContractNum"  maxlength="271" class="form-control" cssclass="form-control" readonly="true" id="extramural_grantsContractNum" placeholder="Click on Edit Icon" value="%{extramuralGrant.grantContractNum}"/>
@@ -157,7 +159,7 @@
 					<div class="row has-feedback">
                        <div class="col-xs-5">
                            <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
-                           <s:textfield name="cancerActivity" cssClass="form-control unlink-group"  id="cancerActivity" value="%{project.cayCode}" placeholder=""  readonly="true">
+                           <s:textfield name="extramuralGrant.cayCode" cssClass="form-control unlink-group"  id="cancerActivity" value="%{extramuralGrant.cayCode}" placeholder=""  readonly="true">
                            </s:textfield>
                            </div>
                            </div>
@@ -167,7 +169,7 @@
 					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Extramural or Contract Project Title</label> 
-							<s:textfield name="extramuralGrant.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
+							<s:textfield name="extramuralGrant.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{extramuralGrant.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
 					</div>
@@ -177,13 +179,13 @@
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
-								<s:textfield name="extramuralGrant.piFirstName" cssClass="form-control unlink-group" id="extramural_fnPI" placeholder="" value="%{project.piFirstName}"  maxLength="30"/>
+								<s:textfield name="extramuralGrant.piFirstName" cssClass="form-control unlink-group" id="extramural_fnPI" placeholder="" value="%{extramuralGrant.piFirstName}"  maxLength="30"/>
 						</div>
 						<div class="col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
-								<s:textfield name="extramuralGrant.piLastName" cssClass="form-control unlink-group" id="extramural_lnPI" placeholder="" value="%{project.piLastName}"  maxLength="30"/>								
+								<s:textfield name="extramuralGrant.piLastName" cssClass="form-control unlink-group" id="extramural_lnPI" placeholder="" value="%{extramuralGrant.piLastName}"  maxLength="30"/>								
 						</div>
 					</div>
 

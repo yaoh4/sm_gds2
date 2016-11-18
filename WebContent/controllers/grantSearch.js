@@ -112,6 +112,10 @@ function populateGrantsContractsData(){
 	}
 	
 	if(searchType == 'extramural' || searchType == 'intramural') {
+		if (json.applId !== "undefined") {
+			$("#" + idPrefix + "_applId").val(json.applId);
+		}
+		
 		if (json.projectTitle !== "undefined") {
 			$("#" + idPrefix + "_projectTitle").val(json.projectTitle);
 		}
@@ -149,7 +153,8 @@ function populateGrantsContractsData(){
 		//$("#linkButton").hide();
 		$("#dataLinkFlag").val('N');
 	}
-	else if(searchType == 'extramural'){		
+	else if(searchType == 'extramural'){
+		$("#linkedGrantContractNum").val(json.grantContractNum);
 		$("#" + idPrefix + "grantsContractNum").prop('readOnly', true);
 		$(".unlink-group").prop('disabled', true);
 		
