@@ -426,14 +426,14 @@
 								<s:div class="input-group otherWrapper1">
 								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_%{#stat.index}_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Search Icon" value="%{#otherGrants.grantContractNum}"/>
 								
-								  <div class="input-group-btn">
+								  <div class="input-group-btn" style="vertical-align: top;">
                                     <s:a href="#" id="grants_%{#stat.index}_div" onclick="openGrantsContractsSearchPage('all','grants_%{#stat.index}')">
 									<button class="btn btn-default" type="button"  title="Edit" style=" margin-left: -2px;">
 									<i class="fa fa-pencil" aria-hidden="true"></i>
 																		</button></s:a> 
 								</div>
 								<s:if test="%{associatedSecondaryGrants.size > 1}">
-													<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete" style="font-size: 18px; padding-right: 3px; margin-left: 10px; verticle-align: 75%; cursor:pointer"></i>
+													<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete" style="font-size: 18px; padding-right: 3px; margin-left: 10px; vertical-align: 75%; cursor:pointer"></i>
 												</s:if>
 								</s:div>
 										</s:iterator>
