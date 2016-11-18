@@ -391,24 +391,6 @@
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
-					
-					<div id="pdName" class="row pdirector ">
-						<div class="col-xs-5 has-feedback">
-							<label for="First Name of Program Director"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
-								Name of Program Director</label>
-								<s:textfield name="intramuralGrant.pdFirstName" cssClass="form-control unlink-group" id="fnPD" placeholder="" value="%{intramuralGrant.pdFirstName}"  maxLength="30"/>								
-						</div>
-						<div class="col-xs-5 has-feedback">
-							<label for="Last Name of Program Director"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>Last
-								Name of Program Director</label>
-								<s:textfield name="intramuralGrant.pdLastName" cssClass="form-control unlink-group" id="lnPD" placeholder="" value="%{intramuralGrant.pdLastName}"  maxLength="30"/>								
-						</div>
-					</div>
-			
-
-				
 
 				</div> <!--end panel body-->
 				
