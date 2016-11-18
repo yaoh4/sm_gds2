@@ -57,7 +57,7 @@
     
     <!-- ----EXTRAMURAL FIELDS    -->
     <tr>
-    <td>
+    <td colspan="6">
         <div class="panel  panel panel-default">
         
       <div class="panel-heading">EXTRAMURAL</div>
@@ -65,7 +65,7 @@
    
    <table style="width: 90%;">
     <tr class="display">
-      <td style="white-space: nowrap; width: 35%;">
+      <td style="white-space: nowrap; width: 33%;">
         <s:if test="%{extramuralGrant.applClassCode.equals(\"G\")}">
       	  <strong>Grant #:</strong>
       	</s:if>
@@ -153,7 +153,7 @@
     
     <!-- -INTRAMURAL FIELDS -->
     <tr>
-    <td>
+    <td colspan="6">
         <div class="panel  panel panel-default">
         
       <div class="panel-heading">INTRAMURAL</div>
@@ -161,7 +161,7 @@
    
    <table style="width: 90%;">
     <tr class="display">
-      <td style="white-space: nowrap; width: 35%">
+      <td style="white-space: nowrap; width: 33%">
         <s:if test="%{intramuralGrant.applClassCode.equals(\"M\")}">
       	  <strong>Intramural #:</strong>
       	</s:if>
@@ -221,7 +221,7 @@
 
 
 
-    
+
     <s:if test="%{associatedSecondaryGrants.size > 0}">
     <tr>
         <td style="white-space: nowrap"><strong>Additional Grants:</strong></td>
