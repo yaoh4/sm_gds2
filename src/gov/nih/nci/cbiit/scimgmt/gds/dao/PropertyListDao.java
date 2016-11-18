@@ -42,6 +42,7 @@ public class PropertyListDao {
 			logger.info("Retrieving all lookup lists from DB");
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Lookup.class);
 			criteria.addOrder(Order.asc("discriminator"));
+			criteria.addOrder(Order.asc("orderNum"));
 			List<Lookup> lookups = criteria.list();
 					
 			return lookups;
