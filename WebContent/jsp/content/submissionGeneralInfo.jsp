@@ -110,7 +110,7 @@
  
 					<!--START EXTRAMURAL GRANT BOX -->
 					<div class="panel panel-default muralBox" id="extramuralDiv" style="display:none;">
-  					<div class="panel-heading" style="font-weight: bold;"><div id="extramuralHeading" style="display:none;">EXTRAMURAL</div><div id="nonfundedLabel" style="display:none;">NON-NIH FUNDED GRANT</div></div>
+  					<div class="panel-heading" style="font-weight: bold;">EXTRAMURAL</div>
   					<div class="panel-body">
                       <div id="extramural_grantDiv" style="display:none;">
 					<div class="row">
@@ -120,8 +120,6 @@
 								<s:hidden name="extramuralGrant.grantContractType"  value="%{extramuralGrant.grantContractType}"/>
 								<s:hidden name="extramuralGrant.primaryGrantContractFlag"  value="%{extramuralGrant.primaryGrantContractFlag}"/>
 								<s:hidden name="extramuralGrant.createdBy"  value="%{extramuralGrant.createdBy}"/>
-								<s:hidden name="extramuralGrant.applId"  id="extramural_applId" value="%{extramuralGrant.applId}"/>								
-								<s:hidden name="linkedGrantContractNum" id="linkedGrantContractNum" value="%{extramuralGrant.grantContractNum}"/>
 								
 								<div class="input-group ">
 								  <s:textfield name="extrmuralGrant.grantContractNum"  maxlength="271" class="form-control" cssclass="form-control" readonly="true" id="extramural_grantsContractNum" placeholder="Click on Edit Icon" value="%{extramuralGrant.grantContractNum}"/>
@@ -159,7 +157,7 @@
 					<div class="row has-feedback">
                        <div class="col-xs-5">
                            <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
-                           <s:textfield name="extramuralGrant.cayCode" cssClass="form-control unlink-group"  id="cancerActivity" value="%{extramuralGrant.cayCode}" placeholder=""  readonly="true">
+                           <s:textfield name="cancerActivity" cssClass="form-control unlink-group"  id="cancerActivity" value="%{project.cayCode}" placeholder=""  readonly="true">
                            </s:textfield>
                            </div>
                            </div>
@@ -169,7 +167,7 @@
 					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Extramural or Contract Project Title</label> 
-							<s:textfield name="extramuralGrant.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{extramuralGrant.projectTitle}"  maxLength="100"/>
+							<s:textfield name="extramuralGrant.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
 					</div>
@@ -179,13 +177,13 @@
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
-								<s:textfield name="extramuralGrant.piFirstName" cssClass="form-control unlink-group" id="extramural_fnPI" placeholder="" value="%{extramuralGrant.piFirstName}"  maxLength="30"/>
+								<s:textfield name="extramuralGrant.piFirstName" cssClass="form-control unlink-group" id="extramural_fnPI" placeholder="" value="%{project.piFirstName}"  maxLength="30"/>
 						</div>
 						<div class="col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
-								<s:textfield name="extramuralGrant.piLastName" cssClass="form-control unlink-group" id="extramural_lnPI" placeholder="" value="%{extramuralGrant.piLastName}"  maxLength="30"/>								
+								<s:textfield name="extramuralGrant.piLastName" cssClass="form-control unlink-group" id="extramural_lnPI" placeholder="" value="%{project.piLastName}"  maxLength="30"/>								
 						</div>
 					</div>
 
@@ -226,7 +224,7 @@
 
 					<div class="row has-feedback">
 						<div class="col-xs-6">
-							<label for="Email of Primary Contact">Email of
+							<label for="Email of Principal Investigator">Email of
 								Primary Contact</label>
 						<s:textfield name="extramuralGrant.pocEmailAddress" cssClass="form-control" id="PCemail" placeholder="Enter Vaild Email Address" data-error="Email address is invalid" value="%{extramuralGrant.pocEmailAddress}" maxLength="80"/>								
 						</div>
@@ -310,6 +308,23 @@
 								</div>
 								</div>
 					
+							<div class="col-xs-5" style="margin-left:-15px">
+							<label>&nbsp;</label>
+							  <div class="position: relative; display: table; border-collapse: separate;">
+														
+							<s:hidden name="intramuralGrant.dataLinkFlag" id="dataLinkFlag" value="%{intramuralGrant.dataLinkFlag}">
+							<s:if test="isGPA()">
+							<div class="btn-group" id="linkButton">
+															
+							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
+							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
+							<a href="javascript: void(0)" id="unlink" class="btn btn-default" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
+														  
+							</div>
+	 						</s:if>
+							</s:hidden>
+						</div>
+						</div>
 					</div>
 
 					</div>
@@ -320,7 +335,7 @@
 					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Intramural or Contract Project Title</label> 
-							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control unlink-group" id="intramural_projectTitle" placeholder="" value="%{intramuralGrant.projectTitle}"  maxLength="100"/>
+							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
 					</div>
@@ -330,13 +345,13 @@
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
-								<s:textfield name="intramuralGrant.piFirstName" cssClass="form-control unlink-group" id="intramural_fnPI" placeholder="" value="%{intramuralGrant.piFirstName}"  maxLength="30"/>
+								<s:textfield name="intramuralGrant.piFirstName" cssClass="form-control unlink-group" id="intramural_fnPI" placeholder="" value="%{project.piFirstName}"  maxLength="30"/>
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
-								<s:textfield name="intramuralGrant.piLastName" cssClass="form-control unlink-group" id="intramural_lnPI" placeholder="" value="%{intramuralGrant.piLastName}"  maxLength="30"/>								
+								<s:textfield name="intramuralGrant.piLastName" cssClass="form-control unlink-group" id="intramural_lnPI" placeholder="" value="%{project.piLastName}"  maxLength="30"/>								
 						</div>
 					</div>
 
@@ -351,16 +366,7 @@
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
                     
-                    <div id="piInstution">
-					<div class="row has-feedback">
-						<div class="col-xs-10">
-							<label for="Institution of Principal Investigator"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
-								of Principal Investigator</label>
-								<s:textfield name="intramuralGrant.piInstitution" cssClass="form-control unlink-group" id="intramural_PIInstitute" placeholder="" value="%{intramuralGrant.piInstitution}"  maxLength="120"/>								
-						</div>
-					</div>
-                    </div>
+                    
                     
 					<div class="row">
 						<div class="col-xs-5 has-feedback">
@@ -383,6 +389,24 @@
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
+					
+					<div id="pdName" class="row pdirector ">
+						<div class="col-xs-5 has-feedback">
+							<label for="First Name of Program Director"><i
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
+								Name of Program Director</label>
+								<s:textfield name="intramuralGrant.pdFirstName" cssClass="form-control unlink-group" id="fnPD" placeholder="" value="%{intramuralGrant.pdFirstName}"  maxLength="30"/>								
+						</div>
+						<div class="col-xs-5 has-feedback">
+							<label for="Last Name of Program Director"><i
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>Last
+								Name of Program Director</label>
+								<s:textfield name="intramuralGrant.pdLastName" cssClass="form-control unlink-group" id="lnPD" placeholder="" value="%{intramuralGrant.pdLastName}"  maxLength="30"/>								
+						</div>
+					</div>
+			
+
+				
 
 				</div> <!--end panel body-->
 				
@@ -394,22 +418,22 @@
 										
 							<label for="Additional_Grants"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Are there any additional Grants or Contracts associated with the submission?</label>
-								 <s:radio  name="grantsAdditional" class="grants" list="#{'Y':'Yes','N':'No'}" template="radiomap-div.ftl"/>
+								 <s:radio  name="grantsAdditional" class="grants" list="#{'1':'Yes','2':'No'}" template="radiomap-div.ftl"/>
 
 					         <div id="addGrant" style="display: none" class="col-xs-5"> 
 					            <s:if test="%{associatedSecondaryGrants.size > 0}">
 										<s:iterator value="%{associatedSecondaryGrants}" var="otherGrants" status="stat">
 								<s:div class="input-group otherWrapper1">
-								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_%{#stat.index}_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Edit Icon" value="%{#otherGrants.grantContractNum}"/>
+								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_%{#stat.index}_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Search Icon" value="%{#otherGrants.grantContractNum}"/>
 								
 								  <div class="input-group-btn">
                                     <s:a href="#" id="grants_%{#stat.index}_div" onclick="openGrantsContractsSearchPage('all','grants_%{#stat.index}')">
-									<button class="btn btn-default" type="button"  title="Edit" style=" margin-left: -2px;">
-									<i class="fa fa-pencil" aria-hidden="true"></i>
+									<button class="btn btn-default" type="button"  title="Search" style=" margin-left: -2px;">
+									<i class="fa fa-search" aria-hidden="true"></i>
 																		</button></s:a> 
 								</div>
 								<s:if test="%{associatedSecondaryGrants.size > 1}">
-													<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer"></i>
+													<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete" style="font-size: 18px; padding-right: 3px; margin-left: 10px; verticle-align: 75%; cursor:pointer"></i>
 												</s:if>
 								</s:div>
 										</s:iterator>
@@ -418,7 +442,7 @@
 									<!--Repo hidden field-->
 								<s:div class="input-group otherWrapper1">
 								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_0_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Edit Icon"/>
-								  <div class="input-group-btn">
+								  <div class="input-group-btn" style="vertical-align: top;">
                                     <s:a href="#" id="grants_0_div" onclick="openGrantsContractsSearchPage('all','grants_0')">
 																		<button class="btn btn-default" type="button"  title="Edit" style=" margin-left: -2px;">
 																			<i class="fa fa-pencil"  aria-hidden="true"></i>
@@ -446,7 +470,7 @@
 						<s:textarea cssClass="col-md-12 form-control input " rows="3" maxlength="2000"
 							name="project.comments" id="gComments"></s:textarea>
 					</div>
-					
+					</div>
 
 
 		<script type="text/javascript" src="<s:url value="/controllers/grantSearch.js"/>"></script>		</div>
