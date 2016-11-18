@@ -124,6 +124,10 @@ public class ManageSubmission extends BaseAction {
 	}
 	
 	
+	public ProjectsVw getProjectsVw() {
+		return manageProjectService.findProjectsVwById(Long.valueOf(getProject().getId()));
+	}
+	
 	/**
 	 * Retrieve the project based on the projectId indicated in the request
 	 * 
@@ -164,17 +168,14 @@ public class ManageSubmission extends BaseAction {
 		return null;
 	}
 	
-	public List<Project> getSubprojects() {
+	public List<ProjectsVw> getSubprojects() {
 		
 		Long projectId = project.getId();
 		if(projectId != null) {
-			List<Project> subprojects =  manageProjectService.getSubprojects(projectId);
-			for(Project subproject: subprojects) {
-				loadGrantInfo(subproject);
-			}
+			List<ProjectsVw> subprojects =  manageProjectService.getSubprojectVws(projectId);
 			return subprojects;
 		} 
-		return new ArrayList<Project>();
+		return new ArrayList<ProjectsVw>();
 	}
 	
 	public List<Project> retrieveVersions(Project project) {

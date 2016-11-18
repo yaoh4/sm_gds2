@@ -220,6 +220,18 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		return projectsDao.getSubOrgList(organization.getNihsac());
 	}
 
+	
+	/**
+	 * Retrieve Sub-projects based on parent project ID.
+	 * @param parentProjectId
+	 * @return List<Project>
+	 */
+	public List<ProjectsVw> getSubprojectVws(Long parentProjectId) {
+		logger.debug("getSubprojects");
+		return projectsDao.getSubprojectVws(parentProjectId);
+	}
+	
+	
 	/**
 	 * Retrieve Sub-projects based on parent project ID.
 	 * @param parentProjectId

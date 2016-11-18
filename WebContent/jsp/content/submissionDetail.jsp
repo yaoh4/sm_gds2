@@ -222,9 +222,9 @@
         </tr>
            <s:iterator status="stat" var="subproject" value="subprojects">
             <tr>
-              <td>${subproject.submissionTitle}</td>
+              <td>${subproject.projectSubmissionTitle}</td>
               
-              <td>${subproject.piFullName}</td>
+              <td>${subproject.extPiFullName}<br>${subProject.intPiFullName}</td>
               
               <td style="white-space: nowrap;" align="center">
               <s:if test="%{getProjectStatusCode(#subproject).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
@@ -271,9 +271,9 @@
         </tr>
      
             <tr>
-              <td>${project.parent.submissionTitle}</td>
+              <td>${projectsVw.parentProject.projectSubmissionTitle}</td>
               
-              <td>${project.parent.piFullName}</td>
+              <td>${projectsVw.parentProject.extPiFullName}<br>${projectsVw.parentProject.intPiFullName}</td>
               
               <td style="white-space: nowrap">
                <s:if test="%{getProjectStatusCode(project.parent).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
