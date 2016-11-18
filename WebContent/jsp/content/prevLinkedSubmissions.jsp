@@ -44,12 +44,22 @@
 						<td align="center"><s:property
 								value="%{#prevSubmission.id}" />
 						<td class="paddingT" nowrap><s:property
-								value="%{#prevSubmission.projectTitle}" /></td>
-						<td class="paddingT"><s:a
-								href="mailto:%{#prevSubmission.piEmailAddress}?">
-								<s:property value="%{#prevSubmission.piLastName}" /> , <s:property
-									value="%{#prevSubmission.piFirstName}" />
+								value="%{#prevSubmission.projectSubmissionTitle}" /></td>
+						
+						<s:if test="%{grantContractNum == #prevSubmission.extGrantContractNum}">
+							<td class="paddingT"><s:a
+								href="mailto:%{#prevSubmission.extPiEmailAddress}?">
+								<s:property value="%{#prevSubmission.extPiLastName}" /> , <s:property
+									value="%{#prevSubmission.extPiFirstName}" />
 							</s:a></td>
+						</s:if>	
+						<s:else>
+							<td class="paddingT"><s:a
+								href="mailto:%{#prevSubmission.intPiEmailAddress}?">
+								<s:property value="%{#prevSubmission.intPiLastName}" /> , <s:property
+									value="%{#prevSubmission.intPiFirstName}" />
+							</s:a></td>
+						</s:else>
 							
 						<td class="paddingT"> 
 							<s:if test="%{#prevSubmission.projectStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
