@@ -76,7 +76,7 @@
 					
 
 					<div class="form-group row has-feedback">
-					<div id="DivisionOffice">
+					<div id="DivisionOffice" style="display:none;">
 						<div class="col-xs-6">
 							<label for="NCI Division/Office/Center under which the submission is being created"><i
 								class="fa fa-asterisk" aria-hidden="true"></i>NCI Division/Office/Center under which the submission is being created</label> 
@@ -90,8 +90,8 @@
 						</div>
 					</div>
 					
-					<div class="form-group row has-feedback">
-					<div id="pBranch">
+					<div class="form-group row has-feedback" >
+					<div id="pBranch" style="display:none;">
 						<div class="col-xs-6">
 							<label for="Program Branch"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Branch/Program/Laboratory</label> 
@@ -109,7 +109,7 @@
                    
  
 					<!--START EXTRAMURAL GRANT BOX -->
-					<div class="panel panel-default muralBox" id="extramuralDiv">
+					<div class="panel panel-default muralBox" id="extramuralDiv" style="display:none;">
   					<div class="panel-heading" style="font-weight: bold;"><div id="extramuralHeading" style="display:none;">EXTRAMURAL</div><div id="nonfundedLabel" style="display:none;">NON-NIH FUNDED GRANT</div></div>
   					<div class="panel-body">
                       <div id="extramural_grantDiv" style="display:none;">
@@ -420,7 +420,7 @@
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Are there any additional Grants or Contracts associated with the submission?</label>
 								 <s:radio  name="grantsAdditional" class="grants" list="#{'1':'Yes','2':'No'}" template="radiomap-div.ftl"/>
 
-					         <div id="addGrant" style="display: none"> 
+					         <div id="addGrant" style="display: none" class="col-xs-5"> 
 					            <s:if test="%{associatedSecondaryGrants.size > 0}">
 										<s:iterator value="%{associatedSecondaryGrants}" var="otherGrants" status="stat">
 								<s:div class="input-group otherWrapper1">
@@ -428,8 +428,8 @@
 								
 								  <div class="input-group-btn">
                                     <s:a href="#" id="grants_%{#stat.index}_div" onclick="openGrantsContractsSearchPage('all','grants_%{#stat.index}')">
-									<button class="btn btn-default" type="button"  title="Edit" style=" margin-left: -2px;">
-									<i class="fa fa-pencil" aria-hidden="true"></i>
+									<button class="btn btn-default" type="button"  title="Search" style=" margin-left: -2px;">
+									<i class="fa fa-search" aria-hidden="true"></i>
 																		</button></s:a> 
 								</div>
 								<s:if test="%{associatedSecondaryGrants.size > 1}">
