@@ -62,14 +62,24 @@ $(document).ready(function () {
 		processRegistrationStatusSelected(this.id);
 	});
 	
+	if($("#subprojectFlag").val() == 'N'){
 	$(".helpfile").click(function(){
 		
-		var url = "https://gds-dev.nci.nih.gov/documentation/application/Submission_Status_help.pdf";
+		var url = "/documentation/application/Project_Only_Submission_Status_help.pdf";
 		var winName = "Submission Status Help File";
 		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
 		var newWin = window.open(url, winName, features);
 	});
-	
+	}
+	else {
+		$(".helpfile").click(function(){
+			
+			var url = "/documentation/application/Sub-project_Only_Submission_Status_help.pdf";
+			var winName = "Submission Status Help File";
+			var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+			var newWin = window.open(url, winName, features);
+		});
+	}
 	$(".repoSelect").change(function(){
 		if( $(this).is(':checked')) {
 			$(this).parent().parent().parent().children('div.panel-body').show();

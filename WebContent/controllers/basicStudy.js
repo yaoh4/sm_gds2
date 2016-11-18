@@ -23,9 +23,9 @@ $('#25').change(function () {
 $('#25').change();
 
 
-$(".helpfile").click(function(){
+$(".helpfile").click(function() {
 	
-	var url = "https://gds-dev.nci.nih.gov/documentation/application/BSI_help.pdf";
+	var url = "/documentation/application/Project_and_Sub-project_BSI_help.pdf";
 	var winName = "Submission BSI Help File";
 	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
 	var newWin = window.open(url, winName, features);

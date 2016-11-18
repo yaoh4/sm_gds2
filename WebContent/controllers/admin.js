@@ -7,6 +7,14 @@ $(document).ready(function(){
 	};
 	
 	reinitTable();
+	
+	$(".helpfile").click(function(){
+		
+		var url = "/documentation/application/Manage_User_Accounts_help.pdf";
+		var winName = "Submission Admin Help File";
+		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+		var newWin = window.open(url, winName, features);
+	});
       	
 });
 

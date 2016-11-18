@@ -131,8 +131,15 @@ $(document).on('click', '.header', function () {
 
 $(".helpfile").click(function() {
 	
-	var url = "https://gds-dev.nci.nih.gov/documentation/application/Institutional_Certifications_help.pdf";
+	var url = "/documentation/application/Project_Only_Institutional_Certifications_help.pdf";
 	var winName = "Submission IC Help File";
+	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+	var newWin = window.open(url, winName, features);
+});
+$(".helpfileSubProject").click(function() {
+	
+	var url = "/documentation/application/Sub-project_Only_Institutional_Certifications_help.pdf";
+	var winName = "Submission IC Sub-Project Help File";
 	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
 	var newWin = window.open(url, winName, features);
 });

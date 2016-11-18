@@ -1,5 +1,13 @@
 //For Search Submission Result Data table
 $(document).ready(function(){
+	
+	$(".helpfile").click(function(){
+		
+		var url = "/documentation/application/Find_Submissions_help.pdf";
+		var winName = "Find Submissions Help File";
+		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+		var newWin = window.open(url, winName, features);
+	});
 
 	$('.stickyDiv').removeClass('stickyDiv');
 	
