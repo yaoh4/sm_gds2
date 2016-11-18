@@ -4,7 +4,9 @@
 
 
 <p class="question" style="width:32%; float:left; margin-left:30px;">Upload Exception Memo: [to be uploaded by GPA]
-
+&nbsp;<a href="#" id="popover" style="font-size: 12px;">
+                         <i class="helpfile fa fa-question-circle fa-1x"
+							aria-hidden="true"></i></a> &nbsp;
 <label for="exceptionMemo" style="width: auto; display: none;">Upload
 	Exception Memo</label>
 </p>
