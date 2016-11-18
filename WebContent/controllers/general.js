@@ -47,7 +47,7 @@ $("input[name='grantSelection']").click(function () {
 
 $("input[name='project.submissionReasonId']").click(function () {
     $('#extramuralDiv, #nonfundedLabel').css('display', ($(this).val() === '29') ? 'block':'none');
-     $('#researchType, #extramuralHeading, #extramural_grantDiv').css('display', ($(this).val() === '29') ? 'none':'none'); 
+     $('#researchType, #extramuralHeading, #extramural_grantDiv, #intramuralDiv').css('display', ($(this).val() === '29') ? 'none':'none'); 
      $('#researchType, #extramuralHeading, #extramuralDiv, #extramural_grantDiv').css('display', ($(this).val() !== '29') ? 'block':'display'); 
 });
 
