@@ -174,8 +174,24 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				project.removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
 			}
 			
-			
-			
+			List<ProjectGrantContract> grants1=getProject().getAssociatedGrants();
+			List<ProjectGrantContract> grants2= project.getAssociatedGrants();
+			logger.debug("old set is" +grants1);
+			logger.debug("new set is" +grants2);
+			if(grants1.isEmpty()) {
+				for(ProjectGrantContract newSet :grants2) {
+					project.removeAssociatedGrant(newSet);
+				}
+			}
+	     
+			for(ProjectGrantContract  oldSet: grants1 ) {
+				for(ProjectGrantContract newSet :grants2) {
+					if(oldSet.getGrantContractNum().equals(newSet.getGrantContractNum())) {
+						oldSet.setId(newSet.getId());
+					}
+					project.removeAssociatedGrant(newSet);
+				}
+			}
 			performDataCleanup(getProject(),project);
 			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(),project);		
 		}
@@ -604,6 +620,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			validateGrantData(getExtramuralGrant());
 			validatePrincipleInvestigator(getExtramuralGrant());
 			validatePrimaryContact(getExtramuralGrant());
+			
 		}
 		
 		if(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL.equals(grantSelection)
@@ -616,11 +633,12 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			validatePrimaryContact(getIntramuralGrant());
 		}
 		
+		validateAdditionalGrants();
 		
 		Iterator<ProjectGrantContract> iterator = getAssociatedSecondaryGrants().iterator();
 		while(iterator.hasNext()) {
 			ProjectGrantContract grantContract = iterator.next();
-			if(StringUtils.isBlank(grantContract.getGrantContractNum())){
+			if(StringUtils.isBlank(grantContract.getGrantContractNum()) && !ApplicationConstants.FLAG_YES.equals(grantContract.getPrimaryGrantContractFlag())){
 				iterator.remove();
 				break;
 			}
@@ -646,7 +664,23 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			setUpLists();
 		} 
 	}	
-
+    
+	/**
+	 * Validates Additional Grants
+	 */
+	public void validateAdditionalGrants(){
+		
+		if(grantsAdditional == 1) {
+			List<ProjectGrantContract> grants = getAssociatedSecondaryGrants();
+			for(ProjectGrantContract grant: grants) {
+				if(StringUtils.isBlank(grant.getGrantContractNum())) {
+					this.addActionError("Please Enter a Grant Number");
+					return;
+				}
+			}
+			
+		}
+	}
 	/**
 	 * Validates save Project General Information
 	 */
