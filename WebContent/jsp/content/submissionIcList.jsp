@@ -50,9 +50,16 @@
                <span>You will be able to add/edit Institutional Certification and/or DUL only at the parent project level. Changes will then be reflected in this sub-project. </span>
              <br/><br/></div> 
             <p class="question" style="display:inline;">Has the GPA received and reviewed all Institutional Certifications?
+            <s:if test= "%{subprojectFlag} == 'N'">
             &nbsp; <a href="#" id="popover" style="font-size: 12px;">
             <i class="helpfile fa fa-question-circle fa-1x"
 		     aria-hidden="true"></i></a>
+		     </s:if>
+		     <s:else>
+		     &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+            <i class="helpfileSubProject fa fa-question-circle fa-1x"
+		     aria-hidden="true"></i></a>
+		     </s:else>
                &nbsp;
               <div style="display:none" id="addICBtn">
                 <s:submit action="editIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
@@ -70,7 +77,11 @@
             <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
               <tr class="modalTheader">
                <!--  Show this column header only for subproject -->
-                <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select</th>                      
+                <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select 
+                 &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+                 <i class="helpfileSubProject fa fa-question-circle fa-1x"
+		          aria-hidden="true"></i></a>
+                </th>                      
                 <th class="tableHeader" align="center" width="40%">Institutional Certification Document</th>
                 <th class="tableHeader" align="center" width="10%">Status</th>
                 <th class="tableHeader" align="center" width="10%">Missing Data</th>
