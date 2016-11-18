@@ -32,16 +32,17 @@
         <td style="white-space: nowrap">&nbsp;</td>
         <td colspan="4">&nbsp;</td>
       </tr>	  
+      <p>&nbsp;</p>
 	</s:if>
 	</s:if>
-	     <p>&nbsp;</p>
+
         <s:if test="%{project.bsiReviewedId != null}">  
           <table width="100%" border="0" cellpadding="3" ><tr><td width="30%" style="white-space: nowrap"><strong>Has the GPA reviewed the Basic Study Information?</strong><td><s:property value="%{getLookupDisplayNamebyId(project.bsiReviewedId)}"/></td></tr></table>  
           </s:if>
           <p>&nbsp;</p>
           
           <s:if test="%{bsiFile[0] != null}">
-          <p><strong>Uploaded Basic Study Infomation Form:</strong><br>
+          <p><strong>Uploaded Basic Study Information Form:</strong><br>
             <table style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody>
                 <tr class="modalTheader">
