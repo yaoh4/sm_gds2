@@ -308,19 +308,6 @@
 								</div>
 							</div>
 					
-							<div class="col-xs-5" style="margin-left:-15px">
-							<label>&nbsp;</label>
-							<div class="position: relative; display: table; border-collapse: separate;">
-													
-                            <s:hidden name="intramuralGrant.dataLinkFlag" id="dataLinkFlag" value="%{intramuralGrant.dataLinkFlag}">
-							<s:if test="isGPA()">
-							<div class="btn-group" id="linkButton">
-															
-							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
-							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
-							<a href="javascript: void(0)" id="unlink" class="btn btn-default" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
-															</div>
-						</div>
 					</div>
 
 					</div>
