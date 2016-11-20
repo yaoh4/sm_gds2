@@ -64,19 +64,19 @@
 					</div>
 
 
-                <div class="form-group row has-feedback" id="researchType">
+                <div class="form-group row has-feedback genConditionalDisplay" id="researchType" style="display:none;">
 						<div class="col-xs-10">
 							<p class="question">Research Type:</p>
 							 <s:radio  name="grantSelection" class="grantSelection" list="#{'Extramural':'Extramural','Intramural':'Intramural','Both':'Both'}" template="radiomap-div.ftl" value="%{grantSelection}"/>
-								
+							 <s:hidden id="researchType"/>	
 						</div>
 					</div>
 					
 					
 					
 
-					<div class="form-group row has-feedback">
-					<div id="DivisionOffice" style="display:none;">
+					<div class="form-group row has-feedback genConditionalDisplay" style="display:none;">
+					<div id="DivisionOffice">
 						<div class="col-xs-6">
 							<label for="NCI Division/Office/Center under which the submission is being created"><i
 								class="fa fa-asterisk" aria-hidden="true"></i>NCI Division/Office/Center under which the submission is being created</label> 
@@ -90,8 +90,8 @@
 						</div>
 					</div>
 					
-					<div class="form-group row has-feedback" >
-					<div id="pBranch" style="display:none;">
+					<div class="form-group row has-feedback genConditionalDisplay" style="display:none;">
+					<div id="pBranch">
 						<div class="col-xs-6">
 							<label for="Program Branch"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Branch/Program/Laboratory</label> 
@@ -112,8 +112,8 @@
 					<div class="panel panel-default muralBox" id="extramuralDiv" style="display:none;">
   					<div class="panel-heading" style="font-weight: bold;">EXTRAMURAL</div>
   					<div class="panel-body">
-                      <div id="extramural_grantDiv" style="display:none;">
-					<div class="row">
+                    <div id="extramural_grantDiv">
+					<div class="row extConditionalDisplay">
 					<div class="col-xs-5" id="exGrantSearch">
 							<label for="Grant #">Grant# or Contract#</label>									
 
@@ -154,7 +154,7 @@
 					</div>
 					
 					<div id="canAct">
-					<div class="row has-feedback">
+					<div class="row has-feedback extConditionalDisplay">
                        <div class="col-xs-5">
                            <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
                            <s:textfield name="cancerActivity" cssClass="form-control unlink-group"  id="cancerActivity" value="%{project.cayCode}" placeholder=""  readonly="true">
@@ -164,7 +164,7 @@
                     </div>
                         
                         <div id="title">   
-					<div class="row has-feedback">
+					<div class="row has-feedback extConditionalDisplay">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Extramural or Contract Project Title</label> 
 							<s:textfield name="extramuralGrant.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{project.projectTitle}"  maxLength="100"/>
@@ -231,7 +231,7 @@
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
 					</div>
 					
-					<div id="pdName" class="row pdirector ">
+					<div id="pdName" class="row pdirector extConditionalDisplay">
 						<div class="col-xs-5 has-feedback">
 							<label for="First Name of Program Director"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp; </i>First
@@ -247,7 +247,7 @@
 					</div>
 				
 
-				<div class="row pdates">
+				<div class="row pdates extConditionalDisplay">
 					<div id="pStartDate"
 						class="col-xs-2 projectDates has-feedback">
 						<label for="Project Start Date"><i
@@ -276,21 +276,21 @@
 
 						</div>
 					</div>
-					</div>
+				</div>
 
 				</div> <!--end panel body-->
 				</div> <!--end panel -->
 
 
-					<!--START INTRAMURAL GRANT BOX -->
-					 <div class="panel panel-default muralBox" id="intramuralDiv" style="display:none;">
-  <div class="panel-heading" style="font-weight: bold;">INTRAMURAL</div>
-  <div class="panel-body">
+	<!--START INTRAMURAL GRANT BOX -->
+	<div class="panel panel-default muralBox" id="intramuralDiv" style="display:none;">
+  		<div class="panel-heading" style="font-weight: bold;">INTRAMURAL</div>
+  		<div class="panel-body">
 
 
-					 <div id="intramural_grantDiv">
+				<div id="intramural_grantDiv">
 					<div class="row">
-					<div class="col-xs-5">
+						<div class="col-xs-5">
 							<label for="Grant #" id="grantLabel">Intramural# or Contract#</label>									
 
 								<s:hidden name="intramuralGrant.grantContractType"  value="%{intramuralGrant.grantContractType}"/>
@@ -306,24 +306,20 @@
 																		</button></a> 
 								</div>
 								</div>
-								</div>
+							</div>
 					
 							<div class="col-xs-5" style="margin-left:-15px">
 							<label>&nbsp;</label>
-							  <div class="position: relative; display: table; border-collapse: separate;">
-														
-							<s:hidden name="intramuralGrant.dataLinkFlag" id="dataLinkFlag" value="%{intramuralGrant.dataLinkFlag}">
+							<div class="position: relative; display: table; border-collapse: separate;">
+													
+                            <s:hidden name="intramuralGrant.dataLinkFlag" id="dataLinkFlag" value="%{intramuralGrant.dataLinkFlag}">
 							<s:if test="isGPA()">
 							<div class="btn-group" id="linkButton">
 															
 							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
 							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
 							<a href="javascript: void(0)" id="unlink" class="btn btn-default" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
-														  
-							</div>
-	 						</s:if>
-							</s:hidden>
-						</div>
+															</div>
 						</div>
 					</div>
 

@@ -25,30 +25,60 @@ $(function(){
 
 //setting up default questions/grant boxes
 $(document).ready(function() {
-	$("#intramuralDiv").hide();
-	$("#nonfundedLabel").hide();
-	$("#researchType").show();
-	$("#DivisionOffice").show();
-	$("#DpBranch").show();
-	$("#extramuralDiv").show();
-	$("#extramuralHeading").show();
-	$("#extramural_grantDiv").show();
+	var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
+	var code= $("input[type='radio'].grantSelection:checked").val();
+	$("#researchType").val(code);
+	if(projAnswer === 29) {
+		$("#extramuralDiv").show();
+		$(".extConditionalDisplay").hide();
+	} else {
+		$(".genConditionalDisplay").show();
+		if(code == 'Extramural' || code === 'Both') {
+			$("#extramuralDiv").show();
+		} else if(code == 'Intramural' || code === 'Both') {
+			$("#intramuralDiv").show();
+		}
+	}
+	
 
 });
 
 //Research Type 
 
 $("input[name='grantSelection']").click(function () {
-    $('#extramuralDiv').css('display', ($(this).val() === 'Extramural') ? 'block':'none');
-     $('#intramuralDiv').css('display', ($(this).val() === 'Intramural') ? 'block':'none');
-      $('#extramuralDiv, #intramuralDiv').css('display', ($(this).val() === 'Both') ? 'block':'display');
+	
+	var result = "Changing the Research type will clear the Extramural/Intramural/Contract#.<br /> Do you wish to continue?";
+	var code= $(this).val(); 
+	
+	bootbox.confirm(result, function(ans) {
+		if (ans) {
+			$("#researchType").val(code);
+			
+			$('.genConditionalDisplay').css('display', 'block');
+			$('#extramuralDiv').css('display', (code === 'Extramural' || code === 'Both') ? 'block':'none');
+		    $('#intramuralDiv').css('display', (code === 'Intramural' || code === 'Both') ? 'block':'none');
+			
+		} else {
+			//Restore previous value
+			var currentCode = $("#researchType").val();
+			$("#general_form_grantSelection" + currentCode).prop("checked", true);
+			return true;
+		};
+	});
+	
+	
 });
 // Non-funded NIH Grants
 
 $("input[name='project.submissionReasonId']").click(function () {
-    $('#extramuralDiv, #nonfundedLabel').css('display', ($(this).val() === '29') ? 'block':'none');
-     $('#researchType, #extramuralHeading, #extramural_grantDiv, #intramuralDiv').css('display', ($(this).val() === '29') ? 'none':'none'); 
-     $('#researchType, #extramuralHeading, #extramuralDiv, #extramural_grantDiv').css('display', ($(this).val() !== '29') ? 'block':'display'); 
+	var code= $("input[type='radio'].grantSelection:checked").val();
+		
+	$('.genConditionalDisplay').css('display', ($(this).val() != '29') ? 'block':'none');
+	$('#extramuralDiv').css('display', ( $(this).val() === '29' 
+			|| ($(this).val() !== '29' && (code === 'Extramural' || code === 'Both'))) ? 'block':'none');
+	$('.extConditionalDisplay').css('display', ($(this).val() !== '29' && (code == 'Extramural' || code === 'Both')) ? 'block':'none');  
+	$('#intramuralDiv').css('display',  ($(this).val() !== '29' && (code === 'Intramural' || code === 'Both')) ? 'block':'none'); 
+     
 });
 
 //Search/Edit button
@@ -98,7 +128,7 @@ $( document ).ready(function() {
 		  }
 	  }*/
 	
-	if(grants == 'Y'){
+	/*if(grants == 'Y'){
 		 $("#addGrant").show();
 		 var fieldCount = $(".otherWrapper1").length;
 			for(var j = 0; j < fieldCount; j++) {
@@ -115,10 +145,10 @@ $( document ).ready(function() {
 			$("#extramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
 			$("#extramural_grantDiv button").attr("title", "Search");
 			$("#extramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
-			$("#canAct").hide();
-			$("#linkButton").hide();
+			//$("#canAct").hide();
+			//$("#linkButton").hide();
 		} else {
-			$("#linkButton").show();
+			//$("#linkButton").show();
 		}
 	}
 	
@@ -132,7 +162,7 @@ $( document ).ready(function() {
 		} else {
 			$("#linkButton").show();
 		}
-	}
+	}*/
 	
 });
 
@@ -340,7 +370,7 @@ function refreshGrantsContractsData(){
  });*/
  
  
- $(function () {
+ /*$(function () {
 	 //var docName=$('#DOC').find('option:selected').text();
 	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
 	 var code= $("input[type='radio'].grantSelection:checked").val();
@@ -363,7 +393,7 @@ function refreshGrantsContractsData(){
 		 //specific fields un-editable. Else make them editable.
 		showGrantFields();
 	 }
-});
+});*/
  
  $('.grantSelection').on('change', function () {
 	 var code= $("input[type='radio'].grantSelection:checked").val();
