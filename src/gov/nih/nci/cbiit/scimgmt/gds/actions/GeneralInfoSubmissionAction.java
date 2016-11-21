@@ -203,7 +203,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			if(project.getId() == null && project.getParentProjectId() != null) {
 				Project parentProject = retrieveParentProject(project);
 				project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
-				project.setProjectGrantsContracts(parentProject.getProjectGrantsContracts());
+				//project.setProjectGrantsContracts(parentProject.getProjectGrantsContracts());
 				project.setDocAbbreviation(parentProject.getDocAbbreviation());
 				project.setProgramBranch(parentProject.getProgramBranch());
 			}
