@@ -384,31 +384,29 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	@SuppressWarnings("unchecked")
 	private void setUpLists(){
 		logger.debug("Setting up page lists.");
-		if(docList.isEmpty()){
+		
+		//Populate submission reasons
+		projectSubmissionReasons = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST.toUpperCase());	
+				
+		//Populate doclist
+		List<Organization> docListFromDb = (List<Organization>) lookupService.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());
+		GdsSubmissionActionHelper.populateDocDropDownList(docList,docListFromDb);
+				
+		//Populate progList
+		if(getProject() == null) {	
+			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());	
 			
-			List<Organization> docListFromDb = (List<Organization>) lookupService.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());
-			GdsSubmissionActionHelper.populateDocDropDownList(docList,docListFromDb);
-			
-			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());
 			if(preSelectedDOC.equalsIgnoreCase("DCEG") || preSelectedDOC.equalsIgnoreCase("CCR")) {
 				grantSelection = ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL;
 			} else {
 				grantSelection = ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL;
 			}
 			
-		}
+			List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
+			progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
+		} else {
+			//If user is editing already saved project then pre-select saved project's DOC in the DOC dropdown list.
 		
-		if(progList.isEmpty()){
-				List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
-				progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
-		}
-		 
-		if(projectSubmissionReasons.isEmpty()){			
-			projectSubmissionReasons = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST.toUpperCase());	
-		}		
-		
-		//If user is editing already saved project then pre-select saved project's DOC in the DOC dropdown list.
-		if(getProject() != null && StringUtils.isNotBlank(getProject().getDocAbbreviation())){
 			preSelectedDOC = getProject().getDocAbbreviation();
 			progList.clear();
 			List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
