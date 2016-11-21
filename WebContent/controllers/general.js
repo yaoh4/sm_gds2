@@ -36,7 +36,8 @@ $(document).ready(function() {
 		$(".genConditionalDisplay").show();
 		if(code == 'Extramural' || code === 'Both') {
 			$("#extramuralDiv").show();
-		} else if(code == 'Intramural' || code === 'Both') {
+		}
+		if(code == 'Intramural' || code === 'Both') {
 			$("#intramuralDiv").show();
 		}
 	}

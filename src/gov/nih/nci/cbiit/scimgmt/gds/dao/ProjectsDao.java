@@ -107,10 +107,10 @@ public class ProjectsDao {
 		try {
 			if(id != null){
 				//Already saved submission
-				Hibernate.initialize(detachedInstance.getProjectGrantsContracts());	
+				Hibernate.initialize(detachedInstance.getProjectGrantsContracts()); 				
 				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Project.class, id));
 				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());	
-				detachedInstance.setLastChangedDate(new Date());		
+				detachedInstance.setLastChangedDate(new Date());
 				for(ProjectGrantContract grantContract: detachedInstance.getProjectGrantsContracts()) {
 					if(grantContract.getCreatedBy() == null) {
 						//This is for associated grants, which get deleted and re-saved.
@@ -133,9 +133,7 @@ public class ProjectsDao {
 					grantContract.setCreatedDate(new Date());
 					grantContract.setProject(detachedInstance);
 				}
-			}
-			//TBD - Remove once the trigger is fixed
-			//detachedInstance.setProjectGroupId(1L);
+			}			
 			Project result = (Project) sessionFactory.getCurrentSession().merge(detachedInstance);
 			for (Iterator<PlanAnswerSelection> iterator = result.getPlanAnswerSelections().iterator(); iterator.hasNext();) {
 				PlanAnswerSelection afterMerge = iterator.next();
