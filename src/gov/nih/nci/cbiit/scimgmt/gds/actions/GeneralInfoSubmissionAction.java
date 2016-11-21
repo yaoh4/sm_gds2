@@ -8,6 +8,8 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.lang3.StringUtils;
@@ -201,7 +203,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			if(project.getId() == null && project.getParentProjectId() != null) {
 				Project parentProject = retrieveParentProject(project);
 				project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
-				project.setProjectGrantsContracts(parentProject.getProjectGrantsContracts());
+				//project.setProjectGrantsContracts(parentProject.getProjectGrantsContracts());
 				project.setDocAbbreviation(parentProject.getDocAbbreviation());
 				project.setProgramBranch(parentProject.getProgramBranch());
 			}
@@ -274,6 +276,12 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		cleanUpSubProject(subProject);
 		setProject(subProject);
 		loadGrantInfo();
+		setGrantSelection(subProject.getGrantSelection());
+		if(getAssociatedSecondaryGrants().isEmpty()) {
+			grantsAdditional = ApplicationConstants.FLAG_NO;
+		} else {
+			grantsAdditional = ApplicationConstants.FLAG_YES;
+		}
 		setUpLists();
 		return SUCCESS;
 	}
@@ -367,14 +375,14 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				grantsAdditional = ApplicationConstants.FLAG_YES;
 			}
 		}
-		else{			
+		else{
 			setProject(new Project());
 			//Initially set to unlinked since there is no grant number
 			getExtramuralGrant().setDataLinkFlag(ApplicationConstants.FLAG_NO); 
-			getExtramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
-			getExtramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
-			getIntramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
-			getIntramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
+			//getExtramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
+			//getExtramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
+			//getIntramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+			//getIntramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
 		}			
 	}
 	
@@ -676,13 +684,18 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		if(ApplicationConstants.FLAG_YES.equals(grantsAdditional)) {
 			List<ProjectGrantContract> grants = getAssociatedSecondaryGrants();
+			List<String> grantNumbers = new ArrayList<String>();
 			for(ProjectGrantContract grant: grants) {
+				grantNumbers.add(grant.getGrantContractNum());
 				if(StringUtils.isBlank(grant.getGrantContractNum())) {
 					this.addActionError(getText("grant.number.required"));
 					break;
 				}
 			}
-			
+			Set<String> set = new HashSet<String>(grantNumbers);
+			if(set.size() < grants.size()){
+				this.addActionError(getText("grant.number.duplicates"));
+			}
 		}
 	}
 	/**
@@ -695,10 +708,17 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			this.addActionError(getText("submissionTitle.required")); 
 		}
 		
+		if(getProject().getParentProjectId() == null){
 		if(StringUtils.isBlank(grantsAdditional)) {
 			this.addActionError(getText("additional.grants.required"));
 		}
-		
+		}
+		else {
+			if(retrieveParentProject().getAssociatedGrants().isEmpty())
+				grantsAdditional =  ApplicationConstants.FLAG_NO;
+			else
+				grantsAdditional = ApplicationConstants.FLAG_YES;
+		}
 		Long submissionReasonId = null;
         
 		//Validation for SubmissionReason

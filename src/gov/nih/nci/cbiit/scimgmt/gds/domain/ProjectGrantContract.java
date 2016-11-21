@@ -77,8 +77,9 @@ public class ProjectGrantContract implements java.io.Serializable {
 	public ProjectGrantContract() {
 	}
 	
-	public ProjectGrantContract(String grantContractType) {
+	public ProjectGrantContract(String grantContractType, String primaryGrantContractFlag) {
 		this.grantContractType = grantContractType;
+		this.primaryGrantContractFlag = primaryGrantContractFlag;
 	}
 	
 	public ProjectGrantContract(String grantContractNum, String projectTitle,

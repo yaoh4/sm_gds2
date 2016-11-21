@@ -87,8 +87,8 @@ public class ManageSubmission extends BaseAction {
 	
 	protected Set<Long> otherSet = new HashSet<Long>();
 	
-	private ProjectGrantContract intramuralGrant = new ProjectGrantContract(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
-	private ProjectGrantContract extramuralGrant = new ProjectGrantContract(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+	private ProjectGrantContract extramuralGrant = new ProjectGrantContract(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL,ApplicationConstants.FLAG_YES);
+	private ProjectGrantContract intramuralGrant = new ProjectGrantContract(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL, ApplicationConstants.FLAG_YES);
 	private List<ProjectGrantContract> associatedSecondaryGrants =new ArrayList<ProjectGrantContract>(); 
 	
 	
@@ -526,7 +526,7 @@ public class ManageSubmission extends BaseAction {
 			}
 			setExtramuralGrant(extramuralGrantContract);
 		} else {
-			setExtramuralGrant(new ProjectGrantContract(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL));
+			setExtramuralGrant(new ProjectGrantContract(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL,ApplicationConstants.FLAG_YES));
 		}
 		
 		
@@ -534,7 +534,7 @@ public class ManageSubmission extends BaseAction {
 		if(intramuralGrantContract != null) {
 			setIntramuralGrant(intramuralGrantContract);
 		} else {
-			setIntramuralGrant(new ProjectGrantContract(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL));
+			setIntramuralGrant(new ProjectGrantContract(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL, ApplicationConstants.FLAG_YES));
 		}
 		
 		List<ProjectGrantContract> associatedGrants = project.getAssociatedGrants();
