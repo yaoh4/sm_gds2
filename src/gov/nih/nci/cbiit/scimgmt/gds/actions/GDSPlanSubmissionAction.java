@@ -129,6 +129,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		logger.debug("Save GDS Plan");
 		
 		setProject(retrieveSelectedProject());
+		getProject().getProjectGrantsContracts().get(0);// Adding for save since this object is lazy loaded
 		
 		// Save comments
 		getProject().setPlanComments(comments);

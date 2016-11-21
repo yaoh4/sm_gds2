@@ -110,7 +110,7 @@ public class ProjectsDao {
 				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Project.class, id));
 				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());	
 				detachedInstance.setLastChangedDate(new Date());
-				Hibernate.initialize(detachedInstance.getProjectGrantsContracts());				
+				//Hibernate.initialize(detachedInstance.getProjectGrantsContracts()); //TBD - Remove once confirmed not necessary		
 				for(ProjectGrantContract grantContract: detachedInstance.getProjectGrantsContracts()) {
 					if(grantContract.getCreatedBy() == null) {
 						//This is for associated grants, which get deleted and re-saved.
