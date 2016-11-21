@@ -166,7 +166,6 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			throw new Exception(getText("error.projectid.null"));
 		}
 		Project storedProject = retrieveSelectedProject();
-		storedProject.getProjectGrantsContracts().get(0);// Adding for save since this object is lazy loaded
 		if(storedProject.getSubprojectFlag().equalsIgnoreCase("Y")) {
 			//Add all selected parent repository (Plan Answer selection) to this project if it is already not added
 			Project parent = retrieveParentProject(storedProject);

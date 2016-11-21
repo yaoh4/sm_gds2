@@ -92,7 +92,6 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		setProject(retrieveSelectedProject());
 		
 		// Save user answer and comments
-		getProject().getProjectGrantsContracts().get(0); // Adding for save since this object is lazy loaded
 		getProject().setBsiReviewedId(bsiReviewedId);
 		getProject().setBsiComments(comments); 
 
