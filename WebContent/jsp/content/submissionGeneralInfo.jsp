@@ -438,7 +438,6 @@
 						<s:textarea cssClass="col-md-12 form-control input " rows="3" maxlength="2000"
 							name="project.comments" id="gComments"></s:textarea>
 					</div>
-					</div>
 
 
 		<script type="text/javascript" src="<s:url value="/controllers/grantSearch.js"/>"></script>		</div>
