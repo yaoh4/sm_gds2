@@ -29,7 +29,7 @@ $(document).ready(function() {
 	var code= $("input[type='radio'].grantSelection:checked").val();
 	$("#researchType").val(code);
 	
-	if(projAnswer === 29) {
+	if(projAnswer === '29') {
 		$("#extramuralDiv").show();
 		$(".extConditionalDisplay").hide();
 	} else {
