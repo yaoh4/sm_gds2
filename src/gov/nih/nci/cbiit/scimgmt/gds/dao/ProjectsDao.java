@@ -107,10 +107,10 @@ public class ProjectsDao {
 		try {
 			if(id != null){
 				//Already saved submission
+				Hibernate.initialize(detachedInstance.getProjectGrantsContracts());	
 				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Project.class, id));
 				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());	
-				detachedInstance.setLastChangedDate(new Date());
-				Hibernate.initialize(detachedInstance.getProjectGrantsContracts());				
+				detachedInstance.setLastChangedDate(new Date());		
 				for(ProjectGrantContract grantContract: detachedInstance.getProjectGrantsContracts()) {
 					if(grantContract.getCreatedBy() == null) {
 						//This is for associated grants, which get deleted and re-saved.
