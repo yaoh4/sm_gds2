@@ -144,7 +144,7 @@ function populateGrantsContractsData(){
 	 //For Intramural grants don't display PD first name, last name and project start date, end date.
 	 //if(applClassCode != "M"){
 	 if(searchType == 'intramural'){
-		$("#" + idPrefix + "_grantsContractNum").prop('readOnly', false);
+		//$("#" + idPrefix + "_grantsContractNum").prop('readOnly', false);
 	    //$(".unlink-group").prop('disabled', false);
 	    //$("#canAct").hide();
 	    //$("#pdName").hide();
@@ -155,7 +155,7 @@ function populateGrantsContractsData(){
 	}
 	else if(searchType == 'extramural'){
 		$("#linkedGrantContractNum").val(json.grantContractNum);
-		$("#" + idPrefix + "grantsContractNum").prop('readOnly', true);
+		$("#" + idPrefix + "_grantsContractNum").prop('readOnly', true);
 		$(".unlink-group").prop('disabled', true);
 		
 		if (json.pdFirstName !== "undefined") {
@@ -191,15 +191,16 @@ function populateGrantsContractsData(){
 		$("#linkButton").show();
 		$(".unlink-group").prop('disabled', true);
 		$("#dataLinkFlag").val('Y');
-		
-		//Replace search icon with edit icon since we already have a grant
-		$("#" + idPrefix + "_grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
-		$("#" + idPrefix + "_grantDiv button").attr("title", "Edit");
 	}
+		
+	//Replace search icon with edit icon since we already have a grant
+	$("#" + idPrefix + "_grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
+	$("#" + idPrefix + "_grantDiv button").attr("title", "Edit");
 	
-	        $("#" + idPrefix + "_grantsContractNum").attr("placeholder", "Click on Edit Icon");
-	        $("#" + idPrefix +"_div").find("i").removeClass("fa fa-search").addClass("fa fa-pencil");
-			$("#" + idPrefix +"_div").find("button").attr("title", "Edit");
+	
+	        //$("#" + idPrefix + "_grantsContractNum").attr("placeholder", "Click on Edit Icon");
+	        //$("#" + idPrefix +"_div").find("i").removeClass("fa fa-search").addClass("fa fa-pencil");
+			//$("#" + idPrefix +"_div").find("button").attr("title", "Edit");
 			
 
 	if (json.applId !== "undefined") {

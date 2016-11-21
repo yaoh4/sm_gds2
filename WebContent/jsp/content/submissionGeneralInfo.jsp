@@ -298,7 +298,7 @@
 								<s:hidden name="intramuralGrant.createdBy"  value="%{intramuralGrant.createdBy}"/>
 								
 								<div class="input-group ">
-								  <s:textfield name="intramuralGrant.grantContractNum"  maxlength="271" class="form-control" cssclass="form-control" readonly="true" id="intramural_grantsContractNum" placeholder="Click on Edit Icon" value="%{intramuralGrant.grantContractNum}"/>
+								  <s:textfield name="intramuralGrant.grantContractNum"  maxlength="271" class="form-control" cssclass="form-control" id="intramural_grantsContractNum" placeholder="Click on Edit Icon" value="%{intramuralGrant.grantContractNum}"/>
 								  <div class="input-group-btn">
                                     <a href="#" onclick="openGrantsContractsSearchPage('intramural', 'intramural')">
 																		<button class="btn btn-default" type="button" title="Edit" style=" margin-left: -2px;">
@@ -318,7 +318,7 @@
 					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Intramural or Contract Project Title</label> 
-							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control unlink-group" id="projectTitle" placeholder="" value="%{intramuralGrant.projectTitle}"  maxLength="100"/>
+							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control" id="projectTitle" placeholder="" value="%{intramuralGrant.projectTitle}"  maxLength="100"/>
 						</div>
 					</div>
 					</div>
@@ -328,13 +328,13 @@
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
-								<s:textfield name="intramuralGrant.piFirstName" cssClass="form-control unlink-group" id="intramural_fnPI" placeholder="" value="%{intramuralGrant.piFirstName}"  maxLength="30"/>
+								<s:textfield name="intramuralGrant.piFirstName" cssClass="form-control" id="intramural_fnPI" placeholder="" value="%{intramuralGrant.piFirstName}"  maxLength="30"/>
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
-								<s:textfield name="intramuralGrant.piLastName" cssClass="form-control unlink-group" id="intramural_lnPI" placeholder="" value="%{intramuralGrant.piLastName}"  maxLength="30"/>								
+								<s:textfield name="intramuralGrant.piLastName" cssClass="form-control" id="intramural_lnPI" placeholder="" value="%{intramuralGrant.piLastName}"  maxLength="30"/>								
 						</div>
 					</div>
 
@@ -343,7 +343,7 @@
 							<label for="Email of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
 								of Principal Investigator</label>
-								<s:textfield name="intramuralGrant.piEmailAddress" cssClass="form-control unlink-group" id="intramural_piEmail" placeholder="Enter Vaild Email Address"
+								<s:textfield name="intramuralGrant.piEmailAddress" cssClass="form-control" id="intramural_piEmail" placeholder="Enter Vaild Email Address"
 								data-error="Email address is invalid" value="%{intramuralGrant.piEmailAddress}"  maxLength="80"/>								
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>

@@ -28,6 +28,7 @@ $(document).ready(function() {
 	var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
 	var code= $("input[type='radio'].grantSelection:checked").val();
 	$("#researchType").val(code);
+	
 	if(projAnswer === 29) {
 		$("#extramuralDiv").show();
 		$(".extConditionalDisplay").hide();
@@ -40,6 +41,7 @@ $(document).ready(function() {
 		}
 	}
 	
+	prepareGrantNumField(code);
 
 });
 
@@ -57,7 +59,9 @@ $("input[name='grantSelection']").click(function () {
 			$('.genConditionalDisplay').css('display', 'block');
 			$('#extramuralDiv').css('display', (code === 'Extramural' || code === 'Both') ? 'block':'none');
 		    $('#intramuralDiv').css('display', (code === 'Intramural' || code === 'Both') ? 'block':'none');
-			
+		    
+		    prepareGrantNumField(code);
+		    
 		} else {
 			//Restore previous value
 			var currentCode = $("#researchType").val();
@@ -66,6 +70,8 @@ $("input[name='grantSelection']").click(function () {
 		};
 	});
 	
+
+
 	
 });
 // Non-funded NIH Grants
@@ -112,7 +118,7 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 $( document ).ready(function() {
 	var code= $("input[type='radio'].grantSelection:checked").val();
 	var grants= $("input[type='radio'].grants:checked").val();
-	/* if($("#projectId").val()) {
+	 if($("#projectId").val()) {
 		  var $nonempty = $('.other').filter(function() {
 		    return this.value != ''
 		  });
@@ -126,9 +132,9 @@ $( document ).ready(function() {
 			  var value = 'N';
 			  $("input[name=grantsAdditional][value=" + value + "]").attr('checked', 'checked');
 		  }
-	  }*/
+	  }
 	
-	/*if(grants == 'Y'){
+	if(grants == 'Y'){
 		 $("#addGrant").show();
 		 var fieldCount = $(".otherWrapper1").length;
 			for(var j = 0; j < fieldCount; j++) {
@@ -140,15 +146,17 @@ $( document ).ready(function() {
 			}
 			}
 	}
-	if(code == 'Extramural' || code == 'Both') {
+	/*if(code == 'Extramural' || code == 'Both') {
 		if($("#extramural_grantsContractNum").val()=='') {
 			$("#extramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
 			$("#extramural_grantDiv button").attr("title", "Search");
 			$("#extramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
 			//$("#canAct").hide();
-			//$("#linkButton").hide();
+			$("#linkButton").hide();
+			$("#extramural_grantsContractNum").prop('readOnly', false);
 		} else {
-			//$("#linkButton").show();
+			$("#linkButton").show();
+			$("#extramural_grantsContractNum").prop('readOnly', true);
 		}
 	}
 	
@@ -157,14 +165,49 @@ $( document ).ready(function() {
 			$("#intramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
 			$("#intramural_grantDiv button").attr("title", "Search");
 			$("#intramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
-			$("#canAct").hide();
-			$("#linkButton").hide();
-		} else {
-			$("#linkButton").show();
+			//$("#canAct").hide();
+			//$("#linkButton").hide();
+		} else {			
+			//$("#linkButton").show();
 		}
 	}*/
 	
 });
+
+
+function prepareGrantNumField(code) {
+	if(code == 'Extramural' || code == 'Both') {
+		if($("#extramural_grantsContractNum").val()=='') {
+			$("#extramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
+			$("#extramural_grantDiv button").attr("title", "Search");
+			$("#extramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
+			
+			$("#linkButton").hide();
+			$("#extramural_grantsContractNum").prop('readOnly', false);
+			
+		} else {
+			$("#extramural_grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
+			$("#extramural_grantDiv button").attr("title", "Edit");
+			$("#extramural_grantsContractNum").attr("placeholder", "Click on Edit Icon");
+			
+			$("#linkButton").show();
+			$("#extramural_grantsContractNum").prop('readOnly', true);
+		}
+	}
+	
+	if(code == 'Intramural' || code == 'Both') {
+		if($("#intramural_grantsContractNum").val()=='') {
+			$("#intramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
+			$("#intramural_grantDiv button").attr("title", "Search");
+			$("#intramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
+		} else {
+			$("#intramural_grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
+			$("#intramural_grantDiv button").attr("title", "Edit");
+			$("#intramural_grantsContractNum").attr("placeholder", "Click on Edit Icon");
+		}
+	}
+}	
+	
 
 
 function linkUnlinkGrants(elem) {
@@ -395,7 +438,7 @@ function refreshGrantsContractsData(){
 	 }
 });*/
  
- $('.grantSelection').on('change', function () {
+/* $('.grantSelection').on('change', function () {
 	 var code= $("input[type='radio'].grantSelection:checked").val();
 	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
 	 
@@ -490,7 +533,7 @@ function refreshGrantsContractsData(){
 		 //them editable.
 		 showGrantFields();
 	 }
- });
+ });*/
  
  $('#DOC').on('change', function () {
 	   //var optionSelected = $("option:selected", this);
@@ -512,7 +555,7 @@ function refreshGrantsContractsData(){
 	   
 	});
  
- 
+ /*
  function  hideGrantFields() {
 	 $("#DivisionOffice").hide();
 		$("#pBranch").hide();
@@ -523,6 +566,7 @@ function refreshGrantsContractsData(){
 		$("#pStartDate").hide();
 		$("#pEndDate").hide();
  }
+ 
  
 //If selection is 'Intramural', hide pd first and last
  //name, start and end date, and cancer activity field. 
@@ -553,6 +597,7 @@ function refreshGrantsContractsData(){
 		 }
  }
 
+ 
 //Show all fields. Make grant number field non-editable.
  //If grant number is empty: do not show the link-unlink
  //button and cancer activity field, and make all the  
@@ -603,7 +648,7 @@ function refreshGrantsContractsData(){
 		$("#pdName").show();
 		$("#pStartDate").show();
 		$("#pEndDate").show();
- }
+ }*/
  
  $("#general_form").on('click', '#grantButton', function () {
 		maxInputs = 10;
