@@ -107,7 +107,10 @@
 						</div>
 					</div>
                    
- 
+ 					<s:hidden name="extramuralGrant.createdBy"  value="%{extramuralGrant.createdBy}"/>
+					<s:hidden name="extramuralGrant.applId"  id="extramural_applId" value="%{extramuralGrant.applId}"/>								
+					<s:hidden name="linkedGrantContractNum" id="linkedGrantContractNum" value="%{extramuralGrant.grantContractNum}"/>
+								
 					<!--START EXTRAMURAL GRANT BOX -->
 					<div class="panel panel-default muralBox" id="extramuralDiv" style="display:none;">
   					<div class="panel-heading" style="font-weight: bold;">EXTRAMURAL</div>
@@ -117,11 +120,8 @@
 					<div class="col-xs-5" id="exGrantSearch">
 							<label for="Grant #">Grant# or Contract#</label>									
 
-								<s:hidden name="extramuralGrant.grantContractType"  value="%{extramuralGrant.grantContractType}"/>
-								<s:hidden name="extramuralGrant.primaryGrantContractFlag"  value="%{extramuralGrant.primaryGrantContractFlag}"/>
-								<s:hidden name="extramuralGrant.createdBy"  value="%{extramuralGrant.createdBy}"/>
-								<s:hidden name="extramuralGrant.applId"  id="extramural_applId" value="%{extramuralGrant.applId}"/>								
-								<s:hidden name="linkedGrantContractNum" id="linkedGrantContractNum" value="%{extramuralGrant.grantContractNum}"/>
+							<!--  <s:hidden name="extramuralGrant.grantContractType"  value="%{extramuralGrant.grantContractType}"/>
+								<s:hidden name="extramuralGrant.primaryGrantContractFlag"  value="%{extramuralGrant.primaryGrantContractFlag}"/> -->
 								
 								<div class="input-group ">
 								  <s:textfield name="extrmuralGrant.grantContractNum"  maxlength="271" class="form-control" cssclass="form-control" readonly="true" id="extramural_grantsContractNum" placeholder="Click on Edit Icon" value="%{extramuralGrant.grantContractNum}"/>
@@ -285,6 +285,7 @@
 
 
 	<!--START INTRAMURAL GRANT BOX -->
+	<s:hidden name="intramuralGrant.createdBy"  value="%{intramuralGrant.createdBy}"/>
 	<div class="panel panel-default muralBox" id="intramuralDiv" style="display:none;">
   		<div class="panel-heading" style="font-weight: bold;">INTRAMURAL</div>
   		<div class="panel-body">
@@ -295,9 +296,9 @@
 						<div class="col-xs-5">
 							<label for="Grant #" id="grantLabel">Intramural# or Contract#</label>									
 
-								<s:hidden name="intramuralGrant.grantContractType"  value="%{intramuralGrant.grantContractType}"/>
-								<s:hidden name="intramuralGrant.primaryGrantContractFlag"  value="%{intramuralGrant.primaryGrantContractFlag}"/>
-								<s:hidden name="intramuralGrant.createdBy"  value="%{intramuralGrant.createdBy}"/>
+							<!--  	<s:hidden name="intramuralGrant.grantContractType"  value="%{intramuralGrant.grantContractType}"/>
+								<s:hidden name="intramuralGrant.primaryGrantContractFlag"  value="%{intramuralGrant.primaryGrantContractFlag}"/> -->
+								
 								
 								<div class="input-group ">
 								  <s:textfield name="intramuralGrant.grantContractNum"  maxlength="271" class="form-control" cssclass="form-control" id="intramural_grantsContractNum" placeholder="Click on Edit Icon" value="%{intramuralGrant.grantContractNum}"/>

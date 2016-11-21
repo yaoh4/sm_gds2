@@ -371,10 +371,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			setProject(new Project());
 			//Initially set to unlinked since there is no grant number
 			getExtramuralGrant().setDataLinkFlag(ApplicationConstants.FLAG_NO); 
-			getExtramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
-			getExtramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
-			getIntramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
-			getIntramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
+			//getExtramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
+			//getExtramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
+			//getIntramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+			//getIntramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
 		}			
 	}
 	
