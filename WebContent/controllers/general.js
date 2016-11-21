@@ -52,8 +52,8 @@ $("input[name='grantSelection']").click(function () {
 	var result = "Changing the Research type will clear the Extramural/Intramural/Contract#.<br /> Do you wish to continue?";
 	var code= $(this).val(); 
 	
-	bootbox.confirm(result, function(ans) {
-		if (ans) {
+	//bootbox.confirm(result, function(ans) {
+	//	if (ans) {
 			$("#researchType").val(code);
 			
 			$('.genConditionalDisplay').css('display', 'block');
@@ -62,17 +62,13 @@ $("input[name='grantSelection']").click(function () {
 		    
 		    prepareGrantNumField(code);
 		    
-		} else {
+	/*	} else {
 			//Restore previous value
 			var currentCode = $("#researchType").val();
 			$("#general_form_grantSelection" + currentCode).prop("checked", true);
 			return true;
 		};
-	});
-	
-
-
-	
+	});*/
 });
 
 // Submission reason
