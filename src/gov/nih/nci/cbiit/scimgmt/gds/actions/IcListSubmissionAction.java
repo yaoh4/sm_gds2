@@ -196,7 +196,6 @@ public class IcListSubmissionAction extends ManageSubmission {
 		String certComplete = getProject().getCertificationCompleteFlag();
 		
 		Project storedProject = retrieveSelectedProject();
-		storedProject.getProjectGrantsContracts().get(0);// Adding for save since this object is lazy loaded
 		storedProject.setCertificationCompleteFlag(certComplete);
 		
 		//If this is a sub-project, save only the ICs selected from the parent

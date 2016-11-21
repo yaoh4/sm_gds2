@@ -481,7 +481,6 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public String saveIc() {
 		Project project = retrieveSelectedProject();
-		project.getProjectGrantsContracts().get(0);// Adding for save since this object is lazy loaded
 		Long docId = null;
 		
 		InstitutionalCertification instCert = getInstCertification();

@@ -56,6 +56,7 @@
     
     
     <!-- ----EXTRAMURAL FIELDS    -->
+    <s:if test = "extramuralGrant.id != null">
     <tr>
     <td colspan="6">
         <div class="panel  panel panel-default">
@@ -149,9 +150,10 @@
     </div><!--end panel-->
     </td> 
     </tr><!--end tr-->
-    
+    </s:if>
     
     <!-- -INTRAMURAL FIELDS -->
+       <s:if test = "intramuralGrant.id != null">
     <tr>
     <td colspan="6">
         <div class="panel  panel panel-default">
@@ -218,7 +220,7 @@
     </div><!--end panel-->
     </td> 
     </tr><!--end tr-->
-
+</s:if>
 
 
 
