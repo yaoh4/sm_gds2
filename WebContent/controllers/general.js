@@ -74,7 +74,8 @@ $("input[name='grantSelection']").click(function () {
 
 	
 });
-// Non-funded NIH Grants
+
+// Submission reason
 
 $("input[name='project.submissionReasonId']").click(function () {
 	var code= $("input[type='radio'].grantSelection:checked").val();
@@ -115,6 +116,8 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 	
 }
 
+//Additional grants
+
 $( document ).ready(function() {
 	var code= $("input[type='radio'].grantSelection:checked").val();
 	var grants= $("input[type='radio'].grants:checked").val();
@@ -146,31 +149,6 @@ $( document ).ready(function() {
 			}
 			}
 	}
-	/*if(code == 'Extramural' || code == 'Both') {
-		if($("#extramural_grantsContractNum").val()=='') {
-			$("#extramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
-			$("#extramural_grantDiv button").attr("title", "Search");
-			$("#extramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
-			//$("#canAct").hide();
-			$("#linkButton").hide();
-			$("#extramural_grantsContractNum").prop('readOnly', false);
-		} else {
-			$("#linkButton").show();
-			$("#extramural_grantsContractNum").prop('readOnly', true);
-		}
-	}
-	
-	if(code == 'Intramural' || code == 'Both') {
-		if($("#intramural_grantsContractNum").val()=='') {
-			$("#intramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
-			$("#intramural_grantDiv button").attr("title", "Search");
-			$("#intramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
-			//$("#canAct").hide();
-			//$("#linkButton").hide();
-		} else {			
-			//$("#linkButton").show();
-		}
-	}*/
 	
 });
 
@@ -394,146 +372,6 @@ function refreshGrantsContractsData(){
 
 
 
-/* $(function () { 
-	
-	if ($("#dataLinkFlag").attr("value") == 'Y') {
-		$("#link").css("background-color", "#d4d4d4");
-		$("#unlink").css("background-color", "#FFF");
-		$('#link').addClass('disabled');
-		$("#unlink").removeClass('disabled');
-		$(".unlink-group").prop('disabled', true);
-		
-	} else {
-		$("#unlink").css("background-color", "#d4d4d4");
-		$("#link").css("background-color", "#FFF");
-		$("#unlink").addClass('disabled');
-		$("#link").removeClass('disabled');
-		$(".unlink-group").prop('disabled', false);
-	}
- });*/
- 
- 
- /*$(function () {
-	 //var docName=$('#DOC').find('option:selected').text();
-	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
-	 var code= $("input[type='radio'].grantSelection:checked").val();
-	 if(projAnswer == 29){
-		 hideGrantFields();
-	 }
-	 else if(code == 'M' ) {
-		 //If selection is 'Intramural', hide pd first and last
-		 //name, start and end date, and cancer activity field. 
-		 //Make all other fields including the grant number field
-		 //editable, and hide link/unlink button.
-		 setupIntramuralFields();
-	}
-	 else{
-		 //Show all fields. Make grant number field non-editable.
-		 //If grant number is empty: do not show the link-unlink
-		 //button, and cancer activity field, make all the grant 
-		 //specific fields including grant number non-editable. 
-		 //If grant number is not empty: If linked, make all grant
-		 //specific fields un-editable. Else make them editable.
-		showGrantFields();
-	 }
-});*/
- 
-/* $('.grantSelection').on('change', function () {
-	 var code= $("input[type='radio'].grantSelection:checked").val();
-	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
-	 
-	 if($("#grantsContractNum").val()!='') {
-	   var result = "Changing the Research type will clear the Extramural/Intramural/Contract#.<br /> Do you wish to continue?";
-		bootbox.confirm(result, function(ans) {
-			if (ans) {
-				//Clear the grant number and grant specific fields. Remove
-				//the cancer activity field. Remove link-unlink button				
-				$("#grantsContractNum").val('');
-				$(".unlink-group").val('');
-				$("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
-				$("#grantDiv button").attr("title", "Search");
-		  		$("#grantsContractNum").attr("placeholder", "Click on Search Icon");
-		  		$("#canAct").hide();
-		  		
-		  		//Setup the new applClassCode
-		  		$("#applClassCode").val(code);
-		  		
-		  		//Perform remaining actions depending on
-		  		//whether the new code is intramural
-		  		//or others.
-		  		if(projAnswer == 29){
-		  			$(".unlink-group").prop('disabled', false);
-				    hideGrantFields();
-					$("#grantsContractNum").val('');
-					$("#applId").val('');
-					$("#dataLinkFlag").val('N');
-		  		}
-		  		else if(code == 'M' ) {
-		  			setupIntramuralFields();
-		  		} else {
-		  			showGrantFields();
-		  		}
-			} else {
-				var currentCode = $("#applClassCode").val();
-				$("#general_form_grantSelection" + currentCode).prop("checked", true);
-				return true;
-			}
-		});
-	 } else {
-	 
-		 $("#applClassCode").val(code);
-		 if(projAnswer == 29){
-			 $(".unlink-group").prop('disabled', false);
-			    hideGrantFields();
-				$("#grantsContractNum").val('');
-				$("#applId").val('');
-				$("#dataLinkFlag").val('N');
-		 }
-		 else if(code == 'M' ) {
-		 //If selection is 'Intramural', hide pd first and last
-		 //name, start and end date, and cancer activity field. 
-		 //Make all other fields including the grant number field
-		 //editable, and hide link/unlink button.
-		 setupIntramuralFields();
-		} else {
-		//Show all fields. Make the grant number field 
-		 //non-editable. Since grant number is empty, do not
-		 //show the link unlink button, and cancer activity
-		 //field, amd make all the grant specific fields
-		 //non-editable and blank.
-		 showGrantFields();
-		}
-	 }
- });
- 
- $('.submissionReasonSelect').on('change', function () {
-	 var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
-	 //var docName=$('#DOC').find('option:selected').text();
-	 var code= $("input[type='radio'].grantSelection:checked").val();
-	 if(projAnswer == 29){
-		    $(".unlink-group").prop('disabled', false);
-		    hideGrantFields();
-			$("#grantsContractNum").val('');
-			$("#applId").val('');
-			$("#dataLinkFlag").val('N');
-	 }
-	 else if(code == 'M' ) {
-		 //If selection is 'Intramural', hide pd first and last
-		 //name, start and end date, and cancer activity field. 
-		 //Make all other fields including the grant number field
-		 //editable, and hide link/unlink button.
-		 setupIntramuralFields();		 			
-	 } else {
-		//Show all fields. Make grant number field non-editable.
-		 //If grant number is empty: do not show the link-unlink
-		 //button and cancer activity field, and make all the  
-		 //grant specific fields including grant number non-editable  
-		 //and blank. If grant number is not empty: If linked, 
-		 //make all grant specific fields un-editable. Else make 
-		 //them editable.
-		 showGrantFields();
-	 }
- });*/
  
  $('#DOC').on('change', function () {
 	   //var optionSelected = $("option:selected", this);
@@ -555,100 +393,7 @@ function refreshGrantsContractsData(){
 	   
 	});
  
- /*
- function  hideGrantFields() {
-	 $("#DivisionOffice").hide();
-		$("#pBranch").hide();
-		$("#grantDiv").hide();
-		$("#title").hide();
-	    $("#canAct").hide();
-		$("#pdName").hide();
-		$("#pStartDate").hide();
-		$("#pEndDate").hide();
- }
  
- 
-//If selection is 'Intramural', hide pd first and last
- //name, start and end date, and cancer activity field. 
- //Make all other fields including the grant number field
- //editable, and hide link/unlink button.
- function setupIntramuralFields() {
-	 
-	 	var projAnswer= $("input[type='radio'].submissionReasonSelect:checked").val();
-	 
-	 	$("#DivisionOffice").show();
-		$("#pBranch").show();
-		$("#grantLabel").html('Intramural #');
-		$("#projectTitleLabel").html('Intramural Project Title');
-		$("#grantDiv").show();
-		$("#title").show();
-	    $("#canAct").hide();
-	    $("#piInstution").hide();
-		$("#pdName").hide();
-		$("#pStartDate").hide();
-		$("#pEndDate").hide();
-		$("#grantsContractNum").removeAttr("readonly");
-		$(".unlink-group").prop('disabled', false);
-		$("#linkButton").hide();
-		$("#dataLinkFlag").val('N');
-		
-		 if(projAnswer == 29){
-			 hideGrantFields();
-		 }
- }
-
- 
-//Show all fields. Make grant number field non-editable.
- //If grant number is empty: do not show the link-unlink
- //button and cancer activity field, and make all the  
- //grant specific fields including grant number non-editable  
- //and blank. If grant number is not empty: If linked, 
- //make all grant specific fields un-editable. Else make 
- //them editable.
- function  showGrantFields() {
-	    $("#DivisionOffice").show();
-		$("#pBranch").show();
-		if($("#applClassCode").val() == 'G') {
-			$("#grantLabel").html('Grant #');
-			$("#projectTitleLabel").html('Grant Project Title');
-		} else {
-			$("#grantLabel").html('Contract #');
-			$("#projectTitleLabel").html('Contract Project Title');
-		}
-		$("#grantDiv").show();
-		$("#grantsContractNum").attr('readonly', "true");
-		$("#title").show();
-		if($("#grantsContractNum").val() == '') {
-			$("#linkButton").hide();
-			$("#canAct").hide();
-			$(".unlink-group").val('');
-			$(".unlink-group").prop('disabled', true);
-			
-			//Since grant is empty, ensure search icon is showing
-			$("#grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
-			$("#grantDiv button").attr("title", "Search");
-	  		$("#grantsContractNum").attr("placeholder", "Click on Search Icon");
-		} else {
-			$("#canAct").show();
-			if ($("#dataLinkFlag").attr("value") == 'Y') {
-				$("#link").css("background-color", "#d4d4d4");
-				$("#unlink").css("background-color", "#FFF");
-				$('#link').addClass('disabled');
-				$("#unlink").removeClass('disabled');
-				$(".unlink-group").prop('disabled', true);
-			} else {
-				$("#unlink").css("background-color", "#d4d4d4");
-				$("#link").css("background-color", "#FFF");
-				$("#unlink").addClass('disabled');
-				$("#link").removeClass('disabled');
-				$(".unlink-group").prop('disabled', false);
-			}
-		}
-		$("#piInstution").show();
-		$("#pdName").show();
-		$("#pStartDate").show();
-		$("#pEndDate").show();
- }*/
  
  $("#general_form").on('click', '#grantButton', function () {
 		maxInputs = 10;
