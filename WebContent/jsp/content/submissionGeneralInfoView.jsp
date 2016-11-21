@@ -232,7 +232,7 @@
           <strong>Additional Grants:</strong></td>
         <td>
        <s:iterator value="associatedSecondaryGrants" var="r" status="stat">
-         ${r.grantContractNum}
+         &nbsp;&nbsp;&nbsp;${r.grantContractNum}
        </s:iterator>
      </td>
      </tr>
