@@ -20,6 +20,9 @@ $(function(){
 	var parentId=$("#parentId").val();
 	if(parentId){
 		$("input[type=radio]").attr('disabled', true);
+		if($("#parentGrantSelection").val() == 'Both') {
+			$(".grantSelection").attr('disabled', false);
+		}
 	}
 });
 

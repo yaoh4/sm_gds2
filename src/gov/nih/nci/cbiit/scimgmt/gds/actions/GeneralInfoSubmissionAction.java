@@ -52,6 +52,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String applId;
 	private String valueSelected;
 	private String grantSelection;
+	private String parentGrantSelection;
 	private String searchType;
 	private String grantsAdditional;
 	
@@ -373,6 +374,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				grantsAdditional = ApplicationConstants.FLAG_NO;
 			} else {
 				grantsAdditional = ApplicationConstants.FLAG_YES;
+			}
+			if(project.getSubprojectFlag().equalsIgnoreCase("Y")) {
+				Project parentProject = retrieveParentProject(project);
+				parentGrantSelection = parentProject.getGrantSelection();
 			}
 		}
 		else{
@@ -1074,6 +1079,14 @@ public List<DropDownOption> getProgList() {
 
 	public void setGrantsAdditional(String grantsAdditional) {
 		this.grantsAdditional = grantsAdditional;
+	}
+
+	public String getParentGrantSelection() {
+		return parentGrantSelection;
+	}
+
+	public void setParentGrantSelection(String parentGrantSelection) {
+		this.parentGrantSelection = parentGrantSelection;
 	}
 
 }

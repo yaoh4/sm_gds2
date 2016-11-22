@@ -6,6 +6,7 @@
 		<!-- Page navbar -->
 		<s:hidden name="projectId" id="projectId" value="%{project.id}"/>
 		<s:hidden name="project.parentProjectId" id="parentId" value="%{project.parentProjectId}"/>
+		<s:hidden id="parentGrantSelection" value="%{parentGrantSelection}"/>
 		<s:hidden name="project.projectGroupId" value="%{project.projectGroupId}"/>
 		<s:hidden name="searchType" id="searchType" value="%{searchType}"/>
 		<s:hidden id="grantContractIdPrefix"/>
