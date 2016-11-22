@@ -25,6 +25,7 @@ function reinitTable() {
             "autoWidth": false,
             "processing": false,
             "serverSide": false,
+            "stateSave": true,
             "dom": "<'row'<'col-sm-12'l>>" + "<'row'<'col-sm-5'i><'col-sm-7'p><br/>>" +
             "<'row'<tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + "<'row'<'col-sm-12'l>>",
             "searching": false,
