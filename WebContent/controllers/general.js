@@ -43,6 +43,11 @@ $(document).ready(function() {
 	}
 	
 	prepareGrantNumField(code);
+	if($("#dataLinkFlag").val() === 'Y') {
+		setLinkedDisplay();
+	} else if($("#dataLinkFlag").val() == 'N') {
+		setUnlinkedDisplay();
+	}
 
 });
 
@@ -149,7 +154,9 @@ $( document ).ready(function() {
 	
 });
 
-
+//Toggle search/edit icon, show/hide link/unlink buttons, 
+//and enable/disable grantsContractNum field depending on 
+//whether grantsContractNum is empty or not
 function prepareGrantNumField(code) {
 	if(code == 'Extramural' || code == 'Both') {
 		if($("#extramural_grantsContractNum").val()=='') {
@@ -184,7 +191,6 @@ function prepareGrantNumField(code) {
 }	
 	
 
-
 function linkUnlinkGrants(elem) {
 	if($(elem).attr("id") == 'link') {
 		var result = "Linking will restore the auto-refresh of the Grant/Intramural/Contract data to the data source and delete any edits you migh have made.<br /> Do you wish to continue?";
@@ -193,15 +199,9 @@ function linkUnlinkGrants(elem) {
 				$("#dataLinkFlag").val('Y');
 				// Re-populate the data from DB.
 				refreshGrantsContractsData();
-				$("#link").css("background-color", "#d4d4d4");
-				$("#unlink").css("background-color", "#FFF");
-				$('#link').addClass('disabled');
-				$("#unlink").removeClass('disabled');
-				$(".unlink-group").prop('disabled', true);
-				return true;
-			} else {
-				return true;
-			}
+				setLinkedDisplay();
+			} 
+			return true;
 		});
 	} else {
 		var result = "Unlinking will remove the auto-refresh of the Intramural/Grant/Contract data from the data source that was used to populate it.<br /> Do you wish to continue?";
@@ -209,18 +209,29 @@ function linkUnlinkGrants(elem) {
 			if (ans) {
 				//getting the cancerActivity code
 				$("#dataLinkFlag").val('N');
-				$("#unlink").css("background-color", "#d4d4d4");
-				$("#link").css("background-color", "#FFF");
-				$("#unlink").addClass('disabled');
-				$("#link").removeClass('disabled');
-				$(".unlink-group").prop('disabled', false);
+				setUnlinkedDisplay();
 				refreshCancerActivityCode();
-				return true;
-			} else {
-				return true;
 			}
+			return true;
 		});
 	}
+}
+
+function setLinkedDisplay() {
+	$("#link").css("background-color", "#d4d4d4");
+	$("#unlink").css("background-color", "#FFF");
+	$('#link').addClass('disabled');
+	$("#unlink").removeClass('disabled');
+	$(".unlink-group").prop('disabled', true);
+}
+
+
+function setUnlinkedDisplay() {
+	$("#unlink").css("background-color", "#d4d4d4");
+	$("#link").css("background-color", "#FFF");
+	$("#unlink").addClass('disabled');
+	$("#link").removeClass('disabled');
+	$(".unlink-group").prop('disabled', false);
 }
 
 
