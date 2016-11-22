@@ -196,6 +196,14 @@ public class GdsMissingDataUtil {
 			|| (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null)) {
 			return missingDataList;
 		}
+		
+		if(ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
+			Project parentProject=manageProjectService.findById(project.getParentProjectId());
+			if((parentProject.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
+					parentProject.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) != null)) {
+					return null;
+				}
+		}
 				
 		// If user selects ONLY the "Other" repository in the "What repository will the data be submitted to?" 
 		//question GDS plan page, there is no IC, so return empty list
