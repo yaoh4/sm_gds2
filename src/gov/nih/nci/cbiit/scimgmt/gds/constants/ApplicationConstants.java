@@ -100,6 +100,7 @@ public interface ApplicationConstants {
 	 public static final Long REGISTRATION_STATUS_INPROGRESS_ID = 8L;
 	 public static final Long REGISTRATION_STATUS_NOTSTARTED_ID = 9L;
 	 public static final Long REGISTRATION_STATUS_COMPLETED_ID = 10L;
+	 public static final Long REGISTRATION_STATUS_NOTAPPLICABLE_ID = 11L;
 	 public static final Long PROJECT_STUDY_RELEASED_YES_ID = 16L;
 	 public static final Long PROJECT_STUDY_RELEASED_NO_ID = 17L;
 	 public static final Long SEARCH_MY_SUBMISSIONS = 40L;

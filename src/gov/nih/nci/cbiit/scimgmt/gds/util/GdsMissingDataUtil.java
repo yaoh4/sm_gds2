@@ -374,12 +374,14 @@ public class GdsMissingDataUtil {
 		Lookup registrationStatus = repoStatus.getLookupTByRegistrationStatusId();
 		Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
 		
-		if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())) {
-			missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed'."));
+		if(!ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatus.getId())
+				&& !ApplicationConstants.REGISTRATION_STATUS_NOTAPPLICABLE_ID.equals(registrationStatus.getId())) {
+			missingRepoData.addChild(new MissingData("Registration Status must have a value of 'Completed' or 'Not Applicable'."));
 		}
 		if(GdsSubmissionActionHelper.willThereBeAnyDataSubmittedInGdsPlan(project)) {
-			if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())) {
-				missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed'."));
+			if(!ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatus.getId())
+				&& !ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTAPPLICABLE_ID.equals(submissionStatus.getId())) {
+				missingRepoData.addChild(new MissingData("Submission Status must have a value of 'Completed' or 'Not Applicable'."));
 			}
 		}
 		if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleased.getId())) {
