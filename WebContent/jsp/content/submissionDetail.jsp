@@ -227,10 +227,9 @@
               <td>${subproject.extPiFullName}<br>${subProject.intPiFullName}</td>
               
               <td style="white-space: nowrap;" align="center">
-              <s:if test="%{getProjectStatusCode(#subproject).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
+              <s:if test="%{getProjectStatusCode(#subproject.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
                 <img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"/>
-              </s:if> <s:elseif
-                test="%{getProjectStatusCode(#subproject).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+              </s:if> <s:elseif test="%{getProjectStatusCode(#subproject.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
                 <img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>
               </s:elseif> <s:else>
                 <img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
@@ -276,10 +275,10 @@
               <td>${projectsVw.parentProject.extPiFullName}<br>${projectsVw.parentProject.intPiFullName}</td>
               
               <td style="white-space: nowrap">
-               <s:if test="%{getProjectStatusCode(project.parent).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
+               <s:if test="%{getProjectStatusCode(project.parent.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
                 <img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"/>
               </s:if> <s:elseif
-                test="%{getProjectStatusCode(project.parent).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
+                test="%{getProjectStatusCode(project.parent.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
                 <img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"/>
               </s:elseif> <s:else>
                 <img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"/>
