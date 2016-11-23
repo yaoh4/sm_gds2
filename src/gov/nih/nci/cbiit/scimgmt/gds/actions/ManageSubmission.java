@@ -276,9 +276,9 @@ public class ManageSubmission extends BaseAction {
 		return null;
 	}
 	
-	public String getProjectStatusCode(Project project) {
+	public String getProjectStatusCode(Long Id) {
 		
-		ProjectsVw projectsVw = manageProjectService.findProjectsVwById(project.getId());
+		ProjectsVw projectsVw = manageProjectService.findProjectsVwById(Long.valueOf(Id));
 		return projectsVw.getProjectStatusCode();
 	}
 	
