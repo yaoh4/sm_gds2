@@ -87,8 +87,10 @@
 						
 						<div id="searchResults" style="margin-left: 10px;">
 							<h3>&nbsp;</h3>
-							<h3>Search Results &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
+							<h3>Search Results &nbsp; <a href="/documentation/application/Manage_User_Accounts_help.pdf" 
+							onclick="window.open(this.href, 'Admin Help File','menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800'); return false;"
+							 id="popover" style="font-size: 12px;">
+                         <i class="helpfileAmin fa fa-question-circle fa-1x"
 							aria-hidden="true"></i></a> </h3><br/>&nbsp;
 							 <div style="float:right;"><img src="../images/legend-search4.gif"></div>
 							
