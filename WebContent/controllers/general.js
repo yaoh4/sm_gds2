@@ -23,6 +23,7 @@ $(function(){
 		if($("#parentGrantSelection").val() == 'Both') {
 			$(".grantSelection").attr('disabled', false);
 		}
+		$("input[type=radio].grants").attr('disabled', false);
 	}
 });
 
@@ -126,22 +127,6 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 $( document ).ready(function() {
 	var code= $("input[type='radio'].grantSelection:checked").val();
 	var grants= $("input[type='radio'].grants:checked").val();
-	 if($("#projectId").val()) {
-		  var $nonempty = $('.other').filter(function() {
-		    return this.value != ''
-		  });
-
-		  if ($nonempty.length != 0) {
-			  var value = 'Y';
-			  $("input[name=grantsAdditional][value=" + value + "]").attr('checked', 'checked');
-			 
-		  }
-		  else {
-			  var value = 'N';
-			  $("input[name=grantsAdditional][value=" + value + "]").attr('checked', 'checked');
-		  }
-	  }
-	
 	if(grants == 'Y'){
 		 $("#addGrant").show();
 		 var fieldCount = $(".otherWrapper1").length;
@@ -154,7 +139,6 @@ $( document ).ready(function() {
 			}
 			}
 	}
-	
 });
 
 //Toggle search/edit icon, show/hide link/unlink buttons, 
