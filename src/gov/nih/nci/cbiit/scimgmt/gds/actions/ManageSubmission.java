@@ -162,7 +162,7 @@ public class ManageSubmission extends BaseAction {
 		Long parentProjectId = project.getParentProjectId();
 		if(parentProjectId != null) {
 			Project parentProject =  manageProjectService.findById(Long.valueOf(parentProjectId));
-			loadGrantInfo(parentProject);
+			//loadGrantInfo(parentProject);
 			return parentProject;
 		} 
 		return null;
