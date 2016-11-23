@@ -312,7 +312,7 @@ function refreshCancerActivityCode(){
 }
 
 function refreshGrantsContractsData(){
-	var applId = $("#applId").val();
+	var applId = $("#extramural_applId").val();
 		
 	$.ajax({
 	  	url: 'getGrantOrContractByApplId.action',
@@ -321,23 +321,23 @@ function refreshGrantsContractsData(){
 	  	async:   false,
 	  	success: function(json){
 	  		if (json.grantContractNum !== "undefined") {
-	  			$("#grantsContractNum").val(json.grantContractNum);
+	  			$("#extramural_grantsContractNum").val(json.grantContractNum);
 	  			
 	  		}
 	  		if (json.projectTitle !== "undefined") {
-	  			$("#projectTitle").val(json.projectTitle);
+	  			$("#extramural_projectTitle").val(json.projectTitle);
 	  		}
 	  		if (json.piFirstName !== "undefined") {
-	  			$("#fnPI").val(json.piFirstName);
+	  			$("#extramural_fnPI").val(json.piFirstName);
 	  		}
 	  		if (json.piLastName !== "undefined") {
-	  			$("#lnPI").val(json.piLastName);
+	  			$("#extramural_lnPI").val(json.piLastName);
 	  		}
 	  		if (json.piEmailAddress !== "undefined") {
-	  			$("#piEmail").val(json.piEmailAddress);
+	  			$("#extramural_piEmail").val(json.piEmailAddress);
 	  		}
 	  		if (json.piInstitution !== "undefined") {
-	  			$("#PIInstitute").val(json.piInstitution);
+	  			$("#extramural_PIInstitute").val(json.piInstitution);
 	  		}
 	  		if (json.pdFirstName !== "undefined") {
 	  			$("#fnPD").val(json.pdFirstName);
@@ -358,7 +358,7 @@ function refreshGrantsContractsData(){
 	  			$("#cancerActivity").prop('readOnly', true);
 	  		}
 	  		if (json.applId !== "undefined") {
-	  			$("#applId").val(json.applId);			
+	  			$("#extramural_applId").val(json.applId);			
 	  		}
 		}, 
 		error: function(){}	
