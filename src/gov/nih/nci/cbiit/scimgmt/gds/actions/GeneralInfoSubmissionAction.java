@@ -52,6 +52,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String applId;
 	private String valueSelected;
 	private String grantSelection;
+	private String parentGrantSelection;
 	private String searchType;
 	private String grantsAdditional;
 	
@@ -141,20 +142,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * @throws Exception
 	 */
 	public void saveProject() throws Exception{
-		
-		/*if(grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL)
-			|| grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH)){
-			getProject().addProjectGrantContract(getExtramuralGrant());
-		} else {
-			getProject().removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
-		}
-		
-		if(grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL)
-				|| grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH)){
-			getProject().addProjectGrantContract(getIntramuralGrant());
-		} else {
-			getProject().removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
-		}*/
 		
 		Project project = retrieveSelectedProject();		
 		if(project != null){
@@ -277,6 +264,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		setProject(subProject);
 		loadGrantInfo();
 		setGrantSelection(subProject.getGrantSelection());
+		setParentGrantSelection(parentProject.getGrantSelection());
 		if(getAssociatedSecondaryGrants().isEmpty()) {
 			grantsAdditional = ApplicationConstants.FLAG_NO;
 		} else {
@@ -373,6 +361,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				grantsAdditional = ApplicationConstants.FLAG_NO;
 			} else {
 				grantsAdditional = ApplicationConstants.FLAG_YES;
+			}
+			if(project.getSubprojectFlag().equalsIgnoreCase("Y")) {
+				Project parentProject = retrieveParentProject(project);
+				parentGrantSelection = parentProject.getGrantSelection();
 			}
 		}
 		else{
@@ -622,6 +614,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * Validates save Project General Information
 	 */
 	public void validateGeneralInfoSave(){	
+		
+		if(StringUtils.isBlank(grantSelection)) {
+			grantSelection = getParentGrantSelection();
+		}
 		
 		if(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL.equals(grantSelection)
 				|| ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH.equals(grantSelection)) {
@@ -1074,6 +1070,14 @@ public List<DropDownOption> getProgList() {
 
 	public void setGrantsAdditional(String grantsAdditional) {
 		this.grantsAdditional = grantsAdditional;
+	}
+
+	public String getParentGrantSelection() {
+		return parentGrantSelection;
+	}
+
+	public void setParentGrantSelection(String parentGrantSelection) {
+		this.parentGrantSelection = parentGrantSelection;
 	}
 
 }

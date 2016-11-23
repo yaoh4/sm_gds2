@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
@@ -55,6 +56,7 @@ public class LookupServiceImpl implements LookupService {
 	 * Fetch entire lookup lists from the DB and the caller stores in
 	 * cache. Invoked during application initialization.
 	 */
+	@CacheEvict(cacheNames="lookupLists", allEntries=true)
 	public List<Lookup> getAllLookupLists() {
 		
 		logger.info("Loading lookup data from LOOKUP_T");

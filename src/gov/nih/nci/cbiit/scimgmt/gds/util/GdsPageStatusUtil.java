@@ -24,6 +24,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
+import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 
 /**
  * @author menons2
@@ -35,6 +36,9 @@ public class GdsPageStatusUtil {
 	
 	@Autowired
 	protected FileUploadService fileUploadService;
+	
+	@Autowired
+	protected ManageProjectService manageProjectService;
 	
 	@Autowired
 	protected NedPerson loggedOnUser;
@@ -162,6 +166,13 @@ public class GdsPageStatusUtil {
 			return null;
 		}
 		
+		if(ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
+			Project parentProject=manageProjectService.findById(project.getParentProjectId());
+			if((parentProject.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
+					parentProject.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) != null)) {
+					return null;
+				}
+		}
 		// If user selects ONLY the "Other" repository in the "What repository will the data be submitted to?" question GDS plan page, 
 		// there is no IC
 		Set<PlanAnswerSelection> repoSet = project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
