@@ -143,20 +143,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void saveProject() throws Exception{
 		
-		/*if(grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL)
-			|| grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH)){
-			getProject().addProjectGrantContract(getExtramuralGrant());
-		} else {
-			getProject().removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
-		}
-		
-		if(grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL)
-				|| grantSelection.equals(ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH)){
-			getProject().addProjectGrantContract(getIntramuralGrant());
-		} else {
-			getProject().removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
-		}*/
-		
 		Project project = retrieveSelectedProject();		
 		if(project != null){
 			ProjectGrantContract storedExtramuralContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
@@ -278,6 +264,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		setProject(subProject);
 		loadGrantInfo();
 		setGrantSelection(subProject.getGrantSelection());
+		setParentGrantSelection(parentProject.getGrantSelection());
 		if(getAssociatedSecondaryGrants().isEmpty()) {
 			grantsAdditional = ApplicationConstants.FLAG_NO;
 		} else {
@@ -627,6 +614,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * Validates save Project General Information
 	 */
 	public void validateGeneralInfoSave(){	
+		
+		if(StringUtils.isBlank(grantSelection)) {
+			grantSelection = getParentGrantSelection();
+		}
 		
 		if(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL.equals(grantSelection)
 				|| ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH.equals(grantSelection)) {
