@@ -194,8 +194,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	}
 
 	public String getPageStatusCode() {
-		
-		return super.getProjectStatusCode(getProject());
+		return super.getProjectStatusCode(getProject().getId());
 	}
 	
 	
