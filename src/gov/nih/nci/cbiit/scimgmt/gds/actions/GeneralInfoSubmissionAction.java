@@ -704,7 +704,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			this.addActionError(getText("submissionTitle.required")); 
 		}
 		
-		if(getProject().getParentProjectId() == null){
+		if(StringUtils.isBlank(grantsAdditional)) {
+			this.addActionError(getText("additional.grants.required"));
+		}
+		
+		/*if(getProject().getParentProjectId() == null){
 		if(StringUtils.isBlank(grantsAdditional)) {
 			this.addActionError(getText("additional.grants.required"));
 		}
@@ -714,7 +718,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				grantsAdditional =  ApplicationConstants.FLAG_NO;
 			else
 				grantsAdditional = ApplicationConstants.FLAG_YES;
-		}
+		}*/
 		Long submissionReasonId = null;
         
 		//Validation for SubmissionReason
