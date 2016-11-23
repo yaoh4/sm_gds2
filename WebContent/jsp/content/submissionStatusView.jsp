@@ -27,7 +27,7 @@
           <table width="100%" border="0" cellpadding="3">
             <tr>
               <td width="30%" style="white-space: nowrap"><strong>Number of Data Repositories indicated:</strong></td>
-              <td><s:property value="%{project.repositoryStatuses.size}"/></td>
+              <td style="padding-left: 20px;"><s:property value="%{project.repositoryStatuses.size}"/></td>
             </tr>
             <tr>
               <td style="white-space: nowrap">&nbsp;</td>
@@ -35,7 +35,7 @@
             </tr> 
             <tr>
               <td><strong>Anticipated Submission Date:</strong></td>
-              <td><s:date name="%{project.anticipatedSubmissionDate}" format="MM/dd/yyyy"/>  </td> 
+              <td style="padding-left: 20px;"><s:date name="%{project.anticipatedSubmissionDate}" format="MM/dd/yyyy"/>  </td> 
             </tr>
           </table> 
           <p>&nbsp;</p>

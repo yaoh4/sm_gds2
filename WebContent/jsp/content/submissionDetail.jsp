@@ -45,9 +45,9 @@
               </s:if><s:else>Project Created</s:else></td>
               <td><div class="searchProgess">
         <img src="../images/complete.png" alt="Complete" width="18px" height="18px" title="Completed"/></div></td>
-              <td><s:date name="%{project.updatedDate}" format="MM/dd/yyyy"/> </td>
+              <td><s:date name="%{project.createdDate}" format="MM/dd/yyyy"/> </td>
               <td align="center"></td>
-              <td>${project.updatedBy}</td>
+              <td>${project.createdByPerson.fullName}</td>
             </tr>
 		  <s:if test="%{showPage('GDSPLAN')}">
             <tr >

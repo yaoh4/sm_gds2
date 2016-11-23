@@ -119,7 +119,7 @@ $(document).ready(function(){
                 		addNewVersion = '&nbsp;&nbsp;&nbsp;<a href="../manage/createNewProjectVersion.action?projectId=' + row.id + '"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i></a>';
                 	}
                 	if($("#gpa").val() == "true") {
-                		deleteSubmission = '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>';
+                		deleteSubmission = '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ',' + row.subprojectCount + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>';
                 	}
                     return '<div style="white-space: nowrap; font-size: 14px;"><a href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>' +
                     deleteSubmission + addNewVersion + addSubproject + '</div>';
@@ -470,10 +470,13 @@ $(document).ready(function(){
 });
 
 
-function deleteSubmission(projectId)
+function deleteSubmission(projectId, subprojectCount)
 {
-	var result = "";
-	bootbox.confirm("Are you sure you want to delete this submission?", function(ans) {
+	var result = "", msg = "Are you sure you want to delete this submission?";
+	if(subprojectCount != null && subprojectCount > 0) {
+		msg = msg + " If you select 'OK' all associated sub-projects will also be deleted.";
+	}
+	bootbox.confirm(msg, function(ans) {
 		  if (ans) {
 			  $.ajax({
 					url: "deleteProject.action",

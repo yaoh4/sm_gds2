@@ -27,7 +27,7 @@
           <table width="100%" border="0" cellpadding="3">
             <tr>
               <td width="30%" style="white-space: nowrap"><strong>All Institutional Certifications received?</strong></td>
-              <td><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td>
+              <td style="padding-left: 20px;"><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td>
             </tr>
           </table>
           <p>&nbsp;</p>

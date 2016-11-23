@@ -151,7 +151,7 @@ function populateGrantsContractsData(){
 		//$("#pStartDate").hide();
 		//$("#pEndDate").hide();	
 		//$("#linkButton").hide();
-		$("#dataLinkFlag").val('N');
+		//$("#dataLinkFlag").val('N');
 	}
 	else if(searchType == 'extramural'){
 		$("#linkedGrantContractNum").val(json.grantContractNum);
