@@ -133,9 +133,10 @@ $( document ).ready(function() {
 			for(var j = 0; j < fieldCount; j++) {
 				var num=$("#grants_" + j + "_grantsContractNum").val();
 			if(num ==''){
-				$("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon")
+				$("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
 				$("#grants_" + j +"_div").find("i").removeClass("fa fa-pencil").addClass("fa fa-search");
 				$("#grants_" + j +"_div").find("button").attr("title", "Search");
+				$("#grants_" + j + ".input-group-btn").attr("style", "vertical-align: top");
 			}
 			}
 	}
