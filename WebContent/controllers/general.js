@@ -429,7 +429,7 @@ function refreshGrantsContractsData(){
 			// add input box
 			$(".otherWrapper1").last().after('<div class="input-group otherWrapper1' 		
 				    +'">'
-				  + '<input type="text" name="associatedSecondaryGrants.grantContractNum" maxlength="271" class="form-control other" cssclass="form-control" id="grants_'
+				  + '<input type="text" name="associatedSecondaryGrants.grantContractNum" maxlength="271" class="form-control other2" cssclass="form-control" id="grants_'
 					+ fieldCount
 					+'_grantsContractNum" placeholder="Click on Edit Icon"/>'
 				 + '<div class="input-group-btn grantAlign">'
@@ -492,7 +492,7 @@ function refreshGrantsContractsData(){
 		}
 		else{
 			$(".otherWrapper1").first().children("i").remove();
-	    	$(".other").val('');
+	    	$(".other2").val('');
 	    	$(".otherWrapper1").not(".otherWrapper1:first").remove();
 	        $("#addGrant").hide();
 		}
