@@ -25,24 +25,24 @@ function searchGrantsData() {
 		  	processData: false,
 		    contentType: false,
 		    data: fd,
-		  	async:   false,
+		  	async:   true,
 		  	success: function(msg){
 				result = $.trim(msg);
+				$('button.has-spinner').toggleClass('active');
+				if(result.indexOf('<div') == 0) {
+					$("#searchGrantsContracts").html(result);
+					$("#generalInfoSection").hide();
+					$("#searchGrantsContracts").show();
+					$("#general_form").removeClass( "dirty" )
+				}
+				else {
+					bootbox.alert(result, function() {
+			  			return true;
+					});
+				}
 			}, 
 			error: function(){}	
 		});
-		$('button.has-spinner').toggleClass('active');
-		if(result.indexOf('<div') == 0) {
-			$("#searchGrantsContracts").html(result);
-			$("#generalInfoSection").hide();
-			$("#searchGrantsContracts").show();
-			$("#general_form").removeClass( "dirty" )
-		}
-		else {
-			bootbox.alert(result, function() {
-	  			return true;
-			});
-		}
 		
 		//$('#general_form').attr('action', "searchGrantsContractsAction.action").submit();
 	}
