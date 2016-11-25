@@ -143,9 +143,9 @@
 							<s:if test="isGPA()">
 							<div class="btn-group" id="linkButton">
 															
-							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
-							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
-							<a href="javascript: void(0)" id="unlink" class="btn btn-default" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
+							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Select to link submission" onclick="linkUnlinkGrants(this)">
+							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Select to link submission"></i></button></a>					
+							<a href="javascript: void(0)" id="unlink" class="btn btn-default" type="button" onclick="linkUnlinkGrants(this)" title="Select to unlink submission"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Select to unlink submission"></i></a>
 														  
 							</div>
 	 						</s:if>
