@@ -885,6 +885,10 @@ float: left;
   padding-bottom: 15px;
 }
 
+.grantAlign {
+  vertical-align: top;
+}
+
 /******GDS Data Sharing Page****************************/
 
 .qSpacing {
