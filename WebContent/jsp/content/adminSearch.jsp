@@ -8,7 +8,7 @@
 			
 			<div id="adminSearch" style="">
 				
-			<s:hidden id="userId" name="userId"/>			
+						
 				
 				
 				<!-- Begin Panel -->
@@ -285,7 +285,7 @@
 						</div>
 					</div>
 				</div>
-				
+			<s:hidden id="userId" name="userId"/>
 </form>			
 
 <script type="text/javascript" src="<s:url value="/controllers/gds.js"/>"></script>

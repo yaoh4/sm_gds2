@@ -143,9 +143,9 @@
 							<s:if test="isGPA()">
 							<div class="btn-group" id="linkButton">
 															
-							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Data is Linked" onclick="linkUnlinkGrants(this)">
-							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Data is Linked"></i></button></a>					
-							<a href="javascript: void(0)" id="unlink" class="btn btn-default" type="button" onclick="linkUnlinkGrants(this)" title="Data is Unlinked"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Data is Unlinked"></i></a>
+							<a href="javascript: void(0)" class="btn btn-default" type="button" id="link" style="background-color: #d4d4d4; margin-right: -2px;" title="Select to link submission" onclick="linkUnlinkGrants(this)">
+							<i class="fa fa-link" aria-hidden="true" alt="Linked" title="Select to link submission"></i></button></a>					
+							<a href="javascript: void(0)" id="unlink" class="btn btn-default" type="button" onclick="linkUnlinkGrants(this)" title="Select to unlink submission"><i class="fa fa-chain-broken" aria-hidden="true" alt="Unlinked" title="Select to unlink submission"></i></a>
 														  
 							</div>
 	 						</s:if>
@@ -395,7 +395,7 @@
 								<s:div class="input-group otherWrapper1">
 								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_%{#stat.index}_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Search Icon" value="%{#otherGrants.grantContractNum}"/>
 								
-								  <div class="input-group-btn" style="vertical-align: top;">
+								  <div class="input-group-btn grantAlign">
                                     <s:a href="#" id="grants_%{#stat.index}_div" onclick="openGrantsContractsSearchPage('all','grants_%{#stat.index}')">
 									<button class="btn btn-default" type="button"  title="Edit" style=" margin-left: -2px;">
 									<i class="fa fa-pencil" aria-hidden="true"></i>
@@ -411,7 +411,7 @@
 									<!--Repo hidden field-->
 								<s:div class="input-group otherWrapper1">
 								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_0_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Edit Icon"/>
-								  <div class="input-group-btn" style="vertical-align: top;">
+								  <div class="input-group-btn grantAlign">
                                     <s:a href="#" id="grants_0_div" onclick="openGrantsContractsSearchPage('all','grants_0')">
 																		<button class="btn btn-default" type="button"  title="Edit" style=" margin-left: -2px;">
 																			<i class="fa fa-pencil"  aria-hidden="true"></i>

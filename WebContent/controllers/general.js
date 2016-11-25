@@ -133,9 +133,10 @@ $( document ).ready(function() {
 			for(var j = 0; j < fieldCount; j++) {
 				var num=$("#grants_" + j + "_grantsContractNum").val();
 			if(num ==''){
-				$("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon")
+				$("#grants_" + j + "_grantsContractNum").attr("placeholder", "Click on Search Icon");
 				$("#grants_" + j +"_div").find("i").removeClass("fa fa-pencil").addClass("fa fa-search");
 				$("#grants_" + j +"_div").find("button").attr("title", "Search");
+
 			}
 			}
 	}
@@ -244,11 +245,22 @@ function warnGeneralInfo(element) {
 		}
 	});
 	
+	var parentId=$("#parentId").val();
 	if (result == "") {
+		if(parentId){
+			$("input[type=radio]").attr('disabled', false);
+			$('#DOC').attr('disabled', false);
+			$('#programBranch').attr('disabled', false);
+		}
 		return true;
 	}
 	bootbox.confirm(result, function(ans) {
 		if (ans) {
+			if(parentId){
+				$("input[type=radio]").attr('disabled', false);
+				$('#DOC').attr('disabled', false);
+				$('#programBranch').attr('disabled', false);
+			}
 			$('#general_form').attr('action', "saveGeneralInfo").submit();
 			return true;
 		} else {
@@ -280,11 +292,22 @@ function warnGeneralInfoNext(element) {
 		}
 	});
 	
+	var parentId=$("#parentId").val();
 	if (result == "") {
+		if(parentId){
+			$("input[type=radio]").attr('disabled', false);
+			$('#DOC').attr('disabled', false);
+			$('#programBranch').attr('disabled', false);
+		}
 		return true;
 	}
 	bootbox.confirm(result, function(ans) {
 		if (ans) {
+			if(parentId){
+				$("input[type=radio]").attr('disabled', false);
+				$('#DOC').attr('disabled', false);
+				$('#programBranch').attr('disabled', false);
+			}
 			$('#general_form').attr('action', "saveGeneralInfoAndNext").submit();
 			return true;
 		} else {
@@ -399,7 +422,7 @@ function refreshGrantsContractsData(){
 			// If its the second row, add a trash bin next to the first row.
 			if(fieldCount == 1) {
 				
-				$(".otherWrapper1").first().append('<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 10px; cursor:pointer">'
+				$(".otherWrapper1").first().append('<i class="fa fa-trash fa-lg delete removeclass" title="Delete" aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 10px; vertical-align: 75%; cursor:pointer">'
 						+ '</i></div>');
 			}		
 			
@@ -409,7 +432,7 @@ function refreshGrantsContractsData(){
 				  + '<input type="text" name="associatedSecondaryGrants.grantContractNum" maxlength="271" class="form-control other" cssclass="form-control" id="grants_'
 					+ fieldCount
 					+'_grantsContractNum" placeholder="Click on Edit Icon"/>'
-				 + '<div class="input-group-btn"'
+				 + '<div class="input-group-btn grantAlign">'
 		         + '<a href="#" id="grants_'
 		         + fieldCount
 		         +'_div" onclick="openGrantsContractsSearchPage(\'all\', \'grants_'
@@ -421,7 +444,7 @@ function refreshGrantsContractsData(){
 				+ '<i class="fa fa-pencil" '
 				+' aria-hidden="true"></i>'
 				+ '</button></a></div>'
-				+ '<i class="fa fa-trash fa-lg delete removeclass" title="Delete"  aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 13px; cursor:pointer">'
+				+ '<i class="fa fa-trash fa-lg delete removeclass" title="Delete"  aria-hidden="true" alt="Delete icon" style="font-size: 18px; padding-right: 3px; margin-left: 13px; vertical-align: 75%; cursor:pointer">'
 				+ '</i></div>');
 			
 			

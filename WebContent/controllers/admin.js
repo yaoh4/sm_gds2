@@ -45,7 +45,10 @@ function reinitTable() {
             {
             "targets": [ -1 ],
             "orderable": false
-            }]
+            }],
+            "initComplete": function(settings, json) {
+    			$('button.has-spinner').removeClass('active');
+  			}
         });
 }
 //Search button
@@ -59,13 +62,14 @@ function searchUsers() {
 		var errorMsg = "Last Name or GDS User Role selection is required to complete the Search";
 		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
 		window.scrollTo(0,0);
-	} else {	
+	} else {
+		$('button.has-spinner').addClass('active');	
 		if(gdsUsersFlag == true || role != "") {
 			url = "searchGdsUsers.action";
 		} else {
 			url = "searchNedPersons.action";
 		}
-	    $('button.has-spinner').toggleClass('active');
+	    
 	    //var lastName = $('#lastName').val().replace(/\s+/g, '');
 		$form = $("#admin_form");
 	    fd = new FormData($form[0]);
@@ -75,7 +79,7 @@ function searchUsers() {
 		  	processData: false,
 		    contentType: false,
 		    data: fd,
-		  	async:   false,
+		  	async:   true,
 		  	success: function(msg){
 				result = $.trim(msg);
 				$("#searchResults").html($(result).find("#searchResults").html());
@@ -83,7 +87,6 @@ function searchUsers() {
 			}, 
 			error: function(){}	
 		});
-		$('button.has-spinner').toggleClass('active');
 	}
 	
 };

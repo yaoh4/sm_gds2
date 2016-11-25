@@ -885,6 +885,14 @@ float: left;
   padding-bottom: 15px;
 }
 
+.grantAlign {
+  vertical-align: top;
+}
+
+.fa-search {
+      color: #2d699e;
+}
+
 /******GDS Data Sharing Page****************************/
 
 .qSpacing {
