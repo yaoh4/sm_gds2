@@ -393,7 +393,7 @@
 					            <s:if test="%{associatedSecondaryGrants.size > 0}">
 										<s:iterator value="%{associatedSecondaryGrants}" var="otherGrants" status="stat">
 								<s:div class="input-group otherWrapper1">
-								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_%{#stat.index}_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Search Icon" value="%{#otherGrants.grantContractNum}"/>
+								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_%{#stat.index}_grantsContractNum" maxlength="271" class="form-control other2" cssclass="form-control"  placeholder="Click on Search Icon" value="%{#otherGrants.grantContractNum}"/>
 								
 								  <div class="input-group-btn grantAlign">
                                     <s:a href="#" id="grants_%{#stat.index}_div" onclick="openGrantsContractsSearchPage('all','grants_%{#stat.index}')">
@@ -410,7 +410,7 @@
 					             <s:else>
 									<!--Repo hidden field-->
 								<s:div class="input-group otherWrapper1">
-								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_0_grantsContractNum" maxlength="271" class="form-control other" cssclass="form-control"  placeholder="Click on Edit Icon"/>
+								  <s:textfield name="associatedSecondaryGrants.grantContractNum" id="grants_0_grantsContractNum" maxlength="271" class="form-control other2" cssclass="form-control"  placeholder="Click on Edit Icon"/>
 								  <div class="input-group-btn grantAlign">
                                     <s:a href="#" id="grants_0_div" onclick="openGrantsContractsSearchPage('all','grants_0')">
 																		<button class="btn btn-default" type="button"  title="Edit" style=" margin-left: -2px;">
