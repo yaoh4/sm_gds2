@@ -245,11 +245,22 @@ function warnGeneralInfo(element) {
 		}
 	});
 	
+	var parentId=$("#parentId").val();
 	if (result == "") {
+		if(parentId){
+			$("input[type=radio]").attr('disabled', false);
+			$('#DOC').attr('disabled', false);
+			$('#programBranch').attr('disabled', false);
+		}
 		return true;
 	}
 	bootbox.confirm(result, function(ans) {
 		if (ans) {
+			if(parentId){
+				$("input[type=radio]").attr('disabled', false);
+				$('#DOC').attr('disabled', false);
+				$('#programBranch').attr('disabled', false);
+			}
 			$('#general_form').attr('action', "saveGeneralInfo").submit();
 			return true;
 		} else {
@@ -281,11 +292,22 @@ function warnGeneralInfoNext(element) {
 		}
 	});
 	
+	var parentId=$("#parentId").val();
 	if (result == "") {
+		if(parentId){
+			$("input[type=radio]").attr('disabled', false);
+			$('#DOC').attr('disabled', false);
+			$('#programBranch').attr('disabled', false);
+		}
 		return true;
 	}
 	bootbox.confirm(result, function(ans) {
 		if (ans) {
+			if(parentId){
+				$("input[type=radio]").attr('disabled', false);
+				$('#DOC').attr('disabled', false);
+				$('#programBranch').attr('disabled', false);
+			}
 			$('#general_form').attr('action', "saveGeneralInfoAndNext").submit();
 			return true;
 		} else {
