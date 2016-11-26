@@ -178,7 +178,7 @@ public class IcSubmissionAction extends ManageSubmission {
 						Long dulId = dulChecklistSelection.getDulChecklist().getId();
 						
 						if(dulId.equals(parentDulId)) {
-							//This represents a parent row, so there should be additional text present	
+							//This represents a parent row, so check if additional text present	
 							String additionalText = dulChecklistSelection.getOtherText();
 							if(additionalText != null && !additionalText.isEmpty()) {
 								int textlength = additionalText.length();
@@ -362,14 +362,9 @@ public class IcSubmissionAction extends ManageSubmission {
 		List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
 		int dulSetIndex = Long.valueOf(dulSet.getDisplayId()).intValue();
 		
-		//Process additional text if present
-		if(ApplicationConstants.IC_PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId[0])) 
-				|| ApplicationConstants.IC_PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId[0]))) {
-			
-			DulChecklistSelection dulChecklistSelection = 
+		DulChecklistSelection dulChecklistSelection = 
 				processAdditionalText(studyName, studyIndex, dulSet, dulSetIndex, parentDulId[0], validationMap);	
-			dulChecklistSelections.add(dulChecklistSelection);	
-		} 
+		dulChecklistSelections.add(dulChecklistSelection);	
 		
 		//Process DUL selections if present
 		List<DulChecklistSelection> dulSelectionList = 
@@ -386,16 +381,18 @@ public class IcSubmissionAction extends ManageSubmission {
 			String parentDulId, HashMap<String, Integer> validationMap) {
 		
 		String[] additionalText = ServletActionContext.getRequest().getParameterValues("otherAddText-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId);					
-		
+		if(additionalText == null) {
+			additionalText = new String[]{""};
+		}
 		DulChecklistSelection dulChecklistSelection = createDulChecklistSelection(parentDulId, additionalText[0]);
 		dulChecklistSelection.setStudiesDulSet(dulSet);							
 		
 		if(additionalText == null || additionalText[0].isEmpty()) {
 			if(ApplicationConstants.IC_PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId))) {
 				this.addActionError(getText("error.ic.study.dulType.diseaseText.required", new String[]{studyName}));
-			} else {	
+			} else if(ApplicationConstants.IC_PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId))) {	
 				this.addActionError(getText("error.ic.study.dulType.additionalText.required", new String[]{studyName}));
-			}
+			} 
 		} else if (additionalText[0].length() > 100){
 			if(ApplicationConstants.IC_PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId))) {
 				addActionError(getText("error.ic.study.dulType.diseaseText.size.exceeded", new String[]{studyName}));
