@@ -281,13 +281,13 @@ public class IcSubmissionAction extends ManageSubmission {
 			logger.info("No. of dulSets in study: " + study.getStudyName() + " = " + dulSets.size());
 			if(!CollectionUtils.isEmpty(dulSets)) {
 				
-				Iterator<StudiesDulSet> studiesDulSets = study.getStudiesDulSets().iterator();		
-				while(studiesDulSets.hasNext()) {
-					StudiesDulSet dulSet = studiesDulSets.next();
+				Iterator<StudiesDulSet> dulSetsIterator = dulSets.iterator();		
+				while(dulSetsIterator.hasNext()) {
+					StudiesDulSet dulSet = dulSetsIterator.next();
 					if(dulSet == null || StringUtils.isBlank(dulSet.getDisplayId())) {
 						//This means that the DulSet was deleted by the user
 						//hence correspondingly remove it from our data structure
-						studiesDulSets.remove();
+						dulSetsIterator.remove();
 						continue;
 					}
 					
@@ -302,7 +302,7 @@ public class IcSubmissionAction extends ManageSubmission {
 					String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
 					if(parentDulId != null) {
 					
-						List<DulChecklistSelection> dulChecklistSelections = processDulSet(parentDulId,  
+						List<DulChecklistSelection> dulChecklistSelections = processDulSet(parentDulId[0],  
 								study.getStudyName(), studyIndex, dulSet, validationMap);
 						dulSet.setDulChecklistSelections(dulChecklistSelections);
 						if(!dulChecklistSelections.isEmpty()) {
@@ -310,7 +310,7 @@ public class IcSubmissionAction extends ManageSubmission {
 						}
 				 	} else {
 				 		if(study.getStudiesDulSets().size() > 1) {
-							studiesDulSets.remove();
+							dulSetsIterator.remove();
 						}
 				 	}
 				}//End while-loop for iterating through dulSets				
@@ -355,37 +355,22 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	
-	private List<DulChecklistSelection> processDulSet(String[] parentDulId, 
+	private List<DulChecklistSelection> processDulSet(String parentDulId, 
 			String studyName, int studyIndex, StudiesDulSet dulSet, 
 			HashMap<String, Integer> validationMap) {
 		
 		List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
 		int dulSetIndex = Long.valueOf(dulSet.getDisplayId()).intValue();
 		
-		DulChecklistSelection dulChecklistSelection = 
-				processAdditionalText(studyName, studyIndex, dulSet, dulSetIndex, parentDulId[0], validationMap);	
-		dulChecklistSelections.add(dulChecklistSelection);	
-		
-		//Process DUL selections if present
-		List<DulChecklistSelection> dulSelectionList = 
-			processDulSelections(studyName, studyIndex, dulSet, dulSetIndex, parentDulId[0], validationMap);	
-			
-		dulChecklistSelections.addAll(dulSelectionList);
-		
-		return dulChecklistSelections;
-	}
-	
-	
-	private DulChecklistSelection processAdditionalText(String studyName,  
-			int studyIndex, StudiesDulSet dulSet, int dulSetIndex, 
-			String parentDulId, HashMap<String, Integer> validationMap) {
-		
 		String[] additionalText = ServletActionContext.getRequest().getParameterValues("otherAddText-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId);					
 		if(additionalText == null) {
 			additionalText = new String[]{""};
 		}
-		DulChecklistSelection dulChecklistSelection = createDulChecklistSelection(parentDulId, additionalText[0]);
-		dulChecklistSelection.setStudiesDulSet(dulSet);							
+		
+		//Create DulChecklistSelection for parent
+		DulChecklistSelection dulParentSelection = createDulChecklistSelection(parentDulId, additionalText[0]);
+		dulParentSelection.setStudiesDulSet(dulSet);		
+		dulChecklistSelections.add(dulParentSelection);
 		
 		if(additionalText == null || additionalText[0].isEmpty()) {
 			if(ApplicationConstants.IC_PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId))) {
@@ -396,56 +381,39 @@ public class IcSubmissionAction extends ManageSubmission {
 		} else if (additionalText[0].length() > 100){
 			if(ApplicationConstants.IC_PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId))) {
 				addActionError(getText("error.ic.study.dulType.diseaseText.size.exceeded", new String[]{studyName}));
-			
 			} else {
 				addActionError(getText("error.ic.study.dulType.additionalText.size.exceeded", new String[]{studyName}));
 			}
-			
-		} else {
-			validationMap.put(additionalText[0], new Integer(dulSetIndex));
 		}
-		
-		return dulChecklistSelection;
-	}
-	
-	
-	private List<DulChecklistSelection> processDulSelections(String studyName, 
-			int studyIndex, StudiesDulSet dulSet, int dulSetIndex, String parentDulId, 
-			HashMap<String, Integer> validationMap) {
+		String dulSelectionsStr = parentDulId + additionalText[0];
 		
 		String selectedDulsParam = "dul-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId;
 		String [] selectedDuls = ServletActionContext.getRequest().getParameterValues(selectedDulsParam);
 		
-		List<DulChecklistSelection> dulSelections = new ArrayList<DulChecklistSelection>();
-		
+		//Create DulChecklistSelections for individual DUL selections
 		if(selectedDuls != null && selectedDuls.length > 0) {
 		
-			//We have at least one selection in this this DUL Set, process them
-			String dulSelectionsStr = "";
+			//Proceed only if we have at least one selection in this this DUL Set
 			for(int i = 0; i < selectedDuls.length; i++) {										
 			
 				dulSelectionsStr = dulSelectionsStr + selectedDuls[i];
 			
-				//for each selectedDul, create a dulChecklistSelection
 				DulChecklistSelection dulChecklistSelection = createDulChecklistSelection(selectedDuls[i], null);
 				dulChecklistSelection.setStudiesDulSet(dulSet);
-				dulSelections.add(dulChecklistSelection);
-			}
-		
-			//Check if this dulSet is already present
-			if(validationMap.containsKey(dulSelectionsStr)) {
-				//If parent dul is 13 or 21, get the additional text - validationMap.get(0);
-				DulChecklist parentDul = GdsSubmissionActionHelper.getDulChecklist(Long.valueOf(parentDulId));
-				this.addActionError(getText("error.ic.study.dulSelection.duplicate", new String[]{studyName}));
-			} else {
-				validationMap.put(dulSelectionsStr, new Integer(dulSetIndex));
+				dulChecklistSelections.add(dulChecklistSelection);		
 			}
 		}
-		return dulSelections;
- 	}
+		
+		//Check if this dulSet is already present
+		if(validationMap.containsKey(dulSelectionsStr)) {
+			this.addActionError(getText("error.ic.study.dulSelection.duplicate", new String[]{studyName}));
+		} else {
+			validationMap.put(dulSelectionsStr, new Integer(dulSetIndex));
+		}
+		
+		return dulChecklistSelections;
+	}
 	
-	
-
 	
 	private DulChecklistSelection createDulChecklistSelection(String dulId, String otherText) {
 		
