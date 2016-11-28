@@ -63,7 +63,7 @@ public class AdminAction extends BaseAction {
 	public String searchNedPersons() {
 		//Perform search
 		if(!isSearchCriteriaValid(criteria)) {
-			addActionError("Please enter at least one of last name or doc as search criteria");
+			addActionError(getText("error.admin.criteria"));
 			return INPUT;
 		}
 		nedPersons = userRoleService.searchNedPerson(getCriteria());
@@ -81,7 +81,7 @@ public class AdminAction extends BaseAction {
 	public String searchGdsUsers() {
 		
 		if(!isSearchCriteriaValid(getCriteria())) {
-			addActionError("Please enter at least one of last name, role or doc as search criteria");
+			addActionError(getText("error.admin.criteria"));
 			return INPUT;
 		}
 		
