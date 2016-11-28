@@ -112,7 +112,7 @@ public class ProjectsDao {
 				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());	
 				detachedInstance.setLastChangedDate(new Date());
 				for(ProjectGrantContract grantContract: detachedInstance.getProjectGrantsContracts()) {
-					if(grantContract.getCreatedBy() == null) {
+					if(StringUtils.isEmpty(grantContract.getCreatedBy())) {
 						//This is for associated grants, which get deleted and re-saved.
 						grantContract.setCreatedBy(loggedOnUser.getAdUserId());
 					}
