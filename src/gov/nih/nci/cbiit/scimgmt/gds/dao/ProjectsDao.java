@@ -105,6 +105,7 @@ public class ProjectsDao {
 		Long id = detachedInstance.getId();
 		logger.debug("merging Project instance");
 		try {
+			Hibernate.initialize(detachedInstance.getPlanAnswerSelections());
 			if(id != null){
 				//Already saved submission
 				Hibernate.initialize(detachedInstance.getProjectGrantsContracts()); 				
@@ -133,7 +134,7 @@ public class ProjectsDao {
 					grantContract.setCreatedDate(new Date());
 					grantContract.setProject(detachedInstance);
 				}
-			}			
+			}				
 			Project result = (Project) sessionFactory.getCurrentSession().merge(detachedInstance);
 			for (Iterator<PlanAnswerSelection> iterator = result.getPlanAnswerSelections().iterator(); iterator.hasNext();) {
 				PlanAnswerSelection afterMerge = iterator.next();
