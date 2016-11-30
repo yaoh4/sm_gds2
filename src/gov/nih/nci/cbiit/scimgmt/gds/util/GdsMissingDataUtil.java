@@ -304,12 +304,13 @@ public class GdsMissingDataUtil {
 		
 		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
 		
+		if(!ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
 		  if(project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) && CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
 		    	String displayText = "The question 'What repository will the data be submitted to ?' has not been answered.";
 				MissingData missingData = new MissingData(displayText);
 				missingDataList.add(missingData);
 		    }
-		
+		}
 		if(!ApplicationConstants.BSI_NA.equals(project.getBsiReviewedId())){
 		if(!ApplicationConstants.BSI_YES.equals(project.getBsiReviewedId())) {
 			String displayText = "BSI Reviewed flag must be 'Yes'.";
