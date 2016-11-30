@@ -76,7 +76,7 @@
 						<s:hidden  id="prevSubId" value="%{#prevSubmission.id}"/>
 						<i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
 					 <a href="javascript: void(0)" id="confEdit" onclick="confirmEdit(this)">
-						<i class="fa fa-pencil" aria-hidden="true" alt="Edit" title="Edit"></i></a>
+						<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a>
 						</td>
 						</tr>
 					</s:iterator>
