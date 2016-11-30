@@ -256,12 +256,11 @@ public class RepositoryStatus implements java.io.Serializable {
 			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
-		if(ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatusId)
-			&& ( (ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatusId)
-			      && ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleaseId))
-			     || ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTAPPLICABLE_ID.equals(submissionStatusId)
-			   ) 
-		  ) {			
+		if((ApplicationConstants.REGISTRATION_STATUS_COMPLETED_ID.equals(registrationStatusId)
+			|| ApplicationConstants.REGISTRATION_STATUS_NOTAPPLICABLE_ID.equals(registrationStatusId))
+			&& (ApplicationConstants.PROJECT_SUBMISSION_STATUS_COMPLETED_ID.equals(submissionStatusId)		      
+			     || ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTAPPLICABLE_ID.equals(submissionStatusId))
+			&& ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(studyReleaseId))  {			
 			return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 		}
 			
