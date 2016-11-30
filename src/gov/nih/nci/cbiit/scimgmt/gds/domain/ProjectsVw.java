@@ -40,6 +40,7 @@ public class ProjectsVw implements java.io.Serializable {
 	private String bsiPageStatusCode;
 	private String repositoryPageStatusCode;
 	private String subprojectEligibleFlag;
+	private String newVersionEligibleFlag;
 	private String projectStatusCode;
 	
 	private String extGrantContractNum;
@@ -408,6 +409,15 @@ public class ProjectsVw implements java.io.Serializable {
 
 	public void setSubprojectEligibleFlag(String subprojectEligibleFlag) {
 		this.subprojectEligibleFlag = subprojectEligibleFlag;
+	}
+	
+	@Formula(value = "case when (NOT EXISTS (SELECT * FROM repository_statuses_t r WHERE r.project_id = id) or EXISTS (SELECT * FROM repository_statuses_t r WHERE r.project_id = id and r.study_released_id <> 16)) then 'N' else 'Y' end ")
+	public String getNewVersionEligibleFlag(){
+		return newVersionEligibleFlag;
+	}
+	
+	public void setNewVersionEligibleFlag(String newVersionEligibleFlag) {
+		this.newVersionEligibleFlag = newVersionEligibleFlag;
 	}
 	
 	@Formula(value="(SELECT count(*) FROM projects_t p WHERE p.parent_project_id = id AND p.latest_version_flag = 'Y')")

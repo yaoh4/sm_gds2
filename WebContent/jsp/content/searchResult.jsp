@@ -23,6 +23,7 @@
 			<th>Expand Repository</th>
 			<th>Subproject Eligible Flag</th>
 			<th>Project Status Code</th>
+			<th>New Version Eligible Flag</th>
 			<th>Grant/<br/>Intramural/Contract # 2</th>
 			<th>Principal Investigator 2</th>
 			<th>PI First Name 2</th>

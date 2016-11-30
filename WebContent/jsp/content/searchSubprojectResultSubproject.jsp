@@ -37,7 +37,7 @@
 						<s:set name="subprojectId" value="#s.id" />
 						<tr>
 							<td class="dt-center">
-								<s:if test="%{#s.projectStatusCode == 'COMPLETED'}">
+								<s:if test="%{#s.newVersionEligibleFlag.equalsIgnoreCase(\'Y\')}">
 									<input type="radio" name="projectId" value="${subprojectId}"/>
 								</s:if>
 							</td>
