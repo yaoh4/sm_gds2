@@ -15,7 +15,7 @@ function searchGrantsData() {
 	} else {	
 		
 	    $('button.has-spinner').toggleClass('active');
-	    var grantNum = $('#grantSearch').val().replace(/\s+/g, '');
+	    var grantNum = $('#grantSearch').val().trim();
 	    $('#grantSearch').val(grantNum);
 		$form = $("#general_form");
 	    fd = new FormData($form[0]);
