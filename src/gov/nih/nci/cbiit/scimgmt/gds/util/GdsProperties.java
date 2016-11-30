@@ -77,11 +77,11 @@ public class GdsProperties extends Properties {
 		List<Lookup> allLookups = lookupService.getAllLookupLists();
 		
 		for(Lookup lookup: allLookups) {
-			listName = lookup.getDisplayName();
+			listName = lookup.getDiscriminator();
 			if(!prevListName.isEmpty() && !prevListName.equalsIgnoreCase(listName)) {
 				
 				//Put this list in the cache
-				lookupService.updateLookupList(listName, lookupList);
+				lookupService.updateLookupList(prevListName, lookupList);
 				
 				prevListName = listName;
 				
@@ -89,6 +89,7 @@ public class GdsProperties extends Properties {
 				lookupList = new ArrayList();
 				
 			}
+			prevListName = lookup.getDiscriminator();
 			lookupList.add(lookup);
 		}
 		if(!lookupList.isEmpty()) {
