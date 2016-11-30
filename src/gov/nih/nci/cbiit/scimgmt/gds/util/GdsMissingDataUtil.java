@@ -104,17 +104,22 @@ public class GdsMissingDataUtil {
 					
 			//Not indicated whether there is a data sharing exception requested for this project
 			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID))) {
-				MissingData missingData = new MissingData("The question 'Is there a data sharing exception requested for this project' needs to be answered.");
+				MissingData missingData = new MissingData("The question 'Is there a data sharing exception requested for this project ?' has not been answered.");
 				missingDataList.add(missingData);
 			}
 				
 			//Not indicated if the data sharing exception requested was approved
 			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
-				&& ( CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID))
-				|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null)) {
+				&& ( CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)))) {
 				MissingData missingData = new MissingData("The question 'Was this exception approved ?' has not been answered.");
 				missingDataList.add(missingData);
 			}
+			
+			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
+					&& (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null)) {
+					MissingData missingData = new MissingData("Approval of the Exception is pending.");
+					missingDataList.add(missingData);
+				}
 				
 			//Data sharing exception approved but Exception Memo not uploaded
 			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null) {
@@ -124,7 +129,8 @@ public class GdsMissingDataUtil {
 					MissingData missingData = new MissingData("The Exception Memo has not been uploaded.");
 					missingDataList.add(missingData);
 				}
-				
+			}
+				if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null) {
 				if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID))) {
 					MissingData missingData = new MissingData("The question 'Will there be any data submitted ?' has not been answered.");
 					missingDataList.add(missingData);
