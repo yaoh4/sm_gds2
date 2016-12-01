@@ -225,14 +225,26 @@ public class GdsMissingDataUtil {
 			
 		if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag()) ||
 					CollectionUtils.isEmpty(icList)) {
-			String displayText;
+			String displayText="";
+			String icText="";
 			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag())) {
-				 displayText = "At least one Institutional Certification must be selected and Institutional Certifications Reviewed flag must be 'Yes'";
-				} else {
+				if(CollectionUtils.isEmpty(icList)) {
+					displayText="At least one Institutional Certification must be selected";
+				}
+				if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag())) {
+					icText = "Institutional Certifications Reviewed flag must be 'Yes'";
+				}
+			} else {
 				 displayText = "Institutional Certifications Reviewed flag must be 'Yes'";
 				}
+			if(!StringUtils.isEmpty(icText)) {
+			MissingData missingDataIc = new MissingData(icText);
+			missingDataList.add(missingDataIc);
+			}
+			if(!StringUtils.isEmpty(displayText)) {
 			MissingData missingData = new MissingData(displayText);
 			missingDataList.add(missingData);
+			}
 		}
 			
 		//Get the file list
@@ -352,11 +364,34 @@ public class GdsMissingDataUtil {
 				}
 			}
 		}
-			
+	
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
+		if(project.getRepoCount() == 0 && ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(project.getSubmissionReasonId())) {
+			MissingData repositories =  new MissingData("To track the Submission Status of the repositories for this submission, please select the applicable repositories on the Basic Study Information page");
+			missingDataList.add(repositories);
+		}
+		else if(project.getRepoCount() == 0 && !ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(project.getSubmissionReasonId())) {
+			MissingData repositories =  new MissingData("To track the Submission Status of the repositories for this submission, please select the applicable repositories on the Genomic Data Sharing page");
+			missingDataList.add(repositories);
+		}
+		}
+		else {
+			Project parentProject=manageProjectService.findById(project.getParentProjectId());
+			if(parentProject.getRepoCount() == 0) {
+				MissingData repositories =  new MissingData("Select the applicable repositories on the Parent Project to track the Submission Status of the repositories for this submission.");
+				missingDataList.add(repositories);
+			}
+			else if(parentProject.getRepoCount() != 0 && project.getRepoCount() == 0) {
+				MissingData repositories =  new MissingData("At least one repository must be selected.");
+				missingDataList.add(repositories);
+			}
+				
+		}
+		
 		if(missingData.getChildList().size() > 0) {
 			missingDataList.add(missingData);
 		}
-			
+		
 		return missingDataList;
 	}	
 	
