@@ -24,6 +24,12 @@ public interface ManageProjectService {
 	 * @param projectId
 	 */
 	public void delete(Long projectId);
+	
+	/**
+	 * Deletes the sub-projects with Parent Id
+	 * 
+	 */
+	public void deleteSubProjects(Long parentId);
 
 	/**
 	 * Retrieve Project given an ID
