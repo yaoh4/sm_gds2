@@ -49,6 +49,21 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		return projectsDao.merge(project);
 	}
 
+	
+	/**
+	 * Deletes Sub-projects with parent Id
+	 * 
+	 */
+	public void deleteSubProjects(Long parentId) {
+		
+		for(Project subproject: getSubprojects(parentId)) {
+			List<Document>  docs = documentsDao.findByProjectId(subproject.getId());
+			for(Document doc : docs) {
+				documentsDao.delete(doc);
+			}
+			projectsDao.delete(subproject);
+		}
+	}
 	/**
 	 * Deletes the Project given an ID
 	 * 
