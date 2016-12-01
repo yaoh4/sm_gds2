@@ -184,7 +184,15 @@ public class GdsPageStatusUtil {
 		}
 		
 		if(CollectionUtils.isEmpty(icList)) {
-			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+			if(ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
+				if(StringUtils.isEmpty(project.getCertificationCompleteFlag())) {
+					return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+				} else {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}		
+			} else{
+				return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+			}
 		}
 			
 		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())) { 
