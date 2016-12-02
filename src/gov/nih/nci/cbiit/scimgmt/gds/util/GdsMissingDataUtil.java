@@ -248,6 +248,8 @@ public class GdsMissingDataUtil {
 		}
 			
 		//Get the file list
+		//check the Ic status only for project level
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
 		Project docParent = project;
 		Long parentProjectId = project.getParentProjectId();
 		if(parentProjectId != null) {
@@ -276,10 +278,13 @@ public class GdsMissingDataUtil {
 				missingData.addChild(missingIcData);
 			}
 		}
+		
+		
 		if(missingData.getChildList().size() > 0) {
 			missingDataList.add(missingData);
+			} 
 		}
-			
+		
 		return missingDataList;
 	}
 	
