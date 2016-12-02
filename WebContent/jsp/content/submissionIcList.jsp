@@ -83,8 +83,8 @@
 		          aria-hidden="true"></i></a>
                 </th>                      
                 <th class="tableHeader" align="center" width="40%">Institutional Certification Document</th>
-                <th class="tableHeader" align="center" width="10%">Status</th>
-                <th class="tableHeader" align="center" width="10%">Missing Data</th>
+                <th  class="tableHeader projectColumn" align="center" width="10%">Status</th>
+                <th  class="tableHeader projectColumn" align="center" width="10%">Missing Data</th>
                 <th class="tableHeader" align="center" width="20%">Date Uploaded</th>
                 <th class="tableHeader" align="center" width="20%">Uploaded By</th>                 
                 <th id="actionColumn" class="tableHeader" style="display:none;" align="center" width="10%">Actions</th>
@@ -115,14 +115,14 @@
                   </td>
                   
                     
-                <td style="white-space: nowrap">
+                <td class= "projectColumn" style="white-space: nowrap">
                 <s:hidden id="icReg%{#icStat.index}" value="%{#cert.status}"/>            	
               	<div id="icDiv${icStat.index}" class="searchProgess">
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
         	  	</div>
                   </td>
                   
-                  <td style="white-space: nowrap">
+                  <td class="projectColumn" style="white-space: nowrap">
                    <s:if test="%{!(#cert.status.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED))}">
                    <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${cert.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a> &nbsp; &nbsp;
                   </s:if>
