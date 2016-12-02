@@ -200,11 +200,13 @@ public class GdsPageStatusUtil {
 		}
 		
 		//There is at least one IC and IC certification flag says done. So proceed to
-		//check if the ICs are all ok.
+		//check if the ICs are all ok.This check is only for projects
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
 		for(InstitutionalCertification ic: icList) {
 			if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
+		}
 		}
 			
 		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
