@@ -1471,3 +1471,15 @@ div.dataTables_scrollBody thead th {
   visibility: collapse;
 }
 
+.alert {
+   
+        padding-top: 5px;
+        padding-right: 15px;
+        padding-bottom: 20px;
+        padding-left: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-right: 15px;
+    margin-left: -15px;
+}
