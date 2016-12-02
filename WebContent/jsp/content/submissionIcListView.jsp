@@ -34,11 +34,11 @@
           <table width="100%" cellpadding="0px" cellspacing="0" style="table-layout:fixed;" class="table table-bordered">
             <tbody>
               <tr class="modalTheader">
-                <th class="tableHeader" align="center">Institutional Certification Document</th>
-                <th class="tableHeader" align="center" style="width: 10%;">Status</th>
-                <th class="tableHeader" align="center">Missing Data</th>
-                <th class="tableHeader" align="center">Date Uploaded</th>
-               <th class="tableHeader" align="center">Uploaded By</th>
+                <th class="tableHeader" align="center" width="40%">Institutional Certification Document</th>
+                <th class="tableHeader projectColumn" align="center" width=10%>Status</th>
+                <th class="tableHeader projectColumn" align="center" width="10%">Missing Data</th>
+                <th class="tableHeader" align="center" width="20%">Date Uploaded</th>
+               <th class="tableHeader" align="center" width="20%">Uploaded By</th>
               </tr>
                     
               <s:iterator status="icStat" var="ic" value="project.institutionalCertifications">
@@ -53,14 +53,14 @@
                     <s:a href="javascript:openDocument(%{#ic.documents[0].id})"><s:property value="%{#ic.documents[0].fileName}" /></s:a>
                   </td>
                   
-                <td style="white-space: nowrap">
+                <td class="projectColumn" style="white-space: nowrap">
                 <s:hidden id="icReg%{#icStat.index}" value="%{getIcStatusCode(#ic.id)}"/>            	
               	<div id="icDiv${icStat.index}" class="searchProgress">
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"/>
         	  	</div>
                   </td>
                   
-                  <td style="white-space: nowrap">
+                  <td class="projectColumn" style="white-space: nowrap">
                    <s:if test="%{!getIcStatusCode(#ic.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
                    <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${ic.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a> &nbsp; &nbsp;
                   </s:if>
@@ -79,7 +79,12 @@
               <!--Begin view details-->
              
                 <tr>
+                 <s:if test="%{project.subprojectFlag.equals(\"N\")}">
                   <td colspan="5">
+                  </s:if>
+                  <s:else>
+                   <td colspan="3">
+                  </s:else>
                     <div id="contentDivImg${ic.id}" style="display: none;">  
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tbody>
