@@ -444,6 +444,16 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		// If the answer to "Will there be any data submitted?" is changed from Yes to No.
 		if(oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) && newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID)) {
+			
+			//1) The system will delete all the sub-projects for this parent project
+			if(warnOnly) {
+				if(manageProjectService.getSubprojects(getProject().getId()) != null)
+					sb.append("All associated Sub-Projects. <br>");
+			}
+			else {
+				manageProjectService.deleteSubProjects(getProject().getId());
+			}
+			
 			// a) The system will delete the uploaded Data Sharing Plan and the History of Uploaded Documents.
 			gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, getProject().getId());
 			if(warnOnly) {

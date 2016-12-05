@@ -40,6 +40,13 @@ $(document).ready(function() {
 		var newWin = window.open(url, winName, features);
 	});
 	
+	 if($("#subprojectFlag").val().toUpperCase() == 'N') {
+		 $(".projectColumn").show();
+	 }
+	 else {
+		 $(".projectColumn").hide();
+	 }
+	
 });
 
 //Show and hide subproject
@@ -53,6 +60,12 @@ $('body').on('click', 'a.subproject', function() {
 $('body').on('click', 'a.project', function() {
     $(".related").slideToggle('500');
     $("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
+});
+
+//Show and hide versions
+$('body').on('click', 'a.versions', function() {
+    $(".relatedVersions").slideToggle('500');
+    $("i.expandV.fa").toggleClass('fa-plus-square fa-minus-square');
 });
 
 function setStatus(elem, elemDiv) {

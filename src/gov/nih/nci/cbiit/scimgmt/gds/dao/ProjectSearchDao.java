@@ -247,11 +247,11 @@ public class ProjectSearchDao {
 			parentDetachedCriteria.add(Restrictions.eq("subprojectEligibleFlag", "Y"));
 		}
 		if(StringUtils.equals(searchCriteria.getSelectedTypeOfProject(), ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_PROJECT)) {
-			parentCriteria.add(Restrictions.eq("projectStatusCode", "COMPLETED"));
-			parentDetachedCriteria.add(Restrictions.eq("projectStatusCode", "COMPLETED"));
+			parentCriteria.add(Restrictions.eq("newVersionEligibleFlag", "Y"));
+			parentDetachedCriteria.add(Restrictions.eq("newVersionEligibleFlag", "Y"));
 		}
 		if(StringUtils.equals(searchCriteria.getSelectedTypeOfProject(), ApplicationConstants.SUBMISSION_TYPE_NEW_VERSION_SUBPROJECT)) {
-			subprojectCriteria.add(Restrictions.eq("projectStatusCode", "COMPLETED"));
+			subprojectCriteria.add(Restrictions.eq("newVersionEligibleFlag", "Y"));
 		}
 
 		// My DOC

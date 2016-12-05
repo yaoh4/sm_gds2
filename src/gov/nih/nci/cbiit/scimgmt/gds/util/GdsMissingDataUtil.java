@@ -104,17 +104,22 @@ public class GdsMissingDataUtil {
 					
 			//Not indicated whether there is a data sharing exception requested for this project
 			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID))) {
-				MissingData missingData = new MissingData("The question 'Is there a data sharing exception requested for this project' needs to be answered.");
+				MissingData missingData = new MissingData("The question 'Is there a data sharing exception requested for this project ?' has not been answered.");
 				missingDataList.add(missingData);
 			}
 				
 			//Not indicated if the data sharing exception requested was approved
 			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
-				&& ( CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID))
-				|| project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null)) {
+				&& ( CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)))) {
 				MissingData missingData = new MissingData("The question 'Was this exception approved ?' has not been answered.");
 				missingDataList.add(missingData);
 			}
+			
+			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
+					&& (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null)) {
+					MissingData missingData = new MissingData("Approval of the Exception is pending.");
+					missingDataList.add(missingData);
+				}
 				
 			//Data sharing exception approved but Exception Memo not uploaded
 			if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null) {
@@ -124,7 +129,8 @@ public class GdsMissingDataUtil {
 					MissingData missingData = new MissingData("The Exception Memo has not been uploaded.");
 					missingDataList.add(missingData);
 				}
-				
+			}
+				if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null) {
 				if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID))) {
 					MissingData missingData = new MissingData("The question 'Will there be any data submitted ?' has not been answered.");
 					missingDataList.add(missingData);
@@ -219,17 +225,31 @@ public class GdsMissingDataUtil {
 			
 		if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag()) ||
 					CollectionUtils.isEmpty(icList)) {
-			String displayText;
+			String displayText="";
+			String icText="";
 			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag())) {
-				 displayText = "At least one Institutional Certification must be selected and Institutional Certifications Reviewed flag must be 'Yes'";
-				} else {
+				if(CollectionUtils.isEmpty(icList)) {
+					displayText="At least one Institutional Certification must be selected";
+				}
+				if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag())) {
+					icText = "Institutional Certifications Reviewed flag must be 'Yes'";
+				}
+			} else {
 				 displayText = "Institutional Certifications Reviewed flag must be 'Yes'";
 				}
+			if(!StringUtils.isEmpty(icText)) {
+			MissingData missingDataIc = new MissingData(icText);
+			missingDataList.add(missingDataIc);
+			}
+			if(!StringUtils.isEmpty(displayText)) {
 			MissingData missingData = new MissingData(displayText);
 			missingDataList.add(missingData);
+			}
 		}
 			
 		//Get the file list
+		//check the Ic status only for project level
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
 		Project docParent = project;
 		Long parentProjectId = project.getParentProjectId();
 		if(parentProjectId != null) {
@@ -258,10 +278,13 @@ public class GdsMissingDataUtil {
 				missingData.addChild(missingIcData);
 			}
 		}
+		
+		
 		if(missingData.getChildList().size() > 0) {
 			missingDataList.add(missingData);
+			} 
 		}
-			
+		
 		return missingDataList;
 	}
 	
@@ -304,12 +327,13 @@ public class GdsMissingDataUtil {
 		
 		ArrayList<MissingData> missingDataList = new ArrayList<MissingData>();
 		
+		if(!ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
 		  if(project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) && CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
 		    	String displayText = "The question 'What repository will the data be submitted to ?' has not been answered.";
 				MissingData missingData = new MissingData(displayText);
 				missingDataList.add(missingData);
 		    }
-		
+		}
 		if(!ApplicationConstants.BSI_NA.equals(project.getBsiReviewedId())){
 		if(!ApplicationConstants.BSI_YES.equals(project.getBsiReviewedId())) {
 			String displayText = "BSI Reviewed flag must be 'Yes'.";
@@ -345,11 +369,34 @@ public class GdsMissingDataUtil {
 				}
 			}
 		}
-			
+	
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
+		if(project.getRepoCount() == 0 && ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(project.getSubmissionReasonId())) {
+			MissingData repositories =  new MissingData("To track the Submission Status of the repositories for this submission, please select the applicable repositories on the Basic Study Information page");
+			missingDataList.add(repositories);
+		}
+		else if(project.getRepoCount() == 0 && !ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(project.getSubmissionReasonId())) {
+			MissingData repositories =  new MissingData("To track the Submission Status of the repositories for this submission, please select the applicable repositories on the Genomic Data Sharing page");
+			missingDataList.add(repositories);
+		}
+		}
+		else {
+			Project parentProject=manageProjectService.findById(project.getParentProjectId());
+			if(parentProject.getRepoCount() == 0) {
+				MissingData repositories =  new MissingData("Select the applicable repositories on the Parent Project to track the Submission Status of the repositories for this submission.");
+				missingDataList.add(repositories);
+			}
+			else if(parentProject.getRepoCount() != 0 && project.getRepoCount() == 0) {
+				MissingData repositories =  new MissingData("At least one repository must be selected.");
+				missingDataList.add(repositories);
+			}
+				
+		}
+		
 		if(missingData.getChildList().size() > 0) {
 			missingDataList.add(missingData);
 		}
-			
+		
 		return missingDataList;
 	}	
 	

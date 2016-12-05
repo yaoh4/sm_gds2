@@ -22,6 +22,7 @@ public class Submission implements java.io.Serializable {
 	private String bsiPageStatusCode;
 	private String repositoryPageStatusCode;
 	private String subprojectEligibleFlag;
+	private String newVersionEligibleFlag;
 	private String projectStatusCode;
 	
 	private String extGrantContractNum;
@@ -336,5 +337,13 @@ public class Submission implements java.io.Serializable {
 
 	public void setIntPdLastName(String intPdLastName) {
 		this.intPdLastName = intPdLastName;
+	}
+
+	public String getNewVersionEligibleFlag() {
+		return newVersionEligibleFlag;
+	}
+
+	public void setNewVersionEligibleFlag(String newVersionEligibleFlag) {
+		this.newVersionEligibleFlag = newVersionEligibleFlag;
 	}
 }

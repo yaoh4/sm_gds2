@@ -169,7 +169,7 @@
 												&nbsp;&nbsp;&nbsp; 
 												</s:if>
 												
-												<s:if test="%{#s.projectStatusCode == 'COMPLETED'}">
+												<s:if test="%{#s.newVersionEligibleFlag.equalsIgnoreCase(\'Y\')}">
 													<s:a href="../manage/createNewSubprojectVersion.action?projectId=%{#s.id}"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i>
 													</s:a>
 												</s:if>

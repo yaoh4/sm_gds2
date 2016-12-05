@@ -184,7 +184,15 @@ public class GdsPageStatusUtil {
 		}
 		
 		if(CollectionUtils.isEmpty(icList)) {
-			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+			if(ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
+				if(StringUtils.isEmpty(project.getCertificationCompleteFlag())) {
+					return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+				} else {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}		
+			} else{
+				return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+			}
 		}
 			
 		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())) { 
@@ -192,11 +200,13 @@ public class GdsPageStatusUtil {
 		}
 		
 		//There is at least one IC and IC certification flag says done. So proceed to
-		//check if the ICs are all ok.
+		//check if the ICs are all ok.This check is only for projects
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
 		for(InstitutionalCertification ic: icList) {
 			if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
+		}
 		}
 			
 		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
@@ -225,6 +235,7 @@ public class GdsPageStatusUtil {
 				&& StringUtils.isBlank(project.getBsiComments()) 
 				&& CollectionUtils.isEmpty(docs)) {
 			//If no data has been entered
+			if(!ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
 			 if(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(project.getSubmissionReasonId())) {
 				 if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
 				 return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
@@ -232,6 +243,7 @@ public class GdsPageStatusUtil {
 					 return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 				 }
 			 }
+			}
 			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}  
 		else if(ApplicationConstants.BSI_NA.equals(project.getBsiReviewedId()) && !project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
@@ -243,7 +255,7 @@ public class GdsPageStatusUtil {
 					|| (ApplicationConstants.BSI_YES.equals(project.getBsiReviewedId())
 							&& CollectionUtils.isEmpty(docs)) || (project.getBsiReviewedId() == null && !CollectionUtils.isEmpty(docs))) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-			} else if(project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) && CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
+			} else if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag()) && project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) && CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
 					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
 		}

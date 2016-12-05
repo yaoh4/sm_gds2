@@ -78,6 +78,7 @@ $(document).ready(function(){
                 { "data": "expandRepository"},
                 { "data": "subprojectEligibleFlag"},
                 { "data": "projectStatusCode"},
+                { "data": "newVersionEligibleFlag"},
                 { "data": "intGrantContractNum"},
                 { "data": "intPiLastName"},
                 { "data": "intPiFirstName"},
@@ -100,7 +101,7 @@ $(document).ready(function(){
             },
             "columnDefs": [ 
                 {
-                "targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ],
+                "targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ],
                 "visible": false,
                 
                 },
@@ -115,7 +116,7 @@ $(document).ready(function(){
                 	if(row.subprojectEligibleFlag == "Y") {
                 		addSubproject = '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Add New Sub-project" title="Add New Sub-project"></a>';
                 	}
-                	if(row.projectStatusCode == "COMPLETED") {
+                	if(row.newVersionEligibleFlag == "Y") {
                 		addNewVersion = '&nbsp;&nbsp;&nbsp;<a href="../manage/createNewProjectVersion.action?projectId=' + row.id + '"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i></a>';
                 	}
                 	if($("#gpa").val() == "true") {
