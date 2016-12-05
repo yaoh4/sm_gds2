@@ -2,6 +2,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -120,6 +121,28 @@ public class GdsSubmissionActionHelper {
 				DropDownOption option = new DropDownOption(lookup.getId().toString(), lookup.getDisplayName());
 				dropDownList.add(option);
 			}	
+		}
+		
+		return dropDownList;
+		
+	}
+	
+	/**
+	 * Remove Lookup element based on Id from
+	 * the dropDown list.
+	 * 
+	 * @param list
+	 * @param id
+	 * @return
+	 */
+	public static List<DropDownOption> removeLookupFromDropDownList(List<DropDownOption> dropDownList, Long id) {
+		
+		for(Iterator<DropDownOption> i= dropDownList.iterator(); i.hasNext();) {
+			DropDownOption option = i.next();
+			if(StringUtils.equals(option.getOptionKey(), id.toString())) {
+				i.remove();
+				break;
+			}
 		}
 		
 		return dropDownList;
