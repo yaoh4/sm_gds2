@@ -270,7 +270,7 @@ $(document).ready(function(){
 <td class='legendText'>View</td>
 
 </tr>
-</tbody></table></div>');
+</tbody></table></div>");
     } else {
         $('div.legend').html('<div style='display:inline; float: right;'><table style='margin-bottom: 10px; margin-right: 10px;'>
 <tbody><tr><td style='text-align:right; font-weight:bold;'>Legend:</td>
