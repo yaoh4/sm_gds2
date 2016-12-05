@@ -2,7 +2,7 @@
 
 <div id="searchResult" style="display: none">
 	<br />
-	<h3>Search Results</h3>
+	<div style="margin-left: 15px"><h3>Search Results</h3></div>
 	<br />
 	<table id="parentTable" style="table-layout: fixed;" class="table table-striped table-bordered" >
         <thead>
