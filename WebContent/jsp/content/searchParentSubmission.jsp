@@ -41,7 +41,7 @@
 				</div>
 			</div>
 			<s:if test="%{criteria.selectedTypeOfProject.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@SUBMISSION_TYPE_NEW_SUBPROJECT)}">
-				<p style="font-size: 14px; margin-left: 15px; margin-top: 5px;">You
+				<p style="font-size: 14px; margin-left: 15px; margin-top: 5px; margin-right: 15px;">You
 					have selected to add a new Sub-project. You must first link your
 					Sub-project with a Parent Project. Use the search criteria below to
 					find the correct Parent Project. Link your Sub-project by selecting
@@ -49,7 +49,7 @@
 					Next" to continue.</p>
 			</s:if>
 			<s:elseif test="%{criteria.selectedTypeOfProject.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@SUBMISSION_TYPE_NEW_VERSION_PROJECT)}">
-				<p style="font-size: 14px; margin-left: 15px; margin-top: 5px;">You
+				<p style="font-size: 14px; margin-left: 15px; margin-top: 5px; margin-right: 15px;">You
 					have selected to create a new version of an existing Project. You must first find
 					a Project to create a new version. Use the search criteria below to
 					find the correct existing Project. Create a new version of a project by selecting
@@ -57,7 +57,7 @@
 					Next" to continue.</p>
 			</s:elseif>
 			<s:else>
-				<p style="font-size: 14px; margin-left: 15px; margin-top: 5px;">You
+				<p style="font-size: 14px; margin-left: 15px; margin-top: 5px; margin-right:15px;">You
 					have selected to create a new version of an existing Sub-project. You must first find
 					a Sub-project to create a new version. Use the search criteria below to
 					find the correct existing Sub-project. Create a new version of a Sub-project by selecting
