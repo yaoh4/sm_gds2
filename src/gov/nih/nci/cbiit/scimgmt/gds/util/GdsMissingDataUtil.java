@@ -362,6 +362,8 @@ public class GdsMissingDataUtil {
 		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 			for(RepositoryStatus repoStatus: selection.getRepositoryStatuses()) {
 				
+				if(project.getId().longValue() != repoStatus.getProject().getId().longValue())
+					break;
 				MissingData missingRepoData = computeMissingRepositoryData(project, repoStatus);
 				
 				if(missingRepoData.getChildList().size() > 0) {
