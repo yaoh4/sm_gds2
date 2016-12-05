@@ -172,7 +172,20 @@ $(document).ready(function(){
             ]
         });
         
-	$("div.legend").html("<div style='display:inline; float: right;'><img alt='legend for progress icons' src='../images/legend-search.gif'></div>");
+	$("div.legend").html('<div style="display:inline; float: right;"> \
+        <table style="margin-bottom: 10px; margin-right: 10px;"> \
+<tbody><tr><td style="text-align:right; font-weight:bold;">Legend:</td> \
+<td style="text-align: center; width:55px;"><img src="../images/pending.png" alt="Not Started" title="Not Started" width="18px" height="18px"></td> \
+<td style="text-align: center; width:55px;"><img src="../images/inprogress.png" alt="In Progress" title="In Progress" width="18px" height="18px"></td> \
+<td style="text-align: center; width:50px;"><img src="../images/complete.png" alt="Completed" title="Completed" width="18px" height="18px"></td> \
+</tr> \
+<tr><td>&nbsp;</td> \
+<td class="legendText">Not Started</td> \
+<td class="legendText">In Progress</td> \
+<td class="legendText">Completed</td> \
+</tr> \
+</tbody></table> \
+        </div>');
 
 	$("#search-form").on('click', '#search-btn', function () {
 		parentTable.ajax.reload(null , true);
