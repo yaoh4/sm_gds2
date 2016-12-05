@@ -361,18 +361,17 @@ public class GdsMissingDataUtil {
 		MissingData missingData = new MissingData("The following repository statuses need to be updated:");
 		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 			for(RepositoryStatus repoStatus: selection.getRepositoryStatuses()) {
-				
-				if(project.getId().longValue() != repoStatus.getProject().getId().longValue())
-					break;
+				if(project.getId().longValue() == repoStatus.getProject().getId().longValue()) {
+					
 				MissingData missingRepoData = computeMissingRepositoryData(project, repoStatus);
-				
 				if(missingRepoData.getChildList().size() > 0) {
 					missingData.addChild(missingRepoData);
+				}
 				}
 			}
 		}
 	
-		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
+	if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
 		if(project.getRepoCount() == 0 && ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(project.getSubmissionReasonId())) {
 			MissingData repositories =  new MissingData("To track the Submission Status of the repositories for this submission, please select the applicable repositories on the Basic Study Information page");
 			missingDataList.add(repositories);
