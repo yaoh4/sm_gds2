@@ -255,22 +255,7 @@ $(document).ready(function(){
 
 </tr>
 </tbody></table></div>");
-	} else {
-		$("div.legend").html("<div style='display:inline; float: right;'><table style='margin-bottom: 10px; margin-right: 10px;'>
-<tbody><tr><td style='text-align:right; font-weight:bold;''>Legend:</td>
-<td style='text-align: center; width:55px;'><img src='../images/pending.png' alt='Not Started' title='Not Started' width='18px' height='18px'></td>
-<td style='text-align: center; width:55px;'><img src='../images/inprogress.png' alt='In Progress' title='In Progress' width='18px' height='18px'></td>
-<td style='text-align: center; width:50px;'><img src='../images/complete.png' alt='Completed' title='Completed' width='18px' height='18px'></td>
-<td style='text-align: center; width:40px;'><i class='fa fa-file-text fa-lg' aria-hidden='true' alt='View' title='View' style='color: #2d699e;'></i></td>
-</tr>
-<tr><td>&nbsp;</td>
-<td class='legendText'>Not Started</td>
-<td class='legendText'>In Progress</td>
-<td class='legendText'>Completed</td>
-<td class='legendText'>View</td>
-
-</tr>
-</tbody></table></div>");
+	
     } else {
         $("div.legend").html("<div style='display:inline; float: right;'><table style='margin-bottom: 10px; margin-right: 10px;'>
 <tbody><tr><td style='text-align:right; font-weight:bold;'>Legend:</td>
