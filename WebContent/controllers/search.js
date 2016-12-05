@@ -272,7 +272,7 @@ $(document).ready(function(){
 </tr>
 </tbody></table></div>");
     } else {
-        $('div.legend').html('<div style='display:inline; float: right;'><table style='margin-bottom: 10px; margin-right: 10px;'>
+        $("div.legend").html("<div style='display:inline; float: right;'><table style='margin-bottom: 10px; margin-right: 10px;'>
 <tbody><tr><td style='text-align:right; font-weight:bold;'>Legend:</td>
 <td style='text-align: center; width:55px;'><img src='../images/pending.png' alt='Not Started' title='Not Started' width='18px' height='18px'></td>
 <td style='text-align: center; width:55px;'><img src='../images/inprogress.png' alt='In Progress' title='In Progress' width='18px' height='18px'></td>
