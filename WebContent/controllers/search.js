@@ -1,13 +1,5 @@
 //For Search Submission Result Data table
 $(document).ready(function(){
-	
-	$(".helpfile").click(function(){
-		
-		var url = "/documentation/application/Find_Submissions_help.pdf";
-		var winName = "Find Submissions Help File";
-		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
-		var newWin = window.open(url, winName, features);
-	});
 
 	$('.stickyDiv').removeClass('stickyDiv');
 	
@@ -16,7 +8,7 @@ $(document).ready(function(){
       		return true;
     	});
 	};
-	
+
 	// Converts object with "name" and "value" keys
 	// into object with "name" key having "value" as value
 	$.fn.serializeObject = function(){
@@ -544,6 +536,13 @@ function deleteSubmission(projectId, subprojectCount)
 	});
 }
 
+$(".helpfile").click(function(){
+	
+	var url = "/documentation/application/Find_Submissions_help.pdf";
+	var winName = "Find Submissions Help File";
+	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+	var newWin = window.open(url, winName, features);
+});
 
 
 

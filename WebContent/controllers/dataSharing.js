@@ -171,16 +171,6 @@ $("#gds-form").on('change', '#exceptionMemo', function () {
 		});
 	}
 });
-
-if($("#subprojectFlag").val() == 'N'){
-$(".helpfile").click(function(){
-	var url = "/documentation/application/Project_Only_GDS_Plan_help.pdf";
-	var winName = "Submission GDS Plan Help File";
-	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
-	var newWin = window.open(url, winName, features);
-});
-}
-
 });
 
 function removeDocument(docId, projectId)
@@ -325,3 +315,11 @@ function controlledUnrestricted(load) {
 	}
 }
 
+if($("#subprojectFlag").val() == 'N'){
+	$(".helpfile").click(function(){
+		var url = "/documentation/application/Project_Only_GDS_Plan_help.pdf";
+		var winName = "Submission GDS Plan Help File";
+		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+		var newWin = window.open(url, winName, features);
+	});
+	}

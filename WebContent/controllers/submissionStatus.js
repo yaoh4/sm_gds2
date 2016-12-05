@@ -62,7 +62,17 @@ $(document).ready(function () {
 		processRegistrationStatusSelected(this.id);
 	});
 	
-	if($("#subprojectFlag").val() == 'N'){
+	$(".repoSelect").change(function(){
+		if( $(this).is(':checked')) {
+			$(this).parent().parent().parent().children('div.panel-body').show();
+	    } else {
+	    	$(this).parent().parent().parent().children('div.panel-body').hide();
+	    }
+	});
+	$(".repoSelect").change();
+});
+
+if($("#subprojectFlag").val() == 'N'){
 	$(".helpfile").click(function(){
 		
 		var url = "/documentation/application/Project_Only_Submission_Status_help.pdf";
@@ -80,12 +90,3 @@ $(document).ready(function () {
 			var newWin = window.open(url, winName, features);
 		});
 	}
-	$(".repoSelect").change(function(){
-		if( $(this).is(':checked')) {
-			$(this).parent().parent().parent().children('div.panel-body').show();
-	    } else {
-	    	$(this).parent().parent().parent().children('div.panel-body').hide();
-	    }
-	});
-	$(".repoSelect").change();
-});

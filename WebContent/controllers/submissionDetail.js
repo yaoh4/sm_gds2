@@ -32,13 +32,6 @@ $(document).ready(function() {
 		setStatus("icReg" + size, "icDiv" + size);
 	}
 	
-	$(".helpfile").click(function(){
-		
-		var url = "/documentation/application/Project_and_Sub-project_Submission_Details_help.pdf";
-		var winName = "Submission Details Help File";
-		var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
-		var newWin = window.open(url, winName, features);
-	});
 	
 	 if($("#subprojectFlag").val().toUpperCase() == 'N') {
 		 $(".projectColumn").show();
@@ -94,6 +87,14 @@ $('.panel-heading span.clickable').click (function(){
     $this.removeClass('panel-collapsed');
     $this.find('i').removeClass('fa-plus-square').addClass('fa-minus-square');
   }
+});
+
+$(".helpfile").click(function(){
+	
+	var url = "/documentation/application/Project_and_Sub-project_Submission_Details_help.pdf";
+	var winName = "Submission Details Help File";
+	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
+	var newWin = window.open(url, winName, features);
 });
 
 

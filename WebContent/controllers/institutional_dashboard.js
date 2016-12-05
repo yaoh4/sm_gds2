@@ -130,6 +130,7 @@ $(document).on('click', '.header', function () {
     $("#collapseOne").focus();
 
 });
+});
 
 $(".helpfile").click(function() {
 	
@@ -138,6 +139,7 @@ $(".helpfile").click(function() {
 	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
 	var newWin = window.open(url, winName, features);
 });
+
 $(".helpfileSubProject").click(function() {
 	
 	var url = "/documentation/application/Sub-project_Only_Institutional_Certifications_help.pdf";
@@ -146,6 +148,5 @@ $(".helpfileSubProject").click(function() {
 	var newWin = window.open(url, winName, features);
 });
 
-});
 
 
