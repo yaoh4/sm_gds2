@@ -45,6 +45,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
+import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsPageStatusUtil;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 
@@ -64,6 +65,10 @@ public class ManageSubmission extends BaseAction {
 	
 	@Autowired 
 	protected FileUploadService fileUploadService;	
+	
+	@Autowired 
+	protected SearchProjectService searchProjectService;	
+	
 	
 	private Project project;
 	
@@ -172,7 +177,7 @@ public class ManageSubmission extends BaseAction {
 		
 		Long projectId = project.getId();
 		if(projectId != null) {
-			List<ProjectsVw> subprojects =  manageProjectService.getSubprojectVws(projectId);
+			List<ProjectsVw> subprojects = searchProjectService.getSubprojects(Long.valueOf(projectId));
 			return subprojects;
 		} 
 		return new ArrayList<ProjectsVw>();
@@ -192,6 +197,13 @@ public class ManageSubmission extends BaseAction {
 	 * Save the project
 	 */
 	public Project saveProject(Project project, String page) {
+		return saveProject(project, page, true);
+	}
+	
+	/**
+	 * Save the project
+	 */
+	public Project saveProject(Project project, String page, boolean saveSubprojects) {
 		
 		//Temporary hard coding project property. 
 		project.setVersionNum(1l);
@@ -213,7 +225,18 @@ public class ManageSubmission extends BaseAction {
 			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, getExceptionMemoStatusCode(project)));
 		
 		project.setPageStatuses(computePageStatuses(project, page));
-		return manageProjectService.saveOrUpdate(project);
+		project= manageProjectService.saveOrUpdate(project);
+		
+		if(saveSubprojects) {
+			//We save subprojects also if we feel that the status could have changed
+			List<Project> subprojects = manageProjectService.getSubprojects(project.getId());
+			for(Project subproject: subprojects) {
+				subproject.setPageStatuses(computePageStatuses(subproject, page));
+				manageProjectService.saveOrUpdate(subproject);
+			}
+		}
+		
+		return project;
 	}
 
 	

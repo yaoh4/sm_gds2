@@ -115,6 +115,13 @@ $('#btnDelteYes').click(function () {
  
     $('[data-id=' + id + ']').remove();
     $('#myModal').modal('hide');
+    
+    var listSize = $("#icListSize").val() - 1;
+    $("#icListSize").val(listSize);
+    if(listSize === 0) {
+    	$('#ic_dashboard_form').submit();
+    }
+    
 });
 
 

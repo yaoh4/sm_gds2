@@ -89,7 +89,8 @@
                 <th class="tableHeader" align="center" width="20%">Uploaded By</th>                 
                 <th id="actionColumn" class="tableHeader" style="display:none;" align="center" width="10%">Actions</th>
               </tr>
-                    
+               
+              <s:hidden id="icListSize" value="%{project.institutionalCertifications.size}"/>     
               <s:iterator status="icStat" var="cert" value="project.institutionalCertifications">
                <div class="icCountList">
               
