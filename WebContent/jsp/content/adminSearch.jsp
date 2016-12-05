@@ -92,7 +92,16 @@
 							 id="popover" style="font-size: 12px;">
                          <i class="helpfileAmin fa fa-question-circle fa-1x"
 							aria-hidden="true"></i></a> </h3><br/>&nbsp;
-							 <div style="float:right;"><img src="../images/legend-search4.gif"></div>
+							 <div style="float:right;"><table style="margin-bottom: 10px; margin-right: 10px;">
+								<tbody><tr><td style="text-align:right; font-weight:bold;">Legend:</td>
+								<td style="text-align: center; width:40px;"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit" style="color: #2d699e;"></i></td>
+								<td style="text-align: center; width:40px;"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete" style="color: #990000;"></i></td>
+								</tr>
+								<tr><td>&nbsp;</td>
+								<td class="legendText">Edit</td>
+								<td class="legendText">Delete</td>
+								</tr>
+								</tbody></table></div>
 							
 							<table id="adminTable" style="width: 95%;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
 								<thead><tr class="modalTheader">

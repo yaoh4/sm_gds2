@@ -1483,3 +1483,9 @@ div.dataTables_scrollBody thead th {
     margin-right: 15px;
     margin-left: -15px;
 }
+
+.legendText {
+  text-align: center;
+  font-size: 9px;
+  font-weight: bold;
+}
