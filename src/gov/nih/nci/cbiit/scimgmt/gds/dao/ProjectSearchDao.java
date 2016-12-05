@@ -267,6 +267,20 @@ public class ProjectSearchDao {
 			Disjunction dc = Restrictions.disjunction();
 			dc.add(Restrictions.eq("extPdNpnId", searchCriteria.getPdNpnId()));
 			dc.add(Restrictions.eq("intPdNpnId", searchCriteria.getPdNpnId()));
+			Conjunction c = Restrictions.conjunction();
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
+				Disjunction d = Restrictions.disjunction();
+				d.add(Restrictions.ilike("extPdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+				d.add(Restrictions.ilike("intPdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+				c.add(d);
+			}
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
+				Disjunction d = Restrictions.disjunction();
+				d.add(Restrictions.ilike("extPdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+				d.add(Restrictions.ilike("intPdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+				c.add(d);
+			}
+			dc.add(c);
 			parentCriteria.add(dc);
 			parentDetachedCriteria.add(dc);
 			subprojectCriteria.add(dc);
