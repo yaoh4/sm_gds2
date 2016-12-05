@@ -9,6 +9,7 @@
   	  <div class="panel-heading">
 		<div class="pheader">
 		  <h4>Submission Details</h4>
+		  <s:hidden name="project.subprojectFlag" id="subprojectFlag" value="%{project.subprojectFlag}"/>
 		  <div class="statusWrapper">
 		    <s:if test="%{!pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">         		           		      
     	  	  <div class="status">    	  	
@@ -298,6 +299,35 @@
   </div>
   </s:if>
 <!-- End link to parent project -->
+
+<!-- Start of previous Link versions -->                            
+        <div class="qSpacing">
+    <p class="question">
+      <a href="javascript:void"
+        class="versions"><i class="expandV fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Previous Versions
+    &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+    <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></p>
+    <div class="relatedVersions" style="display: none;">
+      <table style="width: 90%;" cellpadding="0px" cellspacing="0"
+        class="table table-bordered table-striped"
+        style="margin-left: 10px;">
+        <tr>
+          <th class="tableHeader" width="50%" scope="col">Project Title</th>
+            <th class="tableHeader" width="25%" scope="col">Created
+              By</th>
+            <th class="tableHeader" width="5%" scope="col">Submission Status</th>
+            <th class="tableHeader" width="20%" scope="col">Action</th>
+        </tr>
+        <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td><a href="#"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+<!--  End link to previous versions -->
     </div>
   </div>
 
