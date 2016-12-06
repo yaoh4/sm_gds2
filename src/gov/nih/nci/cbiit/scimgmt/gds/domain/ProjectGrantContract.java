@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Mar 28, 2016 10:25:57 AM by Hibernate Tools 4.0.0
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -181,6 +182,15 @@ public class ProjectGrantContract implements java.io.Serializable {
 	public void setProjectStartDate(Date projectStartDate) {
 		this.projectStartDate = projectStartDate;
 	}
+	
+	@Transient
+	public String getFormattedStartDate() {
+		if(projectStartDate != null) {
+			SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+			return format.format(projectStartDate);
+		}
+		return "";
+	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "PROJECT_END_DATE", length = 7)
@@ -191,6 +201,16 @@ public class ProjectGrantContract implements java.io.Serializable {
 	public void setProjectEndDate(Date projectEndDate) {
 		this.projectEndDate = projectEndDate;
 	}
+	
+	@Transient
+	public String getFormattedEndDate() {
+		if(projectEndDate != null) {
+			SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+			return format.format(projectEndDate);
+		}
+		return "";
+	}
+	
 	
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
 	public String getCreatedBy() {

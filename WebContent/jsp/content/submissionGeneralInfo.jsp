@@ -258,7 +258,7 @@
 							Start Date</label>
 						<div class="input-group date">
 						
-						<s:textfield name="extramuralGrant.projectStartDate" cssClass="form-control unlink-group" id="projectStartDate" value="%{extramuralGrant.projectStartDate}" />	
+						<s:textfield name="extramuralGrant.projectStartDate" cssClass="form-control unlink-group" id="projectStartDate" value="%{extramuralGrant.formattedStartDate}" />	
 						<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>
@@ -272,7 +272,7 @@
 							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
 							End Date</label>
 						<div class="input-group date">
-						<s:textfield name="extramuralGrant.projectEndDate" cssClass="form-control unlink-group" id="projectEndDate" value="%{extramuralGrant.projectEndDate}" />	
+						<s:textfield name="extramuralGrant.projectEndDate" cssClass="form-control unlink-group" id="projectEndDate" value="%{extramuralGrant.formattedEndDate}" />	
 							<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>
