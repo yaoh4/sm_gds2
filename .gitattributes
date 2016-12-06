@@ -1031,6 +1031,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/constants/PlanQuestionList.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/DocumentsDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/InstitutionalCertificationsDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/MailTemplateDao.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/dao/NotificationsDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/ProjectSearchDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/ProjectsDao.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/dao/PropertyListDao.java -text
@@ -1081,6 +1082,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/MailServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/ManageProjectServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/SearchProjectServiceImpl.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/services/impl/UserRoleServiceImpl.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/util/AutomatedSendEmailTask.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/DropDownOption.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/ExcelExportProc.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/util/GdsMissingDataUtil.java -text

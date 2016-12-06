@@ -2,8 +2,10 @@ package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.MailTemplateDao;
+import gov.nih.nci.cbiit.scimgmt.gds.dao.NotificationsDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.services.MailService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsProperties;
 
@@ -11,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.MessagingException;
@@ -49,7 +52,9 @@ public class MailServiceImpl implements MailService {
 	private NedPerson loggedOnUser;
 	@Autowired
 	private GdsProperties gdsProperties;
-
+	@Autowired
+	private NotificationsDao notificationsDao;
+	
 	/**
 	 * Send error message.
 	 * 
@@ -215,6 +220,26 @@ public class MailServiceImpl implements MailService {
 		} else {
 			logger.error("No message with identifier '" + identifier + "' found");
 		}
+	}
+
+	/**
+	 * Send weekly emails to GPA for Extramural Submissions
+	 */
+	@Override
+	public void sendWeeklyExtramuralEmail() {
+		List<ProjectsVw> result = notificationsDao.getExtramuralPastSubmissionDate();
+		result = notificationsDao.getExtramuralBsiInProgress();
+		result = notificationsDao.getExtramuralGdsIcInProgress();
+	}
+
+	/**
+	 * Send weekly emails to GPA for Intramural Submissions
+	 */
+	@Override
+	public void sendWeeklyIntramuralEmail() {
+		List<ProjectsVw> result = notificationsDao.getIntramuralPastSubmissionDate();
+		result = notificationsDao.getIntramuralBsiInProgress();
+		result = notificationsDao.getIntramuralGdsIcInProgress();
 	}
 
 

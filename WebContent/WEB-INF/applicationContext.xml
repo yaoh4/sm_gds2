@@ -144,6 +144,16 @@
 			<value>${host}</value>
 		</property>
 	</bean>
+	
+	<bean id="AutomatedEmailTask" class="gov.nih.nci.cbiit.scimgmt.gds.util.AutomatedSendEmailTask">
+	</bean>
+	
+	<task:scheduler id="gdsTaskScheduler" pool-size="5" />
 
+	<task:scheduled-tasks scheduler="gdsTaskScheduler">
+		<!--  Run daily at 9AM -->
+		<task:scheduled ref="AutomatedEmailTask" method="sendWeeklyExtramuralEmail" cron="0 0 9 * * *" />
+		<task:scheduled ref="AutomatedEmailTask" method="sendWeeklyIntramuralEmail" cron="0 0 9 * * *" />
+	</task:scheduled-tasks>
 	
 </beans>

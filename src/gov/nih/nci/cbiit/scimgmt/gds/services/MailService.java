@@ -16,4 +16,14 @@ public interface MailService {
 	 */
 	public void sendErrorMessage(String exceptionStack, String userErrorMessage, NedPerson loggedOnUser);
 
+	/**
+	 * Send weekly emails to GPA for Extramural Submissions
+	 */
+	public void sendWeeklyExtramuralEmail();
+
+	/**
+	 * Send weekly emails to GPA for Intramural Submissions
+	 */
+	public void sendWeeklyIntramuralEmail();
+
 }
