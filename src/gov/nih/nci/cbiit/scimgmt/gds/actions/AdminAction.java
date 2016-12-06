@@ -19,6 +19,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
+import gov.nih.nci.cbiit.scimgmt.gds.services.MailService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;
 
 /**
@@ -30,6 +31,9 @@ public class AdminAction extends BaseAction {
 	
 	@Autowired
 	protected UserRoleService userRoleService;
+	
+	@Autowired
+	protected MailService mailService;
 	
 	private RoleSearchCriteria criteria = new RoleSearchCriteria();
 	
@@ -124,17 +128,29 @@ public class AdminAction extends BaseAction {
 		
 		String gdsRoleCode = getUserRoleCode();
 		String networkId  = getUserId();
+		boolean changed = true;
 		
 		PersonRole personRole = userRoleService.findPersonRoleByUserId(networkId);
 		if(personRole == null) {
 			personRole = new PersonRole();
 			personRole.setNihNetworkId(networkId);
 			personRole.setActiveFlag(ApplicationConstants.FLAG_YES);
-		} 
+		} else {
+			if (StringUtils.equals(personRole.getRole().getCode(), gdsRoleCode))
+				changed = false;
+		}
 		personRole.setRole(lookupService.getLookupByCode(ApplicationConstants.GDS_ROLE_LIST, gdsRoleCode));
 	
 		personRole = userRoleService.saveOrUpdatePersonRole(personRole);
 		
+		if(changed) {
+			try {
+				mailService.sendRoleAddedToUser(personRole);
+			} catch (Exception e) {
+				logger.error("Action taken by " + loggedOnUser.getAdUserId());
+				logger.error("Email failed to send to notify user: " + personRole.getNihNetworkId() + " of added role, " + personRole.getRole().getCode() + "." + e.getMessage());
+			}
+		}
 		if(criteria.getGdsUsersOnly() == true || StringUtils.isNotBlank(getCriteria().getRoleCode())) {
 			return searchGdsUsers();
 		} else {

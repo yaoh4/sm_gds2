@@ -3,8 +3,10 @@ package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.MailTemplateDao;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.NotificationsDao;
+import gov.nih.nci.cbiit.scimgmt.gds.dao.UserRoleDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.services.MailService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsProperties;
@@ -54,6 +56,8 @@ public class MailServiceImpl implements MailService {
 	private GdsProperties gdsProperties;
 	@Autowired
 	private NotificationsDao notificationsDao;
+	@Autowired
+	private UserRoleDao userRoleDao;
 	
 	/**
 	 * Send error message.
@@ -242,5 +246,29 @@ public class MailServiceImpl implements MailService {
 		result = notificationsDao.getIntramuralGdsIcInProgress();
 	}
 
+	/**
+	 * Send notification to user when a role is added.
+	 * @throws Exception 
+	 */
+	@Override
+	public void sendRoleAddedToUser(PersonRole personRole) throws Exception {
 
+		logger.info("Sending notification to user when a role is added");
+		NedPerson user = userRoleDao.findNedPersonByUserId(personRole.getNihNetworkId());
+		String newRole = personRole.getRole().getDescription();
+		
+		final Map<String, Object> params = new HashMap<String, Object>();
+		String[] to = {user.getEmail()};
+		final String from = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM);
+		final String fromDisplay = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM_DISPLAY);
+
+		params.put(LOGGED_ON_USER, loggedOnUser);
+		params.put(TO, to);
+		params.put(FROM, from);
+		params.put(FROM_DISPLAY, fromDisplay);
+		params.put("user", user);
+		params.put("newRole", newRole);
+
+		send("ROLE_ADDED", params);
+	}
 }

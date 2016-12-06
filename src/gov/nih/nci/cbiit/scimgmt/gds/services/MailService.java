@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 
 public interface MailService {
 
@@ -26,4 +27,8 @@ public interface MailService {
 	 */
 	public void sendWeeklyIntramuralEmail();
 
+	/**
+	 * Send notification to user when a role is added.
+	 */
+	public void sendRoleAddedToUser(PersonRole personRole) throws Exception;
 }
