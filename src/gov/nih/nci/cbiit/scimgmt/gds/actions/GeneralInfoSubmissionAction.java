@@ -351,10 +351,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private void setUpPageData(){
  
 		logger.debug("Setting up page data.");
-		setUpLists();	
 		Project project = retrieveSelectedProject();
+		setProject(project);
+		setUpLists();
 		if(project != null){
-			setProject(project);	
 			loadGrantInfo();
 			setGrantSelection(getProject().getGrantSelection());
 			if(getAssociatedSecondaryGrants().isEmpty()) {
