@@ -378,11 +378,17 @@ public class IcSubmissionAction extends ManageSubmission {
 			} else if(ApplicationConstants.IC_PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId))) {	
 				this.addActionError(getText("error.ic.study.dulType.additionalText.required", new String[]{studyName}));
 			} 
-		} else if (additionalText[0].length() > 100){
+		} else {
 			if(ApplicationConstants.IC_PARENT_DUL_ID_DISEASE_SPECIFIC.equals(Long.valueOf(parentDulId))) {
-				addActionError(getText("error.ic.study.dulType.diseaseText.size.exceeded", new String[]{studyName}));
-			} else {
-				addActionError(getText("error.ic.study.dulType.additionalText.size.exceeded", new String[]{studyName}));
+				//Validation for disease specific text
+				if (additionalText[0].length() > 200) {
+					addActionError(getText("error.ic.study.dulType.diseaseText.size.exceeded", new String[]{studyName}));
+				} 
+			} else if(ApplicationConstants.IC_PARENT_DUL_ID_OTHER.equals(Long.valueOf(parentDulId))) {
+				//Validation for other text
+				if (additionalText[0].length() > 2000) {
+					addActionError(getText("error.ic.study.dulType.additionalText.size.exceeded", new String[]{studyName}));
+				}
 			}
 		}
 		String dulSelectionsStr = parentDulId + additionalText[0];
