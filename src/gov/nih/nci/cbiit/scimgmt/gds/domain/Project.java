@@ -56,6 +56,7 @@ public class Project implements java.io.Serializable {
 	private String subprojectFlag;
 	private Long parentProjectId;
 	private String latestVersionFlag;
+	private String versionEligibleFlag;
 	private Long projectGroupId;
 	private Long submissionReasonId;
 	private String certificationCompleteFlag;
@@ -106,7 +107,8 @@ public class Project implements java.io.Serializable {
 				+ ", bsiReviewedId=" + bsiReviewedId + ", versionNum=" + versionNum 
 				+ ", createdBy=" + createdBy + ", lastChangedBy=" + lastChangedBy
 				+ ", subprojectFlag=" + subprojectFlag + ", parentProjectId=" + parentProjectId
-				+ ", latestVersionFlag=" + latestVersionFlag + ", projectGroupId=" + projectGroupId
+				+ ", latestVersionFlag=" + latestVersionFlag + ", versionEligibleFlag=" + versionEligibleFlag
+				+ ", projectGroupId=" + projectGroupId
 				+ ", submissionReasonId=" + submissionReasonId
 				+ ", certificationCompleteFlag=" + certificationCompleteFlag
 				+ ", pageStatuses=" + pageStatuses + ", documents=" + documents 
@@ -123,7 +125,7 @@ public class Project implements java.io.Serializable {
 			String parentAccessionNum, String comments, Long bsiReviewedId, Long versionNum,
 			String createdBy, String lastChangedBy, String applClassCode, String subprojectFlag,
 			Long parentProjectId, String latestVersionFlag, Long projectGroupId, Long subprojectGroupId,
-			Long submissionReasonId, String certificationCompleteFlag,
+			Long submissionReasonId, String certificationCompleteFlag, String versionEligibleFlag,
 			List pageStatuses, Set documents, String subprojectEligibleFlag, 
 			Set planAnswerSelections, List repositoryStatuses, List institutionalCertifications,Long applId, String submissionTitle) {
 		this.id = id;
@@ -140,6 +142,7 @@ public class Project implements java.io.Serializable {
 		this.subprojectFlag = subprojectFlag;
 		this.parentProjectId = parentProjectId;
 		this.latestVersionFlag = latestVersionFlag;
+		this.versionEligibleFlag = versionEligibleFlag;
 		this.projectGroupId = projectGroupId;
 		this.submissionReasonId = submissionReasonId;
 		this.certificationCompleteFlag = certificationCompleteFlag;
@@ -344,7 +347,15 @@ public class Project implements java.io.Serializable {
 		this.latestVersionFlag = latestVersionFlag;
 	}
 
-	
+	@Column(name = "VERSION_ELIGIBLE_FLAG", length = 4)
+	public String getVersionEligibleFlag() {
+		return versionEligibleFlag;
+	}
+
+	public void setVersionEligibleFlag(String versionEligibleFlag) {
+		this.versionEligibleFlag = versionEligibleFlag;
+	}
+
 	@Column(name = "PROJECT_GROUP_ID", precision = 10, scale = 0)
 	public Long getProjectGroupId() {
 		return this.projectGroupId;
