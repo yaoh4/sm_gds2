@@ -247,6 +247,8 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		storedProject.setAnticipatedSubmissionDate(getProject().getAnticipatedSubmissionDate());
 		//Set the transient repositoryStatuses to enable computation of page status during save
 		storedProject.setRepositoryStatuses(getProject().getRepositoryStatuses());
+		storedProject.setVersionEligibleFlag(
+				GdsSubmissionActionHelper.isProjectEligibleForVersion(storedProject));
 		super.saveProject(storedProject, ApplicationConstants.PAGE_CODE_REPOSITORY);
 		setUpPageData();
 	}

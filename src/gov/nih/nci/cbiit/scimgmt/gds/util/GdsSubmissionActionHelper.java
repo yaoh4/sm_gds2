@@ -23,6 +23,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
 
@@ -389,6 +390,31 @@ public class GdsSubmissionActionHelper {
 		}
 		
 		return false;
+	}
+	
+	
+	/**
+	 * This method checks if a version can be created off of this project.
+	 * Condition: If 'Study Released' is set to 'Yes' for all the 
+	 * selected repositories.
+	 * 
+	 * @param project
+	 * @return
+	 */
+	public static String isProjectEligibleForVersion(Project project) {
+		List<RepositoryStatus> repoStatuses = project.getRepositoryStatuses();
+		if(!CollectionUtils.isEmpty(repoStatuses)) {
+			for(RepositoryStatus repoStatus: repoStatuses) {
+				if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(
+					repoStatus.getLookupTByStudyReleasedId().getId())) {
+					return ApplicationConstants.FLAG_NO;
+				}
+			}
+		} else {
+			return ApplicationConstants.FLAG_NO;
+		}
+		
+		return ApplicationConstants.FLAG_YES;
 	}
 	
 }
