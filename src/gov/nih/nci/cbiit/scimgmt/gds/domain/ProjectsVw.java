@@ -411,7 +411,7 @@ public class ProjectsVw implements java.io.Serializable {
 		this.subprojectEligibleFlag = subprojectEligibleFlag;
 	}
 	
-	@Formula(value = "case when (NOT EXISTS (SELECT * FROM repository_statuses_t r WHERE r.project_id = id) or EXISTS (SELECT * FROM repository_statuses_t r WHERE r.project_id = id and r.study_released_id <> 16)) then 'N' else 'Y' end ")
+	@Column(name = "VERSION_ELIGIBLE_FLAG", length = 1)
 	public String getNewVersionEligibleFlag(){
 		return newVersionEligibleFlag;
 	}
