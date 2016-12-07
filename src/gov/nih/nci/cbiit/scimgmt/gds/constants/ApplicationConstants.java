@@ -8,6 +8,7 @@ public interface ApplicationConstants {
 
 	/* Application property constants */
 	public static final String GDS_HELP_DOCUMENT_URL = "gds.help.document.url";
+	public static final String GDS_APPLICATION_URL = "gds.app.url";
 	public static final String CONTACT_EMAIL = "contact.email";
 	public static final String ERROR_EMAIL = "error.email";
 	public static final String BUSINESS_POLICY_EMAIL = "business.policy.email";

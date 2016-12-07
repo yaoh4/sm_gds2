@@ -277,7 +277,7 @@ public class NedPerson implements java.io.Serializable {
 		this.generationqualif = generationqualif;
 	}
 
-	@Column(name = "GIVENNAME", nullable = false, length = 192)
+	@Column(name = "MIXCASE_GIVENNAME", nullable = false, length = 192)
 	public String getFirstName() {
 		return this.firstName;
 	}

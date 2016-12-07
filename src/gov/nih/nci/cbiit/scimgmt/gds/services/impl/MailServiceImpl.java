@@ -8,6 +8,8 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
+import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
 import gov.nih.nci.cbiit.scimgmt.gds.services.MailService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsProperties;
 
@@ -125,7 +127,7 @@ public class MailServiceImpl implements MailService {
 		if (StringUtils.isBlank(source)) {
 			return null;
 		}
-		return source.split(",");
+		return source.split("[;,]");
 	}
 
 	/**
@@ -187,8 +189,15 @@ public class MailServiceImpl implements MailService {
 					} else {
 						subject = "[" + env.toUpperCase() + "] " + subject;
 						subject += " {TO: " + StringUtils.join(to, ',') + "} {CC: " + StringUtils.join(cc, ',') + "}";
-						final String[] overrideAddrs = {loggedOnUser.getEmail()};
-						helper.setTo(overrideAddrs);
+						
+						if(loggedOnUser == null) {
+							final String[] overrideAddrs = parse(gdsProperties.getProperty("email.override.address"));
+							helper.setTo(overrideAddrs);
+						} else {
+							final String[] overrideAddrs = {loggedOnUser.getEmail()};
+							helper.setTo(overrideAddrs);
+						}
+						
 					}
 
 					helper.setText(body.toString(), true);
@@ -234,6 +243,13 @@ public class MailServiceImpl implements MailService {
 		List<ProjectsVw> result = notificationsDao.getExtramuralPastSubmissionDate();
 		result = notificationsDao.getExtramuralBsiInProgress();
 		result = notificationsDao.getExtramuralGdsIcInProgress();
+		RoleSearchCriteria gpaCriteria = new RoleSearchCriteria();
+		gpaCriteria.setGdsUsersOnly(true);
+		gpaCriteria.setRoleCode(ApplicationConstants.ROLE_GPA_CODE);
+		gpaCriteria.setDoc("%");
+		List<UserRole> gpas = userRoleDao.searchUserRole(gpaCriteria);
+		// Loop through all GPAs and get their email address and hash them using their DOC
+		return;
 	}
 
 	/**
@@ -261,6 +277,7 @@ public class MailServiceImpl implements MailService {
 		String[] to = {user.getEmail()};
 		final String from = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM);
 		final String fromDisplay = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM_DISPLAY);
+		final String url = gdsProperties.getProperty(ApplicationConstants.GDS_APPLICATION_URL);
 
 		params.put(LOGGED_ON_USER, loggedOnUser);
 		params.put(TO, to);
@@ -268,6 +285,7 @@ public class MailServiceImpl implements MailService {
 		params.put(FROM_DISPLAY, fromDisplay);
 		params.put("user", user);
 		params.put("newRole", newRole);
+		params.put("url", url);
 
 		send("ROLE_ADDED", params);
 	}
