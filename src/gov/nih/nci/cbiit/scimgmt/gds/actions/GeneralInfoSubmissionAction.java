@@ -143,6 +143,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void saveProject() throws Exception{
 		
+		// Its Optional Submission Non-NIH Funded, so don't save the DOC Abbreviation
+		if(getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
+			getProject().setDocAbbreviation("");
+		}
+
 		Project project = retrieveSelectedProject();		
 		if(project != null){
 			ProjectGrantContract storedExtramuralContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
@@ -408,9 +413,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			//If user is editing already saved project then pre-select saved project's DOC in the DOC dropdown list.
 		
 			preSelectedDOC = getProject().getDocAbbreviation();
-			progList.clear();
-			List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
-			progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);			
+			if(StringUtils.isNotBlank(preSelectedDOC)) {
+				progList.clear();
+				List<String> progListFromDb = manageProjectService.getSubOrgList(preSelectedDOC);
+				progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
+			}
 		}
 	}
 	
