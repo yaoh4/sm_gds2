@@ -54,6 +54,7 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Property</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.HelpText</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Document</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection</value>
