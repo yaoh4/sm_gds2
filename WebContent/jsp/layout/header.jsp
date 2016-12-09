@@ -73,7 +73,7 @@
       				<s:else>
       					<h3>Sub-project Submission</h3>
       				</s:else>
-      				<div style="display:block; margin-left:12px;">(&nbsp;<s:property value="%{project.submissionTitle}"/>&nbsp;)</div>
+      				<div style="display:block; margin-left:12px;">(&nbsp;<s:property value="%{project.submissionTitle}"/>&nbsp;) Version# <s:property value="%{project.versionNum}"/></div>
       				</div></div>
       				<s:include value="/jsp/layout/subnavbar.jsp" />
 				</s:else>
