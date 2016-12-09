@@ -3,6 +3,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.services;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsPd;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.HelpText;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
@@ -95,6 +96,12 @@ public interface LookupService {
 	  * Get pdList. Retrieve from the cache if present, else from the DB
 	  */
 	 public List<GdsPd> getPdList(String pdListKey);
+	 
+	 
+	 /**
+	  * Get helpList. Retrieve from the cache if present, else from the DB
+	  */
+	 public List<HelpText> getHelpList(String helpListKey);
 	 
 	 /**
 	  * Get Lookup object by list name and id

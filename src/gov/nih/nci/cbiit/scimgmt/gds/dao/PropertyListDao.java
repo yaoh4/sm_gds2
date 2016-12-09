@@ -5,6 +5,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsPd;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.HelpText;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
@@ -149,4 +150,11 @@ public class PropertyListDao {
 			return criteria.list();	
 		}
 		
+		
+		
+		public List<HelpText> getHelpList() {
+			logger.info("Retrieving Help strings from DB");
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(HelpText.class);
+			return criteria.list();
+		}
 }

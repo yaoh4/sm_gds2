@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsPd;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.HelpText;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
@@ -183,6 +184,31 @@ public class LookupServiceImpl implements LookupService {
 	public List<GdsPd> updatePdList(String pdListKey, List<GdsPd> pdList) {
 		return pdList;
 	}
+	
+	
+	/**
+	 *  Get pdList.  
+	 *  Retrieve from the cache if present, else from the DB
+	 */
+	@Cacheable(key = "#helpListKey")
+	public List<HelpText> getHelpList(String helpListKey) {
+	  	
+		logger.info("Loading helpList from DB");
+		List<HelpText> helpList = propertyListDAO.getHelpList();
+		updateHelpList(helpListKey, helpList);
+		return helpList;	  	
+	}
+	
+	/**
+	 * Update the given helpList in the cache.
+	 * @param helpList
+	 * @return
+	 */
+	@CachePut(key="#helpListKey")
+	public List<HelpText> updateHelpList(String helpListKey, List<HelpText> helpList) {
+		return helpList;
+	}
+	
 	
 	/**
 	 * Get Lookup object by list name and id
