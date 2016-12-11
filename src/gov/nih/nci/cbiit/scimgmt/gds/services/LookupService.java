@@ -99,6 +99,12 @@ public interface LookupService {
 	 
 	 
 	 /**
+	  * Load helplist from DB and store in cache
+	  */
+	 public void loadHelpList(String helpListKey);
+	 
+	 
+	 /**
 	  * Get helpList. Retrieve from the cache if present, else from the DB
 	  */
 	 public List<HelpText> getHelpList(String helpListKey);

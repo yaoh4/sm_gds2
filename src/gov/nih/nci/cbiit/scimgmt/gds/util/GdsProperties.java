@@ -15,6 +15,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Property;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
@@ -95,5 +96,7 @@ public class GdsProperties extends Properties {
 		if(!lookupList.isEmpty()) {
 			lookupService.updateLookupList(listName, lookupList);
 		}
+		
+		lookupService.loadHelpList(ApplicationConstants.HELP_LIST);
 	}
 }

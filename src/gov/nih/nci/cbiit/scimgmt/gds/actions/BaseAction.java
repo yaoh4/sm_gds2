@@ -5,6 +5,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.HelpText;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
@@ -224,6 +225,19 @@ public class BaseAction extends ActionSupport implements SessionAware {
 			return lookup.getDisplayName();
 		}
 		return "";
+	}
+	
+	
+	public String getHelpText(String helpKey) {
+		List<HelpText> helpList = 
+			lookupService.getHelpList(ApplicationConstants.HELP_LIST);
+		for(HelpText helpText: helpList) {
+			if(helpText.getMessageKey().equals(helpKey)) {
+				return helpText.getMessageValue();
+			}
+		}
+		
+		return null;
 	}
 	
 	

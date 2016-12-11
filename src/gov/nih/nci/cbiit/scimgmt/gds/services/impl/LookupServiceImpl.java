@@ -186,6 +186,18 @@ public class LookupServiceImpl implements LookupService {
 	}
 	
 	
+	
+	/**
+	 *  Retrieve help list from the DB and store in cache
+	 *  Invoked from sysAdmin if required to refresh
+	 */
+	public void loadHelpList(String helpListKey) {
+	  	
+		logger.info("Loading helpList from DB");
+		List<HelpText> helpList = propertyListDAO.getHelpList();
+		updateHelpList(helpListKey, helpList);	  	
+	}
+	
 	/**
 	 *  Get pdList.  
 	 *  Retrieve from the cache if present, else from the DB
@@ -194,9 +206,7 @@ public class LookupServiceImpl implements LookupService {
 	public List<HelpText> getHelpList(String helpListKey) {
 	  	
 		logger.info("Loading helpList from DB");
-		List<HelpText> helpList = propertyListDAO.getHelpList();
-		updateHelpList(helpListKey, helpList);
-		return helpList;	  	
+		return propertyListDAO.getHelpList();	  	
 	}
 	
 	/**

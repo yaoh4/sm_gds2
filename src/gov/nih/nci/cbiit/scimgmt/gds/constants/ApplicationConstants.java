@@ -40,6 +40,7 @@ public interface ApplicationConstants {
 	 public static final String LIST_ROLE = "ROLE";
 	 public static final String BSI_REVIEWED="bsi_reviewed";
 	 
+	 
 	 /* Type discriminators */ 
 	 public static final String DOC_TYPE = "DOC_TYPE";
 	 public static final String PAGE_TYPE = "PAGE";
@@ -48,6 +49,7 @@ public interface ApplicationConstants {
 	 
 	 public static final String DOC_LIST = "docList";
 	 public static final String PD_LIST = "pdList";
+	 public static final String HELP_LIST = "helpList";
 	 
 	 public static final String GRANT_CONTRACT_TYPE_EXTRAMURAL = "Extramural";
 	 public static final String GRANT_CONTRACT_TYPE_INTRAMURAL = "Intramural";
