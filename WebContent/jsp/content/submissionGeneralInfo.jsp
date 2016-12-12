@@ -9,6 +9,7 @@
 		<s:hidden id="parentGrantSelection" name="parentGrantSelection" value="%{parentGrantSelection}"/>
 		<s:hidden name="project.projectGroupId" value="%{project.projectGroupId}"/>
 		<s:hidden name="searchType" id="searchType" value="%{searchType}"/>
+		<s:hidden name="project.latestVersionFlag" value="%{project.latestVersionFlag}"/>
 		<s:hidden id="grantContractIdPrefix"/>
 	
 	  <div id="searchGrantsContracts"  style="display:none;">

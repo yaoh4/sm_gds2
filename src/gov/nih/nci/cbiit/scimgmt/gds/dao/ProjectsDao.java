@@ -428,4 +428,20 @@ public class ProjectsDao {
 		}
 		return result;
 	}
+	
+	
+	public Project getCurrentLatestVersion(Long projectGroupId) {
+		logger.debug("Retrieving  latest version of project group: " + projectGroupId);
+		try {
+			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Project.class);	
+			criteria.add(Restrictions.eq("projectGroupId", projectGroupId));
+			criteria.add(Restrictions.eq("latestVersionFlag", "Y"));
+			Project  project = (Project) criteria.uniqueResult();
+			return project;
+
+		}catch (Throwable e) {
+			logger.error(e.getMessage(), e);
+			throw e;
+		}
+	}
 }

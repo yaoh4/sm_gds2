@@ -3,6 +3,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -12,18 +13,21 @@ import java.util.Set;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.LongConverter;
+import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import com.opensymphony.xwork2.Preparable;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
@@ -150,54 +154,48 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 
 		Project project = retrieveSelectedProject();		
 		if(project != null){
-			ProjectGrantContract storedExtramuralContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
-			if( storedExtramuralContract != null) {
-				if(getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL) != null) {
-					getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).setId(storedExtramuralContract.getId());
-					getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).setCreatedDate(storedExtramuralContract.getCreatedDate());
-					
-				}
-				project.removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
-			}
-			
-			ProjectGrantContract storedIntramuralContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
-			if( storedIntramuralContract != null) {
-				if(getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL) != null) {
-					getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL).setId(storedIntramuralContract.getId());
-					getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL).setCreatedDate(storedIntramuralContract.getCreatedDate());
-				}
-				project.removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
-			}
-			
-			List<ProjectGrantContract> grants1=getProject().getAssociatedGrants();
-			List<ProjectGrantContract> grants2= project.getAssociatedGrants();
-			if(grants1.isEmpty()) {
-				for(ProjectGrantContract newSet :grants2) {
-					project.removeAssociatedGrant(newSet);
-				}
-			 }
-	     
-			for(ProjectGrantContract  oldSet: grants1 ) {
-				for(ProjectGrantContract newSet :grants2) {
-					if(oldSet.getGrantContractNum().equals(newSet.getGrantContractNum())) {
-						oldSet.setId(newSet.getId());
-					}
-					project.removeAssociatedGrant(newSet);
-				}
-			}
-			
-			performDataCleanup(getProject(),project);
-			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(),project);		
+			project = setupGrantData(project);
+			performDataCleanup(getProject(), project);
+			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);		
 		}
 		else{
-			project = getProject();
-			// For new Sub project, populate child table from parent
-			if(project.getId() == null && project.getParentProjectId() != null) {
-				Project parentProject = retrieveParentProject(project);
-				project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
-				//project.setProjectGrantsContracts(parentProject.getProjectGrantsContracts());
-				project.setDocAbbreviation(parentProject.getDocAbbreviation());
-				project.setProgramBranch(parentProject.getProgramBranch());
+			if(getProject().getId() == null) {
+				if(ApplicationConstants.FLAG_YES.equals(getProject().getLatestVersionFlag())) {
+					//New version, 
+					project = new Project();
+					//Populate from current latest version
+					Project existingLatestVersion = manageProjectService.getCurrentLatestVersion(getProject().getProjectGroupId());
+
+					try {
+						ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
+						BeanUtils.copyProperties(existingLatestVersion, project);
+						
+					} catch (Exception e) {
+						logger.error("Error occured while creating a new version of an existing project", e);
+					}	
+					
+					//We have a new version, so set the latest version flag on the
+					//current one to 'N'
+					existingLatestVersion.setLatestVersionFlag(ApplicationConstants.FLAG_NO);					
+					existingLatestVersion = manageProjectService.saveOrUpdate(existingLatestVersion);
+					
+					initializeNewVersion(project, existingLatestVersion);
+					performDataCleanup(getProject(), project);
+					
+					//Copy subproject ?
+				}
+				else if( getProject().getParentProjectId() != null) {
+					// For new Sub project, populate child table from parent
+					project = getProject();
+					Project parentProject = retrieveParentProject(project);
+					project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
+					project.setDocAbbreviation(parentProject.getDocAbbreviation());
+					project.setProgramBranch(parentProject.getProgramBranch());
+				} else {
+					project = getProject();
+				}
+				
+				project.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
 			}
 		}		
 		project = super.saveProject(project, null);
@@ -206,6 +204,112 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		setProjectId(project.getId().toString());
 	}
 
+	
+	private Project setupGrantData(Project project) {
+		ProjectGrantContract storedExtramuralContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
+		if( storedExtramuralContract != null) {
+			if(getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL) != null) {
+				getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).setId(storedExtramuralContract.getId());
+				getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).setCreatedDate(storedExtramuralContract.getCreatedDate());
+				
+			}
+			project.removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
+		}
+		
+		ProjectGrantContract storedIntramuralContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+		if( storedIntramuralContract != null) {
+			if(getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL) != null) {
+				getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL).setId(storedIntramuralContract.getId());
+				getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL).setCreatedDate(storedIntramuralContract.getCreatedDate());
+			}
+			project.removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+		}
+		
+		List<ProjectGrantContract> grants1=getProject().getAssociatedGrants();
+		List<ProjectGrantContract> grants2= project.getAssociatedGrants();
+		if(grants1.isEmpty()) {
+			for(ProjectGrantContract newSet :grants2) {
+				project.removeAssociatedGrant(newSet);
+			}
+		 }
+     
+		for(ProjectGrantContract  oldSet: grants1 ) {
+			for(ProjectGrantContract newSet :grants2) {
+				if(oldSet.getGrantContractNum().equals(newSet.getGrantContractNum())) {
+					oldSet.setId(newSet.getId());
+				}
+				project.removeAssociatedGrant(newSet);
+			}
+		}
+		
+		return project;
+	}
+	
+	
+	public Project initializeNewVersion(Project project, Project currentLatestVersion) {
+		
+		setupGrantData(project);
+		GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
+		
+		project.setId(null);
+		project.setVersionEligibleFlag(ApplicationConstants.FLAG_NO);
+		project.setCertificationCompleteFlag(null);
+		project.setBsiComments(null);
+		project.setBsiReviewedId(null);
+		project.setAnticipatedSubmissionDate(null);
+		project.setParentProjectId(currentLatestVersion.getParentProjectId());
+		project.setVersionNum(currentLatestVersion.getVersionNum() + 1);
+		
+		ArrayList<Project> projectsToAdd = new ArrayList<Project>(Arrays.asList(project));
+		
+		//Copy planAnswerSelections and blank out the IDs so that they get inserted as new
+		Set<PlanAnswerSelection> currentPlanAnswers = currentLatestVersion.getPlanAnswerSelections();
+		if(!CollectionUtils.isEmpty(currentPlanAnswers)) {
+			Set<PlanAnswerSelection> planAnswers = new HashSet<PlanAnswerSelection>();			
+			for(PlanAnswerSelection currentPlanAnswer: currentPlanAnswers) {
+				PlanAnswerSelection planAnswer = new PlanAnswerSelection();
+				BeanUtils.copyProperties(currentPlanAnswer, planAnswer);
+				planAnswer.setId(null);
+				planAnswer.setProjects(projectsToAdd);
+				planAnswers.add(planAnswer);
+			}
+			project.setPlanAnswerSelections(planAnswers);
+		}
+		
+		
+		//Copy ics and blank out the IDs so that they get inserted as new
+		List<InstitutionalCertification> currentIcs = currentLatestVersion.getInstitutionalCertifications();
+		if(!CollectionUtils.isEmpty(currentIcs)) {
+			List<InstitutionalCertification> ics = new ArrayList<InstitutionalCertification>();			
+			/*for(InstitutionalCertification currentIc: currentIcs) {
+				InstitutionalCertification ic = new InstitutionalCertification();
+				BeanUtils.copyProperties(currentIc, ic);
+				ic.setId(null);
+				List<Document> currentIcDocs = currentIc.getDocuments();
+				if(!CollectionUtils.isEmpty(currentIcDocs)) {
+					List<Document> icDocs = new ArrayList<Document>();					
+					for(Document currentIcDoc: currentIcDocs) {
+						Document icDoc = new Document();
+						BeanUtils.copyProperties(currentIcDoc, icDoc);
+						icDoc.setId(null);
+						icDoc.setInstitutionalCertificationId(null);
+						icDoc.setProjectId(null);
+						icDocs.add(icDoc);
+					}
+					ic.setDocuments(icDocs);
+				}
+				ic.setProjects(projectsToAdd);
+				ics.add(ic);
+			}*/
+			project.setInstitutionalCertifications(ics);
+		}
+		
+		
+		//Reset page statuses
+		project.setPageStatuses(new ArrayList());
+		return project;
+						
+	}
 	
 	
 	/**
@@ -279,57 +383,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		return SUCCESS;
 	}
 	
-	/**
-	 * This method creates a new version of an existing Project.
-	 * @return
-	 */
-	public String createNewProjectVersion(){
-
-		logger.debug("Create New Verion of an existing Project");
-		
-		Project newProject = new Project();
-		Project existingProject = retrieveSelectedProject();
-
-		try {
-			ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
-			BeanUtils.copyProperties(existingProject, newProject);
-
-		} catch (Exception e) {
-			logger.error("Error occured while creating a new version of an existing project", e);
-		}		
-		
-		cleanUpSubProject(newProject);
-		setProject(newProject);
-		loadGrantInfo();
-		setUpLists();
-		return SUCCESS;
-	}
-	
-	/**
-	 * This method creates a new version of an existing Sub-Project.
-	 * @return
-	 */
-	public String createNewSubprojectVersion(){
-
-		logger.debug("Create New Verions of an existing Sub-Project");
-		
-		Project newSubproject = new Project();
-		Project existingSubproject = retrieveSelectedProject();
-
-		try {
-			ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
-			BeanUtils.copyProperties(existingSubproject, newSubproject);
-
-		} catch (Exception e) {
-			logger.error("Error creating a new version of an existing Subproject", e);
-		}		
-		
-		cleanUpSubProject(newSubproject);
-		setProject(newSubproject);
-		loadGrantInfo();
-		setUpLists();
-		return SUCCESS;
-	}
 	
 	/**
 	 * Clean up of sub project.
@@ -347,6 +400,85 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		subProject.setPlanAnswerSelections(new HashSet());
 										
 	}
+	
+	
+	/**
+	 * This method creates a new version of an existing Project.
+	 * @return
+	 */
+	public String createNewProjectVersion(){
+
+		logger.debug("Create New Verion of an existing Project");
+		
+		Project newVersion = new Project();
+		Project existingProject = retrieveSelectedProject();
+
+		try {
+			ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
+			BeanUtils.copyProperties(existingProject, newVersion);
+
+		} catch (Exception e) {
+			logger.error("Error occured while creating a new version of an existing project", e);
+		}		
+		newVersion.setId(null);
+		newVersion.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
+		newVersion.setProjectGroupId(existingProject.getProjectGroupId());
+		setProject(newVersion);
+		loadGrantInfo();
+		setGrantSelection(newVersion.getGrantSelection());
+		if(getAssociatedSecondaryGrants().isEmpty()) {
+			grantsAdditional = ApplicationConstants.FLAG_NO;
+		} else {
+			grantsAdditional = ApplicationConstants.FLAG_YES;
+		}
+		setUpLists();
+		return SUCCESS;
+	}
+	
+	
+	/**
+	 * This method creates a new version of an existing Sub-Project.
+	 * @return
+	 */
+	public String createNewSubprojectVersion(){
+
+		logger.debug("Create New Verions of an existing Sub-Project");
+		
+		Project newSubprojectVersion = new Project();
+		Project existingSubproject = retrieveSelectedProject();
+
+		try {
+			ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
+			BeanUtils.copyProperties(existingSubproject, newSubprojectVersion);
+
+		} catch (Exception e) {
+			logger.error("Error creating a new version of an existing Subproject", e);
+		}		
+		
+		newSubprojectVersion.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
+		newSubprojectVersion.setProjectGroupId(existingSubproject.getProjectGroupId());
+		
+		setProject(newSubprojectVersion);
+		loadGrantInfo();
+		setUpLists();
+		return SUCCESS;
+	}
+	
+	
+	/**
+	 * Clean up of new subproject version.
+	 */
+	private void cleanUpSubProjectVersion(Project project){
+		
+		project.setId(null);
+		project.setVersionEligibleFlag(ApplicationConstants.FLAG_NO);
+		project.setCertificationCompleteFlag(null);
+		project.setBsiComments(null);
+		project.setBsiReviewedId(null);
+		project.setAnticipatedSubmissionDate(null);
+		project.setVersionEligibleFlag(ApplicationConstants.FLAG_NO);							
+	}
+	
 	
 	
 	

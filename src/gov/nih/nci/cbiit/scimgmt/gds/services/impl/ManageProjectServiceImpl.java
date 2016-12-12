@@ -267,4 +267,15 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		return projectsDao.getVersions(projectGroupId);
 	}
 	
+	
+	/**
+	 * Retrieve the latest version of the project within
+	 * the given project group ID.
+	 * @param projectGroupId
+	 * @return Project
+	 */
+	public Project getCurrentLatestVersion(Long projectGroupId) {
+		return projectsDao.getCurrentLatestVersion(projectGroupId);
+	}
+	
 }

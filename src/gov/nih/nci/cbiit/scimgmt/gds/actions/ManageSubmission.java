@@ -206,8 +206,6 @@ public class ManageSubmission extends BaseAction {
 	public Project saveProject(Project project, String page, boolean saveSubprojects) {
 		
 		//Temporary hard coding project property. 
-		project.setVersionNum(1l);
-		project.setLatestVersionFlag("Y");
 		if(project.getParentProjectId() == null){
 			project.setSubprojectFlag("N");
 			if(GdsSubmissionActionHelper.isEligibleForSubproject(project))
