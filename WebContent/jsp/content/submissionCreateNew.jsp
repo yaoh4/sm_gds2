@@ -29,7 +29,8 @@
 
 				<div class="panel-body">
 					<div>
-						<p class="question"><i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp; What would you like to create?</p>
+						<p class="question"><i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp; What would you like to create? &nbsp;  <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="CREATE_NEW_SUBMISSION_KEY" value="%{getHelpText('CREATE_NEW_SUBMISSION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 						<s:radio id="projectTypesId"
 								name="selectedTypeOfProject"
 								list="projectTypes" template="radiomap-div.ftl"
@@ -50,4 +51,11 @@
 		</div>
 
 	</s:form>
-
+<script type="text/javascript" src="<s:url value="/controllers/createNewSubmission.js" />"></script>
+<script type="text/javascript">
+$(function($){
+	$('[data-toggle="tooltip"]').tooltip({
+	    container : 'body'
+	  });
+});
+</script>

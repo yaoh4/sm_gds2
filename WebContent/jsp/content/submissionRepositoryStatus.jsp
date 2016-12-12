@@ -61,9 +61,8 @@
 					<br />
 					<div id="repositoryDate" style="width:200px;">
 						<s:label for="anticpated_submission_date" value="Anticipated Submission Date" />
-						&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a>
+						&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="SUB_STATUS_ANTICIPATED_KEY" value="%{getHelpText('SUB_STATUS_ANTICIPATED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 						<div class="input-group date"> <s:textfield id="%{'anticpated_submission_date'}" name="project.anticipatedSubmissionDate"	value="%{anticipatedSubmissionDate}" disabled="isAnticipatedSubDateDisabled"
 								cssClass="form-control" />
 							<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
@@ -86,9 +85,8 @@
 								 	<s:property value="%{#repositoryStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText}"/>
 								 </s:else>
 								</h5>
-								&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                             <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a>					
+								&nbsp; &nbsp;  <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="SUB_STATUS_REPOSITORY_KEY" value="%{getHelpText('SUB_STATUS_REPOSITORY_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>					
 							</div>
 
 						</div> 
@@ -98,18 +96,16 @@
 							<div class="form-group row">
 								<div class="col-xs-2">
 									<br /> <s:label for="%{'regStatus_' + #stat.index}" value="Registration Status" /> 
-									&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                                   <i class="helpfile fa fa-question-circle fa-1x"
-							       aria-hidden="true"></i></a>
+									&nbsp; &nbsp;  <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="SUB-STATUS_REGISTRATION_KEY" value="%{getHelpText('SUB-STATUS_REGISTRATION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 									<s:select id="%{'regStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByRegistrationStatusId.id" onChange="processRegistrationStatusSelected(this.id)" 
 												value="%{#repositoryStatus.lookupTByRegistrationStatusId.id}" cssClass="c-select form-control"  list="registrationStatusList" listKey="optionKey" listValue="optionValue"/>											
 								</div>
 
 								<div class="col-xs-3">
 									<br/> <s:label for="%{'projStatus_' + #stat.index}" value="Data Submission Status" /> 
-                                     &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                                  <i class="helpfile fa fa-question-circle fa-1x"
-							        aria-hidden="true"></i></a>
+                                     &nbsp; &nbsp;  <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="SUB_STATUS_SUBMISSION_KEY" value="%{getHelpText('SUB_STATUS_SUBMISSION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 									
 
 									<s:select id="%{'projStatus_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTBySubmissionStatusId.id" onChange="processSubmissionStatusSelected(this.id)" 
@@ -118,18 +114,16 @@
 
 								<div class="col-xs-2">
 									<br /> <s:label for="%{'studyRel_' + #stat.index}" value="Study Released?" />
-									&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                                  <i class="helpfile fa fa-question-circle fa-1x"
-							         aria-hidden="true"></i></a>
+									&nbsp; &nbsp;  <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="SUB-STATUS_STUDY_KEY" value="%{getHelpText('SUB-STATUS_STUDY_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 									<s:select id="%{'studyRel_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].lookupTByStudyReleasedId.id" 
 												value="%{#repositoryStatus.lookupTByStudyReleasedId.id}"  cssClass="c-select form-control" disabled="true" list="studyReleasedList" listKey="optionKey" listValue="optionValue"/>											
 								</div>
 
 								<div class="col-xs-3">
 									<br /> <s:label for="%{'accessionNumber_' + #stat.index}" value="Accession Number" />
-									&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                                  <i class="helpfile fa fa-question-circle fa-1x"
-							       aria-hidden="true"></i></a>
+									&nbsp; &nbsp;  <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="SUB_STATUS_ACCESSION_KEY" value="%{getHelpText('SUB_STATUS_ACCESSION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 									<s:textfield id="%{'accessionNumber_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].accessionNumber" value="%{#repositoryStatus.accessionNumber}" cssClass="form-control" maxLength="30"/>										
 								</div>
 
@@ -160,3 +154,10 @@
 	</s:form>
 
 <script type="text/javascript" src="<s:url value="/controllers/submissionStatus.js" />"></script>
+<script type="text/javascript">
+$(function($){
+	$('[data-toggle="tooltip"]').tooltip({
+	    container : 'body'
+	  });
+});
+</script>

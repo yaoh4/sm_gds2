@@ -58,7 +58,8 @@
 
 					<div class="form-group row has-feedback" id="submissionReason">
 						<div class="col-xs-10">
-						<p class="question"> <br/> <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted?</p>	
+						<p class="question"> <br/> <i class="fa fa-asterisk" aria-hidden="true"></i>&nbsp;Why is the project being submitted? &nbsp;  <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="GENERAL_INFO_KEY" value="%{getHelpText('GENERAL_INFO_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>	
 							<s:radio id="submissionReasonId" class="submissionReasonSelect" name="project.submissionReasonId" list="projectSubmissionReasons" template="radiomap-div.ftl"
 								listKey="optionKey" listValue="optionValue" />
 								
@@ -469,3 +470,10 @@
 <script type="text/javascript" src="<s:url value="/controllers/gds.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/controllers/grantSearch.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/controllers/general.js"/>"></script>
+<script type="text/javascript">
+$(function($){
+	$('[data-toggle="tooltip"]').tooltip({
+	    container : 'body'
+	  });
+});
+</script>

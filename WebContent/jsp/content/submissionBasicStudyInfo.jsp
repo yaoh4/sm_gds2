@@ -105,21 +105,18 @@
 
 					<p class="question" style="display: inline;">
 						<!--<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
-						Has the GPA reviewed the Basic Study Information?&nbsp; &nbsp;</p>
-						<a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a>
+						Has the GPA reviewed the Basic Study Information?&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="BASIC_STUDY_INFO_KEY" value="%{getHelpText('BASIC_STUDY_INFO_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
+	
 					<s:radio id="reviewed" list="bsiOptions"
 						name="bsiReviewedId" value="bsiReviewedId"
 						template="radiomap-div.ftl" listKey="optionKey" listValue="optionValue" />
-
-
 					<p>&nbsp;</p>
 
 
 					<!--  File Upload -->
 					<div style="width:600px;">
-					<div style="margin-left: 15px; float:left; width: 38%"><p class="question">
+					<div style="margin-left: 15px; float:left; width: 38%"><p id="2" class="question">
 					<!-- <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
 						Upload Basic Study Information:
 					</p></div>
@@ -183,3 +180,10 @@
 
 <script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
 <script type="text/javascript" src="<s:url value="/controllers/basicStudy.js" />"></script>
+<script type="text/javascript">
+$(function($){
+	$('[data-toggle="tooltip"]').tooltip({
+	    container : 'body'
+	  });
+});
+</script>

@@ -45,9 +45,8 @@
 						<a href="http://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/about-policy#exceptions"
 							target="_blank">View Exception Process&nbsp;<i
 							class="fa fa-external-link" aria-hidden="true"></i></a> ]
-							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a>
+							&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="GDS_EXCEPTION_KEY" value="%{getHelpText('GDS_EXCEPTION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 					</p>
 					<s:set name="params" value="%{map[1].parameters}" />
 					<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(1)}"
@@ -60,9 +59,8 @@
 				<div id="4" style="${map['4'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(4).getDisplayText()}" />
-							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></p>
+							&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="GDS_APPROVED_EXCEPTION_KEY" value="%{getHelpText('GDS_APPROVED_EXCEPTION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 					<s:set name="params" value="%{map[4].parameters}" />
 					<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(4)}"
 						listKey="id" listValue="displayText" name="answers[4]"
@@ -79,9 +77,8 @@
 				<div id="8" style="${map['8'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(8).getDisplayText()}" />
-							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></p>
+							&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="GDS_DATA_SUBMITTED_KEY" value="%{getHelpText('GDS_DATA_SUBMITTED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 					<s:set name="params" value="%{map[8].parameters}" />
 					<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(8)}"
 						listKey="id" listValue="displayText" name="answers[8]"
@@ -93,9 +90,8 @@
 				<div id="11" style="${map['11'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(11).getDisplayText()}" />
-							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></p>
+							&nbsp; &nbsp;  <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="GDS_SPECIMEN_TYPE_KEY" value="%{getHelpText('GDS_SPECIMEN_TYPE_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 					<s:iterator value="%{getAnswerListByQuestionId(11)}" var="ans"
 						status="stat">
 						<s:set name="params" value="%{map[#ans.id].parameters}" />
@@ -112,9 +108,8 @@
 				<div id="14" style="${map['14'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(14).getDisplayText()}" />
-							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></p>
+							&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="GDS_DATA_TYPE_SUBMITTED_KEY" value="%{getHelpText('GDS_DATA_TYPE_SUBMITTED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 					<s:iterator value="%{getAnswerListByQuestionId(14)}" var="ans"
 						status="stat">
 						<s:set name="params" value="%{map[#ans.id].parameters}" />
@@ -131,9 +126,8 @@
 				<div id="17" style="${map['17'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(17).getDisplayText()}" />
-							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></p>
+							&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="GDS_ACCESS_TYPE_KEY" value="%{getHelpText('GDS_ACCESS_TYPE_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 					<s:iterator value="%{getAnswerListByQuestionId(17)}" var="ans"
 						status="stat">
 						<s:set name="params" value="%{map[#ans.id].parameters}" />
@@ -150,9 +144,8 @@
 				<div id="20" style="${map['20'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(20).getDisplayText()}" />
-							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></p>
+							&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="GDS_REPOSITORY_TYPE_KEY" value="%{getHelpText('GDS_REPOSITORY_TYPE_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 
 					<s:iterator value="%{getAnswerListByQuestionId(20)}" var="ans"
 						status="stat">
@@ -208,9 +201,8 @@
 					<div id="26" style="${map['26'].style}" class="qSpacing">
 						<p class="question"><s:property
 							value="%{getQuestionById(26).getDisplayText()}" />
-							&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></p>
+							&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="GDS_GPA_REVIEWED_KEY" value="%{getHelpText('GDS_GPA_REVIEWED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 						<s:set name="params" value="%{map[26].parameters}" />
 					<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(26)}"
 						listKey="id" listValue="displayText" name="answers[26]"
@@ -226,9 +218,8 @@
 						<s:if test="%{requiredByGdsPolicy == false}">
 							(Optional)
 						</s:if>
-						&nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a>
+						&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="GDS_DATA_SHARING_PLAN" value="%{getHelpText('GDS_DATA_SHARING_PLAN')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 					</p>
 					<s:set name="params" value="%{map[29].parameters}" />
 				<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(29)}"
