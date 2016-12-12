@@ -28,8 +28,14 @@ function openDetailsReport(id) {
 	var newWin = window.open(url, winName, features);
 }
 
+$("a.hoverOver").hover(function(){
+	var value=$(this).children().first().val();
+	$(this).attr('data-original-title', value);
+});
+
 
 $(document).ready(function() {
+	
 	var icItemsSize=$(".icCountList").length;
 	for(var size=0; size < icItemsSize; size++) {
 		setStatusIcon("icReg" + size, "icDiv" + size);

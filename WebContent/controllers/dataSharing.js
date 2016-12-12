@@ -323,3 +323,9 @@ if($("#subprojectFlag").val() == 'N'){
 		var newWin = window.open(url, winName, features);
 	});
 	}
+
+
+$("a.hoverOver").hover(function(){
+	var value=$(this).children().first().val();
+	$(this).attr('data-original-title', value);
+});
