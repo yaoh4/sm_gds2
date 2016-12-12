@@ -166,13 +166,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					//Populate from current latest version
 					Project existingLatestVersion = manageProjectService.getCurrentLatestVersion(getProject().getProjectGroupId());
 
-					try {
+					/*try {
 						ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
-						BeanUtils.copyProperties(existingLatestVersion, project);
+						BeanUtils.copyProperties(getProject(), project);
 						
 					} catch (Exception e) {
 						logger.error("Error occured while creating a new version of an existing project", e);
-					}	
+					}*/	
 					
 					//We have a new version, so set the latest version flag on the
 					//current one to 'N'
@@ -248,17 +248,19 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	
 	public Project initializeNewVersion(Project project, Project currentLatestVersion) {
 		
-		setupGrantData(project);
-		GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
-		
 		project.setId(null);
 		project.setVersionEligibleFlag(ApplicationConstants.FLAG_NO);
+		project.setSubprojectFlag(currentLatestVersion.getSubprojectFlag());
+		project.setParentProjectId(currentLatestVersion.getParentProjectId());
+		project.setVersionNum(currentLatestVersion.getVersionNum() + 1);
+		
+		GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
+		
 		project.setCertificationCompleteFlag(null);
 		project.setBsiComments(null);
 		project.setBsiReviewedId(null);
 		project.setAnticipatedSubmissionDate(null);
-		project.setParentProjectId(currentLatestVersion.getParentProjectId());
-		project.setVersionNum(currentLatestVersion.getVersionNum() + 1);
+		
 		
 		ArrayList<Project> projectsToAdd = new ArrayList<Project>(Arrays.asList(project));
 		
@@ -281,10 +283,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		List<InstitutionalCertification> currentIcs = currentLatestVersion.getInstitutionalCertifications();
 		if(!CollectionUtils.isEmpty(currentIcs)) {
 			List<InstitutionalCertification> ics = new ArrayList<InstitutionalCertification>();			
-			/*for(InstitutionalCertification currentIc: currentIcs) {
+			for(InstitutionalCertification currentIc: currentIcs) {
 				InstitutionalCertification ic = new InstitutionalCertification();
 				BeanUtils.copyProperties(currentIc, ic);
 				ic.setId(null);
+				ic = manageProjectService.saveOrUpdateIc(ic);
 				List<Document> currentIcDocs = currentIc.getDocuments();
 				if(!CollectionUtils.isEmpty(currentIcDocs)) {
 					List<Document> icDocs = new ArrayList<Document>();					
@@ -292,15 +295,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						Document icDoc = new Document();
 						BeanUtils.copyProperties(currentIcDoc, icDoc);
 						icDoc.setId(null);
-						icDoc.setInstitutionalCertificationId(null);
+						icDoc.setInstitutionalCertificationId(ic.getId());
 						icDoc.setProjectId(null);
 						icDocs.add(icDoc);
 					}
 					ic.setDocuments(icDocs);
 				}
-				ic.setProjects(projectsToAdd);
+				//ic.setProjects(projectsToAdd);
 				ics.add(ic);
-			}*/
+			}
 			project.setInstitutionalCertifications(ics);
 		}
 		
