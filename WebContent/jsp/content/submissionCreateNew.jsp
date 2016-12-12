@@ -51,7 +51,7 @@
 		</div>
 
 	</s:form>
-<script type="text/javascript" src="<s:url value="/controllers/createNewSubmission.js" />"></script>
+<script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
 <script type="text/javascript">
 $(function($){
 	$('[data-toggle="tooltip"]').tooltip({
