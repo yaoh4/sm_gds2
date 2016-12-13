@@ -26,6 +26,7 @@ import com.opensymphony.xwork2.Preparable;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
@@ -35,6 +36,8 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
@@ -165,7 +168,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					project = new Project();
 					//Populate from current latest version
 					Project existingLatestVersion = manageProjectService.getCurrentLatestVersion(getProject().getProjectGroupId());
-
 					project = initializeNewVersion(project, existingLatestVersion);
 					
 				} else {
@@ -263,6 +265,40 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				InstitutionalCertification ic = new InstitutionalCertification();
 				BeanUtils.copyProperties(currentIc, ic);
 				ic.setId(null);
+				ic.setStudies(new ArrayList<Study>());
+				List<Study> currentStudies = currentIc.getStudies();
+				if(!CollectionUtils.isEmpty(currentStudies)) {
+					for(Study currentStudy: currentStudies) {
+						Study study= new Study();
+						BeanUtils.copyProperties(currentStudy, study);
+						study.setId(null);
+						study.setInstitutionalCertification(ic);
+						study.setStudiesDulSets(new ArrayList<StudiesDulSet>());
+						List<StudiesDulSet> currentDulSets = currentStudy.getStudiesDulSets();
+						if(!CollectionUtils.isEmpty(currentDulSets)) {
+							for(StudiesDulSet currentDulSet: currentDulSets) {
+								StudiesDulSet dulSet = new StudiesDulSet();
+								BeanUtils.copyProperties(currentDulSet, dulSet);
+								dulSet.setId(null);
+								dulSet.setStudy(study);
+								dulSet.setDulChecklistSelections(new ArrayList<DulChecklistSelection>());
+								List<DulChecklistSelection> currentDulSelections = currentDulSet.getDulChecklistSelections();
+								if(!CollectionUtils.isEmpty(currentDulSelections)) {
+									for(DulChecklistSelection currentDulSelection: currentDulSelections) {
+										DulChecklistSelection dulSelection = new DulChecklistSelection();
+										BeanUtils.copyProperties(currentDulSelection, dulSelection);
+										dulSelection.setId(null);
+										dulSelection.setStudiesDulSet(dulSet);
+										dulSet.addDulChecklistSelection(dulSelection);
+									}
+								}
+								study.addStudiesDulSet(dulSet);
+							}
+						}
+						ic.addStudy(study);
+					}
+				}
+				
 				ic = manageProjectService.saveOrUpdateIc(ic);
 						
 				List<Document> currentIcDocs = fileUploadService.retrieveFileByIcId(currentIc.getId(), currentLatestVersion.getId());
@@ -279,15 +315,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			}
 			project.setInstitutionalCertifications(ics);
 		}
-				
-		//Reset page statuses
-		project.setPageStatuses(new ArrayList());
 		
 		//Copy planAnswerSelections 
 		Set<PlanAnswerSelection> currentPlanAnswers = currentLatestVersion.getPlanAnswerSelections();
 		if(!CollectionUtils.isEmpty(currentPlanAnswers)) {
 			Set<PlanAnswerSelection> planAnswers = new HashSet<PlanAnswerSelection>();			
 			for(PlanAnswerSelection currentPlanAnswer: currentPlanAnswers) {
+				if( ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID.equals(currentPlanAnswer.getPlanQuestionsAnswer().getQuestionId())) 		
+					//Blank out the answer to 'Has GPA reviewed the data sharing plan
+					continue;
 				PlanAnswerSelection planAnswer = new PlanAnswerSelection();
 				//BeanUtils.copyProperties(currentPlanAnswer, planAnswer);
 				//planAnswer.setId(null);
@@ -297,12 +333,26 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(planAnswer.getPlanQuestionsAnswer().getQuestionId())) {		
 					//Set<RepositoryStatus> repoStatuses = new HashSet<RepositoryStatus>();
 					RepositoryStatus repoStatus = createRepositoryStatus(planAnswer);														
+					
+					if(currentLatestVersion.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
+						//If no data is to be submitted, then set the submission status to NA
+						repoStatus.setLookupTBySubmissionStatusId(
+							lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
+					}
+						
 					repoStatus.setProject(project);
 					planAnswer.getRepositoryStatuses().add(repoStatus);
 				}
+					
 				planAnswers.add(planAnswer);
 			}
+			
 			project.setPlanAnswerSelections(planAnswers);
+			
+			//Remove those planAnswers that do not match specific preconditions
+			if(GdsSubmissionActionHelper.isSubmissionUpdated(project, currentLatestVersion)) {
+				deletePlanAnswers(project);
+			}
 		}
 		
 		//save the project
@@ -324,11 +374,16 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			}
 		}
 		
-		//performDataCleanup(getProject(), project);
+		//Remove those documents that do not match specific preconditions
+		if(GdsSubmissionActionHelper.isSubmissionUpdated(project, currentLatestVersion)) {
+			deleteExceptionMemo(project);
+		}
 		
-		//Copy subproject ?
-		return project;
-						
+		//Fix latestGroupVersion
+		//Fix statuses - BSI, single ICs, GDS Plan page
+		//Cleanup file storage
+		//Copy subprojects
+		return project;			
 	}
 	
 	
@@ -528,10 +583,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			setProject(new Project());
 			//Initially set to unlinked since there is no grant number
 			getExtramuralGrant().setDataLinkFlag(ApplicationConstants.FLAG_NO); 
-			//getExtramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
-			//getExtramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
-			//getIntramuralGrant().setGrantContractType(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
-			//getIntramuralGrant().setPrimaryGrantContractFlag(ApplicationConstants.FLAG_YES);
 		}			
 	}
 	
@@ -867,17 +918,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			this.addActionError(getText("additional.grants.required"));
 		}
 		
-		/*if(getProject().getParentProjectId() == null){
-		if(StringUtils.isBlank(grantsAdditional)) {
-			this.addActionError(getText("additional.grants.required"));
-		}
-		}
-		else {
-			if(retrieveParentProject().getAssociatedGrants().isEmpty())
-				grantsAdditional =  ApplicationConstants.FLAG_NO;
-			else
-				grantsAdditional = ApplicationConstants.FLAG_YES;
-		}*/
 		Long submissionReasonId = null;
         
 		//Validation for SubmissionReason
