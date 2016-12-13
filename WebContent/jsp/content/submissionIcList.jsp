@@ -51,14 +51,12 @@
              <br/><br/></div> 
             <p class="question" style="display:inline;">Has the GPA received and reviewed all Institutional Certifications?
             <s:if test= "%{subprojectFlag} == 'N'">
-            &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-            <i class="helpfile fa fa-question-circle fa-1x"
-		     aria-hidden="true"></i></a>
+            &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_REVIEWED_KEY" value="%{getHelpText('IC_REVIEWED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 		     </s:if>
 		     <s:else>
-		     &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-            <i class="helpfileSubProject fa fa-question-circle fa-1x"
-		     aria-hidden="true"></i></a>
+		     &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_REVIEWED_KEY" value="%{getHelpText('IC_REVIEWED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 		     </s:else>
                &nbsp;
               <div style="display:none" id="addICBtn">
@@ -305,5 +303,12 @@
     </s:form>
 
 <script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
-<script type="text/javascript" src="<s:url value="/controllers/institutional_dashboard.js" />"></script>  
+<script type="text/javascript" src="<s:url value="/controllers/institutional_dashboard.js" />"></script> 
+<script type="text/javascript">
+$(function($){
+	$('[data-toggle="tooltip"]').tooltip({
+	    container : 'body'
+	  });
+});
+</script> 
 

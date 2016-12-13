@@ -55,9 +55,8 @@
 			  <div class="form-group row">
 			   <div class="col-xs-3">
                   <label for="Provisional or Final?">Provisional or Final? </label>
-                  &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a>
+                  &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_PROV_FINAL_KEY" value="%{getHelpText('IC_PROV_FINAL_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
                   <s:select name="instCertification.provisionalFinalCode"
                     value="instCertification.provisionalFinalCode"
                     class="c-select form-control"
@@ -68,9 +67,8 @@
                 
                 <div class="col-xs-3">
                   <label for="Approved by GPA">Approved by GPA</label>
-                  &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a>
+                  &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_APPROVED_BY_GPA_KEY" value="%{getHelpText('IC_APPROVED_BY_GPA_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
                   <s:select name="instCertification.gpaApprovalCode"
                   	value="instCertification.gpaApprovalCode"
                     class="c-select form-control"
@@ -82,9 +80,8 @@
              
                 <div id="memo" class="col-xs-3">
                   <label for="Project Submission Status">IC Memo for Use in Future Projects?</label>
-                  &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a>
+                  &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_MEMO_KEY" value="%{getHelpText('IC_MEMO_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
                   <s:select name="instCertification.futureProjectUseCode"
                     value="instCertification.futureProjectUseCode"
                     class="c-select form-control"
@@ -149,9 +146,8 @@
                               <div class="col-xs-3">
                                 <label class="label_sn" for="Study Name">
                                   <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>
-                                  Study Name &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                                  <i class="helpfile fa fa-question-circle fa-1x"
-							      aria-hidden="true"></i></a>
+                                  Study Name &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_STUDY_KEY" value="%{getHelpText('IC_STUDY_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
                                 </label>
                                 <input type="text" class="form-control input_sn" placeholder="Full Name of Study" 
                               	    id="studyName-${studiesIdx}"  maxlength="100"
@@ -160,9 +156,8 @@
                               </div>
                               					
                               <div class="col-xs-3">
-                                <label class="label_in" for="Provisional or Final?">Institution &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                                    <i class="helpfile fa fa-question-circle fa-1x"
-							          aria-hidden="true"></i></a></label>
+                                <label class="label_in" for="Provisional or Final?">Institution &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_INSTITUTION_KEY" value="%{getHelpText('IC_INSTITUTION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></label>
                                 <input type="text" class="form-control input_in" placeholder="Full Name of Institution"
                               		id="institution-${studiesIdx}" maxlength="120"
 									name="instCertification.studies[<s:property value='#studiesStat.index'/>].institution"
@@ -171,9 +166,8 @@
                               </div>
                               <div class="DULv col-xs-3">
                                 <label for="Data Use Limitation(s) Verified?" class="label_dulV">Data Use Limitation(s) Verified?
-                                &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                                <i class="helpfile fa fa-question-circle fa-1x"
-							    aria-hidden="true"></i></a>
+                                &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_DUL_KEY" value="%{getHelpText('IC_DUL_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
                                 </label>
                                 <s:select name="instCertification.studies[%{#studiesStat.index}].dulVerificationId"
                         			value="instCertification.studies[#studiesStat.index].dulVerificationId"
@@ -237,3 +231,10 @@
 <s:include value="/jsp/content/dulSetTemplate.jsp"/>
 <script type="text/javascript"
 	src="<s:url value="/controllers/institutional.js" />"></script>
+	<script type="text/javascript">
+$(function($){
+	$('[data-toggle="tooltip"]').tooltip({
+	    container : 'body'
+	  });
+});
+</script>

@@ -45,10 +45,9 @@
                       		name="parentDul-<s:property value='#studiesStat.index'/>-<s:property value='#dulSetStat.index'/>" 
 							id="parentDul${studiesIdx}-${dulSetIdx}-${parentDul.id}" value="${parentDul.id}">
                     	&nbsp;&nbsp;${parentDul.displayText}    
-                    </label> &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a> 	  
-                  </div>				
+                    </label> &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="%{#parentDul.id}" value="%{getHelpText(#parentDul.id)}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a> 	  
+                  </div>
 				  <div id="dulSet${studiesIdx}-${dulSetIdx}-${parentDul.id}" class="dulSetDiv indent info" style="display:none;">
 				  
 				    <s:if test="%{#parentDul.id == 13}"> 
