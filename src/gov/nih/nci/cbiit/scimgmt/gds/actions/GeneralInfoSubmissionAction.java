@@ -156,9 +156,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(project != null){
 			project = setupGrantData(project);
 			performDataCleanup(getProject(), project);
-			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);		
-		}
-		else{
+			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
+			project = super.saveProject(project, null);			
+		} else{
 			if(getProject().getId() == null) {
 				if(ApplicationConstants.FLAG_YES.equals(getProject().getLatestVersionFlag())) {
 					//New version, 
@@ -166,39 +166,26 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					//Populate from current latest version
 					Project existingLatestVersion = manageProjectService.getCurrentLatestVersion(getProject().getProjectGroupId());
 
-					/*try {
-						ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
-						BeanUtils.copyProperties(getProject(), project);
-						
-					} catch (Exception e) {
-						logger.error("Error occured while creating a new version of an existing project", e);
-					}*/	
+					project = initializeNewVersion(project, existingLatestVersion);
 					
-					//We have a new version, so set the latest version flag on the
-					//current one to 'N'
-					existingLatestVersion.setLatestVersionFlag(ApplicationConstants.FLAG_NO);					
-					existingLatestVersion = manageProjectService.saveOrUpdate(existingLatestVersion);
-					
-					initializeNewVersion(project, existingLatestVersion);
-					performDataCleanup(getProject(), project);
-					
-					//Copy subproject ?
-				}
-				else if( getProject().getParentProjectId() != null) {
-					// For new Sub project, populate child table from parent
-					project = getProject();
-					Project parentProject = retrieveParentProject(project);
-					project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
-					project.setDocAbbreviation(parentProject.getDocAbbreviation());
-					project.setProgramBranch(parentProject.getProgramBranch());
 				} else {
+					
 					project = getProject();
-				}
+					if( getProject().getParentProjectId() != null) {
 				
-				project.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
+						// For new Sub project, populate child table from parent					
+						Project parentProject = retrieveParentProject(project);
+						project.setSubmissionReasonId(parentProject.getSubmissionReasonId());
+						project.setDocAbbreviation(parentProject.getDocAbbreviation());
+						project.setProgramBranch(parentProject.getProgramBranch());
+					}
+				 
+					project.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
+					project = super.saveProject(project, null);
+				}
 			}
 		}		
-		project = super.saveProject(project, null);
+		
 		setProject(project);
 		//loadGrantInfo();
 		setProjectId(project.getId().toString());
@@ -246,13 +233,17 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	}
 	
 	
-	public Project initializeNewVersion(Project project, Project currentLatestVersion) {
+	public Project initializeNewVersion(Project project, Project currentLatestVersion)
+		throws Exception {
 		
 		project.setId(null);
 		project.setVersionEligibleFlag(ApplicationConstants.FLAG_NO);
+		project.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
+		
 		project.setSubprojectFlag(currentLatestVersion.getSubprojectFlag());
 		project.setParentProjectId(currentLatestVersion.getParentProjectId());
 		project.setVersionNum(currentLatestVersion.getVersionNum() + 1);
+		project.setProjectGroupId(currentLatestVersion.getProjectGroupId());
 		
 		GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
 		
@@ -261,8 +252,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		project.setBsiReviewedId(null);
 		project.setAnticipatedSubmissionDate(null);
 		
-		
 		ArrayList<Project> projectsToAdd = new ArrayList<Project>(Arrays.asList(project));
+		List<Document> icDocs = new ArrayList<Document>();					
 		
 		//Copy planAnswerSelections and blank out the IDs so that they get inserted as new
 		Set<PlanAnswerSelection> currentPlanAnswers = currentLatestVersion.getPlanAnswerSelections();
@@ -288,28 +279,47 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				BeanUtils.copyProperties(currentIc, ic);
 				ic.setId(null);
 				ic = manageProjectService.saveOrUpdateIc(ic);
-				List<Document> currentIcDocs = currentIc.getDocuments();
+				
+				List<Document> currentIcDocs = fileUploadService.retrieveFileByIcId(currentIc.getId(), currentLatestVersion.getId());
 				if(!CollectionUtils.isEmpty(currentIcDocs)) {
-					List<Document> icDocs = new ArrayList<Document>();					
 					for(Document currentIcDoc: currentIcDocs) {
 						Document icDoc = new Document();
 						BeanUtils.copyProperties(currentIcDoc, icDoc);
-						icDoc.setId(null);
 						icDoc.setInstitutionalCertificationId(ic.getId());
-						icDoc.setProjectId(null);
 						icDocs.add(icDoc);
 					}
-					ic.setDocuments(icDocs);
 				}
-				//ic.setProjects(projectsToAdd);
+				
 				ics.add(ic);
 			}
 			project.setInstitutionalCertifications(ics);
 		}
 		
-		
 		//Reset page statuses
 		project.setPageStatuses(new ArrayList());
+		
+		//save the project
+		project = super.saveProject(project, null);
+		
+		//save the IC docs
+		for(Document doc: icDocs) {
+			fileUploadService.storeFile(
+					project.getId(), ApplicationConstants.DOC_TYPE_IC, doc.getDoc(), doc.getFileName(), doc.getInstitutionalCertificationId());
+		}
+		
+		//save the other docs
+		List<Document> currentDocs = fileUploadService.retrieveFileByProjectId(currentLatestVersion.getId());
+		if(!CollectionUtils.isEmpty(currentDocs)) {
+			for(Document currentDoc: currentDocs) {
+				if(currentDoc.getInstitutionalCertificationId() == null) {
+					fileUploadService.storeFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null);
+				}
+			}
+		}
+		
+		//performDataCleanup(getProject(), project);
+		
+		//Copy subproject ?
 		return project;
 						
 	}

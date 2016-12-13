@@ -87,6 +87,32 @@ public class FileUploadServiceImpl implements FileUploadService {
 		return savedDoc;
 	}
 
+	
+	/**
+	 * Stores byte stream in DB. Used for file copy operation.
+	 * 
+	 * @param projectId
+	 * @param docType
+	 * @param data
+	 * @param fileName
+	 * @param certId
+	 * @return
+	 * @throws Exception
+	 */
+	public Document storeFile(Long projectId, String docType, byte[] data, String fileName, Long certId) throws Exception {
+		
+		Document doc = createDocument(projectId, docType, fileName, certId);
+		
+		//Perform tasks related to version control including removal of old doc if not supported.
+		doc = perfromVersionControl(doc);
+		doc.setDoc(data);
+		
+		// Save the file to DB
+		Document savedDoc = documentsDao.saveOrUpdate(doc);
+		return savedDoc;
+	}
+	
+	
 	/**
 	 * Stores user input text as a row in DB
 	 * 
@@ -110,6 +136,9 @@ public class FileUploadServiceImpl implements FileUploadService {
 		Document savedDoc = documentsDao.saveOrUpdate(doc);
 		return savedDoc;
 	}
+	
+	
+	
 
 	/**
 	 * Deletes a file from DB by docId

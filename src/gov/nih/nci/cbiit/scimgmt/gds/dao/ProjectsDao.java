@@ -17,6 +17,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -377,6 +378,7 @@ public class ProjectsDao {
 			Criteria criteria = null;
 			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class);
 			criteria.add(Restrictions.eq("projectGroupId", projectGroupId));
+			criteria.addOrder(Order.desc("createdDate"));
 			list =  (List<Project>) criteria.list();
 			return list;
 			

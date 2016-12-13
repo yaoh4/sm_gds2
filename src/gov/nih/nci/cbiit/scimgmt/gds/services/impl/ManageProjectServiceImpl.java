@@ -46,6 +46,16 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 * @return saved Project
 	 */
 	public Project saveOrUpdate(Project project) {
+		
+		//If this is a new project, check if this is a new  version of
+		//of an existing project
+		if(project.getId() == null && project.getProjectGroupId() != null) {
+			//Reset the latest version flag on the current version to 'N'.
+			Project currentLatestVersion = getCurrentLatestVersion(project.getProjectGroupId());
+			currentLatestVersion.setLatestVersionFlag(ApplicationConstants.FLAG_NO);
+			projectsDao.merge(currentLatestVersion);
+		}
+		
 		return projectsDao.merge(project);
 	}
 
@@ -78,6 +88,7 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		}
 		
 		Project project = findById(projectId);
+		Long projectGroupId = project.getProjectGroupId();
 		String subProjectFlag=project.getSubprojectFlag();
 		List<InstitutionalCertification> certs=project.getInstitutionalCertifications();
 		
@@ -99,6 +110,15 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 				icCertsDao.delete(ic);
 			}
 		}
+		
+		//Set the previous version to be the latest
+		List<Project> projects = getVersions(projectGroupId);
+		if(!CollectionUtils.isEmpty(projects)) {
+			Project currentLatestVersion = projects.get(0);
+			currentLatestVersion.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
+			projectsDao.merge(currentLatestVersion);
+		}
+		
 		return;
 	}
 	

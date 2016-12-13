@@ -34,6 +34,21 @@ public interface FileUploadService {
 	 */
 	public Document storeFile(Long projectId, String docType, File file, String fileName) throws Exception;
 
+	
+	
+	/**
+	 * Stores byte stream in DB. Used for file copy operation.
+	 * 
+	 * @param projectId
+	 * @param docType
+	 * @param data
+	 * @param fileName
+	 * @param certId
+	 * @return
+	 * @throws Exception
+	 */
+	public Document storeFile(Long projectId, String docType, byte[] data, String fileName, Long certId) throws Exception;
+	
 	/**
 	 * Stores user input text as a row in DB
 	 * 
