@@ -1489,3 +1489,21 @@ div.dataTables_scrollBody thead th {
   font-size: 9px;
   font-weight: bold;
 }
+
+.tooltip.right .tooltip-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -5px;
+    border-width: 5px 5px 5px 0;
+    border-right-color: #efefef;
+}
+
+.tooltip-inner {
+    max-width: 340px;
+    padding: 3px 8px;
+    color: #111;
+    text-align: left;
+    background-color: #efefef;
+    border-radius: 4px;
+}
+
