@@ -379,6 +379,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			deleteExceptionMemo(project);
 		}
 		
+		
+		//save the project to recomute the statuses
+		project = super.saveProject(project, null);
 		//Fix latestGroupVersion
 		//Fix statuses - BSI, single ICs, GDS Plan page
 		//Cleanup file storage
