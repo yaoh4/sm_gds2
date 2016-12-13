@@ -253,24 +253,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		project.setAnticipatedSubmissionDate(null);
 		
 		ArrayList<Project> projectsToAdd = new ArrayList<Project>(Arrays.asList(project));
-		List<Document> icDocs = new ArrayList<Document>();					
+		List<Document> icDocs = new ArrayList<Document>();	
 		
-		//Copy planAnswerSelections and blank out the IDs so that they get inserted as new
-		Set<PlanAnswerSelection> currentPlanAnswers = currentLatestVersion.getPlanAnswerSelections();
-		if(!CollectionUtils.isEmpty(currentPlanAnswers)) {
-			Set<PlanAnswerSelection> planAnswers = new HashSet<PlanAnswerSelection>();			
-			for(PlanAnswerSelection currentPlanAnswer: currentPlanAnswers) {
-				PlanAnswerSelection planAnswer = new PlanAnswerSelection();
-				BeanUtils.copyProperties(currentPlanAnswer, planAnswer);
-				planAnswer.setId(null);
-				planAnswer.setProjects(projectsToAdd);
-				planAnswers.add(planAnswer);
-			}
-			project.setPlanAnswerSelections(planAnswers);
-		}
-		
-		
-		//Copy ics and blank out the IDs so that they get inserted as new
+		//Copy ICs 
 		List<InstitutionalCertification> currentIcs = currentLatestVersion.getInstitutionalCertifications();
 		if(!CollectionUtils.isEmpty(currentIcs)) {
 			List<InstitutionalCertification> ics = new ArrayList<InstitutionalCertification>();			
@@ -279,7 +264,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				BeanUtils.copyProperties(currentIc, ic);
 				ic.setId(null);
 				ic = manageProjectService.saveOrUpdateIc(ic);
-				
+						
 				List<Document> currentIcDocs = fileUploadService.retrieveFileByIcId(currentIc.getId(), currentLatestVersion.getId());
 				if(!CollectionUtils.isEmpty(currentIcDocs)) {
 					for(Document currentIcDoc: currentIcDocs) {
@@ -289,14 +274,36 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						icDocs.add(icDoc);
 					}
 				}
-				
+						
 				ics.add(ic);
 			}
 			project.setInstitutionalCertifications(ics);
 		}
-		
+				
 		//Reset page statuses
 		project.setPageStatuses(new ArrayList());
+		
+		//Copy planAnswerSelections 
+		Set<PlanAnswerSelection> currentPlanAnswers = currentLatestVersion.getPlanAnswerSelections();
+		if(!CollectionUtils.isEmpty(currentPlanAnswers)) {
+			Set<PlanAnswerSelection> planAnswers = new HashSet<PlanAnswerSelection>();			
+			for(PlanAnswerSelection currentPlanAnswer: currentPlanAnswers) {
+				PlanAnswerSelection planAnswer = new PlanAnswerSelection();
+				//BeanUtils.copyProperties(currentPlanAnswer, planAnswer);
+				//planAnswer.setId(null);
+				planAnswer.setCreatedBy(loggedOnUser.getAdUserId());
+				planAnswer.setProjects(projectsToAdd);
+				planAnswer.setPlanQuestionsAnswer(currentPlanAnswer.getPlanQuestionsAnswer());
+				if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(planAnswer.getPlanQuestionsAnswer().getQuestionId())) {		
+					//Set<RepositoryStatus> repoStatuses = new HashSet<RepositoryStatus>();
+					RepositoryStatus repoStatus = createRepositoryStatus(planAnswer);														
+					repoStatus.setProject(project);
+					planAnswer.getRepositoryStatuses().add(repoStatus);
+				}
+				planAnswers.add(planAnswer);
+			}
+			project.setPlanAnswerSelections(planAnswers);
+		}
 		
 		//save the project
 		project = super.saveProject(project, null);
