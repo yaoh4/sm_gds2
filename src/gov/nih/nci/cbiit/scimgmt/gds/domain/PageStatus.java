@@ -143,7 +143,12 @@ public class PageStatus implements java.io.Serializable {
 		//If lastChangedBy present return that info
 		if(lastChangedBy != null) {
 			try {
+				if(lastChangedBy.equalsIgnoreCase("GDS")) {
+					return "";
+				}
+				else {
 				return getLastChangedByPerson().getFullName();
+				}
 			} catch (Exception e) {
 				//Person may be left, so return the stored user id
 				return lastChangedBy;
