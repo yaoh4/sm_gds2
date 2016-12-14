@@ -10,7 +10,8 @@
 	<div class="navbar-collapse main-nav subnav">
 		<ul class="nav navbar-nav ">
 			<s:if test="%{'newSubmission' eq #attr['navtab'] && project.id != null}">
-			  <s:if test="!isReadOnlyUser()">
+			<s:hidden id="latestVersionFlag" value="%{project.latestVersionFlag}"/>
+			  <s:if test="!isReadOnlyUser() && project.latestVersionFlag.equals(\"Y\")">
 				<%-- We always show the general info if its a saved project --%>
 				<s:if test="%{'generalInfo' eq #attr['subnavtab']}">
 					<li class="active"><a href="javascript: void(0)">General Info.</a></li>
@@ -87,7 +88,8 @@
 					</s:url>
 					<li><s:a href="%{submissionDetailUrl}">Submission Details</s:a></li>
 				</s:else>
-				<li class="divider-vertical"></li>				 
+				<li class="divider-vertical"></li>
+							 
 			</s:if>
 			
 			<!-- -------Admin tab -->
