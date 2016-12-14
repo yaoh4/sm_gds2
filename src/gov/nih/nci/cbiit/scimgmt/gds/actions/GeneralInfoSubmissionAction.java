@@ -183,6 +183,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						project.setProgramBranch(parentProject.getProgramBranch());
 					}
 				 
+					project.setVersionNum(1L);
 					project.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
 					project = super.saveProject(project, null);
 				}
@@ -274,10 +275,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	}
 	
 	
-	private Project copyProjectData(Project project, Project currentLatestVersion, boolean trueClone)
+	private Project copyProjectData(Project project, Project currentLatestVersion, boolean subprojectClone)
 		throws Exception {
 		
-		if(trueClone) {
+		if(subprojectClone) {
 			//Make a true copy of grantContracts only for subprojects copied as 
 			//part of parent project new version creation. 
 			List<ProjectGrantContract> savedGrantContracts = currentLatestVersion.getProjectGrantsContracts();
@@ -298,7 +299,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		List<Document> icDocs = new ArrayList<Document>();	
 		
 		//Copy ICs 
-		if(!trueClone) {
+		if(!subprojectClone) {
 		List<InstitutionalCertification> currentIcs = currentLatestVersion.getInstitutionalCertifications();
 		if(!CollectionUtils.isEmpty(currentIcs)) {
 			List<InstitutionalCertification> ics = new ArrayList<InstitutionalCertification>();			
@@ -356,8 +357,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			}
 			project.setInstitutionalCertifications(ics);
 		}
-		} //if !trueCone
-		else {
+		} else {
+			//This is a subprojectClone, so do not create new ICs
 			project = copyICsForClonedSubproject(project, currentLatestVersion);
 		}
 		
@@ -368,7 +369,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			Set<PlanAnswerSelection> planAnswers = new HashSet<PlanAnswerSelection>();			
 			for(PlanAnswerSelection currentPlanAnswer: currentPlanAnswers) {
 				if( ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID.equals(currentPlanAnswer.getPlanQuestionsAnswer().getQuestionId())
-						&& !trueClone) 		
+						&& !subprojectClone) 		
 					//Blank out the answer to 'Has GPA reviewed the data sharing plan
 					continue;
 				PlanAnswerSelection planAnswer = new PlanAnswerSelection();
@@ -379,7 +380,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				planAnswer.setPlanQuestionsAnswer(currentPlanAnswer.getPlanQuestionsAnswer());
 				if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(planAnswer.getPlanQuestionsAnswer().getQuestionId())) {		
 					RepositoryStatus repoStatus = new RepositoryStatus();
-					if(trueClone && !CollectionUtils.isEmpty(currentPlanAnswer.getRepositoryStatuses())) {
+					if(subprojectClone && !CollectionUtils.isEmpty(currentPlanAnswer.getRepositoryStatuses())) {
 						BeanUtils.copyProperties(
 							currentPlanAnswer.getRepositoryStatuses().iterator().next(), repoStatus);
 						repoStatus.setId(null);
