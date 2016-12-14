@@ -188,6 +188,15 @@ public class ManageSubmission extends BaseAction {
 		Long projectGroupId = project.getProjectGroupId();
 		if(projectGroupId != null) {
 			List<Project> versions =  manageProjectService.getVersions(projectGroupId);
+			if (versions != null) {
+				Project np = null;
+				for (final Iterator<Project> i = versions.iterator(); i.hasNext();) {
+					np = i.next();
+					if (project.getId().equals(np.getId())) {
+						i.remove();
+					}
+				}
+			}
 			return versions;
 		} 
 		return new ArrayList<Project>();
