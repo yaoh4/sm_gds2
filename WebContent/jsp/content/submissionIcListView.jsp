@@ -10,7 +10,7 @@
         </span>
         <div class="pheader" style="display:inline;"><h5>Institutional Certification(s)</h5></div>
         
-        <s:if test="%{!isReadOnlyUser() && editFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}"> 
+          <s:if test="%{!isReadOnlyUser() && editFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES) && project.latestVersionFlag.equals(\"Y\")}">
           <div style="display:inline; float: right;">
             <a href="/gds/manage/listIc.action?projectId=${project.id}">
               <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>

@@ -41,7 +41,7 @@
           <tbody>
             <tr class="odd">
               <td colspan="2">
-              <s:if test="!isReadOnlyUser()">
+             <s:if test="!isReadOnlyUser() && project.latestVersionFlag.equals(\"Y\")">
               	<a href="/gds/manage/navigateToGeneralInfo.action?projectId=${project.id}">Project Created</a>
               </s:if><s:else>Project Created</s:else></td>
               <td><div class="searchProgess">
@@ -53,7 +53,7 @@
 		  <s:if test="%{showPage('GDSPLAN')}">
             <tr >
               <td colspan="2">
-              <s:if test="!isReadOnlyUser()"><a href="/gds/manage/editGdsPlan.action?projectId=${project.id}">Genomic DSP</a>
+              <s:if test="!isReadOnlyUser() && project.latestVersionFlag.equals(\"Y\")"><a href="/gds/manage/editGdsPlan.action?projectId=${project.id}">Genomic DSP</a>
               </s:if><s:else>Genomic DSP</s:else></td>
       
               <td>
@@ -92,7 +92,7 @@
 		  <s:if test="%{showPage('IC')}">
             <tr >
               <td colspan="2">
-              <s:if test="!isReadOnlyUser()"><a href="/gds/manage/listIc.action?projectId=${project.id}">Institutional Certification</a>
+              <s:if test="!isReadOnlyUser() && project.latestVersionFlag.equals(\"Y\")"><a href="/gds/manage/listIc.action?projectId=${project.id}">Institutional Certification</a>
               </s:if><s:else>Institutional Certification</s:else></td>
               <td>
                <s:hidden id="ic" value="%{getPageStatus('IC').status.code}"/>
@@ -112,7 +112,7 @@
           <s:if test="%{showPage('BSI')}">
             <tr class="odd">
               <td colspan="2">
-              <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToBasicStudyInfo.action?projectId=${project.id}">Basic Study Information</a>
+              <s:if test="!isReadOnlyUser() && project.latestVersionFlag.equals(\"Y\")"><a href="/gds/manage/navigateToBasicStudyInfo.action?projectId=${project.id}">Basic Study Information</a>
               </s:if><s:else>Basic Study Information</s:else></td>
               <td>
               <s:hidden id="bsi" value="%{getPageStatus('BSI').status.code}"/>
@@ -133,7 +133,7 @@
           <div class="repoItem">      
             <tr class="repoRow">
               <td colspan="3" style="word-wrap:break-word;">
-              <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToRepositoryStatus.action?projectId=${project.id}">Submission Status for Repository: 
+              <s:if test="!isReadOnlyUser() && project.latestVersionFlag.equals(\"Y\")"><a href="/gds/manage/navigateToRepositoryStatus.action?projectId=${project.id}">Submission Status for Repository: 
                <s:if test="%{#repStatus.planAnswerSelectionTByRepositoryId.otherText != null}">
                   <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.planQuestionsAnswer.displayText" />
                      - <s:property value="#repStatus.planAnswerSelectionTByRepositoryId.otherText" />
@@ -239,7 +239,7 @@
               <td><s:if test="isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}"> 
             <s:hidden  id="prevSubId" value="%{subproject.id}"/>
             <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a></s:if> &nbsp;&nbsp;&nbsp;
-            <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}">
+           <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}">
             <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
               
             </tr>
@@ -288,7 +288,7 @@
               <td><s:if test="isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}"> 
             <s:hidden  id="prevSubId" value="%{project.parent.id}"/>
             <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a></s:if> &nbsp;&nbsp;&nbsp;
-            <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}">
+           <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}">
             <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
               
             </tr>
@@ -299,34 +299,67 @@
   </div>
   </s:if>
 <!-- End link to parent project -->
-
-<!-- Start of previous Link versions -->                            
-        <div class="qSpacing">
+<!-- Start of previous Link versions --> 
+<s:if test="%{versions.size > 0}">                 
+        <div class="qSpacing">    
+       <s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
     <p class="question">
       <a href="javascript:void"
-        class="versions"><i class="expandV fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Previous Versions
+        class="versions"><i class="expandV fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-Project Versions
     &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
     <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></p>
+    </s:if>
+    <s:else>
+     <p class="question">
+      <a href="javascript:void"
+        class="versions"><i class="expandV fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Project Versions
+    &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
+    <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></p>
+    </s:else>
     <div class="relatedVersions" style="display: none;">
       <table style="width: 90%;" cellpadding="0px" cellspacing="0"
         class="table table-bordered table-striped"
         style="margin-left: 10px;">
         <tr>
-          <th class="tableHeader" width="50%" scope="col">Project Title</th>
-            <th class="tableHeader" width="25%" scope="col">Created
-              By</th>
-            <th class="tableHeader" width="5%" scope="col">Submission Status</th>
+         <s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}"> 
+            <th class="tableHeader" width="50%" scope="col">Sub-Project Submission Title</th>
+            </s:if>
+            <s:else>
+             <th class="tableHeader" width="50%" scope="col">Project Submission Title</th>
+            </s:else>
+            <th class="tableHeader" width="5%" scope="col">Version#</th>
+            <th class="tableHeader" width="25%" scope="col">Principal Investigator</th>
             <th class="tableHeader" width="20%" scope="col">Action</th>
         </tr>
+        <s:iterator status="stat" var="version" value="versions">
+         <s:set name="index" value="#stat.index"/>
         <tr>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td><a href="#"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> </td>
+         <td> <s:property value="%{#version.submissionTitle}" /></td>
+         <td><s:property value="%{#version.versionNum}" /> </td>
+         <td>
+         <s:if test = "extramuralGrant.piLastName != null">
+         <s:a href="mailto:%{extramuralGrant.piEmailAddress}?">
+		${extramuralGrant.piLastName},${extramuralGrant.piFirstName} 
+		</s:a>
+		</s:if>
+		 <br>
+		  <s:if test = "intramuralGrant.piLastName != null">
+		<s:a href="mailto:%{intramuralGrant.piEmailAddress}?">
+		${intramuralGrant.piLastName},${intramuralGrant.piFirstName} 
+		</s:a>
+		</s:if>
+        </td>
+        <td> 
+        <s:set name="id" value="%{#version.id}"/>
+            <a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${id}">
+         <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
+         </td>
         </tr>
+        </s:iterator>
       </table>
     </div>
   </div>
+  </s:if>
 <!--  End link to previous versions -->
     </div>
   </div>
