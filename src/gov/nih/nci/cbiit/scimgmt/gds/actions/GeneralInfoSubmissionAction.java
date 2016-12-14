@@ -164,15 +164,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			project = super.saveProject(project, null);			
 		} else{
 			if(getProject().getId() == null) {
-				if(ApplicationConstants.FLAG_YES.equals(getProject().getLatestVersionFlag())) {
-					//New version, 
+				if(getProject().getProjectGroupId() != null) {
+					//New version of project or subproject, 
 					project = new Project();
 					//Populate from current latest version
 					Project existingLatestVersion = manageProjectService.getCurrentLatestVersion(getProject().getProjectGroupId());
 					project = initializeNewVersion(project, existingLatestVersion);
 					
 				} else {
-					
+					//New project or subproject
 					project = getProject();
 					if( getProject().getParentProjectId() != null) {
 				
@@ -184,6 +184,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					}
 				 
 					project.setVersionNum(1L);
+					project.setSubprojectEligibleFlag(ApplicationConstants.FLAG_NO);
 					project.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
 					project = super.saveProject(project, null);
 				}
@@ -527,6 +528,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}		
 		
 		cleanUpSubProject(subProject);
+		//Set to null since this will be a new group
+		subProject.setProjectGroupId(null);
 		setProject(subProject);
 		loadGrantInfo();
 		setGrantSelection(subProject.getGrantSelection());
@@ -560,10 +563,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	
 	
 	/**
-	 * This method creates a new version of an existing Project.
+	 * This method creates a new version of an existing Project
+	 * or subproject.
 	 * @return
 	 */
-	public String createNewProjectVersion(){
+	public String createNewVersion(){
 
 		logger.debug("Create New Verion of an existing Project");
 		
@@ -578,8 +582,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			logger.error("Error occured while creating a new version of an existing project", e);
 		}		
 		newVersion.setId(null);
-		newVersion.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
-		newVersion.setProjectGroupId(existingProject.getProjectGroupId());
 		setProject(newVersion);
 		loadGrantInfo();
 		setGrantSelection(newVersion.getGrantSelection());
@@ -591,51 +593,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		setUpLists();
 		return SUCCESS;
 	}
-	
-	
-	/**
-	 * This method creates a new version of an existing Sub-Project.
-	 * @return
-	 */
-	public String createNewSubprojectVersion(){
-
-		logger.debug("Create New Verions of an existing Sub-Project");
-		
-		Project newSubprojectVersion = new Project();
-		Project existingSubproject = retrieveSelectedProject();
-
-		try {
-			ConvertUtils.register(new LongConverter(null), java.lang.Long.class);          
-			BeanUtils.copyProperties(existingSubproject, newSubprojectVersion);
-
-		} catch (Exception e) {
-			logger.error("Error creating a new version of an existing Subproject", e);
-		}		
-		
-		newSubprojectVersion.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
-		newSubprojectVersion.setProjectGroupId(existingSubproject.getProjectGroupId());
-		
-		setProject(newSubprojectVersion);
-		loadGrantInfo();
-		setUpLists();
-		return SUCCESS;
-	}
-	
-	
-	/**
-	 * Clean up of new subproject version.
-	 */
-	private void cleanUpSubProjectVersion(Project project){
-		
-		project.setId(null);
-		project.setVersionEligibleFlag(ApplicationConstants.FLAG_NO);
-		project.setCertificationCompleteFlag(null);
-		project.setBsiComments(null);
-		project.setBsiReviewedId(null);
-		project.setAnticipatedSubmissionDate(null);
-		project.setVersionEligibleFlag(ApplicationConstants.FLAG_NO);							
-	}
-	
 	
 	
 	

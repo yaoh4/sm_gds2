@@ -272,10 +272,10 @@
 		<action name="createSubproject" method="createSubproject" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
 			  <result name="success" type="tiles">submissionGeneralInfo</result>
 		</action>	
-		<action name="createNewProjectVersion" method="createNewProjectVersion" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+		<action name="createNewProjectVersion" method="createNewVersion" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
 			  <result name="success" type="tiles">submissionGeneralInfo</result>
 		</action>
-		<action name="createNewSubprojectVersion" method="createNewSubprojectVersion" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
+		<action name="createNewSubprojectVersion" method="createNewVersion" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
 			  <result name="success" type="tiles">submissionGeneralInfo</result>
 		</action>
 	</package>
