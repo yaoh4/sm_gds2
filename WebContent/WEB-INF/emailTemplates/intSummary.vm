@@ -1,0 +1,102 @@
+<html>
+<body>
+
+	<p>Dear ${dear},</p>
+
+	<p>You are receiving this automated courtesy message as a Genomic
+		Program Administrator for NCI's ${doc}.</p>
+	<p>As part of your responsibility to overview Genomic Data Sharing
+		submissions for ${doc}, we have identified that the following 
+		GDS Submissions have some issues that need to be addressed:</p>
+
+	#if ($pastSubmissionDateFlag == "Y")
+	<table border=1 cellspacing=1 cellpadding=0 width="75%"
+		style="width: 75.0%; background: #AAAAAA; border: solid windowtext 1.0pt;">
+		<thead>
+			<tr>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 16%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Submission Project
+								Title</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 16%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Principal
+								Investigator</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 16%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Data Sharing Plan</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 16%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Institutional Certifications</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 16%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Basic Study Information</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 16%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Anticipated
+								Submission Date</span></b>
+					</p>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach ($row in $pastSubmissionDateResult)
+			<tr>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectSubmissionTitle</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.intPiFullName</span></p></td>
+				#if ($row.gdsPlanPageStatusCode == "COMPLETED")
+					<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">Completed</span></p></td>
+				#end
+				#if ($row.gdsPlanPageStatusCode != "COMPLETED")
+					<td style="border: solid windowtext 1.0pt; background: white; color: red;"><p><span style="font-size: 10.0pt;">DSP memo not complete</span></p></td>
+				#end
+				#if ($row.icPageStatusCode == "COMPLETED")
+					<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">Completed</span></p></td>
+				#end
+				#if ($row.icPageStatusCode != "COMPLETED")
+					<td style="border: solid windowtext 1.0pt; background: white; color: red;"><p><span style="font-size: 10.0pt;">IC memo not complete</span></p></td>
+				#end
+				#if ($row.bsiPageStatusCode == "COMPLETED")
+					<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">Completed</span></p></td>
+				#end
+				#if ($row.bsiPageStatusCode != "COMPLETED")
+					<td style="border: solid windowtext 1.0pt; background: white; color: red;"><p><span style="font-size: 10.0pt;">BSI not complete</span></p></td>
+				#end
+				#if ($row.anticipatedSubmissionDatePast == "Y")
+					<td style="border: solid windowtext 1.0pt; background: white; color: red;"><p><span style="font-size: 10.0pt;">$row.anticipatedSubmissionDateString</span></p></td>
+				#end
+				#if ($row.anticipatedSubmissionDatePast == "N")
+					<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.anticipatedSubmissionDateString</span></p></td>
+				#end
+			</tr>
+			#end
+		</tbody>
+	</table>
+	#end
+	
+	<p>
+		In order to ensure the appropriate tracking of the Genomic Data
+		Sharing Policy, please log in the <a href="${url}">Genomic Data
+			Sharing Tracking System</a> to follow up on the above listed submissions.
+	</p>
+
+	<p>Thank you.</p>
+
+</body>
+</html>

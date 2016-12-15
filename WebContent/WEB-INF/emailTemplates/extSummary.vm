@@ -1,0 +1,189 @@
+<html>
+<body>
+
+	<p>Dear ${dear},</p>
+
+	<p>You are receiving this automated courtesy message as a Genomic
+		Program Administrator for NCI's ${doc}.</p>
+
+	<p>As part of your responsibility to overview Genomic Data Sharing
+		submissions for ${doc}, we have
+		identified that the following GDS Submissions have some issues that
+		need to be corrected in order to be Completed on time:</p>
+
+	#if ($pastSubmissionDateFlag == "Y")
+	<p>
+	<ul>
+		<li>The Anticipated Submission Date provided for the below
+			submission(s) is in the past and the Submission Status milestone is
+			not in "Completed" Status.</li>
+	</ul>
+	</p>
+
+	<table border=1 cellspacing=1 cellpadding=0 width="100%"
+		style="width: 100.0%; background: #AAAAAA; border: solid windowtext 1.0pt;">
+		<thead>
+			<tr>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Submission Project
+								Title</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Principal
+								Investigator</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Program Director</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Anticipated
+								Submission Date</span></b>
+					</p>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach ($row in $pastSubmissionDateResult)
+			<tr>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectSubmissionTitle</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPiFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPdFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.anticipatedSubmissionDate</span></p></td>
+			</tr>
+			#end
+		</tbody>
+	</table>
+	#end
+	
+	#if ($bsiInProgressFlag == "Y")
+	<p>
+	<ul>
+		<li>The Basic Study Information milestone is still "Not Started"
+			or "In Progress" Status and the provided Anticipated Submission Date
+			is in a week from today.</li>
+	</ul>
+	</p>
+
+	<table border=1 cellspacing=1 cellpadding=0 width="100%"
+		style="width: 100.0%; background: #AAAAAA; border: solid windowtext 1.0pt;">
+		<thead>
+			<tr>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Submission Project
+								Title</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Principal
+								Investigator</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Program Director</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Anticipated
+								Submission Date</span></b>
+					</p>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach ($row in $bsiInProgressResult)
+			<tr>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectSubmissionTitle</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPiFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPdFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.anticipatedSubmissionDate</span></p></td>
+			</tr>
+			#end
+		</tbody>
+	</table>
+	#end
+	
+	#if ($gdsIcInProgressFlag == "Y")
+	<p>
+	<ul>
+		<li>The Genomic Data Sharing Plan and/or the Institutional
+			Certifications milestones are still "Not Started" or "In Progress"
+			Status and the Grant Budget End Date 45 days from today.</li>
+	</ul>
+	</p>
+
+	<table border=1 cellspacing=1 cellpadding=0 width="100%"
+		style="width: 100.0%; background: #AAAAAA; border: solid windowtext 1.0pt;">
+		<thead>
+			<tr>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Submission Project
+								Title</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Principal
+								Investigator</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Program Director</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Grant Budget End
+								Date</span></b>
+					</p>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach ($row in $gdsIcInProgressResult)
+			<tr>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectSubmissionTitle</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPiFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPdFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.budgetEndDate</span></p></td>
+			</tr>
+			#end
+		</tbody>
+	</table>
+	#end
+	
+	<p>
+		In order to ensure the appropriate tracking of the Genomic Data
+		Sharing Policy, please contact the Program Director and/or log in the
+		<a href="${url}">Genomic Data Sharing Tracking System</a> to follow up
+		with the above listed issues with their submissions.
+	</p>
+
+	<p>Thank you.</p>
+
+</body>
+</html>

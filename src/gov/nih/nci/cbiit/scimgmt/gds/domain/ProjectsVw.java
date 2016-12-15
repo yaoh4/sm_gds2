@@ -1,7 +1,9 @@
 package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Jul 19, 2016 12:32:23 PM by Hibernate Tools 3.4.0.CR1
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -65,6 +67,10 @@ public class ProjectsVw implements java.io.Serializable {
 	private Long repoCount;
 	private boolean expandRepository = false;
 	private String createdBy;
+	private Date anticipatedSubmissionDate;
+	private String budgetEndDate;
+	
+	private String extPdEmailAddress;
 	
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<ProjectsVw> subprojects = new ArrayList<ProjectsVw>();
@@ -543,5 +549,77 @@ public class ProjectsVw implements java.io.Serializable {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	@Formula(value="(SELECT p.anticipated_submission_date FROM projects_t p WHERE p.id = id)")
+	public Date getAnticipatedSubmissionDate() {
+		return anticipatedSubmissionDate;
+	}
+
+	public void setAnticipatedSubmissionDate(Date anticipatedSubmissionDate) {
+		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
+	}
+
+	@Transient
+	public String getAnticipatedSubmissionDateString() {
+		if(anticipatedSubmissionDate != null){
+			SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			return df.format(anticipatedSubmissionDate);
+		}
+		return "";
+	}
+	
+	@Transient
+	public String getAnticipatedSubmissionDatePast() {
+		if(anticipatedSubmissionDate != null && anticipatedSubmissionDate.before(new Date()))
+			return "Y";
+		return "N";
+	}
+	
+	@Formula(value="(SELECT to_char(mv.budget_end_date,'YYYY/MM/DD') FROM project_grants_contracts_t g,gds_grants_contracts_mv mv WHERE mv.lookup_grant_contract_num=g.grant_contract_num and g.appl_id=mv.appl_id and g.project_id(+) = id and g.primary_grant_contract_flag = 'Y' and g.grant_contract_type = 'Extramural')")
+	public String getBudgetEndDate() {
+		return budgetEndDate;
+	}
+
+	public void setBudgetEndDate(String budgetEndDate) {
+		this.budgetEndDate = budgetEndDate;
+	}
+
+	@Transient
+	public String getExtPdEmailAddress() {
+		return extPdEmailAddress;
+	}
+
+	public void setExtPdEmailAddress(String extPdEmailAddress) {
+		this.extPdEmailAddress = extPdEmailAddress;
+	}
+	
+	/**
+	 * This method is for displaying the pd full name and hyper link for the email.
+	 * @return
+	 */
+	@Transient
+	public String getExtPdFullName(){
+		String lastName = extPdLastName;
+		String firstName = extPdFirstName;
+		String fullName = "";
+		if(lastName != null && lastName.length() > 0){
+			fullName = fullName + lastName;
+		}
+		if(lastName != null && lastName.length() > 0 && firstName != null && firstName.length() > 0){
+			fullName = fullName + ", ";
+		}
+		if(firstName != null && firstName.length() > 0){
+			fullName = fullName + firstName;
+		}
+		String email = extPdEmailAddress;
+		if(StringUtils.isBlank(fullName)){
+			return "";
+		}else if(email == null || fullName.trim().length() < 1 || email.trim().length() < 1 ){
+			return fullName;
+		}
+		else{
+			return "<a href='mailto:" + email + "'>" + fullName + "</a>";
+		}
 	}
 }

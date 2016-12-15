@@ -3,28 +3,37 @@ package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.MailTemplateDao;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.NotificationsDao;
+import gov.nih.nci.cbiit.scimgmt.gds.dao.PropertyListDao;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.UserRoleDao;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.EmailNotification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
 import gov.nih.nci.cbiit.scimgmt.gds.services.MailService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsProperties;
+import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.mail.MessagingException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.VelocityException;
@@ -32,6 +41,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 @Component
 public class MailServiceImpl implements MailService {
@@ -60,6 +70,27 @@ public class MailServiceImpl implements MailService {
 	private NotificationsDao notificationsDao;
 	@Autowired
 	private UserRoleDao userRoleDao;
+	@Autowired
+	private PropertyListDao propertyListDAO;
+	
+	private Properties emailTemplates;
+	
+	private String pastSubmissionDateFlag;
+	private String bsiInProgressFlag;
+	private String gdsIcInProgressFlag;
+	
+	private List<ProjectsVw> pastSubmissionDateResult = new ArrayList<ProjectsVw>();
+	private List<ProjectsVw> bsiInProgressResult = new ArrayList<ProjectsVw>();
+	private List<ProjectsVw> gdsIcInProgressResult = new ArrayList<ProjectsVw>();
+
+	private List<ProjectsVw> pastSubmissionDateResultAll = new ArrayList<ProjectsVw>();
+	private List<ProjectsVw> bsiInProgressResultAll = new ArrayList<ProjectsVw>();
+	private List<ProjectsVw> gdsIcInProgressResultAll = new ArrayList<ProjectsVw>();
+	
+	private Map<String, Object> params = new HashMap<String, Object>();
+	
+	Map<String,List<String>> orgMapEmail = new HashMap<String, List<String>>();
+	Map<String,List<String>> orgMapName = new HashMap<String, List<String>>();
 	
 	/**
 	 * Send error message.
@@ -105,6 +136,278 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	/**
+	 * Send notification to user when a role is added.
+	 * @throws Exception 
+	 */
+	@Override
+	public void sendRoleAddedToUser(PersonRole personRole) throws Exception {
+
+		logger.info("Sending notification to user when a role is added");
+		NedPerson user = userRoleDao.findNedPersonByUserId(personRole.getNihNetworkId());
+		String newRole = personRole.getRole().getDescription();
+		
+		setCommonParams();
+		String[] to = {user.getEmail()};
+
+		params.put(LOGGED_ON_USER, loggedOnUser);
+		params.put(TO, to);
+		params.put("user", user);
+		params.put("newRole", newRole);
+
+		send("ROLE_ADDED", params);
+	}
+
+	/**
+	 * Send one time and summary emails to GPA for Extramural Submissions
+	 * @throws Exception 
+	 */
+	@Override
+	public void sendExtramuralEmail() throws Exception {
+		
+		setCommonParams();
+		params.put("system", "true");
+		
+		// Get the Submissions for Intramural Notifications
+		pastSubmissionDateResultAll = notificationsDao.getExtramuralPastSubmissionDate();
+		bsiInProgressResultAll = notificationsDao.getExtramuralBsiInProgress();
+		gdsIcInProgressResultAll = notificationsDao.getExtramuralGdsIcInProgress();
+		
+		// For each submission, send an email to the creator and PD of the submission if not sent yet.
+		sendExtramuralPdCreatorEmail(pastSubmissionDateResultAll, pastSubmissionDateResult, "EXT_PAST");
+		
+		sendExtramuralPdCreatorEmail(bsiInProgressResultAll, bsiInProgressResult, "EXT_BSI");
+		
+		sendExtramuralPdCreatorEmail(gdsIcInProgressResultAll, gdsIcInProgressResult, "EXT_IC");
+		
+		sendSummaryEmail("EXT_SUMMARY");
+
+	}
+
+	/**
+	 * Send one time and summary emails to GPA for Intramural Submissions
+	 */
+	@Override
+	public void sendIntramuralEmail() throws Exception {
+		
+		setCommonParams();
+		params.put("system", "true");
+		
+		// Get the Submissions for Extramural Notifications
+		pastSubmissionDateResultAll = notificationsDao.getIntramuralAll();
+		bsiInProgressResultAll.clear();
+		gdsIcInProgressResultAll.clear();
+		
+		sendSummaryEmail("INT_SUMMARY");
+		
+	}
+	
+	private void sendExtramuralPdCreatorEmail(List<ProjectsVw> submissionAll,
+			List<ProjectsVw> list, String template) throws Exception {
+		
+		MailTemplate mailTemplate = findByShortIdentifier(template);
+		
+		for(ProjectsVw submission: submissionAll) {
+			// Check to see if this has already been sent, if so, continue
+			List<EmailNotification> logs = notificationsDao.findLogByTemplateAndProjectId(mailTemplate.getId(), submission.getId());
+			if(!CollectionUtils.isEmpty(logs)) {
+				continue;
+			}
+			
+			list.clear();
+			list.add(submission);
+			NedPerson nedPerson = userRoleDao.findNedPersonByUserId(submission.getCreatedBy());
+			String pdName = submission.getExtPdFirstName() + " " + submission.getExtPdLastName();
+			String pdEmail = submission.getExtPdEmailAddress();
+			if (submission.getExtPdLastName() == null) {
+				// TODO populate primary contact info instead.
+				pdName = submission.getExtPdFirstName() + " " + submission.getExtPdLastName();
+				pdEmail = submission.getExtPdEmailAddress();
+			}
+			
+			String[] to = { pdEmail, (nedPerson == null? submission.getCreatedBy(): nedPerson.getEmail()) };
+			setSummaryParams(to, pdName + ", " + (nedPerson == null? submission.getCreatedBy(): nedPerson.getFullName()), "");
+			send(template, params);
+			
+			//Insert record into EMAIL_NOTIFICATIONS_T
+			insertEmailLogByProjectId(mailTemplate.getId(), submission.getId(), to);
+		}
+	}
+	
+	private void sendSummaryEmail(String template) throws Exception {
+
+		MailTemplate mailTemplate = findByShortIdentifier(template);
+		// 1. Loop through all GPAs and get their email address and hash them using their DOC
+		populateGpaOrgMap();
+
+		// 2. For each DOC, send the summary email if not sent yet. Filter out submission for that DOC only
+		for (Map.Entry<String, List<String>> entry : orgMapEmail.entrySet()) {
+
+			String[] to = entry.getValue().toArray(new String[entry.getValue().size()]);
+			String dear = constructDearForDoc(entry.getKey());
+
+			populateSummaryResultForDoc(entry.getKey());
+			
+			if (StringUtils.equals(pastSubmissionDateFlag, "Y") || StringUtils.equals(bsiInProgressFlag, "Y")
+					|| StringUtils.equals(gdsIcInProgressFlag, "Y")) {
+
+				// Check to see if this has already been sent, if so, continue
+				List<EmailNotification> logs = notificationsDao.findLogByTemplateAndDoc(template, mailTemplate.getId(), entry.getKey());
+				if(!CollectionUtils.isEmpty(logs)) {
+					continue;
+				}
+				
+				setSummaryParams(to, dear, entry.getKey());
+
+				send(template, params);
+				
+				//Insert record into EMAIL_NOTIFICATIONS_T
+				insertEmailLogByDoc(mailTemplate.getId(), entry.getKey(), to);
+			}
+
+		}
+
+		// 3. These are the Submissions which doesn't have GPA for that DOC.
+		if(!pastSubmissionDateResultAll.isEmpty() || !bsiInProgressResultAll.isEmpty()
+			|| !gdsIcInProgressResultAll.isEmpty()) {
+				
+			List<EmailNotification> logs = notificationsDao.findLogByTemplateAndDoc(template, mailTemplate.getId(), "All");
+			if(!CollectionUtils.isEmpty(logs)) {
+			
+				String[] to = { "test@test.com" };
+				setSummaryParams(to, "To Whom It May Concern", "All");
+
+				send(template, params);
+				
+				//Insert record into EMAIL_NOTIFICATIONS_T
+				insertEmailLogByDoc(mailTemplate.getId(), "All", to);
+			}
+		}
+	}
+	
+	private void populateGpaOrgMap() throws Exception {
+		orgMapEmail.clear();
+		orgMapName.clear();
+		RoleSearchCriteria gpaCriteria = new RoleSearchCriteria();
+		gpaCriteria.setGdsUsersOnly(true);
+		gpaCriteria.setRoleCode(ApplicationConstants.ROLE_GPA_CODE);
+		gpaCriteria.setDoc("%");
+		List<UserRole> gpas = userRoleDao.searchUserRole(gpaCriteria);
+		List<Organization> docListFromDb = propertyListDAO.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());
+		
+		for (UserRole gpa: gpas) {
+					
+			NedPerson nedPerson = userRoleDao.findNedPersonByUserId(gpa.getNihNetworkId());
+
+			String doc = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb, nedPerson.getNihsac());
+			if(!orgMapEmail.containsKey(doc)) {
+				orgMapEmail.put(doc,new ArrayList<String>());
+				orgMapName.put(doc,new ArrayList<String>());
+			}
+			orgMapEmail.get(doc).add(nedPerson.getEmail());
+			orgMapName.get(doc).add(nedPerson.getFullName());
+
+		}
+	}
+	
+	private String constructDearForDoc(String doc) {
+		String dear = StringUtils.join(orgMapName.get(doc), ", ");
+		if (orgMapName.get(doc).size() >= 2) {
+			StringBuffer sb = new StringBuffer(dear);
+	        sb.replace(dear.lastIndexOf(", "), dear.lastIndexOf(", ") + 1, ", and ");
+	        dear = sb.toString();
+		}
+		return dear;
+	}
+
+	private void populateSummaryResultForDoc(String doc) {
+		
+		ProjectsVw submission = null;
+		pastSubmissionDateResult.clear();
+		for(Iterator<ProjectsVw> i= pastSubmissionDateResultAll.iterator(); i.hasNext();) {
+			submission = i.next();
+			if(StringUtils.equals(submission.getDocAbbreviation(), doc)) {
+				pastSubmissionDateResult.add(submission);
+				i.remove();
+			}
+		}
+		
+		bsiInProgressResult.clear();
+		for(Iterator<ProjectsVw> i= bsiInProgressResultAll.iterator(); i.hasNext();) {
+			submission = i.next();
+			if(StringUtils.equals(submission.getDocAbbreviation(), doc)) {
+				bsiInProgressResult.add(submission);
+				i.remove();
+			}
+		}
+		
+		gdsIcInProgressResult.clear();
+		for(Iterator<ProjectsVw> i= gdsIcInProgressResultAll.iterator(); i.hasNext();) {
+			submission = i.next();
+			if(StringUtils.equals(submission.getDocAbbreviation(), doc)) {
+				gdsIcInProgressResult.add(submission);
+				i.remove();
+			}
+		}
+		
+		pastSubmissionDateFlag = (pastSubmissionDateResult.isEmpty()? "N": "Y");
+		bsiInProgressFlag = (bsiInProgressResult.isEmpty()? "N": "Y");
+		gdsIcInProgressFlag = (gdsIcInProgressResult.isEmpty()? "N": "Y");
+	}
+
+	private void insertEmailLogByProjectId(Long templateId, Long projectId, String[] to) {
+
+		EmailNotification record = new EmailNotification();
+		record.setMailTemplateId(templateId);
+		record.setProjectId(projectId);
+		record.setSentDate(new Date());
+		record.setToList(StringUtils.join(to, ","));
+		notificationsDao.logEmail(record);
+		
+	}
+	
+	private void insertEmailLogByDoc(Long templateId, String doc, String[] to) {
+		
+		EmailNotification record = new EmailNotification();
+		record.setMailTemplateId(templateId);
+		record.setDocAbbreviation(doc);
+		record.setSentDate(new Date());
+		record.setToList(StringUtils.join(to, ","));
+		notificationsDao.logEmail(record);
+		
+	}
+	
+	private void setCommonParams() {
+		final String from = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM);
+		final String fromDisplay = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM_DISPLAY);
+		final String url = gdsProperties.getProperty(ApplicationConstants.GDS_APPLICATION_URL);
+
+		params.put(FROM, from);
+		params.put(FROM_DISPLAY, fromDisplay);
+		params.put("url", url);
+	}
+
+	private void setSummaryParams(String[] to, String dear, String doc) {
+		params.put(TO, to);
+		params.put("dear", dear);
+		params.put("doc", doc);
+		params.put("pastSubmissionDateResult", pastSubmissionDateResult);
+		params.put("bsiInProgressResult", bsiInProgressResult);
+		params.put("gdsIcInProgressResult", gdsIcInProgressResult);
+		params.put("pastSubmissionDateFlag", pastSubmissionDateFlag);
+		params.put("bsiInProgressFlag", bsiInProgressFlag);
+		params.put("gdsIcInProgressFlag", gdsIcInProgressFlag);
+		if(StringUtils.equals(doc, "All")) {
+			params.put("doc", "DOCs which does not have GPA");
+			params.put("pastSubmissionDateResult", pastSubmissionDateResultAll);
+			params.put("bsiInProgressResult", bsiInProgressResultAll);
+			params.put("gdsIcInProgressResult", gdsIcInProgressResultAll);
+			params.put("pastSubmissionDateFlag", (pastSubmissionDateResultAll.isEmpty()? "N": "Y"));
+			params.put("bsiInProgressFlag", (bsiInProgressResultAll.isEmpty()? "N": "Y"));
+			params.put("gdsIcInProgressFlag", (gdsIcInProgressResultAll.isEmpty()? "N": "Y"));
+		}
+	}
+	
+	/**
 	 * Gets the mail template given a short identifier
 	 * 
 	 * @param shortIdentifier
@@ -145,8 +448,8 @@ public class MailServiceImpl implements MailService {
 	 */
 	private void send(final String identifier, final Map<String, Object> params) {
 
-		final MailTemplate template = findByShortIdentifier(identifier);
-
+		MailTemplate template = findByShortIdentifier(identifier);
+		
 		if (template != null) {
 			if (!template.getActiveFlag()) {
 				logger.info("Sending mail is turned off for template: " + identifier);
@@ -166,9 +469,14 @@ public class MailServiceImpl implements MailService {
 				final StringWriter subjectWriter = new StringWriter();
 
 				try {
-					velocityEngine.evaluate(vc, body, identifier, template.getBody());
+					if(emailTemplates.getProperty(identifier) != null) {
+						Template t = velocityEngine.getTemplate(emailTemplates.getProperty(identifier));
+					    t.merge(vc, body);
+					} else {
+						velocityEngine.evaluate(vc, body, identifier, template.getBody());
+					}
 					velocityEngine.evaluate(vc, subjectWriter, identifier, template.getSubject());
-					logger.info("evaluating email template: " + body.toString());
+					logger.debug("evaluating email template: " + body.toString());
 					logger.info("sending message....." + identifier + " with params..... " + params);
 
 					final MimeMessageHelper helper = new MimeMessageHelper(mailSender.createMimeMessage(), true,
@@ -190,7 +498,7 @@ public class MailServiceImpl implements MailService {
 						subject = "[" + env.toUpperCase() + "] " + subject;
 						subject += " {TO: " + StringUtils.join(to, ',') + "} {CC: " + StringUtils.join(cc, ',') + "}";
 						
-						if(loggedOnUser == null) {
+						if(params.get("system") != null && params.get("system").equals("true")) {
 							final String[] overrideAddrs = parse(gdsProperties.getProperty("email.override.address"));
 							helper.setTo(overrideAddrs);
 						} else {
@@ -226,6 +534,8 @@ public class MailServiceImpl implements MailService {
 					logger.error("IOException", e);
 				} catch (final MessagingException e) {
 					logger.error("MessagingException", e);
+				} catch (Exception e) {
+					logger.error("Exception", e);
 				}
 			} else {
 				logger.error("required parameter 'to' not found");
@@ -235,58 +545,12 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 
-	/**
-	 * Send weekly emails to GPA for Extramural Submissions
-	 */
-	@Override
-	public void sendWeeklyExtramuralEmail() {
-		List<ProjectsVw> result = notificationsDao.getExtramuralPastSubmissionDate();
-		result = notificationsDao.getExtramuralBsiInProgress();
-		result = notificationsDao.getExtramuralGdsIcInProgress();
-		RoleSearchCriteria gpaCriteria = new RoleSearchCriteria();
-		gpaCriteria.setGdsUsersOnly(true);
-		gpaCriteria.setRoleCode(ApplicationConstants.ROLE_GPA_CODE);
-		gpaCriteria.setDoc("%");
-		List<UserRole> gpas = userRoleDao.searchUserRole(gpaCriteria);
-		// Loop through all GPAs and get their email address and hash them using their DOC
-		return;
+	public Properties getEmailTemplates() {
+		return emailTemplates;
 	}
 
-	/**
-	 * Send weekly emails to GPA for Intramural Submissions
-	 */
-	@Override
-	public void sendWeeklyIntramuralEmail() {
-		List<ProjectsVw> result = notificationsDao.getIntramuralPastSubmissionDate();
-		result = notificationsDao.getIntramuralBsiInProgress();
-		result = notificationsDao.getIntramuralGdsIcInProgress();
+	public void setEmailTemplates(Properties emailTemplates) {
+		this.emailTemplates = emailTemplates;
 	}
-
-	/**
-	 * Send notification to user when a role is added.
-	 * @throws Exception 
-	 */
-	@Override
-	public void sendRoleAddedToUser(PersonRole personRole) throws Exception {
-
-		logger.info("Sending notification to user when a role is added");
-		NedPerson user = userRoleDao.findNedPersonByUserId(personRole.getNihNetworkId());
-		String newRole = personRole.getRole().getDescription();
-		
-		final Map<String, Object> params = new HashMap<String, Object>();
-		String[] to = {user.getEmail()};
-		final String from = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM);
-		final String fromDisplay = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM_DISPLAY);
-		final String url = gdsProperties.getProperty(ApplicationConstants.GDS_APPLICATION_URL);
-
-		params.put(LOGGED_ON_USER, loggedOnUser);
-		params.put(TO, to);
-		params.put(FROM, from);
-		params.put(FROM_DISPLAY, fromDisplay);
-		params.put("user", user);
-		params.put("newRole", newRole);
-		params.put("url", url);
-
-		send("ROLE_ADDED", params);
-	}
+	
 }

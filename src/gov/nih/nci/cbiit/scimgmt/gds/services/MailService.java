@@ -18,14 +18,15 @@ public interface MailService {
 	public void sendErrorMessage(String exceptionStack, String userErrorMessage, NedPerson loggedOnUser);
 
 	/**
-	 * Send weekly emails to GPA for Extramural Submissions
+	 * Send one time and summary emails to GPA for Extramural Submissions
+	 * @throws Exception 
 	 */
-	public void sendWeeklyExtramuralEmail();
+	public void sendExtramuralEmail() throws Exception;
 
 	/**
-	 * Send weekly emails to GPA for Intramural Submissions
+	 * Send one time and summary emails to GPA for Intramural Submissions
 	 */
-	public void sendWeeklyIntramuralEmail();
+	public void sendIntramuralEmail() throws Exception;
 
 	/**
 	 * Send notification to user when a role is added.

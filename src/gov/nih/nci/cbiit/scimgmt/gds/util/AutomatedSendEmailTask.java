@@ -20,36 +20,36 @@ public class AutomatedSendEmailTask {
 	static final Logger logger = LogManager.getLogger(AutomatedSendEmailTask.class.getName());
 
 	/**
-	 * Send weekly emails to GPA for Extramural Submissions
+	 * Send emails to GPA for Extramural Submissions
 	 */
-	public void sendWeeklyExtramuralEmail() {
-		if (gdsProperties.getProperty("email.weekly.extramural.sendflag", "Y").equalsIgnoreCase("N")) {
-			logger.info("=====> Weekly Extramural Reminder emails to GPA is turned off. Property Name: email.weekly.extramural.sendflag");
+	public void sendExtramuralEmail() {
+		if (gdsProperties.getProperty("email.extramural.sendflag", "Y").equalsIgnoreCase("N")) {
+			logger.info("=====> Extramural Reminder emails to GPA is turned off. Property Name: email.extramural.sendflag");
 			return;
 		}
-		logger.info("=====> Sending Weekly Extramural Reminder emails to GPA");
+		logger.info("=====> Sending Extramural Reminder emails to GPA");
 		try {
 			//Send email			
-			mailService.sendWeeklyExtramuralEmail();
+			mailService.sendExtramuralEmail();
 		} catch (Exception e) {
-			logger.error("=====> Exception occurred while Sending Weekly Extramural Reminder emails to GPA", e);
+			logger.error("=====> Exception occurred while Sending Extramural Reminder emails to GPA", e);
 		}
 	}
 	
 	/**
-	 * Send weekly emails to GPA for Intramural Submissions
+	 * Send emails to GPA for Intramural Submissions
 	 */
-	public void sendWeeklyIntramuralEmail() {
-		if (gdsProperties.getProperty("email.weekly.intramural.sendflag", "Y").equalsIgnoreCase("N")) {
-			logger.info("=====> Weekly Intramural Reminder emails to GPA is turned off. Property Name: email.weekly.intramural.sendflag");
+	public void sendIntramuralEmail() {
+		if (gdsProperties.getProperty("email.intramural.sendflag", "Y").equalsIgnoreCase("N")) {
+			logger.info("=====> Intramural Reminder emails to GPA is turned off. Property Name: email.intramural.sendflag");
 			return;
 		}
-		logger.info("=====> Sending Weekly Intramural Reminder emails to GPA");
+		logger.info("=====> Sending Intramural Reminder emails to GPA");
 		try {
 			//Send email			
-			mailService.sendWeeklyIntramuralEmail();
+			mailService.sendIntramuralEmail();
 		} catch (Exception e) {
-			logger.error("=====> Exception occurred while Sending Weekly Intramural Reminder emails to GPA", e);
+			logger.error("=====> Exception occurred while Sending Intramural Reminder emails to GPA", e);
 		}
 	}
 	

@@ -76,6 +76,7 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.EmailNotification</value>
 			</list>
 		</property>
   		<property name="hibernateProperties">
@@ -126,6 +127,9 @@
 	
 	<bean id="velocityEngineFactory"
 		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="resourceLoaderPath">
+			<value>/WEB-INF/emailTemplates/</value>
+		</property>
 	</bean>
 	
 	<bean id="gdsSubmissionActionHelper" class="gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper"
@@ -146,15 +150,27 @@
 		</property>
 	</bean>
 	
+	<bean id="mailService" class="gov.nih.nci.cbiit.scimgmt.gds.services.impl.MailServiceImpl">
+		<property name="emailTemplates">
+			<props>
+				<prop key="EXT_SUMMARY">extSummary.vm</prop>
+				<prop key="INT_SUMMARY">intSummary.vm</prop>
+			</props>
+		</property>
+	</bean>
+	
 	<bean id="AutomatedEmailTask" class="gov.nih.nci.cbiit.scimgmt.gds.util.AutomatedSendEmailTask">
 	</bean>
 	
 	<task:scheduler id="gdsTaskScheduler" pool-size="5" />
 
 	<task:scheduled-tasks scheduler="gdsTaskScheduler">
-		<!--  Run daily at 9AM -->
-		<task:scheduled ref="AutomatedEmailTask" method="sendWeeklyExtramuralEmail" cron="0 0 9 * * *" />
-		<task:scheduled ref="AutomatedEmailTask" method="sendWeeklyIntramuralEmail" cron="0 0 9 * * *" />
+		<!--  Run daily at 9AM for Intramural -->
+		<!--  task:scheduled ref="AutomatedEmailTask" method="sendExtramuralEmail" cron="0 0 9 * * *" -->
+		<!--  Try for the first one week at 9AM as it is sent monthly -->
+		<!--  task:scheduled ref="AutomatedEmailTask" method="sendIntramuralEmail" cron="0 0 9 1-7 * *" -->
+		<!--  For QA Testing, run daily at 10AM for Intramural -->
+		<task:scheduled ref="AutomatedEmailTask" method="sendIntramuralEmail" cron="0 0 10 * * *" />
 	</task:scheduled-tasks>
 	
 </beans>

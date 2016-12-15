@@ -42,6 +42,8 @@ public class GdsGrantsContracts {
 	private Date projectPeriodStartDate;
 	private Date projectPeriodEndDate;
 	private String applClassCode;
+	private Date budgetStartDate;
+	private Date budgetEndDate;
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	
@@ -53,7 +55,7 @@ public class GdsGrantsContracts {
 			String applTypeCode, String activityCode, String cayCode, String adminPhsOrgCode,
 			Integer serialNum, Integer supportYear, String suffixCode, String projectTitle, String piFirstName,
 			String piLastName, String piEmailAddress, String piInstitution, String pdFirstName, String pdLastName,
-			Date projectPeriodStartDate, Date projectPeriodEndDate, String applClassCode) {
+			Date projectPeriodStartDate, Date projectPeriodEndDate, String applClassCode, Date budgetStartDate, Date budgetEndDate) {
 		super();
 		this.applId = applId;
 		this.grantContractNum = grantContractNum;
@@ -75,6 +77,8 @@ public class GdsGrantsContracts {
 		this.projectPeriodStartDate = projectPeriodStartDate;
 		this.projectPeriodEndDate = projectPeriodEndDate;
 		this.applClassCode = applClassCode;
+		this.budgetStartDate = budgetStartDate;
+		this.budgetEndDate = budgetEndDate;
 	}
 	
 	@Override
@@ -285,5 +289,25 @@ public class GdsGrantsContracts {
 	
 	public void setApplClassCode(String applClassCode) {
 		this.applClassCode = applClassCode;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "BUDGET_START_DATE", length = 7)
+	public Date getBudgetStartDate() {
+		return budgetStartDate;
+	}
+
+	public void setBudgetStartDate(Date budgetStartDate) {
+		this.budgetStartDate = budgetStartDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "BUDGET_END_DATE", length = 7)
+	public Date getBudgetEndDate() {
+		return budgetEndDate;
+	}
+
+	public void setBudgetEndDate(Date budgetEndDate) {
+		this.budgetEndDate = budgetEndDate;
 	}
 }
