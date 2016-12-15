@@ -195,6 +195,11 @@ public class ManageSubmission extends BaseAction {
 					if (project.getId().equals(np.getId())) {
 						i.remove();
 					}
+					else if(project.getSubprojectFlag().equals(ApplicationConstants.FLAG_YES)) {
+						if(!project.getParentProjectId().equals(np.getParentProjectId())){
+							i.remove();
+						}
+					}
 				}
 			}
 			return versions;
