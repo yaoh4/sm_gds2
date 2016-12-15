@@ -286,9 +286,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			//Make a true copy of grantContracts only for subprojects copied as 
 			//part of parent project new version creation. 
 			List<ProjectGrantContract> savedGrantContracts = currentLatestVersion.getProjectGrantsContracts();
+			logger.debug("saved Grants here" +currentLatestVersion.getProjectGrantsContracts().size());
 			if(!CollectionUtils.isEmpty(savedGrantContracts)) {
 				List<ProjectGrantContract> grantContracts  = new ArrayList<ProjectGrantContract>();
-				for(ProjectGrantContract savedGrantContract: grantContracts) {
+				for(ProjectGrantContract savedGrantContract: savedGrantContracts) {
 					ProjectGrantContract grantContract = new ProjectGrantContract();
 					BeanUtils.copyProperties(savedGrantContract, grantContract);
 					grantContract.setId(null);
