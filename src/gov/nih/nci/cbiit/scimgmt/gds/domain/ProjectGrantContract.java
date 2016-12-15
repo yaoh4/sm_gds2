@@ -457,7 +457,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	
-	@Transient
+	@Column(name = "CAY_CODE")
 	public String getCayCode() {
 		return cayCode;
 	}

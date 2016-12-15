@@ -153,7 +153,6 @@ function prepareGrantNumField(code) {
 			$("#extramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
 			
 			$("#linkButton").hide();
-			$("#extramural_grantsContractNum").prop('readOnly', false);
 			
 		} else {
 			$("#extramural_grantDiv i").removeClass("fa fa-search").addClass("fa fa-pencil");
@@ -161,7 +160,6 @@ function prepareGrantNumField(code) {
 			$("#extramural_grantsContractNum").attr("placeholder", "Click on Edit Icon");
 			
 			$("#linkButton").show();
-			$("#extramural_grantsContractNum").prop('readOnly', true);
 		}
 	}
 	
@@ -198,7 +196,6 @@ function linkUnlinkGrants(elem) {
 				//getting the cancerActivity code
 				$("#dataLinkFlag").val('N');
 				setUnlinkedDisplay();
-				refreshCancerActivityCode();
 			}
 			return true;
 		});
@@ -317,22 +314,7 @@ function warnGeneralInfoNext(element) {
 	return false;
 }
 
-function refreshCancerActivityCode(){
-	var applId = $("#applId").val();
-	$.ajax({
-	  	url: 'getGrantOrContractByApplId.action',
-	  	data: {applId: applId},
-	  	type: 'post',
-	  	async:   false,
-	  	success: function(json){
-	  		if (json.cayCode !== "undefined") {
-	  			$("#cancerActivity").val(json.cayCode);
-	  			$("#cancerActivity").prop('readOnly', true);
-	  		}
-		}, 
-		error: function(){}	
-	});
-}
+
 
 function refreshGrantsContractsData(){
 	var applId = $("#extramural_applId").val();
@@ -378,7 +360,6 @@ function refreshGrantsContractsData(){
 	  		}	
 	  		if (json.cayCode !== "undefined") {
 	  			$("#cancerActivity").val(json.cayCode);
-	  			$("#cancerActivity").prop('readOnly', true);
 	  		}
 	  		if (json.applId !== "undefined") {
 	  			$("#extramural_applId").val(json.applId);			

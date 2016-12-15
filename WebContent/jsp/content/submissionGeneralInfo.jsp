@@ -127,7 +127,7 @@
 								<s:hidden name="extramuralGrant.primaryGrantContractFlag"  value="%{extramuralGrant.primaryGrantContractFlag}"/> -->
 								
 								<div class="input-group ">
-								  <s:textfield name="extrmuralGrant.grantContractNum"  maxlength="271" class="form-control" cssclass="form-control" readonly="true" id="extramural_grantsContractNum" placeholder="Click on Edit Icon" value="%{extramuralGrant.grantContractNum}"/>
+								  <s:textfield name="extrmuralGrant.grantContractNum"  maxlength="271" cssClass="form-control unlink-group" id="extramural_grantsContractNum" placeholder="Click on Edit Icon" value="%{extramuralGrant.grantContractNum}"/>
 								  <div class="input-group-btn">
                                     <a href="#" onclick="openGrantsContractsSearchPage('extramural', 'extramural')">
 																		<button class="btn btn-default" type="button" title="Edit" style=" margin-left: -2px;">
@@ -162,7 +162,7 @@
 					<div class="row has-feedback extConditionalDisplay">
                        <div class="col-xs-5">
                            <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
-                           <s:textfield name="extramuralGrant.cayCode" cssClass="form-control unlink-group"  id="cancerActivity" value="%{extramuralGrant.cayCode}" placeholder=""  readonly="true">
+                           <s:textfield name="extramuralGrant.cayCode" cssClass="form-control unlink-group"  id="cancerActivity" value="%{extramuralGrant.cayCode}" placeholder="">
                            </s:textfield>
                            </div>
                            </div>

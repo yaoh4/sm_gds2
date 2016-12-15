@@ -45,6 +45,7 @@ function searchGrantsData() {
 		});
 		
 		//$('#general_form').attr('action', "searchGrantsContractsAction.action").submit();
+		$("#searchResults").focus();
 	}
 	
 };
