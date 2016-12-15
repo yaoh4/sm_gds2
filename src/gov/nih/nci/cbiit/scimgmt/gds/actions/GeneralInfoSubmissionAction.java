@@ -247,6 +247,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		project.setSubprojectFlag(currentLatestVersion.getSubprojectFlag());
 		project.setParentProjectId(currentLatestVersion.getParentProjectId());
+		project.setSubmissionReasonId(currentLatestVersion.getSubmissionReasonId());
+		project.setDocAbbreviation(currentLatestVersion.getDocAbbreviation());
+		project.setProgramBranch(currentLatestVersion.getProgramBranch());
 		project.setParent(currentLatestVersion.getParent());
 		project.setVersionNum(currentLatestVersion.getVersionNum() + 1);
 		project.setProjectGroupId(currentLatestVersion.getProjectGroupId());
