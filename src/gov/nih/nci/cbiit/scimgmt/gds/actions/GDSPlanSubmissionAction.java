@@ -599,7 +599,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		}
 		
 		if(sb.length() > 0) {
-			String warningMessage = getText("gds.warn.message") + "<br><br>" + "Do you wish to continue?";
+			String warningMessage = getText("gds.warn.message");
 			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
 		} else {
 			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
