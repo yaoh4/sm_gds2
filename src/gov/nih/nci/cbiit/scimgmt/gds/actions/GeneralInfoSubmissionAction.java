@@ -417,10 +417,14 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		//save the project
 		project = super.saveProject(project, null);
 		
-		//save the IC docs
+		//save the IC docs if this is not a subproject clone
+		//and not subproject version. Else dont copy because
+		//for subprojects we only point to parent's IC
+		if(!subprojectClone && !ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
 		for(Document doc: icDocs) {
 			fileUploadService.storeFile(
 					project.getId(), ApplicationConstants.DOC_TYPE_IC, doc.getDoc(), doc.getFileName(), doc.getInstitutionalCertificationId());
+		}
 		}
 		
 		//save the other docs
@@ -453,7 +457,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(!CollectionUtils.isEmpty(currentIcs)) {
 			List<InstitutionalCertification> ics = new ArrayList<InstitutionalCertification>();			
 			for(InstitutionalCertification currentIc: currentIcs) {
-				String currentIcName = fileUploadService.retrieveFileByIcId(currentIc.getId(), currentLatestVersion.getId()).get(0).getFileName();
+				String currentIcName = fileUploadService.retrieveFileByIcId(currentIc.getId(), currentLatestVersion.getParentProjectId()).get(0).getFileName();
 				for(InstitutionalCertification parentIc: project.getParent().getInstitutionalCertifications()) {
 					String parentIcName = fileUploadService.retrieveFileByIcId(parentIc.getId(), project.getParentProjectId()).get(0).getFileName();
 					if(currentIcName.equals(parentIcName)) {
