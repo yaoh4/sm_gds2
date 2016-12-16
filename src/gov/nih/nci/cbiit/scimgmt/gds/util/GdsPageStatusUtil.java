@@ -4,6 +4,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.util;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -277,17 +278,18 @@ public class GdsPageStatusUtil {
 			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
-		
+		List<RepositoryStatus> repositoryStatuses1 = new ArrayList<RepositoryStatus>();
 		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
-				if(repositoryStatus.getProject().getId() == project.getId())
-					project.getRepositoryStatuses().add(repositoryStatus);
+				if(project.getId() == repositoryStatus.getProject().getId()) 
+				//if(repositoryStatus.getProject().getId() == project.getId())
+					repositoryStatuses1.add(repositoryStatus);
 			}		
 		}
 		
 		String status = ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		
-		List<RepositoryStatus> repositoryStatuses = project.getRepositoryStatuses();
+		List<RepositoryStatus> repositoryStatuses = repositoryStatuses1;
 		for(RepositoryStatus repoStatus: repositoryStatuses) {
 			
 			Lookup registrationStatus = repoStatus.getLookupTByRegistrationStatusId();

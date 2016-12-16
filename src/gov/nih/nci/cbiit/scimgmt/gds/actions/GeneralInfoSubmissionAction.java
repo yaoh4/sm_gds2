@@ -375,7 +375,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			for(PlanAnswerSelection currentPlanAnswer: currentPlanAnswers) {
 				if( ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_ID.equals(currentPlanAnswer.getPlanQuestionsAnswer().getQuestionId())
 						&& !subprojectClone) 		
-					//Blank out the answer to 'Has GPA reviewed the data sharing plan
+					//Blank out the answer to 'Has GPA reviewed the data sharing plan if new project version
+					continue;
+				if( !ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(currentPlanAnswer.getPlanQuestionsAnswer().getQuestionId())
+						&& subprojectClone) 
+					//For subprojects, copy only repository statuses
 					continue;
 				PlanAnswerSelection planAnswer = new PlanAnswerSelection();
 				//BeanUtils.copyProperties(currentPlanAnswer, planAnswer);
@@ -421,10 +425,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		//and not subproject version. Else dont copy because
 		//for subprojects we only point to parent's IC
 		if(!subprojectClone && !ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
-		for(Document doc: icDocs) {
-			fileUploadService.storeFile(
+			for(Document doc: icDocs) {
+				fileUploadService.storeFile(
 					project.getId(), ApplicationConstants.DOC_TYPE_IC, doc.getDoc(), doc.getFileName(), doc.getInstitutionalCertificationId());
-		}
+			}
 		}
 		
 		//save the other docs

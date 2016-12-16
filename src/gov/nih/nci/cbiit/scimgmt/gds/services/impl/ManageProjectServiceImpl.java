@@ -47,9 +47,10 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 */
 	public Project saveOrUpdate(Project project) {
 		
-		//If this is a new project, check if this is a new  version of
-		//of an existing project
-		if(project.getId() == null && project.getProjectGroupId() != null) {
+		//If this is a new project, check if this is to be latest version of
+		//of an existing project or subproject
+		if(project.getId() == null && project.getProjectGroupId() != null
+				&& ApplicationConstants.FLAG_YES.equals(project.getLatestVersionFlag())) {
 			//Reset the latest version flag on the current version to 'N'.
 			Project currentLatestVersion = getCurrentLatestVersion(project.getProjectGroupId());
 			currentLatestVersion.setLatestVersionFlag(ApplicationConstants.FLAG_NO);
