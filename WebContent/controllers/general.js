@@ -109,16 +109,22 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 	$("#prevLinkedSubmissions").hide();
 	$("#generalInfoSection").hide();
 	$("#searchGrantsContracts").show();
-	$("#grantSearch").focus();	
-	//If user hits Enter key : 
-	$("#general_form").keydown(function( event ) {
-		if ( event.which == 13) {				
-			//Prevent default submit
-			event.preventDefault();						
-			//Hit Search
-			$( "#searchGrants" ).click();					
-		}
-	});		
+	var grantNumber = $("#" + grantContractIdPrefix + "_grantsContractNum").val();
+	if(grantNumber !== null && $.trim(grantNumber) != '') {
+		$("#grantSearch").val(grantNumber);
+		searchGrants.click();
+	} else {
+		$("#grantSearch").focus();	
+		//If user hits Enter key : 
+		$("#general_form").keydown(function( event ) {
+			if ( event.which == 13) {				
+				//Prevent default submit
+				event.preventDefault();						
+				//Hit Search
+				$( "#searchGrants" ).click();					
+			}
+		});	
+	}
 	
 }
 
