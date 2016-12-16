@@ -393,7 +393,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 				if(!StringUtils.equals(loggedOnUser.getUserRole().getPdFlag(),"Y")) {
 					GdsSubmissionActionHelper.removeLookupFromDropDownList(submissionFromList, ApplicationConstants.SEARCH_MY_SUBMISSIONS);
 				}
-				criteria.setSubmissionFromId(ApplicationConstants.SEARCH_MY_CREATED_SUBMISSIONS);
+				criteria.setSubmissionFromId(ApplicationConstants.SEARCH_SUBMISSION_FROM_MYDOC);
 			}
 		}		
 
