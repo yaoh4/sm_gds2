@@ -281,7 +281,7 @@ public class GdsPageStatusUtil {
 		List<RepositoryStatus> repositoryStatuses1 = new ArrayList<RepositoryStatus>();
 		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
 			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
-				if(project.getId().longValue() == repositoryStatus.getProject().getId().longValue()) 
+				if(project.getId() == repositoryStatus.getProject().getId()) 
 				//if(repositoryStatus.getProject().getId() == project.getId())
 					repositoryStatuses1.add(repositoryStatus);
 			}		
