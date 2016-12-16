@@ -180,6 +180,7 @@ public class ProjectSearchDao {
 			criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);
 			criteria.add(Restrictions.eq("subprojectFlag", "Y"));
 			criteria.add(Restrictions.eq("parentProject.id", parentProjectId));
+			criteria.add(Restrictions.eq("latestVersionFlag", "Y"));
 			list =  (List<ProjectsVw>) criteria.list();
 			return list;
 			
