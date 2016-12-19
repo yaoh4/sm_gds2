@@ -304,11 +304,11 @@ public class IcSubmissionAction extends ManageSubmission {
 						dulSet.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());				
 					}
 					if(parentDulId != null) {
-					String comments = ServletActionContext.getRequest().getParameter("comments-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);					
-					if(comments == null) {
-						comments = new String();
+					String dulAppendix = ServletActionContext.getRequest().getParameter("comments-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);					
+					if(dulAppendix == null) {
+						dulAppendix = new String();
 					}
-						dulSet.setComments(comments);
+						dulSet.setComments(dulAppendix);
 					}
 					dulSet.setStudy(study);
 					
