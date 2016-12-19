@@ -17,9 +17,7 @@
 
 			<div class="form-group row">
 				<div class="col-xs-4">
-					<label for="selectFrom">Submission from: <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></label> 
+					<label for="selectFrom">Submission from:</label> 
 					<s:select id="selectFrom" cssClass="c-select form-control" name="criteria.submissionFromId" list="submissionFromList" listKey="optionKey" listValue="optionValue" />
 				</div>
 
@@ -40,9 +38,7 @@
 			<div class="form-group row">
 			
 				<div class="col-xs-4">
-					<label for="submissionReasonId">Reason for Submission: <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></label>
+					<label for="submissionReasonId">Reason for Submission:</label>
 					<s:select id="submissionReasonId" name="criteria.submissionReasonId"
 						value="criteria.submissionReasonId" cssClass="c-select form-control" 
 						list="submissionReasonList" listKey="optionKey" listValue="optionValue" emptyOption="true"/>
@@ -67,9 +63,7 @@
 				<div class="col-xs-4">
 					<s:checkbox id="exclude" name="criteria.excludeCompleted" /> 
 					<label for="exclude" style="font-weight: 600;">Exclude
-						Submissions in Completed Status &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></label>
+						Submissions in Completed Status &nbsp;</label>
 				</div>
 			</div>
 
