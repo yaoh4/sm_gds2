@@ -29,9 +29,7 @@
           <caption style="display: none;">Status History</caption>
           <thead>
             <tr class="active">
-              <th colspan="2" class="sortable" style="width: 45%;" abbr="Year">Milestones
-               &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-              <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></th>
+              <th colspan="2" class="sortable" style="width: 45%;" abbr="Year">Milestones</th>
               <th width="25%" class="sortable" style="width: 10%;" abbr="Org">Current Status</th>
               <th width="29%" class="sortable" style="width: 20%;" abbr="Role">Last Action Date</th>
               <th width="29%" class="sortable" style="width: 10%;" abbr="Role">Missing Data</th>
@@ -207,9 +205,7 @@
     <div class="qSpacing">
     <p class="question">
       <a href="javascript:void"
-        class="subproject"><i class="expandS fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-projects
-    &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-    <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></p>
+        class="subproject"><i class="expandS fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-projects</p>
     <div class="relatedSubs" style="display: none;">
       <table style="width: 90%;" cellpadding="0px" cellspacing="0"
         class="table table-bordered table-striped"
@@ -255,9 +251,7 @@
         <div class="qSpacing">
     <p class="question">
       <a href="javascript:void"
-        class="project"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Parent Project
-    &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-    <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></p>
+        class="project"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Parent Project</p>
     <div class="related" style="display: none;">
       <table style="width: 90%;" cellpadding="0px" cellspacing="0"
         class="table table-bordered table-striped"
@@ -305,16 +299,12 @@
        <s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
     <p class="question">
       <a href="javascript:void"
-        class="versions"><i class="expandV fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-Project Versions
-    &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-    <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></p>
+        class="versions"><i class="expandV fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Sub-Project Versions</p>
     </s:if>
     <s:else>
      <p class="question">
       <a href="javascript:void"
-        class="versions"><i class="expandV fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Project Versions
-    &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-    <i class="helpfile fa fa-question-circle fa-1x"  aria-hidden="true"></i></a></p>
+        class="versions"><i class="expandV fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;View Project Versions</p>
     </s:else>
     <div class="relatedVersions" style="display: none;">
       <table style="width: 90%;" cellpadding="0px" cellspacing="0"
