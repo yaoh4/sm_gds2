@@ -22,14 +22,9 @@
 						</div>
 						<!--end panel header-->
 						<div class="panel-body">
-							<h4>Search Criteria &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a> </h4>
+							<h4>Search Criteria</h4>
 							<div class="form-group row">
 								<div class="checkbox"><label><input type="checkbox" id="gdsUsersOnly" name="criteria.gdsUsersOnly" value="true" style="margin-left: -40px;">&nbsp;&nbsp;Only users with GDS Roles
-								&nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a>
 								</label>
 							</div>
 							<div class="col-xs-5">
@@ -87,11 +82,7 @@
 						
 						<div id="searchResults" style="margin-left: 10px;">
 							<h3>&nbsp;</h3>
-							<h3>Search Results &nbsp; <a href="/documentation/application/Manage_User_Accounts_help.pdf" 
-							onclick="window.open(this.href, 'Admin Help File','menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800'); return false;"
-							 id="popover" style="font-size: 12px;">
-                         <i class="helpfileAmin fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a> </h3><br/>&nbsp;
+							<h3>Search Results</h3><br/>&nbsp;
 							 <div style="float:right;"><table style="margin-bottom: 10px; margin-right: 10px;">
 								<tbody><tr><td style="text-align:right; font-weight:bold;">Legend:</td>
 								<td style="text-align: center; width:40px;"><i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit" style="color: #2d699e;"></i></td>
@@ -231,11 +222,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Edit/Add User Role &nbsp; <a href="/documentation/application/Manage_User_Accounts_help.pdf" 
-							onclick="window.open(this.href, 'Admin Help File','menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800'); return false;"
-							 id="popover" style="font-size: 12px;">
-                         <i class="helpfileAmin fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a> </h4>
+							<h4 class="modal-title">Edit/Add User Role</h4>
 						</div>
 						<div class="modal-body">
 							
