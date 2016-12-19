@@ -67,6 +67,14 @@
                       	  placeholder="Please Be Specific" ></textarea>
                       </span>
                     </s:if>
+                    <s:if test="%{#parentDul.id != null && #parentDul.id != 21 }">
+                      <span>
+                      <label for="dulAppendix">DUL Appendix</label> 
+                      	<textarea class="form-control input_other" id="comments${studiesIdx}-${dulSetIdx}-${parentDul.id}"
+                      	  name="comments-${studiesIdx}-${dulSetIdx}-${parentDul.id}" maxlength="2000"
+                      	  rows="2"></textarea>
+                      </span>
+                    </s:if>
                     
                     <s:if test="%{parentDulChecklists[#parentIdx].dulChecklists.size > 0}">
                        <label for="checkboxitem">(select any that apply)</label>                 
