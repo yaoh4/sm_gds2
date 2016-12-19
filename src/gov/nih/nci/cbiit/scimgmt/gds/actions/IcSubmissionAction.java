@@ -59,7 +59,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	private String icFileName;
 
 	private String icContentType;
-	
+
 	private List<Document> icFileDocs = new ArrayList<Document>();
 	
 	private Document doc = null; // json object to be returned for UI refresh after upload
@@ -180,6 +180,11 @@ public class IcSubmissionAction extends ManageSubmission {
 						if(dulId.equals(parentDulId)) {
 							//This represents a parent row, so check if additional text present	
 							String additionalText = dulChecklistSelection.getOtherText();
+							String dulAppendix = dulChecklistSelection.getStudiesDulSet().getComments();
+							if(dulAppendix != null && !dulAppendix.isEmpty()) {
+								int commentsLength = dulAppendix.length();
+								dulIdList.add(commentsLength + "comments" + studyIndex + "-" + dulSetIndex + "-" + dulId + dulAppendix);
+							}
 							if(additionalText != null && !additionalText.isEmpty()) {
 								int textlength = additionalText.length();
 								dulIdList.add(textlength + "otherAddText" + studyIndex + "-" + dulSetIndex + "-" + dulId + additionalText);	
@@ -284,6 +289,8 @@ public class IcSubmissionAction extends ManageSubmission {
 				Iterator<StudiesDulSet> dulSetsIterator = dulSets.iterator();		
 				while(dulSetsIterator.hasNext()) {
 					StudiesDulSet dulSet = dulSetsIterator.next();
+					int dulSetIndex = Long.valueOf(dulSet.getDisplayId()).intValue();
+					String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
 					if(dulSet == null || StringUtils.isBlank(dulSet.getDisplayId())) {
 						//This means that the DulSet was deleted by the user
 						//hence correspondingly remove it from our data structure
@@ -296,10 +303,16 @@ public class IcSubmissionAction extends ManageSubmission {
 					} else {
 						dulSet.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());				
 					}
+					if(parentDulId != null) {
+					String comments = ServletActionContext.getRequest().getParameter("comments-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);					
+					if(comments == null) {
+						comments = new String();
+					}
+						dulSet.setComments(comments);
+					}
 					dulSet.setStudy(study);
 					
-					int dulSetIndex = Long.valueOf(dulSet.getDisplayId()).intValue();
-					String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
+					
 					if(parentDulId != null) {
 					
 						List<DulChecklistSelection> dulChecklistSelections = processDulSet(parentDulId[0],  
@@ -352,6 +365,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		if(study.getComments() != null && study.getComments().length() > 2000) {
 			addActionError(getText("error.comments.size.exceeded"));
 		}
+		
 	}
 	
 	
