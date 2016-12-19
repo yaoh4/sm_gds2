@@ -1028,6 +1028,10 @@ a.tooltip:hover span{
     display:inline; position:absolute; 
     border:2px solid #FFF;  color:#EEE;
      background:#000;
+       -webkit-transition: .5s ease-in-out 3s;
+  -moz-transition: .5s ease-in-out 3s;
+  -o-transition: .5s ease-in-out 3s;
+  transition: .5s ease-in-out 3s;
 }
 .callout {z-index:20;position:absolute;border:0;top:-14px;right:16px;}
     
