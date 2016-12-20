@@ -35,7 +35,7 @@
 	   */ 
 
 
-       
+
 
 //pop up new window
         $('.js-newWindow').click(function (event) {
@@ -122,12 +122,8 @@ $('#submissionTable').dataTable( {
 } );
 
 
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="tooltip"]').on('shown.bs.tooltip', function () {
-          $('[data-toggle="tooltip"]').tooltip({"delay":{"show":0,"hide":5000}});
-    })
-})
+
+ $('[data-toggle="tooltip"]').tooltip({"delay":{"show":0,"hide":5000}});
 
 
  
