@@ -35,7 +35,7 @@
 	   */ 
 
 
-       $("div.tooltip:contains('http')").show(0).delay(5000).hide(0);
+       
 
 //pop up new window
         $('.js-newWindow').click(function (event) {
@@ -122,7 +122,12 @@ $('#submissionTable').dataTable( {
 } );
 
 
-
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').on('shown.bs.tooltip', function () {
+          $('[data-toggle="tooltip"]').tooltip({"delay":{"show":0,"hide":5000}});
+    })
+})
 
 
  
