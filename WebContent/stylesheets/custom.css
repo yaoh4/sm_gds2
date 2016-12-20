@@ -1047,6 +1047,21 @@ a.tooltip span
     /*opacity: 0.8;*/
 }
 
+
+.box {
+    display:block;
+    width:200px;
+    height:100px;
+    background-color:#000;
+    color: #EEE;
+}
+#pop {
+    padding:0px 0px;
+}
+#example {
+    position:relative;
+}
+
 /***********Tool tip for search page**********************************/
 
 .wrapper2 {

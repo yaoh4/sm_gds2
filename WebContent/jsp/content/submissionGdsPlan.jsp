@@ -126,7 +126,7 @@
 				<div id="17" style="${map['17'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(17).getDisplayText()}" />
-							&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+							&nbsp; &nbsp; <a href="#" class="hoverOver pop" data-toggle="popover" data-container="body" data-placement="right"  data-html="true"
 						 style="font-size: 12px;"><s:hidden id="GDS_ACCESS_TYPE_KEY" value="%{getHelpText('GDS_ACCESS_TYPE_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 					<s:iterator value="%{getAnswerListByQuestionId(17)}" var="ans"
 						status="stat">
