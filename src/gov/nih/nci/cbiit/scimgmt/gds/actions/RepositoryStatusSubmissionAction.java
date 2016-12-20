@@ -75,10 +75,11 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		for(RepositoryStatus repositoryStatus : getProject().getRepositoryStatuses()){
 
 			//Anticipated submission date validation.
-			if((repositoryStatus.getLookupTBySubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID
+			if(((repositoryStatus.getLookupTBySubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID
 					|| repositoryStatus.getLookupTBySubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID)
 						||(repositoryStatus.getLookupTByRegistrationStatusId().getId() == ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID ||
-							repositoryStatus.getLookupTByRegistrationStatusId().getId() == ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID)){
+							repositoryStatus.getLookupTByRegistrationStatusId().getId() == ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID)) 
+					&& (getProject().getSubprojectFlag().equalsIgnoreCase("N") || getProject().getSubprojectFlag().equalsIgnoreCase("Y") && repositoryStatus.isSelected())){
 				isStatusNotStartedOrInProgress = true;
 
 			}
