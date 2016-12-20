@@ -356,11 +356,11 @@ function refreshGrantsContractsData(){
 	  		if (json.pdLastName !== "undefined") {
 	  			$("#lnPD").val(json.pdLastName);
 	  		}
-	  		if (json.projectPeriodStartDate !== "undefined") {
+	  		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodEndDate != null) {
 	  			var d = new Date(json.projectPeriodStartDate);
 	  			$("#projectStartDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
 	  		}
-	  		if (json.projectPeriodEndDate !== "undefined") {
+	  		if (json.projectPeriodEndDate !== "undefined" && json.projectPeriodEndDate != null) {
 	  			var d = new Date(json.projectPeriodEndDate);
 	  			$("#projectEndDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
 	  		}	
