@@ -578,7 +578,14 @@ public class ManageSubmission extends BaseAction {
 		}
 	}
 	
-	
+	public GdsGrantsContracts getPiInfo(Long applId) {
+		logger.debug("get applId here:" + applId);
+	    if(applId != null) {
+		    GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(Long.valueOf(applId));
+			return grantContract;
+		 }
+	    return null;
+	}
 	
 	//Get project start date
 	public String getProjectStartDate() {		
