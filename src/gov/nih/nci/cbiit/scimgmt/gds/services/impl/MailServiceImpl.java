@@ -31,6 +31,7 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.velocity.Template;
@@ -40,10 +41,8 @@ import org.apache.velocity.exception.VelocityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-@Component
 public class MailServiceImpl implements MailService {
 	static final Logger logger = LogManager.getLogger(MailServiceImpl.class.getName());
 	static final String TO = "to";
@@ -78,6 +77,9 @@ public class MailServiceImpl implements MailService {
 	private String pastSubmissionDateFlag;
 	private String bsiInProgressFlag;
 	private String gdsIcInProgressFlag;
+	private String budgetEndDateComingFlag;
+	private String pastProjectEndDateFlag;
+	private String projectEndDateComingFlag;
 	
 	private List<ProjectsVw> pastSubmissionDateResult = new ArrayList<ProjectsVw>();
 	private List<ProjectsVw> bsiInProgressResult = new ArrayList<ProjectsVw>();
@@ -87,10 +89,18 @@ public class MailServiceImpl implements MailService {
 	private List<ProjectsVw> bsiInProgressResultAll = new ArrayList<ProjectsVw>();
 	private List<ProjectsVw> gdsIcInProgressResultAll = new ArrayList<ProjectsVw>();
 	
-	private Map<String, Object> params = new HashMap<String, Object>();
-	
+	private List<ProjectsVw> budgetEndDateComingResult = new ArrayList<ProjectsVw>();
+	private List<ProjectsVw> pastProjectEndDateResult = new ArrayList<ProjectsVw>();
+	private List<ProjectsVw> projectEndDateComingResult = new ArrayList<ProjectsVw>();
+
+	private List<ProjectsVw> budgetEndDateComingResultAll = new ArrayList<ProjectsVw>();
+	private List<ProjectsVw> pastProjectEndDateResultAll = new ArrayList<ProjectsVw>();
+	private List<ProjectsVw> projectEndDateComingResultAll = new ArrayList<ProjectsVw>();
+
 	Map<String,List<String>> orgMapEmail = new HashMap<String, List<String>>();
 	Map<String,List<String>> orgMapName = new HashMap<String, List<String>>();
+	Map<String,String> orgMapAcronym = new HashMap<String, String>();
+	Map<String,String> orgMapFullName = new HashMap<String, String>();
 	
 	/**
 	 * Send error message.
@@ -146,7 +156,9 @@ public class MailServiceImpl implements MailService {
 		NedPerson user = userRoleDao.findNedPersonByUserId(personRole.getNihNetworkId());
 		String newRole = personRole.getRole().getDescription();
 		
-		setCommonParams();
+		final Map<String, Object> params = new HashMap<String, Object>();
+		
+		setCommonParams(params);
 		String[] to = {user.getEmail()};
 
 		params.put(LOGGED_ON_USER, loggedOnUser);
@@ -158,51 +170,115 @@ public class MailServiceImpl implements MailService {
 	}
 
 	/**
-	 * Send one time and summary emails to GPA for Extramural Submissions
+	 * Send summary emails to GPA for Extramural Submissions
 	 * @throws Exception 
 	 */
 	@Override
-	public void sendExtramuralEmail() throws Exception {
+	public void sendExtramuralSummaryEmail() throws Exception {
 		
-		setCommonParams();
+		final Map<String, Object> params = new HashMap<String, Object>();
+		
+		setCommonParams(params);
+		params.put("system", "true");
+
+		sendSummaryEmail(params, "EXT_SUMMARY");
+
+	}
+	
+	/**
+	 * Send one time emails to PD and creator for Extramural Submissions
+	 * @throws Exception 
+	 */
+	@Override
+	public void sendExtramuralEmailByTemplate(List<ProjectsVw> list, String template, List<UserRole> gpas) throws Exception {
+		
+		final Map<String, Object> params = new HashMap<String, Object>();
+		
+		setCommonParams(params);
 		params.put("system", "true");
 		
-		// Get the Submissions for Intramural Notifications
-		pastSubmissionDateResultAll = notificationsDao.getExtramuralPastSubmissionDate();
-		bsiInProgressResultAll = notificationsDao.getExtramuralBsiInProgress();
-		gdsIcInProgressResultAll = notificationsDao.getExtramuralGdsIcInProgress();
-		
-		// For each submission, send an email to the creator and PD of the submission if not sent yet.
-		sendExtramuralPdCreatorEmail(pastSubmissionDateResultAll, pastSubmissionDateResult, "EXT_PAST");
-		
-		sendExtramuralPdCreatorEmail(bsiInProgressResultAll, bsiInProgressResult, "EXT_BSI");
-		
-		sendExtramuralPdCreatorEmail(gdsIcInProgressResultAll, gdsIcInProgressResult, "EXT_IC");
-		
-		sendSummaryEmail("EXT_SUMMARY");
+		sendExtramuralPdCreatorEmail(params, list, template, gpas);
 
 	}
 
 	/**
-	 * Send one time and summary emails to GPA for Intramural Submissions
+	 * Send summary emails to GPA for Intramural Submissions
 	 */
 	@Override
-	public void sendIntramuralEmail() throws Exception {
+	public void sendIntramuralSummaryEmail() throws Exception {
 		
-		setCommonParams();
+		final Map<String, Object> params = new HashMap<String, Object>();
+		
+		setCommonParams(params);
 		params.put("system", "true");
 		
-		// Get the Submissions for Extramural Notifications
-		pastSubmissionDateResultAll = notificationsDao.getIntramuralAll();
-		bsiInProgressResultAll.clear();
-		gdsIcInProgressResultAll.clear();
-		
-		sendSummaryEmail("INT_SUMMARY");
+		sendSummaryEmail(params, "INT_SUMMARY");
 		
 	}
 	
-	private void sendExtramuralPdCreatorEmail(List<ProjectsVw> submissionAll,
-			List<ProjectsVw> list, String template) throws Exception {
+	/**
+	 * Retrieve a lit of submissions where anticipated submission date is in the past
+	 */
+	public List<ProjectsVw> getExtramuralPastSubmissionDate() {
+		return notificationsDao.getExtramuralPastSubmissionDate();
+	}
+	
+	/**
+	 * Retrieve a lit of submissions where BSI is in progress
+	 */
+	public List<ProjectsVw> getExtramuralBsiInProgress() {
+		return notificationsDao.getExtramuralBsiInProgress();
+	}
+	
+	/**
+	 * Retrieve a lit of submissions where GDS and IC is in progress
+	 */
+	public List<ProjectsVw> getExtramuralGdsIcInProgress() {
+		return notificationsDao.getExtramuralGdsIcInProgress();
+	}
+	
+	/**
+	 * Retrieve a lit of submissions where the budget end is in 45 days
+	 */
+	public List<ProjectsVw> getExtramuralBudgetEndDateComing() {
+		return notificationsDao.getExtramuralBudgetEndDateComing();
+	}
+	
+	/**
+	 * Retrieve a lit of submissions where project end date is in the past
+	 */
+	public List<ProjectsVw> getExtramuralPastProjectEndDate() {
+		return notificationsDao.getExtramuralPastProjectEndDate();
+	}
+	
+	/**
+	 * Retrieve a lit of submissions where project end date is in x days
+	 */
+	public List<ProjectsVw> getExtramuralProjectEndDateComing(Integer days) {
+		return notificationsDao.getExtramuralProjectEndDateComing(days);
+	}
+	
+	/**
+	 * Retrieve a list of GPAs in the system.
+	 */
+	public List<UserRole> retrieveGpas() {
+		RoleSearchCriteria gpaCriteria = new RoleSearchCriteria();
+		gpaCriteria.setGdsUsersOnly(true);
+		gpaCriteria.setRoleCode(ApplicationConstants.ROLE_GPA_CODE);
+		gpaCriteria.setDoc("%");
+		return userRoleDao.searchUserRole(gpaCriteria);
+	}
+
+	/**
+	 * Sends Extramural One time emails to PD and Creator of the submission based on template
+	 * 
+	 * @param params
+	 * @param submissionAll
+	 * @param template
+	 * @param gpas
+	 * @throws Exception
+	 */
+	private void sendExtramuralPdCreatorEmail(Map<String, Object> params, List<ProjectsVw> submissionAll, String template, List<UserRole> gpas) throws Exception {
 		
 		MailTemplate mailTemplate = findByShortIdentifier(template);
 		
@@ -213,19 +289,27 @@ public class MailServiceImpl implements MailService {
 				continue;
 			}
 			
-			list.clear();
-			list.add(submission);
 			NedPerson nedPerson = userRoleDao.findNedPersonByUserId(submission.getCreatedBy());
-			String pdName = submission.getExtPdFirstName() + " " + submission.getExtPdLastName();
-			String pdEmail = submission.getExtPdEmailAddress();
-			if (submission.getExtPdLastName() == null) {
-				// TODO populate primary contact info instead.
-				pdName = submission.getExtPdFirstName() + " " + submission.getExtPdLastName();
-				pdEmail = submission.getExtPdEmailAddress();
+			String pdName = (StringUtils.isEmpty(submission.getExtPdEmailAddress())? null: submission.getExtPdFirstName() + " " + submission.getExtPdLastName());
+			String pdEmail = (StringUtils.isEmpty(submission.getExtPdEmailAddress())? null: submission.getExtPdEmailAddress());
+			String creatorName = (nedPerson == null || isGpa(submission.getCreatedBy(), gpas)? null: nedPerson.getFullName());
+			String creatorEmail = (nedPerson == null || isGpa(submission.getCreatedBy(), gpas)? null: nedPerson.getEmail());
+			// If email can not be sent, continue
+			if(pdName == null && creatorName == null) {
+				logger.error("Email template: " + mailTemplate.getId() + " for submission ID: " + submission.getId() + " could not be sent to PD nor creator.");
+				continue;
 			}
 			
-			String[] to = { pdEmail, (nedPerson == null? submission.getCreatedBy(): nedPerson.getEmail()) };
-			setSummaryParams(to, pdName + ", " + (nedPerson == null? submission.getCreatedBy(): nedPerson.getFullName()), "");
+			ArrayList<String> emails = new ArrayList<String>();
+			if(pdEmail != null)
+				emails.add(pdEmail);
+			if(creatorEmail != null)
+				emails.add(creatorEmail);
+			String[] to = emails.toArray(new String[emails.size()]);
+			params.put(TO, to);
+			params.put("dear", (pdName == null? creatorName: (creatorName == null? pdName: pdName + ", " + creatorName)));
+			params.put("submission", submission);
+			
 			send(template, params);
 			
 			//Insert record into EMAIL_NOTIFICATIONS_T
@@ -233,12 +317,38 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 	
-	private void sendSummaryEmail(String template) throws Exception {
+	/**
+	 * Utility method to determine whether the user is GPA
+	 * 
+	 * @param userId
+	 * @param gpas
+	 * @return
+	 */
+	private boolean isGpa(String userId, List<UserRole> gpas) {
+		for(UserRole gpa: gpas) {
+			if(StringUtils.equalsIgnoreCase(gpa.getNihNetworkId(), userId))
+				return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Sends Summary email for Extramural/Intramural Submissions.
+	 * 
+	 * @param params
+	 * @param template
+	 * @throws Exception
+	 */
+	private synchronized void sendSummaryEmail(Map<String, Object> params, String template) throws Exception {
 
 		MailTemplate mailTemplate = findByShortIdentifier(template);
 		// 1. Loop through all GPAs and get their email address and hash them using their DOC
 		populateGpaOrgMap();
 
+		if(StringUtils.equals(template, "EXT_SUMMARY"))
+			retrieveExtramuralResults();
+		else
+			retrieveIntramuralResults();
 		// 2. For each DOC, send the summary email if not sent yet. Filter out submission for that DOC only
 		for (Map.Entry<String, List<String>> entry : orgMapEmail.entrySet()) {
 
@@ -256,8 +366,8 @@ public class MailServiceImpl implements MailService {
 					continue;
 				}
 				
-				setSummaryParams(to, dear, entry.getKey());
-
+				setSummaryParams(params, to, dear, entry.getKey());
+	
 				send(template, params);
 				
 				//Insert record into EMAIL_NOTIFICATIONS_T
@@ -274,7 +384,7 @@ public class MailServiceImpl implements MailService {
 			if(!CollectionUtils.isEmpty(logs)) {
 			
 				String[] to = { "test@test.com" };
-				setSummaryParams(to, "To Whom It May Concern", "All");
+				setSummaryParams(params, to, "To Whom It May Concern", "All");
 
 				send(template, params);
 				
@@ -284,17 +394,47 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 	
+	/**
+	 * Retrieve Intramural submissions which goes into the summary email
+	 */
+	private void retrieveIntramuralResults() {
+		// Get the Submissions for Extramural Notifications
+		pastSubmissionDateResultAll = notificationsDao.getIntramuralAll();
+		bsiInProgressResultAll.clear();
+		gdsIcInProgressResultAll.clear();
+	}
+
+	/**
+	 * Retrieve Extramural submissions which goes into the summary email
+	 */
+	private void retrieveExtramuralResults() {
+		// Get the Submissions for Extramural Notifications
+		pastSubmissionDateResultAll = getExtramuralPastSubmissionDate();
+		bsiInProgressResultAll = getExtramuralBsiInProgress();
+		gdsIcInProgressResultAll = getExtramuralGdsIcInProgress();
+		budgetEndDateComingResultAll = getExtramuralBudgetEndDateComing();
+		pastProjectEndDateResultAll = getExtramuralPastProjectEndDate();
+		projectEndDateComingResultAll = getExtramuralProjectEndDateComing(90);
+	}
+	
+	/**
+	 * Populate the GPAs based on their DOC
+	 * 
+	 * @throws Exception
+	 */
 	private void populateGpaOrgMap() throws Exception {
 		orgMapEmail.clear();
 		orgMapName.clear();
-		RoleSearchCriteria gpaCriteria = new RoleSearchCriteria();
-		gpaCriteria.setGdsUsersOnly(true);
-		gpaCriteria.setRoleCode(ApplicationConstants.ROLE_GPA_CODE);
-		gpaCriteria.setDoc("%");
-		List<UserRole> gpas = userRoleDao.searchUserRole(gpaCriteria);
-		List<Organization> docListFromDb = propertyListDAO.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());
+		orgMapAcronym.clear();
+		orgMapFullName.clear();
 		
-		for (UserRole gpa: gpas) {
+		List<Organization> docListFromDb = propertyListDAO.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());
+		for(Organization org: docListFromDb) {
+			orgMapAcronym.put(new String(org.getNihorgpath()), new String(org.getNihouacronym()));
+			orgMapFullName.put(new String(org.getNihorgpath()), new String(WordUtils.capitalizeFully(org.getNihouname())));
+		}
+		
+		for (UserRole gpa: retrieveGpas()) {
 					
 			NedPerson nedPerson = userRoleDao.findNedPersonByUserId(gpa.getNihNetworkId());
 
@@ -305,10 +445,15 @@ public class MailServiceImpl implements MailService {
 			}
 			orgMapEmail.get(doc).add(nedPerson.getEmail());
 			orgMapName.get(doc).add(nedPerson.getFullName());
-
 		}
 	}
 	
+	/**
+	 * Utility method to construct who to address the email to
+	 * 
+	 * @param doc
+	 * @return
+	 */
 	private String constructDearForDoc(String doc) {
 		String dear = StringUtils.join(orgMapName.get(doc), ", ");
 		if (orgMapName.get(doc).size() >= 2) {
@@ -319,6 +464,11 @@ public class MailServiceImpl implements MailService {
 		return dear;
 	}
 
+	/**
+	 * Utility method to filter out the submissions based on doc
+	 * 
+	 * @param doc
+	 */
 	private void populateSummaryResultForDoc(String doc) {
 		
 		ProjectsVw submission = null;
@@ -349,11 +499,47 @@ public class MailServiceImpl implements MailService {
 			}
 		}
 		
+		budgetEndDateComingResult.clear();
+		for(Iterator<ProjectsVw> i= budgetEndDateComingResultAll.iterator(); i.hasNext();) {
+			submission = i.next();
+			if(StringUtils.equals(submission.getDocAbbreviation(), doc)) {
+				budgetEndDateComingResult.add(submission);
+				i.remove();
+			}
+		}
+	
+		pastProjectEndDateResult.clear();
+		for(Iterator<ProjectsVw> i= pastProjectEndDateResultAll.iterator(); i.hasNext();) {
+			submission = i.next();
+			if(StringUtils.equals(submission.getDocAbbreviation(), doc)) {
+				pastProjectEndDateResult.add(submission);
+				i.remove();
+			}
+		}
+		
+		projectEndDateComingResult.clear();
+		for(Iterator<ProjectsVw> i= projectEndDateComingResultAll.iterator(); i.hasNext();) {
+			submission = i.next();
+			if(StringUtils.equals(submission.getDocAbbreviation(), doc)) {
+				projectEndDateComingResult.add(submission);
+				i.remove();
+			}
+		}
 		pastSubmissionDateFlag = (pastSubmissionDateResult.isEmpty()? "N": "Y");
 		bsiInProgressFlag = (bsiInProgressResult.isEmpty()? "N": "Y");
 		gdsIcInProgressFlag = (gdsIcInProgressResult.isEmpty()? "N": "Y");
+		budgetEndDateComingFlag = (budgetEndDateComingResult.isEmpty()? "N": "Y");
+		pastProjectEndDateFlag = (pastProjectEndDateResult.isEmpty()? "N": "Y");
+		projectEndDateComingFlag = (projectEndDateComingResult.isEmpty()? "N": "Y");
 	}
 
+	/**
+	 * Log that the email has been sent out in DB for this template and project id
+	 * 
+	 * @param templateId
+	 * @param projectId
+	 * @param to
+	 */
 	private void insertEmailLogByProjectId(Long templateId, Long projectId, String[] to) {
 
 		EmailNotification record = new EmailNotification();
@@ -365,6 +551,13 @@ public class MailServiceImpl implements MailService {
 		
 	}
 	
+	/**
+	 * Log that the email has been sent out in DB for this template and doc
+	 * 
+	 * @param templateId
+	 * @param doc
+	 * @param to
+	 */
 	private void insertEmailLogByDoc(Long templateId, String doc, String[] to) {
 		
 		EmailNotification record = new EmailNotification();
@@ -376,7 +569,12 @@ public class MailServiceImpl implements MailService {
 		
 	}
 	
-	private void setCommonParams() {
+	/**
+	 * Sets the common parameters used for all emails.
+	 * 
+	 * @param params
+	 */
+	private void setCommonParams(Map<String, Object> params) {
 		final String from = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM);
 		final String fromDisplay = gdsProperties.getProperty(ApplicationConstants.EMAIL_FROM_DISPLAY);
 		final String url = gdsProperties.getProperty(ApplicationConstants.GDS_APPLICATION_URL);
@@ -386,24 +584,48 @@ public class MailServiceImpl implements MailService {
 		params.put("url", url);
 	}
 
-	private void setSummaryParams(String[] to, String dear, String doc) {
+	/**
+	 * Sets the parameters used for summary emails.
+	 * 
+	 * @param params
+	 */
+	private void setSummaryParams(Map<String, Object> params, String[] to, String dear, String doc) {
 		params.put(TO, to);
 		params.put("dear", dear);
 		params.put("doc", doc);
+		params.put("docAcronym", orgMapAcronym.get(doc));
+		params.put("docFullName", orgMapFullName.get(doc));
+		
 		params.put("pastSubmissionDateResult", pastSubmissionDateResult);
 		params.put("bsiInProgressResult", bsiInProgressResult);
 		params.put("gdsIcInProgressResult", gdsIcInProgressResult);
 		params.put("pastSubmissionDateFlag", pastSubmissionDateFlag);
 		params.put("bsiInProgressFlag", bsiInProgressFlag);
 		params.put("gdsIcInProgressFlag", gdsIcInProgressFlag);
+		
+		params.put("budgetEndDateComingResult", budgetEndDateComingResult);
+		params.put("pastProjectEndDateResult", pastProjectEndDateResult);
+		params.put("projectEndDateComingResult", projectEndDateComingResult);
+		params.put("budgetEndDateComingFlag", budgetEndDateComingFlag);
+		params.put("pastProjectEndDateFlag", pastProjectEndDateFlag);
+		params.put("projectEndDateComingFlag", projectEndDateComingFlag);
+
 		if(StringUtils.equals(doc, "All")) {
 			params.put("doc", "DOCs which does not have GPA");
+			
 			params.put("pastSubmissionDateResult", pastSubmissionDateResultAll);
 			params.put("bsiInProgressResult", bsiInProgressResultAll);
 			params.put("gdsIcInProgressResult", gdsIcInProgressResultAll);
 			params.put("pastSubmissionDateFlag", (pastSubmissionDateResultAll.isEmpty()? "N": "Y"));
 			params.put("bsiInProgressFlag", (bsiInProgressResultAll.isEmpty()? "N": "Y"));
 			params.put("gdsIcInProgressFlag", (gdsIcInProgressResultAll.isEmpty()? "N": "Y"));
+			
+			params.put("budgetEndDateComingResult", budgetEndDateComingResultAll);
+			params.put("pastProjectEndDateResult", pastProjectEndDateResultAll);
+			params.put("projectEndDateComingResult", projectEndDateComingResultAll);
+			params.put("budgetEndDateComingFlag", (budgetEndDateComingResultAll.isEmpty()? "N": "Y"));
+			params.put("pastProjectEndDateFlag", (pastProjectEndDateResultAll.isEmpty()? "N": "Y"));
+			params.put("projectEndDateComingFlag", (projectEndDateComingResultAll.isEmpty()? "N": "Y"));
 		}
 	}
 	
@@ -476,7 +698,7 @@ public class MailServiceImpl implements MailService {
 						velocityEngine.evaluate(vc, body, identifier, template.getBody());
 					}
 					velocityEngine.evaluate(vc, subjectWriter, identifier, template.getSubject());
-					logger.debug("evaluating email template: " + body.toString());
+					logger.trace("evaluating email template: " + body.toString());
 					logger.info("sending message....." + identifier + " with params..... " + params);
 
 					final MimeMessageHelper helper = new MimeMessageHelper(mailSender.createMimeMessage(), true,

@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
@@ -66,9 +68,12 @@ public class ProjectsVw implements java.io.Serializable {
 	private Long subprojectCount;
 	private Long repoCount;
 	private boolean expandRepository = false;
+	private Date createdDate;
 	private String createdBy;
 	private Date anticipatedSubmissionDate;
-	private String budgetEndDate;
+	private Date budgetEndDate;
+	private Date projectStartDate;
+	private Date projectEndDate;
 	
 	private String extPdEmailAddress;
 	
@@ -87,7 +92,7 @@ public class ProjectsVw implements java.io.Serializable {
 			String extPiLastName, Long extPdNpnId, String extPdFirstName, String extPdLastName,
 			String intGrantContractNum, String intPiInstitution, String intPiEmailAddress, String intPiFirstName,
 			String intPiLastName, Long intPdNpnId, String intPdFirstName, String intPdLastName, Long subprojectCount,
-			Long repoCount, boolean expandRepository, String createdBy) {
+			Long repoCount, boolean expandRepository, String createdBy, Date createdDate) {
 		this.id = id;
 		this.docAbbreviation = docAbbreviation;
 		this.parentAccessionNum = parentAccessionNum;
@@ -125,6 +130,7 @@ public class ProjectsVw implements java.io.Serializable {
 		this.repoCount = repoCount;
 		this.expandRepository = expandRepository;
 		this.createdBy = createdBy;
+		this.createdDate = createdDate;
 	}
 
 	@Id
@@ -551,7 +557,18 @@ public class ProjectsVw implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	@Formula(value="(SELECT p.anticipated_submission_date FROM projects_t p WHERE p.id = id)")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED_DATE", length = 7)
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "ANTICIPATED_SUBMISSION_DATE", length = 7)
 	public Date getAnticipatedSubmissionDate() {
 		return anticipatedSubmissionDate;
 	}
@@ -576,16 +593,64 @@ public class ProjectsVw implements java.io.Serializable {
 		return "N";
 	}
 	
-	@Formula(value="(SELECT to_char(mv.budget_end_date,'YYYY/MM/DD') FROM project_grants_contracts_t g,gds_grants_contracts_mv mv WHERE mv.lookup_grant_contract_num=g.grant_contract_num and g.appl_id=mv.appl_id and g.project_id(+) = id and g.primary_grant_contract_flag = 'Y' and g.grant_contract_type = 'Extramural')")
-	public String getBudgetEndDate() {
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "EXT_BUDGET_END_DATE", length = 7)
+	public Date getBudgetEndDate() {
 		return budgetEndDate;
 	}
 
-	public void setBudgetEndDate(String budgetEndDate) {
+	@Transient
+	public String getBudgetEndDateString() {
+		if(budgetEndDate != null){
+			SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			return df.format(budgetEndDate);
+		}
+		return "";
+	}
+	
+	public void setBudgetEndDate(Date budgetEndDate) {
 		this.budgetEndDate = budgetEndDate;
+	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "EXT_PROJECT_PERIOD_START_DATE", length = 7)
+	public Date getProjectStartDate() {
+		return projectStartDate;
 	}
 
 	@Transient
+	public String getProjectStartDateString() {
+		if(projectStartDate != null){
+			SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			return df.format(projectStartDate);
+		}
+		return "";
+	}
+	
+	public void setProjectStartDate(Date projectStartDate) {
+		this.projectStartDate = projectStartDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "EXT_PROJECT_PERIOD_END_DATE", length = 7)
+	public Date getProjectEndDate() {
+		return projectEndDate;
+	}
+
+	@Transient
+	public String getProjectEndDateString() {
+		if(projectEndDate != null){
+			SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			return df.format(projectEndDate);
+		}
+		return "";
+	}
+	
+	public void setProjectEndDate(Date projectEndDate) {
+		this.projectEndDate = projectEndDate;
+	}
+	
+	@Column(name = "EXT_PD_EMAIL_ADDRESS", length = 320)
 	public String getExtPdEmailAddress() {
 		return extPdEmailAddress;
 	}

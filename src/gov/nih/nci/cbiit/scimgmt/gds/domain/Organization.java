@@ -2,7 +2,6 @@ package gov.nih.nci.cbiit.scimgmt.gds.domain;
 // Generated Jun 21, 2016 11:01:35 AM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,6 +15,8 @@ public class Organization implements java.io.Serializable {
 
 	private String nihorgpath;
 	private String nihsac;
+	private String nihouacronym;
+	private String nihouname;
 
 	public Organization() {
 	}
@@ -24,9 +25,11 @@ public class Organization implements java.io.Serializable {
 		this.nihsac = nihsac;
 	}
 
-	public Organization(String nihorgpath, String nihsac) {
+	public Organization(String nihorgpath, String nihsac, String nihouacronym, String nihouname) {
 		this.nihorgpath = nihorgpath;
 		this.nihsac = nihsac;
+		this.nihouacronym = nihouacronym;
+		this.nihouname = nihouname;
 	}
 
 	@Override
@@ -59,12 +62,24 @@ public class Organization implements java.io.Serializable {
 		return nihsac;
 	}
 
+	@Column(name = "NIHOUACRONYM", length = 64)
+	public String getNihouacronym() {
+		return nihouacronym;
+	}
+
+	@Column(name = "NIHOUNAME", nullable = false, length = 80)
+	public String getNihouname() {
+		return nihouname;
+	}
+	
 	@Override
 	public int hashCode() {
 		int result = 17;
 
 		result = 37 * result + (getNihorgpath() == null ? 0 : getNihorgpath().hashCode());
 		result = 37 * result + (getNihsac() == null ? 0 : getNihsac().hashCode());
+		result = 37 * result + (getNihouacronym() == null ? 0 : getNihouacronym().hashCode());
+		result = 37 * result + (getNihouname() == null ? 0 : getNihouname().hashCode());
 		return result;
 	}
 
@@ -74,6 +89,14 @@ public class Organization implements java.io.Serializable {
 
 	public void setNihsac(String nihsac) {
 		this.nihsac = nihsac;
+	}
+	
+	public void setNihouacronym(String nihouacronym) {
+		this.nihouacronym = nihouacronym;
+	}
+
+	public void setNihouname(String nihouname) {
+		this.nihouname = nihouname;
 	}
 
 }

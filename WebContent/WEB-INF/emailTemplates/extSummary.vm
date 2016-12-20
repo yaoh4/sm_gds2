@@ -4,13 +4,134 @@
 	<p>Dear ${dear},</p>
 
 	<p>You are receiving this automated courtesy message as a Genomic
-		Program Administrator for NCI's ${doc}.</p>
+		Program Administrator for NCI's ${docFullName} ${docAcronym}.</p>
 
 	<p>As part of your responsibility to overview Genomic Data Sharing
-		submissions for ${doc}, we have
-		identified that the following GDS Submissions have some issues that
-		need to be corrected in order to be Completed on time:</p>
+		submissions for ${docAcronym}, we have identified that the following 
+		GDS Submissions have some issues that need to be addressed:</p>
 
+	#if ($pastProjectEndDateFlag == "Y")
+	<p>
+	<ul>
+		<li>The Grant Project End Date is in the past and at least one 
+			milestone is not in "Completed" status.</li>
+	</ul>
+	</p>
+	
+	<table border=1 cellspacing=1 cellpadding=0 width="100%"
+		style="width: 100.0%; background: #AAAAAA; border: solid windowtext 1.0pt;">
+		<thead>
+			<tr>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Grant Number</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Submission Project
+								Title</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Principal
+								Investigator</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Program Director</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Grant 
+								Project End Date</span></b>
+					</p>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach ($row in $pastProjectEndDateResult)
+			<tr>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extGrantContractNum</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectSubmissionTitle</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPiFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPdFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectEndDateString</span></p></td>
+			</tr>
+			#end
+		</tbody>
+	</table>
+	#end
+	
+	#if ($projectEndDateComingFlag == "Y")
+	<p>
+	<ul>
+		<li>The Grant Project End Date is within 3 months from today and 
+			at least one milestone is not in "Completed" status.</li>
+	</ul>
+	</p>
+	
+	<table border=1 cellspacing=1 cellpadding=0 width="100%"
+		style="width: 100.0%; background: #AAAAAA; border: solid windowtext 1.0pt;">
+		<thead>
+			<tr>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Grant Number</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Submission Project
+								Title</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Principal
+								Investigator</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Program Director</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Grant 
+								Project End Date</span></b>
+					</p>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach ($row in $projectEndDateComingResult)
+			<tr>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extGrantContractNum</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectSubmissionTitle</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPiFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPdFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectEndDateString</span></p></td>
+			</tr>
+			#end
+		</tbody>
+	</table>
+	#end
+	
 	#if ($pastSubmissionDateFlag == "Y")
 	<p>
 	<ul>
@@ -25,27 +146,33 @@
 		<thead>
 			<tr>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Grant Number</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
 						<b><span style="font-size: 10.0pt;">Submission Project
 								Title</span></b>
 					</p>
 				</td>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
 						<b><span style="font-size: 10.0pt;">Principal
 								Investigator</span></b>
 					</p>
 				</td>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
 						<b><span style="font-size: 10.0pt;">Program Director</span></b>
 					</p>
 				</td>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
 						<b><span style="font-size: 10.0pt;">Anticipated
 								Submission Date</span></b>
@@ -56,10 +183,11 @@
 		<tbody>
 			#foreach ($row in $pastSubmissionDateResult)
 			<tr>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extGrantContractNum</span></p></td>
 				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectSubmissionTitle</span></p></td>
 				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPiFullName</span></p></td>
 				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPdFullName</span></p></td>
-				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.anticipatedSubmissionDate</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.anticipatedSubmissionDateString</span></p></td>
 			</tr>
 			#end
 		</tbody>
@@ -70,8 +198,7 @@
 	<p>
 	<ul>
 		<li>The Basic Study Information milestone is still "Not Started"
-			or "In Progress" Status and the provided Anticipated Submission Date
-			is in a week from today.</li>
+			or "In Progress" Status and the provided Anticipated Submission Date is in a month from today.</li>
 	</ul>
 	</p>
 
@@ -80,29 +207,35 @@
 		<thead>
 			<tr>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Grant Number</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
 						<b><span style="font-size: 10.0pt;">Submission Project
 								Title</span></b>
 					</p>
 				</td>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
 						<b><span style="font-size: 10.0pt;">Principal
 								Investigator</span></b>
 					</p>
 				</td>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
 						<b><span style="font-size: 10.0pt;">Program Director</span></b>
 					</p>
 				</td>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
-						<b><span style="font-size: 10.0pt;">Anticipated
+						<b><span style="font-size: 10.0pt;">Anticipated 
 								Submission Date</span></b>
 					</p>
 				</td>
@@ -111,10 +244,72 @@
 		<tbody>
 			#foreach ($row in $bsiInProgressResult)
 			<tr>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extGrantContractNum</span></p></td>
 				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectSubmissionTitle</span></p></td>
 				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPiFullName</span></p></td>
 				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPdFullName</span></p></td>
-				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.anticipatedSubmissionDate</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.anticipatedSubmissionDateString</span></p></td>
+			</tr>
+			#end
+		</tbody>
+	</table>
+	#end
+	
+	#if ($budgetEndDateComingFlag == "Y")
+	<p>
+	<ul>
+		<li>The Basic Study Information milestone is still "Not Started"
+			or "In Progress" Status and the Grant Budget End Date is 45 days from today.</li>
+	</ul>
+	</p>
+
+	<table border=1 cellspacing=1 cellpadding=0 width="100%"
+		style="width: 100.0%; background: #AAAAAA; border: solid windowtext 1.0pt;">
+		<thead>
+			<tr>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Grant Number</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Submission Project
+								Title</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Principal
+								Investigator</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Program Director</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Grant Budget
+								End Date</span></b>
+					</p>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach ($row in $budgetEndDateComingResult)
+			<tr>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extGrantContractNum</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectSubmissionTitle</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPiFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPdFullName</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.budgetEndDateString</span></p></td>
 			</tr>
 			#end
 		</tbody>
@@ -126,7 +321,7 @@
 	<ul>
 		<li>The Genomic Data Sharing Plan and/or the Institutional
 			Certifications milestones are still "Not Started" or "In Progress"
-			Status and the Grant Budget End Date 45 days from today.</li>
+			Status and the Grant Project Start Date is in the past.</li>
 	</ul>
 	</p>
 
@@ -135,29 +330,35 @@
 		<thead>
 			<tr>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
+					<p style="text-align: center;">
+						<b><span style="font-size: 10.0pt;">Grant Number</span></b>
+					</p>
+				</td>
+				<td
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
 						<b><span style="font-size: 10.0pt;">Submission Project
 								Title</span></b>
 					</p>
 				</td>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
 						<b><span style="font-size: 10.0pt;">Principal
 								Investigator</span></b>
 					</p>
 				</td>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
 						<b><span style="font-size: 10.0pt;">Program Director</span></b>
 					</p>
 				</td>
 				<td
-					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 25%;">
+					style="border: solid windowtext 1.0pt; background: #CCCCCC; width: 20%;">
 					<p style="text-align: center;">
-						<b><span style="font-size: 10.0pt;">Grant Budget End
+						<b><span style="font-size: 10.0pt;">Grant Project Start
 								Date</span></b>
 					</p>
 				</td>
@@ -166,10 +367,11 @@
 		<tbody>
 			#foreach ($row in $gdsIcInProgressResult)
 			<tr>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extGrantContractNum</span></p></td>
 				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectSubmissionTitle</span></p></td>
 				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPiFullName</span></p></td>
 				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.extPdFullName</span></p></td>
-				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.budgetEndDate</span></p></td>
+				<td style="border: solid windowtext 1.0pt; background: white;"><p><span style="font-size: 10.0pt;">$row.projectStartDateString</span></p></td>
 			</tr>
 			#end
 		</tbody>

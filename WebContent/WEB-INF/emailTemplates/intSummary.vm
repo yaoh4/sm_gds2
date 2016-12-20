@@ -4,9 +4,9 @@
 	<p>Dear ${dear},</p>
 
 	<p>You are receiving this automated courtesy message as a Genomic
-		Program Administrator for NCI's ${doc}.</p>
+		Program Administrator for NCI's ${docFullName} ${docAcronym}.</p>
 	<p>As part of your responsibility to overview Genomic Data Sharing
-		submissions for ${doc}, we have identified that the following 
+		submissions for ${docAcronym}, we have identified that the following 
 		GDS Submissions have some issues that need to be addressed:</p>
 
 	#if ($pastSubmissionDateFlag == "Y")
