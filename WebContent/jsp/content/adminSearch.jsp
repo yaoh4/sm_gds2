@@ -24,7 +24,12 @@
 						<div class="panel-body">
 							<h4>Search Criteria</h4>
 							<div class="form-group row">
-								<div class="checkbox"><label><input type="checkbox" id="gdsUsersOnly" name="criteria.gdsUsersOnly" value="true" style="margin-left: -40px;">&nbsp;&nbsp;Only users with GDS Roles
+							<div class="radio">
+								<label>
+									<input type="radio" id="addNewUser" value="false" name="criteria.gdsUsersOnly" style="margin-left: -40px;">&nbsp;&nbsp;Add new user role
+								</label>
+								<label>
+									<input type="radio" id="gdsUsersOnly" value="true" name="criteria.gdsUsersOnly" style="margin-left: 10px;">&nbsp;&nbsp;Search existing GDS user
 								</label>
 							</div>
 							<div class="col-xs-5">
@@ -50,7 +55,7 @@
 						
 							</div>
 							
-							<div class="col-xs-5">
+							<div id="gdsUserRoleDivId" class="col-xs-5">
 								<label for="User Role">GDS User Role:</label>
 								
 								<s:select name="criteria.roleCode" id="role"

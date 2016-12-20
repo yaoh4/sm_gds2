@@ -8,6 +8,14 @@ $(document).ready(function(){
 	
 	reinitTable();
       	
+	$("#addNewUser").click(function(){
+		$("#role").val("");
+		$("#gdsUserRoleDivId").hide();
+	});
+	$("#gdsUsersOnly").click(function(){
+		$("#gdsUserRoleDivId").show();
+	});
+	$("#addNewUser").click();
 });
 
 $(".helpfile").click(function(){
@@ -58,8 +66,12 @@ function searchUsers() {
 	var role = $('#role').val();
 	var doc = $('#doc').val();
 	var gdsUsersFlag = $('#gdsUsersOnly').is(':checked');
-	if($('#lastName').val().length == 0 && $('#role').val().length == 0) {
+	if(gdsUsersFlag && $('#lastName').val().length == 0 && $('#role').val().length == 0) {
 		var errorMsg = "Last Name or GDS User Role selection is required to complete the Search";
+		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
+		window.scrollTo(0,0);
+	} else if(!gdsUsersFlag && $('#lastName').val().length == 0) {
+		var errorMsg = "Last Name is required to complete the Search";
 		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
 		window.scrollTo(0,0);
 	} else {
