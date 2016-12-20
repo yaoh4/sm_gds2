@@ -48,6 +48,7 @@
                 $(_this).popover("hide");
             }
         }, 300);
+          });
 
 
 //pop up new window
