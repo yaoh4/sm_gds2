@@ -35,7 +35,7 @@
 	   */ 
 
 
-       $("data-orginal-title:contains('http')").show(0).delay(5000).hide(0);
+       $("div.tooltip:contains('http')").show(0).delay(5000).hide(0);
 
 //pop up new window
         $('.js-newWindow').click(function (event) {
