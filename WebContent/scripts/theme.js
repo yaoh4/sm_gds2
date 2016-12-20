@@ -123,6 +123,7 @@ $('#submissionTable').dataTable( {
 
 
 
+$(document).ready(function(){
 $(".pop").popover({ trigger: "manual" , html: true, animation:false})
     .on("mouseenter", function () {
         var _this = this;
@@ -138,6 +139,4 @@ $(".pop").popover({ trigger: "manual" , html: true, animation:false})
             }
         }, 300);
 });
-
-
  

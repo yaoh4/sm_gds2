@@ -144,8 +144,9 @@
 				<div id="20" style="${map['20'].style}" class="qSpacing">
 					<p class="question"><s:property
 							value="%{getQuestionById(20).getDisplayText()}" />
-							&nbsp; &nbsp; <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" data-content="<b>dbGaP:</b><a href="http://www.ncbi.nlm.nih.gov/gap">http://www.ncbi.nlm.nih.gov/gap</a> <br/>
-<b>SRA:</b> <a href="http://www.ncbi.nlm.nih.gov/sra">http://www.ncbi.nlm.nih.gov/sra</a> <br/>
+							&nbsp; &nbsp; <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" 
+							data-content="<b>dbGaP:</b><a href="http://www.ncbi.nlm.nih.gov/gap">http://www.ncbi.nlm.nih.gov/gap</a><br/>
+<b>SRA:</b><a href="http://www.ncbi.nlm.nih.gov/sra">http://www.ncbi.nlm.nih.gov/sra</a> <br/>
 <b>GDC:</b> <a href="https://gdc.nci.nih.gov/">https://gdc.nci.nih.gov/</a>  <br/>
 <b>GEO:</b> <a href="http://www.ncbi.nlm.nih.gov/geo/">http://www.ncbi.nlm.nih.gov/geo/</a> <br/>
 <b>Other:</b> If you are planning on submitting data to another repository, please be sure to discuss with your Genomic Program Administrator (GPA) to make sure it is appropriate." data-html="true" style="font-size: 12px;"> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
