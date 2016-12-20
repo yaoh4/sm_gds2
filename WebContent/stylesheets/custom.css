@@ -1062,6 +1062,16 @@ a.tooltip span
     position:relative;
 }
 
+.popover {
+  font-size: 10px;
+   background-color:#EEE;
+    
+}
+
+.popover.right .arrow:after {
+  border-right-color: #EEE;
+}
+
 /***********Tool tip for search page**********************************/
 
 .wrapper2 {
