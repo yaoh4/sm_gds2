@@ -327,17 +327,27 @@
          <td> <s:property value="%{#version.submissionTitle}" /></td>
          <td><s:property value="%{#version.versionNum}" /> </td>
          <td>
-         <s:if test = "extramuralGrant.piLastName != null">
-         <s:a href="mailto:%{extramuralGrant.piEmailAddress}?">
-		${extramuralGrant.piLastName},${extramuralGrant.piFirstName} 
+         <s:iterator status="stat1" var="pi" value="versions[#index].projectGrantsContracts">
+         <s:hidden id="name" value="%{#pi.dataLinkFlag}"/>
+             <s:if test="%{#pi.dataLinkFlag.equals(\"Y\")}">
+           <s:hidden id="lastname" value="%{getPiInfo(#pi.applId).piLastName}"/>
+           <s:if test="%{getPiInfo(#pi.applId).piLastName != null}">
+         <s:a href="mailto:%{getPiInfo(#pi.applId).piEmailAddress}?">
+		<s:property	value="%{getPiInfo(#pi.applId).piLastName}" /> , <s:property value="%{getPiInfo(#pi.applId).piFirstName}" />
 		</s:a>
-		</s:if>
 		 <br>
-		  <s:if test = "intramuralGrant.piLastName != null">
-		<s:a href="mailto:%{intramuralGrant.piEmailAddress}?">
-		${intramuralGrant.piLastName},${intramuralGrant.piFirstName} 
+		 </s:if>
+         </s:if>
+         <s:else>
+         <s:if test="%{#pi.piLastName != null}">
+         <s:hidden id="lastname" value="%{#pi.piLastName}"/>
+         <s:a href="mailto:%{#pi.piEmailAddress}?">
+		<s:property	value="%{#pi.piLastName}" /> , <s:property	value="%{#pi.piFirstName}" />
 		</s:a>
-		</s:if>
+		 <br>
+		 </s:if>
+		 </s:else>
+        </s:iterator>
         </td>
         <td> 
         <s:set name="id" value="%{#version.id}"/>
