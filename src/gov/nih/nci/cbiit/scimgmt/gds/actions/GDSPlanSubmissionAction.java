@@ -448,7 +448,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			//1) The system will delete all the sub-projects for this parent project
 			if(warnOnly) {
 				if(manageProjectService.getSubprojects(getProject().getId()) != null)
-					sb.append("All associated Sub-Projects. <br>");
+					sb.append("All the associated Sub-Projects. <br>");
 			}
 			else {
 				manageProjectService.deleteSubProjects(getProject().getId());

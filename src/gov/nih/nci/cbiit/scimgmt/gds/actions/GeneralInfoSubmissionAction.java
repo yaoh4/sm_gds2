@@ -1018,7 +1018,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			}
 
 			//Exclude Intramural also from the below validations
-			if(ApplicationConstants.APPL_CLASS_CODE_EXTRAMURAL.equals(projectGrantContract.getApplClassCode())) {
+			if(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL.equals(projectGrantContract.getGrantContractType())) {
 				
 				//Validation for PD first name.
 				if(StringUtils.isBlank(projectGrantContract.getPdFirstName())){
@@ -1078,20 +1078,35 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			   !StringUtils.isBlank(projectGrantContract.getPiInstitution())) {
 			
 				//Validation for PI first name and last name.
-				if(StringUtils.isBlank(projectGrantContract.getPiFirstName())){
-					this.addActionError(getText("pi.firstname.required")); 
+				if(StringUtils.isBlank(projectGrantContract.getPiFirstName())) {
+					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
+							projectGrantContract.getGrantContractType())) {
+					       this.addActionError(getText("pi.firstname.required")); 
+					} else {
+						   this.addActionError(getText("intramural.pi.firstname.required"));
+					}
 				}
-				if(StringUtils.isBlank(projectGrantContract.getPiLastName())){
-					this.addActionError(getText("pi.lastname.required")); 
+				if(StringUtils.isBlank(projectGrantContract.getPiLastName())) {
+					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
+							projectGrantContract.getGrantContractType())) {
+					       this.addActionError(getText("pi.lastname.required"));
+					} else {
+						   this.addActionError(getText("intramural.pi.lastname.required"));
+					}
 				}
 
 				//Validation for PI email.
-				if(StringUtils.isBlank(projectGrantContract.getPiEmailAddress())){
-					this.addActionError(getText("pi.email.required")); 
+				if(StringUtils.isBlank(projectGrantContract.getPiEmailAddress())) {
+					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
+							projectGrantContract.getGrantContractType())) {
+					       this.addActionError(getText("pi.email.required")); 
+					} else {
+						   this.addActionError(getText("intramural.pi.email.required"));
+					}
 				}
                    
 				//Validation for PI institution.
-				if((ApplicationConstants.APPL_CLASS_CODE_EXTRAMURAL).equalsIgnoreCase(
+				if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 						projectGrantContract.getGrantContractType())) {
 					if(StringUtils.isBlank(projectGrantContract.getPiInstitution())){
 						this.addActionError(getText("pi.institution.required")); 
@@ -1115,20 +1130,40 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			   StringUtils.isBlank(projectGrantContract.getPiEmailAddress()) &&
 			   StringUtils.isBlank(projectGrantContract.getPiInstitution())) {
 				if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName())){
-					this.addActionError(getText("primarycontact.required")); 
+					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
+							projectGrantContract.getGrantContractType())) {
+					       this.addActionError(getText("primarycontact.required")); 
+					} else {
+						   this.addActionError(getText("intramural.primarycontact.required")); 
+					}
 				}
 				else if(!StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName())){
-					this.addActionError(getText("primarycontact.lastname.required")); 
+					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
+							projectGrantContract.getGrantContractType())) {
+					       this.addActionError(getText("primarycontact.lastname.required")); 
+					} else {
+						   this.addActionError(getText("intramural.primarycontact.lastname.required")); 
+					}
 				}
 				else if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && !StringUtils.isBlank(projectGrantContract.getPocLastName())){
-					this.addActionError(getText("primarycontact.firstname.required")); 
+					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
+							projectGrantContract.getGrantContractType())) {
+					       this.addActionError(getText("primarycontact.firstname.required")); 
+					} else {
+						   this.addActionError(getText("intramural.primarycontact.firstname.required")); 
+					}
 				}
 			  		
 
 				//Validation for Primary contact.
 				if(!StringUtils.isBlank(projectGrantContract.getPocFirstName()) && !StringUtils.isBlank(projectGrantContract.getPocLastName())
 					&& (StringUtils.isBlank(projectGrantContract.getPocEmailAddress()))){
-					this.addActionError(getText("primarycontact.email.required")); 
+					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
+							projectGrantContract.getGrantContractType())) {
+				           this.addActionError(getText("primarycontact.email.required")); 
+					} else {
+						   this.addActionError(getText("intramural.primarycontact.email.required")); 
+					}
 				}
 			}
 		}
