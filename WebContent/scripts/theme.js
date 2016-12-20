@@ -123,26 +123,11 @@ $('#submissionTable').dataTable( {
 
 
 
-$(function () {
-    $("div").tooltip({
-        content: function () {
-            return $(this).prop('title');
-        },
-        show: null, 
-        close: function (event, ui) {
-            ui.tooltip.hover(
-
-            function () {
-                $(this).stop(true).fadeTo(400, 1);
-            },
-
-            function () {
-                $(this).fadeOut("400", function () {
-                    $(this).remove();
-                })
-            });
-        }
-    });
+$tip.remove().css({
+    top: 0, 
+    left: 0, 
+    visibility: 'hidden', 
+    display: 'block'}).appendTo(this.$element[0]);
 });
 
 
