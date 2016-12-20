@@ -1011,6 +1011,31 @@ hr {
   
 }
 
+
+.tooltip.right .tooltip-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -5px;
+    border-width: 5px 5px 5px 0;
+    border-right-color: #efefef;
+}
+
+.tooltip-inner {
+    max-width: 340px;
+    padding: 3px 8px;
+    color: #111;
+    text-align: left;
+    background-color: #efefef;
+    border-radius: 4px;
+     -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
 a.tooltip {outline:none; }
 a.tooltip strong {line-height:30px;}
 a.tooltip:hover {text-decoration:none;} 
@@ -1023,6 +1048,7 @@ a.tooltip span {
     width:200px; line-height:16px;
       top: 40px;
     right: 1%;
+     
 }
 a.tooltip:hover span{
     display:inline; position:absolute; 
@@ -1063,13 +1089,44 @@ a.tooltip span
 }
 
 .popover {
-  font-size: 10px;
-   background-color:#EEE;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1060;
+    display: none;
+    max-width: 276px;
+    padding: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: left;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    word-wrap: normal;
+    white-space: normal;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    line-break: auto;
+    background-color: #efefef;
+}
     
 }
 
 .popover.right .arrow:after {
-  border-right-color: #EEE;
+  border-right-color: #efefef;
 }
 
 /***********Tool tip for search page**********************************/
@@ -1523,20 +1580,5 @@ div.dataTables_scrollBody thead th {
   font-weight: bold;
 }
 
-.tooltip.right .tooltip-arrow {
-    top: 50%;
-    left: 0;
-    margin-top: -5px;
-    border-width: 5px 5px 5px 0;
-    border-right-color: #efefef;
-}
 
-.tooltip-inner {
-    max-width: 340px;
-    padding: 3px 8px;
-    color: #111;
-    text-align: left;
-    background-color: #efefef;
-    border-radius: 4px;
-}
 
