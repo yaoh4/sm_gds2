@@ -123,11 +123,9 @@ $('#submissionTable').dataTable( {
 
 
 
-$tip.remove().css({
-    top: 0, 
-    left: 0, 
-    visibility: 'hidden', 
-    display: 'block'}).appendTo(this.$element[0]);
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip({'delay': { show: 0, hide: 5000 }
+    });   
 });
 
 
