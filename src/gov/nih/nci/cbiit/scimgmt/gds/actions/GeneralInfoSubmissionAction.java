@@ -435,7 +435,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		List<Document> currentDocs = fileUploadService.retrieveFileByProjectId(currentLatestVersion.getId());
 		if(!CollectionUtils.isEmpty(currentDocs)) {
 			for(Document currentDoc: currentDocs) {
-				if(currentDoc.getInstitutionalCertificationId() == null) {
+				if(currentDoc.getInstitutionalCertificationId() == null && (!ApplicationConstants.DOC_TYPE_BSI.equals(currentDoc.getDocType().getCode()))) {
+					fileUploadService.storeFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null);
+				}
+				if(ApplicationConstants.DOC_TYPE_BSI.equals(currentDoc.getDocType().getCode()) && subprojectClone) {
 					fileUploadService.storeFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null);
 				}
 			}
@@ -445,7 +448,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(GdsSubmissionActionHelper.isSubmissionUpdated(project, currentLatestVersion)) {
 			deleteExceptionMemo(project);
 		}
-		
+        
 		//save the project to recomute the statuses
 		project = super.saveProject(project, null);
 		
