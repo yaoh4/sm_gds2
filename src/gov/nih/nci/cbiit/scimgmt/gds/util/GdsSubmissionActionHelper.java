@@ -405,9 +405,11 @@ public class GdsSubmissionActionHelper {
 		List<RepositoryStatus> repoStatuses = project.getRepositoryStatuses();
 		if(!CollectionUtils.isEmpty(repoStatuses)) {
 			for(RepositoryStatus repoStatus: repoStatuses) {
-				if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(
-					repoStatus.getLookupTByStudyReleasedId().getId())) {
-					return ApplicationConstants.FLAG_NO;
+				if(project.getSubprojectFlag().equalsIgnoreCase("N") || project.getSubprojectFlag().equalsIgnoreCase("Y") && repoStatus.isSelected()) {
+					if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(
+							repoStatus.getLookupTByStudyReleasedId().getId())) {
+						return ApplicationConstants.FLAG_NO;
+					}
 				}
 			}
 		} else {
