@@ -1011,6 +1011,25 @@ hr {
   
 }
 
+
+.tooltip.right .tooltip-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -5px;
+    border-width: 5px 5px 5px 0;
+    border-right-color: #efefef;
+}
+
+.tooltip-inner {
+    max-width: 340px;
+    padding: 3px 8px;
+    color: #111;
+    text-align: left;
+    background-color: #efefef;
+    border-radius: 4px;
+    
+}
+
 a.tooltip {outline:none; }
 a.tooltip strong {line-height:30px;}
 a.tooltip:hover {text-decoration:none;} 
@@ -1023,12 +1042,21 @@ a.tooltip span {
     width:200px; line-height:16px;
       top: 40px;
     right: 1%;
+     
 }
 a.tooltip:hover span{
     display:inline; position:absolute; 
     border:2px solid #FFF;  color:#EEE;
      background:#000;
+
 }
+
+a.tooltip .fade .out {
+
+  transition-delay: 5s;
+}
+
+
 .callout {z-index:20;position:absolute;border:0;top:-14px;right:16px;}
     
 /*CSS3 extras*/
@@ -1037,6 +1065,71 @@ a.tooltip span
     border-radius:2px;        
     box-shadow: 0px 0px 8px 4px #666;
     /*opacity: 0.8;*/
+}
+
+
+.box {
+    display:block;
+    width:200px;
+    height:100px;
+    background-color:#000;
+    color: #EEE;
+}
+#pop {
+    padding:0px 0px;
+}
+#example {
+    position:relative;
+}
+
+.popover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1060;
+    display: none;
+    max-width: 276px;
+    padding: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: left;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    word-wrap: normal;
+    white-space: normal;
+    background-color: #fff;
+    -webkit-background-clip: none;
+    background-clip: none;
+    border: 0px solid #ccc;
+    border: 0px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 0px 0px rgba(0,0,0, 0);
+    box-shadow: 0 0px 0px rgba(0,0,0, 0);
+    line-break: auto;
+    background-color: #efefef;
+}
+    
+
+.popover.right .arrow:after {
+  border-right-color: #efefef;
+}
+
+.popover.right>.arrow {
+    top: 50%;
+    left: -11px;
+    margin-top: -1px;
+    border-right-color: #999;
+    border-right-color: rgba(0,0,0,.25);
+    border-left-width: 30px;
+    border-width: 0px;
 }
 
 /***********Tool tip for search page**********************************/
@@ -1490,20 +1583,5 @@ div.dataTables_scrollBody thead th {
   font-weight: bold;
 }
 
-.tooltip.right .tooltip-arrow {
-    top: 50%;
-    left: 0;
-    margin-top: -5px;
-    border-width: 5px 5px 5px 0;
-    border-right-color: #efefef;
-}
 
-.tooltip-inner {
-    max-width: 340px;
-    padding: 3px 8px;
-    color: #111;
-    text-align: left;
-    background-color: #efefef;
-    border-radius: 4px;
-}
 

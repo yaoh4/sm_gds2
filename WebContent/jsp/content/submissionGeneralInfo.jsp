@@ -51,7 +51,7 @@
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="submissionTitle"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project Submission Title</label> 
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project Submission Title [Max 100 char]</label> 
 								<s:textfield name="project.submissionTitle" cssClass="form-control" id="submissionTitle" placeholder="" value="%{project.submissionTitle}" maxLength="100"/>
 						</div>
 					</div>
@@ -172,7 +172,7 @@
 					<div class="row has-feedback extConditionalDisplay">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Extramural or Contract Project Title</label> 
-							<s:textfield name="extramuralGrant.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{extramuralGrant.projectTitle}"  maxLength="100"/>
+							<s:textfield name="extramuralGrant.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{extramuralGrant.projectTitle}"  maxLength="200"/>
 						</div>
 					</div>
 					</div>
@@ -324,7 +324,7 @@
 					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Intramural or Contract Project Title</label> 
-							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control" id="intramural_projectTitle" placeholder="" value="%{intramuralGrant.projectTitle}"  maxLength="100"/>
+							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control" id="intramural_projectTitle" placeholder="" value="%{intramuralGrant.projectTitle}"  maxLength="200"/>
 						</div>
 					</div>
 					</div>

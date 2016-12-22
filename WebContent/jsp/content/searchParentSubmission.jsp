@@ -6,7 +6,12 @@
 			<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error Status
 		</h3>
 		<ul class="errorMessage">
+		<s:if test="%{criteria.selectedTypeOfProject.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@SUBMISSION_TYPE_NEW_SUBPROJECT)}">
+						<li><span>Please select a Parent Project.</span></li>
+					</s:if>
+					<s:else>
 			<li><span>Please search and select a Submission.</span></li>
+			</s:else>
 		</ul>
 	</div>
 </div>

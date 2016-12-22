@@ -4,7 +4,7 @@
 function searchGrantsData() {
 	$("#messages").empty();
 	if($('#grantSearch').val().length == 0) {
-		var errorMsg = "Please enter Grant/Intramural/Contract #.";
+		var errorMsg = "Please enter a Grant/Intramural/Contract #.";
 		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
 		window.scrollTo(0,0);
 	} 
@@ -100,7 +100,7 @@ function populateGrantsContractsData(){
 	var grantContract = $("input[name=selectedGrantContract]:checked").val();
 	
 	if(grantContract == undefined) {
-		var errorMsg = "Please select Intramural (Z01)/Grant/Contract #.";
+		var errorMsg = "Please select a Grant/Intramural/Contract #.";
 		$("#messages").prepend('<div class="container"><div class="col-md-12"><div class="alert alert-danger"><h3><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>&nbsp;Error Status</h3><ul class="errorMessage"><li><span>' + errorMsg + '</span></li></ul></div></div></div>');
 		window.scrollTo(0,0);
 		return;

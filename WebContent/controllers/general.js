@@ -109,16 +109,22 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 	$("#prevLinkedSubmissions").hide();
 	$("#generalInfoSection").hide();
 	$("#searchGrantsContracts").show();
-	$("#grantSearch").focus();	
-	//If user hits Enter key : 
-	$("#general_form").keydown(function( event ) {
-		if ( event.which == 13) {				
-			//Prevent default submit
-			event.preventDefault();						
-			//Hit Search
-			$( "#searchGrants" ).click();					
-		}
-	});		
+	var grantNumber = $("#" + grantContractIdPrefix + "_grantsContractNum").val();
+	if(grantNumber !== null && $.trim(grantNumber) != '') {
+		$("#grantSearch").val(grantNumber);
+		searchGrants.click();
+	} else {
+		$("#grantSearch").focus();	
+		//If user hits Enter key : 
+		$("#general_form").keydown(function( event ) {
+			if ( event.which == 13) {				
+				//Prevent default submit
+				event.preventDefault();						
+				//Hit Search
+				$( "#searchGrants" ).click();					
+			}
+		});	
+	}
 	
 }
 
@@ -350,11 +356,11 @@ function refreshGrantsContractsData(){
 	  		if (json.pdLastName !== "undefined") {
 	  			$("#lnPD").val(json.pdLastName);
 	  		}
-	  		if (json.projectPeriodStartDate !== "undefined") {
+	  		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodEndDate != null) {
 	  			var d = new Date(json.projectPeriodStartDate);
 	  			$("#projectStartDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
 	  		}
-	  		if (json.projectPeriodEndDate !== "undefined") {
+	  		if (json.projectPeriodEndDate !== "undefined" && json.projectPeriodEndDate != null) {
 	  			var d = new Date(json.projectPeriodEndDate);
 	  			$("#projectEndDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
 	  		}	

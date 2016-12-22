@@ -171,7 +171,10 @@
                                                                            ;
                                                                     </s:if>
                                                                   </s:if>
-                                                                </s:iterator>                                                              
+                                                                </s:iterator><br>
+                                                                <s:if test="%{#studiesDulSet.comments != null}">
+                                                                 &nbsp;&nbsp;&nbsp; DUL Appendix : ${studiesDulSet.comments}
+                                                                 </s:if>                                                         
                                                               </td>
                                                             </tr>                                                                                                                                                                            
                                                           </s:iterator> <!--  studiesDulSets -->

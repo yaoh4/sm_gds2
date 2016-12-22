@@ -67,7 +67,7 @@ public class AdminAction extends BaseAction {
 	public String searchNedPersons() {
 		//Perform search
 		if(!isSearchCriteriaValid(criteria)) {
-			addActionError(getText("error.admin.criteria"));
+			addActionError(getText("error.admin.criteria.add"));
 			return INPUT;
 		}
 		nedPersons = userRoleService.searchNedPerson(getCriteria());

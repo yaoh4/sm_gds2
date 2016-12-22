@@ -82,7 +82,8 @@ public class ProjectsDao {
 			} else {
 				// If subproject, just remove the repository but not the answers
 				for(PlanAnswerSelection ans : persistentInstance.getPlanAnswerSelections()) {
-					for (Iterator<RepositoryStatus> iterator = ans.getRepositoryStatuses().iterator(); iterator.hasNext();) {
+					Iterator<RepositoryStatus> iterator = ans.getRepositoryStatuses().iterator();
+					while (iterator.hasNext()) {
 						RepositoryStatus repo = iterator.next();
 						if(repo.getProject().getId().longValue() == persistentInstance.getId().longValue()) {
 							sessionFactory.getCurrentSession().delete(repo);

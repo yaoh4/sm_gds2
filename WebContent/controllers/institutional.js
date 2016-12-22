@@ -13,6 +13,12 @@ $(document).ready(function () {
 		
 		//if value contains otherAddText, parse out the text
 		//and set the value on the indicated text box
+		if(value.includes("comments")) {
+			var textsize = value.substr(0, value.indexOf("comments"));
+			var elemId = value.substr(textsize.length, value.length - textsize - textsize.length);
+			var text = value.substr(value.length - textsize);
+			$("#" + elemId).val(text);
+		}
 		if(value.includes("otherAddText")) {
 			//The length of the text is available at the beginning of the value string
 			//Format is <length of text><otherAddText-x-x-x><text>

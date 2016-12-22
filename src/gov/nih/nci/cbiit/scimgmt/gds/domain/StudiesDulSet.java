@@ -35,6 +35,7 @@ public class StudiesDulSet implements java.io.Serializable {
 	private String lastChangedBy;
 	private List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
 	private String displayId = null;
+	private String comments;
 
 	public StudiesDulSet() {
 	}
@@ -47,12 +48,13 @@ public class StudiesDulSet implements java.io.Serializable {
 	}
 
 	public StudiesDulSet(Long id, Study study, String createdBy,
-			String lastChangedBy, List<DulChecklistSelection> dulChecklistSelections) {
+			String lastChangedBy, List<DulChecklistSelection> dulChecklistSelections, String comments) {
 		this.id = id;
 		this.study = study;
 		this.createdBy = createdBy;
 		this.lastChangedBy = lastChangedBy;
 		this.dulChecklistSelections = dulChecklistSelections;
+		this.comments = comments;
 	}
 
 	@Id
@@ -94,6 +96,17 @@ public class StudiesDulSet implements java.io.Serializable {
 	public void setLastChangedBy(String lastChangedBy) {
 		this.lastChangedBy = lastChangedBy;
 	}
+	
+	@Column(name = "COMMENTS", length = 2000)
+	public String getComments() {
+		return comments;
+	}
+
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "studiesDulSet", orphanRemoval=true)
 	public List<DulChecklistSelection> getDulChecklistSelections() {
