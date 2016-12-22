@@ -356,14 +356,18 @@ function refreshGrantsContractsData(){
 	  		if (json.pdLastName !== "undefined") {
 	  			$("#lnPD").val(json.pdLastName);
 	  		}
-	  		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodEndDate != null) {
+	  		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodStartDate != null) {
 	  			var d = new Date(json.projectPeriodStartDate);
 	  			$("#projectStartDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
+	  		} else {
+	  			$("#projectStartDate").val("");
 	  		}
 	  		if (json.projectPeriodEndDate !== "undefined" && json.projectPeriodEndDate != null) {
 	  			var d = new Date(json.projectPeriodEndDate);
 	  			$("#projectEndDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
-	  		}	
+	  		} else {
+		  			$("#projectEndDate").val("");
+		  	}
 	  		if (json.cayCode !== "undefined") {
 	  			$("#cancerActivity").val(json.cayCode);
 	  		}

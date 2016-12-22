@@ -167,11 +167,11 @@ function populateGrantsContractsData(){
 			$("#lnPD").val(json.pdLastName);
 		}
 		
-		if (json.projectPeriodStartDate !== "undefined") {
+		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodStartDate != "null") {
 			$("#projectStartDate").val(json.projectPeriodStartDate);
 		}
 		
-		if (json.projectPeriodEndDate !== "undefined") {
+		if (json.projectPeriodEndDate !== "undefined" && json.projectPeriodEndDate != "null") {
 			$("#projectEndDate").val(json.projectPeriodEndDate);
 		}
 		
