@@ -360,7 +360,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						
 				ics.add(ic);
 			}
+		 if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
 			project.setInstitutionalCertifications(ics);
+			}
 		}
 		} else {
 			//This is a subprojectClone, so do not create new ICs
@@ -458,7 +460,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	
 	
 	private Project copyICsForClonedSubproject(Project project, Project currentLatestVersion) {
-		
+		Long name= currentLatestVersion.getParentProjectId();
 		//Copy ICs 
 		List<InstitutionalCertification> currentIcs = currentLatestVersion.getInstitutionalCertifications();
 		if(!CollectionUtils.isEmpty(currentIcs)) {
