@@ -167,12 +167,16 @@ function populateGrantsContractsData(){
 			$("#lnPD").val(json.pdLastName);
 		}
 		
-		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodStartDate != "null") {
+		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodStartDate != null && json.projectPeriodStartDate != "null") {
 			$("#projectStartDate").val(json.projectPeriodStartDate);
+		} else {
+			$("#projectStartDate").val("");
 		}
 		
-		if (json.projectPeriodEndDate !== "undefined" && json.projectPeriodEndDate != "null") {
+		if (json.projectPeriodEndDate !== "undefined" && json.projectPeriodStartDate != null && json.projectPeriodEndDate != "null") {
 			$("#projectEndDate").val(json.projectPeriodEndDate);
+		} else {
+			$("#projectEndDate").val("");
 		}
 		
 		if (json.cayCode !== "undefined") {
