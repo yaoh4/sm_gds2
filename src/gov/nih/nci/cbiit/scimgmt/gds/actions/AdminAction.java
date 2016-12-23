@@ -84,11 +84,6 @@ public class AdminAction extends BaseAction {
 	
 	public String searchGdsUsers() {
 		
-		if(!isSearchCriteriaValid(getCriteria())) {
-			addActionError(getText("error.admin.criteria"));
-			return INPUT;
-		}
-		
 		//Perform search
 		userRoles = userRoleService.searchUserRole(getCriteria());
 		if(CollectionUtils.isEmpty(userRoles)) {

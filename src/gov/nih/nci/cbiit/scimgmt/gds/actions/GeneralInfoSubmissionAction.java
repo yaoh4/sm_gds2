@@ -410,8 +410,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				planAnswers.add(planAnswer);
 			}
 			
-			project.setPlanAnswerSelections(planAnswers);
-			
+			 if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
+			      project.setPlanAnswerSelections(planAnswers);
+			 }
 			//Remove those planAnswers that do not match specific preconditions
 			if(GdsSubmissionActionHelper.isSubmissionUpdated(project, currentLatestVersion)) {
 				deletePlanAnswers(project);

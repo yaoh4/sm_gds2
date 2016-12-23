@@ -25,6 +25,10 @@ $(function(){
 		}
 		$("input[type=radio].grants").attr('disabled', false);
 	}
+	 $("#extramural_grantsContractNum").blur(function() {
+	        $('input:hidden[name="linkedGrantContractNum"]').val( $(this).val() );
+	    });
+	
 });
 
 //setting up default questions/grant boxes
@@ -191,7 +195,6 @@ function linkUnlinkGrants(elem) {
 				$("#dataLinkFlag").val('Y');
 				// Re-populate the data from DB.
 				refreshGrantsContractsData();
-				setLinkedDisplay();
 			} 
 			return true;
 		});
@@ -324,16 +327,16 @@ function warnGeneralInfoNext(element) {
 
 function refreshGrantsContractsData(){
 	var applId = $("#extramural_applId").val();
-		
+
 	$.ajax({
 	  	url: 'getGrantOrContractByApplId.action',
 	  	data: {applId: applId},
 	  	type: 'post',
 	  	async:   false,
 	  	success: function(json){
+	  		
 	  		if (json.grantContractNum !== "undefined") {
-	  			$("#extramural_grantsContractNum").val(json.grantContractNum);
-	  			
+	  			$("#extramural_grantsContractNum").val(json.grantContractNum);	
 	  		}
 	  		if (json.projectTitle !== "undefined") {
 	  			$("#extramural_projectTitle").val(json.projectTitle);
@@ -356,14 +359,18 @@ function refreshGrantsContractsData(){
 	  		if (json.pdLastName !== "undefined") {
 	  			$("#lnPD").val(json.pdLastName);
 	  		}
-	  		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodEndDate != null) {
+	  		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodStartDate != null) {
 	  			var d = new Date(json.projectPeriodStartDate);
 	  			$("#projectStartDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
+	  		} else {
+	  			$("#projectStartDate").val("");
 	  		}
 	  		if (json.projectPeriodEndDate !== "undefined" && json.projectPeriodEndDate != null) {
 	  			var d = new Date(json.projectPeriodEndDate);
 	  			$("#projectEndDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
-	  		}	
+	  		} else {
+		  			$("#projectEndDate").val("");
+		  	}
 	  		if (json.cayCode !== "undefined") {
 	  			$("#cancerActivity").val(json.cayCode);
 	  		}
@@ -374,9 +381,6 @@ function refreshGrantsContractsData(){
 		error: function(){}	
 	});
 }
-
-
-
  
  $('#DOC').on('change', function () {
 	   //var optionSelected = $("option:selected", this);
