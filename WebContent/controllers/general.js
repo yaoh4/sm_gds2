@@ -195,6 +195,7 @@ function linkUnlinkGrants(elem) {
 				$("#dataLinkFlag").val('Y');
 				// Re-populate the data from DB.
 				refreshGrantsContractsData();
+				setLinkedDisplay();
 			} 
 			return true;
 		});
