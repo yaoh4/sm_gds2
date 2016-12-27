@@ -205,6 +205,7 @@ function linkUnlinkGrants(elem) {
 			if (ans) {
 				//getting the cancerActivity code
 				$("#dataLinkFlag").val('N');
+				$("#extramural_grantsContractNum").attr("readonly", false);
 				setUnlinkedDisplay();
 			}
 			return true;
