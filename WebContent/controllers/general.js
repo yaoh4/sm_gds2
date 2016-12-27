@@ -195,6 +195,7 @@ function linkUnlinkGrants(elem) {
 				$("#dataLinkFlag").val('Y');
 				// Re-populate the data from DB.
 				refreshGrantsContractsData();
+				setLinkedDisplay();
 			} 
 			return true;
 		});
@@ -359,13 +360,13 @@ function refreshGrantsContractsData(){
 	  		if (json.pdLastName !== "undefined") {
 	  			$("#lnPD").val(json.pdLastName);
 	  		}
-	  		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodStartDate != null) {
+	  		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodStartDate != null && json.projectPeriodStartDate != "null") {
 	  			var d = new Date(json.projectPeriodStartDate);
 	  			$("#projectStartDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
 	  		} else {
 	  			$("#projectStartDate").val("");
 	  		}
-	  		if (json.projectPeriodEndDate !== "undefined" && json.projectPeriodEndDate != null) {
+	  		if (json.projectPeriodEndDate !== "undefined" && json.projectPeriodEndDate != null && json.projectPeriodEndDate != "null") {
 	  			var d = new Date(json.projectPeriodEndDate);
 	  			$("#projectEndDate").val(d.getMonth()+1 +'/'+ d.getDate() +'/'+ d.getFullYear());
 	  		} else {
