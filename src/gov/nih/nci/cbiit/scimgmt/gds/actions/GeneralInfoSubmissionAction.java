@@ -389,6 +389,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				planAnswer.setCreatedBy(loggedOnUser.getAdUserId());
 				planAnswer.setProjects(projectsToAdd);
 				planAnswer.setPlanQuestionsAnswer(currentPlanAnswer.getPlanQuestionsAnswer());
+				planAnswer.setOtherText(currentPlanAnswer.getOtherText());
 				if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(planAnswer.getPlanQuestionsAnswer().getQuestionId())) {		
 					RepositoryStatus repoStatus = new RepositoryStatus();
 					if(subprojectClone && !CollectionUtils.isEmpty(currentPlanAnswer.getRepositoryStatuses())) {
