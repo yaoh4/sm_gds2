@@ -197,7 +197,7 @@
 	#if ($bsiInProgressFlag == "Y")
 	<p>
 	<ul>
-		<li>The Basic Study Information milestone is still "Not Started"
+		<li>The Basic Study Information milestone is still in "Not Started"
 			or "In Progress" Status and the provided Anticipated Submission Date is in a month from today.</li>
 	</ul>
 	</p>
@@ -258,7 +258,7 @@
 	#if ($budgetEndDateComingFlag == "Y")
 	<p>
 	<ul>
-		<li>The Basic Study Information milestone is still "Not Started"
+		<li>The Basic Study Information milestone is still in "Not Started"
 			or "In Progress" Status and the Grant Budget End Date is 45 days from today.</li>
 	</ul>
 	</p>
@@ -320,7 +320,7 @@
 	<p>
 	<ul>
 		<li>The Genomic Data Sharing Plan and/or the Institutional
-			Certifications milestones are still "Not Started" or "In Progress"
+			Certifications milestones are still in "Not Started" or "In Progress"
 			Status and the Grant Project Start Date is in the past.</li>
 	</ul>
 	</p>

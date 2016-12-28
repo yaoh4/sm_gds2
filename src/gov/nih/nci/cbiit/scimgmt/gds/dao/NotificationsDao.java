@@ -38,49 +38,49 @@ public class NotificationsDao {
 			+ "from ProjectsVw v, ProjectGrantContract g "
 			+ "where v.projectEndDate < trunc(sysdate) "
 			+ "and exists (select 1 from PageStatus s where s.project.id = v.id and s.status.id in (46,47))"
-			+ "and g.project.id=v.id and g.primaryGrantContractFlag='Y' ";
+			+ "and g.project.id=v.id and g.primaryGrantContractFlag='Y' and v.latestVersionFlag='Y'";
 		
 		//Used for Extramural
 		private static final String QUERY_PROJECT_END_DATE_DUE_IN_X_DAYS = "select v " 
 			+ "from ProjectsVw v, ProjectGrantContract g "
-			+ "where v.projectEndDate - trunc(sysdate) < :days and v.projectEndDate > trunc(sysdate) "
+			+ "where v.projectEndDate - trunc(sysdate) <= :days and v.projectEndDate > trunc(sysdate) "
 			+ "and exists (select 1 from PageStatus s where s.project.id = v.id and s.status.id in (46,47))"
-			+ "and g.project.id=v.id and g.primaryGrantContractFlag='Y' ";
+			+ "and g.project.id=v.id and g.primaryGrantContractFlag='Y' and v.latestVersionFlag='Y' ";
 		
 		//Used for Extramural and Intramural
 		private static final String QUERY_PAST_SUBMISSION_DATE = "select v " 
 			+ "from ProjectsVw v, PageStatus s, ProjectGrantContract g "
 			+ "where s.project.id = v.id and v.anticipatedSubmissionDate < trunc(sysdate) "
-			+ "and g.project.id=v.id and g.primaryGrantContractFlag='Y' "
+			+ "and g.project.id=v.id and g.primaryGrantContractFlag='Y' and v.latestVersionFlag='Y' "
 			+ "and s.page.id=50 and s.status.id in (46,47)";
 
 		//Used for Intramural
 		private static final String QUERY_BSI_INPROGRESS_DUE_IN_A_WEEK = "select v " 
 			+ "from ProjectsVw v, PageStatus s, ProjectGrantContract g "
-			+ "where s.project.id = v.id and s.page.id=49 "
-			+ "and s.status.id in (46,47) and v.anticipatedSubmissionDate - trunc(sysdate) < 7 "
+			+ "where s.project.id = v.id and s.page.id=49 and v.latestVersionFlag='Y' "
+			+ "and s.status.id in (46,47) and v.anticipatedSubmissionDate - trunc(sysdate) <= 7 "
 			+ "and g.project.id=v.id and v.anticipatedSubmissionDate > trunc(sysdate) and g.primaryGrantContractFlag='Y' ";
 		
 		//Used for Extramural
 		private static final String QUERY_BSI_INPROGRESS_DUE_IN_A_MONTH = "select v " 
 				+ "from ProjectsVw v, PageStatus s, ProjectGrantContract g "
-				+ "where s.project.id = v.id and s.page.id=49 "
-				+ "and s.status.id in (46,47) and v.anticipatedSubmissionDate - trunc(sysdate) < 30 "
+				+ "where s.project.id = v.id and s.page.id=49 and v.latestVersionFlag='Y' "
+				+ "and s.status.id in (46,47) and v.anticipatedSubmissionDate - trunc(sysdate) <= 30 "
 				+ "and g.project.id=v.id and v.anticipatedSubmissionDate > trunc(sysdate) and g.primaryGrantContractFlag='Y' ";
 	
 		//Used for Extramural
 		private static final String QUERY_GDS_IC_INPROGRESS_FOR_90_DAYS_SINCE_PROJECT_START_DATE = "select v " 
 			+ "from ProjectsVw v, PageStatus gds, PageStatus ic, ProjectGrantContract g "
-			+ "where gds.project.id = v.id and ic.project.id = v.id "
+			+ "where gds.project.id = v.id and ic.project.id = v.id and v.latestVersionFlag='Y' "
 			+ "and gds.page.id=1 and ic.page.id=2 and (gds.status.id in (46,47) or ic.status.id in (46,47)) "
-			+ "and g.project.id=v.id and sysdate - v.projectStartDate > 90 and g.primaryGrantContractFlag='Y' ";
+			+ "and g.project.id=v.id and sysdate - v.projectStartDate >= 90 and g.primaryGrantContractFlag='Y' ";
 		
 		//Used for Intramural
 		private static final String QUERY_GDS_IC_INPROGRESS_FOR_90_DAYS_SINCE_CREATED_DATE = "select v " 
 			+ "from ProjectsVw v, PageStatus gds, PageStatus ic, ProjectGrantContract g "
-			+ "where gds.project.id = v.id and ic.project.id = v.id "
+			+ "where gds.project.id = v.id and ic.project.id = v.id and v.latestVersionFlag='Y' "
 			+ "and gds.page.id=1 and ic.page.id=2 and (gds.status.id in (46,47) or ic.status.id in (46,47)) "
-			+ "and g.project.id=v.id and sysdate - v.createdDate > 90 and g.primaryGrantContractFlag='Y' ";
+			+ "and g.project.id=v.id and sysdate - v.createdDate >= 90 and g.primaryGrantContractFlag='Y' ";
 		
 		//Used for Extramural
 		private static final String QUERY_BSI_INPROGRESS_BUDGET_END_IN_45_DAYS = "select v " 
@@ -88,8 +88,8 @@ public class NotificationsDao {
 				+ "where s.project.id = v.id "
 				+ "and mv.applId=g.applId and mv.lookupGrantContractNum=g.grantContractNum "
 				+ "and s.page.id=49 and s.status.id in (46,47) "
-				+ "and mv.budgetEndDate - trunc(sysdate) < 45 and mv.budgetEndDate > trunc(sysdate) "
-				+ "and g.project.id=v.id and g.primaryGrantContractFlag='Y'";
+				+ "and mv.budgetEndDate - trunc(sysdate) <= 45 and mv.budgetEndDate > trunc(sysdate) "
+				+ "and g.project.id=v.id and g.primaryGrantContractFlag='Y' and v.latestVersionFlag='Y' ";
 		
 		@Autowired
 		private SessionFactory sessionFactory;

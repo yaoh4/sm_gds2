@@ -145,7 +145,7 @@ public class PropertyListDao {
 			
 			logger.info("Retrieving PD list from DB");
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsPd.class);
-			criteria.addOrder(Order.asc("pdFullNameDescrip"));
+			criteria.addOrder(Order.asc("pdFullNameDescrip").ignoreCase());
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			return criteria.list();	
 		}

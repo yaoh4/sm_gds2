@@ -65,15 +65,19 @@ $("input[name='grantSelection']").click(function () {
 	
 	var result = "Changing the Research type will clear the Extramural/Intramural/Contract#.<br /> Do you wish to continue?";
 	var code= $(this).val(); 
-	
+	var submissionId = $("input[type='radio'].submissionReasonSelect:checked").val();
 	//bootbox.confirm(result, function(ans) {
 	//	if (ans) {
 			$("#researchType").val(code);
-			
-			$('.genConditionalDisplay').css('display', 'block');
-			$('#extramuralDiv').css('display', (code === 'Extramural' || code === 'Both') ? 'block':'none');
-		    $('#intramuralDiv').css('display', (code === 'Intramural' || code === 'Both') ? 'block':'none');
-		    
+			//$('.genConditionalDisplay').css('display', 'block');
+			//$('#extramuralDiv').css('display', (code === 'Extramural' || code === 'Both') ? 'block':'none');
+			   // $('#intramuralDiv').css('display', (code === 'Intramural' || code === 'Both') ? 'block':'none');
+			$('.genConditionalDisplay').css('display', (submissionId != '29') ? 'block':'none');
+		    $('#extramuralDiv').css('display', ( submissionId === '29' 
+				|| (submissionId !== '29' && (code === 'Extramural' || code === 'Both'))) ? 'block':'none');
+		$('.extConditionalDisplay').css('display', (submissionId !== '29' && (code == 'Extramural' || code === 'Both')) ? 'block':'none');  
+		$('#intramuralDiv').css('display',  (submissionId !== '29' && (code === 'Intramural' || code === 'Both')) ? 'block':'none'); 
+		
 		    prepareGrantNumField(code);
 		    
 	/*	} else {
@@ -95,7 +99,7 @@ $("input[name='project.submissionReasonId']").click(function () {
 			|| ($(this).val() !== '29' && (code === 'Extramural' || code === 'Both'))) ? 'block':'none');
 	$('.extConditionalDisplay').css('display', ($(this).val() !== '29' && (code == 'Extramural' || code === 'Both')) ? 'block':'none');  
 	$('#intramuralDiv').css('display',  ($(this).val() !== '29' && (code === 'Intramural' || code === 'Both')) ? 'block':'none'); 
-     
+	
 });
 
 //Search/Edit button
@@ -205,6 +209,7 @@ function linkUnlinkGrants(elem) {
 			if (ans) {
 				//getting the cancerActivity code
 				$("#dataLinkFlag").val('N');
+				$("#extramural_grantsContractNum").attr("readonly", false);
 				setUnlinkedDisplay();
 			}
 			return true;
