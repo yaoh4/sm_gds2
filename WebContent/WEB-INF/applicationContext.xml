@@ -172,9 +172,9 @@
 		<!--  Try for the first one week at 9AM as it is sent monthly -->
 		<!--  task:scheduled ref="AutomatedEmailTask" method="sendIntramuralSummaryEmail" cron="0 0 9 1-7 * *" -->
 		<!--  For QA Testing, run daily at 10AM -->
-		<task:scheduled ref="AutomatedEmailTask" method="sendExtramuralSummaryEmail" cron="0 0 10,13 * * *" />
-		<task:scheduled ref="AutomatedEmailTask" method="sendIntramuralSummaryEmail" cron="0 0 10,13 * * *" />
-		<task:scheduled ref="AutomatedEmailTask" method="sendExtramuralOneTimeEmails" cron="0 0 10,13 * * *" />
+		<task:scheduled ref="AutomatedEmailTask" method="sendExtramuralSummaryEmail" cron="0 0 11,14 * * *" />
+		<task:scheduled ref="AutomatedEmailTask" method="sendIntramuralSummaryEmail" cron="0 0 11,14 * * *" />
+		<task:scheduled ref="AutomatedEmailTask" method="sendExtramuralOneTimeEmails" cron="0 0 11,14 * * *" />
 	</task:scheduled-tasks>
 	
 </beans>
