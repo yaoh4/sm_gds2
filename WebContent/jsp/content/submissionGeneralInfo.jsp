@@ -182,13 +182,13 @@
 							<label for="First Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>First
 								Name of Principal Investigator</label> 
-								<s:textfield name="extramuralGrant.piFirstName" cssClass="form-control unlink-group" id="extramural_fnPI" placeholder="" value="%{extramuralGrant.piFirstName}"  maxLength="30"/>
+								<s:textfield name="extramuralGrant.piFirstName" cssClass="form-control unlink-group nonNihFunded" id="extramural_fnPI" placeholder="" value="%{extramuralGrant.piFirstName}"  maxLength="30"/>
 						</div>
 						<div class="col-xs-5 has-feedback">
 							<label for="Last Name of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Last
 								Name of Principal Investigator</label>
-								<s:textfield name="extramuralGrant.piLastName" cssClass="form-control unlink-group" id="extramural_lnPI" placeholder="" value="%{extramuralGrant.piLastName}"  maxLength="30"/>								
+								<s:textfield name="extramuralGrant.piLastName" cssClass="form-control unlink-group nonNihFunded" id="extramural_lnPI" placeholder="" value="%{extramuralGrant.piLastName}"  maxLength="30"/>								
 						</div>
 					</div>
 
@@ -197,7 +197,7 @@
 							<label for="Email of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Email
 								of Principal Investigator</label>
-								<s:textfield name="extramuralGrant.piEmailAddress" cssClass="form-control unlink-group" id="extramural_piEmail" placeholder="Enter Vaild Email Address"
+								<s:textfield name="extramuralGrant.piEmailAddress" cssClass="form-control unlink-group nonNihFunded" id="extramural_piEmail" placeholder="Enter Vaild Email Address"
 								data-error="Email address is invalid" value="%{extramuralGrant.piEmailAddress}"  maxLength="80"/>								
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
@@ -209,7 +209,7 @@
 							<label for="Institution of Principal Investigator"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Institution
 								of Principal Investigator</label>
-								<s:textfield name="extramuralGrant.piInstitution" cssClass="form-control unlink-group" id="extramural_PIInstitute" placeholder="" value="%{extramuralGrant.piInstitution}"  maxLength="120"/>								
+								<s:textfield name="extramuralGrant.piInstitution" cssClass="form-control unlink-group nonNihFunded" id="extramural_PIInstitute" placeholder="" value="%{extramuralGrant.piInstitution}"  maxLength="120"/>								
 						</div>
 					</div>
                     </div>

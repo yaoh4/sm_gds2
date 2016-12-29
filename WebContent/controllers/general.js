@@ -40,6 +40,7 @@ $(document).ready(function() {
 	if(projAnswer === '29') {
 		$("#extramuralDiv").show();
 		$(".extConditionalDisplay").hide();
+		$(".nonNihFunded").prop('disabled', false);
 	} else {
 		$(".genConditionalDisplay").show();
 		if(code == 'Extramural' || code === 'Both') {
@@ -48,15 +49,14 @@ $(document).ready(function() {
 		if(code == 'Intramural' || code === 'Both') {
 			$("#intramuralDiv").show();
 		}
+		prepareGrantNumField(code);
+		if($("#dataLinkFlag").val() === 'Y') {
+			setLinkedDisplay();
+		} else if($("#dataLinkFlag").val() == 'N') {
+			setUnlinkedDisplay();
+		}
 	}
 	
-	prepareGrantNumField(code);
-	if($("#dataLinkFlag").val() === 'Y') {
-		setLinkedDisplay();
-	} else if($("#dataLinkFlag").val() == 'N') {
-		setUnlinkedDisplay();
-	}
-
 });
 
 //Research Type 
@@ -66,17 +66,27 @@ $("input[name='grantSelection']").click(function () {
 	var result = "Changing the Research type will clear the Extramural/Intramural/Contract#.<br /> Do you wish to continue?";
 	var code= $(this).val(); 
 	var submissionId = $("input[type='radio'].submissionReasonSelect:checked").val();
+	
+	if(submissionId === '29') {
+		$(".nonNihFunded").prop('disabled', false);
+	}  else if($("#dataLinkFlag").val() === 'N') {
+		$(".nonNihFunded").prop('disabled', false);
+		setUnlinkedDisplay();
+	} else {
+		$(".nonNihFunded").prop('disabled', true);
+		setLinkedDisplay();
+	}
 	//bootbox.confirm(result, function(ans) {
 	//	if (ans) {
 			$("#researchType").val(code);
 			//$('.genConditionalDisplay').css('display', 'block');
 			//$('#extramuralDiv').css('display', (code === 'Extramural' || code === 'Both') ? 'block':'none');
-			   // $('#intramuralDiv').css('display', (code === 'Intramural' || code === 'Both') ? 'block':'none');
+		    // $('#intramuralDiv').css('display', (code === 'Intramural' || code === 'Both') ? 'block':'none');
 			$('.genConditionalDisplay').css('display', (submissionId != '29') ? 'block':'none');
 		    $('#extramuralDiv').css('display', ( submissionId === '29' 
 				|| (submissionId !== '29' && (code === 'Extramural' || code === 'Both'))) ? 'block':'none');
-		$('.extConditionalDisplay').css('display', (submissionId !== '29' && (code == 'Extramural' || code === 'Both')) ? 'block':'none');  
-		$('#intramuralDiv').css('display',  (submissionId !== '29' && (code === 'Intramural' || code === 'Both')) ? 'block':'none'); 
+		    $('.extConditionalDisplay').css('display', (submissionId !== '29' && (code == 'Extramural' || code === 'Both')) ? 'block':'none');  
+		    $('#intramuralDiv').css('display',  (submissionId !== '29' && (code === 'Intramural' || code === 'Both')) ? 'block':'none'); 
 		
 		    prepareGrantNumField(code);
 		    
@@ -94,6 +104,16 @@ $("input[name='grantSelection']").click(function () {
 $("input[name='project.submissionReasonId']").click(function () {
 	var code= $("input[type='radio'].grantSelection:checked").val();
 		
+	if($(this).val() === '29') {
+		$(".nonNihFunded").prop('disabled', false);
+	} else if($("#dataLinkFlag").val() === 'N') {
+		$(".nonNihFunded").prop('disabled', false);
+		setUnlinkedDisplay();
+	} else {
+		$(".nonNihFunded").prop('disabled', true);
+		setLinkedDisplay();
+	}
+	
 	$('.genConditionalDisplay').css('display', ($(this).val() != '29') ? 'block':'none');
 	$('#extramuralDiv').css('display', ( $(this).val() === '29' 
 			|| ($(this).val() !== '29' && (code === 'Extramural' || code === 'Both'))) ? 'block':'none');

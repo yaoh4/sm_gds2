@@ -1,6 +1,8 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
 import java.util.List;
+
+import org.apache.commons.lang.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,6 +173,11 @@ public class LookupServiceImpl implements LookupService {
 	  	
 		logger.info("Loading pdList from DB");
 		List<GdsPd> pdList = propertyListDAO.getPdList();
+		for(GdsPd pd: pdList) {
+			pd.setPdFullNameDescrip(WordUtils.capitalizeFully(pd.getPdFullNameDescrip()));
+			pd.setFirstName(WordUtils.capitalizeFully(pd.getFirstName()));
+			pd.setLastName(WordUtils.capitalizeFully(pd.getLastName()));
+		}
 		updatePdList(pdListKey, pdList);
 		return pdList;	  	
 	}

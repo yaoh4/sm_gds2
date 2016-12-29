@@ -70,6 +70,8 @@ $(document).ready(function () {
 	    }
 	});
 	$(".repoSelect").change();
+	//Remove dirty 
+	$("#submission_status_form").removeClass( "dirty" )
 });
 
 if($("#subprojectFlag").val() == 'N'){
