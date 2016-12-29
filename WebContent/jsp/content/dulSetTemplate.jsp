@@ -42,10 +42,10 @@
 				  
 				    <s:if test="%{#parentDul.id == 13}"> 
                       <span>
-                      	<input type="text" class="form-control input_other" size="100" maxlength="200"
+                      	<input type="text" class="form-control input_other" 
                       	  id="otherAddText0-0-${parentDul.id}"
                       	  name="otherAddText-0-0-${parentDul.id}" 
-                      	  placeholder="Please List Specific Disease" >
+                      	  placeholder="Please List Specific Disease" size="100" maxlength="200" >
                       </span>  
                                           
                     </s:if>
