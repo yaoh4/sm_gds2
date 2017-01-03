@@ -64,7 +64,7 @@
               <td align="center">
                <s:if test="%{!getPageStatus('GDSPLAN').status.code.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
               <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingGdsPlanData.action?')">
-              <i class="fa fa-file-text fa-lg" aria-hidden="true"></i>
+              <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i>
               </a>
               </s:if>
               </td>
@@ -101,7 +101,7 @@
               <td><s:date name="%{getPageStatus('IC').updatedDate}" format="MM/dd/yyyy"/></td>
                 <td align="center">
                  <s:if test="%{!getPageStatus('IC').status.code.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
-                <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcListData.action?')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>
+                <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcListData.action?')"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a>
                 </s:if>
                 </td>
               <td><s:property value="%{getPageStatus('IC').updatedBy}"/></td>
@@ -121,7 +121,7 @@
               <td><s:date name="%{getPageStatus('BSI').updatedDate}" format="MM/dd/yyyy"/></td>
               <td align="center">
               <s:if test="%{!getPageStatus('BSI').status.code.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
-              <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingBsiData.action?')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>
+              <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingBsiData.action?')"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a>
               </s:if>
               </td>
               <td><s:property value="%{getPageStatus('BSI').updatedBy}"/></td>
@@ -152,7 +152,7 @@
              <td align="center">
              <s:hidden value="%{getRepositoryStatusCode(#repStatus.id)}"/> 
               <s:if test="%{!getRepositoryStatusCode(#repStatus.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">
-             <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryData.action?repoStatusId=${repStatus.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>
+             <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingRepositoryData.action?repoStatusId=${repStatus.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a>
              </s:if>
               </td>
               <td><s:property value="%{#repStatus.updatedBy}"/></td>
@@ -234,7 +234,7 @@
 
               <td><s:if test="isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}"> 
             <s:hidden  id="prevSubId" value="%{subproject.id}"/>
-            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a></s:if> &nbsp;&nbsp;&nbsp;
+            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a></s:if> &nbsp;&nbsp;&nbsp;
            <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${subproject.id}">
             <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
               
@@ -281,7 +281,7 @@
 
               <td><s:if test="isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}"> 
             <s:hidden  id="prevSubId" value="%{project.parent.id}"/>
-            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a></s:if> &nbsp;&nbsp;&nbsp;
+            <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a></s:if> &nbsp;&nbsp;&nbsp;
            <s:if test="!isReadOnlyUser()"><a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${project.parent.id}">
             <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit"></i></a></s:if></td>
               
@@ -352,7 +352,7 @@
         <td> 
         <s:set name="id" value="%{#version.id}"/>
             <a href="/gds/manage/navigateToSubmissionDetail.action?projectId=${id}">
-         <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="View" title="View"></i></a> &nbsp;&nbsp;&nbsp;
+         <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a> &nbsp;&nbsp;&nbsp;
          </td>
         </tr>
         </s:iterator>
