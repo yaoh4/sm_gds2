@@ -35,8 +35,8 @@
                       		name="parentDul-0-0" 
 							id="parentDul0-0-${parentDul.id}" value="${parentDul.id}">
                     	&nbsp;&nbsp;${parentDul.displayText}    
-                    </label> &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="%{#parentDul.id}" value="%{getHelpText(#parentDul.id)}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>  	  
+                    </label> &nbsp; &nbsp; <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" data-html="true" style="font-size: 12px;">
+                         <s:hidden id="%{#parentDul.id}" value="%{getHelpText(#parentDul.id)}"/>  <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a> 	  
                   </div>				
 				  <div id="dulSet0-0-${parentDul.id}" class="dulSetDiv indent info" style="display:none;">
 				  
