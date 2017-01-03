@@ -148,7 +148,7 @@
                 </tr>
                 </div>    
                 <!--Begin view details-->
-                <tr>
+               <tr class="remove${cert.id}">
 			      <td colspan="6">
                     <div id="contentDivImg${cert.id}" style="display: none">
                       <table width="100%" class="tBorder2" cellspacing="3">
