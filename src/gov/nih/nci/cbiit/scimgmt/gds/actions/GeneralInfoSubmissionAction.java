@@ -396,6 +396,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						BeanUtils.copyProperties(
 							currentPlanAnswer.getRepositoryStatuses().iterator().next(), repoStatus);
 						repoStatus.setId(null);
+					//repoStatus.setPlanAnswerSelectionTByRepositoryId(planAnswer);
 					} else {
 						repoStatus = createRepositoryStatus(planAnswer);														
 						if(currentLatestVersion.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
@@ -407,13 +408,12 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					repoStatus.setProject(project);
 					planAnswer.getRepositoryStatuses().add(repoStatus);
 				}
-					
 				planAnswers.add(planAnswer);
 			}
 			
-			 if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
+			 if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag()) || (ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag()) && subprojectClone)) {
 			      project.setPlanAnswerSelections(planAnswers);
-			 }
+			}
 			//Remove those planAnswers that do not match specific preconditions
 			if(GdsSubmissionActionHelper.isSubmissionUpdated(project, currentLatestVersion)) {
 				deletePlanAnswers(project);
