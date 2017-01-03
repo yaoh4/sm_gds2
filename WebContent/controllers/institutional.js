@@ -362,3 +362,9 @@ $("a.hoverOver").hover(function(){
 	var value=$(this).children().first().val();
 	$(this).attr('data-original-title', value);
 });
+
+$("a.pop").hover(function() {
+	var value=$(this).children().first().val();
+	$(this).attr('data-content', value);
+});
+
