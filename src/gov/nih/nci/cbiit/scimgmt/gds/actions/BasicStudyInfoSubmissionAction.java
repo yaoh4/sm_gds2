@@ -133,6 +133,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 
 		if(hasErrors()) {
 			setProject(retrieveSelectedProject());
+			bsiOptions = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.BSI_REVIEWED.toUpperCase());
 			bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, getProject().getId());
 		}
 		
