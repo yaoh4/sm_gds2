@@ -205,8 +205,11 @@
 					<div id="26" style="${map['26'].style}" class="qSpacing">
 						<p class="question"><s:property
 							value="%{getQuestionById(26).getDisplayText()}" />
-							&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="GDS_GPA_REVIEWED_KEY" value="%{getHelpText('GDS_GPA_REVIEWED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
+							&nbsp; &nbsp; <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" data-content="Prior to the start of GDS policy-covered research, all investigators must develop and have in place an approved data sharing plan (DSP).
+	                        A &lt;a href=&quot;https://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/submission/nci-dsp.pdf &quot;target=&quot;_blank &quot;&gt;template &lt;/a&gt;
+	                        has been provided for your use. It is not required that you use this template, but the DSP should adhere to the 
+	                        &lt;a href=&quot;https://gds.nih.gov/pdf/NIH_guidance_developing_GDS_plans.pdf &quot;target=&quot;_blank &quot;&gt;NIH Guidance for Investigators in Developing Data Sharing Plans. &lt;/a&gt; " data-html="true" style="font-size: 12px;">
+                            <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 						<s:set name="params" value="%{map[26].parameters}" />
 					<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(26)}"
 						listKey="id" listValue="displayText" name="answers[26]"
@@ -222,8 +225,10 @@
 						<s:if test="%{requiredByGdsPolicy == false}">
 							(Optional)
 						</s:if>
-						&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="GDS_DATA_SHARING_PLAN" value="%{getHelpText('GDS_DATA_SHARING_PLAN')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
+						&nbsp; &nbsp; <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" data-content="A &lt;a href=&quot;https://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/submission/nci-dsp.pdf &quot;target=&quot;_blank &quot;&gt;template &lt;/a&gt;
+	                    has been provided for your use. It is not required that you use this template, but the DSP should adhere to the 
+	                    &lt;a href=&quot; https://gds.nih.gov/pdf/NIH_guidance_developing_GDS_plans.pdf &quot;target=&quot;_blank &quot;&gt; NIH Guidance for Investigators in Developing Data Sharing Plans.&lt;/a&gt;" data-html="true" style="font-size: 12px;">
+                            <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 					</p>
 					<s:set name="params" value="%{map[29].parameters}" />
 				<s:radio id="%{#answer.id}" list="%{getAnswerListByQuestionId(29)}"

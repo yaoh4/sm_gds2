@@ -105,8 +105,9 @@
 
 					<p class="question" style="display: inline;">
 						<!--<i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>-->
-						Has the GPA reviewed the Basic Study Information?&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="BASIC_STUDY_INFO_KEY" value="%{getHelpText('BASIC_STUDY_INFO_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
+						Has the GPA reviewed the Basic Study Information?&nbsp; &nbsp; <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" data-content="GPA must review the descriptive information about the project for completeness. 
+	                    This data is used to register the study in dbGaP. A &lt;a href=&quot;https://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/submission/basic-study-information.pdf &quot;target=&quot;_blank &quot;&gt;template &lt;/a&gt; has been provided for the Investigator to fill-out." data-html="true" style="font-size: 12px;">
+                            <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
 	
 					<s:radio id="reviewed" list="bsiOptions"
 						name="bsiReviewedId" value="bsiReviewedId"

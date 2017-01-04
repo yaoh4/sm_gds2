@@ -114,6 +114,7 @@ $('#btnDelteYes').click(function () {
 	});
  
     $('[data-id=' + id + ']').remove();
+    $("." + "remove" + id).remove();
     $('#myModal').modal('hide');
     
     var listSize = $("#icListSize").val() - 1;

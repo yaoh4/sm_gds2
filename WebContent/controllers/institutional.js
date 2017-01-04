@@ -19,7 +19,7 @@ $(document).ready(function () {
 			var text = value.substr(value.length - textsize);
 			$("#" + elemId).val(text);
 		}
-		if(value.includes("otherAddText")) {
+		else if(value.includes("otherAddText")) {
 			//The length of the text is available at the beginning of the value string
 			//Format is <length of text><otherAddText-x-x-x><text>
 			var textsize = value.substr(0, value.indexOf("otherAddText"));
@@ -362,3 +362,9 @@ $("a.hoverOver").hover(function(){
 	var value=$(this).children().first().val();
 	$(this).attr('data-original-title', value);
 });
+
+$("a.pop").hover(function() {
+	var value=$(this).children().first().val();
+	$(this).attr('data-content', value);
+});
+
