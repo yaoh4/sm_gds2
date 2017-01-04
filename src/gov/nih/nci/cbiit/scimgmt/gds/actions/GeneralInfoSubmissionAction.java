@@ -154,6 +154,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		// Its Optional Submission Non-NIH Funded, so don't save the DOC Abbreviation
 		if(getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
 			getProject().setDocAbbreviation("");
+			getProject().setProgramBranch("");
 		}
 
 		Project project = retrieveSelectedProject();		
@@ -659,7 +660,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		GdsSubmissionActionHelper.populateDocDropDownList(docList,docListFromDb);
 				
 		//Populate progList
-		if(getProject() == null) {	
+		if(getProject() == null || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId())) {	
 			preSelectedDOC = GdsSubmissionActionHelper.getLoggedonUsersDOC(docListFromDb,loggedOnUser.getNihsac());	
 			
 			if(preSelectedDOC.equalsIgnoreCase("DCEG") || preSelectedDOC.equalsIgnoreCase("CCR")) {
