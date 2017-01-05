@@ -54,15 +54,15 @@
 
 					<s:if test="#stat.index != 0">
 						<tr>
-							<td><s:if test="%{#file.fileName == null || #file.fileName == ''}">
-									<s:a href="javascript:openDocument(%{#file.id})">
-										<s:property value="%{#file.docTitle}" /></s:a>
-								</s:if>
-								<s:else><s:property value="%{#file.docTitle}" /></s:else></td>
+							<td><s:property value="%{#file.docTitle}" /></td>
 							<td><s:if test="%{#file.fileName != null && #file.fileName != ''}">
 									<s:a href="javascript:openDocument(%{#file.id})">
 									<s:property value="%{#file.fileName}" /></s:a>
-								</s:if></td>
+								</s:if>
+								<s:else>
+									<s:a href="javascript:openDocument(%{#file.id})">
+									<i class="fa fa-file-text" aria-hidden="true" alt="view" title="view"></i></s:a>
+								</s:else></td>
 							<td style="white-space: nowrap"><s:date
 								name="%{#file.uploadedDate}"
 								format="MMM dd yyyy hh:mm:ss a" /></td>
