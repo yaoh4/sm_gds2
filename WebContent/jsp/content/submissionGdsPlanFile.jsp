@@ -13,15 +13,15 @@
 			<th class="tableHeader" align="center" width="5%">Action</th>
 		</tr>
 		<tr>
-			<td><s:if test="%{gdsPlanFile[0].fileName == null || gdsPlanFile[0].fileName == ''}">
-					<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
-					<s:property value="%{gdsPlanFile[0].docTitle}" /></s:a>
-				</s:if>
-				<s:else><s:property value="%{gdsPlanFile[0].docTitle}" /></s:else></td>
+			<td><s:property value="%{gdsPlanFile[0].docTitle}" /></td>
 			<td><s:if test="%{gdsPlanFile[0].fileName != null && gdsPlanFile[0].fileName != ''}">
 					<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
 					<s:property value="%{gdsPlanFile[0].fileName}" /></s:a>
-				</s:if></td>
+				</s:if>
+				<s:else>
+					<s:a href="javascript:openDocument(%{gdsPlanFile[0].id})">
+					<i class="fa fa-file-text" aria-hidden="true" alt="view" title="view"></i></s:a>
+				</s:else></td>
 			<td style="white-space: nowrap"><s:date
 					name="%{gdsPlanFile[0].uploadedDate}"
 					format="MMM dd yyyy hh:mm:ss a" /></td>
