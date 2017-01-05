@@ -373,6 +373,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		//Copy planAnswerSelections 
 		Set<PlanAnswerSelection> currentPlanAnswers = currentLatestVersion.getPlanAnswerSelections();
+		Set<RepositoryStatus> subprojectClonedRepoStatus = new HashSet<RepositoryStatus>();
 		if(!CollectionUtils.isEmpty(currentPlanAnswers)) {
 			Set<PlanAnswerSelection> planAnswers = new HashSet<PlanAnswerSelection>();			
 			for(PlanAnswerSelection currentPlanAnswer: currentPlanAnswers) {
@@ -397,7 +398,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						BeanUtils.copyProperties(
 							currentPlanAnswer.getRepositoryStatuses().iterator().next(), repoStatus);
 						repoStatus.setId(null);
-					//repoStatus.setPlanAnswerSelectionTByRepositoryId(planAnswer);
+						//planAnswer should be the new instance from the new parent
+						planAnswer = project.getParent().getPlanAnswerSelectionByAnswerId(currentPlanAnswer.getPlanQuestionsAnswer().getId());
+						//Need to set the repository id of the new parent version's answer (Find and set the object)
+						planAnswer.addProject(project);
+						repoStatus.setPlanAnswerSelectionTByRepositoryId(planAnswer);
+						repoStatus.setProject(project);
+						subprojectClonedRepoStatus.add(repoStatus);
 					} else {
 						repoStatus = createRepositoryStatus(planAnswer);														
 						if(currentLatestVersion.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
@@ -405,9 +412,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 							repoStatus.setLookupTBySubmissionStatusId(
 									lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
 						}
+						repoStatus.setProject(project);
+						planAnswer.getRepositoryStatuses().add(repoStatus);
 					}
-					repoStatus.setProject(project);
-					planAnswer.getRepositoryStatuses().add(repoStatus);
 				}
 				planAnswers.add(planAnswer);
 			}
@@ -425,6 +432,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		//save the project
 		project = super.saveProject(project, null);
+		
+		for(RepositoryStatus repo: subprojectClonedRepoStatus) {
+			repo.setProject(project);
+			project.getPlanAnswerSelectionById(repo.getPlanAnswerSelectionTByRepositoryId().getId()).getRepositoryStatuses().add(repo);
+		}
 		
 		//save the IC docs if this is not a subproject clone
 		//and not subproject version. Else dont copy because

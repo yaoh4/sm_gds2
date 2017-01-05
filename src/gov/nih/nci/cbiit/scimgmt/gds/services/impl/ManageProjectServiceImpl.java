@@ -117,6 +117,12 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		if(!CollectionUtils.isEmpty(projects)) {
 			Project currentLatestVersion = projects.get(0);
 			currentLatestVersion.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
+			for(Project subproject: getSubprojects(currentLatestVersion.getId())) {
+				List<Project> subprojectVersions = getVersions(subproject.getProjectGroupId());
+				Project latestSubProjectVersion = subprojectVersions.get(0);
+				latestSubProjectVersion.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
+				projectsDao.merge(latestSubProjectVersion);
+			}
 			projectsDao.merge(currentLatestVersion);
 		}
 		
