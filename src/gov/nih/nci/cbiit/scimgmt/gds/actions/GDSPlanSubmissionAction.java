@@ -436,7 +436,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		StringBuffer sb = new StringBuffer();
 		
 		// Called from ajax, so fetch the project
-		if(getProject() == null) {
+		if(getProject() == null || getProject().getId() == null) {
 			setProject(retrieveSelectedProject());
 		}
 		

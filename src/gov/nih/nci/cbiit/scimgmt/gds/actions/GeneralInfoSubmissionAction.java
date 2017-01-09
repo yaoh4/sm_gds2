@@ -793,8 +793,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}
 		
 		if(sb.length() > 0) {
-			sb.append("<br> Do you wish to continue?");
-			String warningMessage = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> " + getText("gds.warn.message") + "<br><br>" + sb.toString();
+			String warningMessage = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> " + getText("gds.warn.message");
 			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
 		} else {
 			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
