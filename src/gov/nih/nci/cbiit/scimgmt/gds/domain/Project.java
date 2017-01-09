@@ -461,7 +461,7 @@ public class Project implements java.io.Serializable {
 	}
 
 	public void setSubmissionTitle(String submissionTitle) {
-		this.submissionTitle = submissionTitle;
+		this.submissionTitle = StringUtils.trim(submissionTitle);
 	}
 
 	@Column(name = "SUBPROJECT_ELIGIBLE_FLAG", length = 4)

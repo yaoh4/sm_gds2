@@ -131,7 +131,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setProjectTitle(String projectTitle) {
-		this.projectTitle = projectTitle;
+		this.projectTitle = StringUtils.trim(projectTitle);
 	}
 
 	
@@ -161,7 +161,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setPiInstitution(String piInstitution) {
-		this.piInstitution = piInstitution;
+		this.piInstitution = StringUtils.trim(piInstitution);
 	}
 	
 	@Column(name = "PI_EMAIL_ADDRESS", length = 320)
@@ -170,7 +170,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setPiEmailAddress(String piEmailAddress) {
-		this.piEmailAddress = piEmailAddress;
+		this.piEmailAddress = StringUtils.trim(piEmailAddress);
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -278,7 +278,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setPiFirstName(String piFirstName) {
-		this.piFirstName = piFirstName;
+		this.piFirstName = StringUtils.trim(piFirstName);
 	}
 
 	@Column(name = "PI_LAST_NAME", length = 120)
@@ -287,7 +287,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setPiLastName(String piLastName) {
-		this.piLastName = piLastName;
+		this.piLastName = StringUtils.trim(piLastName);
 	}
 
 	@Column(name = "POC_FIRST_NAME", length = 120)
@@ -296,7 +296,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setPocFirstName(String pocFirstName) {
-		this.pocFirstName = pocFirstName;
+		this.pocFirstName = StringUtils.trim(pocFirstName);
 	}
 
 	@Column(name = "POC_LAST_NAME", length = 120)
@@ -305,7 +305,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setPocLastName(String pocLastName) {
-		this.pocLastName = pocLastName;
+		this.pocLastName = StringUtils.trim(pocLastName);
 	}
 
 	@Column(name = "POC_EMAIL_ADDRESS", length = 320)
@@ -314,7 +314,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setPocEmailAddress(String pocEmailAddress) {
-		this.pocEmailAddress = pocEmailAddress;
+		this.pocEmailAddress = StringUtils.trim(pocEmailAddress);
 	}
 
 	@Column(name = "PD_FIRST_NAME", length = 120)
@@ -323,7 +323,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setPdFirstName(String pdFirstName) {
-		this.pdFirstName = pdFirstName;
+		this.pdFirstName = StringUtils.trim(pdFirstName);
 	}
 
 	@Column(name = "PD_LAST_NAME", length = 120)
@@ -332,7 +332,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setPdLastName(String pdLastName) {
-		this.pdLastName = pdLastName;
+		this.pdLastName = StringUtils.trim(pdLastName);
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
