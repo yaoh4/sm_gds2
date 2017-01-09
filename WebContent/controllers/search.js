@@ -79,7 +79,7 @@ $(document).ready(function(){
                 { "data": null}
             ],
             "searching": false,
-            "pageLength": 5,
+            "pageLength": 50,
             "lengthMenu": [5, 10, 25, 50, 100],
             "language": {
                 "info": "_TOTAL_ project submissions (_START_ to _END_)  ",
@@ -109,7 +109,7 @@ $(document).ready(function(){
                 		addSubproject = '&nbsp;&nbsp;&nbsp;<a href="../manage/createSubproject.action?projectId=' + row.id + '"><i class="fa fa-folder-open fa-lg" aria-hidden="true" alt="Add New Sub-project" title="Add New Sub-project"></a>';
                 	}
                 	if(row.newVersionEligibleFlag == "Y") {
-                		addNewVersion = '&nbsp;&nbsp;&nbsp;<a href="../manage/createNewProjectVersion.action?projectId=' + row.id + '"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i></a>';
+                		addNewVersion = '&nbsp;&nbsp;&nbsp;<a onclick="newVersion(' + row.id + ',' + row.subprojectCount + ')" href="javascript: void(0)"><i class="fa fa-clone fa-lg" aria-hidden="true" title="Add New Version" alt="Add New Version"></i></a>';
                 	}
                 	if($("#gpa").val() == "true") {
                 		deleteSubmission = '&nbsp;&nbsp;&nbsp;<a onclick="deleteSubmission(' + row.id + ',' + row.subprojectCount + ')" href="javascript: void(0)"><i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete"></i></a>';
@@ -534,6 +534,20 @@ function deleteSubmission(projectId, subprojectCount)
 			    return true;
 		  }
 	});
+}
+
+function newVersion(projectId, subprojectCount)
+{
+	var url = "../manage/createNewProjectVersion.action?projectId="+ projectId;
+	var msg = "Any associated sub-projects will be copied over to the new version of the Project.";
+	if(subprojectCount != null && subprojectCount > 0) {
+		bootbox.alert(msg, function() {
+			window.location.href = url;
+			return true;
+		});
+	} else {
+		window.location.href = url;
+	}
 }
 
 $(".helpfile").click(function(){

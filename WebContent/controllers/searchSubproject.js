@@ -68,7 +68,7 @@ $(document).ready(function(){
                 { "data": "intPiEmailAddress"}
             ],
             "searching": false,
-            "pageLength": 5,
+            "pageLength": 50,
             "lengthMenu": [5, 10, 25, 50, 100],
             "language": {
                 "info": "_TOTAL_ project submissions (_START_ to _END_)  ",

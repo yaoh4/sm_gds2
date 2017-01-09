@@ -37,7 +37,7 @@ function reinitTable() {
             "dom": "<'row'<'col-sm-12'l>>" + "<'row'<'col-sm-5'i><'col-sm-7'p><br/>>" +
             "<'row'<tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>" + "<'row'<'col-sm-12'l>>",
             "searching": false,
-            "pageLength": 5,
+            "pageLength": 50,
             "lengthMenu": [5, 10, 25, 50, 100],
             "language": {
                 "info": "_TOTAL_ records (_START_ to _END_)  ",
