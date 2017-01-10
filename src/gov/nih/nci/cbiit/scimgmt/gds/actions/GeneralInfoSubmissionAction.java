@@ -399,7 +399,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 							currentPlanAnswer.getRepositoryStatuses().iterator().next(), repoStatus);
 						repoStatus.setId(null);
 						//planAnswer should be the new instance from the new parent
-						planAnswer = project.getParent().getPlanAnswerSelectionByAnswerId(currentPlanAnswer.getPlanQuestionsAnswer().getId());
+						planAnswer = project.getParent().getPlanAnswerSelectionByAnswerIdAndText(currentPlanAnswer.getPlanQuestionsAnswer().getId(), currentPlanAnswer.getOtherText());
 						//Need to set the repository id of the new parent version's answer (Find and set the object)
 						planAnswer.addProject(project);
 						repoStatus.setPlanAnswerSelectionTByRepositoryId(planAnswer);
