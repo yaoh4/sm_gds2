@@ -94,7 +94,10 @@
 			  <!--  IC comments -->
 	 		  <div class="form-group row  col-xs-12">
                 <label for="comment">Comments (2000 Characters):</label><br/>
-                <s:textarea class="col-md-12 form-control" rows="3" maxlength="2000" value="%{instCertification.comments}" name="instCertification.comments" ></s:textarea>
+                <s:textarea class="col-md-12 form-control" rows="3" maxlength="2000" id="instCertComments" value="%{instCertification.comments}" name="instCertification.comments" ></s:textarea>
+                <div id="charNum6" style="text-align: right; font-style: italic;">
+				   <span style="color: #990000;">2000</span> Character limits
+			    </div>
 			  </div>
         <p>&nbsp;</p>
 	
@@ -182,7 +185,10 @@
                               <s:textarea id="comments-%{#studiesStat.index}" class="col-md-12 form-control input_stCom"  
                               		value="%{#study.comments}" maxlength="2000"
 									name="instCertification.studies[%{#studiesIdx}].comments" 
-									 rows="3"></s:textarea>
+									 rows="3" onkeyup="countChar(this)"></s:textarea>
+									 <div id="count-${studiesIdx}" style="text-align: right; font-style: italic;">
+				                    <span style="color: #990000;">2000</span> Character limits
+			                </div>
                             </div> <!--end row-->
                             <p>&nbsp;</p>
                                                  

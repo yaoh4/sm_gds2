@@ -41,29 +41,37 @@
 				  <div id="dulSet0-0-${parentDul.id}" class="dulSetDiv indent info" style="display:none;">
 				  
 				    <s:if test="%{#parentDul.id == 13}"> 
-                      <span>
+                      <div>
                       	<input type="text" class="form-control input_other" 
                       	  id="otherAddText0-0-${parentDul.id}"
                       	  name="otherAddText-0-0-${parentDul.id}" 
-                      	  placeholder="Please List Specific Disease" size="100" maxlength="200" >
-                      </span>  
-                                          
+                      	  placeholder="Please List Specific Disease" size="100" maxlength="200" onkeyup="countChar(this)" >
+                        <div id="textlength0-0-${parentDul.id}" style="text-align: right; font-style: italic;">
+				           <span style="color: #990000;">2000</span> Character limits
+			            </div>
+			                </div>                
                     </s:if>
                     <s:if test="%{#parentDul.id == 21}">
-                      <span>
+                      <div>
                       	<input type="text" class="form-control input_other" 
                       	  id="otherAddText0-0-${parentDul.id}"
                       	  name="otherAddText-0-0-${parentDul.id}" 
-                      	  placeholder="Please Be Specific" maxlength="2000">
-                      </span>
+                      	  placeholder="Please Be Specific" maxlength="2000" onkeyup="countChar(this)">
+                           <div id="textlength0-0-${parentDul.id}" style="text-align: right; font-style: italic;">
+				           <span style="color: #990000;">2000</span> Character limits
+			               </div>
+			          </div>
                     </s:if>
                        <s:if test="%{#parentDul.id != null && #parentDul.id != 21 }">
-                      <span>
+                      <div>
                       <label for="dulAppendix">DUL Appendix</label> 
                       	<textarea class="form-control input_other" id="comments0-0-${parentDul.id}"
                       	  name="comments-0-0-${parentDul.id}"  maxlength="2000"
-                      	  rows="2"></textarea>
-                      </span>
+                      	  rows="2" onkeyup="countChar(this)"></textarea>
+                           <div id="charlength0-0-${parentDul.id}" style="text-align: right; font-style: italic;">
+				           <span style="color: #990000;">2000</span> Character limits
+			                </div>
+			           </div>
                     </s:if>
                     <s:if test="%{parentDulChecklists[#parentIdx].dulChecklists.size > 0}">
                        <label for="checkboxitem">(select any that apply)</label>                 

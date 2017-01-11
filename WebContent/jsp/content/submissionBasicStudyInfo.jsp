@@ -143,7 +143,10 @@
 
 					<div>
 						<p class="question">Comments (2000 Characters):</p>
-						<s:textarea class="col-md-10" rows="3" maxlength="2000" name="comments"></s:textarea>
+						<s:textarea class="col-md-10" rows="3" maxlength="2000" id="bsiComments" name="comments"></s:textarea>
+						<div id="charNum5" style="text-align: right; font-style: italic;">
+				          <span style="color: #990000;">2000</span> Character limits
+			          </div>
 					</div>
 				</div>
 			</div>

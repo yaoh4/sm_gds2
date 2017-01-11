@@ -440,6 +440,9 @@
 						<label for="general info comments" class="label_stCom">Comments (2000 Characters):</label><br />
 						<s:textarea cssClass="col-md-12 form-control input " rows="3" maxlength="2000"
 							name="project.comments" id="gComments"></s:textarea>
+							<div id="charNum3" style="text-align: right; font-style: italic;">
+				           <span style="color: #990000;">2000</span> Character limits
+			                </div>
 					</div>
 
 
