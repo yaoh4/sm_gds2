@@ -234,7 +234,7 @@
           <strong>Additional Grants:</strong></td>
         <td style="width: 67%">
        <s:iterator value="associatedSecondaryGrants" var="r" status="stat">
-         &nbsp;&nbsp;&nbsp;${r.grantContractNum}
+          ${r.grantContractNum}&nbsp;&nbsp;&nbsp;
        </s:iterator>
      </td>
      </tr>
