@@ -69,8 +69,10 @@ public class IcListSubmissionAction extends ManageSubmission {
 	
 	private Document doc = null; // json object to be returned for UI refresh after upload
 	
+   private String icComments;
+   
+   private String additionalComments;
 
-	
 	/**
 	 * Invoked for the Track IC Status page. Invoked from
 	 * 1. ICs tab (if at least one IC is present in the submission (else, user will
@@ -88,6 +90,8 @@ public class IcListSubmissionAction extends ManageSubmission {
 		//Retrieve IC list. If sub-project, retrieve parent IC list
 		Project storedProject = retrieveSelectedProject();
 		List<InstitutionalCertification> icList = storedProject.getInstitutionalCertifications();
+		icComments = storedProject.getStudiesComments();
+		additionalComments =  storedProject.getAdditionalIcComments();
 		Long displayProjectId = storedProject.getId();
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
 			prepareIcListDisplay(icList);
@@ -163,6 +167,19 @@ public class IcListSubmissionAction extends ManageSubmission {
 				this.addActionError(getText("error.ic.selection")); 
 			}
 		}
+		
+		if (!StringUtils.isEmpty(icComments)) {
+			if (icComments.length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
+				this.addActionError(getText("error.comments.size.exceeded"));
+			}
+		}
+		
+		if (!StringUtils.isEmpty(additionalComments)) {
+			if (additionalComments.length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {
+				this.addActionError(getText("error.comments.size.exceeded"));
+			}
+		}
+		
 		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(retrieveSelectedProject().getSubprojectFlag())) {
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(certFlag)) {
 			List<InstitutionalCertification> icList = retrieveSelectedProject().getInstitutionalCertifications();
@@ -197,6 +214,8 @@ public class IcListSubmissionAction extends ManageSubmission {
 		
 		Project storedProject = retrieveSelectedProject();
 		storedProject.setCertificationCompleteFlag(certComplete);
+		storedProject.setStudiesComments(icComments);
+		storedProject.setAdditionalIcComments(additionalComments);
 		
 		//If this is a sub-project, save only the ICs selected from the parent
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
@@ -266,6 +285,8 @@ public class IcListSubmissionAction extends ManageSubmission {
 		manageProjectService.deleteIc(instCertId, project);
 		setProject(retrieveSelectedProject());	
 		getProject().setCertificationCompleteFlag(null);
+		getProject().setAdditionalIcComments(null);
+		getProject().setStudiesComments(null);
         List<InstitutionalCertification> icList = retrieveSelectedProject().getInstitutionalCertifications();
 		if(CollectionUtils.isEmpty(icList)) {
 			//We don't save subprojects here because we have to do that anyways in the
@@ -382,7 +403,38 @@ public class IcListSubmissionAction extends ManageSubmission {
 	public void setIcFileName(String icFileName) {
 		this.icFileName = icFileName;
 	}
+    
+	/**
+	 * 
+	 * @return the additionalComments
+	 */
+	public String getAdditionalComments() {
+		  return additionalComments;
+    }
 
+    /**
+     * 
+     * @param additionalComments the comments to set
+     */
+	public void setAdditionalComments(String additionalComments) {
+		   this.additionalComments = additionalComments;
+	}
+
+    /**
+     * 
+     * @return the icComments
+     */
+    public String getIcComments() {
+		return icComments;
+    }
+
+    /**
+     * 
+     * @param icComments the icComments to set
+     */
+	public void setIcComments(String icComments) {
+		this.icComments = icComments;
+	}
 
 	/**
 	 * @param icFileContentType the icFileContentType to set
