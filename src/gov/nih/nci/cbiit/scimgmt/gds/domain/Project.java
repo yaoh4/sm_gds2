@@ -65,6 +65,9 @@ public class Project implements java.io.Serializable {
 	private String subprojectEligibleFlag;
 	private Date createdDate;
 	private Date lastChangedDate;
+	private String studiesComments;
+	private String additionalIcComments;
+	
 	private Lookup dataSharingExcepStatus;
 	
 	private List<PageStatus> pageStatuses = new ArrayList();
@@ -242,6 +245,24 @@ public class Project implements java.io.Serializable {
 		this.bsiComments = bsiComments;
 	}
 	
+	@Column(name = "STUDIES_COMMENT", length = 4000)
+	public String getStudiesComments() {
+		return studiesComments;
+	}
+
+	public void setStudiesComments(String studiesComments) {
+		this.studiesComments = studiesComments;
+	}
+    
+	@Column(name = "ADDITIONAL_IC_COMMENTS", length = 4000)
+	public String getAdditionalIcComments() {
+		return additionalIcComments;
+	}
+
+	public void setAdditionalIcComments(String additionalIcComments) {
+		this.additionalIcComments = additionalIcComments;
+	}
+
 	@Column(name = "BSI_REVIEWED_ID", precision = 10, scale = 0)
 	public Long getBsiReviewedId() {
 		return this.bsiReviewedId;
