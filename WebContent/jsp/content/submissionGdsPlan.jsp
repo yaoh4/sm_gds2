@@ -268,12 +268,13 @@
 				<p>&nbsp;</p>
 				<div>
 					<p class="question">Comments (2000 Characters):</p>
-					<s:textarea class="col-md-10" rows="3" maxlength="2000" id="gdsPlanComments" name="comments"></s:textarea>
+					<s:textarea class="col-md-12 form-control input" rows="3" maxlength="2000" id="gdsPlanComments" name="comments"></s:textarea>
 					<div id="charNum4" style="text-align: right; font-style: italic;">
 				       <span style="color: #990000;">2000</span> Character limits
 			        </div>
 				</div>
 			</div>
+			
 			<!--end panel body-->
 		</div>
 	</div>
