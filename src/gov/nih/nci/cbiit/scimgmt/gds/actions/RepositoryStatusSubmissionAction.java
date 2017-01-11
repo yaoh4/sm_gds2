@@ -322,6 +322,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(parentAnswer.getPlanQuestionsAnswer().getQuestionId())) {
 				boolean found = false, myAnswer = false;
 				for(PlanAnswerSelection childAnswer: getProject().getPlanAnswerSelections()) {
+					myAnswer = false;
 					for (Project p: childAnswer.getProjects()) {
 						if(p.getId().longValue() == getProject().getId().longValue()) {
 							myAnswer = true;
