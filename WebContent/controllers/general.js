@@ -57,6 +57,28 @@ $(document).ready(function() {
 		}
 	}
 	
+	//set the correct length for text areas
+	var max = 2000;
+	var len = $('#gComments').val().length;
+	if (len >= max) {
+		$('#charNum3').text(' you have reached the limit');
+	} else {
+		var char = max - len;
+		$('#charNum3').text(char + ' characters left');
+	}
+	
+});
+
+//comments kep up function
+$('#gComments').keyup(function() {
+	var max = 2000;
+	var len = $(this).val().length;
+	if (len >= max) {
+		$('#charNum3').text(' you have reached the limit');
+	} else {
+		var char = max - len;
+		$('#charNum3').text(char + ' characters left');
+	}
 });
 
 //Research Type 

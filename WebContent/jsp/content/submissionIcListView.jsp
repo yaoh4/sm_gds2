@@ -29,6 +29,26 @@
               <td width="30%" style="white-space: nowrap"><strong>All Institutional Certifications received?</strong></td>
               <td style="padding-left: 20px;"><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td>
             </tr>
+            <s:if test="%{project.studiesComments != null}">
+            <tr>
+               <td style="white-space: nowrap">&nbsp;</td>
+               <td colspan="4">&nbsp;</td>
+            </tr>
+            <tr>
+              <td width="30%" style="white-space: nowrap"><strong>Studies awaiting Ics</strong></td>
+              <td style="padding-left: 20px;"><s:property value="%{project.studiesComments}"/></td>
+            </tr>
+            </s:if>
+            <s:if test="%{project.additionalIcComments != null}">
+            <tr>
+               <td style="white-space: nowrap">&nbsp;</td>
+               <td colspan="4">&nbsp;</td>
+            </tr>
+            <tr>
+              <td width="30%" style="white-space: nowrap"><strong>Additional Comments</strong></td>
+              <td style="padding-left: 20px;"><s:property value="%{project.additionalIcComments}"/></td>
+            </tr>
+            </s:if>
           </table>
           <p>&nbsp;</p>
           <table width="100%" cellpadding="0px" cellspacing="0" style="table-layout:fixed;" class="table table-bordered">

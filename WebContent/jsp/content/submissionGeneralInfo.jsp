@@ -162,7 +162,7 @@
 					<div class="row has-feedback extConditionalDisplay">
                        <div class="col-xs-5">
                            <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
-                           <s:textfield name="extramuralGrant.cayCode" cssClass="form-control unlink-group"  id="cancerActivity" value="%{extramuralGrant.cayCode}" placeholder="">
+                           <s:textfield name="extramuralGrant.cayCode" cssClass="form-control unlink-group"  id="cancerActivity" value="%{extramuralGrant.cayCode}" placeholder="" maxlength="3">
                            </s:textfield>
                            </div>
                            </div>
@@ -440,6 +440,9 @@
 						<label for="general info comments" class="label_stCom">Comments (2000 Characters):</label><br />
 						<s:textarea cssClass="col-md-12 form-control input " rows="3" maxlength="2000"
 							name="project.comments" id="gComments"></s:textarea>
+							<div id="charNum3" style="text-align: right; font-style: italic;">
+				           <span style="color: #990000;">2000</span> Character limits
+			                </div>
 					</div>
 
 

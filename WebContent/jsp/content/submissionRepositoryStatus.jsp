@@ -71,7 +71,7 @@
 					<br />
 					<s:iterator value="project.repositoryStatuses" var="repositoryStatus" status="stat">
 					<!-- Begin Panel for each Repository -->
-					<s:div class="panel panel-default" id="%{'repositoryStatus_' + #stat.index}">
+					<s:div class="panel panel-default repoCount" id="%{'repositoryStatus_' + #stat.index}">
 						<div class="panel-heading">
 							<div class="pheader">
 								<s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
@@ -132,7 +132,10 @@
 							<div class="form-group row">
 								<div class="col-xs-12">
 									<s:label for="%{'repositoryComments_' + #stat.index}" value="Comments (2000 Characters):" />
-									<s:textarea id="%{'repositoryComments_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].comments" value="%{#repositoryStatus.comments}" cssClass="form-control input" maxlength="2000" rows="3"></s:textarea>
+									<s:textarea id="%{'repositoryComments_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].comments" onkeyup="countChar(this)" value="%{#repositoryStatus.comments}" cssClass="form-control input" maxlength="2000" rows="3"></s:textarea>
+								     <s:div id="%{'countRepo_' + #stat.index}" style="text-align: right; font-style: italic;">
+				                      <span style="color: #990000;">2000</span> Character limits
+			                          </s:div>
 								</div>
 							</div>					
 						</div>						

@@ -11,7 +11,7 @@ public interface ApplicationConstants {
 	public static final String GDS_APPLICATION_URL = "gds.app.url";
 	public static final String CONTACT_EMAIL = "contact.email";
 	public static final String ERROR_EMAIL = "error.email";
-	public static final String BUSINESS_POLICY_EMAIL = "business.policy.email";
+	public static final String BUSINESS_POLICY_LINK = "business.policy.link";
 	public static final String TECHNICAL_ISSUES_EMAIL = "technical.issues.email";
 	public static final String BUSINESS_POLICY_DISPLAY="business.policy.display";
 	public static final String TECHNICAL_ISSUES_DISPLAY="technical.issues.display";
