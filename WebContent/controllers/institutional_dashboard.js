@@ -138,6 +138,26 @@ $(document).on('click', '.header', function () {
     $("#collapseOne").focus();
 
 });
+
+//set the correct length for text areas
+var max = 2000;
+var len = $('#icComments').val().length;
+if (len >= max) {
+	$('#charNum').text(' you have reached the limit');
+} else {
+	var char = max - len;
+	$('#charNum').text(char + ' characters left');
+}
+
+var max = 2000;
+var len = $('#additionalComments').val().length;
+if (len >= max) {
+	$('#charNum2').text(' you have reached the limit');
+} else {
+	var char = max - len;
+	$('#charNum2').text(char + ' characters left');
+}
+
 });
 
 $(".helpfile").click(function() {
@@ -156,5 +176,24 @@ $(".helpfileSubProject").click(function() {
 	var newWin = window.open(url, winName, features);
 });
 
+$('#icComments').keyup(function() {
+	var max = 2000;
+	var len = $(this).val().length;
+	if (len >= max) {
+		$('#charNum').text(' you have reached the limit');
+	} else {
+		var char = max - len;
+		$('#charNum').text(char + ' characters left');
+	}
+});
 
-
+$('#additionalComments').keyup(function() {
+	var max = 2000;
+	var len = $(this).val().length;
+	if (len >= max) {
+		$('#charNum2').text(' you have reached the limit');
+	} else {
+		var char = max - len;
+		$('#charNum2').text(char + ' characters left');
+	}
+});

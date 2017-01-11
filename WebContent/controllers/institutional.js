@@ -18,6 +18,12 @@ $(document).ready(function () {
 			var elemId = value.substr(textsize.length, value.length - textsize - textsize.length);
 			var text = value.substr(value.length - textsize);
 			$("#" + elemId).val(text);
+			if(text.length >= 2000) {
+				$("#" + elemId).parent().find("div").text(' you have reached the limit');
+			} else {
+				var char = 2000 - (text.length);
+				$("#" + elemId).parent().find("div").text(char + ' characters left');
+			}
 		}
 		else if(value.includes("otherAddText")) {
 			//The length of the text is available at the beginning of the value string
@@ -26,6 +32,12 @@ $(document).ready(function () {
 			var elemId = value.substr(textsize.length, value.length - textsize - textsize.length);
 			var text = value.substr(value.length - textsize);
 			$("#" + elemId).val(text);
+			if(text.length >= 2000) {
+				$("#" + elemId).parent().find("div").text(' you have reached the limit');
+			} else {
+				var char = 2000 - (text.length);
+				$("#" + elemId).parent().find("div").text(char + ' characters left');
+			}
 		} else {
 			//this represents value of a checkbox or parent radio
 			$("#" + value).prop('checked', true);
@@ -70,7 +82,42 @@ $(document).ready(function () {
 		  $(".form-group").show();
 	  } 
 	  
+	  
+	//set the correct length for text areas
+		var max = 2000;
+		var len = $('#instCertComments').val().length;
+		if (len >= max) {
+			$('#charNum6').text(' you have reached the limit');
+		} else {
+			var char = max - len;
+			$('#charNum6').text(char + ' characters left');
+		}
+		
+		//set Studies Comments length text area
+		var studyItems = $(".studySections").length;
+		for(var i=0; i< studyItems; i++) {
+			var max = 2000;
+			var len = $("#comments-" + i).val().length;
+			if (len >= max) {
+				$("#count-" +i).text(' you have reached the limit');
+			} else {
+				var char = max - len;
+				$("#count-" +i).text(char + ' characters left');
+			}	
+		}
 });
+
+//comments kep up function
+function countChar(elem) {
+	var max= 2000;
+	var len = $(elem).val().length;
+	if (len >= max) {
+		$(elem).parent().find("div").text(' you have reached the limit');
+	} else {
+		var char = max - len;
+		$(elem).parent().find("div").text(char + ' characters left');
+	}
+}
 
 
 //Invoked when a DULSet parent radio button is clicked. Displays
@@ -197,6 +244,7 @@ function addStudy() {
 	newStudySectionDiv.find("#institution-" + newStudySectionIndex).removeAttr("value");
 	newStudySectionDiv.find("#dulVerificationId-" + newStudySectionIndex).val(-1);
 	newStudySectionDiv.find("#comments-" + newStudySectionIndex).val("").removeAttr("value");
+	newStudySectionDiv.find("#count-" + newStudySectionIndex).text("2000 Character limits")
 	
 	//Empty the class cloneDULInput that contains the DUL Types that also got cloned
 	newStudySectionDiv.find("#cloneDULInput-" + newStudySectionIndex).empty();
@@ -366,5 +414,17 @@ $("a.hoverOver").hover(function(){
 $("a.pop").hover(function() {
 	var value=$(this).children().first().val();
 	$(this).attr('data-content', value);
+});
+
+//comments kep up function
+$('#instCertComments').keyup(function() {
+	var max = 2000;
+	var len = $(this).val().length;
+	if (len >= max) {
+		$('#charNum6').text(' you have reached the limit');
+	} else {
+		var char = max - len;
+		$('#charNum6').text(char + ' characters left');
+	}
 });
 

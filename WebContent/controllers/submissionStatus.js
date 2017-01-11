@@ -72,6 +72,19 @@ $(document).ready(function () {
 	$(".repoSelect").change();
 	//Remove dirty 
 	$("#submission_status_form").removeClass( "dirty" )
+	
+		//set Studies Comments length text area
+		var repoItems = $(".repoCount").length;
+		for(var i=0; i< repoItems; i++) {
+			var max = 2000;
+			var len = $("#repositoryComments_" + i).val().length;
+			if (len >= max) {
+				$("#countRepo_" +i).text(' you have reached the limit');
+			} else {
+				var char = max - len;
+				$("#countRepo_" +i).text(char + ' characters left');
+			}	
+		}
 });
 
 if($("#subprojectFlag").val() == 'N'){
@@ -97,3 +110,15 @@ $("a.hoverOver").hover(function(){
 	var value=$(this).children().first().val();
 	$(this).attr('data-original-title', value);
 });
+
+//comments kep up function
+function countChar(elem) {
+	var max= 2000;
+	var len = $(elem).val().length;
+	if (len >= max) {
+		$(elem).parent().find("div").text(' you have reached the limit');
+	} else {
+		var char = max - len;
+		$(elem).parent().find("div").text(char + ' characters left');
+	}
+}

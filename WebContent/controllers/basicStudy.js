@@ -8,6 +8,15 @@ $('body').on('click', 'a.history', function() {
     $("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
 });
 
+//set the correct length for text areas
+var max = 2000;
+var len = $('#bsiComments').val().length;
+if (len >= max) {
+	$('#charNum5').text(' you have reached the limit');
+} else {
+	var char = max - len;
+	$('#charNum5').text(char + ' characters left');
+}
 
 //Function that shows Other box
 $('#25').change(function () {
@@ -132,4 +141,16 @@ $(".helpfile").click(function() {
 	var winName = "Submission BSI Help File";
 	var features = "menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800";
 	var newWin = window.open(url, winName, features);
+});
+
+//comments kep up function
+$('#bsiComments').keyup(function() {
+	var max = 2000;
+	var len = $(this).val().length;
+	if (len >= max) {
+		$('#charNum5').text(' you have reached the limit');
+	} else {
+		var char = max - len;
+		$('#charNum5').text(char + ' characters left');
+	}
 });
