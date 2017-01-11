@@ -71,7 +71,17 @@
 			</div> 
           <s:hidden id="certFlag" name="certFlag" />
             <p>&nbsp;</p>
-
+              
+              <div>
+				<p class="question">Studies awaiting Ics (2000 Characters):</p>
+				<s:textarea class="form-control input_other" rows="3" maxlength="2000" id="icComments" name="icComments" placeholder="List Studies awaiting Institutional Certifications to be received"></s:textarea>
+			</div>
+			
+			 <div>
+				<p class="question">Additional Comments (2000 Characters):</p>
+				<s:textarea class="form-control input_other" rows="3" maxlength="2000" id="additionalComments" name="additionalComments" placeholder="List Studies awaiting Institutional Certifications to be received"></s:textarea>
+			</div>
+			<br>
             <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
               <tr class="modalTheader">
                <!--  Show this column header only for subproject -->
