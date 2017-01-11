@@ -33,6 +33,7 @@ WebContent/WEB-INF/lib/dwr-1.1.1.jar -text
 WebContent/WEB-INF/lib/ehcache-2.10.1.jar -text
 WebContent/WEB-INF/lib/ehcache-spring-annotations-1.2.0.jar -text
 WebContent/WEB-INF/lib/ezmorph-1.0.6.jar -text
+WebContent/WEB-INF/lib/findbugs-ant.jar -text
 WebContent/WEB-INF/lib/freemarker-2.3.22.jar -text
 WebContent/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar -text
 WebContent/WEB-INF/lib/google-collections-1.0.jar -text
@@ -588,6 +589,7 @@ build/user.properties -text
 database/INS_LOOKUP_T_DML_20160705.sql -text
 database/INS_PLAN_QUESTIONS_ANSWERS_DML_20160613.sql -text
 database/gds_v1.0.sql -text
+/findbugs-report.html -text
 lib/tomcat/catalina-ant.jar -text
 lib/tomcat/jasper.jar -text
 lib/tomcat/jsp-api.jar -text

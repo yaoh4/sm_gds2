@@ -399,7 +399,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 							currentPlanAnswer.getRepositoryStatuses().iterator().next(), repoStatus);
 						repoStatus.setId(null);
 						//planAnswer should be the new instance from the new parent
-						planAnswer = project.getParent().getPlanAnswerSelectionByAnswerId(currentPlanAnswer.getPlanQuestionsAnswer().getId());
+						planAnswer = project.getParent().getPlanAnswerSelectionByAnswerIdAndText(currentPlanAnswer.getPlanQuestionsAnswer().getId(), currentPlanAnswer.getOtherText());
 						//Need to set the repository id of the new parent version's answer (Find and set the object)
 						planAnswer.addProject(project);
 						repoStatus.setPlanAnswerSelectionTByRepositoryId(planAnswer);
@@ -793,8 +793,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}
 		
 		if(sb.length() > 0) {
-			sb.append("<br> Do you wish to continue?");
-			String warningMessage = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> " + getText("gds.warn.message") + "<br><br>" + sb.toString();
+			String warningMessage = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> " + getText("gds.warn.message");
 			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
 		} else {
 			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));

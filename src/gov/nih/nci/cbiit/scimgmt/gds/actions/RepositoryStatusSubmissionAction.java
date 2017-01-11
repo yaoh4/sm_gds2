@@ -183,7 +183,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 					}
 					RepositoryStatus childRepository = null;
 					for(PlanAnswerSelection childAnswer: storedProject.getPlanAnswerSelections()) {
-						if(childAnswer.getPlanQuestionsAnswer().getId() == parentAnswer.getPlanQuestionsAnswer().getId()) {
+						if(childAnswer.getPlanQuestionsAnswer().getId() == parentAnswer.getPlanQuestionsAnswer().getId() && StringUtils.equals(childAnswer.getOtherText(), parentAnswer.getOtherText())) {
 							found = true;
 							for (RepositoryStatus r: childAnswer.getRepositoryStatuses()) {
 								if(r.getProject().getId().longValue() == storedProject.getId().longValue())
@@ -322,6 +322,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 			if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(parentAnswer.getPlanQuestionsAnswer().getQuestionId())) {
 				boolean found = false, myAnswer = false;
 				for(PlanAnswerSelection childAnswer: getProject().getPlanAnswerSelections()) {
+					myAnswer = false;
 					for (Project p: childAnswer.getProjects()) {
 						if(p.getId().longValue() == getProject().getId().longValue()) {
 							myAnswer = true;
@@ -329,7 +330,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 						}
 					}
 					found = false;
-					if(myAnswer && childAnswer.getPlanQuestionsAnswer().getId() == parentAnswer.getPlanQuestionsAnswer().getId()) {
+					if(myAnswer && childAnswer.getPlanQuestionsAnswer().getId() == parentAnswer.getPlanQuestionsAnswer().getId() && StringUtils.equals(childAnswer.getOtherText(), parentAnswer.getOtherText())) {
 						found = true;
 						for(RepositoryStatus childRepo: childAnswer.getRepositoryStatuses()) {
 							if(childRepo.getProject().getId() == getProject().getId()) {
