@@ -127,8 +127,8 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	/**
 	 * Get business policy email
 	 */
-	public String getBusinessPolicyEmail() {
-		return gdsProperties.getProperty(ApplicationConstants.BUSINESS_POLICY_EMAIL);
+	public String getBusinessPolicyLink() {
+		return gdsProperties.getProperty(ApplicationConstants.BUSINESS_POLICY_LINK);
 	}
 	
 	
