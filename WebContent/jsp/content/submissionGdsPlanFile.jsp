@@ -32,6 +32,10 @@
 		</tr>
 	</table>
 </s:if>
+<s:else>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</s:else>
 
 <s:if test="%{gdsPlanFile.size > 1}">
 	<div class="qSpacing">
