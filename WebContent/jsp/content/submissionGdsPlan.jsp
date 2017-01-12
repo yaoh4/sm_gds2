@@ -264,8 +264,7 @@
 						<s:include value="/jsp/content/submissionGdsPlanFile.jsp" />
 					</div>
 				</div>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
+				
 				<div>
 					<p class="question">Comments (2000 Characters):</p>
 					<s:textarea class="col-md-12 form-control input" rows="3" maxlength="2000" id="gdsPlanComments" name="comments"></s:textarea>
