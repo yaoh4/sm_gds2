@@ -82,7 +82,7 @@
 			
 			 <div>
 				<p class="question">Additional Comments (2000 Characters):</p>
-				<s:textarea class="form-control input_other" rows="3" maxlength="2000" id="additionalComments" name="additionalComments" placeholder="List Studies awaiting Institutional Certifications to be received"></s:textarea>
+				<s:textarea class="form-control input_other" rows="3" maxlength="2000" id="additionalComments" name="additionalComments" placeholder=""></s:textarea>
 			    <div id="charNum2" style="text-align: right; font-style: italic;">
 				<span style="color: #990000;">2000</span> Character limits
 			    </div>
