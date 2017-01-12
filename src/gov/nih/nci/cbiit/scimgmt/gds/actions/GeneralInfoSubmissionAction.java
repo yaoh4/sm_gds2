@@ -394,9 +394,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				planAnswer.setOtherText(currentPlanAnswer.getOtherText());
 				if( ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(planAnswer.getPlanQuestionsAnswer().getQuestionId())) {		
 					RepositoryStatus repoStatus = new RepositoryStatus();
-					if(subprojectClone && !CollectionUtils.isEmpty(currentPlanAnswer.getRepositoryStatuses())) {
-						BeanUtils.copyProperties(
-							currentPlanAnswer.getRepositoryStatuses().iterator().next(), repoStatus);
+					RepositoryStatus myRepo = null;
+					for(RepositoryStatus repo: currentPlanAnswer.getRepositoryStatuses()) {
+						if(repo.getProject().getId().longValue() == currentLatestVersion.getId()) {
+							myRepo = repo;
+							break;
+						}
+					}
+					if(subprojectClone && myRepo != null) {
+						BeanUtils.copyProperties(myRepo, repoStatus);
 						repoStatus.setId(null);
 						//planAnswer should be the new instance from the new parent
 						planAnswer = project.getParent().getPlanAnswerSelectionByAnswerIdAndText(currentPlanAnswer.getPlanQuestionsAnswer().getId(), currentPlanAnswer.getOtherText());
