@@ -25,7 +25,7 @@
 		<property name="cacheManager" ref="ehcache"/>
 	</bean>
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<property name="configLocation" value="../ehcache.xml"/>
+		<property name="configLocation" value="gov/nih/nci/cbiit/scimgmt/gds/ehcache.xml"/>
 	</bean>
 	
 
@@ -59,15 +59,16 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.MailTemplate</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Property</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.HelpText</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Document</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole</value>				
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Project</value>
-				
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Study</value>
@@ -77,9 +78,10 @@
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.Organization</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.GdsPd</value>
-				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract</value>				
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw</value>
 				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole</value>
+				<value>gov.nih.nci.cbiit.scimgmt.gds.domain.EmailNotification</value>
 			</list>
 		</property>
   		<property name="hibernateProperties">
@@ -150,5 +152,16 @@
 		</property>
 	</bean>
 
+	<bean id="mailService" class="gov.nih.nci.cbiit.scimgmt.gds.services.impl.MailServiceImpl">
+		<property name="emailTemplates">
+			<props>
+				<prop key="EXT_SUMMARY">extSummary.vm</prop>
+				<prop key="INT_SUMMARY">intSummary.vm</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="AutomatedEmailTask" class="gov.nih.nci.cbiit.scimgmt.gds.util.AutomatedSendEmailTask">
+	</bean>
 	
 </beans>

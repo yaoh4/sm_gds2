@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="gds" default="all" basedir="..">
+<project xmlns:jacoco="antlib:org.jacoco.ant" name="gds" default="all" basedir="..">
 <!-- ANT build.xml.
      Tag               			   Description
      clean       		           Deletes all relevant dirs
@@ -54,6 +54,12 @@
 	<property name="env.properties.dir"  	value="${properties.dir}/${common.env}"/>
     <property name="common.properties.dir"  value="${properties.dir}"/>
    
+	<property name="result.dir"  			value="./target"/>
+	<property name="result.classes.dir"  	value="${result.dir}/classes"/>
+	<property name="result.report.dir"  	value="${result.dir}/site/jacoco"/>
+	<property name="result.exec.file"  		value="${result.dir}/jacoco.exec"/>
+
+   
 	
 	<echo message="************************************************************"></echo>
     <echo message="Build started: ${start.timestamp}"></echo>
@@ -71,8 +77,12 @@
     </path>
     <property name="project.classpath" refid="project.classpath"/>
 	
-   <taskdef resource="org/apache/catalina/ant/catalina.tasks" classpathref="project.classpath" />
+    <taskdef resource="org/apache/catalina/ant/catalina.tasks" classpathref="project.classpath" />
 	
+	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+		<classpath path="${global.lib.dir}/tomcat/jacocoant.jar"/>
+	</taskdef>
+		
     <!-- Create deployment dirs make_deployment_dirs -->
     <target name="make_deployment_dirs" description="create deployment dirs" depends="clean" >
         <mkdir dir="${java.classes.dir}"/>
@@ -285,7 +295,7 @@
               war="${basedir}/${app.distribution.dir}/${app.name.war}"/>
    </target>  
    <!-- run ALL targets -->
-   <target name="all" depends="clean,make_deployment_dirs,copy_properties_files, compile, findbugs, pmd, junit, war, tomcat.deploy"/>
+   <target name="all" depends="clean,make_deployment_dirs,copy_properties_files, compile, findbugs, pmd, report, war, tomcat.deploy"/>
    <target name="junit" depends="compile, copy_properties_files">
 	  <junit showoutput="true" printsummary="yes" haltonfailure="yes">
 	    <sysproperty key="conf.dir" value="${conf.dir}"/>
@@ -298,4 +308,40 @@
 	  	</test>
 	  </junit>
    </target>
+
+	<target name="test" depends="compile, copy_properties_files">
+		<jacoco:coverage destfile="${result.exec.file}">
+			<junit showoutput="true" printsummary="yes" haltonfailure="no" fork="yes">
+				<sysproperty key="conf.dir" value="${conf.dir}"/>
+				<classpath refid="project.classpath" />
+				<classpath location="${java.classes.dir}" />
+				<classpath location="${test.classes.dir}" />
+				<test name="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmissionTest">
+					<formatter type="xml" />
+				</test>
+			</junit>
+		</jacoco:coverage>
+	</target>
+
+	<target name="report" depends="test">
+		<jacoco:report>
+			<executiondata>
+				<file file="${result.exec.file}"/>
+			</executiondata>
+
+			<structure name="JaCoCo Ant GDS">
+				<classfiles>
+					<fileset dir="${java.classes.dir}" />
+					<fileset dir="${test.classes.dir}" />
+				</classfiles>
+				<sourcefiles encoding="UTF-8">
+					<fileset dir="${src.dir}"/>
+				</sourcefiles>
+			</structure>
+			<!--  to produce reports in different formats.  -->
+			<html destdir="${result.report.dir}"/>
+			<csv destfile="${result.report.dir}/report.csv"/>
+			<xml destfile="${result.report.dir}/report.xml"/>
+		</jacoco:report>
+	</target>
 </project>

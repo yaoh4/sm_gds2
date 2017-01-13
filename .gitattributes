@@ -591,6 +591,7 @@ database/INS_PLAN_QUESTIONS_ANSWERS_DML_20160613.sql -text
 database/gds_v1.0.sql -text
 /findbugs-report.html -text
 lib/tomcat/catalina-ant.jar -text
+lib/tomcat/jacocoant.jar -text
 lib/tomcat/jasper.jar -text
 lib/tomcat/jsp-api.jar -text
 lib/tomcat/ojdbc6.jar -text
