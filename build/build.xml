@@ -133,11 +133,13 @@
               
 </target>
 	
-<taskdef name="findbugs" classpath="${project.classpath}" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
-	
 	    	
 <target name="findbugs" depends="compile"
 	description="Reports code quaility" >
+	<taskdef 
+		name="findbugs" 
+		classpath="${project.classpath}" 
+		classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
 	<findbugs home="${findbugs.home}" failOnError="true"
 		      output="html"
 		      outputFile="findbugs-report.html" 
@@ -152,15 +154,16 @@
 
 </target>
 
-<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
-	    <classpath>
-	        <fileset dir="${pmd.home}">
-	            <include name="lib/*.jar"/>    
-	        </fileset>
-	    </classpath>
-</taskdef>	
+
 	
  <target name="pmd">
+ 	<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+ 		    <classpath>
+ 		        <fileset dir="${pmd.home}">
+ 		            <include name="lib/*.jar"/>    
+ 		        </fileset>
+ 		    </classpath>
+ 	</taskdef>	
     <pmd>
 	  <formatter type="html" toFile="pmd_report.html" />
     	<ruleset>rulesets/java/basic.xml</ruleset>
@@ -172,7 +175,31 @@
  	</pmd>
 </target> 
 	
+<!--	<taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask">
+		<classpath>
+			        <fileset dir="${pmd.home}">
+			            <include name="lib/*.jar"/>    
+			        </fileset>
+			    </classpath>
+		  </taskdef>
+		 
+		<target name="cpd" description="Search for cut-and-pasted code">
+		  <property name="cpd.report.xml" location="cpd.xml" />
+		  <mkdir dir="${cpd.report.dir}" />
+		 
+		  <cpd minimumTokenCount="${cpd.minimum.tokens}" format="xml"
+		    outputFile="${cpd.report.xml}" ignoreLiterals="${cpd.ignore.literals}"
+		    ignoreIdentifiers="${cpd.ignore.identifiers}">
+		    <fileset dir="${src.dir}" includes="**/*.java" />
+		  </cpd>
+		 
+		  <property name="cpd.report.html" location="cpd.html" />
+		  
+		  <echo message="CPD report is at ${cpd.report.html}" />
+		</target>
 			
+	!-->
+	
 <!--  copy various proerties files to required directories -->
    
 <target name="copy_properties_files" depends="make_deployment_dirs"
@@ -242,6 +269,9 @@
             </lib>
         </war>
     </target>
+	
+	
+	
   
    <target name="tomcat.undeploy">
       <undeploy url="${tomcat.url}" failonerror="false"
