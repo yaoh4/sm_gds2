@@ -232,9 +232,9 @@
     <tr style="background-color: #f5f5f5;">
   <td style="white-space: nowrap">
           <strong>Additional Grants:</strong></td>
-        <td style="width: 67%">
+        <td id="additionalGrantsVal" style="width: 67%">
        <s:iterator value="associatedSecondaryGrants" var="r" status="stat">
-          ${r.grantContractNum}&nbsp;&nbsp;&nbsp;
+          ${r.grantContractNum}&nbsp;
        </s:iterator>
      </td>
      </tr>

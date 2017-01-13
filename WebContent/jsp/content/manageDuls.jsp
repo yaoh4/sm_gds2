@@ -57,7 +57,7 @@
                       	  name="otherAddText-${studiesIdx}-${dulSetIdx}-${parentDul.id}" 
                       	  placeholder="Please List Specific Disease" onkeyup="countChar(this)" >  
                        <div id="textlength${studiesIdx}-${dulSetIdx}-${parentDul.id}" style="text-align: right; font-style: italic;">
-				           <span style="color: #990000;">2000</span> Character limits
+				           <span>2000</span> Character limits
 			            </div> 
 			            </div>                 
                     </s:if>
@@ -68,7 +68,7 @@
                       	  name="otherAddText-${studiesIdx}-${dulSetIdx}-${parentDul.id}" 
                       	  placeholder="Please Be Specific" onkeyup="countChar(this)"></textarea>
                             <div id="textlength${studiesIdx}-${dulSetIdx}-${parentDul.id}" style="text-align: right; font-style: italic;">
-				           <span style="color: #990000;">2000</span> Character limits
+				           <span>2000</span> Character limits
 			                </div>
 			           </div>
                     </s:if>
@@ -79,7 +79,7 @@
                       	  name="comments-${studiesIdx}-${dulSetIdx}-${parentDul.id}" maxlength="2000"
                       	  rows="2"  onkeyup="countChar(this)"></textarea>
                          <div id="charlength${studiesIdx}-${dulSetIdx}-${parentDul.id}" style="text-align: right; font-style: italic;">
-				           <span style="color: #990000;">2000</span> Character limits
+				           <span>2000</span> Character limits
 			                </div>
 			                </div>
                     </s:if>

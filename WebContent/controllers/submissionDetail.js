@@ -39,6 +39,12 @@ $(document).ready(function() {
 	 else {
 		 $(".projectColumn").hide();
 	 }
+	 
+     //trimming the additional grants field display
+	 var valor = jQuery.trim($("#additionalGrantsVal").html())
+     .replace(/\s+/g, " ; ");
+	 valor.slice(0,-1);
+	 $("#additionalGrantsVal").html(valor);
 	
 });
 
