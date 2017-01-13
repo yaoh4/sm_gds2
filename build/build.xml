@@ -70,9 +70,9 @@
         <fileset dir="${global.lib.dir}" includes="tomcat/*.jar"/>
     </path>
     <property name="project.classpath" refid="project.classpath"/>
-	
-   <taskdef resource="org/apache/catalina/ant/catalina.tasks" classpathref="project.classpath" />
-	
+
+    <taskdef resource="org/apache/catalina/ant/catalina.tasks" classpathref="project.classpath" />
+    
     <!-- Create deployment dirs make_deployment_dirs -->
     <target name="make_deployment_dirs" description="create deployment dirs" depends="clean" >
         <mkdir dir="${java.classes.dir}"/>
@@ -132,47 +132,7 @@
               
               
 </target>
-	
-<taskdef name="findbugs" classpath="${project.classpath}" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
-	
-	    	
-<target name="findbugs" depends="compile"
-	description="Reports code quaility" >
-	<findbugs home="${findbugs.home}" failOnError="true"
-		      output="html"
-		      outputFile="findbugs-report.html" 
-			  reportLevel="medium"
-			  warningsProperty="findbugsFailure">
-		<auxClasspath path="${lib.dir}:${global.lib.dir}" />
-		<sourcePath path="${src.dir}" />
-		<class location="${java.classes.dir}" />
-	</findbugs>
-	
-	<!--<fail if="findbugsFailure"/>-->
 
-</target>
-
-<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
-	    <classpath>
-	        <fileset dir="${pmd.home}">
-	            <include name="lib/*.jar"/>    
-	        </fileset>
-	    </classpath>
-</taskdef>	
-	
- <target name="pmd">
-    <pmd>
-	  <formatter type="html" toFile="pmd_report.html" />
-    	<ruleset>rulesets/java/basic.xml</ruleset>
-    	<ruleset>rulesets/java/imports.xml</ruleset>
-    	<ruleset>rulesets/java/empty.xml</ruleset>
-	  <fileset dir="${src.dir}">
-	  	<include name="**/*.java"/>
-	  </fileset>
- 	</pmd>
-</target> 
-	
-			
 <!--  copy various proerties files to required directories -->
    
 <target name="copy_properties_files" depends="make_deployment_dirs"
@@ -255,14 +215,14 @@
               war="${basedir}/${app.distribution.dir}/${app.name.war}"/>
    </target>  
    <!-- run ALL targets -->
-   <target name="all" depends="clean,make_deployment_dirs,copy_properties_files, compile, findbugs, pmd, junit, war, tomcat.deploy"/>
+   <target name="all" depends="clean,make_deployment_dirs,copy_properties_files,compile, junit, war, tomcat.deploy"/>
    <target name="junit" depends="compile, copy_properties_files">
 	  <junit showoutput="true" printsummary="yes" haltonfailure="yes">
 	    <sysproperty key="conf.dir" value="${conf.dir}"/>
 		<classpath refid="project.classpath" />
 		<classpath location="${java.classes.dir}" />
 	   	<classpath location="${test.classes.dir}" />
-	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmissionTest" haltonfailure="no" outfile="${distribution.dir}/result">
+	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmissionTest" haltonfailure="yes" outfile="${distribution.dir}/result">
 	  		<formatter type="plain" />
 	  		<formatter type="xml" />
 	  	</test>
