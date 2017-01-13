@@ -45,7 +45,7 @@
                       	<input type="text" class="form-control input_other" 
                       	  id="otherAddText0-0-${parentDul.id}"
                       	  name="otherAddText-0-0-${parentDul.id}" 
-                      	  placeholder="Please List Specific Disease" size="100" maxlength="200">
+                      	  placeholder="Please List Specific Disease" size="100" maxlength="100">
 			                </div>                
                     </s:if>
                     <s:if test="%{#parentDul.id == 21}">
