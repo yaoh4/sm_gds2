@@ -45,10 +45,7 @@
                       	<input type="text" class="form-control input_other" 
                       	  id="otherAddText0-0-${parentDul.id}"
                       	  name="otherAddText-0-0-${parentDul.id}" 
-                      	  placeholder="Please List Specific Disease" size="100" maxlength="200" onkeyup="countChar(this)" >
-                        <div id="textlength0-0-${parentDul.id}" style="text-align: right; font-style: italic;">
-				           <span>2000</span> Character limits
-			            </div>
+                      	  placeholder="Please List Specific Disease" size="100" maxlength="200">
 			                </div>                
                     </s:if>
                     <s:if test="%{#parentDul.id == 21}">
