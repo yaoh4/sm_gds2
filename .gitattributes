@@ -598,6 +598,7 @@ lib/tomcat/servlet-api.jar -text
 lib/tomcat/tomcat-coyote.jar -text
 lib/tomcat/tomcat-juli.jar -text
 lib/tomcat/tomcat-util.jar -text
+/pmd_report.html -text
 properties/application.properties -text
 properties/db-connection.properties -text
 properties/dev/gds.properties -text
