@@ -90,6 +90,7 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		
 		Project project = findById(projectId);
 		Long projectGroupId = project.getProjectGroupId();
+		Long parentProjectId = project.getParentProjectId();
 		String subProjectFlag=project.getSubprojectFlag();
 		List<InstitutionalCertification> certs=project.getInstitutionalCertifications();
 		
@@ -113,15 +114,17 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		}
 		
 		//Set the previous version to be the latest
-		List<Project> projects = getVersions(projectGroupId);
+		List<Project> projects = getVersions(projectGroupId, parentProjectId);
 		if(!CollectionUtils.isEmpty(projects)) {
 			Project currentLatestVersion = projects.get(0);
 			currentLatestVersion.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
 			for(Project subproject: getSubprojects(currentLatestVersion.getId())) {
-				List<Project> subprojectVersions = getVersions(subproject.getProjectGroupId());
+				List<Project> subprojectVersions = getVersions(subproject.getProjectGroupId(), subproject.getParentProjectId() );
 				Project latestSubProjectVersion = subprojectVersions.get(0);
-				latestSubProjectVersion.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
-				projectsDao.merge(latestSubProjectVersion);
+				if(!ApplicationConstants.FLAG_YES.equals(latestSubProjectVersion.getLatestVersionFlag())) {
+					latestSubProjectVersion.setLatestVersionFlag(ApplicationConstants.FLAG_YES);
+					projectsDao.merge(latestSubProjectVersion);
+				}
 			}
 			projectsDao.merge(currentLatestVersion);
 		}
@@ -287,11 +290,12 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	/**
 	 * Retrieve project versions based on project group ID.
 	 * @param projectGroupId
+	 * @param parentProjectId
 	 * @return List<Project>
 	 */
-	public List<Project> getVersions(Long projectGroupId) {
+	public List<Project> getVersions(Long projectGroupId, Long parentProjectId) {
 		logger.debug("getVersions");
-		return projectsDao.getVersions(projectGroupId);
+		return projectsDao.getVersions(projectGroupId, parentProjectId);
 	}
 	
 	

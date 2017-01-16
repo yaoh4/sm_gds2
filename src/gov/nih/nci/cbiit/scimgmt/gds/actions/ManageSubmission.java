@@ -186,19 +186,15 @@ public class ManageSubmission extends BaseAction {
 	public List<Project> retrieveVersions(Project project) {
 		
 		Long projectGroupId = project.getProjectGroupId();
+		Long parentProjectId = project.getParentProjectId();
 		if(projectGroupId != null) {
-			List<Project> versions =  manageProjectService.getVersions(projectGroupId);
+			List<Project> versions =  manageProjectService.getVersions(projectGroupId, parentProjectId);
 			if (versions != null) {
 				Project np = null;
 				for (final Iterator<Project> i = versions.iterator(); i.hasNext();) {
 					np = i.next();
 					if (project.getId().equals(np.getId())) {
 						i.remove();
-					}
-					else if(project.getSubprojectFlag().equals(ApplicationConstants.FLAG_YES)) {
-						if(!project.getParentProjectId().equals(np.getParentProjectId())){
-							i.remove();
-						}
 					}
 				}
 			}

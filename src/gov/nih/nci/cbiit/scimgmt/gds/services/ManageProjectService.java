@@ -132,9 +132,10 @@ public interface ManageProjectService {
 	/**
 	 * Retrieve versions based on project group ID.
 	 * @param projectGroupId
+	 * @param parentProjectId
 	 * @return List<Project>
 	 */
-	public List<Project> getVersions(Long projectGroupId);
+	public List<Project> getVersions(Long projectGroupId, Long parentProjectId);
 	
 	/**
 	 * Retrieve the latest version of the project within

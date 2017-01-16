@@ -371,7 +371,7 @@ public class ProjectsDao {
 	 * @return List<Project>
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Project> getVersions(Long projectGroupId) {
+	public List<Project> getVersions(Long projectGroupId, Long parentProjectId) {
 		
 		List<Project> list =  new ArrayList<Project>();
 		
@@ -379,6 +379,9 @@ public class ProjectsDao {
 			Criteria criteria = null;
 			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class);
 			criteria.add(Restrictions.eq("projectGroupId", projectGroupId));
+			if(parentProjectId != null) {
+				criteria.add(Restrictions.eq("parentProjectId", parentProjectId));
+			}
 			criteria.addOrder(Order.desc("createdDate"));
 			list =  (List<Project>) criteria.list();
 			return list;
