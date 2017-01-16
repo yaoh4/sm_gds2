@@ -236,6 +236,8 @@
 
 <s:include value="/jsp/content/dulSetTemplate.jsp"/>
 <script type="text/javascript"
+	src="<s:url value="/controllers/gds.js" />"></script>
+<script type="text/javascript"
 	src="<s:url value="/controllers/institutional.js" />"></script>
 	<script type="text/javascript">
 $(function($){

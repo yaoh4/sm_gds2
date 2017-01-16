@@ -18,10 +18,11 @@ $(document).ready(function () {
 			var elemId = value.substr(textsize.length, value.length - textsize - textsize.length);
 			var text = value.substr(value.length - textsize);
 			$("#" + elemId).val(text);
-			if(text.length >= 2000) {
+			var len = $("#" + elemId).val().replace(/\r(?!\n)|\n(?!\r)/g, "\r\n").length;
+			if(len >= 2000) {
 				$("#" + elemId).parent().find("div").text(' you have reached the limit');
 			} else {
-				var char = 2000 - (text.length);
+				var char = 2000 - len;
 				$("#" + elemId).parent().find("div").text(char + ' characters left');
 			}
 		}
@@ -32,10 +33,11 @@ $(document).ready(function () {
 			var elemId = value.substr(textsize.length, value.length - textsize - textsize.length);
 			var text = value.substr(value.length - textsize);
 			$("#" + elemId).val(text);
-			if(text.length >= 2000) {
+			var len = $("#" + elemId).val().replace(/\r(?!\n)|\n(?!\r)/g, "\r\n").length;
+			if(len >= 2000) {
 				$("#" + elemId).parent().find("div").text(' you have reached the limit');
 			} else {
-				var char = 2000 - (text.length);
+				var char = 2000 - len;
 				$("#" + elemId).parent().find("div").text(char + ' characters left');
 			}
 		} else {
@@ -83,34 +85,21 @@ $(document).ready(function () {
 	  } 
 	  
 	  
-	//set the correct length for text areas
-		var max = 2000;
-		var len = $('#instCertComments').val().length;
-		if (len >= max) {
-			$('#charNum6').text(' you have reached the limit');
-		} else {
-			var char = max - len;
-			$('#charNum6').text(char + ' characters left');
-		}
-		
+	  //set the correct length for text areas
+	  showCharCount('#instCertComments', '#charNum6');
+
 		//set Studies Comments length text area
 		var studyItems = $(".studySections").length;
 		for(var i=0; i< studyItems; i++) {
-			var max = 2000;
-			var len = $("#comments-" + i).val().length;
-			if (len >= max) {
-				$("#count-" +i).text(' you have reached the limit');
-			} else {
-				var char = max - len;
-				$("#count-" +i).text(char + ' characters left');
-			}	
+			var commentsElem = $("#comments-" + i);
+			showCharCount(commentsElem, '#count-' + i);
 		}
 });
 
 //comments kep up function
 function countChar(elem) {
 	var max= 2000;
-	var len = $(elem).val().length;
+	var len = $(elem).val().replace(/\r(?!\n)|\n(?!\r)/g, "\r\n").length;
 	if (len >= max) {
 		$(elem).parent().find("div").text(' you have reached the limit');
 	} else {
@@ -418,13 +407,7 @@ $("a.pop").hover(function() {
 
 //comments kep up function
 $('#instCertComments').keyup(function() {
-	var max = 2000;
-	var len = $(this).val().length;
-	if (len >= max) {
-		$('#charNum6').text(' you have reached the limit');
-	} else {
-		var char = max - len;
-		$('#charNum6').text(char + ' characters left');
-	}
+	//set the correct length for text areas
+	showCharCount(this, '#charNum6');
 });
 

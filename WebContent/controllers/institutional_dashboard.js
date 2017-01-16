@@ -140,23 +140,10 @@ $(document).on('click', '.header', function () {
 });
 
 //set the correct length for text areas
-var max = 2000;
-var len = $('#icComments').val().length;
-if (len >= max) {
-	$('#charNum').text(' you have reached the limit');
-} else {
-	var char = max - len;
-	$('#charNum').text(char + ' characters left');
-}
+showCharCount('#icComments', '#charNum');
 
-var max = 2000;
-var len = $('#additionalComments').val().length;
-if (len >= max) {
-	$('#charNum2').text(' you have reached the limit');
-} else {
-	var char = max - len;
-	$('#charNum2').text(char + ' characters left');
-}
+//set the correct length for text areas
+showCharCount('#additionalComments', '#charNum2');
 
 });
 
@@ -177,23 +164,11 @@ $(".helpfileSubProject").click(function() {
 });
 
 $('#icComments').keyup(function() {
-	var max = 2000;
-	var len = $(this).val().length;
-	if (len >= max) {
-		$('#charNum').text(' you have reached the limit');
-	} else {
-		var char = max - len;
-		$('#charNum').text(char + ' characters left');
-	}
+	//set the correct length for text areas
+	showCharCount(this, '#charNum');
 });
 
 $('#additionalComments').keyup(function() {
-	var max = 2000;
-	var len = $(this).val().length;
-	if (len >= max) {
-		$('#charNum2').text(' you have reached the limit');
-	} else {
-		var char = max - len;
-		$('#charNum2').text(char + ' characters left');
-	}
+	//set the correct length for text areas
+	showCharCount(this, '#charNum2');
 });

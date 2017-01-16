@@ -76,14 +76,8 @@ $(document).ready(function () {
 		//set Studies Comments length text area
 		var repoItems = $(".repoCount").length;
 		for(var i=0; i< repoItems; i++) {
-			var max = 2000;
-			var len = $("#repositoryComments_" + i).val().length;
-			if (len >= max) {
-				$("#countRepo_" +i).text(' you have reached the limit');
-			} else {
-				var char = max - len;
-				$("#countRepo_" +i).text(char + ' characters left');
-			}	
+			var commentsElem = $("#repositoryComments_" + i);
+			showCharCount(commentsElem, '#countRepo_' + i);
 		}
 });
 
@@ -114,7 +108,7 @@ $("a.hoverOver").hover(function(){
 //comments kep up function
 function countChar(elem) {
 	var max= 2000;
-	var len = $(elem).val().length;
+	var len = $(elem).val().replace(/\r(?!\n)|\n(?!\r)/g, "\r\n").length;
 	if (len >= max) {
 		$(elem).parent().find("div").text(' you have reached the limit');
 	} else {

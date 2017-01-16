@@ -9,14 +9,7 @@ $('body').on('click', 'a.history', function() {
 });
 
 //set the correct length for text areas
-var max = 2000;
-var len = $('#bsiComments').val().length;
-if (len >= max) {
-	$('#charNum5').text(' you have reached the limit');
-} else {
-	var char = max - len;
-	$('#charNum5').text(char + ' characters left');
-}
+showCharCount('#bsiComments', '#charNum5');
 
 //Function that shows Other box
 $('#25').change(function () {
@@ -145,12 +138,6 @@ $(".helpfile").click(function() {
 
 //comments kep up function
 $('#bsiComments').keyup(function() {
-	var max = 2000;
-	var len = $(this).val().length;
-	if (len >= max) {
-		$('#charNum5').text(' you have reached the limit');
-	} else {
-		var char = max - len;
-		$('#charNum5').text(char + ' characters left');
-	}
+	//set the correct length for text areas
+	showCharCount(this, '#charNum5');
 });

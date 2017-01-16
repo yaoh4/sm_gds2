@@ -9,14 +9,7 @@ $('body').on('click', 'a.history', function() {
 });
 
 //set the correct length for text areas
-var max = 2000;
-var len = $('#gdsPlanComments').val().length;
-if (len >= max) {
-	$('#charNum4').text(' you have reached the limit');
-} else {
-	var char = max - len;
-	$('#charNum4').text(char + ' characters left');
-}
+showCharCount('#gdsPlanComments', '#charNum4');
 
 //Function that shows Other box
 $('#25').change(function () {
@@ -341,13 +334,8 @@ $("a.hoverOver").hover(function(){
 
 //comments kep up function
 $('#gdsPlanComments').keyup(function() {
-	var max = 2000;
-	var len = $(this).val().length;
-	if (len >= max) {
-		$('#charNum4').text(' you have reached the limit');
-	} else {
-		var char = max - len;
-		$('#charNum4').text(char + ' characters left');
-	}
+	//set the correct length for text areas
+	showCharCount(this, '#charNum4');
+	
 });
 

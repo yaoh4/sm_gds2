@@ -156,6 +156,7 @@
 		</div>
 	</s:form>
 
+<script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
 <script type="text/javascript" src="<s:url value="/controllers/submissionStatus.js" />"></script>
 <script type="text/javascript">
 $(function($){

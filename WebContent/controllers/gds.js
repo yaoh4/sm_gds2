@@ -54,3 +54,19 @@ function setStatusIcon(elem, elemDiv) {
 		$("#" + elemDiv).prepend('<img src="../images/pending.png" alt="Not Started" width="18px" height="18px" title="Not Started"/>');
 	}
 }
+
+function showCharCount(elem, countDisplayDiv) {
+	var max = 50;
+	//A newline is actually 2 characters but val function returns only one
+	//char. Hence replace all occurrences of a Carriage Return not followed 
+	//by a New Line, and all New Lines not followed by a Carriage Return, 
+	//with a Carriage Return - Line Feed pair
+	var len = $(elem).val().replace(/\r(?!\n)|\n(?!\r)/g, "\r\n").length;
+	
+	if (len >= max) {
+		$(countDisplayDiv).text(' you have reached the limit');
+	} else {
+		var char = max - len;
+		$(countDisplayDiv).text(char + ' characters left');
+	}
+}
