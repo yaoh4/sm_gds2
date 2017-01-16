@@ -141,7 +141,7 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setGrantContractNum(String applicationNum) {
-		this.grantContractNum = applicationNum;
+		this.grantContractNum = StringUtils.trim(applicationNum);
 	}
 
 	@Column(name = "GRANT_CONTRACT_TYPE", length = 30)
