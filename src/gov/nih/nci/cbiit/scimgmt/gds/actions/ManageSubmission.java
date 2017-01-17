@@ -177,7 +177,7 @@ public class ManageSubmission extends BaseAction {
 		
 		Long projectId = project.getId();
 		if(projectId != null) {
-			List<ProjectsVw> subprojects = searchProjectService.getSubprojects(Long.valueOf(projectId));
+			List<ProjectsVw> subprojects = manageProjectService.getSubprojectsVw(Long.valueOf(projectId));
 			return subprojects;
 		} 
 		return new ArrayList<ProjectsVw>();
@@ -237,7 +237,7 @@ public class ManageSubmission extends BaseAction {
 		
 		if(saveSubprojects) {
 			//We save subprojects also if we feel that the status could have changed
-			List<Project> subprojects = manageProjectService.getSubprojects(project.getId());
+			List<Project> subprojects = manageProjectService.getSubprojects(project.getId(), true);
 			for(Project subproject: subprojects) {
 				subproject.setPageStatuses(computePageStatuses(subproject, page));
 				manageProjectService.saveOrUpdate(subproject);

@@ -1,7 +1,9 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -66,7 +68,7 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 * 
 	 */
 	public void deleteSubProjects(Long parentId) {
-		
+		logger.info("Deleting all subprojects from project "  + parentId);
 		for(Project subproject: getSubprojects(parentId)) {
 			List<Document>  docs = documentsDao.findByProjectId(subproject.getId());
 			for(Document doc : docs) {
@@ -74,6 +76,7 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 			}
 			projectsDao.delete(subproject);
 		}
+		logger.info("Completed deletion of all subprojects from project "  + parentId);
 	}
 	/**
 	 * Deletes the Project given an ID
@@ -95,13 +98,7 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		List<InstitutionalCertification> certs=project.getInstitutionalCertifications();
 		
 		//If this is a parent project, delete the subprojects
-		for(Project subproject: getSubprojects(projectId)) {
-			docs = documentsDao.findByProjectId(subproject.getId());
-			for(Document doc : docs) {
-				documentsDao.delete(doc);
-			}
-			projectsDao.delete(subproject);
-		}
+		deleteSubProjects(projectId);
 		
 		//Then delete the project
 		projectsDao.delete(project);
@@ -267,24 +264,49 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 
 	
 	/**
-	 * Retrieve Sub-projects based on parent project ID.
+	 * Retrieve Sub-projects based on parent project ID. Used
+	 * for populating the version table in submission details.
 	 * @param parentProjectId
 	 * @return List<Project>
 	 */
-	public List<ProjectsVw> getSubprojectVws(Long parentProjectId) {
-		logger.debug("getSubprojects");
-		return projectsDao.getSubprojectVws(parentProjectId);
+	public List<ProjectsVw> getSubprojectsVw(Long parentProjectId) {
+		
+		Map<Long, ProjectsVw> projectMap = new HashMap<Long, ProjectsVw>();
+		logger.debug("getSubprojectsVw");
+		List<ProjectsVw> subprojects = projectsDao.getSubprojectsVw(parentProjectId);
+		
+		for(ProjectsVw subproject: subprojects) {
+			//Only get the latest version. We cannot use latestVersionFlag in the query
+			//because we could be getting the subprojects for an older parent
+			//version (as in the case of the submissions details page version table)
+			//in which case the latestVersionFlag will be 'N' for all these subprojects.
+			if(!projectMap.containsKey(subproject.getProjectGroupId())) {
+				projectMap.put(subproject.getProjectGroupId(), subproject);
+			}
+		}
+		
+		return new ArrayList<ProjectsVw>(projectMap.values());
 	}
 	
+	
+	/**
+	 * Retrieve All Sub-projects based on parent project ID.
+	 * @param parentProjectId
+	 * @return List<Project>
+	 */
+	public List<Project> getSubprojects(Long parentProjectId) {
+		return  projectsDao.getSubprojects(parentProjectId, false);
+	}
 	
 	/**
 	 * Retrieve Sub-projects based on parent project ID.
 	 * @param parentProjectId
 	 * @return List<Project>
 	 */
-	public List<Project> getSubprojects(Long parentProjectId) {
+	public List<Project> getSubprojects(Long parentProjectId, boolean latestVersionOnly) {
+		Map<Long, Project> projectMap = new HashMap<Long, Project>();
 		logger.debug("getSubprojects");
-		return projectsDao.getSubprojects(parentProjectId);
+		return  projectsDao.getSubprojects(parentProjectId, latestVersionOnly);
 	}
 	
 	/**

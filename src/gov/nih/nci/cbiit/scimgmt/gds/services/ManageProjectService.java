@@ -116,18 +116,27 @@ public interface ManageProjectService {
 	public List<String> getSubOrgList(String doc);
 
 	/**
-	 * Retrieve Sub-projects based on parent project ID.
+	 * Retrieve all Sub-projects based on parent project ID.
 	 * @param parentProjectId
 	 * @return List<Project>
 	 */
 	public List<Project> getSubprojects(Long parentProjectId);
+	
+	
+	/**
+	 * Retrieve Sub-projects based on parent project ID.
+	 * @param parentProjectId
+	 * @param latestVersionOnly
+	 * @return List<Project>
+	 */
+	public List<Project> getSubprojects(Long parentProjectId, boolean latestVersionOnly);
 	
 	/**
 	 * Retrieve Sub-project views based on parent project ID.
 	 * @param parentProjectId
 	 * @return List<ProjectsVw>
 	 */
-	public List<ProjectsVw> getSubprojectVws(Long parentProjectId);
+	public List<ProjectsVw> getSubprojectsVw(Long parentProjectId);
 	
 	/**
 	 * Retrieve versions based on project group ID.

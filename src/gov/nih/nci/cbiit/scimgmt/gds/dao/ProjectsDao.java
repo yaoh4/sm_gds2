@@ -70,7 +70,8 @@ public class ProjectsDao {
 	}
 
 	public void delete(Project persistentInstance) {
-		logger.debug("deleting Project instance");
+		Long projectId = persistentInstance.getId();
+		logger.info("deleting Project instance "  + projectId);
 		try {
 			if(persistentInstance.getSubprojectFlag().equalsIgnoreCase("N")) {
 				//Delete the answer selections if parent project only
@@ -96,7 +97,7 @@ public class ProjectsDao {
 				
 			}
 			sessionFactory.getCurrentSession().delete(persistentInstance);
-			logger.debug("delete successful");
+			logger.info("delete successful for project " + projectId);
 		} catch (RuntimeException re) {
 			logger.error("delete failed", re);
 			throw re;
@@ -313,7 +314,7 @@ public class ProjectsDao {
 	 * @return List<ProjectsVw>
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ProjectsVw> getSubprojectVws(Long parentProjectId) {
+	public List<ProjectsVw> getSubprojectsVw(Long parentProjectId) {
 		
 		List<ProjectsVw> list =  new ArrayList<ProjectsVw>();
 		
@@ -342,15 +343,18 @@ public class ProjectsDao {
 	 * @return List<Project>
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Project> getSubprojects(Long parentProjectId) {
+	public List<Project> getSubprojects(Long parentProjectId, boolean latestVersionOnly) {
 		
 		List<Project> list =  new ArrayList<Project>();
 		
 		try {
 			Criteria criteria = null;
 			criteria = sessionFactory.getCurrentSession().createCriteria(Project.class);
-			criteria.add(Restrictions.eq("subprojectFlag", "Y"));
 			criteria.add(Restrictions.eq("parentProjectId", parentProjectId));
+			criteria.add(Restrictions.eq("subprojectFlag", "Y"));			
+			if(latestVersionOnly) {
+				criteria.add(Restrictions.eq("latestVersionFlag", "Y"));
+			}
 			list =  (List<Project>) criteria.list();
 			return list;
 			

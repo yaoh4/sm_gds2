@@ -294,7 +294,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 			super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_IC, false);
 		}
 		
-		List<Project> subprojects = manageProjectService.getSubprojects(project.getId());
+		List<Project> subprojects = manageProjectService.getSubprojects(project.getId(), true);
 		for(Project subproject: subprojects) {
 			if(CollectionUtils.isEmpty(subproject.getInstitutionalCertifications())) {
 				//Reset this to 'No' if it was 'Yes' since there is no IC now
