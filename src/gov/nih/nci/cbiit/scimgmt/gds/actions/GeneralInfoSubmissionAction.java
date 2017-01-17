@@ -254,6 +254,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		project.setParent(currentLatestVersion.getParent());
 		project.setVersionNum(currentLatestVersion.getVersionNum() + 1);
 		project.setProjectGroupId(currentLatestVersion.getProjectGroupId());
+		project.setAdditionalIcComments(currentLatestVersion.getAdditionalIcComments());
+		project.setStudiesComments(currentLatestVersion.getStudiesComments());
 		
 		GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
 		
