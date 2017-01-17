@@ -56,7 +56,7 @@ function setStatusIcon(elem, elemDiv) {
 }
 
 function showCharCount(elem, countDisplayDiv) {
-	var max = 50;
+	var max = 2000;
 	//A newline is actually 2 characters but val function returns only one
 	//char. Hence replace all occurrences of a Carriage Return not followed 
 	//by a New Line, and all New Lines not followed by a Carriage Return, 
