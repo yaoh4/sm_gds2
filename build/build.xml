@@ -35,6 +35,7 @@
 	<property name="doc.dir"				value="./docs" />
 	<property name="javadoc.dir"            value="./docs/javadoc" />
 	<property name="web.inf.dir"            value="${webcontent.dir}/WEB-INF" />
+	<property name="web.jsp.dir"            value="${webcontent.dir}/jsp" />
 	<property name="global.lib.dir"			value="./lib" />
 	<property name="lib.dir"				value="${web.inf.dir}/lib" />
 	<property name="src.dir"                value="./src" />
@@ -164,7 +165,6 @@
 
 </target>
 
-
 	
  <target name="pmd">
  	<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
@@ -185,30 +185,28 @@
  	</pmd>
 </target> 
 	
-<!--	<taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask">
+		 
+<target name="cpd" description="Search for cut-and-pasted code">
+	<taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask">
 		<classpath>
-			        <fileset dir="${pmd.home}">
-			            <include name="lib/*.jar"/>    
-			        </fileset>
-			    </classpath>
-		  </taskdef>
-		 
-		<target name="cpd" description="Search for cut-and-pasted code">
-		  <property name="cpd.report.xml" location="cpd.xml" />
-		  <mkdir dir="${cpd.report.dir}" />
-		 
-		  <cpd minimumTokenCount="${cpd.minimum.tokens}" format="xml"
-		    outputFile="${cpd.report.xml}" ignoreLiterals="${cpd.ignore.literals}"
-		    ignoreIdentifiers="${cpd.ignore.identifiers}">
-		    <fileset dir="${src.dir}" includes="**/*.java" />
-		  </cpd>
-		 
-		  <property name="cpd.report.html" location="cpd.html" />
+			<fileset dir="${pmd.home}">
+				<include name="lib/*.jar"/>    
+			</fileset>
+		</classpath>
+	</taskdef>
+	<property name="cpd.report.xml" location="cpd_report.xml" />
 		  
-		  <echo message="CPD report is at ${cpd.report.html}" />
-		</target>
+	<cpd minimumTokenCount="${cpd.minimum.tokens}" format="xml"
+		outputFile="cpd_report.xml" ignoreLiterals="${cpd.ignore.literals}"
+		ignoreIdentifiers="${cpd.ignore.identifiers}">
+		<fileset dir="${src.dir}" includes="**/*.java" />
+	</cpd>
+	
+	<!--<xslt in="cpd_report.xml" style="${pmd.home}/cpdhtml.xslt" out="cpd_report.html"/>-->
+		 
+</target>
 			
-	!-->
+
 	
 <!--  copy various proerties files to required directories -->
    
@@ -295,7 +293,7 @@
               war="${basedir}/${app.distribution.dir}/${app.name.war}"/>
    </target>  
    <!-- run ALL targets -->
-   <target name="all" depends="clean,make_deployment_dirs,copy_properties_files, compile, findbugs, pmd, report, war, tomcat.deploy"/>
+   <target name="all" depends="clean,make_deployment_dirs,copy_properties_files, compile, findbugs, pmd, cpd, report, war, tomcat.deploy"/>
    <target name="junit" depends="compile, copy_properties_files">
 	  <junit showoutput="true" printsummary="yes" haltonfailure="yes">
 	    <sysproperty key="conf.dir" value="${conf.dir}"/>
