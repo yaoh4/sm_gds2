@@ -51,6 +51,10 @@
 			<result name="success" type="stream">     
 				<param name="contentType">text/html</param>     
 				<param name="inputName">inputStream</param>   
+			</result>
+			<result name="input" type="stream">     
+				<param name="contentType">text/html</param>     
+				<param name="inputName">inputStream</param>   
 			</result>	
 		</action>
 		<action name="getPrevLinkedSubmissionsForGrant" method="getPrevLinkedSubmissionsForGrant" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GeneralInfoSubmissionAction">
@@ -225,6 +229,10 @@
 		
 		<action name="warnGdsPlan" method="performDataCleanup" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			<result name="success" type="stream">     
+				<param name="contentType">text/html</param>     
+				<param name="inputName">inputStream</param>   
+			</result>
+			<result name="input" type="stream">     
 				<param name="contentType">text/html</param>     
 				<param name="inputName">inputStream</param>   
 			</result>	
