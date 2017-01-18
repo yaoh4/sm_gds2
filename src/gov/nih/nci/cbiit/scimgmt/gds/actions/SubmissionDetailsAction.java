@@ -122,7 +122,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		logger.debug("Getting answer for the question on gds plan page for questionId :"+questionId);
 		StringBuffer answer = new StringBuffer();
 		for(PlanAnswerSelection planAnswerSelection : getProject().getPlanAnswerSelections()){			
-			if( questionId == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){
+			if( questionId != null && questionId.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()){
 				if(StringUtils.isNotBlank(answer)){
 					answer.append("; ");
 				}

@@ -237,7 +237,7 @@ public class LookupServiceImpl implements LookupService {
 	public Lookup getLookupById(String listName, Long id) {
 		List<Lookup> list = (List<Lookup>) getLookupList(listName);
 		for(Lookup entry: list) {
-			if (entry.getId() == id)
+			if (id != null && entry.getId().longValue() == id.longValue())
 				return entry;
 		}
 		return null;

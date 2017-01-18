@@ -764,7 +764,7 @@ public class ManageSubmission extends BaseAction {
 		for (PlanAnswerSelection e: savedList) {
 			Long qId = e.getPlanQuestionsAnswer().getQuestionId();
 			Long aId = e.getPlanQuestionsAnswer().getId();
-			if(prevId != null && prevId != qId) {
+			if(prevId != null && prevId.longValue() != qId.longValue()) {
 				answerMap.put(prevId, ansList);
 				if(otherId !=  null) {
 					Collections.sort(otherList, String.CASE_INSENSITIVE_ORDER);

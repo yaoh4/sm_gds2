@@ -822,7 +822,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		logger.debug("Checking if question with questionId was answered on the GDS plan page.");
 		
 		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelections()){
-			if( questionId == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){	
+			if( questionId != null && questionId.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()){	
 				return true;			
 			}
 		}

@@ -180,7 +180,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 					}
 					RepositoryStatus childRepository = null;
 					for(PlanAnswerSelection childAnswer: storedProject.getPlanAnswerSelections()) {
-						if(childAnswer.getPlanQuestionsAnswer().getId() == parentAnswer.getPlanQuestionsAnswer().getId() && StringUtils.equals(childAnswer.getOtherText(), parentAnswer.getOtherText())) {
+						if(childAnswer.getPlanQuestionsAnswer().getId().longValue() == parentAnswer.getPlanQuestionsAnswer().getId().longValue() && StringUtils.equals(childAnswer.getOtherText(), parentAnswer.getOtherText())) {
 							found = true;
 							for (RepositoryStatus r: childAnswer.getRepositoryStatuses()) {
 								if(r.getProject().getId().longValue() == storedProject.getId().longValue())
@@ -299,7 +299,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	
 		for(PlanAnswerSelection selection: getProject().getPlanAnswerSelections()) {
 			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
-				if(repositoryStatus.getProject().getId() == getProject().getId())
+				if(repositoryStatus.getProject().getId().equals(getProject().getId()))
 					getProject().getRepositoryStatuses().add(repositoryStatus);
 			}		
 		}
@@ -327,10 +327,10 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 						}
 					}
 					found = false;
-					if(myAnswer && childAnswer.getPlanQuestionsAnswer().getId() == parentAnswer.getPlanQuestionsAnswer().getId() && StringUtils.equals(childAnswer.getOtherText(), parentAnswer.getOtherText())) {
+					if(myAnswer && childAnswer.getPlanQuestionsAnswer().getId().longValue() == parentAnswer.getPlanQuestionsAnswer().getId().longValue() && StringUtils.equals(childAnswer.getOtherText(), parentAnswer.getOtherText())) {
 						found = true;
 						for(RepositoryStatus childRepo: childAnswer.getRepositoryStatuses()) {
-							if(childRepo.getProject().getId() == getProject().getId()) {
+							if(childRepo.getProject().getId().equals(getProject().getId())) {
 								childRepo.setSelected(true);
 								getProject().getRepositoryStatuses().add(childRepo);
 							}
