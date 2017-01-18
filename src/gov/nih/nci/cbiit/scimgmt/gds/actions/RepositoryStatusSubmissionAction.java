@@ -209,7 +209,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		for(PlanAnswerSelection answer: answers) {
 			if(!answer.getRepositoryStatuses().isEmpty()) {
 				for(RepositoryStatus storedRepoStatus : answer.getRepositoryStatuses()) {
-					if(storedRepoStatus.getProject().getId() == storedProject.getId())
+					if(storedRepoStatus.getProject().getId().equals(storedProject.getId()))
 						repoMap.put(storedRepoStatus.getId(), storedRepoStatus);
 				}
 			}
