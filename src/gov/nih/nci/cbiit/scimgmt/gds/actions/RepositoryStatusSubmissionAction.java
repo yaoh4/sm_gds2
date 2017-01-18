@@ -33,9 +33,6 @@ import gov.nih.nci.cbiit.scimgmt.gds.util.RepositoryStatusComparator;
  */
 @SuppressWarnings("serial")
 public class RepositoryStatusSubmissionAction extends ManageSubmission {
-
-	@Autowired
-	protected NedPerson loggedOnUser;
 	
 	private static final Logger logger = LogManager.getLogger(RepositoryStatusSubmissionAction.class);	
 
