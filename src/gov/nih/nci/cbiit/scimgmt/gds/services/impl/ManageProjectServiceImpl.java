@@ -20,7 +20,6 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsGrantsContracts;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Organization;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
@@ -304,7 +303,6 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	 * @return List<Project>
 	 */
 	public List<Project> getSubprojects(Long parentProjectId, boolean latestVersionOnly) {
-		Map<Long, Project> projectMap = new HashMap<Long, Project>();
 		logger.debug("getSubprojects");
 		return  projectsDao.getSubprojects(parentProjectId, latestVersionOnly);
 	}
