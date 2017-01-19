@@ -1,10 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
-import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
 

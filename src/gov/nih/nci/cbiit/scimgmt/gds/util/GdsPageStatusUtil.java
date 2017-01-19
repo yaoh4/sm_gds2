@@ -322,7 +322,7 @@ public class GdsPageStatusUtil {
 			//Neither not started, nor in in-progress status.Hence, completed
 			status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 			
-		};
+		}
 		
 		if(project.getAnticipatedSubmissionDate() != null &&
 				ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED.equals(status)) {

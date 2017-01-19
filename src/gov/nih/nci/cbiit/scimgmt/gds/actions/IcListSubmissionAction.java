@@ -3,15 +3,10 @@
  */
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -21,20 +16,9 @@ import org.json.JSONArray;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
-import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
-import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
-import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
-
 
 import org.springframework.util.CollectionUtils;
 
@@ -42,6 +26,7 @@ import org.springframework.util.CollectionUtils;
  * @author menons2
  *
  */
+@SuppressWarnings("serial")
 public class IcListSubmissionAction extends ManageSubmission {
 
 	static Logger logger = LogManager.getLogger(IcSubmissionAction.class);

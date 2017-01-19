@@ -1,7 +1,5 @@
 package gov.nih.nci.cbiit.scimgmt.gds.model;
 
-import org.apache.commons.lang3.StringUtils;
-
 
 public class RoleSearchCriteria {
 

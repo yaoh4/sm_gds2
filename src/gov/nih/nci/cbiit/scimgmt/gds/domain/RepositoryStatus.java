@@ -17,8 +17,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 
 /**

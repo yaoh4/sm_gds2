@@ -3,18 +3,12 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 //import org.springframework.util.StringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -28,14 +22,9 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.PlanQuestionList;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
-import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.model.UIList;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 import gov.nih.nci.cbiit.scimgmt.gds.util.UIRuleUtil;
@@ -188,7 +177,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			if(otherText.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID) == null) {
 				this.addActionError(getText("error.other.specify"));
 			} else {
-				otherText.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).removeAll(Arrays.asList("", null));;
+				otherText.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).removeAll(Arrays.asList("", null));
 				if(otherText.get(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID).isEmpty()) {
 					otherText.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID);
 					this.addActionError(getText("error.other.specify"));
