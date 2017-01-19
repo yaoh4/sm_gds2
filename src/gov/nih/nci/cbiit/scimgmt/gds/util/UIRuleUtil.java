@@ -32,7 +32,7 @@ public class UIRuleUtil {
 
 	private static final Logger logger = LogManager.getLogger(UIRuleUtil.class);
 
-	private static Map<String, UIList> ruleMap = new HashMap<String, UIList>();
+	private Map<String, UIList> ruleMap = new HashMap<String, UIList>();
 
 	public static final String EXCEPMEMO_DIV = "exceptionMemoDiv";
 	public static final String GDSFILE_DIV = "dataSharingPlanDiv";
