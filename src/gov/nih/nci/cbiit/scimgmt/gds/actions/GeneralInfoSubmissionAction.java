@@ -68,11 +68,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private List<ProjectsVw> prevLinkedSubmissions = new ArrayList<ProjectsVw>();
 	private GdsGrantsContracts grantOrContract;	
 	private List<ProjectGrantContract> secondaryGrantNum =new ArrayList<ProjectGrantContract>();
-
 	
-
-	@Autowired
-	protected SearchProjectService searchProjectService;	
 
 	/**
 	 * This method is responsible for loading the General Information page and setting all the UI elements.
@@ -477,7 +473,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	
 	
 	private Project copyICsForClonedSubproject(Project project, Project currentLatestVersion) {
-		Long name= currentLatestVersion.getParentProjectId();
+		
 		//Copy ICs 
 		List<InstitutionalCertification> currentIcs = currentLatestVersion.getInstitutionalCertifications();
 		if(!CollectionUtils.isEmpty(currentIcs)) {
