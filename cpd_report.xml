@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="Cp1252"?>
+<pmd-cpd>
+   <duplication lines="23" tokens="255">
+      <file line="262"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
+      <file line="403"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
+      <codefragment><![CDATA[			subprojectCriteria.add(Restrictions.eq("docAbbreviation", searchCriteria.getDoc()));
+		}
+		
+		// Program Director or My Submissions
+		if(searchCriteria.getPdNpnId() != null) {
+			// PD search
+			Disjunction dc = Restrictions.disjunction();
+			dc.add(Restrictions.eq("extPdNpnId", searchCriteria.getPdNpnId()));
+			dc.add(Restrictions.eq("intPdNpnId", searchCriteria.getPdNpnId()));
+			Conjunction c = Restrictions.conjunction();
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdLastName()))) {
+				Disjunction d = Restrictions.disjunction();
+				d.add(Restrictions.ilike("extPdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+				d.add(Restrictions.ilike("intPdLastName", searchCriteria.getPdLastName().trim(), MatchMode.EXACT));
+				c.add(d);
+			}
+			if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPdFirstName()))) {
+				Disjunction d = Restrictions.disjunction();
+				d.add(Restrictions.ilike("extPdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+				d.add(Restrictions.ilike("intPdFirstName", searchCriteria.getPdFirstName().trim(), MatchMode.EXACT));
+				c.add(d);
+			}
+			dc.add(c);]]></codefragment>
+   </duplication>
+   <duplication lines="63" tokens="245">
+      <file line="282"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
+      <file line="212"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
+      <codefragment><![CDATA[	}
+
+	@Column(name = "CREATED_BY", nullable = false, length = 120)
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Column(name = "LAST_CHANGED_BY", length = 120)
+	public String getLastChangedBy() {
+		return this.lastChangedBy;
+	}
+
+	public void setLastChangedBy(String lastChangedBy) {
+		this.lastChangedBy = lastChangedBy;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY", nullable=true, insertable=false, updatable=false)
+	public NedPerson getCreatedByPerson() {
+		return this.createdByPerson;
+	}
+	
+	public void setCreatedByPerson(NedPerson person) {
+		this.createdByPerson = person;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "LAST_CHANGED_BY", nullable=true, insertable=false, updatable=false)
+	public NedPerson getLastChangedByPerson() {
+		return this.lastChangedByPerson;
+	}
+	
+	public void setLastChangedByPerson(NedPerson person) {
+		this.lastChangedByPerson = person;
+	}
+	
+	
+	@Transient
+	public String getUpdatedBy() {
+		//If lastChangedBy present return that info
+		if(lastChangedBy != null) {
+			try {
+				return getLastChangedByPerson().getFullName();
+			} catch (Exception e) {
+				//Person may be left, so return the stored user id
+				return lastChangedBy;
+			}
+		}
+		
+		//Else get createdBy info
+		try {
+			return getCreatedByPerson().getFullName();
+		} catch (Exception e) {
+		
+		return createdBy;
+		}
+	}
+	
+	@Column(name = "SUBPROJECT_FLAG", length = 4)]]></codefragment>
+   </duplication>
+   <duplication lines="63" tokens="241">
+      <file line="282"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
+      <file line="212"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
+      <file line="154"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
+      <codefragment><![CDATA[	}
+
+	@Column(name = "CREATED_BY", nullable = false, length = 120)
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Column(name = "LAST_CHANGED_BY", length = 120)
+	public String getLastChangedBy() {
+		return this.lastChangedBy;
+	}
+
+	public void setLastChangedBy(String lastChangedBy) {
+		this.lastChangedBy = lastChangedBy;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY", nullable=true, insertable=false, updatable=false)
+	public NedPerson getCreatedByPerson() {
+		return this.createdByPerson;
+	}
+	
+	public void setCreatedByPerson(NedPerson person) {
+		this.createdByPerson = person;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "LAST_CHANGED_BY", nullable=true, insertable=false, updatable=false)
+	public NedPerson getLastChangedByPerson() {
+		return this.lastChangedByPerson;
+	}
+	
+	public void setLastChangedByPerson(NedPerson person) {
+		this.lastChangedByPerson = person;
+	}
+	
+	
+	@Transient
+	public String getUpdatedBy() {
+		//If lastChangedBy present return that info
+		if(lastChangedBy != null) {
+			try {
+				return getLastChangedByPerson().getFullName();
+			} catch (Exception e) {
+				//Person may be left, so return the stored user id
+				return lastChangedBy;
+			}
+		}
+		
+		//Else get createdBy info
+		try {
+			return getCreatedByPerson().getFullName();
+		} catch (Exception e) {
+		
+		return createdBy;
+		}
+	}
+	
+	@Column(name = "SUBPROJECT_FLAG", length = 4)]]></codefragment>
+   </duplication>
+   <duplication lines="34" tokens="226">
+      <file line="737"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
+      <file line="86"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
+      <codefragment><![CDATA[		if(StringUtils.isBlank(project.getPlanComments()) && 
+			CollectionUtils.isEmpty(project.getPlanAnswerSelections())) {
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		}
+		
+		Long submissionReasonId = project.getSubmissionReasonId();
+		List<Document> exceptionMemo = 
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, project.getId());
+			
+		List<Document> gdsPlan = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, project.getId());
+				
+		if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
+				 || ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.equals(submissionReasonId)) {
+		
+			//Data sharing exception request not indicated, OR Data sharing exception requested  
+			//but not yet approved OR data sharing exception approved but memo not loaded
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID))
+				|| 
+				(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
+					&& (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null
+						|| CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID))))
+				||
+				(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
+					&& (CollectionUtils.isEmpty(exceptionMemo) || CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)))
+						)){
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+			
+			//Data Sharing Plan not loaded or not reviewed
+			if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
+					&& 
+					(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null]]></codefragment>
+   </duplication>
+   <duplication lines="48" tokens="189">
+      <file line="98"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\PageStatus.java"/>
+      <file line="284"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
+      <file line="215"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
+      <file line="156"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
+      <codefragment><![CDATA[	@Column(name = "CREATED_BY", length = 120)
+	public String getCreatedBy() {
+		
+		return this.createdBy;
+		
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+
+	@Column(name = "LAST_CHANGED_BY", length = 120)
+	public String getLastChangedBy() {
+		return this.lastChangedBy;
+	}
+
+	public void setLastChangedBy(String lastChangedBy) {
+		this.lastChangedBy = lastChangedBy;
+	}
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY", nullable=true, insertable=false, updatable=false)
+	public NedPerson getCreatedByPerson() {
+		return this.createdByPerson;
+	}
+	
+	public void setCreatedByPerson(NedPerson person) {
+		this.createdByPerson = person;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "LAST_CHANGED_BY", nullable=true, insertable=false, updatable=false)
+	public NedPerson getLastChangedByPerson() {
+		return this.lastChangedByPerson;
+	}
+	
+	public void setLastChangedByPerson(NedPerson person) {
+		this.lastChangedByPerson = person;
+	}
+	
+	
+	@Transient
+	public String getUpdatedBy() {
+		//If lastChangedBy present return that info
+		if(lastChangedBy != null) {
+			try {]]></codefragment>
+   </duplication>
+   <duplication lines="41" tokens="175">
+      <file line="105"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\DulChecklist.java"/>
+      <file line="112"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\MailTemplate.java"/>
+      <codefragment><![CDATA[	public void setActiveFlag(String activeFlag) {
+		this.activeFlag = activeFlag;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED_DATE", nullable = false, length = 7)
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "CREATED_BY", nullable = false, length = 120)
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_CHANGED_DATE", length = 7)
+	public Date getLastChangedDate() {
+		return this.lastChangedDate;
+	}
+
+	public void setLastChangedDate(Date lastChangedDate) {
+		this.lastChangedDate = lastChangedDate;
+	}
+
+	@Column(name = "LAST_CHANGED_BY", length = 120)
+	public String getLastChangedBy() {
+		return this.lastChangedBy;
+	}
+
+	public void setLastChangedBy(String lastChangedBy) {
+		this.lastChangedBy = lastChangedBy;
+	}]]></codefragment>
+   </duplication>
+   <duplication lines="41" tokens="168">
+      <file line="64"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\HelpText.java"/>
+      <file line="65"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Property.java"/>
+      <codefragment><![CDATA[	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATED_DATE", nullable = false, length = 7)
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "CREATED_BY", nullable = false, length = 120)
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "LAST_CHANGED_DATE", length = 7)
+	public Date getLastChangedDate() {
+		return this.lastChangedDate;
+	}
+
+	public void setLastChangedDate(Date lastChangedDate) {
+		this.lastChangedDate = lastChangedDate;
+	}
+
+	@Column(name = "LAST_CHANGED_BY", length = 120)
+	public String getLastChangedBy() {
+		return this.lastChangedBy;
+	}
+
+	public void setLastChangedBy(String lastChangedBy) {
+		this.lastChangedBy = lastChangedBy;
+	}
+
+}]]></codefragment>
+   </duplication>
+   <duplication lines="41" tokens="168">
+      <file line="114"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\MailTemplate.java"/>
+      <file line="85"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectPlanAnswersMapping.java"/>
+      <codefragment><![CDATA[	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED_DATE", nullable = false, length = 7)
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "CREATED_BY", nullable = false, length = 120)
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_CHANGED_DATE", length = 7)
+	public Date getLastChangedDate() {
+		return this.lastChangedDate;
+	}
+
+	public void setLastChangedDate(Date lastChangedDate) {
+		this.lastChangedDate = lastChangedDate;
+	}
+
+	@Column(name = "LAST_CHANGED_BY", length = 120)
+	public String getLastChangedBy() {
+		return this.lastChangedBy;
+	}
+
+	public void setLastChangedBy(String lastChangedBy) {
+		this.lastChangedBy = lastChangedBy;
+	}
+
+}]]></codefragment>
+   </duplication>
+   <duplication lines="39" tokens="167">
+      <file line="107"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\DulChecklist.java"/>
+      <file line="85"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectPlanAnswersMapping.java"/>
+      <codefragment><![CDATA[	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED_DATE", nullable = false, length = 7)
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "CREATED_BY", nullable = false, length = 120)
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_CHANGED_DATE", length = 7)
+	public Date getLastChangedDate() {
+		return this.lastChangedDate;
+	}
+
+	public void setLastChangedDate(Date lastChangedDate) {
+		this.lastChangedDate = lastChangedDate;
+	}
+
+	@Column(name = "LAST_CHANGED_BY", length = 120)
+	public String getLastChangedBy() {
+		return this.lastChangedBy;
+	}
+
+	public void setLastChangedBy(String lastChangedBy) {
+		this.lastChangedBy = lastChangedBy;
+	}]]></codefragment>
+   </duplication>
+   <duplication lines="39" tokens="167">
+      <file line="64"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\HelpText.java"/>
+      <file line="98"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Lookup.java"/>
+      <file line="65"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Property.java"/>
+      <codefragment><![CDATA[	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATED_DATE", nullable = false, length = 7)
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "CREATED_BY", nullable = false, length = 120)
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "LAST_CHANGED_DATE", length = 7)
+	public Date getLastChangedDate() {
+		return this.lastChangedDate;
+	}
+
+	public void setLastChangedDate(Date lastChangedDate) {
+		this.lastChangedDate = lastChangedDate;
+	}
+
+	@Column(name = "LAST_CHANGED_BY", length = 120)
+	public String getLastChangedBy() {
+		return this.lastChangedBy;
+	}
+
+	public void setLastChangedBy(String lastChangedBy) {
+		this.lastChangedBy = lastChangedBy;
+	}]]></codefragment>
+   </duplication>
+   <duplication lines="10" tokens="154">
+      <file line="318"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
+      <file line="444"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
+      <codefragment><![CDATA[			subprojectCriteria.add(Restrictions.ilike("projectSubmissionTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
+		}
+		
+		// Principal Investigator first or last name partial search
+		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getPiFirstOrLastName()))) {
+			Disjunction dc = Restrictions.disjunction();
+			dc.add(Restrictions.ilike("extPiFirstName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("extPiLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("intPiFirstName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("intPiLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));]]></codefragment>
+   </duplication>
+   <duplication lines="21" tokens="144">
+      <file line="770"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
+      <file line="119"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
+      <codefragment><![CDATA[					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null 
+					)) {
+				if(CollectionUtils.isEmpty(gdsPlan) || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_YES_ID) == null) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
+			}
+				
+		}		
+		
+		//If Exception not requested, or requested but not approved, or requested and approved but still
+		//data needs to be submitted
+		if(ApplicationConstants.SUBMISSION_REASON_NIHFUND.equals(submissionReasonId)
+				 || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(submissionReasonId)
+				 || (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+			|| 	project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) != null
+			||	project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null)) {
+					
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_ID))
+					|| CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_TYPE_ID)) 
+					|| CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_ID)))  {]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="132">
+      <file line="198"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsMissingDataUtil.java"/>
+      <file line="168"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
+      <codefragment><![CDATA[		}
+		
+		if(ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
+			Project parentProject=manageProjectService.findById(project.getParentProjectId());
+			if((parentProject.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
+					parentProject.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) != null)) {
+					return null;
+				}
+		}
+				
+		// If user selects ONLY the "Other" repository in the "What repository will the data be submitted to?" 
+		//question GDS plan page, there is no IC, so return empty list
+		Set<PlanAnswerSelection> repoSet = project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
+		if(!CollectionUtils.isEmpty(repoSet) && repoSet.size() == 1) {
+			PlanAnswerSelection repo = repoSet.iterator().next();
+			if(repo.getPlanQuestionsAnswer().getId().longValue() == ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID.longValue()) {
+				return missingDataList;]]></codefragment>
+   </duplication>
+   <duplication lines="30" tokens="114">
+      <file line="104"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\InstitutionalCertification.java"/>
+      <file line="145"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
+      <codefragment><![CDATA[	}
+
+	@Column(name = "COMMENTS", length = 4000)
+	public String getComments() {
+		return this.comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	@Column(name = "CREATED_BY", nullable = false, length = 120)
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Column(name = "LAST_CHANGED_BY", length = 120)
+	public String getLastChangedBy() {
+		return this.lastChangedBy;
+	}
+
+	public void setLastChangedBy(String lastChangedBy) {
+		this.lastChangedBy = lastChangedBy;
+	}
+
+	@Transient]]></codefragment>
+   </duplication>
+   <duplication lines="33" tokens="105">
+      <file line="405"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
+      <file line="336"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
+      <file line="214"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
+      <codefragment><![CDATA[	}
+
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED_DATE", length = 7)
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_CHANGED_DATE", length = 7)
+	public Date getLastChangedDate() {
+		return lastChangedDate;
+	}
+
+	public void setLastChangedDate(Date lastChangedDate) {
+		this.lastChangedDate = lastChangedDate;
+	}
+	
+	@Transient
+	public Date getUpdatedDate() {
+		if(lastChangedDate != null) {
+			return lastChangedDate;
+		}
+		
+		return createdDate;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval = true)]]></codefragment>
+   </duplication>
+   <duplication lines="24" tokens="104">
+      <file line="162"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\InstitutionalCertification.java"/>
+      <file line="90"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\PlanAnswerSelection.java"/>
+      <codefragment><![CDATA[		return projects;
+	}
+
+	
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
+	}
+
+	public void addProject(Project project) {
+		this.projects.add(project);
+	}
+	
+	public void removeProject(Project project) {
+		Iterator<Project> projects = this.getProjects().iterator();
+		while(projects.hasNext()) {
+			Project curProject = projects.next();
+			if(curProject.getId().equals(project.getId())) {
+				projects.remove();
+				break;
+			}
+		}
+	}
+	
+	@Transient]]></codefragment>
+   </duplication>
+   <duplication lines="30" tokens="103">
+      <file line="166"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\PageStatus.java"/>
+      <file line="210"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
+      <codefragment><![CDATA[		} catch (Exception e) {
+		
+		return createdBy;
+		}
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED_DATE", length = 7)
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_CHANGED_DATE", length = 7)
+	public Date getLastChangedDate() {
+		return lastChangedDate;
+	}
+
+	public void setLastChangedDate(Date lastChangedDate) {
+		this.lastChangedDate = lastChangedDate;
+	}
+	
+	@Transient
+	public Date getUpdatedDate() {
+		
+		if(StringUtils.isEmpty(getUpdatedBy())) {]]></codefragment>
+   </duplication>
+</pmd-cpd>
