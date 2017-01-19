@@ -1,9 +1,6 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,14 +9,10 @@ import org.springframework.util.CollectionUtils;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
-import gov.nih.nci.cbiit.scimgmt.gds.model.ExportRow;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
-import gov.nih.nci.cbiit.scimgmt.gds.model.Submission;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 import gov.nih.nci.cbiit.scimgmt.gds.util.RepositoryStatusComparator;
@@ -72,7 +65,6 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		//Load ICs
 		List<InstitutionalCertification> certs  = project.getInstitutionalCertifications();
 		project.setInstitutionalCertifications(certs);
-		HashMap<Long, InstitutionalCertification> map = new HashMap<Long, InstitutionalCertification>();
 		
 		Long projectId = project.getId();
 		if(project.getParentProjectId() != null) {
