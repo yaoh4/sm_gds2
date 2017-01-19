@@ -5,6 +5,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.services.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.List;
 
@@ -129,7 +130,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 		doc = perfromVersionControl(doc);
 				
 		// Set the user entered text
-		byte[] data = text.getBytes();
+		byte[] data = text.getBytes(Charset.forName("UTF-8"));
 		doc.setDoc(data);
 		
 		// Save the text to DB

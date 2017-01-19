@@ -7,6 +7,8 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;
 
+import java.nio.charset.Charset;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.binary.Base64;
@@ -60,7 +62,7 @@ public class UserInterceptor extends AbstractInterceptor implements StrutsStatic
 
 				if (StringUtils.isNotBlank(authUser)) {
 
-					authUser = new String(Base64.decodeBase64(authUser.substring(6)));
+					authUser = new String(Base64.decodeBase64(authUser.substring(6)), Charset.forName("UTF-8"));
 					remoteUser = authUser.substring(0, authUser.indexOf(":"));
 					logger.info("User login from Auth Header: " + remoteUser);
 				}

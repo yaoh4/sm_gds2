@@ -178,8 +178,7 @@ public class LookupServiceImpl implements LookupService {
 			pd.setFirstName(WordUtils.capitalizeFully(pd.getFirstName()));
 			pd.setLastName(WordUtils.capitalizeFully(pd.getLastName()));
 		}
-		updatePdList(pdListKey, pdList);
-		return pdList;	  	
+		return updatePdList(pdListKey, pdList);	  	
 	}
 	
 	/**
