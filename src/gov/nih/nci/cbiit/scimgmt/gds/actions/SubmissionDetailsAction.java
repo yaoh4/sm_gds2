@@ -92,12 +92,12 @@ public class SubmissionDetailsAction extends ManageSubmission {
 		loadGrantInfo();
 		
 		//Load BSI file(s)
-		setBsiFile(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, new Long(getProjectId())));
+		setBsiFile(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, Long.valueOf(getProjectId())));
 		
 		//Load Exceptions memo
-		setExceptionMemo(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, new Long(getProjectId())));
+		setExceptionMemo(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, Long.valueOf(getProjectId())));
 		
-		setGdsPlanFile(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, new Long(getProjectId())));
+		setGdsPlanFile(fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, Long.valueOf(getProjectId())));
 		
 		setVersions(retrieveVersions(project));
 	}

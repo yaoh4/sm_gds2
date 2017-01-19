@@ -176,8 +176,8 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 			return INPUT;
 		
 		try {
-			doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_BSI, bsi, bsiFileName);
-			bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, new Long(getProjectId()));
+			doc = fileUploadService.storeFile(Long.valueOf(getProjectId()), ApplicationConstants.DOC_TYPE_BSI, bsi, bsiFileName);
+			bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, Long.valueOf(getProjectId()));
 		
 		} catch (Exception e) {
 			try {
@@ -212,7 +212,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 				return INPUT;
 			}
 			fileUploadService.deleteFile(getDocId());
-			bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, new Long(getProjectId()));
+			bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, Long.valueOf(getProjectId()));
 			
 		} catch (UnsupportedEncodingException e) {
 			try {

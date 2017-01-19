@@ -126,7 +126,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		if(StringUtils.isNotBlank(dataSharingPlanEditorText)) {
 			logger.debug(dataSharingPlanEditorText);
 			try {
-				doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_GDSPLAN, dataSharingPlanEditorText);
+				doc = fileUploadService.storeFile(Long.valueOf(getProjectId()), ApplicationConstants.DOC_TYPE_GDSPLAN, dataSharingPlanEditorText);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -245,8 +245,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			return INPUT;
 			
 		try {
-			doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_EXCEPMEMO, exceptionMemo, exceptionMemoFileName);
-			excepMemoFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, new Long(getProjectId()));
+			doc = fileUploadService.storeFile(Long.valueOf(getProjectId()), ApplicationConstants.DOC_TYPE_EXCEPMEMO, exceptionMemo, exceptionMemoFileName);
+			excepMemoFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, Long.valueOf(getProjectId()));
 			
 		} catch (Exception e) {
 			try {
@@ -278,8 +278,8 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			return INPUT;
 		
 		try {
-			doc = fileUploadService.storeFile(new Long(getProjectId()), ApplicationConstants.DOC_TYPE_GDSPLAN, dataSharingPlan, dataSharingPlanFileName);
-			gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, new Long(getProjectId()));
+			doc = fileUploadService.storeFile(Long.valueOf(getProjectId()), ApplicationConstants.DOC_TYPE_GDSPLAN, dataSharingPlan, dataSharingPlanFileName);
+			gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, Long.valueOf(getProjectId()));
 			
 		} catch (Exception e) {
 			try {
@@ -314,7 +314,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				return INPUT;
 			}
 			fileUploadService.deleteFile(getDocId());
-			gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, new Long(getProjectId()));
+			gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, Long.valueOf(getProjectId()));
 			
 		} catch (UnsupportedEncodingException e) {
 			try {

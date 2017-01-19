@@ -430,8 +430,8 @@ public class MailServiceImpl implements MailService {
 		
 		List<Organization> docListFromDb = propertyListDAO.getDocList(ApplicationConstants.DOC_LIST.toUpperCase());
 		for(Organization org: docListFromDb) {
-			orgMapAcronym.put(new String(org.getNihorgpath()), new String(org.getNihouacronym()));
-			orgMapFullName.put(new String(org.getNihorgpath()), new String(WordUtils.capitalizeFully(org.getNihouname())));
+			orgMapAcronym.put(org.getNihorgpath(), org.getNihouacronym());
+			orgMapFullName.put(org.getNihorgpath(), WordUtils.capitalizeFully(org.getNihouname()));
 		}
 		
 		for (UserRole gpa: retrieveGpas()) {

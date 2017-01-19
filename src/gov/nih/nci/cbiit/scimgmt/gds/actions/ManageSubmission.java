@@ -127,7 +127,7 @@ public class ManageSubmission extends BaseAction {
 	
 	
 	public ProjectsVw getProjectsVw() {
-		return manageProjectService.findProjectsVwById(Long.valueOf(getProject().getId()));
+		return manageProjectService.findProjectsVwById(getProject().getId());
 	}
 	
 	/**
@@ -163,7 +163,7 @@ public class ManageSubmission extends BaseAction {
 		
 		Long parentProjectId = project.getParentProjectId();
 		if(parentProjectId != null) {
-			Project parentProject =  manageProjectService.findById(Long.valueOf(parentProjectId));
+			Project parentProject =  manageProjectService.findById(parentProjectId);
 			//loadGrantInfo(parentProject);
 			return parentProject;
 		} 
@@ -174,7 +174,7 @@ public class ManageSubmission extends BaseAction {
 		
 		Long projectId = project.getId();
 		if(projectId != null) {
-			List<ProjectsVw> subprojects = manageProjectService.getSubprojectsVw(Long.valueOf(projectId));
+			List<ProjectsVw> subprojects = manageProjectService.getSubprojectsVw(projectId);
 			return subprojects;
 		} 
 		return new ArrayList<ProjectsVw>();
@@ -306,7 +306,7 @@ public class ManageSubmission extends BaseAction {
 	
 	public String getProjectStatusCode(Long Id) {
 		
-		ProjectsVw projectsVw = manageProjectService.findProjectsVwById(Long.valueOf(Id));
+		ProjectsVw projectsVw = manageProjectService.findProjectsVwById(Id);
 		return projectsVw.getProjectStatusCode();
 	}
 	
@@ -574,7 +574,7 @@ public class ManageSubmission extends BaseAction {
 	public GdsGrantsContracts getPiInfo(Long applId) {
 		logger.debug("get applId here:" + applId);
 	    if(applId != null) {
-		    GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(Long.valueOf(applId));
+		    GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(applId);
 			return grantContract;
 		 }
 	    return null;
@@ -865,10 +865,10 @@ public class ManageSubmission extends BaseAction {
 		
 		for (Entry<Long, List<String>> e : getAnswers().entrySet()) {
 			for(String entry: e.getValue()) {
-				newSet.add(new Long(entry));
-				List<String> otherList = getOtherText().get(new Long(entry));
+				newSet.add(Long.valueOf(entry));
+				List<String> otherList = getOtherText().get(Long.valueOf(entry));
 				if(otherList != null && !otherList.isEmpty()) {
-					otherSet.add(new Long(entry));
+					otherSet.add(Long.valueOf(entry));
 				}
 			}
 		}

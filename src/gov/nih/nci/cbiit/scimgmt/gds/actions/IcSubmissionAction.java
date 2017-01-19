@@ -304,7 +304,7 @@ public class IcSubmissionAction extends ManageSubmission {
 					if(parentDulId != null) {
 					String dulAppendix = ServletActionContext.getRequest().getParameter("comments-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);					
 					if(dulAppendix == null) {
-						dulAppendix = new String();
+						dulAppendix = "";
 					}
 						dulSet.setComments(dulAppendix);
 					}
@@ -426,7 +426,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		if(validationMap.containsKey(dulSelectionsStr)) {
 			this.addActionError(getText("error.ic.study.dulSelection.duplicate", new String[]{studyName}));
 		} else {
-			validationMap.put(dulSelectionsStr, new Integer(dulSetIndex));
+			validationMap.put(dulSelectionsStr, Integer.valueOf(dulSetIndex));
 		}
 		
 		return dulChecklistSelections;
@@ -475,7 +475,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			instCert.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 			
 			//Check if there is an file which doesn't have certId
-			icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, new Long(getProjectId()));
+			icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, Long.valueOf(getProjectId()));
 			for(Document doc: icFileDocs) {
 				if(doc.getInstitutionalCertificationId() == null) {
 					docId = doc.getId();
@@ -528,9 +528,9 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		try {
 			doc = fileUploadService.storeFile(
-				new Long(getProjectId()), ApplicationConstants.DOC_TYPE_IC, ic, icFileName, getInstCertification().getId());
+				Long.valueOf(getProjectId()), ApplicationConstants.DOC_TYPE_IC, ic, icFileName, getInstCertification().getId());
 			setDocId(doc.getId());
-			icFileDocs = fileUploadService.retrieveFileByIcId(instCertification.getId(), new Long(getProjectId()));
+			icFileDocs = fileUploadService.retrieveFileByIcId(instCertification.getId(), Long.valueOf(getProjectId()));
 			
 		} catch (Exception e) {
 			try {
@@ -706,7 +706,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	}
 	
 	public String getPageStatusCode() {
-		return retrieveIC(Long.valueOf(instCertification.getId())).getStatus();
+		return retrieveIC(instCertification.getId()).getStatus();
 	}
 	
 

@@ -224,7 +224,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 		
 		//Get the ics of the project from the display - this is the same as the
 		//parent project ics
-		Project parentProject =  manageProjectService.findById(Long.valueOf(storedProject.getParentProjectId()));
+		Project parentProject =  manageProjectService.findById(storedProject.getParentProjectId());
 		
 		List<InstitutionalCertification> parentIcList = parentProject.getInstitutionalCertifications();
 		if(!CollectionUtils.isEmpty(parentIcList)) {
