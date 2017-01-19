@@ -716,8 +716,6 @@ public class IcSubmissionAction extends ManageSubmission {
 	protected String computePageStatus(Project project) {
 		
 		String icStatus = getInstCertification().getStatus();
-		PageStatus status = project.getPageStatus(ApplicationConstants.PAGE_CODE_IC);
-		
 		
 		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())
 				|| ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(icStatus)) {

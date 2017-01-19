@@ -1002,17 +1002,14 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		//Exclude non-NIH funded submissions from the below validations
 		if(!submissionReasonId.equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
 			
-			String progBranch="";
 			//Validation for Program/ Branch
 			if(getProject().getParentProjectId() == null){
-				progBranch = getProject().getProgramBranch();
+				String progBranch = getProject().getProgramBranch();
 				if(StringUtils.isBlank(progBranch)) {
 					this.addActionError(getText("programbranch.required"));  
 					return;
 				}
-			} else {
-				progBranch = retrieveParentProject().getProgramBranch();
-			}
+			} 
 		}
 		//Comments cannot be greater than 2000 characters.
 		if(!StringUtils.isBlank(getProject().getComments())) {

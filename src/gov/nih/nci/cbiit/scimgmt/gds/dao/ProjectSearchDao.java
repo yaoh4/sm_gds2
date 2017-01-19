@@ -202,7 +202,7 @@ public class ProjectSearchDao {
 	@SuppressWarnings("unchecked")
 	public List<Long> getAllProjectIds(){
 		Session session = null;
-		List<Long> allProjectIds = new ArrayList<Long>();
+		List<Long> allProjectIds = null;
 		try{
 			session = sessionFactory.getCurrentSession();
 			Criteria criteria = session.createCriteria(Project.class, "project");
