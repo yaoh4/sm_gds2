@@ -154,6 +154,7 @@
 		</div>
 		<!--  Panel -->
 	</div>
+    <s:hidden name="ie_Upload"/>
 
 	<!--SAVE & NEXT BUTTONS-->
 	<div class="pageNav">

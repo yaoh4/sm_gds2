@@ -223,7 +223,7 @@
           </div> <!--  panel body -->
         </div> <!--  Panel -->
       </div>  
-		
+		<s:hidden name="ie_Upload"/>
 	  <!--SAVE & NEXT BUTTONS-->
       <div class="pageNav">
         <s:if test="%{instCertification.id != null || project.institutionalCertifications.size > 0}">

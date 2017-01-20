@@ -278,7 +278,7 @@
 		</div>
 	</div>
 	
-
+  <s:hidden name="ie_Upload"/>
 	<!--SAVE & NEXT BUTTONS-->
 	<div class="pageNav">
 		<s:submit action="saveGdsPlan" onclick="enableAllCheckbox();return warnGdsPlan()" value=" Save " class="saved btn btn-default"/>
