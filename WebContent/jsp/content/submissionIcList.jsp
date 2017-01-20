@@ -7,7 +7,7 @@
 	
 <!--Begin Form -->
     <s:form id="ic_dashboard_form" name="ic_dashboard_form" namespace="manage" method="post"
-      enctype="multipart/form-data" action="listIc"  role="form">
+       action="listIc"  role="form">
       
       <div class="pageNav">
           <s:submit action="saveIcList" value=" Save " class="saved btn btn-default"/>

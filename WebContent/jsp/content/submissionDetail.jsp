@@ -364,8 +364,7 @@
     </div>
   </div>
 
-<s:form id="submission-details_form"  namespace="manage"
-    enctype="multipart/form-data" action="submissionDetails" method="post" role="form">  
+<s:form id="submission-details_form"  namespace="manage" action="submissionDetails" method="post" role="form">  
 
 		  <s:include value="/jsp/content/submissionGeneralInfoView.jsp"/>
 		  <s:if test="%{showPage('GDSPLAN')}">
