@@ -63,6 +63,9 @@
               </tbody>
             </table>
             </s:if>
+            <s:if test ="%{project.bsiComments != null}">
+             <table width="100%" border="0" cellpadding="3" ><tr><td width="30%" style="white-space: nowrap"><strong>Comments</strong><td style="padding-left: 20px;"><s:property value="%{project.bsiComments}"/></td></tr></table>  
+            </s:if>
          </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->

@@ -201,7 +201,16 @@
         <td colspan="4">&nbsp;</td>
       </tr>
     </s:if>
-    
+    <s:if test="%{project.planComments != null}">
+	  <tr>
+	    <td><strong>Comments:</strong></td>
+        <td style="padding-left: 20px;"> <s:property value="%{project.planComments}" /></td>
+      </tr>
+      <tr>
+        <td style="white-space: nowrap">&nbsp;</td>
+        <td colspan="4">&nbsp;</td>
+      </tr>
+    </s:if>
    </table>
  </s:else>
 </div><!--end panel body-->

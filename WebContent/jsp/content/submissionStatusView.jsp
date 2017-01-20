@@ -48,6 +48,7 @@
             <th>Data Submission Status</th>
             <th>Study Released Status</th>
             <th>Accession Number</th>
+            <th>Comments </th>
           </tr>
 
           <s:iterator value="project.repositoryStatuses" var="r" status="stat">
@@ -108,6 +109,7 @@
               <td><s:property
                   value="#r.lookupTByStudyReleasedId.displayName" /></td>
               <td><s:property value="#r.accessionNumber" /></td>
+              <td><s:property value="#r.comments" /></td>
             </tr>
           </s:iterator>
         </tbody>

@@ -243,6 +243,12 @@
        </td>
       </tr>
       </s:if>
+      <s:if test="%{project.comments != null}">
+      <tr>
+      <td style="white-space: nowrap"><strong>Comments:</strong></td>
+      <td colspan="4">${project.comments}</td>
+      </tr>
+      </s:if>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td >&nbsp;</td>
