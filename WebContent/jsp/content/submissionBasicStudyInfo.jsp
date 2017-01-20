@@ -154,6 +154,7 @@
 		</div>
 		<!--  Panel -->
 	</div>
+	<!-- Adding dummy hidden field as a workaround for IE bug that corrupts data from the last input field -->
     <s:hidden name="ie_Upload"/>
 
 	<!--SAVE & NEXT BUTTONS-->

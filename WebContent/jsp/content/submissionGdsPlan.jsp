@@ -277,8 +277,7 @@
 			<!--end panel body-->
 		</div>
 	</div>
-	
-  <s:hidden name="ie_Upload"/>
+	<!-- Adding dummy hidden field as a workaround for IE bug that corrupts data from the last input field -->
 	<!--SAVE & NEXT BUTTONS-->
 	<div class="pageNav">
 		<s:submit action="saveGdsPlan" onclick="enableAllCheckbox();return warnGdsPlan()" value=" Save " class="saved btn btn-default"/>
