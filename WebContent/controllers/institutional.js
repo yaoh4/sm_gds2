@@ -178,7 +178,6 @@ function addDulSet(elem)  {
 		$(this).popover({ trigger: "manual" , html: true, animation:false})
 	    .on("mouseenter", function () {
 	        var _this = this;
-	        $(this).popover("show");
 	        $(".popover").on("mouseleave", function () {
 	            $(_this).popover('hide');
 	        });
@@ -189,7 +188,7 @@ function addDulSet(elem)  {
 	                $(_this).popover("hide");
 	            }
 	        }, 300);
-	          });
+	          }).popover("show");
 	});
 
 	newDulTypeDiv.show();
