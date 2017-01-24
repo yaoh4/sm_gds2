@@ -171,6 +171,27 @@ function addDulSet(elem)  {
 	//Append the new DUL Type to the end of the current set
 	newDulTypeDiv.appendTo("#cloneDULInput-" + studiesIdx);
 	$("#cloneDULInput-" + studiesIdx).show();
+	
+	newDulTypeDiv.find("a.pop").hover(function() {
+		var value=$(this).children().first().val();
+		$(this).attr('data-content', value);
+		$(this).popover({ trigger: "manual" , html: true, animation:false})
+	    .on("mouseenter", function () {
+	        var _this = this;
+	        $(this).popover("show");
+	        $(".popover").on("mouseleave", function () {
+	            $(_this).popover('hide');
+	        });
+	    }).on("mouseleave", function () {
+	        var _this = this;
+	        setTimeout(function () {
+	            if (!$(".popover:hover").length) {
+	                $(_this).popover("hide");
+	            }
+	        }, 300);
+	          });
+	});
+
 	newDulTypeDiv.show();
 };
 
@@ -241,6 +262,15 @@ function addStudy() {
 	//Append the new Study to cloneStudyInput
 	newStudySectionDiv.appendTo(".cloneStudyInput");
 	
+	newStudySectionDiv.find("a.hoverOver").hover(function(){
+		var value=$(this).children().first().val();
+		$(this).attr('data-original-title', value);
+		$(this).tooltip({
+            container: 'body',
+            placement: 'right',
+            trigger: 'hover'
+        }).tooltip('show');
+	});
 	
 	//Add the trash icon to all studies if there is more than one study, 
 	//else remove trash can from the lone one
