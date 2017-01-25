@@ -146,7 +146,7 @@
                           <div class="panel-body">
                           				
                             <div class="form-group row">
-                              <div class="col-xs-3">
+                              <div class="col-xs-4">
                                 <label class="label_sn" for="Study Name">
                                   <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>
                                   Study Name &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
@@ -158,7 +158,7 @@
                               		value="${study.studyName}"/>	
                               </div>
                               					
-                              <div class="col-xs-3">
+                              <div class="col-xs-4">
                                 <label class="label_in" for="Provisional or Final?">Institution &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
 						 style="font-size: 12px;"><s:hidden id="IC_INSTITUTION_KEY" value="%{getHelpText('IC_INSTITUTION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></label>
                                 <input type="text" class="form-control input_in" placeholder="Full Name of Institution"
