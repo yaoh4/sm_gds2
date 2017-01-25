@@ -207,7 +207,7 @@
 			if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
 					&& 
 					(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
-					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null]]></codefragment>
+					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null ]]></codefragment>
    </duplication>
    <duplication lines="48" tokens="189">
       <file line="98"
@@ -517,11 +517,11 @@
 			dc.add(Restrictions.ilike("intPiLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));]]></codefragment>
    </duplication>
    <duplication lines="21" tokens="144">
-      <file line="770"
+      <file line="769"
             path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
       <file line="119"
             path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
-      <codefragment><![CDATA[					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+      <codefragment><![CDATA[					(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
 					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null 
 					)) {
 				if(CollectionUtils.isEmpty(gdsPlan) || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_YES_ID) == null) {
@@ -708,5 +708,38 @@
 	public Date getUpdatedDate() {
 		
 		if(StringUtils.isEmpty(getUpdatedBy())) {]]></codefragment>
+   </duplication>
+   <duplication lines="25" tokens="100">
+      <file line="180"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\actions\BasicStudyInfoSubmissionAction.java"/>
+      <file line="249"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
+      <file line="282"
+            path="c:\dev\Releases\Non I2E\gds-trunk\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
+      <codefragment><![CDATA[			bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, Long.valueOf(getProjectId()));
+		
+		} catch (Exception e) {
+			try {
+				inputStream = new ByteArrayInputStream(getText("error.doc.upload").getBytes("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				return INPUT;
+			}
+			return INPUT;
+		}
+				
+		logger.info("===> docId: " + doc.getId());
+		logger.info("===> fileName: " + doc.getFileName());
+		logger.info("===> docTitle: " + doc.getDocTitle());
+		logger.info("===> uploadDate: " + doc.getUploadedDate());
+
+		return SUCCESS;
+	}
+	
+	/**
+	 * Delete Basic Study Info Document
+	 * 
+	 * @return forward string
+	 */
+	public String deleteBsiFile() {]]></codefragment>
    </duplication>
 </pmd-cpd>
