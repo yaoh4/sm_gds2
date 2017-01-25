@@ -76,6 +76,7 @@ $("#basic-study-form").on('change', '#bsi', function () {
     $form = $("#basic-study-form");
     fd = new FormData($form[0]);
     $('button.has-spinner').toggleClass('active');
+    if($("#bsi").val() != '') {
 	$.ajax({
 	  	url: 'uploadBasicStudyInfo.action',
 	  	type: 'post',
@@ -99,6 +100,7 @@ $("#basic-study-form").on('change', '#bsi', function () {
   			return true;
 		});
 	}
+    }
 });
 
 });

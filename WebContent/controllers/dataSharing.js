@@ -117,6 +117,7 @@ $("#gds-form").on('change', '#dataSharingPlan', function () {
     $form = $("#gds-form");
     fd = new FormData($form[0]);
     $('button.has-spinner').toggleClass('active');
+    if($("#dataSharingPlan").val() != '') {
 	$.ajax({
 	  	url: 'uploadDataSharingPlan.action',
 	  	type: 'post',
@@ -140,6 +141,7 @@ $("#gds-form").on('change', '#dataSharingPlan', function () {
   			return true;
 		});
 	}
+    }
 });
 
 // Exception memo file upload Ajax
