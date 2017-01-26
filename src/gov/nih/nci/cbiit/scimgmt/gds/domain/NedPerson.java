@@ -277,7 +277,7 @@ public class NedPerson implements java.io.Serializable {
 		this.generationqualif = generationqualif;
 	}
 
-	@Column(name = "MIXCASE_GIVENNAME", nullable = false, length = 192)
+	@Column(name = "GIVENNAME", nullable = false, length = 192)
 	public String getFirstName() {
 		return this.firstName;
 	}
@@ -547,7 +547,7 @@ public class NedPerson implements java.io.Serializable {
 		this.nihmixcasecommonsn = nihmixcasecommonsn;
 	}
 
-	@Column(name = "NIHMIXCASESN", length = 192)
+	@Column(name = "SN", length = 192)
 	public String getLastName() {
 		return this.lastName;
 	}
@@ -959,7 +959,12 @@ public class NedPerson implements java.io.Serializable {
 		}
 		sb.append(" ");
 
-		sb.append(getLastName());
+		if (StringUtils.isNotBlank(getNihcommonsn())) {
+			sb.append(getNihcommonsn());
+		} else {
+			sb.append(getLastName());
+		}
+		
 		return WordUtils.capitalizeFully(sb.toString());
 	}
 	

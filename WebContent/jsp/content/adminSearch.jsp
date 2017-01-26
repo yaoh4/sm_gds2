@@ -125,7 +125,7 @@
 								</s:else>	
 								    <s:hidden id="%{#userRole.nihNetworkId}FullName" value="%{#userRole.nedPerson.fullName}"/>
 												    																
-								    <td>${userRole.nedPerson.fullNameLF}</td>
+								    <td>${userRole.nedPerson.fullName}</td>
 									<td><a href="mailto:${userRole.nedPerson.email}">${userRole.nedPerson.email}</a></td>
 									<td>${userRole.nedPerson.orgpath} </td>							
 									<td>

@@ -15,6 +15,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,12 +97,20 @@ public class UserRoleDao {
 	private Criteria setupRoleSearchCriteria(Criteria criteria, RoleSearchCriteria searchCriteria) {
 		
 		criteria.createAlias("nedPerson", "nedPerson");
+		
 		if(StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getFirstName()))) {
-			criteria.add(Restrictions.ilike("nedPerson.firstName", searchCriteria.getFirstName().trim(), MatchMode.EXACT));
+			Disjunction disjunction = Restrictions.disjunction();
+			disjunction.add(Restrictions.ilike("nedPerson.firstName", searchCriteria.getFirstName().trim(), MatchMode.EXACT));
+			disjunction.add(Restrictions.ilike("nedPerson.preferredName", searchCriteria.getFirstName().trim(), MatchMode.EXACT));
+			criteria.add(disjunction);
 		}
 		if (StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getLastName()))) {
-			criteria.add(Restrictions.ilike("nedPerson.lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
+			Disjunction disjunction = Restrictions.disjunction();
+			disjunction.add(Restrictions.ilike("nedPerson.lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));
+			disjunction.add(Restrictions.ilike("nedPerson.nihcommonsn", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
+			criteria.add(disjunction);
 		}
+		
 		if(StringUtils.isNotBlank(searchCriteria.getRoleCode())) {
 			criteria.add(Restrictions.eq("gdsRoleCode", searchCriteria.getRoleCode()));
 		}
@@ -137,11 +147,18 @@ public class UserRoleDao {
 	private Criteria setupPersonSearchCriteria(Criteria criteria, RoleSearchCriteria searchCriteria) {
 		
 		if(StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getFirstName()))) {
-			criteria.add(Restrictions.ilike("firstName", searchCriteria.getFirstName().trim(), MatchMode.EXACT));
+			Disjunction disjunction = Restrictions.disjunction();
+			disjunction.add(Restrictions.ilike("firstName", searchCriteria.getFirstName().trim(), MatchMode.EXACT));
+			disjunction.add(Restrictions.ilike("preferredName", searchCriteria.getFirstName().trim(), MatchMode.EXACT));
+			criteria.add(disjunction);
 		}
 		if (StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getLastName()))) {
-			criteria.add(Restrictions.ilike("lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
+			Disjunction disjunction = Restrictions.disjunction();
+			disjunction.add(Restrictions.ilike("lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));
+			disjunction.add(Restrictions.ilike("nihcommonsn", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
+			criteria.add(disjunction);
 		}
+		
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
 			criteria.add(Restrictions.ilike("nihsac", searchCriteria.getDoc(), MatchMode.START));
 		} else {
