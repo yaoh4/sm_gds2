@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.LongConverter;
@@ -1117,7 +1119,18 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					} else {
 						   this.addActionError(getText("intramural.pi.email.required"));
 					}
-				}
+				} else {
+						final String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+						final Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+						final Matcher matcher = pattern.matcher(projectGrantContract.getPiEmailAddress());
+						if (!matcher.matches()) {
+							if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(projectGrantContract.getGrantContractType())) {
+							this.addActionError(getText("pi.email.malformed"));
+						} else {
+							this.addActionError(getText("intramural.pi.email.malformed"));
+							}
+						}
+			     	}
                    
 				//Validation for PI institution.
 				if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
@@ -1171,14 +1184,25 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 
 				//Validation for Primary contact.
 				if(!StringUtils.isBlank(projectGrantContract.getPocFirstName()) && !StringUtils.isBlank(projectGrantContract.getPocLastName())
-					&& (StringUtils.isBlank(projectGrantContract.getPocEmailAddress()))){
+					&& (StringUtils.isBlank(projectGrantContract.getPocEmailAddress()))) {
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
 				           this.addActionError(getText("primarycontact.email.required")); 
 					} else {
 						   this.addActionError(getText("intramural.primarycontact.email.required")); 
 					}
-				}
+				} else {
+					final String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+					final Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+					final Matcher matcher = pattern.matcher(projectGrantContract.getPocEmailAddress());
+					if (!matcher.matches()) {
+						if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(projectGrantContract.getGrantContractType())) {
+						this.addActionError(getText("primarycontact.email.malformed"));
+					} else {
+						this.addActionError(getText("intramural.primarycontact.email.malformed"));
+						}
+					}
+		     	}
 			}
 		}
 	}
