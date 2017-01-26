@@ -70,10 +70,10 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		for(RepositoryStatus repositoryStatus : getProject().getRepositoryStatuses()){
 
 			//Anticipated submission date validation.
-			if(((repositoryStatus.getLookupTBySubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID
-					|| repositoryStatus.getLookupTBySubmissionStatusId().getId() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID)
-						||(repositoryStatus.getLookupTByRegistrationStatusId().getId() == ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID ||
-							repositoryStatus.getLookupTByRegistrationStatusId().getId() == ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID)) 
+			if(((repositoryStatus.getLookupTBySubmissionStatusId().getId().longValue() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID.longValue()
+					|| repositoryStatus.getLookupTBySubmissionStatusId().getId().longValue() == ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID.longValue())
+						||(repositoryStatus.getLookupTByRegistrationStatusId().getId().longValue() == ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID.longValue() ||
+							repositoryStatus.getLookupTByRegistrationStatusId().getId().longValue() == ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID.longValue())) 
 					&& (getProject().getSubprojectFlag().equalsIgnoreCase("N") || getProject().getSubprojectFlag().equalsIgnoreCase("Y") && repositoryStatus.isSelected())){
 				isStatusNotStartedOrInProgress = true;
 
@@ -88,7 +88,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 				}
 			}
 
-			if(repositoryStatus.getLookupTByStudyReleasedId().getId() == ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID){
+			if(repositoryStatus.getLookupTByStudyReleasedId().getId().longValue() == ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.longValue()){
 				allStudyReleased = false;
 			}
 		}		

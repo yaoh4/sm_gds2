@@ -740,9 +740,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 
 			PlanAnswerSelection planAnswerSelection = planAnswerSelectionIterator.next();
 
-			if(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()
-					|| ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()
-					|| ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId()){	
+			if(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()
+					|| ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()
+					|| ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()){	
 				
 				planAnswerSelectionIterator.remove();
 				logger.debug("Deleted the answer to question with Id: "+planAnswerSelection.getPlanQuestionsAnswer().getQuestionId());

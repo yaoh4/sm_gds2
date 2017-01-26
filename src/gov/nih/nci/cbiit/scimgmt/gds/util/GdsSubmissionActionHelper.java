@@ -307,10 +307,10 @@ public class GdsSubmissionActionHelper {
 	 */
 	public static boolean isSubmissionUpdated(Project transientProject, Project persistentProject){
 
-		if((transientProject.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_NIHFUND  
-				|| transientProject.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)
-				&& (persistentProject.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY
-				|| persistentProject.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY))
+		if((transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NIHFUND.longValue()  
+				|| transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.longValue())
+				&& (persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.longValue()
+				|| persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.longValue()))
 			return true;
 		else
 			return false;		
@@ -325,7 +325,7 @@ public class GdsSubmissionActionHelper {
 		logger.debug("Checking if any repositories were selected on the GDS plan page.");
 		
 		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelections()){
-			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getId().longValue()){	
 				return false;			
 			}
 		}
@@ -352,40 +352,40 @@ public class GdsSubmissionActionHelper {
 		boolean exceptionRequestedYesFlag = false;
 		boolean exceptionApprovedNoFlag = false;
 		for(PlanAnswerSelection planAnswerSelection : project.getPlanAnswerSelections()){
-			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getId().longValue()){	
 				dataSubmittedYesFlag = true;
 			}
-			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getId().longValue()){	
 				exceptionRequestedNoFlag = true;
 			}
-			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getId().longValue()){	
 				exceptionRequestedYesFlag = true;
 			}
-			if( ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID == planAnswerSelection.getPlanQuestionsAnswer().getId()){	
+			if( ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getId().longValue()){	
 				exceptionApprovedNoFlag = true;
 			}
 		}
 		
-		if((project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY || 
-				project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY) &&
+		if((project.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.longValue() || 
+				project.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.longValue()) &&
 				exceptionRequestedNoFlag) {
 			return true;
 		}
 		
-		if((project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY || 
-				project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY) &&
+		if((project.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.longValue() || 
+				project.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.longValue()) &&
 				exceptionRequestedYesFlag && exceptionApprovedNoFlag) {
 			return true;
 		}
 		
-		if((project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY || 
-				project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY) &&
+		if((project.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.longValue() || 
+				project.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.longValue()) &&
 				dataSubmittedYesFlag) {
 			return true;
 		}
 		
-		if(project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_NIHFUND || 
-				project.getSubmissionReasonId() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) {
+		if(project.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NIHFUND.longValue() || 
+				project.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.longValue()) {
 			return true;
 		}
 		
