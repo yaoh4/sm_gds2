@@ -178,12 +178,12 @@ public class UserRoleDao {
 			if(detachedInstance.getCreatedBy() != null){
 				//Already saved GDS role				
 				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(PersonRole.class, networkId));
-				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());
+				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
 				detachedInstance.setLastChangedDate(new Date());
 			}
 			else{
 				//New GDS role
-				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId());	
+				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());	
 				detachedInstance.setCreatedDate(new Date());
 			}
 			PersonRole result = (PersonRole) sessionFactory.getCurrentSession().merge(detachedInstance);

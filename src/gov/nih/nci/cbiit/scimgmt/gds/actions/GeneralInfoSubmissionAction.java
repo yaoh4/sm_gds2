@@ -380,7 +380,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				PlanAnswerSelection planAnswer = new PlanAnswerSelection();
 				//BeanUtils.copyProperties(currentPlanAnswer, planAnswer);
 				//planAnswer.setId(null);
-				planAnswer.setCreatedBy(loggedOnUser.getAdUserId());
+				planAnswer.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 				planAnswer.setProjects(projectsToAdd);
 				planAnswer.setPlanQuestionsAnswer(currentPlanAnswer.getPlanQuestionsAnswer());
 				planAnswer.setOtherText(currentPlanAnswer.getOtherText());

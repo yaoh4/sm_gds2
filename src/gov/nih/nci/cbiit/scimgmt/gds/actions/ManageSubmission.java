@@ -935,7 +935,7 @@ public class ManageSubmission extends BaseAction {
 			lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 		repoStatus.setLookupTByStudyReleasedId(
 			lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
-		repoStatus.setCreatedBy(loggedOnUser.getAdUserId());
+		repoStatus.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
 		repoStatus.setCreatedDate(new Date());
 		repoStatus.setPlanAnswerSelectionTByRepositoryId(selection);
 		selection.getRepositoryStatuses().add(repoStatus);
