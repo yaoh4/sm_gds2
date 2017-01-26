@@ -154,14 +154,14 @@
 	<findbugs home="${findbugs.home}" failOnError="true"
 		      output="html"
 		      outputFile="findbugs-report.html" 
-			  reportLevel="medium"
+			  reportLevel="high"
 			  warningsProperty="findbugsFailure">
 		<auxClasspath path="${lib.dir}:${global.lib.dir}" />
 		<sourcePath path="${src.dir}" />
 		<class location="${java.classes.dir}" />
 	</findbugs>
 	
-	<!--<fail if="findbugsFailure"/>-->
+	<fail if="findbugsFailure"/>
 
 </target>
 
