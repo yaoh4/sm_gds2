@@ -7,6 +7,7 @@ $(document).ready(function(){
   
 
 $('#example').dataTable( {
+	 "bPaginate": false,
 		
        columnDefs: [
          { targets: ['status'], type: 'alt-string'},
