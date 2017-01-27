@@ -49,7 +49,7 @@
           <div style="display:none" id="showSpan">
                <span>You will be able to add/edit Institutional Certification and/or DUL only at the parent project level. Changes will then be reflected in this sub-project. </span>
              <br/><br/></div> 
-            <p class="question" style="display:inline;">Has the GPA received and reviewed all Institutional Certifications?
+            <p class="question" style="display:inline;">Have all final (not provisional) institutional certifications for this project been received and reviewed by the GPA?
             <s:if test= "%{subprojectFlag} == 'N'">
             &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
 						 style="font-size: 12px;"><s:hidden id="IC_REVIEWED_KEY" value="%{getHelpText('IC_REVIEWED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
