@@ -179,12 +179,17 @@ WebContent/images/subV.png -text
 WebContent/images/subfolder.gif -text
 WebContent/images/version-divider.gif -text
 WebContent/index.jsp -text
+WebContent/jsp/content/ICdemo.htm -text
 WebContent/jsp/content/adminEdit.htm -text
 WebContent/jsp/content/adminEdit.jsp -text
 WebContent/jsp/content/adminSearch.htm -text
 WebContent/jsp/content/adminSearch.jsp -text
+WebContent/jsp/content/demo.css -text
+WebContent/jsp/content/demo.js -text
 WebContent/jsp/content/detailReport.jsp -text
 WebContent/jsp/content/dulSetTemplate.jsp -text
+WebContent/jsp/content/editstudydemo.htm -text
+WebContent/jsp/content/findStudydemo.htm -text
 WebContent/jsp/content/manageDuls.jsp -text
 WebContent/jsp/content/missingDataReport.jsp -text
 WebContent/jsp/content/pageStatus.jsp -text
@@ -200,6 +205,7 @@ WebContent/jsp/content/searchResultSubproject.jsp -text
 WebContent/jsp/content/searchSubmission.jsp -text
 WebContent/jsp/content/searchSubprojectResult.jsp -text
 WebContent/jsp/content/searchSubprojectResultSubproject.jsp -text
+WebContent/jsp/content/studydemo.htm -text
 WebContent/jsp/content/submissionBasicStudyInfo.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfoFile.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfoView.jsp -text
@@ -214,6 +220,7 @@ WebContent/jsp/content/submissionGeneralInfoView.jsp -text
 WebContent/jsp/content/submissionIc.jsp -text
 WebContent/jsp/content/submissionIcFile.jsp -text
 WebContent/jsp/content/submissionIcList.jsp -text
+WebContent/jsp/content/submissionIcListDemo.htm -text
 WebContent/jsp/content/submissionIcListView.jsp -text
 WebContent/jsp/content/submissionRepositoryStatus.jsp -text
 WebContent/jsp/content/submissionStatusView.jsp -text
