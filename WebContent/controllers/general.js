@@ -325,6 +325,7 @@ function warnGeneralInfo(element) {
 			});
 			return true;
 		} else {
+			//TODO if timeout occurs, user will get a blank screen.
 			return true;
 		}
 	});
@@ -339,6 +340,13 @@ function warnGeneralInfoNext(element) {
 	$form = $("#general_form");
 	fd = new FormData($form[0]);
 
+	var parentId=$("#parentId").val();
+	if(parentId){
+		$("input[type=radio]").attr('disabled', false);
+		$('#DOC').attr('disabled', false);
+		$('#programBranch').attr('disabled', false);
+	}
+	
 	$.ajax({
 		url : 'warnGeneralInfo.action',
 		type : 'post',
@@ -355,23 +363,39 @@ function warnGeneralInfoNext(element) {
 	
 	var parentId=$("#parentId").val();
 	if (result == "") {
-		if(parentId){
-			$("input[type=radio]").attr('disabled', false);
-			$('#DOC').attr('disabled', false);
-			$('#programBranch').attr('disabled', false);
-		}
+		$.ajax({
+			url : 'saveGeneralInfoAndNext.action',
+			type : 'post',
+			processData : false,
+			contentType : false,
+			data : fd,
+			async : false,
+			success : function(msg) {
+				result = $.trim(msg);
+			},
+			error : function() {
+			}
+		});
 		return true;
 	}
 	bootbox.confirm(result, function(ans) {
 		if (ans) {
-			if(parentId){
-				$("input[type=radio]").attr('disabled', false);
-				$('#DOC').attr('disabled', false);
-				$('#programBranch').attr('disabled', false);
-			}
-			$('#general_form').attr('action', "saveGeneralInfoAndNext").submit();
+			$.ajax({
+				url : 'saveGeneralInfoAndNext.action',
+				type : 'post',
+				processData : false,
+				contentType : false,
+				data : fd,
+				async : false,
+				success : function(msg) {
+					result = $.trim(msg);
+				},
+				error : function() {
+				}
+			});
 			return true;
 		} else {
+			//TODO if timeout occurs, user will get a blank screen.
 			return true;
 		}
 	});
