@@ -244,7 +244,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 		doc.setFileName(fileName);
 		doc.setContentType(getFileExtension(fileName));
 		doc.setUploadedDate(new Date());
-		doc.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+		doc.setCreatedBy(loggedOnUser.getAdUserId());
 		doc.setUploadedBy(loggedOnUser.getFullName());
 		if(certId != null) {
 			doc.setInstitutionalCertificationId(certId);

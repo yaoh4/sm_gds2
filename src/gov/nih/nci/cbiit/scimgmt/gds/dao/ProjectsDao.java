@@ -113,27 +113,27 @@ public class ProjectsDao {
 				//Already saved submission
 				Hibernate.initialize(detachedInstance.getProjectGrantsContracts()); 				
 				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Project.class, id));
-				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());	
+				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());	
 				detachedInstance.setLastChangedDate(new Date());
 				for(ProjectGrantContract grantContract: detachedInstance.getProjectGrantsContracts()) {
 					if(StringUtils.isEmpty(grantContract.getCreatedBy())) {
 						//This is for associated grants, which get deleted and re-saved.
-						grantContract.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+						grantContract.setCreatedBy(loggedOnUser.getAdUserId());
 					}
 					if(grantContract.getCreatedDate() == null) {
 					grantContract.setCreatedDate(new Date());
 					}
-					grantContract.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+					grantContract.setLastChangedBy(loggedOnUser.getAdUserId());
 					grantContract.setLastChangedDate(new Date());
 					grantContract.setProject(detachedInstance);
 				}
 			}
 			else{
 				//New submission
-				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());	
+				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId());	
 				detachedInstance.setCreatedDate(new Date());
 				for(ProjectGrantContract grantContract: detachedInstance.getProjectGrantsContracts()) {
-					grantContract.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+					grantContract.setCreatedBy(loggedOnUser.getAdUserId());
 					grantContract.setCreatedDate(new Date());
 					grantContract.setProject(detachedInstance);
 				}

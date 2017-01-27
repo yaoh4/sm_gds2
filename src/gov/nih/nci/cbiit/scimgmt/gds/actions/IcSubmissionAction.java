@@ -297,9 +297,9 @@ public class IcSubmissionAction extends ManageSubmission {
 					}
 					
 					if(dulSet.getId() == null || dulSet.getId().toString().isEmpty()) {
-						dulSet.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+						dulSet.setCreatedBy(loggedOnUser.getAdUserId());
 					} else {
-						dulSet.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());				
+						dulSet.setLastChangedBy(loggedOnUser.getAdUserId());				
 					}
 					if(parentDulId != null) {
 					String dulAppendix = ServletActionContext.getRequest().getParameter("comments-" + studyIndex + "-" + dulSetIndex + "-" + parentDulId[0]);					
@@ -355,9 +355,9 @@ public class IcSubmissionAction extends ManageSubmission {
 		}
 		
 		if(study.getId() == null || study.getId().toString().isEmpty()) {
-			study.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+			study.setCreatedBy(loggedOnUser.getAdUserId());
 		} else {
-			study.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+			study.setLastChangedBy(loggedOnUser.getAdUserId());
 		}
 		
 		if(study.getComments() != null && study.getComments().length() > 2000) {
@@ -438,9 +438,9 @@ public class IcSubmissionAction extends ManageSubmission {
 		//for each selectedDul, create a dulChecklistSelection
 		DulChecklistSelection dulChecklistSelection = new DulChecklistSelection();
 		if(dulChecklistSelection.getId() == null || dulChecklistSelection.getId().toString().isEmpty()) {
-			dulChecklistSelection.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+			dulChecklistSelection.setCreatedBy(loggedOnUser.getAdUserId());
 		} else {
-			dulChecklistSelection.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+			dulChecklistSelection.setLastChangedBy(loggedOnUser.getAdUserId());
 		}
 		
 		//get the dulChecklist with the id and attach it to this dulCheckListSelection.
@@ -470,9 +470,9 @@ public class IcSubmissionAction extends ManageSubmission {
 		Long storedCertId = instCert.getId();
 		
 		if(storedCertId != null) {
-			instCert.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());
+			instCert.setLastChangedBy(loggedOnUser.getAdUserId());
 		} else {
-			instCert.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+			instCert.setCreatedBy(loggedOnUser.getAdUserId());
 			
 			//Check if there is an file which doesn't have certId
 			icFileDocs = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, Long.valueOf(getProjectId()));

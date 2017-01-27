@@ -111,11 +111,11 @@ public class InstitutionalCertificationsDao {
 			if(id != null){
 				//Already saved submission				
 				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(InstitutionalCertification.class, id));
-				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId().toUpperCase());				
+				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());				
 			}
 			else{
 				//New submission
-				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());				
+				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId());				
 			}
 			InstitutionalCertification result = (InstitutionalCertification) sessionFactory.getCurrentSession().merge(detachedInstance);
 			logger.debug("merge successful for IC "  + id);

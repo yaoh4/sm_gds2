@@ -831,7 +831,7 @@ public class ManageSubmission extends BaseAction {
 					newObject = getProject().getPlanAnswerSelectionByAnswerIdAndText(id, otherText);
 					if(newObject == null) {
 						newObject = new PlanAnswerSelection();
-						newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+						newObject.setCreatedBy(loggedOnUser.getAdUserId());
 						newObject.setOtherText(otherText);
 						newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 						newObject.addProject(getProject());
@@ -842,7 +842,7 @@ public class ManageSubmission extends BaseAction {
 				newObject = getProject().getPlanAnswerSelectionByAnswerId(id);
 				if(newObject == null) {
 					newObject = new PlanAnswerSelection();
-					newObject.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+					newObject.setCreatedBy(loggedOnUser.getAdUserId());
 					newObject.setPlanQuestionsAnswer(planQuestionsAnswer);
 					newObject.addProject(getProject());
 					getProject().getPlanAnswerSelections().add(newObject);
@@ -935,7 +935,7 @@ public class ManageSubmission extends BaseAction {
 			lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 		repoStatus.setLookupTByStudyReleasedId(
 			lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
-		repoStatus.setCreatedBy(loggedOnUser.getAdUserId().toUpperCase());
+		repoStatus.setCreatedBy(loggedOnUser.getAdUserId());
 		repoStatus.setCreatedDate(new Date());
 		repoStatus.setPlanAnswerSelectionTByRepositoryId(selection);
 		selection.getRepositoryStatuses().add(repoStatus);
