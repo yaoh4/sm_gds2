@@ -451,6 +451,10 @@ public class GdsMissingDataUtil {
 			missingIcData.addChild(new MissingData(text));	
 		}
 		
+		if(ApplicationConstants.IC_PROV_FINAL_ID_PROV.equals(ic.getProvisionalFinalCode())) {
+			String text = "Institutional Certification must be marked as Final";
+			missingIcData.addChild(new MissingData(text));	
+		}
 		//Loop through all the studies in the IC
 		List<Study> studies = ic.getStudies();			
 		for(Study study: studies) {
