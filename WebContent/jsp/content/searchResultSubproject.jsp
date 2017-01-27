@@ -43,7 +43,7 @@
 								<s:set name="rowSpan" value="1"/>
 							</s:else>
 							<td><s:a href="../manage/navigateToSubmissionDetail.action?projectId=%{#s.id}">
-								<s:property value="#s.projectSubmissionTitle" /></s:a></td>
+								<s:property value="#s.projectSubmissionTitle" /> (v<s:property value="#s.versionNum" />)</s:a></td>
 							<td>
 								<s:if test="%{#s.extGrantContractNum == '' || #s.extGrantContractNum == null}">
 									<s:property value="#s.intGrantContractNum" />

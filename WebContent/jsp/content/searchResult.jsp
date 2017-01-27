@@ -28,6 +28,7 @@
 			<th>Principal Investigator 2</th>
 			<th>PI First Name 2</th>
 			<th>PI Email 2</th>
+			<th>Version</th>
 			<th width="10%">Submission<br/> Status</th>
 			<th width="10%" style="whitespace:nowrap;">Actions</th>
 		</tr>

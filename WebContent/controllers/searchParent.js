@@ -69,7 +69,8 @@ $(document).ready(function(){
                 { "data": "intGrantContractNum"},
                 { "data": "intPiLastName"},
                 { "data": "intPiFirstName"},
-                { "data": "intPiEmailAddress"}
+                { "data": "intPiEmailAddress"},
+                { "data": "versionNum"}
             ],
             "searching": false,
             "pageLength": 50,
@@ -86,7 +87,7 @@ $(document).ready(function(){
             },
             "columnDefs": [
                {
-            	"targets": [ 1, 5, 6, 11, 12, 13, 14, 15 ],
+            	"targets": [ 1, 5, 6, 11, 12, 13, 14, 15, 16 ],
             	"visible": false
 			   },
                {
@@ -111,9 +112,9 @@ $(document).ready(function(){
                 				cssClass = 'detail-control';
                 			}
                 			return '<a style="margin-right: 5px;" class="' + cssClass + '" href="javascript: void(0)"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>' +
-            				'<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
+            				'<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data  + ' (v' + row.versionNum + ')' + '</a>';
                 		}
-                		return '<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
+                		return '<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data  + ' (v' + row.versionNum + ')' + '</a>';
                 	}
                 	return data;
                 } },

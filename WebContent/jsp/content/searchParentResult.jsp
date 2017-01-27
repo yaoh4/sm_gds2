@@ -23,6 +23,7 @@
 			<th>Principal Investigator 2</th>
 			<th>PI First Name 2</th>
 			<th>PI Email 2</th>
+			<th>Version</th>
 		</tr>
         </thead>
     </table>

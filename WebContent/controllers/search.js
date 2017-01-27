@@ -75,6 +75,7 @@ $(document).ready(function(){
                 { "data": "intPiLastName"},
                 { "data": "intPiFirstName"},
                 { "data": "intPiEmailAddress"},
+                { "data": "versionNum"},
                 { "data": "repositoryPageStatusCode"},
                 { "data": null}
             ],
@@ -93,7 +94,7 @@ $(document).ready(function(){
             },
             "columnDefs": [ 
                 {
-                "targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ],
+                "targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ],
                 "visible": false,
                 
                 },
@@ -153,9 +154,9 @@ $(document).ready(function(){
                 				cssClass = 'detail-control';
                 			}
                 			return '<a style="margin-right: 5px;" class="' + cssClass + '" href="javascript: void(0)"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>' +
-            				'<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
+            				'<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + ' (v' + row.versionNum + ')' + '</a>';
                 		}
-                		return '<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + '</a>';
+                		return '<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + ' (v' + row.versionNum + ')' + '</a>';
                 	}
                 	return data;
                 } },
