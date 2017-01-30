@@ -179,17 +179,12 @@ WebContent/images/subV.png -text
 WebContent/images/subfolder.gif -text
 WebContent/images/version-divider.gif -text
 WebContent/index.jsp -text
-WebContent/jsp/content/ICdemo.htm -text
 WebContent/jsp/content/adminEdit.htm -text
 WebContent/jsp/content/adminEdit.jsp -text
 WebContent/jsp/content/adminSearch.htm -text
 WebContent/jsp/content/adminSearch.jsp -text
-WebContent/jsp/content/demo.css -text
-WebContent/jsp/content/demo.js -text
 WebContent/jsp/content/detailReport.jsp -text
 WebContent/jsp/content/dulSetTemplate.jsp -text
-WebContent/jsp/content/editstudydemo.htm -text
-WebContent/jsp/content/findStudydemo.htm -text
 WebContent/jsp/content/manageDuls.jsp -text
 WebContent/jsp/content/missingDataReport.jsp -text
 WebContent/jsp/content/pageStatus.jsp -text
@@ -205,7 +200,6 @@ WebContent/jsp/content/searchResultSubproject.jsp -text
 WebContent/jsp/content/searchSubmission.jsp -text
 WebContent/jsp/content/searchSubprojectResult.jsp -text
 WebContent/jsp/content/searchSubprojectResultSubproject.jsp -text
-WebContent/jsp/content/studydemo.htm -text
 WebContent/jsp/content/submissionBasicStudyInfo.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfoFile.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfoView.jsp -text
@@ -220,7 +214,6 @@ WebContent/jsp/content/submissionGeneralInfoView.jsp -text
 WebContent/jsp/content/submissionIc.jsp -text
 WebContent/jsp/content/submissionIcFile.jsp -text
 WebContent/jsp/content/submissionIcList.jsp -text
-WebContent/jsp/content/submissionIcListDemo.htm -text
 WebContent/jsp/content/submissionIcListView.jsp -text
 WebContent/jsp/content/submissionRepositoryStatus.jsp -text
 WebContent/jsp/content/submissionStatusView.jsp -text
@@ -621,6 +614,7 @@ properties/stage/gds.properties -text
 properties/stage/log4j2.xml -text
 properties/test/gds.properties -text
 properties/test/log4j2.xml -text
+screens/ICdemo.htm -text
 screens/ckeditor/CHANGES.md -text
 screens/ckeditor/LICENSE.md -text
 screens/ckeditor/README.md -text
@@ -942,7 +936,11 @@ screens/controllers/newSubmission.js -text
 screens/controllers/search.js -text
 screens/controllers/submissionStatus.js -text
 screens/dataSharing.htm -text
+screens/demo.css -text
+screens/demo.js -text
 screens/detailReport.htm -text
+screens/editstudydemo.htm -text
+screens/findStudydemo.htm -text
 screens/fonts/glyphicons-halflings-regular.eot -text
 screens/fonts/glyphicons-halflings-regular.svg -text
 screens/fonts/glyphicons-halflings-regular.ttf -text
@@ -1004,6 +1002,7 @@ screens/scripts/tooltipjquery.js -text
 screens/scripts/validator.js -text
 screens/search.htm -text
 screens/search2.htm -text
+screens/studydemo.htm -text
 screens/stylesheets/bootstrap-theme.css -text
 screens/stylesheets/bootstrap-theme.css.map -text
 screens/stylesheets/bootstrap-theme.min.css -text
@@ -1019,6 +1018,7 @@ screens/stylesheets/non-responsive.css -text
 screens/stylesheets/styles.css -text
 screens/stylesheets/table.css -text
 screens/sub_repository.htm -text
+screens/submissionIcListDemo.htm -text
 screens/submissionStatus.htm -text
 screens/submission_details.htm -text
 screens/test.html -text
