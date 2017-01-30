@@ -152,7 +152,7 @@
                                                        <td><span class="question">Institution: </span>${study.institution}</td>
                                                      </s:if>
                                                       <s:if test="%{study.dulverificationId != null}">
-                                                       <td><span class="question">Data Use Limitation(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
+                                                       <td><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
                                                      </s:if>
                                                    </tr>
                                                     

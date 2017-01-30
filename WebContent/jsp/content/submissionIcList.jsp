@@ -201,7 +201,7 @@
                                                 <td><span class="question">Study Name: </span>${study.studyName}</td>
 					                         <!--    <td align="left" valign="top">&nbsp;</td> -->
 					                            <td><span class="question">Institution: </span>${study.institution}</td>
-                                                <td><span class="question">Data Use Limitation(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
+                                                <td><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
                                               </tr>
                                                                                     
                                               <s:if test="%{#study.comments != null}">

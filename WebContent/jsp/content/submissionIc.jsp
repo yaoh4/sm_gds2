@@ -146,7 +146,7 @@
                           <div class="panel-body">
                           				
                             <div class="form-group row">
-                              <div class="col-xs-4">
+                              <div class="col-xs-5">
                                 <label class="label_sn" for="Study Name">
                                   <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>
                                   Study Name &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
@@ -159,7 +159,7 @@
                               </div>
                               					
                               <div class="col-xs-5">
-                                <label class="label_in" for="Provisional or Final?">Institution &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+                                <label class="label_in" for="Provisional or Final?">Institution(s) &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
 						 style="font-size: 12px;"><s:hidden id="IC_INSTITUTION_KEY" value="%{getHelpText('IC_INSTITUTION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></label>
                                 <input type="text" class="form-control input_in" placeholder="Full Name of Institution"
                               		id="institution-${studiesIdx}" maxlength="120"
@@ -167,8 +167,8 @@
 									value="${study.institution}"/>
                               
                               </div>
-                              <div class="DULv col-xs-3">
-                                <label for="Data Use Limitation(s) Verified?" class="label_dulV">Data Use Limitation(s) Verified?
+                              <div class="DULv col-xs-2">
+                                <label for="Data Use Limitation(s) Verified?" class="label_dulV">DUL(s) Verified?
                                 &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
 						 style="font-size: 12px;"><s:hidden id="IC_DUL_KEY" value="%{getHelpText('IC_DUL_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
                                 </label>
