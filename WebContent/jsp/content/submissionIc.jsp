@@ -158,7 +158,7 @@
                               		value="${study.studyName}"/>	
                               </div>
                               					
-                              <div class="col-xs-4">
+                              <div class="col-xs-5">
                                 <label class="label_in" for="Provisional or Final?">Institution &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
 						 style="font-size: 12px;"><s:hidden id="IC_INSTITUTION_KEY" value="%{getHelpText('IC_INSTITUTION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></label>
                                 <input type="text" class="form-control input_in" placeholder="Full Name of Institution"
