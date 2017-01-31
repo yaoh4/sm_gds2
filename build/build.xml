@@ -308,6 +308,10 @@
 	  		<formatter type="plain" />
 	  		<formatter type="xml" />
 	  	</test>
+	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtilTest" haltonfailure="no" outfile="${distribution.dir}/result">		  		
+	  		  		<formatter type="plain" />
+	  		  		<formatter type="xml" />
+	  		  	</test>
 	  </junit>
    </target>
 
@@ -324,6 +328,9 @@
 				<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsPageStatusUtilTest">	
 					<formatter type="xml" />
 				</test>
+				<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtilTest">	
+									<formatter type="xml" />
+								</test>
 			</junit>
 		</jacoco:coverage>
 	</target>
