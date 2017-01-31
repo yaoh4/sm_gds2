@@ -1,0 +1,421 @@
+/**
+ * 
+ */
+package gov.nih.nci.cbiit.scimgmt.gds.util;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.xml.sax.SAXException;
+
+import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
+import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
+import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
+
+/**
+ * @author menons2
+ *
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({"../applicationContext.xml"})
+public class GdsPageStatusUtilTest {
+	
+	private static final Logger logger = LogManager.getLogger(GdsPageStatusUtil.class);
+	
+	@Autowired
+	protected FileUploadService fileUploadService;
+	
+	@Autowired
+	protected ManageProjectService manageProjectService;
+	
+	@Autowired
+	protected NedPerson loggedOnUser;
+	
+	private static GdsPageStatusUtil instance;
+   	private static boolean loaded = false;
+	
+   	
+	@Test
+	@Transactional
+	public void testComputeGdsPlanStatus() {
+		System.out.println("Starting junit for testComputeGdsPlanStatus");
+		GdsPageStatusUtil gdsPageStatusUtil = GdsPageStatusUtil.getInstance();
+		
+		//Initial setup
+		Project project = new Project();
+		project.setId(2L);
+		
+		//Test conditions for NULL status
+		
+		//If submission reason is non-NIH funded OR this is 
+		//a sub-project, then there is no GDS Plan.
+		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND);
+		Assert.assertNull("GDSPlanStatus should be null when submission reason is Non NIH Fund", gdsPageStatusUtil.computeGdsPlanStatus(project));
+		
+		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NIHFUND);
+		setAsSubproject(project);
+		Assert.assertNull("GDSPlan Status should be null for subproject", gdsPageStatusUtil.computeGdsPlanStatus(project));
+		
+		//Test conditions for NOT_STARTED status
+		
+		//Not a subproject, and no data entered, so status should denote not started
+		project.setParent(null);
+		project.setParentProjectId(null);
+		Assert.assertEquals("GDSPlan Status should be Not Started when there is no data", ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED, gdsPageStatusUtil.computeGdsPlanStatus(project));
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testComputeIcListStatus() {
+		System.out.println("Starting junit for testComputeIcListStatus");
+		GdsPageStatusUtil gdsPageStatusUtil = GdsPageStatusUtil.getInstance();
+		
+		//Initial setup
+		Project project = new Project();
+		project.setId(2L);
+		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NIHFUND);
+		
+		//Test conditions for NULL status (No IC Page)
+		PlanQuestionsAnswer answer = new PlanQuestionsAnswer();
+		answer.setId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID);
+		PlanAnswerSelection selection = new PlanAnswerSelection(1L, answer, "JUnit");
+		project.addPlanAnswerSelection(selection);
+		Assert.assertNull("ICList Status should be null if Non Human option is selected", gdsPageStatusUtil.computeIcListStatus(project));
+		
+		project.removePlanAnswerSelection(selection.getId());
+		answer.setId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID);
+		selection.setPlanQuestionsAnswer(answer);
+		project.addPlanAnswerSelection(selection);
+		Assert.assertNull("ICList Status should be null if f the answer to 'Will there be any data submitted' is 'No'", gdsPageStatusUtil.computeIcListStatus(project));
+		
+		setAsSubproject(project);
+		project.removePlanAnswerSelection(answer.getId());
+		answer.setId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID);
+		selection.setPlanQuestionsAnswer(answer);
+		project.getParent().addPlanAnswerSelection(selection);
+		Assert.assertNull("ICList Status should be null for subprojects whose parent has Non Human option selected", gdsPageStatusUtil.computeIcListStatus(project));
+		
+	}
+	
+	@Test
+	@Transactional
+	public void computeBsiStudyInfoStatusTest() {
+		System.out.println("Starting junit for testComputeIcListStatus");
+		GdsPageStatusUtil gdsPageStatusUtil = GdsPageStatusUtil.getInstance();
+		
+		//Initial setup
+		Project project = new Project();
+		project.setId(2L);
+		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NIHFUND);
+		
+		//Test conditions for Null status  - NO BSI
+		PlanQuestionsAnswer answer = new PlanQuestionsAnswer();
+		answer.setId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID);
+		PlanAnswerSelection selection = new PlanAnswerSelection(1L, answer, "JUnit");
+		project.addPlanAnswerSelection(selection);
+		Assert.assertNull("BSIStudyInfo Status should be null If the answer to 'Will there be any data submitted' is 'No'", gdsPageStatusUtil.computeBsiStudyInfoStatus(project));
+		
+	}
+	
+	private void setAsSubproject(Project project) {
+		Project parent = new Project();
+		parent.setId(1L);
+		project.setParent(parent);
+		project.setParentProjectId(parent.getId());
+		project.setSubprojectFlag(ApplicationConstants.FLAG_YES);
+	}
+	
+	/**
+	 * Returns the status of the GDSPlan page if present.
+	 * Else returns null
+	 * 
+	 * @param project
+	 * @return String The status if present
+	 */
+	/*public String computeGdsPlanStatus(Project project) {
+		
+		if(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(project.getSubmissionReasonId())
+				|| project.getParentProjectId() != null) {
+			//If submission reason is non-NIH funded OR this is 
+			//a sub-project, then there is no GDS Plan.
+			return null;
+		}
+		
+		//No data has been entered
+		if(StringUtils.isBlank(project.getPlanComments()) && 
+			CollectionUtils.isEmpty(project.getPlanAnswerSelections())) {
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		}
+		
+		Long submissionReasonId = project.getSubmissionReasonId();
+		List<Document> exceptionMemo = 
+			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_EXCEPMEMO, project.getId());
+			
+		List<Document> gdsPlan = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, project.getId());
+				
+		if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
+				 || ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.equals(submissionReasonId)) {
+		
+			//Data sharing exception request not indicated, OR Data sharing exception requested  
+			//but not yet approved OR data sharing exception approved but memo not loaded
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID))
+				|| 
+				(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_YES_ID) != null
+					&& (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_PENDING_ID) != null
+						|| CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID))))
+				||
+				(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_YES_ID) != null
+					&& (CollectionUtils.isEmpty(exceptionMemo) || CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)))
+						)){
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+			
+			//Data Sharing Plan not loaded or not reviewed
+			if(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.equals(submissionReasonId)
+					&& 
+					(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) != null
+					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null 
+					)) {
+				if(CollectionUtils.isEmpty(gdsPlan) || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_GPA_REVIEWED_YES_ID) == null) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
+			}
+		}		
+		
+		//Exception not requested, or requested but not approved, or requested
+		//and approved but still data needs to be submitted
+		if(ApplicationConstants.SUBMISSION_REASON_NIHFUND.equals(submissionReasonId)
+				 || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(submissionReasonId)
+				 || (project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
+			|| 	project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_NO_ID) != null
+			||	project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null)) {
+					
+			if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_ID))
+					|| CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_TYPE_ID)) 
+					|| CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_ID))
+					|| CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID)))  {
+				
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;			
+			}
+		}	
+
+		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+	}*/
+	
+	
+	/**
+	 * Returns the status of the IC List page if present.
+	 * Else returns null.
+	 * 
+	 * @param project
+	 * @return String The status if present
+	 */
+	/*public String computeIcListStatus(Project project) {
+		
+		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
+		
+		//If user selects "Non-human" only,
+		//OR if the answer to "Will there be any data submitted?" is No.
+		//there is no IC
+		if((project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
+			 project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) != null)
+			||
+			(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null)) {
+			return null;
+		}
+		
+		if(ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
+			Project parentProject=manageProjectService.findById(project.getParentProjectId());
+			if((parentProject.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID) == null &&
+					parentProject.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) != null)) {
+					return null;
+				}
+		}
+		// If user selects ONLY the "Other" repository in the "What repository will the data be submitted to?" question GDS plan page, 
+		// there is no IC
+		Set<PlanAnswerSelection> repoSet = project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID);
+		if(!CollectionUtils.isEmpty(repoSet) && repoSet.size() == 1) {
+			PlanAnswerSelection repo = repoSet.iterator().next();
+			if(repo.getPlanQuestionsAnswer().getId().longValue() == ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_OTHER_ID.longValue()) {
+				return null;
+			}
+		}
+		
+		if(CollectionUtils.isEmpty(icList)) {
+			if(ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
+				if(StringUtils.isEmpty(project.getCertificationCompleteFlag())) {
+					return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+				} else {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}		
+			} else{
+				return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+			}
+		}
+			
+		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())) { 
+			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		}
+		
+		//There is at least one IC and IC certification flag says done. So proceed to
+		//check if the ICs are all ok.This check is only for projects
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
+		for(InstitutionalCertification ic: icList) {
+			if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+		}
+		}
+			
+		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+	}*/
+	
+	
+	/**
+	 * Returns the status of the BSI Study Info page if present.
+	 * Else returns null.
+	 * 
+	 * @param project
+	 * @return String The status if present.
+	 */
+	/*public String computeBsiStudyInfoStatus(Project project) {
+		
+		//If the answer to "Will there be any data submitted?" is No, 
+		//there is no BSI
+		if(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
+			return null;
+		}
+		
+		List<Document> docs = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, project.getId());
+		
+		if(project.getBsiReviewedId() == null
+				&& StringUtils.isBlank(project.getBsiComments()) 
+				&& CollectionUtils.isEmpty(docs)) {
+			//If no data has been entered
+			if(!ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
+			 if(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(project.getSubmissionReasonId())) {
+				 if(CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
+				 return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+				 } else {
+					 return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				 }
+			 }
+			}
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		}  
+		else if(ApplicationConstants.BSI_NA.equals(project.getBsiReviewedId()) && !project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
+			return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		}
+		else {
+			//If GPA has not reviewed or GPA has reviewed but no document has been uploaded
+			if(ApplicationConstants.BSI_NO.equals(project.getBsiReviewedId())
+					|| (ApplicationConstants.BSI_YES.equals(project.getBsiReviewedId())
+							&& CollectionUtils.isEmpty(docs)) || (project.getBsiReviewedId() == null && !CollectionUtils.isEmpty(docs))) {
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			} else if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag()) && project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) && CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+		}
+		
+		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+	}*/
+
+	/**
+	 * Returns the status of the Repository Status page if present.
+	 * Else returns null.
+	 * 
+	 * @param project
+	 * @return String The status if present.
+	 */
+	/*public String computeRepositoryStatus(Project project) {
+		
+		// If there are no repositories selected, status should be not started.
+		if (project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).isEmpty()) {
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		}
+		
+		List<RepositoryStatus> repositoryStatuses1 = new ArrayList<RepositoryStatus>();
+		for(PlanAnswerSelection selection: project.getPlanAnswerSelections()) {
+			for(RepositoryStatus repositoryStatus : selection.getRepositoryStatuses()){
+				if(project.getId() == repositoryStatus.getProject().getId()) 
+				//if(repositoryStatus.getProject().getId() == project.getId())
+					repositoryStatuses1.add(repositoryStatus);
+			}		
+		}
+		
+		String status = ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		
+		List<RepositoryStatus> repositoryStatuses = repositoryStatuses1;
+		for(RepositoryStatus repoStatus: repositoryStatuses) {
+			
+			Lookup registrationStatus = repoStatus.getLookupTByRegistrationStatusId();
+			Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
+			Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
+			
+			if(ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID.equals(registrationStatus.getId())) {
+				//No need to check this repository further, since the submission status
+				//and study released fields will be disabled in this case
+				if(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equals(status)) {
+					//If previous repository is in complete status, then we are now
+					//in in-progress state
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
+				continue;
+			}
+			
+			//If we get here, then the page status is either in progress or completed.
+			//Check in progress first
+			
+			//Registration Status In Progress, OR Submission Status Not Started or In Progress  
+			//OR Study Released is No.
+			if(ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID.equals(registrationStatus.getId())
+			||	(ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID.equals(submissionStatus.getId())
+				|| ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID.equals(submissionStatus.getId())) 
+			|| (ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId()))) {
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+			
+			//Neither not started, nor in in-progress status.Hence, completed
+			status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+			
+		}
+		
+		if(project.getAnticipatedSubmissionDate() != null &&
+				ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED.equals(status)) {
+			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		}
+		
+		return status;
+	}*/
+	
+	
+	
+
+}

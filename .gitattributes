@@ -1115,3 +1115,4 @@ test/gov/nih/nci/cbiit/scimgmt/gds/applicationContext.xml -text
 test/gov/nih/nci/cbiit/scimgmt/gds/ehcache.xml -text
 test/gov/nih/nci/cbiit/scimgmt/gds/junit/HibernateMappingTest.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/junit/applicationContext.xml -text
+test/gov/nih/nci/cbiit/scimgmt/gds/util/GdsPageStatusUtilTest.java -text

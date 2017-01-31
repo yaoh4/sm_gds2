@@ -29,6 +29,7 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Formula;
+import org.springframework.util.CollectionUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 
@@ -92,10 +93,9 @@ public class Project implements java.io.Serializable {
 	public Project() {
 	}
 
-	public Project(Long id, String projectIdentifierNum, Long versionNum,
+	public Project(Long id, Long versionNum,
 		 String createdBy) {
 		this.id = id;
-		this.projectIdentifierNum = projectIdentifierNum;
 		this.versionNum = versionNum;
 		this.createdBy = createdBy;
 	}
@@ -517,6 +517,23 @@ public class Project implements java.io.Serializable {
 
 	public void setPlanAnswerSelections(Set<PlanAnswerSelection> planAnswerSelections) {
 		this.planAnswerSelections = planAnswerSelections;
+	}
+	
+	
+	public void addPlanAnswerSelection(PlanAnswerSelection answer) {
+		this.planAnswerSelections.add(answer);
+	}
+	
+	public void removePlanAnswerSelection(Long id) {
+		if(!CollectionUtils.isEmpty(planAnswerSelections)) {
+			for(PlanAnswerSelection answer: planAnswerSelections) {
+				if(answer.getId().equals(id)) {
+					this.planAnswerSelections.remove(answer);
+					return;
+				}
+			}
+			
+		}
 	}
 	
 
