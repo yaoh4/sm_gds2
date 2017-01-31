@@ -1191,19 +1191,22 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					} else {
 						   this.addActionError(getText("intramural.primarycontact.email.required")); 
 					}
-				} else {
-					final String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-					final Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-					final Matcher matcher = pattern.matcher(projectGrantContract.getPocEmailAddress());
-					if (!matcher.matches()) {
-						if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(projectGrantContract.getGrantContractType())) {
-						this.addActionError(getText("primarycontact.email.malformed"));
-					} else {
-						this.addActionError(getText("intramural.primarycontact.email.malformed"));
-						}
-					}
-		     	}
+				} 
 			}
+			
+			if(!StringUtils.isBlank(projectGrantContract.getPocEmailAddress())){
+				final String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+				final Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+				final Matcher matcher = pattern.matcher(projectGrantContract.getPocEmailAddress());
+				if (!matcher.matches()) {
+					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(projectGrantContract.getGrantContractType())) {
+					this.addActionError(getText("primarycontact.email.malformed"));
+				} else {
+					this.addActionError(getText("intramural.primarycontact.email.malformed"));
+					}
+				}
+			}
+			
 		}
 	}
 
