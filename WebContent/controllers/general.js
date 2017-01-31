@@ -147,7 +147,7 @@ function openGrantsContractsSearchPage(searchType, grantContractIdPrefix) {
 	var grantNumber = $("#" + grantContractIdPrefix + "_grantsContractNum").val();
 	if(grantNumber !== null && $.trim(grantNumber) != '') {
 		$("#grantSearch").val(grantNumber);
-		searchGrants.click();
+		$( "#searchGrants" ).click();	
 	} else {
 		$("#grantSearch").focus();	
 		//If user hits Enter key : 
