@@ -287,14 +287,16 @@ public class IcSubmissionAction extends ManageSubmission {
 				Iterator<StudiesDulSet> dulSetsIterator = dulSets.iterator();		
 				while(dulSetsIterator.hasNext()) {
 					StudiesDulSet dulSet = dulSetsIterator.next();
-					int dulSetIndex = Long.valueOf(dulSet.getDisplayId()).intValue();
-					String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
+					
 					if(dulSet == null || StringUtils.isBlank(dulSet.getDisplayId())) {
 						//This means that the DulSet was deleted by the user
 						//hence correspondingly remove it from our data structure
 						dulSetsIterator.remove();
 						continue;
 					}
+					
+					int dulSetIndex = Long.valueOf(dulSet.getDisplayId()).intValue();
+					String [] parentDulId = ServletActionContext.getRequest().getParameterValues("parentDul-" + studyIndex + "-" + dulSetIndex);
 					
 					if(dulSet.getId() == null || dulSet.getId().toString().isEmpty()) {
 						dulSet.setCreatedBy(loggedOnUser.getAdUserId());
