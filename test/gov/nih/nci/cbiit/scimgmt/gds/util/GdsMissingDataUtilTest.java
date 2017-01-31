@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -59,9 +60,9 @@ public class GdsMissingDataUtilTest {
    	
    	@Test
 	@Transactional
-	public void testGetMissingGdsPlanData(){
+	public void getMissingGdsPlanDataTest(){
    		
-   		System.out.println("Starting junit for testGetMissingGdsPlanData");
+   		System.out.println("Starting junit for getMissingGdsPlanDataTest");
 		GdsMissingDataUtil gdsMissingDataUtil = GdsMissingDataUtil.getInstance();
 		
 		//Initial setup
@@ -102,9 +103,9 @@ public class GdsMissingDataUtilTest {
    	
    	@Test
 	@Transactional
-	public void testGetMissingIcListData() {
+	public void getMissingIcListDataTest() {
    		
-   		System.out.println("Starting junit for testGetMissingIcListData");
+   		System.out.println("Starting junit for getMissingIcListDataTest");
 		GdsMissingDataUtil gdsMissingDataUtil = GdsMissingDataUtil.getInstance();
 		
 		//Initial setup
@@ -139,9 +140,9 @@ public class GdsMissingDataUtilTest {
    	
    	@Test
 	@Transactional
-	public void testGetMissingBsiData() {
+	public void getMissingBsiDataTest() {
    		
-   		System.out.println("Starting junit for testGetMissingBsiData");
+   		System.out.println("Starting junit for getMissingBsiDataTest");
    		GdsMissingDataUtil gdsMissingDataUtil = GdsMissingDataUtil.getInstance();
 		
 		//Initial setup
@@ -151,20 +152,53 @@ public class GdsMissingDataUtilTest {
 		//If the BSI reviewed flag is "no"
 		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NIHFUND);
 		project.setBsiReviewedId(ApplicationConstants.BSI_NO);
-		String text="BSI Reviewed flag must be 'Yes'.";
+		String text = "BSI Reviewed flag must be 'Yes'.";
 		Assert.assertEquals(text,gdsMissingDataUtil.getMissingBsiData(project).get(0).getDisplayText());
 		
 		// If submission reason id is non-nih funded and bsi reviewed flag is "NA"
 		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND);
 		project.setBsiReviewedId(ApplicationConstants.BSI_NA);
-		String data="The question 'What repository will the data be submitted to ?' has not been answered.";
-		Assert.assertEquals(data,gdsMissingDataUtil.getMissingBsiData(project).get(0).getDisplayText());
+		text = "The question 'What repository will the data be submitted to ?' has not been answered.";
+		Assert.assertEquals(text,gdsMissingDataUtil.getMissingBsiData(project).get(0).getDisplayText());
    	}
    	
+   	@Test
+	@Transactional
+	public void getMissingRepositoryListDataTest() {
+   		
+   		System.out.println("Starting junit for getMissingRepositoryListDataTest");
+   		GdsMissingDataUtil gdsMissingDataUtil = GdsMissingDataUtil.getInstance();
+		
+		//Initial setup
+		Project project = new Project();
+		project.setId(2L);
+		
+		// when submission reason is non-nih funded and no repositories are selected for a parent project
+		project.setSubprojectFlag(ApplicationConstants.FLAG_NO);
+		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND);
+		project.setRepoCount(Long.valueOf(0));
+		String data = "To track the Submission Status of the repositories for this submission, please select the applicable repositories on the Basic Study Information page";
+		Assert.assertEquals(data,gdsMissingDataUtil.getMissingRepositoryListData(project).get(0).getDisplayText());
+		
+		// when submission reason id is not non-nih funded and no repositories are selected
+		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NIHFUND);
+		data = "To track the Submission Status of the repositories for this submission, please select the applicable repositories on the Genomic Data Sharing page";
+		Assert.assertEquals(data,gdsMissingDataUtil.getMissingRepositoryListData(project).get(0).getDisplayText());
+		
+		// For a sub-project with no repositories selected on parent
+		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NIHFUND);
+		Project subProject=new Project();
+		subProject.setId(3L);
+		subProject.setParent(project);
+		subProject.setParentProjectId(project.getId());
+		subProject.setSubprojectFlag(ApplicationConstants.FLAG_YES);
+		data = "Select the applicable repositories on the Parent Project to track the Submission Status of the repositories for this submission.";
+		//Assert.assertEquals(data,gdsMissingDataUtil.getMissingRepositoryListData(subProject).get(0).getDisplayText());
+   	}
    	
    	private void setAsSubproject(Project project) {
 		Project parent = new Project();
-		parent.setId(2L);
+		parent.setId(1L);
 		project.setParent(parent);
 		project.setParentProjectId(parent.getId());
 		project.setSubprojectFlag(ApplicationConstants.FLAG_YES);

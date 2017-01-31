@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.Date;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.StringUtils;
@@ -139,6 +140,22 @@ public class GdsPageStatusUtilTest {
 		project.addPlanAnswerSelection(selection);
 		Assert.assertNull("BSIStudyInfo Status should be null If the answer to 'Will there be any data submitted' is 'No'", gdsPageStatusUtil.computeBsiStudyInfoStatus(project));
 		
+	}
+	
+	@Test
+	@Transactional
+	public void computeRepositoryStatusTest() {
+		
+		System.out.println("Starting junit for computeRepositoryStatusTest");
+		GdsPageStatusUtil gdsPageStatusUtil = GdsPageStatusUtil.getInstance();
+		
+		//Initial setup
+		Project project = new Project();
+		project.setId(2L);
+		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NIHFUND);
+		
+		// when no repositories are selected, the status is NOT STARTED 
+		Assert.assertEquals(ApplicationConstants.NOT_STARTED, gdsPageStatusUtil.computeRepositoryStatus(project));	
 	}
 	
 	private void setAsSubproject(Project project) {
