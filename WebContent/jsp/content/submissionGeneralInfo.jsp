@@ -389,7 +389,7 @@
 										
 							<label for="Additional_Grants"><i
 								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Are there any additional Grants or Contracts associated with the submission?</label>
-								&nbsp;<a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+								&nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
 			                    style="font-size: 12px;"><s:hidden id="ADDITIONAL_GRANTS" value="%{getHelpText('ADDITIONAL_GRANTS')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 								 <s:radio  name="grantsAdditional" class="grants" list="#{'Y':'Yes','N':'No'}" template="radiomap-div.ftl"/>
 

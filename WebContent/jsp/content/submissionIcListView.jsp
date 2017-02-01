@@ -155,7 +155,11 @@
                                                        <td><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
                                                      </s:if>
                                                    </tr>
-                                                    
+                                                    <s:if test="%{#study.comments != null}">
+                                                       <tr><td colspan="4" align="left" valign="top">&nbsp;</td></tr>
+                                                       <tr><td colspan="6" class="question">Comments:</td></tr>
+                                                       <tr><td colspan="6">${study.comments}</td></tr>
+                                                    </s:if>
                                                         
                                                              
                                                    <s:if test="%{project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets.size > 0}">
