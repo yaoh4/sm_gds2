@@ -49,7 +49,7 @@ public class UserRoleDao {
 		try {
 			sess = sessionFactory.getCurrentSession();
 			final Criteria criteria = sess.createCriteria(NedPerson.class);
-			criteria.add(Restrictions.ilike("adUserId", userId, MatchMode.EXACT));
+			criteria.add(Restrictions.eq("adUserId", userId));
 			return (NedPerson) criteria.uniqueResult();
 			
 		} catch (Throwable re) {
@@ -65,12 +65,32 @@ public class UserRoleDao {
 		try {
 			sess = sessionFactory.getCurrentSession();
 			final Criteria criteria = sess.createCriteria(UserRole.class);
-			criteria.add(Restrictions.ilike("nihNetworkId", userId, MatchMode.EXACT));
+			criteria.add(Restrictions.eq("nihNetworkId", userId));
 			return (UserRole) criteria.uniqueResult();
 			
 			
 		} catch (Throwable re) {
 			logger.error("Exception occurred while finding UserRole by userId: "+userId, re);
+			throw re;
+		}
+	}
+	
+	
+	/**
+	 * Gets the PersonRole by nihNetworkId
+	 * 
+	 * @param networkId
+	 * @return
+	 */
+	public PersonRole findPersonRole(String networkId) {
+		logger.debug("getting PersonRole instance with networkId: " + networkId);
+		try {
+			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonRole.class);
+			criteria.add(Restrictions.eq("nihNetworkId", networkId));
+			 PersonRole personRole = (PersonRole) criteria.uniqueResult();
+			return personRole;
+		} catch (RuntimeException re) {
+			logger.error("Unable to find PersonRole by nihNetworkId " + networkId, re);
 			throw re;
 		}
 	}
@@ -212,24 +232,5 @@ public class UserRoleDao {
 		}
 	}
 	
-	
-	/**
-	 * Gets the PersonRole by nihNetworkId
-	 * 
-	 * @param networkId
-	 * @return
-	 */
-	public PersonRole findPersonRole(String networkId) {
-		logger.debug("getting PersonRole instance with networkId: " + networkId);
-		try {
-			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonRole.class);
-			criteria.add(Restrictions.eq("nihNetworkId", networkId));
-			 PersonRole personRole = (PersonRole) criteria.uniqueResult();
-			return personRole;
-		} catch (RuntimeException re) {
-			logger.error("Unable to find PersonRole by nihNetworkId " + networkId, re);
-			throw re;
-		}
-	}
 	
 }
