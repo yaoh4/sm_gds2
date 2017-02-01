@@ -216,21 +216,21 @@
                     
 					<div class="row">
 						<div class="col-xs-5 has-feedback">
-							<label for="First Name of Primary Contact">First
-								Name of Primary Contact</label> 
+							<label for="First Name of Secondary Contact">First
+								Name of Secondary Contact</label> 
 								<s:textfield name="extramuralGrant.pocFirstName" cssClass="form-control" id="extramural_fnPC" placeholder="Required if No Principal Investigator" value="%{extramuralGrant.pocFirstName}" maxLength="30"/>								
 						</div>
 						<div class="col-xs-5 has-feedback">
-							<label for="Last Name of Primary Contact">Last Name of
-								Primary Contact</label> 
+							<label for="Last Name of Secondary Contact">Last Name of
+								Secondary Contact</label> 
 								<s:textfield name="extramuralGrant.pocLastName" cssClass="form-control" id="extramural_lnPC" placeholder="Required if No Principal Investigator" value="%{extramuralGrant.pocLastName}" maxLength="30"/>								
 						</div>
 					</div>
 
 					<div class="row has-feedback">
 						<div class="col-xs-6">
-							<label for="Email of Principal Investigator">Email of
-								Primary Contact</label>
+							<label for="Email of Secondary Contact">Email of
+								Secondary Contact</label>
 						<s:textfield name="extramuralGrant.pocEmailAddress" cssClass="form-control" id="extramural_PCemail" placeholder="Enter Vaild Email Address" data-error="Email address is invalid" value="%{extramuralGrant.pocEmailAddress}" maxLength="80"/>								
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>
@@ -359,21 +359,21 @@
                     
 					<div class="row">
 						<div class="col-xs-5 has-feedback">
-							<label for="First Name of Primary Contact">First
-								Name of Primary Contact</label> 
+							<label for="First Name of Secondary Contact">First
+								Name of Secondary Contact</label> 
 								<s:textfield name="intramuralGrant.pocFirstName" cssClass="form-control" id="intramural_fnPC" placeholder="Required if No Principal Investigator" value="%{intramuralGrant.pocFirstName}" maxLength="30"/>								
 						</div>
 						<div class="form-group col-xs-5 has-feedback">
-							<label for="Last Name of Primary Contact">Last Name of
-								Primary Contact</label> 
+							<label for="Last Name of Secondary Contact">Last Name of
+								Secondary Contact</label> 
 								<s:textfield name="intramuralGrant.pocLastName" cssClass="form-control" id="intramural_lnPC" placeholder="Required if No Principal Investigator" value="%{intramuralGrant.pocLastName}" maxLength="30"/>								
 						</div>
 					</div>
 
 					<div class="row has-feedback">
 						<div class="col-xs-6">
-							<label for="Email of Principal Investigator">Email of
-								Primary Contact</label>
+							<label for="Email of Secondary Contact">Email of
+								Secondary Contact</label>
 						<s:textfield name="intramuralGrant.pocEmailAddress" cssClass="form-control" id="intramural_PCemail" placeholder="Enter Vaild Email Address" data-error="Email address is invalid" value="%{intramuralGrant.pocEmailAddress}" maxLength="80"/>								
 						</div>
 						<div class="help-block with-errors" style="margin-left: 15px"></div>

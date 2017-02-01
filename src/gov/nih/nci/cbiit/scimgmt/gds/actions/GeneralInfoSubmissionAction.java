@@ -1159,25 +1159,25 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName())){
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
-					       this.addActionError(getText("primarycontact.required")); 
+					       this.addActionError(getText("secondarycontact.required")); 
 					} else {
-						   this.addActionError(getText("intramural.primarycontact.required")); 
+						   this.addActionError(getText("intramural.secondarycontact.required")); 
 					}
 				}
 				else if(!StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName())){
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
-					       this.addActionError(getText("primarycontact.lastname.required")); 
+					       this.addActionError(getText("secondarycontact.lastname.required")); 
 					} else {
-						   this.addActionError(getText("intramural.primarycontact.lastname.required")); 
+						   this.addActionError(getText("intramural.secondarycontact.lastname.required")); 
 					}
 				}
 				else if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && !StringUtils.isBlank(projectGrantContract.getPocLastName())){
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
-					       this.addActionError(getText("primarycontact.firstname.required")); 
+					       this.addActionError(getText("secondarycontact.firstname.required")); 
 					} else {
-						   this.addActionError(getText("intramural.primarycontact.firstname.required")); 
+						   this.addActionError(getText("intramural.secondarycontact.firstname.required")); 
 					}
 				}
 			  		
@@ -1187,9 +1187,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					&& (StringUtils.isBlank(projectGrantContract.getPocEmailAddress()))) {
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
-				           this.addActionError(getText("primarycontact.email.required")); 
+				           this.addActionError(getText("secondarycontact.email.required")); 
 					} else {
-						   this.addActionError(getText("intramural.primarycontact.email.required")); 
+						   this.addActionError(getText("intramural.secondarycontact.email.required")); 
 					}
 				} 
 			}
@@ -1200,9 +1200,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				final Matcher matcher = pattern.matcher(projectGrantContract.getPocEmailAddress());
 				if (!matcher.matches()) {
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(projectGrantContract.getGrantContractType())) {
-					this.addActionError(getText("primarycontact.email.malformed"));
+					this.addActionError(getText("secondarycontact.email.malformed"));
 				} else {
-					this.addActionError(getText("intramural.primarycontact.email.malformed"));
+					this.addActionError(getText("intramural.secondarycontact.email.malformed"));
 					}
 				}
 			}
