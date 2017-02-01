@@ -97,7 +97,7 @@
 					<div id="pBranch">
 						<div class="col-xs-6">
 							<label for="Program Branch"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Branch/Program/Laboratory</label> 
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Branch/Program/Laboratory under which the submission is being created</label> 
 								<s:if test="project.parentProjectId==null">
 								<s:select id="programBranch" cssClass="c-select form-control" name="project.programBranch" list="progList" listKey="optionKey" listValue="optionValue"  value="%{project.programBranch}"/>	
 				
