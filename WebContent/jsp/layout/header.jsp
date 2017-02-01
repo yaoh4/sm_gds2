@@ -19,7 +19,7 @@
 				    <div
 				  	    style="float: right; padding-top: 15px; padding-bottom: 15px;"
 					    >
-					    <div class="nav navbar-nav" style="display:inline-block;">
+					    <div style="display:inline-block;">
 					  	    Welcome:
 						    <div id="loginID" class="login">
 							    <s:if test="loggedOnUser.lastName != null">
@@ -34,9 +34,10 @@
 					    <div style="display:inline-block; margin-right: 10px;">
 					        <img src="<s:url value="/images/version-divider.gif" />" alt="">
 					        &nbsp;&nbsp;&nbsp;Version: <span class="question" style="font-size: 14px;">${version}</span>
+					    	&nbsp;&nbsp;&nbsp;<img src="<s:url value="/images/version-divider.gif" />" alt="">
 					    </div>
-				   <img src="<s:url value="/images/version-divider.gif" />" alt="">
-				  <div id="popup_nav" style="clear:right; display:inline-block; margin-left: 10px;">
+				   
+				 <div id="popup_nav" style="clear:right; display:inline-block; margin-left: 10px;">
 				   	
 				    <ul>
 				      <li>
