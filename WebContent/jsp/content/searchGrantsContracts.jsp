@@ -34,7 +34,9 @@
 
 			<!--  Search grants -->
 			<div class="searchLabel">
-              <label for="Intramural (Z01)/Grant/Contract #">Grant/Intramural/Contract #</label>
+              <label for="Intramural (Z01)/Grant/Contract #">Grant/Intramural/Contract #</label>&nbsp;
+              <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+			  style="font-size: 12px;"><s:hidden id="GRANTS_SEARCH" value="%{getHelpText('GRANTS_SEARCH')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
             </div>
             <div class="searchFormat">
               <input type="text" class="form-control" id="grantSearch" size="30" maxlength="271" placeholder="Use Correct Format from Examples Above"
