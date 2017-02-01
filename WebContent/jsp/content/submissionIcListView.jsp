@@ -149,9 +149,9 @@
                                                    <tr>
                                                      <td><span class="question">Study Name: </span>${study.studyName}</td>
                                                      <s:if test="%{#study.institution != null}">
-                                                       <td><span class="question">Institution: </span>${study.institution}</td>
+                                                       <td><span class="question">Institution(s): </span>${study.institution}</td>
                                                      </s:if>
-                                                      <s:if test="%{study.dulverificationId != null}">
+                                                      <s:if test="%{getLookupDisplayNamebyId(#study.dulVerificationId) != null}">
                                                        <td><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
                                                      </s:if>
                                                    </tr>
