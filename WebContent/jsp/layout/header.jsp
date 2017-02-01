@@ -36,7 +36,10 @@
 					        &nbsp;&nbsp;&nbsp;Version: <span class="question" style="font-size: 14px;">${version}</span>
 					    	&nbsp;&nbsp;&nbsp;<img src="<s:url value="/images/version-divider.gif" />" alt="">
 					    </div>
-				   
+				        <div style="display:inline-block; margin-right: 10px;">
+					        &nbsp;&nbsp;<a href="/documentation/application/GDSTrackingSystemQuickReferenceGuide.pdf" target="_blank">Quick Reference Guide</a>
+					        &nbsp;&nbsp;&nbsp;<img src="<s:url value="/images/version-divider.gif" />" alt="">
+					    </div>
 				 <div id="popup_nav" style="clear:right; display:inline-block; margin-left: 10px;">
 				   	
 				    <ul>

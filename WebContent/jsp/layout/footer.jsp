@@ -11,6 +11,8 @@
 				<div class="row">
 					<div class="large-12 small-centered columns agencies">
 						<ul>
+						    <li><a href="/documentation/application/GDSTrackingSystemQuickReferenceGuide.pdf"
+								target="_blank">Quick Reference Guide</a></li>
 							<li><a href="http://www.cancer.gov/policies/accessibility"
 								target="_blank">Accessibility</a></li>
 							<li><a href="http://www.cancer.gov/policies/disclaimer"
