@@ -311,7 +311,11 @@
 	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtilTest" haltonfailure="no" outfile="${distribution.dir}/result">		  		
 	  		  		<formatter type="plain" />
 	  		  		<formatter type="xml" />
-	  		  	</test>
+	  	</test>
+	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelperTest" haltonfailure="no" outfile="${distribution.dir}/result">		  		
+	  		  		  		<formatter type="plain" />
+	  		  		  		<formatter type="xml" />
+	  	</test>
 	  </junit>
    </target>
 
@@ -330,7 +334,10 @@
 				</test>
 				<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtilTest">	
 									<formatter type="xml" />
-								</test>
+				</test>
+				<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelperTest">	
+													<formatter type="xml" />
+				</test>
 			</junit>
 		</jacoco:coverage>
 	</target>
