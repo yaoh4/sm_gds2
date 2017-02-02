@@ -1,5 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Submission object which is used for data table result display
@@ -33,6 +35,9 @@ public class Submission implements java.io.Serializable {
 	private Long extPdNpnId;
 	private String extPdFirstName;
 	private String extPdLastName;
+	private String extPocEmailAddress;
+	private String extPocFirstName;
+	private String extPocLastName;
 	
 	private String intGrantContractNum;
 	private String intPiInstitution;
@@ -42,6 +47,12 @@ public class Submission implements java.io.Serializable {
 	private Long intPdNpnId;
 	private String intPdFirstName;
 	private String intPdLastName;
+	private String intPocEmailAddress;
+	private String intPocFirstName;
+	private String intPocLastName;
+	
+	private Date projectStartDate;
+	private Date projectEndDate;
 	
 	private Long repoCount;
 	private Long subprojectCount;
@@ -345,5 +356,85 @@ public class Submission implements java.io.Serializable {
 
 	public void setNewVersionEligibleFlag(String newVersionEligibleFlag) {
 		this.newVersionEligibleFlag = newVersionEligibleFlag;
+	}
+
+	public String getProjectStartDateString() {
+		if(projectStartDate != null){
+			SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			return df.format(projectStartDate);
+		}
+		return "";
+	}
+
+	public String getProjectEndDateString() {
+		if(projectEndDate != null){
+			SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			return df.format(projectEndDate);
+		}
+		return "";
+	}
+
+	public String getExtPocEmailAddress() {
+		return extPocEmailAddress;
+	}
+
+	public void setExtPocEmailAddress(String extPocEmailAddress) {
+		this.extPocEmailAddress = extPocEmailAddress;
+	}
+
+	public String getExtPocFirstName() {
+		return extPocFirstName;
+	}
+
+	public void setExtPocFirstName(String extPocFirstName) {
+		this.extPocFirstName = extPocFirstName;
+	}
+
+	public String getExtPocLastName() {
+		return extPocLastName;
+	}
+
+	public void setExtPocLastName(String extPocLastName) {
+		this.extPocLastName = extPocLastName;
+	}
+
+	public String getIntPocEmailAddress() {
+		return intPocEmailAddress;
+	}
+
+	public void setIntPocEmailAddress(String intPocEmailAddress) {
+		this.intPocEmailAddress = intPocEmailAddress;
+	}
+
+	public String getIntPocFirstName() {
+		return intPocFirstName;
+	}
+
+	public void setIntPocFirstName(String intPocFirstName) {
+		this.intPocFirstName = intPocFirstName;
+	}
+
+	public String getIntPocLastName() {
+		return intPocLastName;
+	}
+
+	public void setIntPocLastName(String intPocLastName) {
+		this.intPocLastName = intPocLastName;
+	}
+
+	public Date getProjectEndDate() {
+		return projectEndDate;
+	}
+
+	public void setProjectEndDate(Date projectEndDate) {
+		this.projectEndDate = projectEndDate;
+	}
+
+	public Date getProjectStartDate() {
+		return projectStartDate;
+	}
+
+	public void setProjectStartDate(Date projectStartDate) {
+		this.projectStartDate = projectStartDate;
 	}
 }

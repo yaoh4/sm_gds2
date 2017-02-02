@@ -77,6 +77,13 @@ public class ProjectsVw implements java.io.Serializable {
 	
 	private String extPdEmailAddress;
 	
+	private String extPocEmailAddress;
+	private String extPocFirstName;
+	private String extPocLastName;
+	private String intPocEmailAddress;
+	private String intPocFirstName;
+	private String intPocLastName;
+	
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<ProjectsVw> subprojects = new ArrayList<ProjectsVw>();
 	
@@ -92,7 +99,11 @@ public class ProjectsVw implements java.io.Serializable {
 			String extPiLastName, Long extPdNpnId, String extPdFirstName, String extPdLastName,
 			String intGrantContractNum, String intPiInstitution, String intPiEmailAddress, String intPiFirstName,
 			String intPiLastName, Long intPdNpnId, String intPdFirstName, String intPdLastName, Long subprojectCount,
-			Long repoCount, boolean expandRepository, String createdBy, Date createdDate) {
+			Long repoCount, boolean expandRepository, String createdBy, Date createdDate,
+			Date anticipatedSubmissionDate, Date budgetEndDate, Date projectStartDate, Date projectEndDate,
+			String extPdEmailAddress, String extPocEmailAddress, String extPocFirstName, String extPocLastName,
+			String intPocEmailAddress, String intPocFirstName, String intPocLastName, Date projectPeriodStartDate,
+			Date projectPeriodEndDate) {
 		this.id = id;
 		this.docAbbreviation = docAbbreviation;
 		this.parentAccessionNum = parentAccessionNum;
@@ -131,6 +142,17 @@ public class ProjectsVw implements java.io.Serializable {
 		this.expandRepository = expandRepository;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
+		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
+		this.budgetEndDate = budgetEndDate;
+		this.projectStartDate = projectStartDate;
+		this.projectEndDate = projectEndDate;
+		this.extPdEmailAddress = extPdEmailAddress;
+		this.extPocEmailAddress = extPocEmailAddress;
+		this.extPocFirstName = extPocFirstName;
+		this.extPocLastName = extPocLastName;
+		this.intPocEmailAddress = intPocEmailAddress;
+		this.intPocFirstName = intPocFirstName;
+		this.intPocLastName = intPocLastName;
 	}
 
 	@Id
@@ -687,4 +709,59 @@ public class ProjectsVw implements java.io.Serializable {
 			return "<a href='mailto:" + email + "'>" + fullName + "</a>";
 		}
 	}
+
+	@Column(name = "EXT_POC_EMAIL_ADDRESS", length = 80)
+	public String getExtPocEmailAddress() {
+		return extPocEmailAddress;
+	}
+
+	public void setExtPocEmailAddress(String extPocEmailAddress) {
+		this.extPocEmailAddress = extPocEmailAddress;
+	}
+
+	@Column(name = "EXT_POC_FIRST_NAME", length = 30)
+	public String getExtPocFirstName() {
+		return extPocFirstName;
+	}
+
+	public void setExtPocFirstName(String extPocFirstName) {
+		this.extPocFirstName = extPocFirstName;
+	}
+
+	@Column(name = "EXT_POC_LAST_NAME", length = 30)
+	public String getExtPocLastName() {
+		return extPocLastName;
+	}
+
+	public void setExtPocLastName(String extPocLastName) {
+		this.extPocLastName = extPocLastName;
+	}
+
+	@Column(name = "INT_POC_EMAIL_ADDRESS", length = 80)
+	public String getIntPocEmailAddress() {
+		return intPocEmailAddress;
+	}
+
+	public void setIntPocEmailAddress(String intPocEmailAddress) {
+		this.intPocEmailAddress = intPocEmailAddress;
+	}
+
+	@Column(name = "INT_POC_FIRST_NAME", length = 30)
+	public String getIntPocFirstName() {
+		return intPocFirstName;
+	}
+
+	public void setIntPocFirstName(String intPocFirstName) {
+		this.intPocFirstName = intPocFirstName;
+	}
+
+	@Column(name = "INT_POC_LAST_NAME", length = 30)
+	public String getIntPocLastName() {
+		return intPocLastName;
+	}
+
+	public void setIntPocLastName(String intPocLastName) {
+		this.intPocLastName = intPocLastName;
+	}
+
 }

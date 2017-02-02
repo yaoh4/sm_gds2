@@ -216,6 +216,10 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 			header.add("Grant/Intramural/Contract #");
 			header.add("Principal Investigator Name");
 			header.add("Principal Investigator Email");
+			header.add("Secondary Contact Name");
+			header.add("Secondary Contact Email");
+			header.add("Project Start Date");
+			header.add("Project End Date");
 			header.add("Genomic DSP");
 			header.add("GDSP Exception");
 			header.add("IC");
@@ -232,6 +236,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 					List<String> row = new ArrayList<>();
 					String extPiName = (submission.getExtPiLastName() == null ? "" : submission.getExtPiLastName() + ", " + submission.getExtPiFirstName());
 					String intPiName = (submission.getIntPiLastName() == null ? "" : submission.getIntPiLastName() + ", " + submission.getIntPiFirstName());
+					String extPocName = (submission.getExtPocLastName() == null ? "" : submission.getExtPocLastName() + ", " + submission.getExtPocFirstName());
+					String intPocName = (submission.getIntPocLastName() == null ? "" : submission.getIntPocLastName() + ", " + submission.getIntPocFirstName());
 					row.add(submission.getProjectSubmissionTitle());
 					row.add((StringUtils.isBlank(submission.getExtGrantContractNum()))
 						? submission.getIntGrantContractNum()
@@ -248,6 +254,18 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 							: (StringUtils.isBlank(submission.getIntPiEmailAddress()))
 									? submission.getExtPiEmailAddress()
 									: submission.getExtPiEmailAddress() + ", " + submission.getIntPiEmailAddress());
+					row.add((StringUtils.isBlank(extPocName))
+							? intPocName
+							: (StringUtils.isBlank(intPocName))
+									? extPocName
+									: extPocName + ", " + intPocName);
+					row.add((StringUtils.isBlank(submission.getExtPocEmailAddress()))
+							? submission.getIntPocEmailAddress()
+							: (StringUtils.isBlank(submission.getIntPocEmailAddress()))
+									? submission.getExtPocEmailAddress()
+									: submission.getExtPocEmailAddress() + ", " + submission.getIntPocEmailAddress());
+					row.add(submission.getProjectStartDateString());
+					row.add(submission.getProjectEndDateString());
 					row.add((StringUtils.isBlank(submission.getGdsPlanPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getGdsPlanPageStatusCode()).getDescription()));
 					row.add((StringUtils.isBlank(submission.getDataSharingExcepStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getDataSharingExcepStatusCode()).getDescription()));
 					row.add((StringUtils.isBlank(submission.getIcPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getIcPageStatusCode()).getDescription()));
