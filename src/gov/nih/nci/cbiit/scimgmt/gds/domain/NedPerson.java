@@ -511,6 +511,7 @@ public class NedPerson implements java.io.Serializable {
 		this.nihmailstop = nihmailstop;
 	}
 
+	@Id
 	@Column(name = "NIHMDSLINKTOADNIH", length = 60)
 	public String getAdUserId() {
 		return this.adUserId;
@@ -664,7 +665,6 @@ public class NedPerson implements java.io.Serializable {
 		this.nihssodomain = nihssodomain;
 	}
 
-	@Id
 	@Column(name = "NIHSSOUSERNAME", length = 60)
 	public String getNihssousername() {
 		return this.nihssousername;
@@ -932,7 +932,7 @@ public class NedPerson implements java.io.Serializable {
 	
 	@OneToOne
 	@NotFound(action = NotFoundAction.IGNORE)
-	@JoinColumn(name="NIHSSOUSERNAME", insertable = false, updatable = false)
+	@JoinColumn(name="NIHMDSLINKTOADNIH", insertable = false, updatable = false)
 	public UserRole getUserRole() {
 		return userRole;
 	}

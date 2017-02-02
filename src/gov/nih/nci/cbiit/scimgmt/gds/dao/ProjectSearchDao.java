@@ -306,9 +306,9 @@ public class ProjectSearchDao {
 		
 		// My Created Submissions
 		if(searchCriteria.getSubmissionFromId() == ApplicationConstants.SEARCH_MY_CREATED_SUBMISSIONS) {
-			parentCriteria.add(Restrictions.ilike("createdBy", loggedOnUser.getAdUserId(), MatchMode.ANYWHERE));
-			parentDetachedCriteria.add(Restrictions.ilike("createdBy", loggedOnUser.getAdUserId(), MatchMode.ANYWHERE));
-			subprojectCriteria.add(Restrictions.ilike("createdBy", loggedOnUser.getAdUserId(), MatchMode.ANYWHERE));
+			parentCriteria.add(Restrictions.eq("createdBy", loggedOnUser.getAdUserId()));
+			parentDetachedCriteria.add(Restrictions.eq("createdBy", loggedOnUser.getAdUserId()));
+			subprojectCriteria.add(Restrictions.eq("createdBy", loggedOnUser.getAdUserId()));
 		}
 		
 		// Project/Subproject Title partial search
