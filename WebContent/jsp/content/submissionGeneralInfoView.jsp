@@ -249,8 +249,10 @@
       </s:if>
       <s:if test="%{project.comments != null}">
       <tr>
-      <td style="white-space: nowrap"><strong>Comments:</strong></td>
-      <td colspan="4">${project.comments}</td>
+        <td style="white-space: nowrap"><strong>Comments:</strong></td>
+      </tr>
+      <tr>
+        <td colspan="4"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${project.comments}</textarea></td>
       </tr>
       </s:if>
     <tr>

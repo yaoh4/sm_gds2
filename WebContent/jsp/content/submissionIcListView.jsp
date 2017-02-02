@@ -30,14 +30,17 @@
               <td style="padding-left: 20px;"><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td>
             </tr>
             <s:if test="%{project.studiesComments != null}">
-            <tr>
-               <td style="white-space: nowrap">&nbsp;</td>
-               <td colspan="4">&nbsp;</td>
-            </tr>
-            <tr>
-              <td width="30%" style="white-space: nowrap"><strong>Studies awaiting Ics</strong></td>
-              <td style="padding-left: 20px;"><s:property value="%{project.studiesComments}"/></td>
-            </tr>
+              <tr>
+                <td style="white-space: nowrap">&nbsp;</td>
+                <td colspan="4">&nbsp;</td>
+              </tr>
+              <tr>
+               <tr>
+                 <td colspan="4" class="question">Studies awaiting ICs:</td>
+               </tr>           
+              <tr>  
+                <td colspan="4"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${project.studiesComments}</textarea></td>
+              </tr>
             </s:if>
             <s:if test="%{project.additionalIcComments != null}">
             <tr>
@@ -45,8 +48,11 @@
                <td colspan="4">&nbsp;</td>
             </tr>
             <tr>
-              <td width="30%" style="white-space: nowrap"><strong>Additional Comments</strong></td>
-              <td style="padding-left: 20px;"><s:property value="%{project.additionalIcComments}"/></td>
+            <tr>
+              <td colspan="4" class="question">Additional Comments:</td>
+            </tr>       
+            <tr>
+              <td colspan="4"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${project.additionalIcComments}</textarea></td>
             </tr>
             </s:if>
           </table>
@@ -123,7 +129,7 @@
                           <s:if test="%{#ic.comments != null}">
                             <tr><td colspan="6">&nbsp;</td></tr>
                             <tr><td colspan="6" class="question">Comments:</td></tr>
-                            <tr><td colspan="6">${ic.comments}</td></tr>
+                            <tr><td colspan="6"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${ic.comments}</textarea></td></tr>
 			              </s:if>
                        
                           <tr>
@@ -158,7 +164,7 @@
                                                     <s:if test="%{#study.comments != null}">
                                                        <tr><td colspan="4" align="left" valign="top">&nbsp;</td></tr>
                                                        <tr><td colspan="6" class="question">Comments:</td></tr>
-                                                       <tr><td colspan="6">${study.comments}</td></tr>
+                                                       <tr><td colspan="6"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${study.comments}</textarea></td></tr>
                                                     </s:if>
                                                         
                                                              
@@ -185,7 +191,7 @@
                                                                 <s:if test="%{#studiesDulSet.dulChecklistSelections.size > 0 && 
                                                           		  (#studiesDulSet.dulChecklistSelections.size != 1 || 
                                                           		  #studiesDulSet.dulChecklistSelections[0].dulChecklist.parentDulId != null)}">
-                                                                  :&nbsp
+                                                                  :&nbsp;
                                                                 </s:if>                                                         
                                                                 <s:iterator status="dulStat" var="dul" value="%{#studiesDulSet.dulChecklistSelections}">
                                                                   <!-- Dont show the parent DUL in the bullet list -->
@@ -197,7 +203,8 @@
                                                                   </s:if>
                                                                 </s:iterator><br>
                                                                 <s:if test="%{#studiesDulSet.comments != null}">
-                                                                 &nbsp;&nbsp;&nbsp; DUL Appendix : ${studiesDulSet.comments}
+                                                                 DUL Appendix:
+                                                                 <textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${studiesDulSet.comments}</textarea>
                                                                  </s:if>                                                         
                                                               </td>
                                                             </tr>                                                                                                                                                                            

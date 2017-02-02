@@ -176,8 +176,9 @@
                         
                         <s:if test="%{#cert.comments != null}">
                           <tr><td colspan="6">&nbsp;</td></tr>
-                          <tr><td colspan="6" class="question">Comments:</td></tr>
-                          <tr><td colspan="6">${cert.comments}</td></tr>
+                          <tr><td colspan="6" class="question">Comments:</td></tr>                    
+                          <tr><td colspan="6"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${cert.comments}</textarea></td></tr>
+			              
 			            </s:if>
 			            
                         <tr>
@@ -207,7 +208,7 @@
                                               <s:if test="%{#study.comments != null}">
                                                 <tr><td colspan="4" align="left" valign="top">&nbsp;</td></tr>
                                                 <tr><td colspan="6" class="question">Comments:</td></tr>
-                                                <tr><td colspan="6">${study.comments}</td></tr>
+                                                <tr><td colspan="6"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${study.comments}</textarea></td></tr>			              
                                               </s:if>
                                               
                                               <s:if test="%{project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets.size > 0}">
@@ -245,7 +246,8 @@
                                                             </s:if>
                                                           </s:iterator><br>
                                                           <s:if test="%{#studiesDulSet.comments != null}">
-                                                            &nbsp;&nbsp;&nbsp; DUL Appendix : ${studiesDulSet.comments}
+                                                            DUL Appendix: 
+                                                            <textarea style="width: 100%; border: 0px solid #000000; overflow: hidden; resize: none;" readonly="readonly">${studiesDulSet.comments}</textarea>			          
                                                           </s:if>
                                                         </td>
                                                       </tr>
