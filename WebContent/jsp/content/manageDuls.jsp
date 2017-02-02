@@ -74,7 +74,7 @@
                       <label for="dulAppendix">DUL Appendix</label> 
                       	<textarea class="form-control input_other" id="comments${studiesIdx}-${dulSetIdx}-${parentDul.id}"
                       	  name="comments-${studiesIdx}-${dulSetIdx}-${parentDul.id}" maxlength="2000"
-                      	  rows="2"  onkeyup="countChar(this)"></textarea>
+                      	  rows="2" placeholder="For DUL language in addition to the standard language (e.g. details for collaborative agreement, further restrictions not covered by standard language)" onkeyup="countChar(this)"></textarea>
                          <div id="charlength${studiesIdx}-${dulSetIdx}-${parentDul.id}" style="text-align: right; font-style: italic;">
 				           <span>2000</span> Character limits
 			                </div>
