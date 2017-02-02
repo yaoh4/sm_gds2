@@ -535,7 +535,7 @@ public class ManageSubmission extends BaseAction {
 		ProjectGrantContract extramuralGrantContract = project.getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
 		if(extramuralGrantContract != null) {
 			if(extramuralGrantContract.getApplId() != null && 
-				ApplicationConstants.FLAG_YES.equals(extramuralGrantContract.getDataLinkFlag())) {
+				ApplicationConstants.FLAG_YES.equals(extramuralGrantContract.getDataLinkFlag()) && !ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId())) {
 			
 				GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(extramuralGrantContract.getApplId());
 				if(grantContract != null){

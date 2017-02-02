@@ -141,12 +141,16 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * 
 	 * @throws Exception
 	 */
-	public void saveProject() throws Exception{
+	public void saveProject() throws Exception {
 		
 		// Its Optional Submission Non-NIH Funded, so don't save the DOC Abbreviation
 		if(getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
 			getProject().setDocAbbreviation("");
 			getProject().setProgramBranch("");
+			ProjectGrantContract extramuralGrant = getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
+			if(extramuralGrant!= null && StringUtils.equals(extramuralGrant.getDataLinkFlag(), "Y")) {
+				extramuralGrant.setDataLinkFlag("N");
+			}
 		}
 
 		Project project = retrieveSelectedProject();		
@@ -1029,12 +1033,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				!StringUtils.isBlank(projectGrantContract.getGrantContractNum()) && 
 				!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag())){
 			//Validation for Title
-			if(StringUtils.isBlank(projectGrantContract.getProjectTitle())){
+			if(StringUtils.isBlank(projectGrantContract.getProjectTitle()) && !ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId())){
 				this.addActionError(getText("projecttitle.required")); 
 			}
 
 			//Exclude Intramural also from the below validations
-			if(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL.equals(projectGrantContract.getGrantContractType())) {
+			if(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL.equals(projectGrantContract.getGrantContractType()) &&
+					(!ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId()))) {
 				
 				//Validation for PD first name.
 				if(StringUtils.isBlank(projectGrantContract.getPdFirstName())){
@@ -1085,7 +1090,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		//If the grant is present and the data link flag is not present, then do the validation
 		if(projectGrantContract != null && 
-				!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag())) {
+				(!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag()) || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId()))) {
 
 			//If any piece of PI info is present, look for the others
 			if(!StringUtils.isBlank(projectGrantContract.getPiFirstName()) || 
@@ -1150,7 +1155,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 
 		//If the grant is present and the data link flag is not present, then do the validation
 		if(projectGrantContract != null && 
-				!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag())) {
+				(!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag()) || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId()))) {
 		//Validation for Primary Contact. 
 			if(StringUtils.isBlank(projectGrantContract.getPiFirstName()) && 
 			   StringUtils.isBlank(projectGrantContract.getPiLastName()) &&
