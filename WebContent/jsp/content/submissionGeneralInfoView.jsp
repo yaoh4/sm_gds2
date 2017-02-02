@@ -105,6 +105,10 @@
       <td ><strong>Email:</strong></td>
       <td width="67%"><s:a href="mailto:%{extramuralGrant.piEmailAddress}?">${extramuralGrant.piEmailAddress}</s:a></td>
     </tr>
+     <tr>    
+      <td style="white-space: nowrap"><strong>Institution:</strong></td>
+      <td style="white-space: nowrap">${extramuralGrant.piInstitution}</td>
+    </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
       <td>&nbsp;</td>
