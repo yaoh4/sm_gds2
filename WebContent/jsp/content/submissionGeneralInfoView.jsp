@@ -111,7 +111,7 @@
     </tr>
     <tr>
       <s:if test="extramuralGrant.pocFirstName != null && extramuralGrant.pocLastName != null">
-      <td style="white-space: nowrap"><strong>Primary Contact: </strong></td>
+      <td style="white-space: nowrap"><strong>Secondary Contact: </strong></td>
       <td>${extramuralGrant.pocFirstName} ${extramuralGrant.pocLastName} 
       </s:if>
     </tr>
@@ -203,7 +203,7 @@
       
     <tr>
       <s:if test="intramuralGrant.pocFirstName != null && intramuralGrant.pocLastName != null">
-      <td style="white-space: nowrap"><strong>Primary Contact: </strong></td>
+      <td style="white-space: nowrap"><strong>Secondary Contact: </strong></td>
       <td>${intramuralGrant.pocFirstName} ${intramuralGrant.pocLastName} 
           </s:if>
        
