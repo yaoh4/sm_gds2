@@ -204,7 +204,9 @@
     <s:if test="%{project.planComments != null}">
 	  <tr>
 	    <td><strong>Comments:</strong></td>
-        <td style="padding-left: 20px;"> <s:property value="%{project.planComments}" /></td>
+	    </tr>
+	    <tr>
+        <td><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${project.planComments}</textarea></td>
       </tr>
       <tr>
         <td style="white-space: nowrap">&nbsp;</td>
