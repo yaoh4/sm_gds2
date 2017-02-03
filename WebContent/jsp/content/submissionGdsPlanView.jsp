@@ -201,19 +201,19 @@
         <td colspan="4">&nbsp;</td>
       </tr>
     </s:if>
-    <s:if test="%{project.planComments != null}">
+   </table>
+   <s:if test="%{project.planComments != null}">
 	  <tr>
 	    <td><strong>Comments:</strong></td>
 	    </tr>
 	    <tr>
-        <td><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${project.planComments}</textarea></td>
+        <td colspan="4"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${project.planComments}</textarea></td>
       </tr>
       <tr>
         <td style="white-space: nowrap">&nbsp;</td>
         <td colspan="4">&nbsp;</td>
       </tr>
     </s:if>
-   </table>
  </s:else>
 </div><!--end panel body-->
 </div><!--end panel-->
