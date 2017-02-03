@@ -112,3 +112,6 @@ ul.frm_readonly div input {
   background-color: #efefef;
   text-align: center;
 }
+.fixWidth{
+	width:26%;
+}
