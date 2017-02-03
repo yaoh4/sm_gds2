@@ -614,6 +614,12 @@ properties/stage/gds.properties -text
 properties/stage/log4j2.xml -text
 properties/test/gds.properties -text
 properties/test/log4j2.xml -text
+screens/IC-Demo/ICdemo.htm -text
+screens/IC-Demo/demo.css -text
+screens/IC-Demo/demo.js -text
+screens/IC-Demo/editstudydemo.htm -text
+screens/IC-Demo/findStudydemo.htm -text
+screens/IC-Demo/studydemo.htm -text
 screens/ICdemo.htm -text
 screens/ckeditor/CHANGES.md -text
 screens/ckeditor/LICENSE.md -text
