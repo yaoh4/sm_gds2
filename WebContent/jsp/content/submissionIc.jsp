@@ -78,9 +78,9 @@
                  
                 </div>
              
-                <div id="memo" class="col-xs-3">
-                  <label for="Project Submission Status">IC Memo for Use in Future Projects?</label>
-                  &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+                <div id="memo" class="col-xs-3 fixWidth">
+                   <label for="Project Submission Status">IC Memo for Use in Future Projects?</label>
+                  &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
 						 style="font-size: 12px;"><s:hidden id="IC_MEMO_KEY" value="%{getHelpText('IC_MEMO_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
                   <s:select name="instCertification.futureProjectUseCode"
                     value="instCertification.futureProjectUseCode"
