@@ -35,8 +35,14 @@
 			<!--  Search grants -->
 			<div class="searchLabel">
               <label for="Intramural (Z01)/Grant/Contract #">Grant/Intramural/Contract #</label>&nbsp;
-              <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-			  style="font-size: 12px;"><s:hidden id="GRANTS_SEARCH" value="%{getHelpText('GRANTS_SEARCH')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
+			  <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right"
+			  data-content="Based on your search criteria entered:&lt;br&gt;
+              &lt;ul&gt;&lt;li&gt;Search will retrieve latest awarded segment of Extramural Grant which have NCI designated as Primary or Secondary IC.&lt;/li&gt;
+              &lt;li&gt;Search will retrieve latest awarded Intramural project.&lt;/li&gt;
+              &lt;li&gt;Search will retrieve latest awarded Contract.&lt;/li&gt;"
+			  data-html="true" style="font-size: 12px;">
+              <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
+       
             </div>
             <div class="searchFormat">
               <input type="text" class="form-control" id="grantSearch" size="30" maxlength="271" placeholder="Use Correct Format from Examples Above"
