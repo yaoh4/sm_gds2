@@ -13,7 +13,8 @@ $(document).ready(function () {
 		
 		//if value contains otherAddText, parse out the text
 		//and set the value on the indicated text box
-		if(value.includes("comments")) {
+		//if(value.includes("comments")) {
+		if(value.indexOf("comments") > -1) {
 			var textsize = value.substr(0, value.indexOf("comments"));
 			var elemId = value.substr(textsize.length, value.length - textsize - textsize.length);
 			var text = value.substr(value.length - textsize);
@@ -26,7 +27,8 @@ $(document).ready(function () {
 				$("#" + elemId).parent().find("div").text(char + ' characters left');
 			}
 		}
-		else if(value.includes("otherAddText")) {
+		//else if(value.includes("otherAddText")) {
+		else if(value.indexOf("otherAddText") > -1) {
 			//The length of the text is available at the beginning of the value string
 			//Format is <length of text><otherAddText-x-x-x><text>
 			var textsize = value.substr(0, value.indexOf("otherAddText"));
