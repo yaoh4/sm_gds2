@@ -258,7 +258,8 @@ public class ProjectsDao {
 	}
 	
 	/**
-	 * This method returns grantContract for given applId
+	 * This method returns latest grantContract from the
+	 * segment containing the given applId
 	 * @param applId
 	 * @return
 	 */
@@ -267,7 +268,7 @@ public class ProjectsDao {
 		logger.info("Retrieving  Grant / Contract from DB for applId: "+applId);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsGrantsContracts.class);	
-			criteria.add(Restrictions.eq("applId", applId));
+			criteria.add(Restrictions.eq("lookupApplId", applId));
 			GdsGrantsContracts grantContract = (GdsGrantsContracts) criteria.uniqueResult();
 			return grantContract;
 

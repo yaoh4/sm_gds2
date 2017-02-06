@@ -45,6 +45,29 @@ public class GdsGrantsContracts {
 	private Date budgetStartDate;
 	private Date budgetEndDate;
 	
+	/**
+	 * Used to search for the latest grant in a specific
+	 * segment while displaying an existing project
+	 */
+	private String lookupApplId;
+	
+	/**
+	 * Fields for segment data 
+	 */
+	private String segGrantContractNum;
+	private String segCayCode;
+	private String segProjectTitle;
+	private String segPiFirstName;
+	private String segPiLastName;
+	private String segPiEmailAddress;
+	private String segPiInstitution;
+	private String segPdFirstName;
+	private String segPdLastName;
+	private Date segProjectPeriodStartDate;
+	private Date segProjectPeriodEndDate;
+	private String segApplClassCode;
+	
+	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	
 	public GdsGrantsContracts(){
@@ -139,7 +162,7 @@ public class GdsGrantsContracts {
 		this.activityCode = activityCode;
 	}
 	
-	@Column(name = "CAY_CODE")
+	@Column(name = "CAY_CODE", length = 8)
 	public String getCayCode() {
 		return cayCode;
 	}
@@ -309,5 +332,124 @@ public class GdsGrantsContracts {
 
 	public void setBudgetEndDate(Date budgetEndDate) {
 		this.budgetEndDate = budgetEndDate;
+	}
+
+	@Column(name = "LOOKUP_APPL_ID", length = 10)
+	public String getLookupApplId() {
+		return lookupApplId;
+	}
+
+	public void setLookupApplId(String lookupApplId) {
+		this.lookupApplId = lookupApplId;
+	}
+
+	@Column(name = "SEG_GRANT_CONTRACT_NUM", length = 19)
+	public String getSegGrantContractNum() {
+		return segGrantContractNum;
+	}
+
+	public void setSegGrantContractNum(String segGrantContractNum) {
+		this.segGrantContractNum = segGrantContractNum;
+	}
+	
+	@Column(name = "SEG_CAY_CODE", length = 8)
+	public String getSegCayCode() {
+		return segCayCode;
+	}
+
+	public void setSegCayCode(String segCayCode) {
+		this.segCayCode = segCayCode;
+	}
+
+	@Column(name = "SEG_PROJECT_TITLE", length = 200)
+	public String getSegProjectTitle() {
+		return segProjectTitle;
+	}
+
+	public void setSegProjectTitle(String segProjectTitle) {
+		this.segProjectTitle = segProjectTitle;
+	}
+
+	@Column(name = "SEG_PI_FIRST_NAME", length = 30)
+	public String getSegPiFirstName() {
+		return segPiFirstName;
+	}
+
+	public void setSegPiFirstName(String segPiFirstName) {
+		this.segPiFirstName = segPiFirstName;
+	}
+
+	@Column(name = "SEG_PI_LAST_NAME", length = 30)
+	public String getSegPiLastName() {
+		return segPiLastName;
+	}
+
+	public void setSegPiLastName(String segPiLastName) {
+		this.segPiLastName = segPiLastName;
+	}
+
+	@Column(name = "SEG_PI_EMAIL_ADDRESS", length = 80)
+	public String getSegPiEmailAddress() {
+		return segPiEmailAddress;
+	}
+
+	public void setSegPiEmailAddress(String segPiEmailAddress) {
+		this.segPiEmailAddress = segPiEmailAddress;
+	}
+
+	@Column(name = "SEG_PI_INSTITUTION", length = 120)
+	public String getSegPiInstitution() {
+		return segPiInstitution;
+	}
+
+	public void setSegPiInstitution(String segPiInstitution) {
+		this.segPiInstitution = segPiInstitution;
+	}
+
+	@Column(name = "SEG_PD_FIRST_NAME", length = 30)
+	public String getSegPdFirstName() {
+		return segPdFirstName;
+	}
+
+	public void setSegPdFirstName(String segPdFirstName) {
+		this.segPdFirstName = segPdFirstName;
+	}
+
+	@Column(name = "SEG_PD_LAST_NAME", length = 30)
+	public String getSegPdLastName() {
+		return segPdLastName;
+	}
+
+	public void setSegPdLastName(String segPdLastName) {
+		this.segPdLastName = segPdLastName;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "SEG_PROJECT_PERIOD_START_DATE", length = 7)
+	public Date getSegProjectPeriodStartDate() {
+		return segProjectPeriodStartDate;
+	}
+
+	public void setSegProjectPeriodStartDate(Date segProjectPeriodStartDate) {
+		this.segProjectPeriodStartDate = segProjectPeriodStartDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "SEG_PROJECT_PERIOD_END_DATE", length = 7)
+	public Date getSegProjectPeriodEndDate() {
+		return segProjectPeriodEndDate;
+	}
+
+	public void setSegProjectPeriodEndDate(Date segProjectPeriodEndDate) {
+		this.segProjectPeriodEndDate = segProjectPeriodEndDate;
+	}
+
+	@Column(name = "SEG_APPL_CLASS_CODE", length = 3)
+	public String getSegApplClassCode() {
+		return segApplClassCode;
+	}
+
+	public void setSegApplClassCode(String segApplClassCode) {
+		this.segApplClassCode = segApplClassCode;
 	}
 }

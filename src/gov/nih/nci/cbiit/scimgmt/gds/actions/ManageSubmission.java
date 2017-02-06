@@ -539,17 +539,18 @@ public class ManageSubmission extends BaseAction {
 			
 				GdsGrantsContracts grantContract = manageProjectService.getGrantOrContract(extramuralGrantContract.getApplId());
 				if(grantContract != null){
-					extramuralGrantContract.setProjectTitle(grantContract.getProjectTitle());
-					extramuralGrantContract.setPiFirstName(grantContract.getPiFirstName());
-					extramuralGrantContract.setPiLastName(grantContract.getPiLastName());
-					extramuralGrantContract.setPiInstitution(grantContract.getPiInstitution());
-					extramuralGrantContract.setPiEmailAddress(grantContract.getPiEmailAddress());
-					extramuralGrantContract.setPdFirstName(grantContract.getPdFirstName());
-					extramuralGrantContract.setPdLastName(grantContract.getPdLastName());
-					extramuralGrantContract.setProjectStartDate(grantContract.getProjectPeriodStartDate());
-					extramuralGrantContract.setProjectEndDate(grantContract.getProjectPeriodEndDate());
-					extramuralGrantContract.setApplClassCode(grantContract.getApplClassCode());
-					extramuralGrantContract.setCayCode(grantContract.getCayCode());
+					extramuralGrantContract.setGrantContractNum(grantContract.getSegGrantContractNum());
+					extramuralGrantContract.setProjectTitle(grantContract.getSegProjectTitle());
+					extramuralGrantContract.setPiFirstName(grantContract.getSegPiFirstName());
+					extramuralGrantContract.setPiLastName(grantContract.getSegPiLastName());
+					extramuralGrantContract.setPiInstitution(grantContract.getSegPiInstitution());
+					extramuralGrantContract.setPiEmailAddress(grantContract.getSegPiEmailAddress());
+					extramuralGrantContract.setPdFirstName(grantContract.getSegPdFirstName());
+					extramuralGrantContract.setPdLastName(grantContract.getSegPdLastName());
+					extramuralGrantContract.setProjectStartDate(grantContract.getSegProjectPeriodStartDate());
+					extramuralGrantContract.setProjectEndDate(grantContract.getSegProjectPeriodEndDate());
+					extramuralGrantContract.setApplClassCode(grantContract.getSegApplClassCode());
+					extramuralGrantContract.setCayCode(grantContract.getSegCayCode());
 				}
 			}
 			setExtramuralGrant(extramuralGrantContract);
