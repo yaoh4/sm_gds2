@@ -49,7 +49,7 @@ public class GdsGrantsContracts {
 	 * Used to search for the latest grant in a specific
 	 * segment while displaying an existing project
 	 */
-	private String lookupApplId;
+	private Long lookupApplId;
 	
 	/**
 	 * Fields for segment data 
@@ -335,11 +335,11 @@ public class GdsGrantsContracts {
 	}
 
 	@Column(name = "LOOKUP_APPL_ID", length = 10)
-	public String getLookupApplId() {
+	public Long getLookupApplId() {
 		return lookupApplId;
 	}
 
-	public void setLookupApplId(String lookupApplId) {
+	public void setLookupApplId(Long lookupApplId) {
 		this.lookupApplId = lookupApplId;
 	}
 
