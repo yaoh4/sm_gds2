@@ -503,7 +503,7 @@ public class ManageSubmission extends BaseAction {
 			} else if (file.length() == 0) {
 				errorMessage = getText("error.doc.empty");
 
-			} else if (file.length() > 15000000) {
+			} else if (file.length() > 15728640) {
 				errorMessage = getText("error.doc.size");
 
 			} else if (!"application/pdf".equals(contentType)
