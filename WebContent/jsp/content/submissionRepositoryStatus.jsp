@@ -59,9 +59,9 @@
 					</p>
 				  </s:elseif>
 					<br />
-					<div id="repositoryDate" style="width:200px;">
+					<div id="repositoryDate" style="width:205px;">
 						<s:label for="anticpated_submission_date" value="Anticipated Submission Date" />
-						&nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						&nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
 						 style="font-size: 12px;"><s:hidden id="SUB_STATUS_ANTICIPATED_KEY" value="%{getHelpText('SUB_STATUS_ANTICIPATED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
 						<div class="input-group date"> <s:textfield id="%{'anticpated_submission_date'}" name="project.anticipatedSubmissionDate"	value="%{anticipatedSubmissionDate}" disabled="isAnticipatedSubDateDisabled"
 								cssClass="form-control" />
