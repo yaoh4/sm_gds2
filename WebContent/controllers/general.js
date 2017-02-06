@@ -370,12 +370,12 @@ function refreshGrantsContractsData(){
 	if($("#extramural_grantsContractNum").val().length == 0) {
 		
 		errorResult = true;
-		errorMsg = "Please enter a Grant/Intramural/Contract #.";
+		errorMsg = "Please enter the Grant# or Contract#.";
 		
 	} else if($("#extramural_grantsContractNum").val().length < 6) {
 		
 		errorResult = true;
-		errorMsg = "Please enter a minimum of 6 characters for Grant/Intramural/Contract #.";
+		errorMsg = "Please enter a minimum of 6 characters for the Grant# or Contract#.";
 	} else {
 		
 		var grantContractNum = $("#extramural_grantsContractNum").val();
@@ -390,12 +390,12 @@ function refreshGrantsContractsData(){
 	  		if(json == null) {
 	  			
 	  			errorResult = true;
-	  			errorMsg = "No data found to link for the given Grant/Intramural/Contract #.";
+	  			errorMsg = "No data found to link to the given Grant# or Contract#.";
 	  		
 	  		} else if(json == "multiple") {
 	  			
 	  			errorResult = true;
-				errorMsg = "Multiple records found for the given Grant/Intramural/Contract #. Please click the search button to select the desired grant";
+				errorMsg = "Multiple matches found for the given Grant# or Contract#. Please click the Edit button to search and select the desired grant.";
 		
 	  		} else {
 	  		
