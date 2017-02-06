@@ -865,14 +865,22 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	}
 
 	/**
-	 * This method gets Intramural / Grant/ Contract Information based on applId
+	 * Invoked when the link button is clicked on the General Info Page.
 	 * 
 	 * @return forward string
 	 */
-	public String getGrantOrContractByApplId(){
-
-		logger.debug("Searching grants / contracts using applId: " + applId + ".");
-		grantOrContract = manageProjectService.getGrantOrContract(Long.valueOf(applId));
+	public String getGrantByGrantNum() {
+		logger.debug("Searching grants / contracts.");
+		List<GdsGrantsContracts> grantList = manageProjectService.getGrantOrContractList(grantContractNum, ApplicationConstants.APPL_CLASS_CODE_EXTRAMURAL);
+		if(!CollectionUtils.isEmpty(grantList)) {
+			if(grantList.size() == 1) {
+				grantOrContract = grantList.get(0);
+				grantOrContract.setProjectTitle(StringUtils.replaceChars(grantOrContract.getProjectTitle(), "'", ""));
+				grantOrContract.setProjectTitle(StringUtils.replaceChars(grantOrContract.getProjectTitle(), "\"", ""));
+			} else {
+				return ERROR;
+			}
+		}
 		return SUCCESS;
 	}
 	
@@ -882,6 +890,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		progList= GdsSubmissionActionHelper.populateProgDropDownList(progList,progListFromDb);
 		return SUCCESS;
 	}
+	
+	
 	/**
 	 * This method retrieves list of already linked submissions for a given grant.
 	 * 
