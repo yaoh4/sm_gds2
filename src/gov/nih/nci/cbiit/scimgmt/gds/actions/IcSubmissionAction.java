@@ -237,7 +237,6 @@ public class IcSubmissionAction extends ManageSubmission {
 		InstitutionalCertification instCert = getInstCertification();
 		
 		if(ic != null) {
-			this.addActionError(getText("error.doc.fileNotUploaded"));
 			if(getDocId() == null) {
 				//If no file has been uploaded yet, then we do not
 				//show any more fields to enter

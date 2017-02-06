@@ -119,10 +119,6 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		
 		logger.debug("Validate save Basic Study Info");
 		
-		if(bsi != null) {
-			this.addActionError(getText("error.doc.fileNotUploaded"));
-		}
-		
 		//Comments cannot be greater than 2000 characters.
 		if (!StringUtils.isEmpty(comments)) {
 			if (comments.length() > ApplicationConstants.COMMENTS_MAX_ALLOWED_SIZE) {

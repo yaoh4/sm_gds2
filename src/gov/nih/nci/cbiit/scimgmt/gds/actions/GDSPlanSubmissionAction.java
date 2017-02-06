@@ -163,10 +163,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 */
 	public void validateSave() throws Exception {
 		
-		
-		if(dataSharingPlan != null  || exceptionMemo != null) {
-			this.addActionError(getText("error.doc.fileNotUploaded"));
-		}
 		logger.debug("Validate save GDS Plan");
 		
 		// If Other repository is selected, verify that OtherText is entered.
