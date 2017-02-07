@@ -853,15 +853,37 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}
 		logger.debug("Searching grants / contracts.");
 		grantOrContractList = manageProjectService.getGrantOrContractList(grantContractNum, applClassCode);
-		filterSingleQuotes();
+		for(GdsGrantsContracts grantOrContract: grantOrContractList) {
+			filterSingleQuotes(grantOrContract);
+		}
 		return SUCCESS;
 	}
 		
-	private void filterSingleQuotes() {
-		for(GdsGrantsContracts grantOrContract: grantOrContractList) {
+	private void filterSingleQuotes(GdsGrantsContracts grantOrContract) {
+		
 			grantOrContract.setProjectTitle(StringUtils.replaceChars(grantOrContract.getProjectTitle(), "'", ""));
 			grantOrContract.setProjectTitle(StringUtils.replaceChars(grantOrContract.getProjectTitle(), "\"", ""));
-		}
+			grantOrContract.setPdFirstName(StringUtils.replaceChars(grantOrContract.getPdFirstName(), "'", ""));
+			grantOrContract.setPdFirstName(StringUtils.replaceChars(grantOrContract.getPdFirstName(), "\"", ""));
+			grantOrContract.setPdLastName(StringUtils.replaceChars(grantOrContract.getPdLastName(), "'", ""));
+			grantOrContract.setPdLastName(StringUtils.replaceChars(grantOrContract.getPdLastName(), "\"", ""));
+			grantOrContract.setPiFirstName(StringUtils.replaceChars(grantOrContract.getPiFirstName(), "'", ""));
+			grantOrContract.setPiFirstName(StringUtils.replaceChars(grantOrContract.getPiFirstName(), "\"", ""));
+			grantOrContract.setPiLastName(StringUtils.replaceChars(grantOrContract.getPiLastName(), "'", ""));
+			grantOrContract.setPiLastName(StringUtils.replaceChars(grantOrContract.getPiLastName(), "\"", ""));
+			grantOrContract.setPiInstitution(StringUtils.replaceChars(grantOrContract.getPiInstitution(), "'", ""));
+			grantOrContract.setPiInstitution(StringUtils.replaceChars(grantOrContract.getPiInstitution(), "\"", ""));
+			grantOrContract.setSegProjectTitle(StringUtils.replaceChars(grantOrContract.getSegProjectTitle(), "'", ""));
+			grantOrContract.setSegProjectTitle(StringUtils.replaceChars(grantOrContract.getSegProjectTitle(), "\"", ""));
+			grantOrContract.setSegPdFirstName(StringUtils.replaceChars(grantOrContract.getSegPdFirstName(), "'", ""));
+			grantOrContract.setSegPdFirstName(StringUtils.replaceChars(grantOrContract.getSegPdFirstName(), "\"", ""));
+			grantOrContract.setSegPdLastName(StringUtils.replaceChars(grantOrContract.getSegPdLastName(), "'", ""));
+			grantOrContract.setSegPdLastName(StringUtils.replaceChars(grantOrContract.getSegPdLastName(), "\"", ""));
+			grantOrContract.setSegPiFirstName(StringUtils.replaceChars(grantOrContract.getSegPiFirstName(), "'", ""));
+			grantOrContract.setSegPiFirstName(StringUtils.replaceChars(grantOrContract.getSegPiFirstName(), "\"", ""));
+			grantOrContract.setSegPiInstitution(StringUtils.replaceChars(grantOrContract.getSegPiInstitution(), "'", ""));
+			grantOrContract.setSegPiInstitution(StringUtils.replaceChars(grantOrContract.getSegPiInstitution(), "\"", ""));
+			
 	}
 
 	/**
@@ -877,6 +899,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				grantOrContract = grantList.get(0);
 				grantOrContract.setProjectTitle(StringUtils.replaceChars(grantOrContract.getProjectTitle(), "'", ""));
 				grantOrContract.setProjectTitle(StringUtils.replaceChars(grantOrContract.getProjectTitle(), "\"", ""));
+				filterSingleQuotes(grantOrContract);
 			} else {
 				return ERROR;
 			}
