@@ -108,7 +108,7 @@
               </td>
               <td><s:property
                   value="#r.lookupTByStudyReleasedId.displayName" /></td>
-              <td><s:property value="#r.accessionNumber" /></td>
+              <td style="word-wrap:break-word;"><s:property value="#r.accessionNumber" /></td>
               <td><s:property value="#r.comments" /></td>
             </tr>
           </s:iterator>
