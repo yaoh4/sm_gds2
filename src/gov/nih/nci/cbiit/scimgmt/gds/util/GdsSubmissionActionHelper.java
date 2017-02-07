@@ -306,14 +306,16 @@ public class GdsSubmissionActionHelper {
 	 * @return
 	 */
 	public static boolean isSubmissionUpdated(Project transientProject, Project persistentProject){
-
-		if((transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NIHFUND.longValue()  
+		//For subprojects there is no submission id
+		if(transientProject.getSubmissionReasonId() != null) {
+			if((transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NIHFUND.longValue()  
 				|| transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.longValue())
 				&& (persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.longValue()
 				|| persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.longValue()))
-			return true;
-		else
-			return false;		
+				return true;		
+		} 
+		
+		return false;
 	}
 	
 	/**
