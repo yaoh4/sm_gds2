@@ -254,7 +254,7 @@ public class GdsPageStatusUtil {
 			//If GPA has not reviewed or GPA has reviewed but no document has been uploaded
 			if(ApplicationConstants.BSI_NO.equals(project.getBsiReviewedId())
 					|| (ApplicationConstants.BSI_YES.equals(project.getBsiReviewedId())
-							&& CollectionUtils.isEmpty(docs)) || (project.getBsiReviewedId() == null && !CollectionUtils.isEmpty(docs))) {
+							&& CollectionUtils.isEmpty(docs)) || (project.getBsiReviewedId() == null && !CollectionUtils.isEmpty(docs)) || (project.getBsiReviewedId() == null && CollectionUtils.isEmpty(docs))) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			} else if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag()) && project.getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND) && CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID))){
 					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
