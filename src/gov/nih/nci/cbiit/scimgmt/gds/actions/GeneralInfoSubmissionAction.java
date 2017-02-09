@@ -59,8 +59,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String parentGrantSelection;
 	private String searchType;
 	private String grantsAdditional;
+	private Long savedSubmissionReasonId;
 	
-
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();
 	private List<DropDownOption> progList = new ArrayList<DropDownOption>();
 	
@@ -932,6 +932,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void validateGeneralInfoSave(){	
 		
+		validateProjectDetails();
+		
 		if(StringUtils.isBlank(grantSelection)) {
 			grantSelection = getParentGrantSelection();
 		}
@@ -972,9 +974,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(getAssociatedSecondaryGrants() != null) {
 			getProject().setAssociatedGrants(getAssociatedSecondaryGrants());
 		}
-		
-		validateProjectDetails();
-		
 		
 		
 		//If user selected a grant from grantContract search page and then validation failed on general info page while saving
@@ -1031,8 +1030,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(getProject().getParentProjectId() == null){
 			submissionReasonId = getProject().getSubmissionReasonId();
 			if(submissionReasonId == null){
-				this.addActionError(getText("submissionReasonId.required")); 
-				return;
+				submissionReasonId = getSavedSubmissionReasonId();
+				if(submissionReasonId == null) {
+					this.addActionError(getText("submissionReasonId.required")); 
+					return;
+				} else {
+					getProject().setSubmissionReasonId(Long.valueOf(submissionReasonId));
+				}
 			}
 		} else {
 			submissionReasonId = retrieveParentProject().getSubmissionReasonId();
@@ -1444,6 +1448,14 @@ public List<DropDownOption> getProgList() {
 
 	public void setParentGrantSelection(String parentGrantSelection) {
 		this.parentGrantSelection = parentGrantSelection;
+	}
+
+	public Long getSavedSubmissionReasonId() {
+		return savedSubmissionReasonId;
+	}
+
+	public void setSavedSubmissionReasonId(Long savedSubmissionReasonId) {
+		this.savedSubmissionReasonId = savedSubmissionReasonId;
 	}
 
 }

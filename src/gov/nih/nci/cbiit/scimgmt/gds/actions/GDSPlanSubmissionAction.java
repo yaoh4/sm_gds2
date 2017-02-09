@@ -538,11 +538,13 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 						for(StudiesDulSet dul: study.getStudiesDulSets()) {
 							for (Iterator<DulChecklistSelection> dulIterator = dul.getDulChecklistSelections().iterator(); dulIterator.hasNext();) {
 								DulChecklistSelection selection = dulIterator.next();
-								if(selection.getDulChecklist().getParentDulId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_HEALTH_MEDICAL_BIOMEDICAL_ID.longValue() ||
+								if(selection.getDulChecklist().getParentDulId() != null) {
+									if(selection.getDulChecklist().getParentDulId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_HEALTH_MEDICAL_BIOMEDICAL_ID.longValue() ||
 										selection.getDulChecklist().getParentDulId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_DISEASE_SPECIFIC_ID.longValue() ||
 										selection.getDulChecklist().getParentDulId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_OTHER_ID.longValue()){	
 									
-									dulIterator.remove();
+										dulIterator.remove();
+									}
 								}
 							}
 						}
