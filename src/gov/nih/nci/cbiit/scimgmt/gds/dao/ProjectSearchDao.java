@@ -485,27 +485,12 @@ public class ProjectSearchDao {
 	 * @return
 	 */
 	private Criteria addSortOrder(Criteria criteria, SubmissionSearchCriteria searchCriteria) {
-		
-		String additionalSort = null;
+
 		if(StringUtils.isNotBlank(searchCriteria.getSortBy())) {
-			//For columns that represent two pieces of data, include both
-			if(searchCriteria.getSortBy().equals("extGrantContractNum")) {
-				additionalSort = "intGrantContractNum";
-			}
-			if(searchCriteria.getSortBy().equals("extPiLastName")) {
-				additionalSort = "intPiLastName";
-			}
-			if(StringUtils.equalsIgnoreCase(searchCriteria.getSortDir(), "asc")) {
+			if(StringUtils.equalsIgnoreCase(searchCriteria.getSortDir(), "asc"))
 				criteria.addOrder(Order.asc(searchCriteria.getSortBy()));
-				if(additionalSort != null) {
-					criteria.addOrder(Order.asc(additionalSort));
-				}
-			} else {
+			else
 				criteria.addOrder(Order.desc(searchCriteria.getSortBy()));
-				if(additionalSort != null) {
-					criteria.addOrder(Order.desc(additionalSort));
-				}
-			}
 		}	
 		
 		return criteria;
