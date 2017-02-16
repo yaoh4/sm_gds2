@@ -153,12 +153,12 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}
 
 		Project project = retrieveSelectedProject();		
-		if(project != null){
+		if(project != null) {
+			project = performDataCleanup(getProject(), project);
 			project = setupGrantData(project);
-			performDataCleanup(getProject(), project);
 			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
 			project = super.saveProject(project, null);			
-		} else{
+		} else {
 			if(getProject().getId() == null) {
 				if(getProject().getProjectGroupId() != null) {
 					//New version of project or subproject, 
@@ -707,19 +707,23 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * @param persistentProject
 	 * @throws Exception 
 	 */
-	private void performDataCleanup(Project transientProject, Project persistentProject) throws Exception{
+	private Project performDataCleanup(Project transientProject, Project persistentProject) throws Exception{
 
 		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){
-			deleteSubmissionUpdatedData(persistentProject);
+			return deleteSubmissionUpdatedData(persistentProject); 
+		} else {
+			return persistentProject;
 		}
 	}
 	
-	private void deleteSubmissionUpdatedData(Project persistentProject) throws Exception {
+	private Project deleteSubmissionUpdatedData(Project persistentProject) throws Exception {
 		logger.debug("Answer to Why is the project being submitted? has been updated for Submission with id. :"+persistentProject.getId());
 		// deletes the exception memo uploaded
 		deleteExceptionMemo(persistentProject);
+		
 		//removes all the plan answers
 		deletePlanAnswers(persistentProject);
+		
 		//deletes the GDS plan file
 		List<Document> gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, persistentProject.getId());
 		for(Document document: gdsPlanFile) {
@@ -729,23 +733,27 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		//deletes all associated sub-projects
 		manageProjectService.deleteSubProjects(persistentProject.getId());
-		//deletes all the IC`s
-		deleteIcs();
+
 		// removes all the data in BSI page
-		persistentProject.setBsiReviewedId(null);
 		List<Document> bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, persistentProject.getId());
 		for(Document document: bsiFile) {
 			setDocId(document.getId());
 			deleteFile();
 		}
+		persistentProject = deleteIcs(persistentProject);
 		
 		//sets all the comments to empty
+		persistentProject.setBsiReviewedId(null);
 		persistentProject.setPlanComments("");
 		persistentProject.setBsiComments("");
 		persistentProject.setCertificationCompleteFlag(null); 
 		persistentProject.setAdditionalIcComments("");
 		persistentProject.setStudiesComments("");
 		persistentProject.setAnticipatedSubmissionDate(null);
+		
+		
+	  return super.saveProject(persistentProject, null);
+		
 	}
 	/**
 	 * This method deletes exception memo.
@@ -782,22 +790,19 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unused")
-	private void deleteIcs() throws Exception {
-		List<InstitutionalCertification> icList = retrieveSelectedProject().getInstitutionalCertifications();
+	private Project deleteIcs(Project persistentProject) throws Exception {
+		List<InstitutionalCertification> icList = persistentProject.getInstitutionalCertifications();
 		if (icList != null){
 			InstitutionalCertification icdup = null;
 			for(Iterator<InstitutionalCertification> i= icList.iterator(); i.hasNext();) {
 				icdup = i.next();
-				manageProjectService.deleteIc(icdup.getId(), retrieveSelectedProject());
-				setProject(retrieveSelectedProject());	
-				i = retrieveSelectedProject().getInstitutionalCertifications().iterator();
+				manageProjectService.deleteIc(icdup.getId(), persistentProject);
+				//setProject(retrieveSelectedProject());
+				persistentProject = retrieveSelectedProject();
+				i = persistentProject.getInstitutionalCertifications().iterator();
 			}
 		}
-	    getProject().setCertificationCompleteFlag(null);
-	    getProject().setAdditionalIcComments("");
-	    getProject().setStudiesComments("");
-		super.saveProject(retrieveSelectedProject(), null);
-		setProject(retrieveSelectedProject());
+		return persistentProject;
 	}
 	
 	
