@@ -18,10 +18,6 @@ $(function () {
 
 $(function(){
 	var parentId=$("#parentId").val();
-	var projectId=$("#projectId").val();
-	if(projectId) {
-		$(".submissionReasonSelect").attr('disabled', true);
-	}
 	if(parentId){
 		$("input[type=radio]").attr('disabled', true);
 		if($("#parentGrantSelection").val() == 'Both') {

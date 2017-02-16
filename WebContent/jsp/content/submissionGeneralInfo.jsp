@@ -7,7 +7,6 @@
 		<s:hidden name="projectId" id="projectId" value="%{project.id}"/>
 		<s:hidden name="project.parentProjectId" id="parentId" value="%{project.parentProjectId}"/>
 		<s:hidden id="parentGrantSelection" name="parentGrantSelection" value="%{parentGrantSelection}"/>
-		<s:hidden id="savedSubmissionReasonId" name="savedSubmissionReasonId" value="%{project.submissionReasonId}"/>
 		<s:hidden name="project.projectGroupId" value="%{project.projectGroupId}"/>
 		<s:hidden name="searchType" id="searchType" value="%{searchType}"/>
 		<s:hidden name="project.latestVersionFlag" value="%{project.latestVersionFlag}"/>
