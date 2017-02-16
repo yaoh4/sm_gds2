@@ -59,8 +59,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String parentGrantSelection;
 	private String searchType;
 	private String grantsAdditional;
-	private Long savedSubmissionReasonId;
 	
+
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();
 	private List<DropDownOption> progList = new ArrayList<DropDownOption>();
 	
@@ -70,7 +70,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private List<ProjectsVw> prevLinkedSubmissions = new ArrayList<ProjectsVw>();
 	private GdsGrantsContracts grantOrContract;	
 	private List<ProjectGrantContract> secondaryGrantNum =new ArrayList<ProjectGrantContract>();
-	
 
 	/**
 	 * This method is responsible for loading the General Information page and setting all the UI elements.
@@ -428,7 +427,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			}
 			//Remove those planAnswers that do not match specific preconditions
 			if(GdsSubmissionActionHelper.isSubmissionUpdated(project, currentLatestVersion)) {
-				deletePlanAnswers(project);
+				deleteSubmissionUpdatedData(project);
 			}
 		}
 		
@@ -467,9 +466,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		//Remove those documents that do not match specific preconditions
 		if(GdsSubmissionActionHelper.isSubmissionUpdated(project, currentLatestVersion)) {
-			deleteExceptionMemo(project);
+			deleteSubmissionUpdatedData(project);
 		}
-        
 		//save the project to recomute the statuses
 		project = super.saveProject(project, null);
 		
@@ -707,22 +705,53 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * Then delete answers to some gds plan questions.
 	 * @param transientProject
 	 * @param persistentProject
+	 * @throws Exception 
 	 */
-	private void performDataCleanup(Project transientProject, Project persistentProject){
+	private void performDataCleanup(Project transientProject, Project persistentProject) throws Exception{
 
 		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){
-
-			logger.debug("Answer to Why is the project being submitted? has been updated for Submission with id. :"+persistentProject.getId());
-			deleteExceptionMemo(persistentProject);
-			deletePlanAnswers(persistentProject);
-		}		
+			deleteSubmissionUpdatedData(persistentProject);
+		}
 	}
 	
+	private void deleteSubmissionUpdatedData(Project persistentProject) throws Exception {
+		logger.debug("Answer to Why is the project being submitted? has been updated for Submission with id. :"+persistentProject.getId());
+		// deletes the exception memo uploaded
+		deleteExceptionMemo(persistentProject);
+		//removes all the plan answers
+		deletePlanAnswers(persistentProject);
+		//deletes the GDS plan file
+		List<Document> gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, persistentProject.getId());
+		for(Document document: gdsPlanFile) {
+			setDocId(document.getId());
+			deleteFile();
+		}
+		
+		//deletes all associated sub-projects
+		manageProjectService.deleteSubProjects(persistentProject.getId());
+		//deletes all the IC`s
+		deleteIcs();
+		// removes all the data in BSI page
+		persistentProject.setBsiReviewedId(null);
+		List<Document> bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, persistentProject.getId());
+		for(Document document: bsiFile) {
+			setDocId(document.getId());
+			deleteFile();
+		}
+		
+		//sets all the comments to empty
+		persistentProject.setPlanComments("");
+		persistentProject.setBsiComments("");
+		persistentProject.setCertificationCompleteFlag(null); 
+		persistentProject.setAdditionalIcComments("");
+		persistentProject.setStudiesComments("");
+		persistentProject.setAnticipatedSubmissionDate(null);
+	}
 	/**
 	 * This method deletes exception memo.
 	 * @param persistentProject
 	 */
-	private void deleteExceptionMemo(Project persistentProject){
+	private void deleteExceptionMemo(Project persistentProject) {
 		
 		//The system will delete the uploaded exception memo
 		List<Document> excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", persistentProject.getId());
@@ -734,10 +763,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	}
 	
 	/**
-	 * The system will delete answers to following questions: 
-	 * 1.Is there a data sharing exception requested for this project?
-	 * 2.Was this exception approved?
-	 * 3.Will there be any data submitted?
+	 * The system will delete all the plan answers
 	 * @param persistentProject
 	 */
 	private void deletePlanAnswers(Project persistentProject){
@@ -745,16 +771,35 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = persistentProject.getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
 
 			PlanAnswerSelection planAnswerSelection = planAnswerSelectionIterator.next();
-
-			if(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()
-					|| ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()
-					|| ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()){	
-				
 				planAnswerSelectionIterator.remove();
 				logger.debug("Deleted the answer to question with Id: "+planAnswerSelection.getPlanQuestionsAnswer().getQuestionId());
-			}
+			
 		}
 	}
+	
+	/**
+	 * This method deletes all the Ics on specific conditions
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unused")
+	private void deleteIcs() throws Exception {
+		List<InstitutionalCertification> icList = retrieveSelectedProject().getInstitutionalCertifications();
+		if (icList != null){
+			InstitutionalCertification icdup = null;
+			for(Iterator<InstitutionalCertification> i= icList.iterator(); i.hasNext();) {
+				icdup = i.next();
+				manageProjectService.deleteIc(icdup.getId(), retrieveSelectedProject());
+				setProject(retrieveSelectedProject());	
+				i = retrieveSelectedProject().getInstitutionalCertifications().iterator();
+			}
+		}
+	    getProject().setCertificationCompleteFlag(null);
+	    getProject().setAdditionalIcComments("");
+	    getProject().setStudiesComments("");
+		super.saveProject(retrieveSelectedProject(), null);
+		setProject(retrieveSelectedProject());
+	}
+	
 	
 	/**
 	 * This method serves ajax request coming from onclick of save.
@@ -794,6 +839,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					sb.append("And the system will delete the uploaded exception memo. <br />");
 				}
 			}
+			
+		
 		}
 		
 		if(sb.length() > 0) {
@@ -932,8 +979,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void validateGeneralInfoSave(){	
 		
-		validateProjectDetails();
-		
 		if(StringUtils.isBlank(grantSelection)) {
 			grantSelection = getParentGrantSelection();
 		}
@@ -974,6 +1019,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(getAssociatedSecondaryGrants() != null) {
 			getProject().setAssociatedGrants(getAssociatedSecondaryGrants());
 		}
+		
+		validateProjectDetails();
+		
 		
 		
 		//If user selected a grant from grantContract search page and then validation failed on general info page while saving
@@ -1030,13 +1078,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(getProject().getParentProjectId() == null){
 			submissionReasonId = getProject().getSubmissionReasonId();
 			if(submissionReasonId == null){
-				submissionReasonId = getSavedSubmissionReasonId();
-				if(submissionReasonId == null) {
-					this.addActionError(getText("submissionReasonId.required")); 
-					return;
-				} else {
-					getProject().setSubmissionReasonId(Long.valueOf(submissionReasonId));
-				}
+				this.addActionError(getText("submissionReasonId.required")); 
+				return;
 			}
 		} else {
 			submissionReasonId = retrieveParentProject().getSubmissionReasonId();
@@ -1448,14 +1491,6 @@ public List<DropDownOption> getProgList() {
 
 	public void setParentGrantSelection(String parentGrantSelection) {
 		this.parentGrantSelection = parentGrantSelection;
-	}
-
-	public Long getSavedSubmissionReasonId() {
-		return savedSubmissionReasonId;
-	}
-
-	public void setSavedSubmissionReasonId(Long savedSubmissionReasonId) {
-		this.savedSubmissionReasonId = savedSubmissionReasonId;
 	}
 
 }
