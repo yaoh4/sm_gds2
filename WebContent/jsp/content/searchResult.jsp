@@ -15,7 +15,7 @@
 			<th>PI Email</th>
 			<th width="8%">Genomic<br/> DSP</th>
 			<th width="8%">GDSP<br/> Excep.</th>
-			<th width="8%">IC</th>
+			<th width="6%">IC</th>
 			<th width="8%">BSI</th>
 			<th>Repository Count</th>
 			<th>Sub-project Count</th>
@@ -30,7 +30,7 @@
 			<th>PI Email 2</th>
 			<th>Version</th>
 			<th width="10%">Submission<br/> Status</th>
-			<th width="10%" style="whitespace:nowrap;">Actions</th>
+			<th width="12%" style="whitespace:nowrap;">Actions</th>
 		</tr>
         </thead>
     </table>
