@@ -16,8 +16,13 @@ $(document).ready(function() {
 	  //this represents value of the ic checkbox
 	  $("#ic" + value).prop('checked', true);	
 	});
-  }
 	
+	//this represents if all the ic`s are checked in a sub-projeect, then enable select all checkbox
+		if($('input[name="ic-selected"]:checked').length == $('input[name="ic-selected"]').length) {
+			$("#selectAll").prop('checked', true);
+	  }	
+  }
+  
   if ($("#radioCertCompleteY").prop("checked") == true) {
 	  $("#certFlag").val("Y");
   	     }
@@ -32,8 +37,21 @@ $(document).ready(function() {
 	  $('input:checkbox').change(function() {
    	   var atLeastOneIsChecked = $('input[name="ic-selected"]:checked').length > 0;
    		  $("#selectIcs").val(atLeastOneIsChecked);
+   		if($('input[name="ic-selected"]:checked').length == $('input[name="ic-selected"]').length) {
+			$("#selectAll").prop('checked', true);
+	  }	
+   		else {
+   			$("#selectAll").prop('checked', false);
+   		}
       });    
   }
+  
+  $("#selectAll").click(function() {
+	  var checked_status = this.checked;
+	  $('input[name="ic-selected"]').each(function(){
+		  this.checked =  checked_status;
+	  });
+  });
   
   $('input[type="radio"]').click(function() {
 	   if ($("#radioCertCompleteY").prop("checked") == true) {

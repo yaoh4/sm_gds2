@@ -91,10 +91,8 @@
             <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
               <tr class="modalTheader">
                <!--  Show this column header only for subproject -->
-                <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select 
-                 &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                 <i class="helpfileSubProject fa fa-question-circle fa-1x"
-		          aria-hidden="true"></i></a>
+                <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select All
+                 <input class="icSelect" type="checkbox" id="selectAll"></th>   
                 </th>                      
                 <th class="tableHeader" align="center" width="40%">Institutional Certification Document</th>
                 <th  class="tableHeader projectColumn" align="center" width="10%">Status</th>
