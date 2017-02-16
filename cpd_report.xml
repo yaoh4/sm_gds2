@@ -170,7 +170,7 @@
 	@Column(name = "SUBPROJECT_FLAG", length = 4)]]></codefragment>
    </duplication>
    <duplication lines="34" tokens="226">
-      <file line="735"
+      <file line="737"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
       <file line="86"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
@@ -456,7 +456,7 @@
    <duplication lines="39" tokens="167">
       <file line="64"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\HelpText.java"/>
-      <file line="98"
+      <file line="100"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Lookup.java"/>
       <file line="65"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Property.java"/>
@@ -517,7 +517,7 @@
 			dc.add(Restrictions.ilike("intPiLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));]]></codefragment>
    </duplication>
    <duplication lines="21" tokens="144">
-      <file line="767"
+      <file line="769"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
       <file line="119"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
