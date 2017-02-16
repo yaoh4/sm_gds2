@@ -350,7 +350,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				i = getProject().getInstitutionalCertifications().iterator();
 			}
 		}
-	    getProject().setCertificationCompleteFlag(null); 
+	    getProject().setCertificationCompleteFlag(null);
+	    getProject().setAdditionalIcComments("");
+	    getProject().setStudiesComments("");
 		super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
 		setProject(retrieveSelectedProject());
 	}
