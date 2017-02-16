@@ -308,11 +308,16 @@ public class GdsSubmissionActionHelper {
 	public static boolean isSubmissionUpdated(Project transientProject, Project persistentProject){
 		//For subprojects there is no submission id
 		if(transientProject.getSubmissionReasonId() != null) {
-			if((transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NIHFUND.longValue()  
-				|| transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.longValue())
+			if((transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.longValue())
 				&& (persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.longValue()
-				|| persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.longValue()))
-				return true;		
+				|| persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.longValue() 
+				||persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NIHFUND.longValue()))
+				return true;	
+			else if((persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.longValue())
+					&& (transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GDSPOLICY.longValue()
+					|| transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_GWASPOLICY.longValue() 
+					||transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NIHFUND.longValue()))
+				return true;
 		} 
 		
 		return false;
