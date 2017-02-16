@@ -235,7 +235,7 @@ public class ProjectsDao {
 		logger.info("Retrieving  ApplClassCode "+applClassCode);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsGrantsContracts.class);	
-			criteria.add(Restrictions.ilike("lookupGrantContractNum", grantContractNum,MatchMode.ANYWHERE));
+			criteria.add(Restrictions.ilike("lookupGrantContractNum", grantContractNum.replaceAll("\\s",""),MatchMode.ANYWHERE));
 			if(applClassCode !=null) {
 				criteria.add(Restrictions.or(
 					Restrictions.eq("applClassCode", applClassCode),

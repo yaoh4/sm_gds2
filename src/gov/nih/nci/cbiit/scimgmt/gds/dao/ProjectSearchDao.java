@@ -333,8 +333,8 @@ public class ProjectSearchDao {
 		// Intramural(Z01)/Grant/Contract #
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getGrantContractNum()))) {
 			Disjunction dc = Restrictions.disjunction();
-			dc.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
-			dc.add(Restrictions.ilike("intGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().replaceAll("\\s",""), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("intGrantContractNum", searchCriteria.getGrantContractNum().replaceAll("\\s",""), MatchMode.ANYWHERE));
 			parentCriteria.add(dc);
 			parentDetachedCriteria.add(dc);
 			subprojectCriteria.add(dc);
@@ -457,8 +457,8 @@ public class ProjectSearchDao {
 		// Intramural(Z01)/Grant/Contract #
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getGrantContractNum()))) {
 			Disjunction dc = Restrictions.disjunction();
-			dc.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
-			dc.add(Restrictions.ilike("intGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().replaceAll("\\s",""), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("intGrantContractNum", searchCriteria.getGrantContractNum().replaceAll("\\s",""), MatchMode.ANYWHERE));
 			subprojectCriteria.add(dc);
 		}
 
