@@ -421,6 +421,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	public String performDataCleanup() throws Exception {
 
 		StringBuffer sb = new StringBuffer();
+		StringBuffer sb1 = new StringBuffer();
 		
 		// Called from ajax, so fetch the project
 		if(getProject() == null || getProject().getId() == null) {
@@ -532,7 +533,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			// a) The system will delete all DUL(s) created that contains DUL type of 
 			//    "Health/Medical/Biomedical", "Disease-specific" and/or "Other". 
 			if(warnOnly) {
-				sb.append("All DUL(s) created that contains DUL type of " +
+				sb1.append("All DUL(s) created that contains DUL type of " +
 							"Health/Medical/Biomedical, Disease-specific and/or Other. <br>");
 			} else {
 				for(InstitutionalCertification ic: getProject().getInstitutionalCertifications()) {
@@ -560,7 +561,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
                 && newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID)) {
           if(warnOnly) {
                 if(getProject().getInstitutionalCertifications() != null && !getProject().getInstitutionalCertifications().isEmpty())
-                       sb.append("All Institutional Certifications and Data Use Limitations. <br>");
+                       sb1.append("All Institutional Certifications and Data Use Limitations. <br>");
           } else {
                 // Delete the ICs
         	  deleteIcs();
@@ -589,6 +590,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		if(sb.length() > 0) {
 			String warningMessage = getText("gds.warn.message");
+			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
+		} else if(sb1.length() > 0) {
+			String warningMessage = getText("gds.warning");
 			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
 		} else {
 			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
