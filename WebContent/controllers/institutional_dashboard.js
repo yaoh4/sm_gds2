@@ -19,7 +19,7 @@ $(document).ready(function() {
 	
 	//this represents if all the ic`s are checked in a sub-projeect, then enable select all checkbox
 		if($('input[name="ic-selected"]:checked').length == $('input[name="ic-selected"]').length) {
-			$("#selectAll").prop('checked', true);
+			$("#all").prop('checked', true);
 	  }	
   }
   
@@ -34,21 +34,21 @@ $(document).ready(function() {
 	  
 	  var atLeastOneIsChecked = $('input[name="ic-selected"]:checked').length > 0;
 	  $("#selectIcs").val(atLeastOneIsChecked);
-	  $('input:checkbox').change(function() {
+	  $('.icSelect').change(function() {
    	   var atLeastOneIsChecked = $('input[name="ic-selected"]:checked').length > 0;
    		  $("#selectIcs").val(atLeastOneIsChecked);
    		if($('input[name="ic-selected"]:checked').length == $('input[name="ic-selected"]').length) {
-			$("#selectAll").prop('checked', true);
+			$("#all").prop('checked', true);
 	  }	
    		else {
-   			$("#selectAll").prop('checked', false);
+   			$("#all").prop('checked', false);
    		}
       });    
   }
   
-  $("#selectAll").click(function() {
+    $("#all").change(function() {
 	  var checked_status = this.checked;
-	  $('input[name="ic-selected"]').each(function(){
+	 $('input[name="ic-selected"]').each(function(){
 		  this.checked =  checked_status;
 	  });
   });
