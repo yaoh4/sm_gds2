@@ -92,8 +92,7 @@
               <tr class="modalTheader">
                <!--  Show this column header only for subproject -->
                 <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select All
-                 <input class="icSelect" type="checkbox" id="selectAll"></th>   
-                </th>                      
+                <input type="checkbox" id="all"> </th>                                   
                 <th class="tableHeader" align="center" width="40%">Institutional Certification Document</th>
                 <th  class="tableHeader projectColumn" align="center" width="10%">Status</th>
                 <th  class="tableHeader projectColumn" align="center" width="10%">Missing Data</th>
