@@ -823,11 +823,17 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		Project transientProject = getProject();
 		Project persistentProject = retrieveSelectedProject();
 		
-		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){	
+		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){
+			sb.append("The system will delete all the data");
+		}
+		
+		if(sb.length() > 0) {
 			String warningMessage = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> " + getText("gds.warn.message");
 			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
+		} else {
+			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
 		}
-				
+		
 		return SUCCESS;
 		
 	}
