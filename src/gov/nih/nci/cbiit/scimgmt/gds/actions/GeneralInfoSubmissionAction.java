@@ -816,7 +816,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * @return
 	 * @throws Exception
 	 */
-	public String isSubmissionUpdated() throws Exception {
+     public String isSubmissionUpdated() throws Exception {
 		
 		//If its a new submission then no need to do comparison between current submission and saved submission. Return control.
 		if(StringUtils.isBlank(getProjectId())){
@@ -825,15 +825,27 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}
 		
 		StringBuffer sb = new StringBuffer();
+		StringBuffer sb1 = new StringBuffer();
 		Project transientProject = getProject();
 		Project persistentProject = retrieveSelectedProject();
 		
-		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){
-			sb.append("The system will delete all the data");
+		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)) {
+			if(transientProject.getSubmissionReasonId() != null) {
+				if(transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.longValue()) {
+					sb.append("deleting to non-nih funded");
+					
+				} else if(persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.longValue()) {
+					sb1.append("deleting from non-nih funded");
+				}
+						
+			} 
 		}
 		
 		if(sb.length() > 0) {
 			String warningMessage = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> " + getText("gds.warn.message");
+			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
+		} else if(sb1.length() > 0) {
+			String warningMessage = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> " + getText("gds.warn.non.nih.message");
 			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
 		} else {
 			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
@@ -842,6 +854,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		return SUCCESS;
 		
 	}
+	
 	
 	/**
 	 * This method checks if question with questionId was answered on the GDS plan page.
