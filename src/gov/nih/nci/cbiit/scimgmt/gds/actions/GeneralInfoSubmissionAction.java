@@ -1112,7 +1112,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		//Validate only if grant is selected and it is not linked
 		if(projectGrantContract != null &&
-				!StringUtils.isBlank(projectGrantContract.getGrantContractNum()) && 
 				!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag())){
 			//Validation for Title
 			if(StringUtils.isBlank(projectGrantContract.getProjectTitle()) && !ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId())){
