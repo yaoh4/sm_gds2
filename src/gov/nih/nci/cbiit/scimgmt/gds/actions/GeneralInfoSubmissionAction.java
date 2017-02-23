@@ -149,6 +149,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			ProjectGrantContract extramuralGrant = getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
 			if(extramuralGrant!= null && StringUtils.equals(extramuralGrant.getDataLinkFlag(), "Y")) {
 				extramuralGrant.setDataLinkFlag("N");
+				extramuralGrant.setGrantContractNum("");
+			}
+			ProjectGrantContract intramuralGrant = getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+			if(intramuralGrant!= null) {
+				intramuralGrant.setGrantContractNum("");
 			}
 		}
 
