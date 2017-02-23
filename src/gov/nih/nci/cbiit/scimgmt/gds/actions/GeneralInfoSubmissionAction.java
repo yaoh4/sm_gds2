@@ -147,7 +147,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			getProject().setDocAbbreviation("");
 			getProject().setProgramBranch("");
 			ProjectGrantContract extramuralGrant = getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
-			if(extramuralGrant!= null && StringUtils.equals(extramuralGrant.getDataLinkFlag(), "Y")) {
+			if(extramuralGrant!= null) {
 				extramuralGrant.setDataLinkFlag("N");
 				extramuralGrant.setGrantContractNum("");
 			}
@@ -816,7 +816,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * @return
 	 * @throws Exception
 	 */
-     public String isSubmissionUpdated() throws Exception {
+	public String isSubmissionUpdated() throws Exception {
 		
 		//If its a new submission then no need to do comparison between current submission and saved submission. Return control.
 		if(StringUtils.isBlank(getProjectId())){
@@ -854,7 +854,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		return SUCCESS;
 		
 	}
-	
 	
 	/**
 	 * This method checks if question with questionId was answered on the GDS plan page.
