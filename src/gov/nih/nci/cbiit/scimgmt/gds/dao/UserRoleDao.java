@@ -135,7 +135,7 @@ public class UserRoleDao {
 			criteria.add(Restrictions.eq("gdsRoleCode", searchCriteria.getRoleCode()));
 		}
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
-			criteria.add(Restrictions.eq("nedPerson.nihsac", searchCriteria.getDoc()));
+			criteria.add(Restrictions.like("nedPerson.nihsac", searchCriteria.getDoc(), MatchMode.START));
 		} else {
 			Conjunction conjunction = Restrictions.conjunction();
 			conjunction.add(Restrictions.eq("nedPerson.nihorgacronym", loggedOnUser.getNihorgacronym()).ignoreCase());
@@ -180,7 +180,7 @@ public class UserRoleDao {
 		}
 		
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
-			criteria.add(Restrictions.eq("nihsac", searchCriteria.getDoc()));
+			criteria.add(Restrictions.like("nihsac", searchCriteria.getDoc(), MatchMode.START));
 		} else {
 			Conjunction conjunction = Restrictions.conjunction();
 			conjunction.add(Restrictions.eq("nihorgacronym", loggedOnUser.getNihorgacronym()));
