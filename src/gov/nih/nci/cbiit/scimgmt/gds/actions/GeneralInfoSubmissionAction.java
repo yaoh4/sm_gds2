@@ -1113,7 +1113,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(projectGrantContract != null &&
 				!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag())){
 			//Validation for Title
-			if(StringUtils.isBlank(projectGrantContract.getProjectTitle()) && !ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId())){
+			if(!StringUtils.isBlank(projectGrantContract.getGrantContractNum()) && StringUtils.isBlank(projectGrantContract.getProjectTitle()) && !ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId())){
 				this.addActionError(getText("projecttitle.required")); 
 			}
 
