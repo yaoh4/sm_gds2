@@ -23,6 +23,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.model.UIList;
@@ -461,7 +462,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				if(getProject().getInstitutionalCertifications() != null && !getProject().getInstitutionalCertifications().isEmpty())
 					sb.append("All Institutional Certifications and Data Use Limitations. <br>");
 			} else {
-					// Deleting all the ic`s permanently.
+					// Deleting all the ICs permanently.
 				deleteIcs();
 			}
 			
@@ -488,7 +489,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				getProject().setBsiComments("");
 			}
 			
-			// f) Remove repositories that were deleted except dbGaP, and add dbGap if it is not there.
+			// f) Remove repositories that were deleted except dbGaP, reset the repository data, and add dbGap if it is not there.
 			Set<Long> removeSet = new HashSet<Long>();
 			removeSet.addAll(oldSet);
 			removeSet.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
@@ -497,6 +498,16 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					sb.append("Repositories except dbGaP. <br>");
 			}
 			else {
+				if(oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID) && 
+					getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID) != null &&
+					!CollectionUtils.isEmpty(getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID).getRepositoryStatuses())) {
+					
+					for (Iterator<RepositoryStatus> repositoryIterator = getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID).getRepositoryStatuses().iterator(); repositoryIterator.hasNext();) {
+						RepositoryStatus repository = repositoryIterator.next();
+						if(repository.getProject().getId().longValue() == getProject().getId().longValue())
+							repositoryIterator.remove();
+					}
+				}
 				if(getProject().getAnticipatedSubmissionDate() != null) {
 					getProject().setAnticipatedSubmissionDate(null);
 				}
