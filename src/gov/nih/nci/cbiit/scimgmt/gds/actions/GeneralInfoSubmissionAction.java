@@ -146,14 +146,18 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
 			getProject().setDocAbbreviation("");
 			getProject().setProgramBranch("");
+			
+			ProjectGrantContract intramuralGrant = getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+			if(intramuralGrant!= null) {
+				getProject().removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+			}
+			
 			ProjectGrantContract extramuralGrant = getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
 			if(extramuralGrant!= null) {
 				extramuralGrant.setDataLinkFlag("N");
 				extramuralGrant.setGrantContractNum("");
-			}
-			ProjectGrantContract intramuralGrant = getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
-			if(intramuralGrant!= null) {
-				intramuralGrant.setGrantContractNum("");
+				extramuralGrant.setProjectTitle("");
+				extramuralGrant.setCayCode("");
 			}
 		}
 
