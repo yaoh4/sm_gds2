@@ -117,6 +117,9 @@ $("input[name='project.submissionReasonId']").click(function () {
 		
 	if($(this).val() === '29') {
 		$(".nonNihFunded").prop('disabled', false);
+		code = 'Extramural';
+		$("#researchType").val(code);
+		$("#general_form_grantSelectionExtramural").prop("checked", true);
 	} else if($("#dataLinkFlag").val() === 'N') {
 		$(".nonNihFunded").prop('disabled', false);
 		setUnlinkedDisplay();
