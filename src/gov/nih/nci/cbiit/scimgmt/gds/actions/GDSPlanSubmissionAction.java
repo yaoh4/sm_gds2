@@ -538,18 +538,20 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			} else {
 				for(InstitutionalCertification ic: getProject().getInstitutionalCertifications()) {
 					for(Study study: ic.getStudies()) {
-						for(StudiesDulSet dul: study.getStudiesDulSets()) {
-							for (Iterator<DulChecklistSelection> dulIterator = dul.getDulChecklistSelections().iterator(); dulIterator.hasNext();) {
-								DulChecklistSelection selection = dulIterator.next();
-								if(selection.getDulChecklist().getParentDulId() != null) {
-									if(selection.getDulChecklist().getParentDulId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_HEALTH_MEDICAL_BIOMEDICAL_ID.longValue() ||
-										selection.getDulChecklist().getParentDulId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_DISEASE_SPECIFIC_ID.longValue() ||
-										selection.getDulChecklist().getParentDulId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_OTHER_ID.longValue()){	
+						for (Iterator<StudiesDulSet> dulSetIterator = study.getStudiesDulSets().iterator(); dulSetIterator.hasNext();) {
+							StudiesDulSet dulSet = dulSetIterator.next();
+							boolean found = false;
+							for (DulChecklistSelection selection: dulSet.getDulChecklistSelections()) {
+								if(selection.getDulChecklist().getId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_HEALTH_MEDICAL_BIOMEDICAL_ID.longValue() ||
+										selection.getDulChecklist().getId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_DISEASE_SPECIFIC_ID.longValue() ||
+										selection.getDulChecklist().getId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_OTHER_ID.longValue()){	
 									
-										dulIterator.remove();
-									}
+									found = true;
+									break;
 								}
 							}
+							if(found)
+								dulSetIterator.remove();
 						}
 					}
 				}
