@@ -206,7 +206,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
 			storedProject.setInstitutionalCertifications(getSubProjectIcs(storedProject));
 		}		
-		setProject(super.saveProject(storedProject, ApplicationConstants.PAGE_CODE_IC));
+		setProject(super.saveProject(storedProject, ApplicationConstants.PAGE_CODE_IC,false));
 	}
 	
 	
