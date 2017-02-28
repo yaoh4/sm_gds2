@@ -605,6 +605,7 @@ properties/dev/gds.properties -text
 properties/dev/log4j2.xml -text
 properties/local/gds.properties -text
 properties/local/log4j2.xml -text
+properties/log4j2.component.properties -text
 properties/messages.properties -text
 properties/production/gds.properties -text
 properties/production/log4j2.xml -text
