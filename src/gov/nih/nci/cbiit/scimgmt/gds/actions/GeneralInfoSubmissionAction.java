@@ -97,7 +97,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String save() throws Exception {  	
 
-		logger.debug("Saving Submission General Info.");
+		logger.info("Saving Submission General Info.");
 		saveProject();
 		addActionMessage(getText("project.save.success"));
 		setUpPageData();
@@ -120,7 +120,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String saveAndNext() throws Exception {
 		
-		logger.debug("Saving Submission General Info and navigating to GDS plan page.");
+		logger.info("Saving Submission General Info and navigating to next page.");
 		saveProject();
 		Project project = retrieveSelectedProject();
 		if(!showPage(ApplicationConstants.PAGE_TYPE_GDSPLAN, project)) {
@@ -520,7 +520,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String createNewSubmission() throws Exception {  	
 	
-		logger.debug("Navigating to create new submission.");
+		logger.info("Navigating to create new submission.");
 		
 		projectTypes = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_TYPE_LIST.toUpperCase());		
 		return SUCCESS;

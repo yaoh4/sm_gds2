@@ -124,7 +124,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public String save() throws Exception { 
 
-		logger.debug("Saving Submission Repository status.");	
+		logger.info("Saving Submission Repository status.");	
 		saveProject();
 		addActionMessage(getText("project.save.success"));
 		return SUCCESS;
@@ -145,7 +145,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public String saveAndNext() throws Exception { 
 
-		logger.debug("Saving Submission Repository status and navigating to GDS plan page.");
+		logger.info("Saving Submission Repository status and navigating to next page.");
 		saveProject();
 		addActionMessage(getText("project.save.success"));
 		return SUCCESS;

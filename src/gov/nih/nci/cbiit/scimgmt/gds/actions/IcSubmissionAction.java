@@ -464,6 +464,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	 * @return
 	 */
 	public String saveIc() {
+		logger.info("Saving IC.");
+		
 		Project project = retrieveSelectedProject();
 		Long docId = null;
 		

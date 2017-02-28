@@ -116,7 +116,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 */
 	public String save() throws Exception {
 		
-		logger.debug("Save GDS Plan");
+		logger.info("Saving GDS Plan");
 		
 		setProject(retrieveSelectedProject());
 		
@@ -206,6 +206,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 * @return forward string
 	 */
 	public String saveAndNext() throws Exception {
+		logger.info("Saving GDSPlan Info and navigating to next page.");
 		
 		save();
 		

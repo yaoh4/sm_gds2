@@ -129,6 +129,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 	}
 	
 	public String save() {
+		logger.info("Saving IC List.");
 		
 		saveIcList();
 		addActionMessage(getText("project.save.success"));
@@ -141,7 +142,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 	}	
 	
 	public String saveAndNext() {
-		
+		logger.info("Saving IC List and navigating to next page.");
 		saveIcList();
 		return SUCCESS;
 	}
@@ -263,9 +264,9 @@ public class IcListSubmissionAction extends ManageSubmission {
 	 * @return
 	 */
      public String deleteIc() {
-		
+    	
+    	logger.info("Deleting IC");
 		Long instCertId = Long.valueOf(getInstCertId());
-		
 		Project project = retrieveSelectedProject();		
 		manageProjectService.deleteIc(instCertId, project);
 		setProject(retrieveSelectedProject());	
