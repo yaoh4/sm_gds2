@@ -1240,20 +1240,21 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		//If the grant is present and the data link flag is not present, then do the validation
 		if(projectGrantContract != null && 
 				(!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag()) || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId()))) {
-		//Validation for Primary Contact. 
+		     //Validation for Primary Contact. 
 			if(StringUtils.isBlank(projectGrantContract.getPiFirstName()) && 
 			   StringUtils.isBlank(projectGrantContract.getPiLastName()) &&
 			   StringUtils.isBlank(projectGrantContract.getPiEmailAddress()) &&
 			   StringUtils.isBlank(projectGrantContract.getPiInstitution())) {
-				if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName())){
+				if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName()) &&
+						StringUtils.isBlank(projectGrantContract.getPocEmailAddress())){
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
 					       this.addActionError(getText("secondarycontact.required")); 
 					} else {
 						   this.addActionError(getText("intramural.secondarycontact.required")); 
 					}
-				}
-				else if(!StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName())){
+				} else {
+			     if(StringUtils.isBlank(projectGrantContract.getPocLastName())){
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
 					       this.addActionError(getText("secondarycontact.lastname.required")); 
@@ -1261,7 +1262,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						   this.addActionError(getText("intramural.secondarycontact.lastname.required")); 
 					}
 				}
-				else if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && !StringUtils.isBlank(projectGrantContract.getPocLastName())){
+			   if(StringUtils.isBlank(projectGrantContract.getPocFirstName())){
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
 					       this.addActionError(getText("secondarycontact.firstname.required")); 
@@ -1269,11 +1270,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						   this.addActionError(getText("intramural.secondarycontact.firstname.required")); 
 					}
 				}
-			  		
-
+					
 				//Validation for Primary contact.
-				if(!StringUtils.isBlank(projectGrantContract.getPocFirstName()) && !StringUtils.isBlank(projectGrantContract.getPocLastName())
-					&& (StringUtils.isBlank(projectGrantContract.getPocEmailAddress()))) {
+				if(StringUtils.isBlank(projectGrantContract.getPocEmailAddress())) {
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
 				           this.addActionError(getText("secondarycontact.email.required")); 
@@ -1281,8 +1280,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						   this.addActionError(getText("intramural.secondarycontact.email.required")); 
 					}
 				} 
+				}
 			}
 		}
+		
+		//validation for properly formatted email.
 		if(projectGrantContract != null && !StringUtils.isBlank(projectGrantContract.getPocEmailAddress())) {
 			final String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
 			final Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
