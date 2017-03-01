@@ -147,10 +147,10 @@ public class DocumentsDao {
 		Long id = transientInstance.getId();
 		logger.info("Save or Update Document instance " + id);
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(transientInstance);
-			logger.info("Save successful");
+			Document document = (Document) sessionFactory.getCurrentSession().merge(transientInstance);
+			logger.info("Save successful for document " + document.getId());
 			logger.info("Document saved by user: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
-			return transientInstance;
+			return document;
 		} catch (RuntimeException re) {
 			logger.error("save failed for document " + id, re);
 			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
