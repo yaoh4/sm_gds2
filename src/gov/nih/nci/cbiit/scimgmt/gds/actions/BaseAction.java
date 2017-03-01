@@ -235,7 +235,7 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	 * @return
 	 */
 	public Lookup getLookupByCode(String listName, String code) {
-		List<Lookup> list = (List<Lookup>) lookupService.getLookupList(ApplicationConstants.GDS_ROLE_LIST);
+		List<Lookup> list = (List<Lookup>) lookupService.getLookupList(listName);
 		for(Lookup entry: list) {
 			if (entry.getCode().equalsIgnoreCase(code)) {
 				return entry;
