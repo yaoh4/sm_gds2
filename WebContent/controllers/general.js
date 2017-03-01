@@ -18,10 +18,16 @@ $(function () {
 
 $(function(){
 	var parentId=$("#parentId").val();
-	if(parentId){
+	if(parentId){ 
 		$("input[type=radio]").attr('disabled', true);
 		if($("#parentGrantSelection").val() == 'Both') {
 			$(".grantSelection").attr('disabled', false);
+		} else if($("#parentGrantSelection").val() == 'Extramural') {
+			$("#general_form_grantSelectionExtramural").attr('disabled', false);
+			$("#general_form_grantSelectionBoth").attr('disabled', false);
+		} else if($("#parentGrantSelection").val() == 'Intramural') {
+			$("#general_form_grantSelectionIntramural").attr('disabled', false);
+			$("#general_form_grantSelectionBoth").attr('disabled', false);
 		}
 		$("input[type=radio].grants").attr('disabled', false);
 	}
