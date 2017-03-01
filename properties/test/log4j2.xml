@@ -13,7 +13,7 @@
   		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<logger name="gov.nih.nci.cbiit.scimgmt.gds" level="info" >
+		<logger name="gov.nih.nci.cbiit.scimgmt.gds" level="debug" >
 			<AppenderRef ref="RollingFile"/>
 		</logger>
 		<Root level="error">
