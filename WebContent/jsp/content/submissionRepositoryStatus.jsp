@@ -31,10 +31,10 @@
 					</div>
 				</div>
 				<div class="panel-body">
-				<s:if test="%{project.repositoryStatuses.size == 0 && project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
+				<s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
 					<div>
                  	 <span>You will be able to add/remove repositories only at the parent project level. Changes will then be reflected in this sub-project.</span>
-                 	 <br/><br/>
+                 	 <br/>
                 </div> 
                 </s:if>
                 <s:if test="%{project.repositoryStatuses.size == 0 && project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_NO)}">
@@ -53,11 +53,6 @@
 						details for each repository.
 					</p>
 				  </s:if>
-				  <s:elseif test="%{project.repositoryStatuses.size > 0 && project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
-				  	<p>
-						<b>Select the repositories that apply to the sub-project submission.</b>
-					</p>
-				  </s:elseif>
 					<br />
 					<div id="repositoryDate" style="width:205px;">
 						<s:label for="anticpated_submission_date" value="Anticipated Submission Date" />
@@ -69,6 +64,12 @@
 						</div>
 					</div>
 					<br />
+					<s:if test="%{project.repositoryStatuses.size > 0 && project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
+				  	<p>
+						<b>Select the repositories that apply to the sub-project submission.</b>
+					</p>
+					<br/>
+				  </s:if>
 					<s:iterator value="project.repositoryStatuses" var="repositoryStatus" status="stat">
 					<!-- Begin Panel for each Repository -->
 					<s:div class="panel panel-default repoCount" id="%{'repositoryStatus_' + #stat.index}">
