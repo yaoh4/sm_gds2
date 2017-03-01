@@ -746,7 +746,7 @@ public class IcSubmissionAction extends ManageSubmission {
 
 	public String getMissingIcData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
 		
 		Project project = retrieveSelectedProject();
 		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingIcData(project, Long.valueOf(instCertId)));		

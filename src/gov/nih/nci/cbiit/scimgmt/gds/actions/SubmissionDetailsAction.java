@@ -222,7 +222,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	public String getMissingProjectData() {
 		
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_SUBMISISON_DETAILS));
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_SUBMISISON_DETAILS));
 		
 		Project project = retrieveSelectedProject();
 		setProject(project);
@@ -249,7 +249,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	
 	private void setupMissingDataList(String pageCode, List<MissingData> list) {
 		if(!CollectionUtils.isEmpty(list)) {
-			String displayText = lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, 
+			String displayText = getLookupByCode(ApplicationConstants.PAGE_TYPE, 
 					pageCode).getDisplayName();
 			MissingData missingData = new MissingData(displayText);
 			missingData.addChildren(list);

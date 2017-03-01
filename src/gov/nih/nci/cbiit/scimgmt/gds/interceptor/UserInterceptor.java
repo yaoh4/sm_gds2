@@ -8,6 +8,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;
 
 import java.nio.charset.Charset;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -79,7 +80,15 @@ public class UserInterceptor extends AbstractInterceptor implements StrutsStatic
 					UserRole userRole = nedPerson.getUserRole();
 					if(userRole != null) {
 						String roleCode = userRole.getGdsRoleCode();
-						Lookup gdsRole = lookupService.getLookupByCode(ApplicationConstants.ROLE_TYPE, roleCode);
+						Lookup gdsRole = null;
+						List<Lookup> list = (List<Lookup>) lookupService.getLookupList(ApplicationConstants.GDS_ROLE_LIST);
+						for(Lookup entry: list) {
+							if (entry.getCode().equalsIgnoreCase(roleCode)) {
+								gdsRole = entry;
+								break;
+							}
+						}
+						
 						if(gdsRole != null)
 							logger.info("GDS role for user " + remoteUser + " is " + gdsRole.getDescription());
 					}

@@ -482,7 +482,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public String getMissingRepositoryData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
 	
 		Project project = retrieveSelectedProject();
 		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingRepositoryData(project, Long.valueOf(repoStatusId)));
@@ -497,7 +497,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public String getMissingRepositoryListData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
 		
 		Project project = retrieveSelectedProject();
 		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingRepositoryListData(project));

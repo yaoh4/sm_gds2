@@ -102,21 +102,6 @@ public class LookupServiceImpl implements LookupService {
 		return allPlanQuestionsAnswers;
 	}
 	
-	/**
-	 * Get Lookup object by list name and code
-	 * 
-	 * @param listName
-	 * @param code
-	 * @return
-	 */
-	public Lookup getLookupByCode(String listName, String code) {
-		List<Lookup> list = (List<Lookup>) getLookupList(listName);
-		for(Lookup entry: list) {
-			if (entry.getCode().equalsIgnoreCase(code))
-				return entry;
-		}
-		return null;
-	}
 	
 	/**
 	 *  Get docList.  

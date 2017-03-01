@@ -32,7 +32,7 @@
    <duplication lines="63" tokens="245">
       <file line="282"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
-      <file line="212"
+      <file line="216"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
       <codefragment><![CDATA[	}
 
@@ -101,7 +101,7 @@
    <duplication lines="63" tokens="241">
       <file line="282"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
-      <file line="212"
+      <file line="216"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
       <file line="154"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
@@ -170,7 +170,7 @@
 	@Column(name = "SUBPROJECT_FLAG", length = 4)]]></codefragment>
    </duplication>
    <duplication lines="34" tokens="226">
-      <file line="737"
+      <file line="755"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
       <file line="86"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
@@ -214,7 +214,7 @@
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\PageStatus.java"/>
       <file line="284"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
-      <file line="215"
+      <file line="219"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
       <file line="156"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
@@ -456,7 +456,7 @@
    <duplication lines="39" tokens="167">
       <file line="64"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\HelpText.java"/>
-      <file line="100"
+      <file line="98"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Lookup.java"/>
       <file line="65"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Property.java"/>
@@ -517,7 +517,7 @@
 			dc.add(Restrictions.ilike("intPiLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));]]></codefragment>
    </duplication>
    <duplication lines="21" tokens="144">
-      <file line="769"
+      <file line="787"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
       <file line="119"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
@@ -605,7 +605,7 @@
    <duplication lines="33" tokens="105">
       <file line="405"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
-      <file line="336"
+      <file line="340"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
       <file line="214"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
@@ -710,11 +710,11 @@
 		if(StringUtils.isEmpty(getUpdatedBy())) {]]></codefragment>
    </duplication>
    <duplication lines="25" tokens="100">
-      <file line="176"
+      <file line="177"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\actions\BasicStudyInfoSubmissionAction.java"/>
-      <file line="245"
+      <file line="247"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
-      <file line="278"
+      <file line="280"
             path="c:\dev\Releases\Non I2E\gds-v1.1\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
       <codefragment><![CDATA[			bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, Long.valueOf(getProjectId()));
 		

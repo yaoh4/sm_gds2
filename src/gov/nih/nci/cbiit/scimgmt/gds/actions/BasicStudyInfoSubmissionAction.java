@@ -336,7 +336,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	
 	public String getMissingBsiData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, 
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, 
 			ApplicationConstants.PAGE_CODE_BSI));
 		
 		Project project = retrieveSelectedProject();

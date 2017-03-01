@@ -489,7 +489,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 	
 	public String getMissingIcListData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
 		
 		Project project = retrieveSelectedProject();
 		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingIcListData(project));

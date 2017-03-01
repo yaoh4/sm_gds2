@@ -422,7 +422,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						if(currentLatestVersion.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
 							//If no data is to be submitted, then set the submission status to NA
 							repoStatus.setLookupTBySubmissionStatusId(
-									lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
+									getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
 						}
 						repoStatus.setProject(project);
 						planAnswer.getRepositoryStatuses().add(repoStatus);

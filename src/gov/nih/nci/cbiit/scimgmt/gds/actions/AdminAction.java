@@ -11,10 +11,12 @@ import org.springframework.util.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.UserRole;
 import gov.nih.nci.cbiit.scimgmt.gds.model.RoleSearchCriteria;
+import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.MailService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;
 
@@ -130,7 +132,8 @@ public class AdminAction extends BaseAction {
 			if (StringUtils.equals(personRole.getRole().getCode(), gdsRoleCode))
 				changed = false;
 		}
-		personRole.setRole(lookupService.getLookupByCode(ApplicationConstants.GDS_ROLE_LIST, gdsRoleCode));
+		
+		personRole.setRole(getLookupByCode(ApplicationConstants.GDS_ROLE_LIST, gdsRoleCode));
 	
 		personRole = userRoleService.saveOrUpdatePersonRole(personRole);
 		

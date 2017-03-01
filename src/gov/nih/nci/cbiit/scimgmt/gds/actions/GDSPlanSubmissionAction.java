@@ -816,7 +816,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	public String getMissingGdsPlanData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, 
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, 
 			ApplicationConstants.PAGE_CODE_GDSPLAN));
 		
 		Project project = retrieveSelectedProject();

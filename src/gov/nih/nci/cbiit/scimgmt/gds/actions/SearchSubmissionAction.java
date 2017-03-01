@@ -266,11 +266,11 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 									: submission.getExtPocEmailAddress() + ", " + submission.getIntPocEmailAddress());
 					row.add(submission.getProjectStartDateString());
 					row.add(submission.getProjectEndDateString());
-					row.add((StringUtils.isBlank(submission.getGdsPlanPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getGdsPlanPageStatusCode()).getDescription()));
-					row.add((StringUtils.isBlank(submission.getDataSharingExcepStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getDataSharingExcepStatusCode()).getDescription()));
-					row.add((StringUtils.isBlank(submission.getIcPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getIcPageStatusCode()).getDescription()));
-					row.add((StringUtils.isBlank(submission.getBsiPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getBsiPageStatusCode()).getDescription()));
-					row.add((submission.getRepoCount() == null || StringUtils.isBlank(submission.getRepositoryPageStatusCode()) ? "N/A" : lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getRepositoryPageStatusCode()).getDescription()));
+					row.add((StringUtils.isBlank(submission.getGdsPlanPageStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getGdsPlanPageStatusCode()).getDescription()));
+					row.add((StringUtils.isBlank(submission.getDataSharingExcepStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getDataSharingExcepStatusCode()).getDescription()));
+					row.add((StringUtils.isBlank(submission.getIcPageStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getIcPageStatusCode()).getDescription()));
+					row.add((StringUtils.isBlank(submission.getBsiPageStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getBsiPageStatusCode()).getDescription()));
+					row.add((submission.getRepoCount() == null || StringUtils.isBlank(submission.getRepositoryPageStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getRepositoryPageStatusCode()).getDescription()));
 					exportRow.setRow(row);
 					rows.add(exportRow);
 				
