@@ -212,17 +212,17 @@ public class ManageSubmission extends BaseAction {
 	 */
 	public Project saveProject(Project project, String page, boolean saveSubprojects) {
 		
-		//Temporary hard coding project property. 
+		// Set subproject flag and subproject eligibility 
 		if(project.getParentProjectId() == null){
-			project.setSubprojectFlag("N");
+			project.setSubprojectFlag(ApplicationConstants.FLAG_NO);
 			if(GdsSubmissionActionHelper.isEligibleForSubproject(project))
-				project.setSubprojectEligibleFlag("Y");
+				project.setSubprojectEligibleFlag(ApplicationConstants.FLAG_YES);
 			else
-				project.setSubprojectEligibleFlag("N");
+				project.setSubprojectEligibleFlag(ApplicationConstants.FLAG_NO);
 		}
 		else{
-			project.setSubprojectFlag("Y");
-			project.setSubprojectEligibleFlag("N");
+			project.setSubprojectFlag(ApplicationConstants.FLAG_YES);
+			project.setSubprojectEligibleFlag(ApplicationConstants.FLAG_NO);
 		}
 		
 		//Set the exception memo status
@@ -230,6 +230,11 @@ public class ManageSubmission extends BaseAction {
 			getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, getExceptionMemoStatusCode(project)));
 		
 		project.setPageStatuses(computePageStatuses(project, page));
+		
+		// Set version eligibility
+		project.setVersionEligibleFlag(
+				GdsSubmissionActionHelper.isProjectEligibleForVersion(project));
+		
 		project= manageProjectService.saveOrUpdate(project);
 		
 		if(saveSubprojects) {
@@ -245,7 +250,7 @@ public class ManageSubmission extends BaseAction {
 	}
 
 	
-	public List<PageStatus> computePageStatuses(Project project, String modifiedPageCode) {
+	private List<PageStatus> computePageStatuses(Project project, String modifiedPageCode) {
 		
 		List<PageStatus> pageStatuses = new ArrayList<PageStatus>();
 		
