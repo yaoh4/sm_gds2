@@ -260,7 +260,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		project.setProjectGroupId(currentLatestVersion.getProjectGroupId());
 		project.setAdditionalIcComments(currentLatestVersion.getAdditionalIcComments());
 		project.setStudiesComments(currentLatestVersion.getStudiesComments());
-		
+		project.setPlanComments(currentLatestVersion.getPlanComments());
 		GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
 		
 		project.setCertificationCompleteFlag(null);
