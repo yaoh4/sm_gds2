@@ -124,7 +124,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public String save() throws Exception { 
 
-		logger.debug("Saving Submission Repository status.");	
+		logger.info("Saving Submission Repository status.");	
 		saveProject();
 		addActionMessage(getText("project.save.success"));
 		return SUCCESS;
@@ -145,7 +145,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public String saveAndNext() throws Exception { 
 
-		logger.debug("Saving Submission Repository status and navigating to GDS plan page.");
+		logger.info("Saving Submission Repository status and navigating to next page.");
 		saveProject();
 		addActionMessage(getText("project.save.success"));
 		return SUCCESS;
@@ -243,8 +243,6 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 		storedProject.setAnticipatedSubmissionDate(getProject().getAnticipatedSubmissionDate());
 		//Set the transient repositoryStatuses to enable computation of page status during save
 		storedProject.setRepositoryStatuses(getProject().getRepositoryStatuses());
-		storedProject.setVersionEligibleFlag(
-				GdsSubmissionActionHelper.isProjectEligibleForVersion(storedProject));
 		super.saveProject(storedProject, ApplicationConstants.PAGE_CODE_REPOSITORY);
 		setUpPageData();
 	}
@@ -482,7 +480,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public String getMissingRepositoryData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
 	
 		Project project = retrieveSelectedProject();
 		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingRepositoryData(project, Long.valueOf(repoStatusId)));
@@ -497,7 +495,7 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 	 */
 	public String getMissingRepositoryListData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_REPOSITORY));
 		
 		Project project = retrieveSelectedProject();
 		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingRepositoryListData(project));

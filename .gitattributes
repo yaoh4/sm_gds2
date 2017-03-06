@@ -179,9 +179,6 @@ WebContent/images/subV.png -text
 WebContent/images/subfolder.gif -text
 WebContent/images/version-divider.gif -text
 WebContent/index.jsp -text
-WebContent/jsp/content/adminEdit.htm -text
-WebContent/jsp/content/adminEdit.jsp -text
-WebContent/jsp/content/adminSearch.htm -text
 WebContent/jsp/content/adminSearch.jsp -text
 WebContent/jsp/content/detailReport.jsp -text
 WebContent/jsp/content/dulSetTemplate.jsp -text
@@ -200,6 +197,7 @@ WebContent/jsp/content/searchResultSubproject.jsp -text
 WebContent/jsp/content/searchSubmission.jsp -text
 WebContent/jsp/content/searchSubprojectResult.jsp -text
 WebContent/jsp/content/searchSubprojectResultSubproject.jsp -text
+WebContent/jsp/content/status.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfo.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfoFile.jsp -text
 WebContent/jsp/content/submissionBasicStudyInfoView.jsp -text
@@ -607,6 +605,7 @@ properties/dev/gds.properties -text
 properties/dev/log4j2.xml -text
 properties/local/gds.properties -text
 properties/local/log4j2.xml -text
+properties/log4j2.component.properties -text
 properties/messages.properties -text
 properties/production/gds.properties -text
 properties/production/log4j2.xml -text
@@ -1044,6 +1043,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/actions/IcSubmissionAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmission.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/RepositoryStatusSubmissionAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SearchSubmissionAction.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/actions/StatusAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SubmissionDetailsAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SysAdminAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text

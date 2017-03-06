@@ -36,7 +36,13 @@
 		<put-attribute name="navtab" value="newSubmission" type="string" />		
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/searchParentSubmission.jsp" />		
-	</definition>	
+	</definition>
+	
+	<!-- status.action Page -->
+    <definition name="status" extends="base.definition">
+        <put-attribute name="title" type="string" value="Status of Application"/>
+        <put-attribute name="body" value="/jsp/content/status.jsp"/>
+    </definition>	
 
 	<definition name="error" extends="base.definition">
 		<put-attribute name="title" type="string" value="GDS Tracking System- Error Details" />
@@ -109,14 +115,5 @@
 		<put-attribute name="title" type="string" value="GDS Tracking System" />
 		<put-attribute name="body" value="/jsp/content/adminSearch.jsp" />		
 	</definition>
-	
-	<definition name="adminEdit" extends="base.definition">		
-		<put-attribute name="navtab" value="admin" type="string" />	
-		<put-attribute name="subnavtab" value="adminEdit" type="string" />		
-		<put-attribute name="title" type="string" value="GDS Tracking System" />
-		<put-attribute name="body" value="/jsp/content/adminEdit.jsp" />		
-	</definition>
-	
-	
 	
 </tiles-definitions>

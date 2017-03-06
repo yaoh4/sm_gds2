@@ -129,6 +129,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 	}
 	
 	public String save() {
+		logger.info("Saving IC List.");
 		
 		saveIcList();
 		addActionMessage(getText("project.save.success"));
@@ -141,7 +142,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 	}	
 	
 	public String saveAndNext() {
-		
+		logger.info("Saving IC List and navigating to next page.");
 		saveIcList();
 		return SUCCESS;
 	}
@@ -206,7 +207,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
 			storedProject.setInstitutionalCertifications(getSubProjectIcs(storedProject));
 		}		
-		setProject(super.saveProject(storedProject, ApplicationConstants.PAGE_CODE_IC));
+		setProject(super.saveProject(storedProject, ApplicationConstants.PAGE_CODE_IC,false));
 	}
 	
 	
@@ -263,9 +264,9 @@ public class IcListSubmissionAction extends ManageSubmission {
 	 * @return
 	 */
      public String deleteIc() {
-		
+    	
+    	logger.info("Deleting IC");
 		Long instCertId = Long.valueOf(getInstCertId());
-		
 		Project project = retrieveSelectedProject();		
 		manageProjectService.deleteIc(instCertId, project);
 		setProject(retrieveSelectedProject());	
@@ -488,7 +489,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 	
 	public String getMissingIcListData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
 		
 		Project project = retrieveSelectedProject();
 		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingIcListData(project));

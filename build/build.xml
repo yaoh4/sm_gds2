@@ -222,6 +222,7 @@
             </fileset>
 	 		<fileset dir="${env.properties.dir}">
 	 	     <include name="${app.name}.properties"/>
+	 		 <include name="log4j2.xml"/>
 	 	    </fileset>
      </copy>
      <copy todir="${java.classes.dir}">

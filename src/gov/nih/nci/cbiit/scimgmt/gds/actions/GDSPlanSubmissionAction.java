@@ -23,6 +23,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.model.UIList;
@@ -115,7 +116,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 */
 	public String save() throws Exception {
 		
-		logger.debug("Save GDS Plan");
+		logger.info("Saving GDS Plan");
 		
 		setProject(retrieveSelectedProject());
 		
@@ -205,6 +206,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	 * @return forward string
 	 */
 	public String saveAndNext() throws Exception {
+		logger.info("Saving GDSPlan Info and navigating to next page.");
 		
 		save();
 		
@@ -350,7 +352,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				i = getProject().getInstitutionalCertifications().iterator();
 			}
 		}
-	    getProject().setCertificationCompleteFlag(null); 
+	    getProject().setCertificationCompleteFlag(null);
+	    getProject().setAdditionalIcComments("");
+	    getProject().setStudiesComments("");
 		super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
 		setProject(retrieveSelectedProject());
 	}
@@ -419,6 +423,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	public String performDataCleanup() throws Exception {
 
 		StringBuffer sb = new StringBuffer();
+		StringBuffer sb1 = new StringBuffer();
 		
 		// Called from ajax, so fetch the project
 		if(getProject() == null || getProject().getId() == null) {
@@ -458,7 +463,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				if(getProject().getInstitutionalCertifications() != null && !getProject().getInstitutionalCertifications().isEmpty())
 					sb.append("All Institutional Certifications and Data Use Limitations. <br>");
 			} else {
-					// Deleting all the ic`s permanently.
+					// Deleting all the ICs permanently.
 				deleteIcs();
 			}
 			
@@ -485,7 +490,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				getProject().setBsiComments("");
 			}
 			
-			// f) Remove repositories that were deleted except dbGaP, and add dbGap if it is not there.
+			// f) Remove repositories that were deleted except dbGaP, reset the repository data, and add dbGap if it is not there.
 			Set<Long> removeSet = new HashSet<Long>();
 			removeSet.addAll(oldSet);
 			removeSet.remove(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID);
@@ -494,6 +499,16 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 					sb.append("Repositories except dbGaP. <br>");
 			}
 			else {
+				if(oldSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID) && 
+					getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID) != null &&
+					!CollectionUtils.isEmpty(getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID).getRepositoryStatuses())) {
+					
+					for (Iterator<RepositoryStatus> repositoryIterator = getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_DBGAP_ID).getRepositoryStatuses().iterator(); repositoryIterator.hasNext();) {
+						RepositoryStatus repository = repositoryIterator.next();
+						if(repository.getProject().getId().longValue() == getProject().getId().longValue())
+							repositoryIterator.remove();
+					}
+				}
 				if(getProject().getAnticipatedSubmissionDate() != null) {
 					getProject().setAnticipatedSubmissionDate(null);
 				}
@@ -530,23 +545,25 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			// a) The system will delete all DUL(s) created that contains DUL type of 
 			//    "Health/Medical/Biomedical", "Disease-specific" and/or "Other". 
 			if(warnOnly) {
-				sb.append("All DUL(s) created that contains DUL type of " +
+				sb1.append("All DUL(s) created that contains DUL type of " +
 							"Health/Medical/Biomedical, Disease-specific and/or Other. <br>");
 			} else {
 				for(InstitutionalCertification ic: getProject().getInstitutionalCertifications()) {
 					for(Study study: ic.getStudies()) {
-						for(StudiesDulSet dul: study.getStudiesDulSets()) {
-							for (Iterator<DulChecklistSelection> dulIterator = dul.getDulChecklistSelections().iterator(); dulIterator.hasNext();) {
-								DulChecklistSelection selection = dulIterator.next();
-								if(selection.getDulChecklist().getParentDulId() != null) {
-									if(selection.getDulChecklist().getParentDulId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_HEALTH_MEDICAL_BIOMEDICAL_ID.longValue() ||
-										selection.getDulChecklist().getParentDulId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_DISEASE_SPECIFIC_ID.longValue() ||
-										selection.getDulChecklist().getParentDulId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_OTHER_ID.longValue()){	
+						for (Iterator<StudiesDulSet> dulSetIterator = study.getStudiesDulSets().iterator(); dulSetIterator.hasNext();) {
+							StudiesDulSet dulSet = dulSetIterator.next();
+							boolean found = false;
+							for (DulChecklistSelection selection: dulSet.getDulChecklistSelections()) {
+								if(selection.getDulChecklist().getId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_HEALTH_MEDICAL_BIOMEDICAL_ID.longValue() ||
+										selection.getDulChecklist().getId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_DISEASE_SPECIFIC_ID.longValue() ||
+										selection.getDulChecklist().getId().longValue() == ApplicationConstants.IC_STUDY_DUL_CHECKLIST_OTHER_ID.longValue()){	
 									
-										dulIterator.remove();
-									}
+									found = true;
+									break;
 								}
 							}
+							if(found)
+								dulSetIterator.remove();
 						}
 					}
 				}
@@ -558,7 +575,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
                 && newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_NONHUMAN_ID) && !newSet.contains(ApplicationConstants.PLAN_QUESTION_ANSWER_SPECIMEN_HUMAN_ID)) {
           if(warnOnly) {
                 if(getProject().getInstitutionalCertifications() != null && !getProject().getInstitutionalCertifications().isEmpty())
-                       sb.append("All Institutional Certifications and Data Use Limitations. <br>");
+                       sb1.append("All Institutional Certifications and Data Use Limitations. <br>");
           } else {
                 // Delete the ICs
         	  deleteIcs();
@@ -587,6 +604,9 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 		
 		if(sb.length() > 0) {
 			String warningMessage = getText("gds.warn.message");
+			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
+		} else if(sb1.length() > 0) {
+			String warningMessage = getText("gds.warning");
 			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
 		} else {
 			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
@@ -796,7 +816,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	
 	public String getMissingGdsPlanData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, 
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, 
 			ApplicationConstants.PAGE_CODE_GDSPLAN));
 		
 		Project project = retrieveSelectedProject();

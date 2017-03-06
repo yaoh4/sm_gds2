@@ -12,6 +12,7 @@ import java.util.List;
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.dao.DocumentsDao;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
@@ -251,8 +252,14 @@ public class FileUploadServiceImpl implements FileUploadService {
 		}
 		
 		// Get doc type object from lookup
-		doc.setDocType(lookupService.getLookupByCode("DOC_TYPE", docType));
-
+		List<Lookup> list = (List<Lookup>) lookupService.getLookupList(ApplicationConstants.DOC_TYPE);
+		for(Lookup entry: list) {
+			if (entry.getCode().equalsIgnoreCase(docType)) {
+				doc.setDocType(entry);
+				break;
+			}
+		}
+		
 		return doc;
 	}
 	

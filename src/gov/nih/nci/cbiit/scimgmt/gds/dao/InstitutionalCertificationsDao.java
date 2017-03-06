@@ -40,12 +40,15 @@ public class InstitutionalCertificationsDao {
 	 * @param persistentInstance
 	 */
 	public void delete(InstitutionalCertification persistentInstance) {
-		logger.debug("deleting IC instance");
+		Long id = persistentInstance.getId();
+		logger.info("Deleting IC instance " + id);
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
-			logger.debug("delete successful");
+			logger.info("Delete successful for IC " + id);
+			logger.info("Deletion performed by user: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());						
 		} catch (RuntimeException re) {
-			logger.error("delete failed", re);
+			logger.error("delete failed for IC " + id, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
 			throw re;
 		}
 	}
@@ -55,12 +58,15 @@ public class InstitutionalCertificationsDao {
 	 * Delete the ProjectsIcMapping
 	 */
 	public void delete(ProjectsIcMapping persistentInstance) {
-		logger.debug("deleting ProjectsIcMapping instance " + persistentInstance.getId());
+		Long id = persistentInstance.getId();
+		logger.info("Deleting ProjectsIcMapping instance " + id);
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
-			logger.debug("delete successful");
+			logger.info("Delete successful for ProjectIcMapping " + id);
+			logger.info("Deletion performed by user: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());									
 		} catch (RuntimeException re) {
-			logger.error("delete failed", re);
+			logger.error("delete failed for ProjectsIcMapping " + id, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw re;
 		}
 	}
@@ -92,7 +98,7 @@ public class InstitutionalCertificationsDao {
 	 * @return
 	 */
 	public InstitutionalCertification findById(Long icId) {
-		logger.debug("getting IC instance with icId: " + icId);
+		logger.debug("Getting IC instance with id: " + icId);
 		try {
 			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(InstitutionalCertification.class);
 			criteria.add(Restrictions.eq("id", icId));
@@ -106,7 +112,7 @@ public class InstitutionalCertificationsDao {
 	
 	public InstitutionalCertification merge(InstitutionalCertification detachedInstance) {
 		Long id = detachedInstance.getId();
-		logger.debug("merging IC instance");
+		logger.info("Merging IC instance " + id);
 		try {
 			if(id != null){
 				//Already saved submission				
@@ -118,10 +124,13 @@ public class InstitutionalCertificationsDao {
 				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId());				
 			}
 			InstitutionalCertification result = (InstitutionalCertification) sessionFactory.getCurrentSession().merge(detachedInstance);
-			logger.debug("merge successful for IC "  + id);
+			logger.info("Merge successful for IC "  + result.getId());
+			logger.info("Merge performed by user: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
+			
 			return result;
 		} catch (RuntimeException re) {
-			logger.error("merge failed for IC " + id, re);
+			logger.error("Merge failed for IC " + id, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw re;
 		}
 	}

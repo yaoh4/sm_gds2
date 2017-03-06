@@ -141,7 +141,11 @@ public class ProjectGrantContract implements java.io.Serializable {
 	}
 
 	public void setGrantContractNum(String applicationNum) {
-		this.grantContractNum = StringUtils.trim(applicationNum);
+		if(!StringUtils.isEmpty(applicationNum)) {
+		this.grantContractNum = StringUtils.trim(applicationNum.replaceAll("\\s",""));
+		} else {
+			this.grantContractNum = StringUtils.trim(applicationNum);
+		}
 	}
 
 	@Column(name = "GRANT_CONTRACT_TYPE", length = 30)

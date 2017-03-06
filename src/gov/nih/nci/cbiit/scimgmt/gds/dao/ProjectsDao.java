@@ -71,7 +71,7 @@ public class ProjectsDao {
 
 	public void delete(Project persistentInstance) {
 		Long projectId = persistentInstance.getId();
-		logger.info("deleting Project instance "  + projectId);
+		logger.info("Deleting Project instance "  + projectId);
 		try {
 			if(persistentInstance.getSubprojectFlag().equalsIgnoreCase("N")) {
 				//Delete the answer selections if parent project only
@@ -97,16 +97,19 @@ public class ProjectsDao {
 				
 			}
 			sessionFactory.getCurrentSession().delete(persistentInstance);
-			logger.info("delete successful for project " + projectId);
+			logger.info("Delete successful for project " + projectId);
+			logger.info("Deletion performed by user: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
+			
 		} catch (RuntimeException re) {
-			logger.error("delete failed", re);
+			logger.error("Delete failed for project " + projectId, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
 			throw re;
 		}
 	}
 
 	public Project merge(Project detachedInstance) {
 		Long id = detachedInstance.getId();
-		logger.debug("merging Project instance");
+		logger.info("Merging Project instance " + id);
 		try {
 			Hibernate.initialize(detachedInstance.getPlanAnswerSelections());
 			if(id != null){
@@ -162,10 +165,12 @@ public class ProjectsDao {
 				}
 			}
 			result = (Project) sessionFactory.getCurrentSession().merge(result); // have to merge again because we removed the deleted object from association
-			logger.debug("merge successful");
+			logger.info("Merge successful for project " + result.getId());
+			logger.info("Merge performed by user: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());				
 			return result;
 		} catch (RuntimeException re) {
 			logger.error("merge failed", re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());	
 			throw re;
 		}
 	}
@@ -176,7 +181,7 @@ public class ProjectsDao {
 			Project instance = (Project) sessionFactory.getCurrentSession()
 					.get(Project.class, id);
 			if (instance == null) {
-				logger.debug("get successful, no instance found");
+				logger.debug("No instance found with id " + id);
 			} else {
 				Hibernate.initialize(instance.getPlanAnswerSelections());
 				Hibernate.initialize(instance.getRepositoryStatuses());				
@@ -185,7 +190,8 @@ public class ProjectsDao {
 			}
 			return instance;
 		} catch (RuntimeException re) {
-			logger.error("get failed", re);
+			logger.error("Retrieval failed for project " + id, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
 			throw re;
 		}
 	}
@@ -198,7 +204,8 @@ public class ProjectsDao {
 			criteria.add(Restrictions.eq("id", id));
 			projectsVw = (ProjectsVw)criteria.uniqueResult();
 		} catch(Throwable e) {
-			logger.error("Unable to obtain ProjectsVw for id " + id);
+			logger.error("Unable to obtain ProjectsVw for id " + id, e);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw e;
 		}
 		
@@ -220,6 +227,7 @@ public class ProjectsDao {
 			return repoStatus;
 		} catch (RuntimeException re) {
 			logger.error("Unable to find IC by id " + repoId, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw re;
 		}
 	}
@@ -231,11 +239,11 @@ public class ProjectsDao {
 	@SuppressWarnings("unchecked")
 	public List<GdsGrantsContracts> getGrantOrContractList(String grantContractNum,String applClassCode){
 
-		logger.info("Retrieving  Grant / Contract List from DB for grantContractNum: "+grantContractNum);
-		logger.info("Retrieving  ApplClassCode "+applClassCode);
+		logger.debug("Retrieving  Grant / Contract List from DB for grantContractNum: "+grantContractNum);
+		logger.debug("Retrieving  ApplClassCode "+applClassCode);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsGrantsContracts.class);	
-			criteria.add(Restrictions.ilike("lookupGrantContractNum", grantContractNum,MatchMode.ANYWHERE));
+			criteria.add(Restrictions.ilike("lookupGrantContractNum", grantContractNum.replaceAll("\\s",""),MatchMode.ANYWHERE));
 			if(applClassCode !=null) {
 				criteria.add(Restrictions.or(
 					Restrictions.eq("applClassCode", applClassCode),
@@ -252,7 +260,8 @@ public class ProjectsDao {
 			return grantsListlist;
 
 		}catch (RuntimeException re) {
-			logger.error("Retrieving  Grant / Contract List failed", re);
+			logger.error("Retrieving  Grant / Contract List failed for grantNum " + grantContractNum, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
 			throw re;
 		}
 	}
@@ -273,7 +282,8 @@ public class ProjectsDao {
 			return grantContract;
 
 		}catch (RuntimeException re) {
-			logger.error("Retrieving  Grant / Contract failed", re);
+			logger.error("Retrieving  Grant / Contract failed for applId: "+ applId, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());				
 			throw re;
 		}
 	}
@@ -288,7 +298,7 @@ public class ProjectsDao {
 	 */
 	public List<ProjectsVw> getPrevLinkedSubmissionsForGrant(String grantContractNum, String projectId){
 		
-		logger.info("Retrieving already linked submissions for grantContractNum: "+grantContractNum);
+		logger.debug("Retrieving already linked submissions for grantContractNum: "+grantContractNum);
 		try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProjectsVw.class);	
 			criteria.add(Restrictions.or(
@@ -304,7 +314,8 @@ public class ProjectsDao {
 			return grantsListlist;
 
 		}catch (RuntimeException re) {
-			logger.error("Error occurred while retrieving already linked submissions for grantContractNum: "+grantContractNum, re);
+			logger.error("Error occurred while retrieving linked submissions for grantContractNum: " + grantContractNum, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw re;
 		}
 	}
@@ -394,7 +405,7 @@ public class ProjectsDao {
 		} catch (Throwable e) {
 			logger.error("Error while searching for project versions ", e);
 			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
-			logger.error("Pass-in parameters: projectGroupId - " + projectGroupId);
+			logger.error("Pass-in parameters: projectGroupId - " + projectGroupId + ", parentProjectId - " + parentProjectId);
 			logger.error("Outgoing parameters: Version List - " + list);
 			
 			throw e;
@@ -411,7 +422,8 @@ public class ProjectsDao {
 			return organization;
 
 		}catch (Throwable e) {
-			logger.error(e.getMessage(), e);
+			logger.error("Error getting organization for doc " + doc, e);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw e;
 		}
 	}
@@ -434,7 +446,8 @@ public class ProjectsDao {
 			result = query.list();
 
 		} catch (Throwable e) {
-			logger.error(e.getMessage(), e);
+			logger.error("Error retrieving subOrg list for sacCode: " + sacCode, e);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw e;
 		}
 		return result;
@@ -451,7 +464,8 @@ public class ProjectsDao {
 			return project;
 
 		}catch (Throwable e) {
-			logger.error(e.getMessage(), e);
+			logger.error("Error getting latest version of project group: " + projectGroupId, e);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw e;
 		}
 	}

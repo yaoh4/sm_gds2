@@ -333,8 +333,8 @@ public class ProjectSearchDao {
 		// Intramural(Z01)/Grant/Contract #
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getGrantContractNum()))) {
 			Disjunction dc = Restrictions.disjunction();
-			dc.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
-			dc.add(Restrictions.ilike("intGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().replaceAll("\\s",""), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("intGrantContractNum", searchCriteria.getGrantContractNum().replaceAll("\\s",""), MatchMode.ANYWHERE));
 			parentCriteria.add(dc);
 			parentDetachedCriteria.add(dc);
 			subprojectCriteria.add(dc);
@@ -457,8 +457,8 @@ public class ProjectSearchDao {
 		// Intramural(Z01)/Grant/Contract #
 		if (!StringUtils.isBlank(StringUtils.trim(searchCriteria.getGrantContractNum()))) {
 			Disjunction dc = Restrictions.disjunction();
-			dc.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
-			dc.add(Restrictions.ilike("intGrantContractNum", searchCriteria.getGrantContractNum().trim(), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("extGrantContractNum", searchCriteria.getGrantContractNum().replaceAll("\\s",""), MatchMode.ANYWHERE));
+			dc.add(Restrictions.ilike("intGrantContractNum", searchCriteria.getGrantContractNum().replaceAll("\\s",""), MatchMode.ANYWHERE));
 			subprojectCriteria.add(dc);
 		}
 
@@ -485,12 +485,27 @@ public class ProjectSearchDao {
 	 * @return
 	 */
 	private Criteria addSortOrder(Criteria criteria, SubmissionSearchCriteria searchCriteria) {
-
+		
+		String additionalSort = null;
 		if(StringUtils.isNotBlank(searchCriteria.getSortBy())) {
-			if(StringUtils.equalsIgnoreCase(searchCriteria.getSortDir(), "asc"))
+			//For columns that represent two pieces of data, include both
+			if(searchCriteria.getSortBy().equals("extGrantContractNum")) {
+				additionalSort = "intGrantContractNum";
+			}
+			if(searchCriteria.getSortBy().equals("extPiLastName")) {
+				additionalSort = "intPiLastName";
+			}
+			if(StringUtils.equalsIgnoreCase(searchCriteria.getSortDir(), "asc")) {
 				criteria.addOrder(Order.asc(searchCriteria.getSortBy()));
-			else
+				if(additionalSort != null) {
+					criteria.addOrder(Order.asc(additionalSort));
+				}
+			} else {
 				criteria.addOrder(Order.desc(searchCriteria.getSortBy()));
+				if(additionalSort != null) {
+					criteria.addOrder(Order.desc(additionalSort));
+				}
+			}
 		}	
 		
 		return criteria;

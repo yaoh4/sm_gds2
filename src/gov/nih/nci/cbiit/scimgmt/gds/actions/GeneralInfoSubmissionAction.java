@@ -59,8 +59,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String parentGrantSelection;
 	private String searchType;
 	private String grantsAdditional;
-	private Long savedSubmissionReasonId;
 	
+
 	private List<DropDownOption> docList = new ArrayList<DropDownOption>();
 	private List<DropDownOption> progList = new ArrayList<DropDownOption>();
 	
@@ -70,7 +70,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private List<ProjectsVw> prevLinkedSubmissions = new ArrayList<ProjectsVw>();
 	private GdsGrantsContracts grantOrContract;	
 	private List<ProjectGrantContract> secondaryGrantNum =new ArrayList<ProjectGrantContract>();
-	
 
 	/**
 	 * This method is responsible for loading the General Information page and setting all the UI elements.
@@ -98,7 +97,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String save() throws Exception {  	
 
-		logger.debug("Saving Submission General Info.");
+		logger.info("Saving Submission General Info.");
 		saveProject();
 		addActionMessage(getText("project.save.success"));
 		setUpPageData();
@@ -121,7 +120,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String saveAndNext() throws Exception {
 		
-		logger.debug("Saving Submission General Info and navigating to GDS plan page.");
+		logger.info("Saving Submission General Info and navigating to next page.");
 		saveProject();
 		Project project = retrieveSelectedProject();
 		if(!showPage(ApplicationConstants.PAGE_TYPE_GDSPLAN, project)) {
@@ -147,19 +146,28 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
 			getProject().setDocAbbreviation("");
 			getProject().setProgramBranch("");
+			
+			ProjectGrantContract intramuralGrant = getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+			if(intramuralGrant!= null) {
+				getProject().removePrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL);
+			}
+			
 			ProjectGrantContract extramuralGrant = getProject().getPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL);
-			if(extramuralGrant!= null && StringUtils.equals(extramuralGrant.getDataLinkFlag(), "Y")) {
+			if(extramuralGrant!= null) {
 				extramuralGrant.setDataLinkFlag("N");
+				extramuralGrant.setGrantContractNum("");
+				extramuralGrant.setProjectTitle("");
+				extramuralGrant.setCayCode("");
 			}
 		}
 
 		Project project = retrieveSelectedProject();		
-		if(project != null){
+		if(project != null) {
+			project = performDataCleanup(getProject(), project);
 			project = setupGrantData(project);
-			performDataCleanup(getProject(), project);
 			project = GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
 			project = super.saveProject(project, null);			
-		} else{
+		} else {
 			if(getProject().getId() == null) {
 				if(getProject().getProjectGroupId() != null) {
 					//New version of project or subproject, 
@@ -252,7 +260,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		project.setProjectGroupId(currentLatestVersion.getProjectGroupId());
 		project.setAdditionalIcComments(currentLatestVersion.getAdditionalIcComments());
 		project.setStudiesComments(currentLatestVersion.getStudiesComments());
-		
+		project.setPlanComments(currentLatestVersion.getPlanComments());
 		GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
 		
 		project.setCertificationCompleteFlag(null);
@@ -414,7 +422,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						if(currentLatestVersion.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
 							//If no data is to be submitted, then set the submission status to NA
 							repoStatus.setLookupTBySubmissionStatusId(
-									lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
+									getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
 						}
 						repoStatus.setProject(project);
 						planAnswer.getRepositoryStatuses().add(repoStatus);
@@ -428,7 +436,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			}
 			//Remove those planAnswers that do not match specific preconditions
 			if(GdsSubmissionActionHelper.isSubmissionUpdated(project, currentLatestVersion)) {
-				deletePlanAnswers(project);
+				deleteSubmissionUpdatedData(project);
 			}
 		}
 		
@@ -467,9 +475,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		//Remove those documents that do not match specific preconditions
 		if(GdsSubmissionActionHelper.isSubmissionUpdated(project, currentLatestVersion)) {
-			deleteExceptionMemo(project);
+			deleteSubmissionUpdatedData(project);
 		}
-        
 		//save the project to recomute the statuses
 		project = super.saveProject(project, null);
 		
@@ -513,7 +520,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String createNewSubmission() throws Exception {  	
 	
-		logger.debug("Navigating to create new submission.");
+		logger.info("Navigating to create new submission.");
 		
 		projectTypes = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_TYPE_LIST.toUpperCase());		
 		return SUCCESS;
@@ -707,22 +714,61 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 * Then delete answers to some gds plan questions.
 	 * @param transientProject
 	 * @param persistentProject
+	 * @throws Exception 
 	 */
-	private void performDataCleanup(Project transientProject, Project persistentProject){
+	private Project performDataCleanup(Project transientProject, Project persistentProject) throws Exception{
 
 		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){
-
-			logger.debug("Answer to Why is the project being submitted? has been updated for Submission with id. :"+persistentProject.getId());
-			deleteExceptionMemo(persistentProject);
-			deletePlanAnswers(persistentProject);
-		}		
+			return deleteSubmissionUpdatedData(persistentProject); 
+		} else {
+			return persistentProject;
+		}
 	}
 	
+	private Project deleteSubmissionUpdatedData(Project persistentProject) throws Exception {
+		logger.debug("Answer to Why is the project being submitted? has been updated for Submission with id. :"+persistentProject.getId());
+		// deletes the exception memo uploaded
+		deleteExceptionMemo(persistentProject);
+		
+		//removes all the plan answers
+		deletePlanAnswers(persistentProject);
+		
+		//deletes the GDS plan file
+		List<Document> gdsPlanFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_GDSPLAN, persistentProject.getId());
+		for(Document document: gdsPlanFile) {
+			setDocId(document.getId());
+			deleteFile();
+		}
+		
+		//deletes all associated sub-projects
+		manageProjectService.deleteSubProjects(persistentProject.getId());
+
+		// removes all the data in BSI page
+		List<Document> bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, persistentProject.getId());
+		for(Document document: bsiFile) {
+			setDocId(document.getId());
+			deleteFile();
+		}
+		persistentProject = deleteIcs(persistentProject);
+		
+		//sets all the comments to empty
+		persistentProject.setBsiReviewedId(null);
+		persistentProject.setPlanComments("");
+		persistentProject.setBsiComments("");
+		persistentProject.setCertificationCompleteFlag(null); 
+		persistentProject.setAdditionalIcComments("");
+		persistentProject.setStudiesComments("");
+		persistentProject.setAnticipatedSubmissionDate(null);
+		
+		
+	  return super.saveProject(persistentProject, null);
+		
+	}
 	/**
 	 * This method deletes exception memo.
 	 * @param persistentProject
 	 */
-	private void deleteExceptionMemo(Project persistentProject){
+	private void deleteExceptionMemo(Project persistentProject) {
 		
 		//The system will delete the uploaded exception memo
 		List<Document> excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", persistentProject.getId());
@@ -734,10 +780,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	}
 	
 	/**
-	 * The system will delete answers to following questions: 
-	 * 1.Is there a data sharing exception requested for this project?
-	 * 2.Was this exception approved?
-	 * 3.Will there be any data submitted?
+	 * The system will delete all the plan answers
 	 * @param persistentProject
 	 */
 	private void deletePlanAnswers(Project persistentProject){
@@ -745,16 +788,32 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		for (Iterator<PlanAnswerSelection> planAnswerSelectionIterator = persistentProject.getPlanAnswerSelections().iterator(); planAnswerSelectionIterator.hasNext();) {
 
 			PlanAnswerSelection planAnswerSelection = planAnswerSelectionIterator.next();
-
-			if(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()
-					|| ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()
-					|| ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID.longValue() == planAnswerSelection.getPlanQuestionsAnswer().getQuestionId().longValue()){	
-				
 				planAnswerSelectionIterator.remove();
 				logger.debug("Deleted the answer to question with Id: "+planAnswerSelection.getPlanQuestionsAnswer().getQuestionId());
-			}
+			
 		}
 	}
+	
+	/**
+	 * This method deletes all the Ics on specific conditions
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unused")
+	private Project deleteIcs(Project persistentProject) throws Exception {
+		List<InstitutionalCertification> icList = persistentProject.getInstitutionalCertifications();
+		if (icList != null){
+			InstitutionalCertification icdup = null;
+			for(Iterator<InstitutionalCertification> i= icList.iterator(); i.hasNext();) {
+				icdup = i.next();
+				manageProjectService.deleteIc(icdup.getId(), persistentProject);
+				//setProject(retrieveSelectedProject());
+				persistentProject = retrieveSelectedProject();
+				i = persistentProject.getInstitutionalCertifications().iterator();
+			}
+		}
+		return persistentProject;
+	}
+	
 	
 	/**
 	 * This method serves ajax request coming from onclick of save.
@@ -770,34 +829,27 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		}
 		
 		StringBuffer sb = new StringBuffer();
+		StringBuffer sb1 = new StringBuffer();
 		Project transientProject = getProject();
 		Project persistentProject = retrieveSelectedProject();
 		
-		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)){	
-			
-			if(isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)
-					|| isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)
-					|| isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)){
-				
-				sb.append("The system will delete answers to following questions: <br />");
-				if(isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_ID)){
-					sb.append("Is there a data sharing exception requested for this project? <br />");
+		if(GdsSubmissionActionHelper.isSubmissionUpdated(transientProject, persistentProject)) {
+			if(transientProject.getSubmissionReasonId() != null) {
+				if(transientProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.longValue()) {
+					sb.append("deleting to non-nih funded");
+					
+				} else if(persistentProject.getSubmissionReasonId().longValue() == ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.longValue()) {
+					sb1.append("deleting from non-nih funded");
 				}
-				if(isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_EXCEPTION_APPROVED_ID)){
-					sb.append("Was this exception approved? <br />");
-				}
-				if(isQuestionAnsweredInGdsPlan(persistentProject,ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_ID)){
-					sb.append("Will there be any data submitted? <br />");
-				}	
-				List<Document> excepMemoFile = fileUploadService.retrieveFileByDocType("EXCEPMEMO", persistentProject.getId());
-				if(excepMemoFile != null && !excepMemoFile.isEmpty()) {
-					sb.append("And the system will delete the uploaded exception memo. <br />");
-				}
-			}
+						
+			} 
 		}
 		
 		if(sb.length() > 0) {
 			String warningMessage = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> " + getText("gds.warn.message");
+			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
+		} else if(sb1.length() > 0) {
+			String warningMessage = "<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> " + getText("gds.warn.non.nih.message");
 			inputStream = new ByteArrayInputStream(warningMessage.getBytes("UTF-8"));
 		} else {
 			inputStream = new ByteArrayInputStream("".getBytes("UTF-8"));
@@ -932,8 +984,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	 */
 	public void validateGeneralInfoSave(){	
 		
-		validateProjectDetails();
-		
 		if(StringUtils.isBlank(grantSelection)) {
 			grantSelection = getParentGrantSelection();
 		}
@@ -974,6 +1024,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(getAssociatedSecondaryGrants() != null) {
 			getProject().setAssociatedGrants(getAssociatedSecondaryGrants());
 		}
+		
+		validateProjectDetails();
+		
 		
 		
 		//If user selected a grant from grantContract search page and then validation failed on general info page while saving
@@ -1030,13 +1083,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(getProject().getParentProjectId() == null){
 			submissionReasonId = getProject().getSubmissionReasonId();
 			if(submissionReasonId == null){
-				submissionReasonId = getSavedSubmissionReasonId();
-				if(submissionReasonId == null) {
-					this.addActionError(getText("submissionReasonId.required")); 
-					return;
-				} else {
-					getProject().setSubmissionReasonId(Long.valueOf(submissionReasonId));
-				}
+				this.addActionError(getText("submissionReasonId.required")); 
+				return;
 			}
 		} else {
 			submissionReasonId = retrieveParentProject().getSubmissionReasonId();
@@ -1067,10 +1115,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		//Validate only if grant is selected and it is not linked
 		if(projectGrantContract != null &&
-				!StringUtils.isBlank(projectGrantContract.getGrantContractNum()) && 
 				!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag())){
 			//Validation for Title
-			if(StringUtils.isBlank(projectGrantContract.getProjectTitle()) && !ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId())){
+			if(!StringUtils.isBlank(projectGrantContract.getGrantContractNum()) && StringUtils.isBlank(projectGrantContract.getProjectTitle()) && !ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId())){
 				this.addActionError(getText("projecttitle.required")); 
 			}
 
@@ -1193,20 +1240,21 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		//If the grant is present and the data link flag is not present, then do the validation
 		if(projectGrantContract != null && 
 				(!ApplicationConstants.FLAG_YES.equals(projectGrantContract.getDataLinkFlag()) || ApplicationConstants.SUBMISSION_REASON_NONNIHFUND.equals(getProject().getSubmissionReasonId()))) {
-		//Validation for Primary Contact. 
+		     //Validation for Primary Contact. 
 			if(StringUtils.isBlank(projectGrantContract.getPiFirstName()) && 
 			   StringUtils.isBlank(projectGrantContract.getPiLastName()) &&
 			   StringUtils.isBlank(projectGrantContract.getPiEmailAddress()) &&
 			   StringUtils.isBlank(projectGrantContract.getPiInstitution())) {
-				if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName())){
+				if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName()) &&
+						StringUtils.isBlank(projectGrantContract.getPocEmailAddress())){
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
 					       this.addActionError(getText("secondarycontact.required")); 
 					} else {
 						   this.addActionError(getText("intramural.secondarycontact.required")); 
 					}
-				}
-				else if(!StringUtils.isBlank(projectGrantContract.getPocFirstName()) && StringUtils.isBlank(projectGrantContract.getPocLastName())){
+				} else {
+			     if(StringUtils.isBlank(projectGrantContract.getPocLastName())){
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
 					       this.addActionError(getText("secondarycontact.lastname.required")); 
@@ -1214,7 +1262,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						   this.addActionError(getText("intramural.secondarycontact.lastname.required")); 
 					}
 				}
-				else if(StringUtils.isBlank(projectGrantContract.getPocFirstName()) && !StringUtils.isBlank(projectGrantContract.getPocLastName())){
+			   if(StringUtils.isBlank(projectGrantContract.getPocFirstName())){
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
 					       this.addActionError(getText("secondarycontact.firstname.required")); 
@@ -1222,11 +1270,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						   this.addActionError(getText("intramural.secondarycontact.firstname.required")); 
 					}
 				}
-			  		
-
+					
 				//Validation for Primary contact.
-				if(!StringUtils.isBlank(projectGrantContract.getPocFirstName()) && !StringUtils.isBlank(projectGrantContract.getPocLastName())
-					&& (StringUtils.isBlank(projectGrantContract.getPocEmailAddress()))) {
+				if(StringUtils.isBlank(projectGrantContract.getPocEmailAddress())) {
 					if((ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL).equalsIgnoreCase(
 							projectGrantContract.getGrantContractType())) {
 				           this.addActionError(getText("secondarycontact.email.required")); 
@@ -1234,8 +1280,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						   this.addActionError(getText("intramural.secondarycontact.email.required")); 
 					}
 				} 
+				}
 			}
 		}
+		
+		//validation for properly formatted email.
 		if(projectGrantContract != null && !StringUtils.isBlank(projectGrantContract.getPocEmailAddress())) {
 			final String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
 			final Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -1448,14 +1497,6 @@ public List<DropDownOption> getProgList() {
 
 	public void setParentGrantSelection(String parentGrantSelection) {
 		this.parentGrantSelection = parentGrantSelection;
-	}
-
-	public Long getSavedSubmissionReasonId() {
-		return savedSubmissionReasonId;
-	}
-
-	public void setSavedSubmissionReasonId(Long savedSubmissionReasonId) {
-		this.savedSubmissionReasonId = savedSubmissionReasonId;
 	}
 
 }

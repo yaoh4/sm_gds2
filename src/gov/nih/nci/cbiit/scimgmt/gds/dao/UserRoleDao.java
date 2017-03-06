@@ -120,14 +120,14 @@ public class UserRoleDao {
 		
 		if(StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getFirstName()))) {
 			Disjunction disjunction = Restrictions.disjunction();
-			disjunction.add(Restrictions.ilike("nedPerson.firstName", searchCriteria.getFirstName().trim(), MatchMode.EXACT));
-			disjunction.add(Restrictions.ilike("nedPerson.preferredName", searchCriteria.getFirstName().trim(), MatchMode.EXACT));
+			disjunction.add(Restrictions.eq("nedPerson.firstName", searchCriteria.getFirstName().trim()).ignoreCase());
+			disjunction.add(Restrictions.eq("nedPerson.preferredName", searchCriteria.getFirstName().trim()).ignoreCase());
 			criteria.add(disjunction);
 		}
 		if (StringUtils.isNotBlank(StringUtils.trim(searchCriteria.getLastName()))) {
 			Disjunction disjunction = Restrictions.disjunction();
-			disjunction.add(Restrictions.ilike("nedPerson.lastName", searchCriteria.getLastName().trim(), MatchMode.EXACT));
-			disjunction.add(Restrictions.ilike("nedPerson.nihcommonsn", searchCriteria.getLastName().trim(), MatchMode.EXACT));			
+			disjunction.add(Restrictions.eq("nedPerson.lastName", searchCriteria.getLastName().trim()).ignoreCase());
+			disjunction.add(Restrictions.eq("nedPerson.nihcommonsn", searchCriteria.getLastName().trim()).ignoreCase());			
 			criteria.add(disjunction);
 		}
 		
@@ -135,10 +135,10 @@ public class UserRoleDao {
 			criteria.add(Restrictions.eq("gdsRoleCode", searchCriteria.getRoleCode()));
 		}
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
-			criteria.add(Restrictions.ilike("nedPerson.nihsac", searchCriteria.getDoc(), MatchMode.START));
+			criteria.add(Restrictions.like("nedPerson.nihsac", searchCriteria.getDoc(), MatchMode.START));
 		} else {
 			Conjunction conjunction = Restrictions.conjunction();
-			conjunction.add(Restrictions.ilike("nedPerson.nihorgacronym", loggedOnUser.getNihorgacronym(), MatchMode.EXACT));
+			conjunction.add(Restrictions.eq("nedPerson.nihorgacronym", loggedOnUser.getNihorgacronym()).ignoreCase());
 			conjunction.add(Restrictions.not(Restrictions.in("nedPerson.nihsac", new String[]{"HNC17Y", "HNC1R", "HNC1-5", "HNC17"})));
 			criteria.add(conjunction);		
 		}
@@ -180,7 +180,7 @@ public class UserRoleDao {
 		}
 		
 		if(StringUtils.isNotBlank(searchCriteria.getDoc())) {
-			criteria.add(Restrictions.ilike("nihsac", searchCriteria.getDoc(), MatchMode.START));
+			criteria.add(Restrictions.like("nihsac", searchCriteria.getDoc(), MatchMode.START));
 		} else {
 			Conjunction conjunction = Restrictions.conjunction();
 			conjunction.add(Restrictions.eq("nihorgacronym", loggedOnUser.getNihorgacronym()));

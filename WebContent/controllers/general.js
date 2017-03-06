@@ -18,14 +18,16 @@ $(function () {
 
 $(function(){
 	var parentId=$("#parentId").val();
-	var projectId=$("#projectId").val();
-	if(projectId) {
-		$(".submissionReasonSelect").attr('disabled', true);
-	}
-	if(parentId){
+	if(parentId){ 
 		$("input[type=radio]").attr('disabled', true);
 		if($("#parentGrantSelection").val() == 'Both') {
 			$(".grantSelection").attr('disabled', false);
+		} else if($("#parentGrantSelection").val() == 'Extramural') {
+			$("#general_form_grantSelectionExtramural").attr('disabled', false);
+			$("#general_form_grantSelectionBoth").attr('disabled', false);
+		} else if($("#parentGrantSelection").val() == 'Intramural') {
+			$("#general_form_grantSelectionIntramural").attr('disabled', false);
+			$("#general_form_grantSelectionBoth").attr('disabled', false);
 		}
 		$("input[type=radio].grants").attr('disabled', false);
 	}
@@ -83,9 +85,13 @@ $("input[name='grantSelection']").click(function () {
 	}  else if($("#dataLinkFlag").val() === 'N') {
 		$(".nonNihFunded").prop('disabled', false);
 		setUnlinkedDisplay();
-	} else {
+	} else if($("#dataLinkFlag").val() === 'Y'){
 		$(".nonNihFunded").prop('disabled', true);
 		setLinkedDisplay();
+	}
+	else {
+		$(".nonNihFunded").prop('disabled', false);
+		setUnlinkedDisplay();
 	}
 	//bootbox.confirm(result, function(ans) {
 	//	if (ans) {
@@ -117,12 +123,19 @@ $("input[name='project.submissionReasonId']").click(function () {
 		
 	if($(this).val() === '29') {
 		$(".nonNihFunded").prop('disabled', false);
+		code = 'Extramural';
+		$("#researchType").val(code);
+		$("#general_form_grantSelectionExtramural").prop("checked", true);
 	} else if($("#dataLinkFlag").val() === 'N') {
 		$(".nonNihFunded").prop('disabled', false);
 		setUnlinkedDisplay();
-	} else {
+	} else if($("#dataLinkFlag").val() === 'Y'){
 		$(".nonNihFunded").prop('disabled', true);
 		setLinkedDisplay();
+	}
+	else {
+		$(".nonNihFunded").prop('disabled', false);
+		setUnlinkedDisplay();
 	}
 	
 	$('.genConditionalDisplay').css('display', ($(this).val() != '29') ? 'block':'none');
@@ -130,6 +143,7 @@ $("input[name='project.submissionReasonId']").click(function () {
 			|| ($(this).val() !== '29' && (code === 'Extramural' || code === 'Both'))) ? 'block':'none');
 	$('.extConditionalDisplay').css('display', ($(this).val() !== '29' && (code == 'Extramural' || code === 'Both')) ? 'block':'none');  
 	$('#intramuralDiv').css('display',  ($(this).val() !== '29' && (code === 'Intramural' || code === 'Both')) ? 'block':'none'); 
+	prepareGrantNumField(code);
 	
 });
 
@@ -196,7 +210,6 @@ function prepareGrantNumField(code) {
 			$("#extramural_grantDiv i").removeClass("fa fa-pencil").addClass("fa fa-search");
 			$("#extramural_grantDiv button").attr("title", "Search");
 			$("#extramural_grantsContractNum").attr("placeholder", "Click on Search Icon");
-			
 			$("#linkButton").hide();
 			
 		} else {

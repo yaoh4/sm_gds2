@@ -86,7 +86,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	 */
 	public String save() throws Exception {
 		
-		logger.debug("Save Basic Study");
+		logger.info("Saving Basic Study Info");
 		
 		setProject(retrieveSelectedProject());
 		
@@ -141,6 +141,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	 * @return forward string
 	 */
 	public String saveAndNext() throws Exception {
+		logger.info("Saving Basic Study Info and navigating to next page.");
 		
 		save();
 		
@@ -335,7 +336,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 	
 	public String getMissingBsiData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, 
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, 
 			ApplicationConstants.PAGE_CODE_BSI));
 		
 		Project project = retrieveSelectedProject();

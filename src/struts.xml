@@ -65,6 +65,13 @@
 			<result name="success" type="redirect-action">home</result>
 		</action>
 		
+		<!-- Action to test DB connection for NAGIOS monitor: -->
+  		<action name="status" class="gov.nih.nci.cbiit.scimgmt.gds.actions.StatusAction">
+  			<interceptor-ref name="logger" />	
+  			<interceptor-ref name="defaultStack" />
+   			<result name="success" type="tiles">status</result>
+  		</action>
+		
 	</package>
 	
 	<include file="manage.xml"/>

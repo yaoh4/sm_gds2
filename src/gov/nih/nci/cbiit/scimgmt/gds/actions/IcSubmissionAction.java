@@ -464,6 +464,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	 * @return
 	 */
 	public String saveIc() {
+		logger.info("Saving IC.");
+		
 		Project project = retrieveSelectedProject();
 		Long docId = null;
 		
@@ -491,8 +493,10 @@ public class IcSubmissionAction extends ManageSubmission {
 		if(storedCertId == null) {
 			//This is a new ic, so add it to the project
 			project.getInstitutionalCertifications().add(instCert);
-		}
+			project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC,false);
+		} else {
 		project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
+		}
 		setProject(project);
 		
 		// Update CertId
@@ -742,7 +746,7 @@ public class IcSubmissionAction extends ManageSubmission {
 
 	public String getMissingIcData() {
 		
-		setPage(lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
+		setPage(getLookupByCode(ApplicationConstants.PAGE_TYPE, ApplicationConstants.PAGE_CODE_IC));
 		
 		Project project = retrieveSelectedProject();
 		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingIcData(project, Long.valueOf(instCertId)));		

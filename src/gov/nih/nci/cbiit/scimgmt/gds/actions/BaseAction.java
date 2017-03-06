@@ -221,11 +221,30 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	 */
 	public  String getLookupDisplayNameByCode(String listName, String code) {
 		if(code != null) {
-			Lookup lookup = lookupService.getLookupByCode(listName, code);
+			Lookup lookup = getLookupByCode(listName, code);
 			return lookup.getDisplayName();
 		}
 		return "";
 	}
+	
+	/**
+	 * Get Lookup object by list name and code
+	 * 
+	 * @param listName
+	 * @param code
+	 * @return
+	 */
+	public Lookup getLookupByCode(String listName, String code) {
+		List<Lookup> list = (List<Lookup>) lookupService.getLookupList(listName);
+		for(Lookup entry: list) {
+			if (entry.getCode().equalsIgnoreCase(code)) {
+				return entry;
+			}
+		}
+		
+		return null;
+	}
+	
 	
 	
 	public String getHelpText(String helpKey) {

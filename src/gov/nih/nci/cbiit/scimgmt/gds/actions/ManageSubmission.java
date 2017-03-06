@@ -212,24 +212,29 @@ public class ManageSubmission extends BaseAction {
 	 */
 	public Project saveProject(Project project, String page, boolean saveSubprojects) {
 		
-		//Temporary hard coding project property. 
+		// Set subproject flag and subproject eligibility 
 		if(project.getParentProjectId() == null){
-			project.setSubprojectFlag("N");
+			project.setSubprojectFlag(ApplicationConstants.FLAG_NO);
 			if(GdsSubmissionActionHelper.isEligibleForSubproject(project))
-				project.setSubprojectEligibleFlag("Y");
+				project.setSubprojectEligibleFlag(ApplicationConstants.FLAG_YES);
 			else
-				project.setSubprojectEligibleFlag("N");
+				project.setSubprojectEligibleFlag(ApplicationConstants.FLAG_NO);
 		}
 		else{
-			project.setSubprojectFlag("Y");
-			project.setSubprojectEligibleFlag("N");
+			project.setSubprojectFlag(ApplicationConstants.FLAG_YES);
+			project.setSubprojectEligibleFlag(ApplicationConstants.FLAG_NO);
 		}
 		
 		//Set the exception memo status
 		project.setDataSharingExcepStatus(
-			lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, getExceptionMemoStatusCode(project)));
+			getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, getExceptionMemoStatusCode(project)));
 		
 		project.setPageStatuses(computePageStatuses(project, page));
+		
+		// Set version eligibility
+		project.setVersionEligibleFlag(
+				GdsSubmissionActionHelper.isProjectEligibleForVersion(project));
+		
 		project= manageProjectService.saveOrUpdate(project);
 		
 		if(saveSubprojects) {
@@ -245,7 +250,7 @@ public class ManageSubmission extends BaseAction {
 	}
 
 	
-	public List<PageStatus> computePageStatuses(Project project, String modifiedPageCode) {
+	private List<PageStatus> computePageStatuses(Project project, String modifiedPageCode) {
 		
 		List<PageStatus> pageStatuses = new ArrayList<PageStatus>();
 		
@@ -293,7 +298,7 @@ public class ManageSubmission extends BaseAction {
 			PageStatus pageStatus = getPageStatus(project, pageCode);
 		
 			//Update the status
-			pageStatus.setStatus(lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status));
+			pageStatus.setStatus(getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, status));
 			if(userUpdated) {
 				pageStatus.setLastChangedBy(loggedOnUser.getAdUserId());
 				pageStatus.setLastChangedDate(new Date());
@@ -606,8 +611,8 @@ public class ManageSubmission extends BaseAction {
 			project.getPageStatus(pageCode);
 		if(pageStatus == null) {
 			return new PageStatus(
-					lookupService.getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
-					lookupService.getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
+					getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED),
+					getLookupByCode(ApplicationConstants.PAGE_TYPE, pageCode),
 					project, null, new Date());
 		}
 		return pageStatus;
@@ -909,9 +914,9 @@ public class ManageSubmission extends BaseAction {
 					if(getProject().getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_NO_ID) != null) {
 						//If no data is to be submitted, then set the submission status to NA and study released to No
 						repoStatus.setLookupTBySubmissionStatusId(
-							lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
+							getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_APPLICABLE));
 						repoStatus.setLookupTByStudyReleasedId(
-							lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
+							getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
 						repoStatus.setAccessionNumber("");
 					} else {
 						//If 'Will there be any data submitted' is 'Yes', then if registration status is not started,
@@ -919,7 +924,7 @@ public class ManageSubmission extends BaseAction {
 						//the NA state if 'Will there be any data submitted' was set to No earlier.
 						if(repoStatus.getLookupTByRegistrationStatusId().getCode().equals(ApplicationConstants.NOT_STARTED)) {							
 							repoStatus.setLookupTBySubmissionStatusId(
-								lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));	
+								getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));	
 						}
 					}
 				}
@@ -931,11 +936,11 @@ public class ManageSubmission extends BaseAction {
 		
 		RepositoryStatus repoStatus = new RepositoryStatus();
 		repoStatus.setLookupTByRegistrationStatusId(
-			lookupService.getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+			getLookupByCode(ApplicationConstants.REGISTRATION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 		repoStatus.setLookupTBySubmissionStatusId(
-			lookupService.getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
+			getLookupByCode(ApplicationConstants.PROJECT_SUBMISSION_STATUS_LIST, ApplicationConstants.NOT_STARTED));
 		repoStatus.setLookupTByStudyReleasedId(
-			lookupService.getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
+			getLookupByCode(ApplicationConstants.STUDY_RELEASED_LIST, ApplicationConstants.NO));
 		repoStatus.setCreatedBy(loggedOnUser.getAdUserId());
 		repoStatus.setCreatedDate(new Date());
 		repoStatus.setPlanAnswerSelectionTByRepositoryId(selection);
@@ -948,5 +953,6 @@ public class ManageSubmission extends BaseAction {
 		//Override
 		return null;
 	}
+	
 	
 }

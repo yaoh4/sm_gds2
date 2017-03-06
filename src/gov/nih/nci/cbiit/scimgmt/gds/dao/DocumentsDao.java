@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 
 /**
  * DAO for domain model class Document.
@@ -28,6 +29,9 @@ public class DocumentsDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	protected NedPerson loggedOnUser;
 
 	/**
 	 * Deletes the document
@@ -35,12 +39,15 @@ public class DocumentsDao {
 	 * @param persistentInstance
 	 */
 	public void delete(Document persistentInstance) {
-		logger.debug("deleting Document instance");
+		Long id = persistentInstance.getId();
+		logger.info("Deleting Document instance " + id);
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
-			logger.debug("delete successful");
+			logger.info("Delete successful for document " + id);
+			logger.info("Deletion performed by user: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());									
 		} catch (RuntimeException re) {
-			logger.error("delete failed", re);
+			logger.error("delete failed for document " + id, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw re;
 		}
 	}
@@ -137,13 +144,16 @@ public class DocumentsDao {
 	 * @param transientInstance
 	 */
 	public Document saveOrUpdate(Document transientInstance) {
-		logger.debug("Save or Update Document instance");
+		Long id = transientInstance.getId();
+		logger.info("Save or Update Document instance " + id);
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(transientInstance);
-			logger.debug("save successful");
-			return transientInstance;
+			Document document = (Document) sessionFactory.getCurrentSession().merge(transientInstance);
+			logger.info("Save successful for document " + document.getId());
+			logger.info("Document saved by user: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
+			return document;
 		} catch (RuntimeException re) {
-			logger.error("save failed", re);
+			logger.error("save failed for document " + id, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw re;
 		}
 	}
