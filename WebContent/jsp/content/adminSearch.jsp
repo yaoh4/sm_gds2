@@ -123,9 +123,9 @@
 								<s:else>
 					  			  <tr class="tableContentOdd">
 								</s:else>	
-								    <s:hidden id="%{#userRole.nihNetworkId}FullName" value="%{#userRole.nedPerson.fullName}"/>
+								    <s:hidden id="%{#userRole.nihNetworkId}FullName" value="%{#userRole.nedPerson.fullNameAdmin}"/>
 												    																
-								    <td>${userRole.nedPerson.fullName}</td>
+								    <td>${userRole.nedPerson.fullNameAdmin}</td>
 									<td><a href="mailto:${userRole.nedPerson.email}">${userRole.nedPerson.email}</a></td>
 									<td>${userRole.nedPerson.orgpath} </td>							
 									<td>
@@ -161,7 +161,7 @@
 					  			<tr class="tableContentOdd">
 								</s:else>					    	
 																
-								<td>${nedPerson.fullName}</td>
+								<td>${nedPerson.fullNameAdmin}</td>
 									<td><a href="mailto:${nedPerson.email}">${nedPerson.email}</a></td>
 									<td>${nedPerson.orgpath} </td>
 									<td>
@@ -258,7 +258,7 @@
 										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="EDITUSER" value="EDITUSER"></td>								
 										<td align="center" valign="middle"><input type="radio" name="userRoleCode" id="READUSER" value="READUSER"></td>				
 										</s:else>										
-										<td>${selectedUserRole.nedPerson.fullName}</td>
+										<td>${selectedUserRole.nedPerson.fullNameAdmin}</td>
 										<td><a href="mailto:${selectedUserRole.nedPerson.email}">${selectedUserRole.nedPerson.email}</a></td>
 										<td>${selectedUserRole.nedPerson.orgpath}</td>
 										<td>										  
