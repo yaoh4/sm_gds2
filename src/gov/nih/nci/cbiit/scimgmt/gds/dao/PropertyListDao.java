@@ -40,7 +40,7 @@ public class PropertyListDao {
 		
 		public List<Lookup> getAllLookupLists() {
 			
-			logger.info("Retrieving all lookup lists from DB");
+			logger.info("Retrieving all lookup lists from LOOKUP_T");
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Lookup.class);
 			criteria.addOrder(Order.asc("discriminator"));
 			criteria.addOrder(Order.asc("orderNum"));
@@ -57,7 +57,7 @@ public class PropertyListDao {
 		 */
 		public List<Property> getPropertiesList() {
 			
-			logger.info("Retrieving properties list from DB ");
+			logger.info("Retrieving all properties from PROPERTIES_T");
 			
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Property.class);
 			List<Property> properties = criteria.list();
@@ -76,7 +76,7 @@ public class PropertyListDao {
 			
 			List<Lookup> lookups = null;
 			
-			logger.info("Retrieving lookup list from DB for listName " + listName);
+			logger.info("Retrieving lookup list from LOOKUP_T for listName " + listName);
 			
 			try {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Lookup.class);
@@ -98,7 +98,7 @@ public class PropertyListDao {
 		 */
 		public List<PlanQuestionsAnswer> getAllPlanQuestionsAnswers() {
 			
-			logger.info("Retrieving all plan questions answers from DB");
+			logger.info("Retrieving all plan questions answers from PLAN_QUESTIONS_ANSWERS_T");
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PlanQuestionsAnswer.class);
 			criteria.add(Restrictions.eq("activeFlag", true));
 			criteria.addOrder(Order.asc("id"));
@@ -116,7 +116,7 @@ public class PropertyListDao {
 		 */
 		public List<Organization> getDocList(String docList) {
 			
-			logger.info("Retrieving DOC list from DB");
+			logger.info("Retrieving DOC list from DOCS_VW");
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Organization.class);
 			List<Organization> orgList = criteria.list();	
 			return orgList;
@@ -143,7 +143,7 @@ public class PropertyListDao {
 		 */
 		public List<GdsPd> getPdList() {
 			
-			logger.info("Retrieving PD list from DB");
+			logger.info("Retrieving PD list from GDS_PD_VW");
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GdsPd.class);
 			criteria.addOrder(Order.asc("pdFullNameDescrip").ignoreCase());
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -153,7 +153,7 @@ public class PropertyListDao {
 		
 		
 		public List<HelpText> getHelpList() {
-			logger.info("Retrieving Help strings from DB");
+			logger.info("Retrieving Help strings from MESSAGES_T");
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(HelpText.class);
 			return criteria.list();
 		}
