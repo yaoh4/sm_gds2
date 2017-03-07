@@ -65,7 +65,7 @@
             </s:if>
             <s:if test ="%{project.bsiComments != null}">
               <p class="question">Comments (2000 Characters):</p>
-			  <textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${project.bsiComments}</textarea>			
+			  <textarea style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${project.bsiComments}</textarea>			
            </s:if>
          </s:else>
         </div><!--end panel body-->

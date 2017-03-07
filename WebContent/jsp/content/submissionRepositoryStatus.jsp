@@ -133,7 +133,7 @@
 							<div class="form-group row">
 								<div class="col-xs-12">
 									<s:label for="%{'repositoryComments_' + #stat.index}" value="Comments (2000 Characters):" />
-									<s:textarea id="%{'repositoryComments_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].comments" onkeyup="countChar(this)" value="%{#repositoryStatus.comments}" cssClass="form-control input" maxlength="2000" rows="3"></s:textarea>
+									<s:textarea id="%{'repositoryComments_' + #stat.index}" name="project.repositoryStatuses[%{#stat.index}].comments" onkeyup="countChar(this)" value="%{#repositoryStatus.comments}" cssClass="form-control input" maxlength="2000" style="overflow-y: scroll;" rows="3"></s:textarea>
 								     <s:div id="%{'countRepo_' + #stat.index}" style="text-align: right; font-style: italic;">
 				                      <span style="color: #990000;">2000</span> Character limits
 			                          </s:div>
