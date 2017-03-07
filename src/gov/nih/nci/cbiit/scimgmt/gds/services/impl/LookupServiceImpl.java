@@ -48,7 +48,7 @@ public class LookupServiceImpl implements LookupService {
 	@Cacheable(key = "#listName")
 	public List<Lookup> getLookupList(String listName) {
 	  	
-		logger.info("Loading Lookup list from DB");
+		logger.info("Loading Lookup list from DB for listName " + listName);
 		return propertyListDAO.searchLookup(listName);
 	  	
 	}
@@ -57,12 +57,13 @@ public class LookupServiceImpl implements LookupService {
 	
 	/**
 	 * Fetch entire lookup lists from the DB and the caller stores in
-	 * cache. Invoked during application initialization.
+	 * cache. Invoked only during application initialization and
+	 * for reloading from sysAdmin action.
 	 */
 	@CacheEvict(cacheNames="lookupLists", allEntries=true)
 	public List<Lookup> getAllLookupLists() {
 		
-		logger.info("Loading lookup data from LOOKUP_T");
+		logger.info("Loading all lookup data from DB");
 		List<Lookup> allLookups = propertyListDAO.getAllLookupLists();
 		return allLookups;
 	}
@@ -81,9 +82,9 @@ public class LookupServiceImpl implements LookupService {
 	
 	
 	/**
-	 * Retrieves the properties from DB. Invoked during
-	 * application initialization and for reloading
-	 * from sysAdmin action.
+	 * Retrieves the properties from DB. Invoked only 
+	 * during application initialization and for 
+	 * reloading from sysAdmin action.
 	 */
 	public List<Property> loadPropertiesList() {
 		
@@ -93,11 +94,12 @@ public class LookupServiceImpl implements LookupService {
 
 	/**
 	 * Fetch entire lookup lists from the DB and the caller stores in
-	 * cache. Invoked during application initialization.
+	 * cache. Invoked only during application initialization
+	 * and for reloading from sysAdmin action.
 	 */
 	public List<PlanQuestionsAnswer> getAllPlanQuestionsAnswers() {
 		
-		logger.info("Loading lookup data from PLAN_QUESTIONS_ANSWERS_T");
+		logger.info("Loading all PlanQuestionsAnswers from DB");
 		List<PlanQuestionsAnswer> allPlanQuestionsAnswers = propertyListDAO.getAllPlanQuestionsAnswers();
 		return allPlanQuestionsAnswers;
 	}
@@ -127,12 +129,12 @@ public class LookupServiceImpl implements LookupService {
 	
 	/**
 	 * Fetch the static DUL display text from DUL_CHECKLIST_T to store 
-	 * in cache. Invoked during application initialization.
+	 * in cache. Invoked only during application initialization.
 	 */
 	@Cacheable(key = "#dulChecklistKey")
 	public List<DulChecklist> getDulChecklists(String dulChecklistKey) {
 		
-		logger.info("Loading static DUL display text from DUL_CHECKLIST_T");
+		logger.info("Loading static DUL display text from DB");
 		List<DulChecklist> dulChecklists = propertyListDAO.getAllDulChecklists();
 		return dulChecklists;
 	}
@@ -180,7 +182,7 @@ public class LookupServiceImpl implements LookupService {
 	
 	/**
 	 *  Retrieve help list from the DB and store in cache
-	 *  Invoked from sysAdmin if required to refresh
+	 *  Invoked only from sysAdmin if required to refresh
 	 */
 	public void loadHelpList(String helpListKey) {
 	  	
@@ -211,20 +213,5 @@ public class LookupServiceImpl implements LookupService {
 	}
 	
 	
-	/**
-	 * Get Lookup object by list name and id
-	 * 
-	 * @param listName
-	 * @param id
-	 * @return
-	 */
-	public Lookup getLookupById(String listName, Long id) {
-		List<Lookup> list = (List<Lookup>) getLookupList(listName);
-		for(Lookup entry: list) {
-			if (id != null && entry.getId().longValue() == id.longValue())
-				return entry;
-		}
-		return null;
-	}
 	
 }

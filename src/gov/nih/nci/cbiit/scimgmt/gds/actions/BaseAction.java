@@ -198,19 +198,19 @@ public class BaseAction extends ActionSupport implements SessionAware {
 		return (loggedOnUser.getUserRole().getGdsRoleCode() == null? false: loggedOnUser.getUserRole().getGdsRoleCode().equals(ApplicationConstants.ROLE_READ_ONLY_USER_CODE));
 	}
 	
+	
 	/**
 	 * Get Lookup object by list name and code
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public  String getLookupDisplayNamebyId(Long id) {
-		List<Lookup> list = (List<Lookup>) lookupService.getAllLookupLists();
-		for(Lookup entry: list) {
-			if (entry.getId().equals(id))
-				return entry.getDisplayName();
+	public  String getLookupDisplayNamebyId(String listName, Long id) {
+		if(id != null) {
+			Lookup lookup = getLookupById(listName, id);
+			return lookup.getDisplayName();
 		}
-		return null;
+		return "";
 	}
 	
 	/**
@@ -245,6 +245,22 @@ public class BaseAction extends ActionSupport implements SessionAware {
 		return null;
 	}
 	
+	
+	/**
+	 * Get Lookup object by list name and id
+	 * 
+	 * @param listName
+	 * @param id
+	 * @return
+	 */
+	public Lookup getLookupById(String listName, Long id) {
+		List<Lookup> list = (List<Lookup>) lookupService.getLookupList(listName);
+		for(Lookup entry: list) {
+			if (id != null && entry.getId().longValue() == id.longValue())
+				return entry;
+		}
+		return null;
+	}
 	
 	
 	public String getHelpText(String helpKey) {

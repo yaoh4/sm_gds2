@@ -37,7 +37,7 @@
 	</s:if>
 
         <s:if test="%{project.bsiReviewedId != null}">  
-          <table width="100%" border="0" cellpadding="3" ><tr><td width="30%" style="white-space: nowrap"><strong>Has the GPA reviewed the Basic Study Information?</strong><td style="padding-left: 20px;"><s:property value="%{getLookupDisplayNamebyId(project.bsiReviewedId)}"/></td></tr></table>  
+          <table width="100%" border="0" cellpadding="3" ><tr><td width="30%" style="white-space: nowrap"><strong>Has the GPA reviewed the Basic Study Information?</strong><td style="padding-left: 20px;"><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@BSI_REVIEWED, project.bsiReviewedId)}"/></td></tr></table>  
           </s:if>
           <p>&nbsp;</p>
           
