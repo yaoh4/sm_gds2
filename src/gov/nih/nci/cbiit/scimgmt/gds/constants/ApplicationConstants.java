@@ -27,18 +27,18 @@ public interface ApplicationConstants {
 	
 	/*List discriminators*/
 	 public static final String GDS_ROLE_LIST = "ROLE";
-	 public static final String REGISTRATION_STATUS_LIST = "registration_status";
-	 public static final String PROJECT_SUBMISSION_STATUS_LIST = "project_sub_status";
-	 public static final String STUDY_RELEASED_LIST = "study_released";
+	 public static final String REGISTRATION_STATUS_LIST = "REGISTRATION_STATUS";
+	 public static final String PROJECT_SUBMISSION_STATUS_LIST = "PROJECT_SUB_STATUS";
+	 public static final String STUDY_RELEASED_LIST = "STUDY_RELEASED";
 	 public static final String IC_APPROVED_BY_GPA_LIST = "IC_APPROVED_BY_GPA";
 	 public static final String IC_PROV_OR_FINAL_LIST = "IC_PROV_OR_FINAL";
 	 public static final String IC_FOR_FUTURE_USE_LIST = "IC_FOR_FUTURE_USE";
 	 public static final String IC_DUL_VERIFIED_LIST = "IC_DUL_VERIFIED";
-	 public static final String PROJECT_SUBMISSION_REASON_LIST = "project_sub_reason";
-	 public static final String PROJECT_TYPE_LIST = "project_type";
-	 public static final String SEARCH_SUBMISSION_FROM = "search_from";
+	 public static final String PROJECT_SUBMISSION_REASON_LIST = "PROJECT_SUB_REASON";
+	 public static final String PROJECT_TYPE_LIST = "PROJECT_TYPE";
+	 public static final String SEARCH_SUBMISSION_FROM = "SEARCH_FROM";
 	 public static final String LIST_ROLE = "ROLE";
-	 public static final String BSI_REVIEWED="bsi_reviewed";
+	 public static final String BSI_REVIEWED="BSI_REVIEWED";
 	 
 	 
 	 /* Type discriminators */ 
