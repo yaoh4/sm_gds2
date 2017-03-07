@@ -969,33 +969,6 @@ public class NedPerson implements java.io.Serializable {
 	}
 	
 	/**
-	 * Gets the full name for Admin Page
-	 * 
-	 * @return the full name
-	 */
-	@Transient
-	public String getFullNameAdmin() {
-
-		final StringBuffer sb = new StringBuffer(40);
-		
-		if (StringUtils.isNotBlank(getNihcommonsn())) {
-			sb.append(getNihcommonsn());
-		} else {
-			sb.append(getLastName());
-		}
-		
-		sb.append(", ");
-		
-		if (StringUtils.isNotBlank(getPreferredName())) {
-			sb.append(getPreferredName());
-		} else {
-			sb.append(getFirstName());
-		}
-		
-		return WordUtils.capitalizeFully(sb.toString());
-	}
-	
-	/**
 	 * Gets the full name.
 	 * 
 	 * @return the full name
@@ -1005,7 +978,12 @@ public class NedPerson implements java.io.Serializable {
 
 		final StringBuffer sb = new StringBuffer(40);
 
-		sb.append(getLastName());
+		if (StringUtils.isNotBlank(getNihcommonsn())) {
+			sb.append(getNihcommonsn());
+		} else {
+			sb.append(getLastName());
+		}
+		
 		sb.append(", ");
 		if (StringUtils.isNotBlank(getPreferredName())) {
 			sb.append(getPreferredName());
@@ -1013,7 +991,7 @@ public class NedPerson implements java.io.Serializable {
 			sb.append(getFirstName());
 		}
 
-		return sb.toString();
+		return WordUtils.capitalizeFully(sb.toString());
 	}
 	
 	public boolean equals(Object other) {
