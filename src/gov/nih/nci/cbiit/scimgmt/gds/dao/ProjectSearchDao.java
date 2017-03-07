@@ -496,14 +496,14 @@ public class ProjectSearchDao {
 				additionalSort = "intPiLastName";
 			}
 			if(StringUtils.equalsIgnoreCase(searchCriteria.getSortDir(), "asc")) {
-				criteria.addOrder(Order.asc(searchCriteria.getSortBy()));
+				criteria.addOrder(Order.asc(searchCriteria.getSortBy()).ignoreCase());
 				if(additionalSort != null) {
-					criteria.addOrder(Order.asc(additionalSort));
+					criteria.addOrder(Order.asc(additionalSort).ignoreCase());
 				}
 			} else {
-				criteria.addOrder(Order.desc(searchCriteria.getSortBy()));
+				criteria.addOrder(Order.desc(searchCriteria.getSortBy()).ignoreCase());
 				if(additionalSort != null) {
-					criteria.addOrder(Order.desc(additionalSort));
+					criteria.addOrder(Order.desc(additionalSort).ignoreCase());
 				}
 			}
 		}	
