@@ -19,6 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -208,7 +209,9 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	public  String getLookupDisplayNamebyId(String listName, Long id) {
 		if(id != null) {
 			Lookup lookup = getLookupById(listName, id);
-			return lookup.getDisplayName();
+			if(lookup != null) {
+				return lookup.getDisplayName();
+			}
 		}
 		return "";
 	}
@@ -222,7 +225,9 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	public  String getLookupDisplayNameByCode(String listName, String code) {
 		if(code != null) {
 			Lookup lookup = getLookupByCode(listName, code);
-			return lookup.getDisplayName();
+			if(lookup !=null) {
+				return lookup.getDisplayName();
+			}
 		}
 		return "";
 	}
@@ -236,9 +241,11 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	 */
 	public Lookup getLookupByCode(String listName, String code) {
 		List<Lookup> list = (List<Lookup>) lookupService.getLookupList(listName);
-		for(Lookup entry: list) {
-			if (entry.getCode().equalsIgnoreCase(code)) {
-				return entry;
+		if(!CollectionUtils.isEmpty(list)) {
+			for(Lookup entry: list) {
+				if (entry.getCode().equalsIgnoreCase(code)) {
+					return entry;
+				}
 			}
 		}
 		
@@ -255,9 +262,11 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	 */
 	public Lookup getLookupById(String listName, Long id) {
 		List<Lookup> list = (List<Lookup>) lookupService.getLookupList(listName);
-		for(Lookup entry: list) {
-			if (id != null && entry.getId().longValue() == id.longValue())
-				return entry;
+		if(!CollectionUtils.isEmpty(list)) {
+			for(Lookup entry: list) {
+				if (id != null && entry.getId().longValue() == id.longValue())
+					return entry;
+			}
 		}
 		return null;
 	}
