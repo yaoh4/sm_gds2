@@ -222,8 +222,9 @@ public class RepositoryStatusSubmissionAction extends ManageSubmission {
 				if(!repoStatus.getLookupTByRegistrationStatusId().getId().equals(storedRepoStatus.getLookupTByRegistrationStatusId().getId())
 						|| !repoStatus.getLookupTBySubmissionStatusId().getId().equals(storedRepoStatus.getLookupTBySubmissionStatusId().getId())
 						|| !repoStatus.getLookupTByStudyReleasedId().getId().equals(storedRepoStatus.getLookupTByStudyReleasedId().getId()) ||
-						!StringUtils.equals(repoStatus.getAccessionNumber(), storedRepoStatus.getAccessionNumber())) {
-					//There is a change to an existing repositoryStatus
+						!StringUtils.equals(repoStatus.getAccessionNumber(), storedRepoStatus.getAccessionNumber()) ||
+						!StringUtils.equals(repoStatus.getComments(), storedRepoStatus.getComments())) {
+					//There is a change to an existing repositoryStatus, accession# or comments
 					storedProject.getPlanAnswerSelectionById(planAnswerSelectionId).getRepositoryStatuses().remove(storedRepoStatus);
 					repoStatus.setLastChangedBy(loggedOnUser.getAdUserId());
 					repoStatus.setCreatedBy(storedRepoStatus.getCreatedBy());
