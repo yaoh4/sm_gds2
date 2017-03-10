@@ -65,6 +65,7 @@ public class ProjectsVw implements java.io.Serializable {
 	private String intPdFirstName;
 	private String intPdLastName;
 	
+	private String piFullNameSort;
 	private Long subprojectCount;
 	private Long repoCount;
 	private boolean expandRepository = false;
@@ -381,6 +382,16 @@ public class ProjectsVw implements java.io.Serializable {
 	public void setIntPdLastName(String intPdLastName) {
 		this.intPdLastName = intPdLastName;
 	}
+	
+	@Column(name = "PI_FULL_NAME_SORT", length = 400)
+	public String getPiFullNameSort() {
+		return piFullNameSort;
+	}
+
+	public void setPiFullNameSort(String piFullNameSort) {
+		this.piFullNameSort = piFullNameSort;
+	}
+
 
 	@Column(name = "PROJECT_SUBMISSION_TITLE", nullable = false, length = 400)
 	public String getProjectSubmissionTitle() {
