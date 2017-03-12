@@ -39,7 +39,7 @@
                  <td colspan="4" class="question">Studies awaiting ICs:</td>
                </tr>           
               <tr>  
-                <td colspan="4"><textarea style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${project.studiesComments}</textarea></td>
+                <td colspan="4"><textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${project.studiesComments}</textarea></td>
               </tr>
             </s:if>
             <s:if test="%{project.additionalIcComments != null}">
@@ -52,7 +52,7 @@
               <td colspan="4" class="question">Additional Comments:</td>
             </tr>       
             <tr>
-              <td colspan="4"><textarea style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${project.additionalIcComments}</textarea></td>
+              <td colspan="4"><textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${project.additionalIcComments}</textarea></td>
             </tr>
             </s:if>
           </table>
@@ -129,7 +129,7 @@
                           <s:if test="%{#ic.comments != null}">
                             <tr><td colspan="6">&nbsp;</td></tr>
                             <tr><td colspan="6" class="question">Comments:</td></tr>
-                            <tr><td colspan="6"><textarea style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${ic.comments}</textarea></td></tr>
+                            <tr><td colspan="6"><textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${ic.comments}</textarea></td></tr>
 			              </s:if>
                        
                           <tr>
@@ -164,7 +164,7 @@
                                                     <s:if test="%{#study.comments != null}">
                                                        <tr><td colspan="4" align="left" valign="top">&nbsp;</td></tr>
                                                        <tr><td colspan="6" class="question">Comments:</td></tr>
-                                                       <tr><td colspan="6"><textarea style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${study.comments}</textarea></td></tr>
+                                                       <tr><td colspan="6"><textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${study.comments}</textarea></td></tr>
                                                     </s:if>
                                                         
                                                              
@@ -204,7 +204,7 @@
                                                                 </s:iterator><br>
                                                                 <s:if test="%{#studiesDulSet.comments != null}">
                                                                  DUL Appendix:
-                                                                 <textarea style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${studiesDulSet.comments}</textarea>
+                                                                 <textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${studiesDulSet.comments}</textarea>
                                                                  </s:if>                                                         
                                                               </td>
                                                             </tr>                                                                                                                                                                            
