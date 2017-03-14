@@ -143,7 +143,7 @@
 
 					<div>
 						<p class="question">Comments (2000 Characters):</p>
-						<s:textarea class="col-md-12 form-control input" rows="3" maxlength="2000" id="bsiComments" name="comments"></s:textarea>
+						<s:textarea class="col-md-12 form-control input commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="bsiComments" name="comments"></s:textarea>
 						<div id="charNum5" style="text-align: right; font-style: italic;">
 				          <span style="color: #990000;">2000</span> Character limits
 			          </div>

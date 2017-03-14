@@ -139,7 +139,7 @@ public class SubmissionDetailsAction extends ManageSubmission {
 	
 	//Get project Submission Reason
 	public String getProjectSubmissionReason() {		
-		return lookupService.getLookupById(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST, getProject().getSubmissionReasonId()).getDescription();
+		return getLookupById(ApplicationConstants.PROJECT_SUBMISSION_REASON_LIST, getProject().getSubmissionReasonId()).getDescription();
 	}	
 	
 	/**

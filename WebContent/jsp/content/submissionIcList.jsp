@@ -74,7 +74,7 @@
               
               <div>
 				<p class="question">Studies awaiting ICs (2000 Characters):</p>
-				<s:textarea class="form-control input_other" rows="3" maxlength="2000" id="icComments" name="icComments" placeholder="List Studies awaiting Institutional Certifications to be received"></s:textarea>
+				<s:textarea class="form-control input_other commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="icComments" name="icComments" placeholder="List Studies awaiting Institutional Certifications to be received"></s:textarea>
 			    <div id="charNum" style="text-align: right; font-style: italic;">
 				<span style="color: #990000;">2000</span> Character limits
 			   </div>
@@ -82,7 +82,7 @@
 			
 			 <div>
 				<p class="question">Additional Comments (2000 Characters):</p>
-				<s:textarea class="form-control input_other" rows="3" maxlength="2000" id="additionalComments" name="additionalComments" placeholder=""></s:textarea>
+				<s:textarea class="form-control input_other commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="additionalComments" name="additionalComments" placeholder=""></s:textarea>
 			    <div id="charNum2" style="text-align: right; font-style: italic;">
 				<span style="color: #990000;">2000</span> Character limits
 			    </div>
@@ -166,15 +166,15 @@
                     <div id="contentDivImg${cert.id}" style="display: none">
                       <table width="100%" class="tBorder2" cellspacing="3">
                         <tr>
-                          <td><span class="question">Provisional or Final? </span><s:property value="%{getLookupDisplayNamebyId(#cert.provisionalFinalCode)}"/></td>
-                          <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(#cert.gpaApprovalCode)}"/></td>
-						  <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(#cert.futureProjectUseCode)}"/></td>
+                          <td><span class="question">Provisional or Final? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_PROV_OR_FINAL_LIST, #cert.provisionalFinalCode)}"/></td>
+                          <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #cert.gpaApprovalCode)}"/></td>
+						  <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_FOR_FUTURE_USE_LIST, #cert.futureProjectUseCode)}"/></td>
                         </tr>
                         
                         <s:if test="%{#cert.comments != null}">
                           <tr><td colspan="6">&nbsp;</td></tr>
                           <tr><td colspan="6" class="question">Comments:</td></tr>                    
-                          <tr><td colspan="6"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${cert.comments}</textarea></td></tr>
+                          <tr><td colspan="6"><textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${cert.comments}</textarea></td></tr>
 			              
 			            </s:if>
 			            
@@ -199,13 +199,13 @@
                                                 <td><span class="question">Study Name: </span>${study.studyName}</td>
 					                         <!--    <td align="left" valign="top">&nbsp;</td> -->
 					                            <td><span class="question">Institution(s): </span>${study.institution}</td>
-                                                <td><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(#study.dulVerificationId)}"/></td>
+                                                <td><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/></td>
                                               </tr>
                                                                                     
                                               <s:if test="%{#study.comments != null}">
                                                 <tr><td colspan="4" align="left" valign="top">&nbsp;</td></tr>
                                                 <tr><td colspan="6" class="question">Comments:</td></tr>
-                                                <tr><td colspan="6"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${study.comments}</textarea></td></tr>			              
+                                                <tr><td colspan="6"><textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${study.comments}</textarea></td></tr>			              
                                               </s:if>
                                               
                                               <s:if test="%{project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets.size > 0}">
@@ -244,7 +244,7 @@
                                                           </s:iterator><br>
                                                           <s:if test="%{#studiesDulSet.comments != null}">
                                                             DUL Appendix: 
-                                                            <textarea style="width: 100%; border: 0px solid #000000; overflow: hidden; resize: none;" readonly="readonly">${studiesDulSet.comments}</textarea>			          
+                                                            <textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${studiesDulSet.comments}</textarea>			          
                                                           </s:if>
                                                         </td>
                                                       </tr>

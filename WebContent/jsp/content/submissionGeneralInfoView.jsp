@@ -252,7 +252,7 @@
         <td style="white-space: nowrap"><strong>Comments:</strong></td>
       </tr>
       <tr>
-        <td colspan="4"><textarea style="width: 100%; border: 0px solid #000000; overflow: auto; resize: none;" readonly="readonly">${project.comments}</textarea></td>
+        <td colspan="4"><textarea class= "commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${project.comments}</textarea></td>
       </tr>
       </s:if>
     <tr>

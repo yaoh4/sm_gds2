@@ -100,12 +100,4 @@ public interface LookupService {
 	  */
 	 public List<HelpText> getHelpList(String helpListKey);
 	 
-	 /**
-	  * Get Lookup object by list name and id
-	  * 
-	  * @param listName
-	  * @param id
-	  * @return
-	  */
-	 public Lookup getLookupById(String listName, Long id);	
 }
