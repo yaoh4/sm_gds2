@@ -126,3 +126,6 @@ ul.frm_readonly div input {
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
+.textonly {
+	width:116%;
+}
