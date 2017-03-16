@@ -43,7 +43,7 @@
 						</s:else>
 						<td align="center"><s:property
 								value="%{#prevSubmission.id}" />
-						<td class="paddingT" nowrap><s:property
+						<td class="paddingT"><s:property
 								value="%{#prevSubmission.projectSubmissionTitle}" /></td>
 						
 						<s:if test="%{grantContractNum == #prevSubmission.extGrantContractNum}">
