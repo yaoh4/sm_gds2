@@ -19,17 +19,16 @@
 					Grant/Intramural/Contract #
 				</div>
 				
-				<table id="prevLinkedSubmissionsTable" style="width: 100%;" cellpadding="0px" cellspacing="0"
+				<table id="prevLinkedSubmissionsTable" style="width: 100%; table-layout:fixed;" cellpadding="0px" cellspacing="0"
 					class="table table-bordered table-striped"
 					style="margin-left: 10px;">
 					<tr class="modalTheader">
-						<th class="tableHeader" align="center" width="10%" scope="col"
-							style="white-space: nowrap">Project/Sub-project ID</th>
-						<th class="tableHeader" width="50%" scope="col">Project/Sub-project Submission Title</th>
+						<th class="tableHeader" align="center" width="18%" scope="col">Project/Sub-project ID</th>
+						<th class="tableHeader" width="49%" scope="col">Project/Sub-project Submission Title</th>
 						<th class="tableHeader" width="25%" scope="col">Principal
 							Investigator</th>
-						<th class="tableHeader" width="5%" scope="col">Status</th>
-						<th class="tableHeader" width="20%" scope="col">Action</th>
+						<th class="tableHeader" width="6%" scope="col">Status</th>
+						<th class="tableHeader" width="12%" scope="col">Action</th>
 					</tr>
 
 					<s:iterator value="prevLinkedSubmissions" var="prevSubmission"
@@ -43,7 +42,7 @@
 						</s:else>
 						<td align="center"><s:property
 								value="%{#prevSubmission.id}" />
-						<td class="paddingT"><s:property
+						<td class="paddingT" style="word-wrap: break-word;"><s:property
 								value="%{#prevSubmission.projectSubmissionTitle}" /></td>
 						
 						<s:if test="%{grantContractNum == #prevSubmission.extGrantContractNum}">
