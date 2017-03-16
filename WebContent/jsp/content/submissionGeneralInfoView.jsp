@@ -25,7 +25,7 @@
         <table width="100%" border="0" cellpadding="3">
     <tr>
       <td width="30%" style="white-space: nowrap"><strong>Project Submission Title:</strong></td>
-      <td colspan="4">${project.submissionTitle}</td>
+      <td colspan="4"> <textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; resize: none;" readonly="readonly">${project.submissionTitle}</textarea></td>
     </tr>
     <tr>
       <td style="white-space: nowrap">&nbsp;</td>
@@ -91,7 +91,7 @@
       	  <strong>Contract Project Title:</strong>
       	</s:else>
       </td>
-      <td>${extramuralGrant.projectTitle}</td>
+      <td><textarea class="commentsClass" style="width: 110%; border: 0px solid #000000; resize: none;" readonly="readonly">${extramuralGrant.projectTitle}</textarea></td>
     </tr>
     <tr class="display">
       <td style="white-space: nowrap">&nbsp;</td>
@@ -186,7 +186,8 @@
       	  <strong>Contract Project Title:</strong>
       	</s:else>
       </td>
-      <td >${intramuralGrant.projectTitle}</td>
+      <td><textarea class="commentsClass" style="width: 110%; border: 0px solid #000000; resize: none;" readonly="readonly">${intramuralGrant.projectTitle}</textarea></td>
+      
     </tr>
     <tr class="display">
       <td style="white-space: nowrap">&nbsp;</td>
