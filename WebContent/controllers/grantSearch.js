@@ -173,6 +173,7 @@ function populateGrantsContractsData(){
 	}
 	else if(searchType == 'extramural'){
 		$("#linkedGrantContractNum").val(json.grantContractNum);
+		$("#linkedProjectTitle").val(json.projectTitle);
 		$("#" + idPrefix + "_grantsContractNum").prop('readOnly', true);
 		$(".unlink-group").prop('disabled', true);
 		
@@ -186,18 +187,23 @@ function populateGrantsContractsData(){
 		
 		if (json.projectPeriodStartDate !== "undefined" && json.projectPeriodStartDate != null && json.projectPeriodStartDate != "null") {
 			$("#projectStartDate").val(json.projectPeriodStartDate);
+			$("#linkedProjectStartDate").val(json.projectPeriodStartDate);
 		} else {
 			$("#projectStartDate").val("");
+			$("#linkedProjectStartDate").val("");
 		}
 		
 		if (json.projectPeriodEndDate !== "undefined" && json.projectPeriodStartDate != null && json.projectPeriodEndDate != "null") {
 			$("#projectEndDate").val(json.projectPeriodEndDate);
+			$("#linkedProjectEndDate").val(json.projectPeriodEndDate);
 		} else {
 			$("#projectEndDate").val("");
+			$("#linkedProjectEndDate").val("");
 		}
 		
 		if (json.cayCode !== "undefined") {
 			$("#cancerActivity").val(json.cayCode);
+			$("#linkedCayCode").val(json.cayCode);
 		}
 		
 		//$("#canAct").show();
@@ -213,6 +219,7 @@ function populateGrantsContractsData(){
 		$("#linkButton").show();
 		$(".unlink-group").prop('disabled', true);
 		$("#dataLinkFlag").val('Y');
+		$(".disabled-group").prop('disabled', true);
 	}
 		
 	//Replace search icon with edit icon since we already have a grant

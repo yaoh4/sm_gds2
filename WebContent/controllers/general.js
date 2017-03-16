@@ -34,6 +34,18 @@ $(function(){
 	 $("#extramural_grantsContractNum").blur(function() {
 	        $('input:hidden[name="linkedGrantContractNum"]').val( $(this).val() );
 	    });
+	 $("#cancerActivity").blur(function() {
+	        $('input:hidden[name="linkedCayCode"]').val( $(this).val() );
+	    });
+	 $("#extramural_projectTitle").blur(function() {
+	        $('input:hidden[name="linkedProjectTitle"]').val( $(this).val() );
+	    });
+	 $("#pStartDate").blur(function() {
+	        $('input:hidden[name="linkedProjectStartDate"]').val( $("#projectStartDate").val() );
+	    });
+	 $("#pEndDate").blur(function() {
+	        $('input:hidden[name="linkedProjectEndDate"]').val( $("#projectEndDate").val() );
+	    });
 	
 });
 
@@ -268,6 +280,15 @@ function setLinkedDisplay() {
 	$('#link').addClass('disabled');
 	$("#unlink").removeClass('disabled');
 	$(".unlink-group").prop('disabled', true);
+	if($("#linkButton").is(":visible"))  {
+		$(".disabled-group").each(function(){
+			if($(this).val() != "") {
+			$(this).prop('disabled', true);	
+			} else {
+				$(this).prop('disabled', false);
+			}
+		});
+	}
 }
 
 
@@ -277,6 +298,15 @@ function setUnlinkedDisplay() {
 	$("#unlink").addClass('disabled');
 	$("#link").removeClass('disabled');
 	$(".unlink-group").prop('disabled', false);
+	if($("#linkButton").is(":visible"))  {
+		$(".disabled-group").each(function(){
+			if($(this).val() != "") {
+			$(this).prop('disabled', true);	
+			} else {
+				$(this).prop('disabled', false);
+			}
+		});
+	}
 }
 
 
@@ -375,7 +405,7 @@ function warnGeneralInfoNext(element) {
 }
 
 /**
- * Invoked when the user clicks the Link icon on the
+ * Invoked when the user clicks the icon on the
  * General Info page.
  */
 function refreshGrantsContractsData(){
