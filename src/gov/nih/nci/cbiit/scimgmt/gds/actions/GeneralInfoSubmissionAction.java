@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.io.ByteArrayInputStream;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -52,6 +53,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String preSelectedDOC;
 	private String grantContractNum;
 	private String linkedGrantContractNum;
+	private String linkedCayCode;
+	private String linkedProjectTitle;
+	private Date linkedProjectStartDate;
+	private Date linkedProjectEndDate;
 	private String selectedTypeOfProject;
 	private String applId;
 	private String valueSelected;
@@ -258,11 +263,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		project.setParent(currentLatestVersion.getParent());
 		project.setVersionNum(currentLatestVersion.getVersionNum() + 1);
 		project.setProjectGroupId(currentLatestVersion.getProjectGroupId());
-		project.setAdditionalIcComments(currentLatestVersion.getAdditionalIcComments());
-		project.setStudiesComments(currentLatestVersion.getStudiesComments());
-		project.setPlanComments(currentLatestVersion.getPlanComments());
 		GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
-		
+		//project.setComments(null);
+		project.setPlanComments(null);
 		project.setCertificationCompleteFlag(null);
 		project.setBsiComments(null);
 		project.setBsiReviewedId(null);
@@ -319,6 +322,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				InstitutionalCertification ic = new InstitutionalCertification();
 				BeanUtils.copyProperties(currentIc, ic);
 				ic.setId(null);
+				ic.setComments(null);
 				ic.setStudies(new ArrayList<Study>());
 				List<Study> currentStudies = currentIc.getStudies();
 				if(!CollectionUtils.isEmpty(currentStudies)) {
@@ -326,6 +330,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						Study study= new Study();
 						BeanUtils.copyProperties(currentStudy, study);
 						study.setId(null);
+						study.setComments(null);
 						study.setInstitutionalCertification(ic);
 						study.setStudiesDulSets(new ArrayList<StudiesDulSet>());
 						List<StudiesDulSet> currentDulSets = currentStudy.getStudiesDulSets();
@@ -595,13 +600,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		subProject.setParentProjectId(subProject.getId());	
 		subProject.setId(null);
+		subProject.setComments(null);
 		subProject.setBsiComments(null);
+		subProject.setAdditionalIcComments(null);
+		subProject.setStudiesComments(null);
 		subProject.setBsiReviewedId(null);
 		subProject.setRepositoryStatuses(new ArrayList<RepositoryStatus>());
 		subProject.setAnticipatedSubmissionDate(null);
 		subProject.setPlanComments(null);
 		subProject.setPlanAnswerSelections(new HashSet());
-										
 	}
 	
 	
@@ -625,6 +632,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			logger.error("Error occured while creating a new version of an existing project", e);
 		}		
 		newVersion.setId(null);
+		newVersion.setComments(null);
 		setProject(newVersion);
 		loadGrantInfo();
 		setGrantSelection(newVersion.getGrantSelection());
@@ -992,6 +1000,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				|| ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH.equals(grantSelection)) {
 			//Retrieve extramural data from UI	
 			getExtramuralGrant().setGrantContractNum(getLinkedGrantContractNum());
+			getExtramuralGrant().setCayCode(getLinkedCayCode());
+			getExtramuralGrant().setProjectTitle(getLinkedProjectTitle());
+			getExtramuralGrant().setProjectStartDate(getLinkedProjectStartDate());
+			getExtramuralGrant().setProjectEndDate(getLinkedProjectEndDate());
 			getProject().setPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL, getExtramuralGrant());
 			//validate grant data
 			validateGrantData(getExtramuralGrant());
@@ -1443,8 +1455,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		this.valueSelected = valueSelected;
 	}
 
-public List<DropDownOption> getProgList() {
-		return progList;
+    public List<DropDownOption> getProgList() {
+ 		return progList;
 	}
 
 	public void setProgList(List<DropDownOption> progList) {
@@ -1481,8 +1493,6 @@ public List<DropDownOption> getProgList() {
 		this.secondaryGrantNum = secondaryGrantNum;
 	}
 	
-
-	
 	public String getGrantsAdditional() {
 		return grantsAdditional;
 	}
@@ -1498,5 +1508,37 @@ public List<DropDownOption> getProgList() {
 	public void setParentGrantSelection(String parentGrantSelection) {
 		this.parentGrantSelection = parentGrantSelection;
 	}
+	
+	public Date getLinkedProjectStartDate() {
+		return linkedProjectStartDate;
+	}
 
+	public void setLinkedProjectStartDate(Date linkedProjectStartDate) {
+		this.linkedProjectStartDate = linkedProjectStartDate;
+	}
+
+	public Date getLinkedProjectEndDate() {
+		return linkedProjectEndDate;
+	}
+
+	public void setLinkedProjectEndDate(Date linkedProjectEndDate) {
+		this.linkedProjectEndDate = linkedProjectEndDate;
+	}
+	
+	public String getLinkedCayCode() {
+		return linkedCayCode;
+	}
+
+	public void setLinkedCayCode(String linkedCayCode) {
+		this.linkedCayCode = linkedCayCode;
+	}
+
+	public String getLinkedProjectTitle() {
+		return linkedProjectTitle;
+	}
+
+	public void setLinkedProjectTitle(String linkedProjectTitle) {
+		this.linkedProjectTitle = linkedProjectTitle;
+	}
+	
 }
