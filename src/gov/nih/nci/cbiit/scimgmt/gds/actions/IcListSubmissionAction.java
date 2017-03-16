@@ -18,6 +18,8 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 
 import org.springframework.util.CollectionUtils;
@@ -81,6 +83,14 @@ public class IcListSubmissionAction extends ManageSubmission {
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
 			prepareIcListDisplay(icList);
 			icList = retrieveParentProject().getInstitutionalCertifications();
+			if(!CollectionUtils.isEmpty(icList)) {
+				for(InstitutionalCertification ic: icList) {
+					ic.setComments(null);
+					for(Study study: ic.getStudies()) {
+						study.setComments(null);
+						}
+					}
+				}
 			displayProjectId = storedProject.getParentProjectId();
 		}
 		
