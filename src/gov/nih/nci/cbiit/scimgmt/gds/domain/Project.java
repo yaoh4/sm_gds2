@@ -476,7 +476,7 @@ public class Project implements java.io.Serializable {
 		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 	}
 	
-	@Column(name = "PROJECT_SUBMISSION_TITLE", length = 100)
+	@Column(name = "PROJECT_SUBMISSION_TITLE", length = 200)
 	public String getSubmissionTitle() {
 		return submissionTitle;
 	}
