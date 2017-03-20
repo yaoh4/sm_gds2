@@ -14,6 +14,10 @@
 			 <result name="success" type="tiles">search</result>
 		</action>
 		
+		<action name="returnToSearch" method="returnToSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
+			 <result name="success" type="tiles">search</result>
+		</action>
+		
 		<action name="navigateToParentSearch" method="navigateToParentSearch" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SearchSubmissionAction">
 			 <result name="success" type="tiles">searchParent</result>
 		</action>

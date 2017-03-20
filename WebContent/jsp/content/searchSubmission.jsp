@@ -1,9 +1,10 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
-
+<body onload="performSearch();"></body>
 <s:form action="search" namespace="/search" id="search-form">
 	<s:hidden id="directorName" name="criteria.pdFirstAndLastName"/>
 	<s:hidden id="readonly" value="%{isReadOnlyUser()}"/>
 	<s:hidden id="gpa" value="%{isGPA()}"/>
+	<s:hidden id="isReturnToSearch" value="%{returnToSearch}"/>
 	<div class="panel project-panel-primary">
 
 		<div class="panel-heading">

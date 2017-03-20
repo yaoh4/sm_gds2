@@ -526,7 +526,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	public String createNewSubmission() throws Exception {  	
 	
 		logger.info("Navigating to create new submission.");
-		
+		//Clear search criteria for navigation
+		session.remove(ApplicationConstants.SEARCH_CRITERIA);
 		projectTypes = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_TYPE_LIST.toUpperCase());		
 		return SUCCESS;
 	}	

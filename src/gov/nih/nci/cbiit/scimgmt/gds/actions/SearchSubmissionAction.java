@@ -70,6 +70,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
     
     private int length; // Number of records the table can display
     
+    private boolean returnToSearch = false;
+    
     private List<RepositoryStatus> repoList = new ArrayList<RepositoryStatus>();
     
     private List<ProjectsVw> subprojectList = new ArrayList<ProjectsVw>();
@@ -87,6 +89,23 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		return SUCCESS;
 	}
 
+	/**
+	 * Navigate back to Search Project with previous search criteria.
+	 * @return forward string
+	 */
+	public String returnToSearch() throws Exception {      
+
+		logger.debug("returnToSearch");
+		// Populate "Submission from" and "PD" lists
+		setUpLists();
+
+		criteria = (SubmissionSearchCriteria) session.get(ApplicationConstants.SEARCH_CRITERIA);
+		
+		returnToSearch = true;
+		
+		return SUCCESS;
+	}
+	
 	/**
 	 * Navigate to Search Parent Project.
 	 * @return forward string
@@ -109,6 +128,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		logger.debug("search");
 		
 		logger.debug(criteria.toString());
+		
+		session.put(ApplicationConstants.SEARCH_CRITERIA, criteria);
 		
 		populateCriteria();
 		
@@ -516,5 +537,13 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 
 	public void setSubprojectList(List<ProjectsVw> subprojectList) {
 		this.subprojectList = subprojectList;
+	}
+
+	public boolean isReturnToSearch() {
+		return returnToSearch;
+	}
+
+	public void setReturnToSearch(boolean returnToSearch) {
+		this.returnToSearch = returnToSearch;
 	}
 }

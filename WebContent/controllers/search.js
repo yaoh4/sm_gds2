@@ -499,6 +499,13 @@ $(document).ready(function(){
 	$("#selectFrom").change();
 });
 
+function performSearch()
+{
+  var searchFlag = $("#isReturnToSearch").val();
+  if(searchFlag === "true") {
+		$("#search-btn").click();
+  }
+}
 
 function deleteSubmission(projectId, subprojectCount)
 {

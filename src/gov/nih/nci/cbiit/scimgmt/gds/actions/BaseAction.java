@@ -8,6 +8,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.HelpText;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Lookup;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.model.SubmissionSearchCriteria;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsProperties;
 
@@ -295,6 +296,10 @@ public class BaseAction extends ActionSupport implements SessionAware {
 		} else {
 			return flag;
 		}
+	}
+	
+	public SubmissionSearchCriteria getSavedCriteria() {
+		return (SubmissionSearchCriteria) session.get(ApplicationConstants.SEARCH_CRITERIA);
 	}
 	
 }

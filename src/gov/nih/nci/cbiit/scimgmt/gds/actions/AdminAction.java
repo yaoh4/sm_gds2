@@ -57,7 +57,8 @@ public class AdminAction extends BaseAction {
 	 * @return forward string
 	 */
 	public String execute() throws Exception {
-     
+		//Clear search criteria for navigation
+		session.remove(ApplicationConstants.SEARCH_CRITERIA);
         return SUCCESS;
 	}
 	
