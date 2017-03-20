@@ -83,7 +83,7 @@ $(document).ready(function(){
             },
             "columnDefs": [
                {
-            	"targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15 ],
+            	"targets": [ 0, 4, 5, 7, 10, 11, 12, 13, 14, 15 ],
             	"visible": false
 			   },
                {
@@ -97,9 +97,9 @@ $(document).ready(function(){
                 				cssClass = 'detail-control';
                 			}
                 			return '<a style="margin-right: 5px;" class="' + cssClass + '" href="javascript: void(0)"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>' +
-            				'<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + ' (v' + row.versionNum + ')' + '</a>';
+                			'<span style="font-weight: bold; color:#2d699e; font-size: 14px;">' + data + ' (v' + row.versionNum + ')' + '</span>';
                 		}
-                		return '<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + ' (v' + row.versionNum + ')' + '</a>';
+                		return '<span style="font-weight: bold; color:#2d699e; font-size: 14px;">' + data + ' (v' + row.versionNum + ')' + '</span>';
                 	}
                 	return data;
                 } },
