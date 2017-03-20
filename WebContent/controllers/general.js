@@ -75,6 +75,16 @@ $(document).ready(function() {
 		}
 	}
 	
+	//diabling grant fields 
+	if($("#linkButton").is(":visible"))  {
+		$(".disabled-group").each(function(){
+			if($(this).val() != "") {
+			$(this).prop('disabled', true);	
+			} else {
+				$(this).prop('disabled', false);
+			}
+		});
+	}
 	//set the correct length for text areas
 	showCharCount('#gComments', '#charNum3');	
 });
