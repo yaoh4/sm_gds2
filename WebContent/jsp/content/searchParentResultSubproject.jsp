@@ -34,9 +34,9 @@
 				<tbody>
 					<s:iterator value="subprojectList" var="s" status="stat">
 						<tr>
-							<td><s:a href="../manage/navigateToSubmissionDetail.action?projectId=%{#s.id}">
+							<td><span style="color:#2d699e;">
 									<s:property value="#s.projectSubmissionTitle" /> (v<s:property value="#s.versionNum" />)
-								</s:a></td>
+								</span></td>
 							<td>
 								<s:if test="%{#s.extGrantContractNum == '' || #s.extGrantContractNum == null}">
 									<s:property value="#s.intGrantContractNum" />
