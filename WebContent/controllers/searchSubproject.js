@@ -90,6 +90,12 @@ $(document).ready(function(){
                 "targets": 1, // Second visible column, view project id link on submission title
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
+                		fullText = data + ' (v' + row.versionNum + ')';
+                		if(data.length > 100) {
+                			data = '<span class="hoverOverText" style="font-weight: bold; color:#2d699e;font-size: 14px;" title="' + fullText + '">' + data.substring(0,97) + '...' + '</span>';
+                		} else {
+                			data = '<span class="hoverOverText" style="font-weight: bold; color:#2d699e;font-size: 14px;">' + fullText + '</span>';
+                		}
                 		if(row.subprojectCount != null && row.subprojectCount > 0) {
                 			if(row.expandSubproject || row.expandRepository) {
                 				cssClass = 'detail-control match';
@@ -97,9 +103,9 @@ $(document).ready(function(){
                 				cssClass = 'detail-control';
                 			}
                 			return '<a style="margin-right: 5px;" class="' + cssClass + '" href="javascript: void(0)"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>' +
-                			'<span style="font-weight: bold; color:#2d699e; font-size: 14px;">' + data + ' (v' + row.versionNum + ')' + '</span>';
+                			data;
                 		}
-                		return '<span style="font-weight: bold; color:#2d699e; font-size: 14px;">' + data + ' (v' + row.versionNum + ')' + '</span>';
+                		return data;
                 	}
                 	return data;
                 } },
