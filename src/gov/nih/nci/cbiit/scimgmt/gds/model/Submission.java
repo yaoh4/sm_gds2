@@ -11,6 +11,7 @@ public class Submission implements java.io.Serializable {
 
 	private Long id;
 	private String docAbbreviation;
+	private String programBranch;
 	private String parentAccessionNum;
 	private Long versionNum;
 	private String subprojectFlag;
@@ -78,6 +79,14 @@ public class Submission implements java.io.Serializable {
 		this.docAbbreviation = docAbbreviation;
 	}
 
+	public String getProgramBranch() {
+		return programBranch;
+	}
+
+	public void setProgramBranch(String programBranch) {
+		this.programBranch = programBranch;
+	}
+	
 	public String getParentAccessionNum() {
 		return this.parentAccessionNum;
 	}
