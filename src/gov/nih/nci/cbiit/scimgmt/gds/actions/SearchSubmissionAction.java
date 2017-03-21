@@ -229,6 +229,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	private List<ExportRow> prepareExportData() {
 	       // Prepare rows of the export data
 	     	List<ExportRow> rows = new ArrayList<>();
@@ -276,17 +277,18 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 					String overallSttaus = project.getProjectStatusCode();
 					if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equalsIgnoreCase(overallSttaus)) {
 						overallSttaus = "In Progress";
-					} else if(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(overallSttaus)){
+					} else if(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(overallSttaus)) {
 						overallSttaus = "Completed";
 					}
 					List<RepositoryStatus> repoList = project.getRepositoryStatuses();	
 					if(!CollectionUtils.isEmpty(repoList)) {
+						Collections.sort(repoList,new RepositoryStatusComparator());
 							for(RepositoryStatus repo : repoList) {
-								if(repo.getPlanAnswerSelectionTByRepositoryId().getOtherText() != null){
+								if(repo.getPlanAnswerSelectionTByRepositoryId().getOtherText() != null) {
 									repositories += repo.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText() + "-" + repo.getPlanAnswerSelectionTByRepositoryId().getOtherText();
-								} else{
+								} else {
 								repositories += repo.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText();
-								}if(!StringUtils.isBlank(repo.getAccessionNumber())) {
+								} if(!StringUtils.isBlank(repo.getAccessionNumber())) {
 									repositories+= ":" + repo.getAccessionNumber();
 								}
 								repositories += ";";
