@@ -51,7 +51,7 @@
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="submissionTitle"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project Submission Title [Max 100 char]</label> 
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project Submission Title [Max 200 char]</label> 
 						<s:textarea name="project.submissionTitle" cssClass="form-control textonly" id="submissionTitle" placeholder="" value="%{project.submissionTitle}" maxLength="200"/></div>
 					</div>
 
