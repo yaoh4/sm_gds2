@@ -218,6 +218,7 @@ WebContent/jsp/content/submissionIc.jsp -text
 WebContent/jsp/content/submissionIcFile.jsp -text
 WebContent/jsp/content/submissionIcList.jsp -text
 WebContent/jsp/content/submissionIcListView.jsp -text
+WebContent/jsp/content/submissionIcMain.jsp -text
 WebContent/jsp/content/submissionRepositoryStatus.jsp -text
 WebContent/jsp/content/submissionStatusView.jsp -text
 WebContent/jsp/error/errorMessages.jsp -text
