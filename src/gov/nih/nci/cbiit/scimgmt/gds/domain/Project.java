@@ -77,10 +77,8 @@ public class Project implements java.io.Serializable {
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<InstitutionalCertification> institutionalCertifications = new ArrayList<InstitutionalCertification>();
 	private List<ProjectGrantContract> projectGrantsContracts = new ArrayList<ProjectGrantContract>();
+	private List<Study> studies = new ArrayList<Study>();
 
-
-	
-	
 	private Long subprojectCount;
 	private Long repoCount;
 	private Project parent;
@@ -548,6 +546,15 @@ public class Project implements java.io.Serializable {
 	
 	public void addProjectGrantContract(ProjectGrantContract projectGrantContract) {
 		projectGrantsContracts.add(projectGrantContract);
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval = true)
+	public List<Study> getStudies() {
+		return studies;
+	}
+
+	public void setStudies(List<Study> studies) {
+		this.studies = studies;
 	}
 	
 	@Transient

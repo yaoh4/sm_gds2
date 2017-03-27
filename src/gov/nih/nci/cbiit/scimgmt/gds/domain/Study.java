@@ -27,6 +27,7 @@ public class Study implements java.io.Serializable {
 
 	private Long id;
 	private InstitutionalCertification institutionalCertification;
+	private Project project;
 	private String studyName;
 	private String institution;
 	private Long dulVerificationId;
@@ -73,7 +74,7 @@ public class Study implements java.io.Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "CERTIFICATION_ID", nullable = false)
+	@JoinColumn(name = "CERTIFICATION_ID")
 	public InstitutionalCertification getInstitutionalCertification() {
 		return this.institutionalCertification;
 	}
@@ -81,7 +82,18 @@ public class Study implements java.io.Serializable {
 	public void setInstitutionalCertification(InstitutionalCertification institutionalCertification) {
 		this.institutionalCertification = institutionalCertification;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "PROJECT_ID")
+	public Project getProject() {
+		return project;
+	}
 
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+	
 	@Column(name = "STUDY_NAME", nullable = false, length = 400)
 	public String getStudyName() {
 		return this.studyName;
