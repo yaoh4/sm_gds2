@@ -94,6 +94,12 @@
 		</action>
 		<action name="viewMissingGdsPlanData" method="getMissingGdsPlanData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
+		</action>
+		<action name="navigateToIcMain" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcListSubmissionAction">
+			 <result name="success" type="tiles">submissionIcMain</result>
+			 <result name="input" type="tiles">submissionIcMain</result>
+			 <result name="empty" type="tiles">submissionIcMain</result>	  
+			 <param name="projectId">${project.id}</param>
 		</action>	
 		<action name="editIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>
@@ -112,7 +118,7 @@
 		</action>
 		<action name="viewMissingIcData" method="getMissingIcData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
-		</action>
+		</action>	
 		<action name="listIc" method="getIcList" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcListSubmissionAction">
 			 <result name="success" type="tiles">submissionIcList</result>
 			 <result name="input" type="tiles">submissionIcList</result>

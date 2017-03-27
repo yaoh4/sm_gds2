@@ -12,9 +12,8 @@
       
       <!-- Page navbar -->
       <div class="pageNav">
-        <s:if test="%{instCertification.id != null || project.institutionalCertifications.size > 0}">
-      		<s:submit action="listIc" value=" Cancel " class="saved btn btn-default"/>	 
-        </s:if>
+       <s:submit action="navigateToIcMain" value=" Cancel " class="saved btn btn-default"/>	 
+     
         <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
       </div>
 
@@ -227,9 +226,7 @@
 		<s:hidden name="ie_Upload"/>
 	  <!--SAVE & NEXT BUTTONS-->
       <div class="pageNav">
-        <s:if test="%{instCertification.id != null || project.institutionalCertifications.size > 0}">
-      		<s:submit action="listIc" value=" Cancel " class="saved btn btn-default"/>	 
-        </s:if>
+        <s:submit action="navigateToIcMain" value=" Cancel " class="saved btn btn-default"/>	      
         <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
 	  </div>
         

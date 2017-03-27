@@ -12,7 +12,7 @@
         
           <s:if test="%{!isReadOnlyUser() && editFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES) && project.latestVersionFlag.equals(\"Y\")}">
           <div style="display:inline; float: right;">
-            <a href="/gds/manage/listIc.action?projectId=${project.id}">
+            <a href="/gds/manage/navigateToIcMain.action?projectId=${project.id}">
               <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="edit"></i>
             </a>
           </div>

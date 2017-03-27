@@ -90,7 +90,7 @@
 		  <s:if test="%{showPage('IC')}">
             <tr >
               <td colspan="2">
-              <s:if test="!isReadOnlyUser() && project.latestVersionFlag.equals(\"Y\")"><a href="/gds/manage/listIc.action?projectId=${project.id}">Institutional Certification</a>
+              <s:if test="!isReadOnlyUser() && project.latestVersionFlag.equals(\"Y\")"><a href="/gds/manage/navigateToIcMain.action?projectId=${project.id}">Institutional Certification</a>
               </s:if><s:else>Institutional Certification</s:else></td>
               <td>
                <s:hidden id="ic" value="%{getPageStatus('IC').status.code}"/>

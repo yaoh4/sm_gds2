@@ -60,6 +60,13 @@ public class IcListSubmissionAction extends ManageSubmission {
    
    private String additionalComments;
 
+   /**
+    * Display the main IC page
+    */
+   public String execute() {
+	   return getIcList();
+   }
+   
 	/**
 	 * Invoked for the Track IC Status page. Invoked from
 	 * 1. ICs tab (if at least one IC is present in the submission (else, user will
