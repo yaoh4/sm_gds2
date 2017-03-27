@@ -106,7 +106,7 @@
 			 <param name="projectId">${project.id}</param>		 
 		</action>
 		<action name="deleteIc" method="deleteIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcListSubmissionAction">
-			 <result name="success" type="tiles">submissionIcList</result>
+			 <result name="success" type="tiles">submissionIcMain</result>
 		</action>
 		<action name="saveIc" method="saveIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			<result name="success" type="redirect-action">
@@ -120,8 +120,8 @@
 			<result name="success" type="dispatcher">/jsp/content/missingDataReport.jsp</result>	
 		</action>	
 		<action name="listIc" method="getIcList" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcListSubmissionAction">
-			 <result name="success" type="tiles">submissionIcList</result>
-			 <result name="input" type="tiles">submissionIcList</result>
+			 <result name="success" type="tiles">submissionIcMain</result>
+			 <result name="input" type="tiles">submissionIcMain</result>
 			  <result name="empty" type="redirect-action">
 			 	<param name="actionName">editIc</param>
 			 	<param name="projectId">${project.id}</param>
@@ -129,9 +129,9 @@
 			 <param name="projectId">${project.id}</param>
 		</action>
 		<action name="saveIcList" method="save" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcListSubmissionAction">
-			 <result name="success" type="tiles">submissionIcList</result>
-			 <result name="input" type="tiles">submissionIcList</result>
-			 <result name="empty" type="tiles">submissionIcList</result>
+			 <result name="success" type="tiles">submissionIcMain</result>
+			 <result name="input" type="tiles">submissionIcMain</result>
+			 <result name="empty" type="tiles">submissionIcMain</result>
 			 <param name="projectId">${project.id}</param>
 		</action>
 		<action name="saveIcListAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcListSubmissionAction">
@@ -139,7 +139,7 @@
 			 	<param name="actionName">navigateToBasicStudyInfo</param>
 			 	<param name="projectId">${project.id}</param>
 			 </result>
-			 <result name="input" type="tiles">submissionIcList</result>
+			 <result name="input" type="tiles">submissionIcMain</result>
 			 <param name="projectId">${project.id}</param>
 		</action>
 		<action name="viewMissingIcListData" method="getMissingIcListData" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcListSubmissionAction">

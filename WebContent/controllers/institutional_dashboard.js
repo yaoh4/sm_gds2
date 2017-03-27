@@ -64,7 +64,7 @@ $(document).ready(function() {
   
   //show/hide Add Additional Instititional Certificates link if not subproject
   if($("#subprojectFlag").val().toUpperCase() == 'N') {
-	if ($("#radioCertCompleteY").prop("checked") == true) {
+/*	if ($("#radioCertCompleteY").prop("checked") == true) {
 		$('#addICBtn').hide();
 	} else {
 		$('#addICBtn').show().css('display', 'inline');
@@ -78,10 +78,10 @@ $(document).ready(function() {
        else {
             $('#addICBtn').hide();
        }
-   });
+   });*/
 	
 	//show the delete and edit icons only for projects
-	$("#actionColumn").show();
+	$("#actionColumnIC").show();
 	$(".editDeleteBtns").show();
 	$(".projectColumn").show();
  } else {

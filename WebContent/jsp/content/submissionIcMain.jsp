@@ -30,7 +30,7 @@
           <button type="button" value=" Add Study " class="saved btn btn-project-primary" onclick="location.href = 'studydemo.htm';">Add Study</button>
         </div>
         <div style="display: inline;" id="addICBtn">
-          <button type="button" id="addIC" name="action:editIc" value=" Add Institutional Certification " class="saved btn btn-project-primary" onclick="location.href = 'ICdemo.htm';">Add Institutional Certification</button>
+          <s:submit action="editIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
         </div>
        
         <br>
@@ -115,55 +115,7 @@
  <!-- ------------------------------------------------------------------------------------------------>
      <!-- REPLACE WITH IC Table by including the table in submissionIcList.jsp -->
  <!-- -------------------------------------------------------------------------------------------------->  
-              <table style="width: 100%; font-size: 14px" cellpadding="0px" cellspacing="0" class="table table-bordered">
-                <tbody>
-                <tr class="modalTheader">
-                  <!--  Show this column header only for subproject -->
-                  <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select 
-                    &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                    <i class="helpfileSubProject fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
-                  </th>                      
-                  <th class="tableHeader" align="center" width="40%">Institutional Certification Document</th>
-                  <th class="tableHeader projectColumn" align="center" width="10%">Status</th>
-                  <th class="tableHeader projectColumn" align="center" width="10%">Missing Data</th>
-                  <th class="tableHeader" align="center" width="20%">Date Uploaded</th>
-                  <th class="tableHeader" align="center" width="20%">Uploaded By</th>                 
-                  <th id="actionColumn" class="tableHeader" style="" align="center" width="10%">Actions</th>
-                </tr>
-                  
-                <tr data-id="433">
-                  <!--  Show this column only for subproject -->
-                  <td class="subprojectSelect" style="white-space: nowrap;display:none;">                 
-                    <input class="icSelect" type="checkbox" name="ic-selected" id="ic433" value="433">  
-                    <input type="hidden" name="ifIcSelected" value="false" id="selectIcs">     
-                  </td>
-                  <td style="white-space: nowrap">
-                    <a href="#" class="icDetails" id="icDetails433">
-                      <i class="expand fa fa-lg fa-plus-square" id="433expand" aria-hidden="true" alt="Details" title="Details"></i>
-                    </a>&nbsp;&nbsp;&nbsp;<a href="javascript:openDocument(947)">GDS notifications templates (1).docx</a>
-                  </td>                   
-                  <td class="projectColumn" style="white-space: nowrap">
-                    <input type="hidden" name="" value="INPROGRESS" id="icReg0">              
-                    <div id="icDiv0" class="searchProgess"><img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress"></div>
-                  </td>                
-                  <td class="projectColumn" style="white-space: nowrap">
-                    <a href="#" onclick="openMissingDataReport(415, '/gds/manage/viewMissingIcData.action?instCertId=433&amp;')"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a> &nbsp; &nbsp;
-                  </td>              
-                  <td style="white-space: nowrap"> 
-                    Dec 22 2016 11:21:49 AM
-                  </td>                
-                  <td style="white-space: nowrap"> 
-                    Yuri Dinh
-                  </td>                     
-                  <td class="editDeleteBtns" style="white-space: nowrap;">
-                    <!--  Do not show edit and delete for sub-project -->
-                    <a class="btnEdit" href="/gds/manage/editIc.action?instCertId=433&amp;projectId=415">
-                      <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit"></i>&nbsp;
-                    </a>&nbsp;&nbsp;&nbsp;                    
-                  </td>
-                </tr>                    
-                </tbody>
-              </table>
+  				<s:include value="/jsp/content/submissionIcList.jsp" />
 <!-- ----------------------------END REPLACE TABLE----------------------------------------------------------------------------------- -->
 
             </div>  <!-- END IC div-->
