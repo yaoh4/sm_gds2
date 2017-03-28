@@ -142,6 +142,27 @@ $('#btnDelteYes').click(function () {
     }
     
 });
+  
+  $("#btnDelteYesStudy").click(function(){
+	  var id = $('#myModal').data('id');
+	    var projId = $('#projectId').val();
+	    $.ajax({
+			url : 'deleteStudy.action',
+			type : 'post',
+			data : {studyId: id, projectId: projId},
+			async : false,
+			success : function(msg) {
+				result = $.trim(msg);
+			},
+			error : function() {
+				alert("Could not delete file");
+			}
+		});
+	    
+	    $('[data-id=' + id + ']').remove();
+	   // $("." + "remove" + id).remove();
+	    $('#myModal').modal('hide');
+  });
 
 
 //funtion for accordion study panels 
@@ -190,3 +211,11 @@ $('#additionalComments').keyup(function() {
 	//set the correct length for text areas
 	showCharCount(this, '#charNum2');
 });
+
+//Edit Study
+function edit(elem) {
+	var id=$(elem).first().children().val();
+	var projectId= $("#projectId").val();
+	window.location = '/gds/manage/editStudy.action?studyId='+id+ '&projectId='+projectId;
+		
+}

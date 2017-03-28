@@ -27,7 +27,7 @@
           
       <div class="panel-body">
         <div style="display:inline" id="addICBtn">
-          <button type="button" value=" Add Study " class="saved btn btn-project-primary" onclick="location.href = 'studydemo.htm';">Add Study</button>
+           <s:submit action="addEditStudy" id="addStudy" value=" Add Study " class="saved btn btn-project-primary"/>
         </div>
         <div style="display: inline;" id="addICBtn">
           <s:submit action="addIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
@@ -51,59 +51,7 @@
 <!----------------------------------------------------------------------------------------->
 			  <!--  REPLACE THE BELOW SECTION WITH NEW STUDIES TABLE by including submissionStudyList.jsp 
 <!----------------------------------------------------------------------------------------------->
-              <table style="width: 100%; font-size: 14px" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
-                <tbody>
-                <tr class="modalTheader">
-                  <!--  Show this column header only for subproject -->
-                  <th  class="tableHeader"  align="center" width="25%">Study Name</th>                      
-                  <th class="tableHeader" align="center" width="25%">Institution</th>
-                  <th>Received</th>
-                  <th>DULs</th>
-                  <th>Document</th>
-                  <th align="center">Comments</th>         
-                  <th id="actionColumn" class="tableHeader" style="" align="center" width="1%">Actions</th>
-                </tr> 
-                <tr>
-                  <td >PLCO</td>
-                  <td >NCI</td> 
-                  <td >Yes</td>
-                  <td>
-                    <table class="table table-striped table-bordered DUL">
-                      <th>Type</th>
-                      <th>Appendix</th>
-                      <tr>
-                        <td>Disease-specific Cancer (MDS)</td>
-                        <td>
-                          <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a>
-                            <div class="details-pane">
-                              <h3 class="title">Appendix: Disease-specific Cancer (MDS)</h3>
-                              <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque purus lorem, sagittis vitae lacus id, dictum malesuada magna. Donec a sem et arcu imperdiet ullamcorper vitae ut est. Sed sapien eros, pulvinar fringilla ex eu, vehicula pellentesque velit. Mauris auctor enim vel tincidunt dictum. Maecenas elementum tempus velit vel facilisis. </p>
-                            </div><!-- @end .details-pane -->
-                          </div>
-                        </td> 
-                      </tr>
-                      <tr><td>General Research Use (IRB, PUB)</td>     
-                        <td>None</td> 
-                      </tr>
-                    </table>
-                  </td>
-                  <td  style="text-align: center;"><a href="#" onclick="openMissingDataReport(415, '/gds/manage/viewMissingIcData.action?instCertId=432&amp;')"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a> </td> 
-                  <td style="text-align: center;">
-                    <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a>
-                      <div class="details-pane">
-                        <h4 class="title">Comments</h4>
-                        <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque purus lorem, sagittis vitae lacus id, dictum malesuada magna. Donec a sem et arcu imperdiet ullamcorper vitae ut est. Sed sapien eros, pulvinar fringilla ex eu, vehicula pellentesque velit. Mauris auctor enim vel tincidunt dictum. Maecenas elementum tempus velit vel facilisis. </p>
-                      </div><!-- @end .details-pane -->
-                    </div>
-                  </td> 
-                  <td width="2%"  class="editDeleteBtns" style="white-space: nowrap;">
-                    <!--  Do not show edit and delete for sub-project -->
-                    <a class="btnEdit" href="editstudydemo.htm">
-                      <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit"></i>&nbsp;
-                    </a>&nbsp;&nbsp;&nbsp;                
-                  </td>
-                </tr>
-              </table>
+             <s:include value="/jsp/content/submissionStudyList.jsp" />
  <!--------------------------------END REPLACE TABLE------------------------------------------------------ -->            
               
             </div> <!--  end studies div -->
@@ -122,15 +70,7 @@
     
           </div> <!--  end tab content -->
         </div><!--end tabs container-->
-      
-        <div>
-		  <p class="question">Studies awaiting ICs (2000 Characters):</p>
-		  <s:textarea class="form-control input_other commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="icComments" name="icComments" placeholder="List Studies awaiting Institutional Certifications to be received"></s:textarea>
-		  <div id="charNum" style="text-align: right; font-style: italic;">
-		    <span style="color: #990000;">2000</span> Character limits
-		  </div>
-        </div>
-			
+      	
 	    <div>
 		  <p class="question">Additional Comments (2000 Characters):</p>
 		  <s:textarea class="form-control input_other commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="additionalComments" name="additionalComments" placeholder=""></s:textarea>

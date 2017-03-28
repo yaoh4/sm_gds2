@@ -221,6 +221,8 @@ WebContent/jsp/content/submissionIcListView.jsp -text
 WebContent/jsp/content/submissionIcMain.jsp -text
 WebContent/jsp/content/submissionRepositoryStatus.jsp -text
 WebContent/jsp/content/submissionStatusView.jsp -text
+WebContent/jsp/content/submissionStudy.jsp -text
+WebContent/jsp/content/submissionStudyList.jsp -text
 WebContent/jsp/content/submissionStudySelect.jsp -text
 WebContent/jsp/error/errorMessages.jsp -text
 WebContent/jsp/error/exception.jsp -text
