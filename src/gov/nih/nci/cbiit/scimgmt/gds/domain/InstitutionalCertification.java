@@ -185,6 +185,10 @@ public class InstitutionalCertification implements java.io.Serializable {
 	@Transient
 	public String getStatus() {
 		String status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		
+		if(!ApplicationConstants.IC_PROV_FINAL_ID_FINAL.equals(getProvisionalFinalCode())) {
+			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		}
 					
 		if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(getGpaApprovalCode())) {
 			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
@@ -194,12 +198,6 @@ public class InstitutionalCertification implements java.io.Serializable {
 			if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())
 				&& !ApplicationConstants.IC_DUL_VERIFIED_NOT_APPLICABLE_ID.equals(study.getDulVerificationId())) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-			}
-			
-			if(ApplicationConstants.IC_PROV_FINAL_ID_FINAL.equals(getProvisionalFinalCode())) {
-				if(CollectionUtils.isEmpty(study.getStudiesDulSets())) {
-					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-				}
 			}
 		}		
 		return status;

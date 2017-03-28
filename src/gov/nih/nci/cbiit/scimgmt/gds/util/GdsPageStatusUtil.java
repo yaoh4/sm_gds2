@@ -24,6 +24,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 
@@ -156,6 +157,7 @@ public class GdsPageStatusUtil {
 	public String computeIcListStatus(Project project) {
 		
 		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
+		List<Study> studies = project.getStudies();
 		
 		//If user selects "Non-human" only,
 		//OR if the answer to "Will there be any data submitted?" is No.
@@ -184,32 +186,33 @@ public class GdsPageStatusUtil {
 			}
 		}
 		
-		if(CollectionUtils.isEmpty(icList)) {
-			if(ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
-				if(StringUtils.isEmpty(project.getCertificationCompleteFlag())) {
-					return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
-				} else {
-					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-				}		
-			} else{
-				return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
-			}
-		}
-			
-		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())) { 
-			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		//There are no studies
+		if(CollectionUtils.isEmpty(studies) ) {
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
-		//There is at least one IC and IC certification flag says done. So proceed to
-		//check if the ICs are all ok.This check is only for projects
-		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
+		//There are studies but no ICSs
+		if(CollectionUtils.isEmpty(icList) ) {
+			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;		
+		}
+		
+		//All studies have not received ICs
+		for(Study study: studies) {
+			if(study.getInstitutionalCertification() == null) {
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			}
+		}
+				
+		
+		//All studies have received ICs. So proceed to check if 
+		//the ICs are all ok.This check is only for projects
 		for(InstitutionalCertification ic: icList) {
 			if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
 		}
-		}
-			
+		
+		
 		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 	}
 	

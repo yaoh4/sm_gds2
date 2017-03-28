@@ -216,66 +216,64 @@ public class GdsMissingDataUtil {
 		}
 			
 		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
-			
-		if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag()) ||
-					CollectionUtils.isEmpty(icList)) {
+		List<Study> studies = project.getStudies();
+		
+		
+		//There are no studies
+		if(CollectionUtils.isEmpty(studies)) {
 			String displayText="";
-			String icText="";
 			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag())) {
-				if(CollectionUtils.isEmpty(icList)) {
-					displayText="At least one Institutional Certification must be selected";
-				}
-				if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag())) {
-					icText = "Institutional Certifications Reviewed flag must be 'Yes'";
-				}
+				displayText="At least one Institutional Certification must be selected";
 			} else {
-				 displayText = "Institutional Certifications Reviewed flag must be 'Yes'";
-				}
-			if(!StringUtils.isEmpty(icText)) {
-			MissingData missingDataIc = new MissingData(icText);
+				//TBD - Confirm with Catherine
+				displayText="At least one Study and Institutional Certification must be present";
+			}
+			MissingData missingDataIc = new MissingData(displayText);
 			missingDataList.add(missingDataIc);
-			}
-			if(!StringUtils.isEmpty(displayText)) {
-			MissingData missingData = new MissingData(displayText);
-			missingDataList.add(missingData);
-			}
+		}
+		
+		//Check if there are studies without IC - at project level only
+		if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
+			MissingData missingDataIc = new MissingData("The following Studies do not have IC:");
+			for(Study study: studies) {
+				if(study.getInstitutionalCertification() == null) {			
+					missingDataIc.addChild(new MissingData(study.getStudyName()));
+				}
+			} 
+			missingDataList.add(missingDataIc);
 		}
 			
-		//Get the file list
-		//check the Ic status only for project level
+		
+		//Check each Ic status - at project level only
 		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
-		Project docParent = project;
-		Long parentProjectId = project.getParentProjectId();
-		if(parentProjectId != null) {
-			docParent =  manageProjectService.findById(parentProjectId);
-		} 
-		HashMap<Long, Document> docMap = new HashMap<Long, Document>();
-		List<Document> docs = 
-			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, docParent.getId());
-		if(docs != null && !docs.isEmpty()) {
-			for(Document doc: docs) {
-				if(doc.getInstitutionalCertificationId() != null) {
-					docMap.put(doc.getInstitutionalCertificationId(), doc);
-				}			
+			
+			//Get the file list first
+			HashMap<Long, Document> docMap = new HashMap<Long, Document>();
+			List<Document> docs = 
+					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
+			if(docs != null && !docs.isEmpty()) {
+				for(Document doc: docs) {
+					if(doc.getInstitutionalCertificationId() != null) {
+						docMap.put(doc.getInstitutionalCertificationId(), doc);
+					}			
+				}
 			}
-		}
 			
-		//There is at least one IC. So proceed to check if the ICs are all ok.
-		MissingData missingData = new MissingData("The following ICs have incomplete data:");
-			
-		for(InstitutionalCertification ic: icList) {
-			Document document = docMap.get(ic.getId());
-			MissingData missingIcData = computeMissingIcData(ic, document);
+			//Check if the ICs are all ok.
+			MissingData missingData = new MissingData("The following ICs have incomplete data:");
+			for(InstitutionalCertification ic: icList) {
+				Document document = docMap.get(ic.getId());
+				MissingData missingIcData = computeMissingIcData(ic, document);
 									
-			if(missingIcData.getChildList().size() > 0) {
-				missingIcData.setDisplayText(document.getFileName());
-				missingData.addChild(missingIcData);
+				if(missingIcData.getChildList().size() > 0) {
+					missingIcData.setDisplayText(document.getFileName());
+					missingData.addChild(missingIcData);
+				}
 			}
-		}
 		
 		
-		if(missingData.getChildList().size() > 0) {
-			missingDataList.add(missingData);
+			if(missingData.getChildList().size() > 0) {
+				missingDataList.add(missingData);
 			} 
 		}
 		
