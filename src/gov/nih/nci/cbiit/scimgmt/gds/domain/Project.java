@@ -759,5 +759,14 @@ public class Project implements java.io.Serializable {
 	public void setDataLinkFlag(String dataLinkFlag) {
 		this.dataLinkFlag = dataLinkFlag;
 	}
+	
+	@Transient
+	public Study getStudyById(Long id) {
+		for(Study s: getStudies()) {
+			if(s.getId().longValue() == id.longValue())
+				return s;
+		}
+		return null;
+	}
 
 }

@@ -101,6 +101,10 @@
 			 <result name="empty" type="tiles">submissionIcMain</result>	  
 			 <param name="projectId">${project.id}</param>
 		</action>	
+		<action name="addIc" method="retrieveStudiesForSelection" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
+			 <result name="success" type="tiles">submissionStudySelect</result>
+			 <param name="projectId">${project.id}</param>		 
+		</action>
 		<action name="editIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			 <result name="success" type="tiles">submissionIc</result>
 			 <param name="projectId">${project.id}</param>		 

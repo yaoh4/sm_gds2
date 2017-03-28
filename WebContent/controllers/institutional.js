@@ -4,6 +4,18 @@
 
 $(document).ready(function () {
 	
+	$('#studySelectTable').dataTable({
+		 "bPaginate": false,
+			
+	      columnDefs: [
+	         { targets: ['status'], type: 'alt-string'},
+	         { targets: 'no-sort', orderable: false }]
+	});
+	
+	$("#no-sorting").removeClass('sorting_asc').addClass('sorting_disabled');
+
+	$('.dataTables_filter').append("<div class='searchHelp'>(Enter at least 2 characters to search)</div>"); 
+	   
 	//var myDulIdArray = "input[id$=" + dulIds + "]";
 	//var dulIdArray = $(myDulIdArray).val();
 	var dulIdArray = JSON.parse($("#dulIds").val());
@@ -80,12 +92,12 @@ $(document).ready(function () {
 	
 
 	  //Do not show any sections if no file uploaded.
-	  if( !$.trim( $("#loadIcFileHistory").html() ).length ) {
+	  /*if( !$.trim( $("#loadIcFileHistory").html() ).length ) {
 		  $(".form-group").hide();
 	  } else {
 		  $(".form-group").show();
 	  } 
-	  
+	  */
 	  
 	  //set the correct length for text areas
 	  showCharCount('#instCertComments', '#charNum6');

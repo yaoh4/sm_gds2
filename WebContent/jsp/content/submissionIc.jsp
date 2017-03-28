@@ -52,6 +52,141 @@
 			</div>
 		
 			  <div class="form-group row">
+
+			  <!--Begin STUDY SECTION-->
+			
+              <div class="form-group row col-xs-12" id="sections">
+								
+                <div id="entry" class="cloneStudyInput">
+					  								
+                  <s:iterator status="studiesStat" var="study" value="instCertification.studies">
+                    <s:set name="studiesIdx" value="#studiesStat.index" />
+					  					    
+                    <div id="studySection${studiesIdx}" class="studySections">
+					  	
+                      <s:hidden name="instCertification.studies[%{#studiesStat.index}].displayId" id="studyDisplayId-%{#studiesIdx}" value="%{#studiesIdx}"/>
+					  	
+					  <!--  This is read and passed back to prevent the createdBy field from being overwritten -->
+					  <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>
+					     
+					  <!--  This is read and passed back to so the existing ids are updated and not replaced -->
+					  <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" id="studyId-%{#studiesIdx}"/> 
+				  		
+					  <div class="panel-group" id="accordion">
+				        <div class="panel panel-default">
+					  	
+					    <!--  STUDY SECTION HEADER  -->
+					  
+                        <div class="studyHeadingPanel panel-heading header">
+                          <h4 class="panel-title ">
+                            <a class="studyHeading" href="#collapseOne">
+                             <i class="fa fa-minus-square fa-lg" aria-hidden="true"></i>&nbsp;
+                              Study
+                            </a>
+                            <s:if test="%{instCertification.studies.size > 1}"> 
+                              <a href="#" onclick="deleteStudy(${studiesIdx})" class="deleteIcon" style="float: right;">
+                            	<i class="fa fa-trash fa-lg" title="delete" alt="delete" aria-hidden="true"></i>
+                              </a>
+                            </s:if> 
+                                               
+                           </h4>
+                        </div>	                      		
+												
+						<!--  STUDY SECTION BODY -->
+									
+                        <div id="collapseOne" class="content">
+                          <div class="panel-body">
+                          				
+                            <div class="form-group row" style="display: block;">
+                              <div class="col-xs-10">
+                                <label class="label_sn" for="Study Name">
+                                  <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>
+                                  Study Name &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_STUDY_KEY" value="%{getHelpText('IC_STUDY_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
+                                </label>
+                                <div class="input-group">
+                                  <input type="text" class="form-control input_sn" placeholder="Full Name of Study" 
+                              	    id="studyName-${studiesIdx}"  maxlength="100"
+                              		name="instCertification.studies[<s:property value='#studiesStat.index'/>].studyName" 
+                              		value="${study.studyName}" disabled />
+                              	  <div class="input-group-btn">
+                                    <a href="#">
+                                    <button class="btn btn-default" type="button" title="Search" style=" margin-left: -2px; height: 34px;">
+                                      <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button></a> 
+                				  </div>
+                				</div>
+                              </div>
+                            </div>
+                              	
+                            <div class="form-group row" style="display: block;">				
+                              <div class="col-xs-12">
+                                <label class="label_in" for="Provisional or Final?">Institution(s) &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_INSTITUTION_KEY" value="%{getHelpText('IC_INSTITUTION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></label>
+                                <div class="input_fields_wrap">
+                                  <input type="text" class="form-control input_in" placeholder="Full Name of Institution"
+                              		id="institution-${studiesIdx}" maxlength="120"
+									name="instCertification.studies[<s:property value='#studiesStat.index'/>].institution"
+									value="${study.institution}" disabled />
+								</div>
+                              
+                              </div>
+                            </div>
+                            
+                              <div class="DULv col-xs-3">
+                                <label for="Data Use Limitation(s) Verified?" class="label_dulV">Data Use Limitation(s) Verified?
+                                &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_DUL_KEY" value="%{getHelpText('IC_DUL_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
+                                </label>
+                                <s:select name="instCertification.studies[%{#studiesStat.index}].dulVerificationId"
+                        			value="instCertification.studies[#studiesStat.index].dulVerificationId"
+                        			class="c-select form-control"
+                        			list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST)}"
+                        			listKey="optionKey" listValue="optionValue" id="dulVerificationId%-{#studiesIdx}"
+                       				emptyOption="true"/>
+                              </div>
+		
+                            <div class="form-group row  col-xs-12" style="display: block;" >
+                              <label for="study comments" class="label_stCom">Comments (2000 Characters):</label><br/>
+                              <s:textarea id="comments-%{#studiesStat.index}" class="col-md-12 form-control input_stCom commentsClass"  
+                              		value="%{#study.comments}" maxlength="2000"
+									name="instCertification.studies[%{#studiesIdx}].comments" 
+									 style="overflow-y: scroll;" rows="3" onkeyup="countChar(this)"></s:textarea>
+									<div id="count-${studiesIdx}" style="text-align: right; font-style: italic;">
+				                    <span style="color: #990000;">2000</span> Character limits
+			                		</div>
+                            </div> <!--end row-->
+                            <p>&nbsp;</p>
+                                                 
+                            <div class="DULinfo"> 
+                              <div class="form-group row col-xs-12">
+                                <p><span class="question">
+                                  <h4>Data Use Limitation(s)</h4></span><br/>
+                                   You may add up to 10 DULs
+                                </p>
+                              </div>
+                            </div>
+
+							<s:include value="/jsp/content/manageDuls.jsp"/>																
+																	
+                          </div> <!-- End Panel body -->
+			            </div> <!-- End Collapse 1 -->
+			             </div> <!--  End study panel -->
+                 		 </div> <!--  End panel group -->
+			            </div>  <!--  studySection div -->
+			            
+                      </s:iterator>
+                      
+                      </div>  <!--  cloneStudyInput -->
+								
+                <div>
+                      <input type="button" id="btnAdd" value="Select Additional Studies" onClick="addStudy()"class="btn btn-default">
+                </div>	
+													
+              </div> <!--  End Study Section -->	
+              </div> <!--  end qSpacing> -->
+			   <p>&nbsp;</p>
+			   
 			   <div class="col-xs-3">
                   <label for="Provisional or Final?">Provisional or Final? </label>
                   &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
@@ -98,126 +233,6 @@
 				   <span style="color: #990000;">2000</span> Character limits
 			    </div>
 			  </div>
-        <p>&nbsp;</p>
-	
-			  <!--Begin STUDY SECTION-->
-			
-              <div class="form-group row col-xs-12" id="sections">
-								
-                <div id="entry" class="cloneStudyInput">
-					  								
-                  <s:iterator status="studiesStat" var="study" value="instCertification.studies">
-                    <s:set name="studiesIdx" value="#studiesStat.index" />
-					  					    
-                    <div id="studySection${studiesIdx}" class="studySections">
-					  	
-                      <s:hidden name="instCertification.studies[%{#studiesStat.index}].displayId" id="studyDisplayId-%{#studiesIdx}" value="%{#studiesIdx}"/>
-					  	
-					  <!--  This is read and passed back to prevent the createdBy field from being overwritten -->
-					  <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>
-					     
-					  <!--  This is read and passed back to so the existing ids are updated and not replaced -->
-					  <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" id="studyId-%{#studiesIdx}"/> 
-				  		
-					  <div class="panel-group" id="accordion">
-				        <div class="panel panel-default">
-					  	
-					    <!--  STUDY SECTION HEADER  -->
-					  
-                        <div class="studyHeadingPanel panel-heading header">
-                          <h4 class="panel-title ">
-                            <a class="studyHeading" href="#collapseOne">
-                             <i class="fa fa-minus-square fa-lg" aria-hidden="true"></i>&nbsp;
-                              Study
-                            </a>
-                            <s:if test="%{instCertification.studies.size > 1}"> 
-                              <a href="#" onclick="deleteStudy(${studiesIdx})" class="deleteIcon" style="float: right;">
-                            	<i class="fa fa-trash fa-lg" title="delete" alt="delete" aria-hidden="true"></i>
-                              </a>
-                            </s:if> 
-                                               
-                           </h4>
-                        </div>	                      		
-												
-						<!--  STUDY SECTION BODY -->
-									
-                        <div id="collapseOne" class="content">
-                          <div class="panel-body">
-                          				
-                            <div class="form-group row">
-                              <div class="col-xs-5">
-                                <label class="label_sn" for="Study Name">
-                                  <i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>
-                                  Study Name &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="IC_STUDY_KEY" value="%{getHelpText('IC_STUDY_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
-                                </label>
-                                <input type="text" class="form-control input_sn" placeholder="Full Name of Study" 
-                              	    id="studyName-${studiesIdx}"  maxlength="100"
-                              		name="instCertification.studies[<s:property value='#studiesStat.index'/>].studyName" 
-                              		value="${study.studyName}"/>	
-                              </div>
-                              					
-                              <div class="col-xs-5">
-                                <label class="label_in" for="Provisional or Final?">Institution(s) &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="IC_INSTITUTION_KEY" value="%{getHelpText('IC_INSTITUTION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></label>
-                                <input type="text" class="form-control input_in" placeholder="Full Name of Institution"
-                              		id="institution-${studiesIdx}" maxlength="120"
-									name="instCertification.studies[<s:property value='#studiesStat.index'/>].institution"
-									value="${study.institution}"/>
-                              
-                              </div>
-                              <div class="DULv col-xs-2">
-                                <label for="Data Use Limitation(s) Verified?" class="label_dulV">DUL(s) Verified?
-                                &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="IC_DUL_KEY" value="%{getHelpText('IC_DUL_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
-                                </label>
-                                <s:select name="instCertification.studies[%{#studiesStat.index}].dulVerificationId"
-                        			value="instCertification.studies[#studiesStat.index].dulVerificationId"
-                        			class="c-select form-control"
-                        			list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST)}"
-                        			listKey="optionKey" listValue="optionValue" id="dulVerificationId%-{#studiesIdx}"
-                       				emptyOption="true"/>
-                              </div>
-                            </div> <!--end row-->			
-                            <div class="form-group row  col-xs-12" >
-                              <label for="study comments" class="label_stCom">Comments (2000 Characters):</label><br/>
-                              <s:textarea id="comments-%{#studiesStat.index}" class="col-md-12 form-control input_stCom commentsClass"  
-                              		value="%{#study.comments}" maxlength="2000"
-									name="instCertification.studies[%{#studiesIdx}].comments" 
-									 style="overflow-y: scroll;" rows="3" onkeyup="countChar(this)"></s:textarea>
-									 <div id="count-${studiesIdx}" style="text-align: right; font-style: italic;">
-				                    <span style="color: #990000;">2000</span> Character limits
-			                </div>
-                            </div> <!--end row-->
-                            <p>&nbsp;</p>
-                                                 
-                            <div class="DULinfo"> 
-                              <div class="form-group row col-xs-12">
-                                <p><span class="question">
-                                  <h4>Data Use Limitation(s)</h4></span><br/>
-                                   You may add up to 10 DULs
-                                </p>
-                              </div>
-                            </div>
-
-							<s:include value="/jsp/content/manageDuls.jsp"/>																
-																	
-                          </div> <!-- End Panel body -->
-			            </div> <!-- End Collapse 1 -->
-			             </div> <!--  End study panel -->
-                 		 </div> <!--  End panel group -->
-			            </div>  <!--  studySection div -->
-			            
-                      </s:iterator>
-                      
-                      </div>  <!--  cloneStudyInput -->
-								
-                <div>
-                      <input type="button" id="btnAdd" value="Add Another Study" onClick="addStudy()"class="btn btn-default">
-                </div>	
-													
-              </div> <!--  End Study Section -->	
-            </div> <!--  end qSpacing> -->
 				
           </div> <!--  panel body -->
         </div> <!--  Panel -->

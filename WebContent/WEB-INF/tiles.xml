@@ -82,6 +82,13 @@
 		<put-attribute name="body" value="/jsp/content/submissionIcList.jsp" />		
 	</definition>
 	
+	<definition name="submissionStudySelect" extends="base.definition">		
+		<put-attribute name="navtab" value="newSubmission" type="string" />
+		<put-attribute name="subnavtab" value="ic" type="string" />	
+		<put-attribute name="title" type="string" value="GDS Tracking System" />
+		<put-attribute name="body" value="/jsp/content/submissionStudySelect.jsp" />		
+	</definition>
+	
 	<definition name="submissionIc" extends="base.definition">		
 		<put-attribute name="navtab" value="newSubmission" type="string" />
 		<put-attribute name="subnavtab" value="ic" type="string" />	

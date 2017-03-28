@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -23,7 +24,6 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
@@ -50,6 +50,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	private String icIds = "";
 	
+	private String studyIds = "";
+	
 	private List<ParentDulChecklist> parentDulChecklists = new ArrayList<ParentDulChecklist>();
 	
 	private File ic;
@@ -61,6 +63,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	private List<Document> icFileDocs = new ArrayList<Document>();
 	
 	private Document doc = null; // json object to be returned for UI refresh after upload
+	
+	private List<Study> studiesForSelection = new ArrayList<Study>();
 	
 	
 	/**
@@ -79,6 +83,8 @@ public class IcSubmissionAction extends ManageSubmission {
 						
 		logger.debug("execute");
 		
+		logger.debug("Studies selected: " + studyIds);
+		
 		setProject(retrieveSelectedProject());
 		
 		InstitutionalCertification instCert = null;
@@ -90,11 +96,14 @@ public class IcSubmissionAction extends ManageSubmission {
 			loadFiles(instCert);
 		} else {
 			instCert = new InstitutionalCertification();
-			Study study = new Study();
-			StudiesDulSet studiesDulSet = new StudiesDulSet();
-			study.addStudiesDulSet(studiesDulSet);
-			//setTestData(study);
-			instCert.addStudy(study);
+			//Retrieve and populate studies that were selected
+			studyIds = StringUtils.deleteWhitespace(studyIds);
+			for(String studyId: Arrays.asList(StringUtils.split(studyIds, ","))) {
+				Study study = getProject().getStudyById(Long.parseLong(studyId));
+				StudiesDulSet studiesDulSet = new StudiesDulSet();
+				study.addStudiesDulSet(studiesDulSet);
+				instCert.addStudy(study);
+			}		
 		}
         
 		setInstCertification(instCert);
@@ -102,6 +111,39 @@ public class IcSubmissionAction extends ManageSubmission {
         return SUCCESS;
 	}
 	
+	/**
+	 * Called when the user clicks Add Institutional Certificate button from IC page
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String retrieveStudiesForSelection() throws Exception {
+		logger.debug("retrieveStudiesForSelection");
+		
+		setProject(retrieveSelectedProject());
+		
+		studiesForSelection = retrieveStudies();
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * Filter out the list of studies that are not tied to any IC from project.studies
+	 * 
+	 * @return
+	 */
+	private List<Study> retrieveStudies() {
+
+		List<Study> studies = new ArrayList<Study>();
+		
+		for(Study study: getProject().getStudies()) {
+			if (study.getInstitutionalCertification() == null) {
+				studies.add(study);
+			}
+		}
+		
+		return studies;
+	}
 	
 	private void loadFiles(InstitutionalCertification instCert) {
 		if(instCert != null) {
@@ -752,5 +794,21 @@ public class IcSubmissionAction extends ManageSubmission {
 		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingIcData(project, Long.valueOf(instCertId)));		
 			
 		return SUCCESS;
+	}
+
+	public List<Study> getStudiesForSelection() {
+		return studiesForSelection;
+	}
+
+	public void setStudiesForSelection(List<Study> studiesForSelection) {
+		this.studiesForSelection = studiesForSelection;
+	}
+
+	public String getStudyIds() {
+		return studyIds;
+	}
+
+	public void setStudyIds(String studyIds) {
+		this.studyIds = studyIds;
 	}
 }

@@ -30,7 +30,7 @@
           <button type="button" value=" Add Study " class="saved btn btn-project-primary" onclick="location.href = 'studydemo.htm';">Add Study</button>
         </div>
         <div style="display: inline;" id="addICBtn">
-          <s:submit action="editIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
+          <s:submit action="addIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
         </div>
        
         <br>
