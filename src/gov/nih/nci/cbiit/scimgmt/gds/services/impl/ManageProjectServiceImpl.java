@@ -23,6 +23,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 
 /**
  * Class to support management of Projects (save, update and delete etc...)
@@ -185,6 +186,15 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		return result;
 	}
 	
+	/**
+	 * saves study
+	 * 
+	 * returns saved study
+	 */
+	public Study saveStudy( Study study) {
+		Study result = icCertsDao.mergeStudy(study);
+		return result;
+	}
 	
 	/**
 	 * Deletes an IC from DB by icId
@@ -215,6 +225,19 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		icCertsDao.delete(ic);
 		
 		return true;
+	}
+	
+	/**
+	 * deletes the study
+	 * 
+	 * return boolean
+	 */
+	public boolean deleteStudy(Long studyId, Project project) {
+		
+		Study study = icCertsDao.findStudyById(studyId);
+		icCertsDao.delete(study);
+		return true;
+		
 	}
 	
 	
