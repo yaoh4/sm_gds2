@@ -82,6 +82,7 @@ $(document).ready(function() {
 	
 	//show the delete and edit icons only for projects
 	$("#actionColumnIC").show();
+	$("#actionColumnStudy").show();
 	$(".editDeleteBtns").show();
 	$(".projectColumn").show();
  } else {
@@ -109,10 +110,16 @@ $(document).ready(function() {
 	  var expandId = $(this).attr("id").replace("icDetails", "");
 	  $("#" + id).slideToggle('500');
 	  $("#" + expandId + "expand").toggleClass('fa-plus-square fa-minus-square');
-  })
+  });
   
+  $('.studyDetails').on('click', function(e) {
+	  e.preventDefault();
+	  var id = $(this).attr("id").replace("studyDetails", "dulContent");
+	  var expandId = $(this).attr("id").replace("studyDetails", "");
+	  $("#" + id).slideToggle('500');
+	  $("#" + expandId + "expand").toggleClass('fa-plus-square fa-minus-square');
+  });
   
- 
 
 $('#btnDelteYes').click(function () {
     var id = $('#myModal').data('id');

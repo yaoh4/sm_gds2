@@ -1,7 +1,7 @@
  <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
- <table style="width: 100%; font-size: 14px" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
+       <table style="width: 100%; font-size: 14px" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody><tr class="modalTheader">
                 <th  class="tableHeader"  align="center" width="25%">Study Name</th>                      
                 <th class="tableHeader" align="center" width="25%">Institution</th>
@@ -9,13 +9,16 @@
                 <th>Document</th>
                 <th>Approved by GPA</th>
                 <th align="center">Comments</th>         
-                <th id="actionColumn" class="tableHeader" style="" align="center" width="1%">Actions</th>
+                <th id="actionColumnStudy" class="tableHeader" style="display:none;"align="center" width="1%">Actions</th>
               </tr> 
               
               <s:iterator status="studies" var="study" value="project.studies">
+              <div class="studyDetailsDiv">
               <s:set name="studyIdx" value="%{#study.id}" />
                <tr  data-id="${study.id}">
-              <td > <s:property value="%{#study.studyName}" /></td>
+              <td> <a href="#" class="studyDetails" id="studyDetails${study.id}">
+                      <i class="expand fa fa-plus-square fa-lg" id="${study.id}expand" aria-hidden="true" alt="Details" title="Details"></i> </a>&nbsp;&nbsp;&nbsp;
+                      <s:property value="%{#study.studyName}" /></td>
               <td > <s:property value="%{#study.institution}" /></td> 
               <td >Yes</td>
               <td  style="text-align: center;"><a href="#" onclick="openMissingDataReport(415, '/gds/manage/viewMissingIcData.action?instCertId=432&amp;')"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a> </td>                    
@@ -30,11 +33,39 @@
                        <s:hidden name ="studyid" id="studyid" value="%{#study.id}"/>
                         <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit"></i>&nbsp;
                   </a> &nbsp;&nbsp;&nbsp;
+                  <s:hidden id="val" value="%{#study.institutionalCertification.id}"/>
+                  <s:if test="%{#study.institutionalCertification.id != null}">
+                   </s:if>  
+                   <s:else>
                       <a class="btnDelete" href="#" >
                         <i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="Delete"></i>
-                  </a>                  
+                  </a>
+                   </s:else>       
                   </td>
                 </tr>
+                </div>
+                <!--Begin view details-->
+		<tr class="removeStudy${study.id}">
+			<td colspan="7">
+            <div id="dulContent${study.id}" style="display: none">
+					<table width="50%" class="tableStudy table-bordered table-striped" style="table-layout:fixed; align:center" cellspacing="3">
+                        <tr class="modalTheader">
+                          <th width="20%" align="center">Type</th>
+                          <th width="20%" align="center">Appendix</th>
+						  <th width="10%" align="center">DUL Verified?</th>
+                        </tr>
+                        <s:iterator status="duls" var="dul" value="project.studies">
+                         <tr>
+                          <td style="text-align: center;">na</td>
+                          <td style="text-align: center;">na</td>
+						  <td style="text-align: center;">na</td>
+                        </tr>
+                        </s:iterator>    
+					</table> <!-- for class tBorder2 -->
+				</div> <!-- for contentDivImg -->
+			</td> <!-- for colspan 3 -->
+		</tr>  <!--end view H view details-->
+                
                   </s:iterator>           
                 </table>
                 

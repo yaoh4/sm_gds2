@@ -8,7 +8,14 @@
   action="navigateToIcMain"  role="form">
   
   <s:hidden name="projectId" id="projectId" value="%{project.id}"/>
-      
+  
+    <div class="pageNav">
+    <s:submit action="saveIcList" value=" Save " class="saved btn btn-default"/>
+    <s:submit type="button" action="saveIcListAndNext" class="saved btn btn-project-primary">
+      Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>
+    </s:submit>	  
+  </div>
+  
   <!-- Begin Panel -->
   <div class="col-md-12">
     <div class="panel  project-panel-primary">
@@ -24,8 +31,16 @@
           <s:include value="/jsp/content/pageStatus.jsp"/>           	
         </div>   
       </div><!--end header-->   
-          
+
       <div class="panel-body">
+                
+          <div style="float: right;" class="question">
+              <a href="https://gds.nih.gov/Institutional_Certifications.html" target="_blank">Institutional Certifications&nbsp;
+                <i class="fa fa-external-link" aria-hidden="true"></i>
+              </a>
+            </div>
+            <br>
+      
         <div style="display:inline" id="addICBtn">
            <s:submit action="addEditStudy" id="addStudy" value=" Add Study " class="saved btn btn-project-primary"/>
         </div>
