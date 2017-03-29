@@ -4,18 +4,7 @@
 
 $(document).ready(function () {
 	
-	$('#studySelectTable').dataTable({
-		 "bPaginate": false,
-			
-	      columnDefs: [
-	         { targets: ['status'], type: 'alt-string'},
-	         { targets: 'no-sort', orderable: false }]
-	});
-	
-	$("#no-sorting").removeClass('sorting_asc').addClass('sorting_disabled');
 
-	$('.dataTables_filter').append("<div class='searchHelp'>(Enter at least 2 characters to search)</div>"); 
-	   
 	//var myDulIdArray = "input[id$=" + dulIds + "]";
 	//var dulIdArray = $(myDulIdArray).val();
 	var dulIdArray = JSON.parse($("#dulIds").val());
@@ -215,7 +204,7 @@ function deleteDulSet(studiesIdx, dulSetIdx) {
 };
 
 
-function addStudy() {
+function addStudy(studyPk, studyName, studyInst) {
 	
 	var studyItems = $(".studySections").length;
 	
@@ -263,8 +252,9 @@ function addStudy() {
 	//Remove values
 	newStudySectionDiv.find("#studyDisplayId-" + newStudySectionIndex).attr("value", newStudySectionIndex);
 	newStudySectionDiv.find("#studyId-" + newStudySectionIndex).removeAttr("value");
-	newStudySectionDiv.find("#studyName-" + newStudySectionIndex).removeAttr("value");
-	newStudySectionDiv.find("#institution-" + newStudySectionIndex).removeAttr("value");
+	//newStudySectionDiv.find("#studyPk-" + newStudySectionIndex).val(studyPk);
+	newStudySectionDiv.find("#studyName-" + newStudySectionIndex).val(studyName);
+	newStudySectionDiv.find("#institution-" + newStudySectionIndex).val(studyInst);
 	newStudySectionDiv.find("#dulVerificationId-" + newStudySectionIndex).val(-1);
 	newStudySectionDiv.find("#comments-" + newStudySectionIndex).val("").removeAttr("value");
 	newStudySectionDiv.find("#count-" + newStudySectionIndex).text("2000 Character limits")
@@ -376,8 +366,12 @@ $('#finalprov').on('change', function() {
 $(document).ready(function () {
 
 	// IC file upload Ajax
-	$("#institutional_form").on('change', '#ic', function () {
+	$("#institutional_form").on('change', '#icUploadFile', function () {
 
+		if ($('#icUploadFile').get(0).files.length === 0) {
+		    return;
+		}
+		
 		$("#messages").empty();
 		
 		var result = "";
@@ -448,9 +442,83 @@ $("a.pop").hover(function() {
 	$(this).attr('data-content', value);
 });
 
-//comments kep up function
+//comments key up function
 $('#instCertComments').keyup(function() {
 	//set the correct length for text areas
 	showCharCount(this, '#charNum6');
 });
 
+var table;
+function initializeStudyTable() {
+	table = $('#studySelectTable').DataTable({
+		 "bPaginate": false,
+			
+	      columnDefs: [
+	         { targets: ['status'], type: 'alt-string'},
+	         { targets: 'no-sort', orderable: false }]
+	});
+	
+	$("#no-sorting").removeClass('sorting_asc').addClass('sorting_disabled');
+
+	$('.dataTables_filter').append("<div class='searchHelp'>(Enter at least 2 characters to search)</div>"); 
+	   
+}
+
+function openStudy(element, type) {
+	
+	$("#selectType").val(type);
+	if(type === "single") {
+		index = $(element).parent().parent().parent().children(':first').attr('id').replace('studyName-','');
+		$("#studyIndex").val(index);
+		$(".radioSelected").removeAttr('checked');
+		$(".radioSelect").show();
+		$(".checkboxSelect").hide();
+	} else {
+		$(".radioSelect").hide();
+		$(".checkboxSelected").removeAttr('checked');
+		$(".checkboxSelect").show();
+	}
+	$("#submissionIcSection").hide();
+	$("#reselectStudySection").show();
+	initializeStudyTable();
+}
+
+function cancelStudy() {
+	
+	table.destroy();
+	$("#submissionIcSection").show();
+	$("#reselectStudySection").hide();
+	
+}
+
+function selectStudy() {
+	
+	type = $("#selectType").val();
+	index = $("#studyIndex").val();
+	
+	if(type === "single") {
+		studyPk = $(".radioSelected:checked").val();
+		studyName = $(".radioSelected:checked").parent().parent().next('td').text();
+		studyInst = $(".radioSelected:checked").parent().parent().next('td').next('td').text();
+		$("#studyName-" + index).val(studyName);
+		$("#institution-" + index).val(studyInst);
+	} else {
+		$(".checkboxSelected:checked").each(function(){
+			studyPk = $(this).val();
+			studyName = $(this).parent().parent().next('td').text();
+			studyInst = $(this).parent().parent().next('td').next('td').text();
+			addStudy(studyPk, studyName, studyInst);
+		});
+	}
+	
+	table.destroy();
+	$("#submissionIcSection").show();
+	$("#reselectStudySection").hide();
+
+
+}
+
+function enableStudy() {
+	$(".input_sn").prop('disabled', false);
+	$(".input_in").prop('disabled', false);
+}

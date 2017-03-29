@@ -12,7 +12,7 @@
 		<label
 			class="input-group-btn"> <span class="btn btn-default">
 				Choose File
-			<s:file style="display: none;" name="ic" id="ic" />
+			<s:file style="display: none;" name="ic" id="icUploadFile" />
 		</span>
 		</label>
 	</div>

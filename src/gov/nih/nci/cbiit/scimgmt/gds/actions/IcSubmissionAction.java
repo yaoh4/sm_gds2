@@ -63,10 +63,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	private List<Document> icFileDocs = new ArrayList<Document>();
 	
 	private Document doc = null; // json object to be returned for UI refresh after upload
-	
-	private List<Study> studiesForSelection = new ArrayList<Study>();
-	
-	
+		
+	private Boolean newIC = false;
 	/**
 	 * Retrieves all data associated with the specified IC and redirects the user to the
 	 * Edit/Add IC page. If no IC is present, then a new one is created. Invoked from:
@@ -86,6 +84,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		logger.debug("Studies selected: " + studyIds);
 		
 		setProject(retrieveSelectedProject());
+		studiesForSelection = retrieveStudies();
 		
 		InstitutionalCertification instCert = null;
 		if(instCertId != null) {
@@ -98,6 +97,10 @@ public class IcSubmissionAction extends ManageSubmission {
 			instCert = new InstitutionalCertification();
 			//Retrieve and populate studies that were selected
 			studyIds = StringUtils.deleteWhitespace(studyIds);
+			if(StringUtils.isEmpty(studyIds)) {
+				addActionError("Select a Study");
+				return INPUT;
+			}
 			for(String studyId: Arrays.asList(StringUtils.split(studyIds, ","))) {
 				Study study = getProject().getStudyById(Long.parseLong(studyId));
 				StudiesDulSet studiesDulSet = new StudiesDulSet();
@@ -120,29 +123,13 @@ public class IcSubmissionAction extends ManageSubmission {
 	public String retrieveStudiesForSelection() throws Exception {
 		logger.debug("retrieveStudiesForSelection");
 		
+		newIC = true;
+		
 		setProject(retrieveSelectedProject());
 		
 		studiesForSelection = retrieveStudies();
 		
 		return SUCCESS;
-	}
-	
-	/**
-	 * Filter out the list of studies that are not tied to any IC from project.studies
-	 * 
-	 * @return
-	 */
-	private List<Study> retrieveStudies() {
-
-		List<Study> studies = new ArrayList<Study>();
-		
-		for(Study study: getProject().getStudies()) {
-			if (study.getInstitutionalCertification() == null) {
-				studies.add(study);
-			}
-		}
-		
-		return studies;
 	}
 	
 	private void loadFiles(InstitutionalCertification instCert) {
@@ -283,6 +270,7 @@ public class IcSubmissionAction extends ManageSubmission {
 				//If no file has been uploaded yet, then we do not
 				//show any more fields to enter
 				setProject(retrieveSelectedProject());
+				studiesForSelection = retrieveStudies();
 				prepareDisplay(instCert);
 				return;
 			}
@@ -290,6 +278,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		if(getDocId() == null) {
 			setProject(retrieveSelectedProject());
+			studiesForSelection = retrieveStudies();
 			prepareDisplay(instCert);
 			this.addActionError(getText("error.doc.required"));
 			return;
@@ -378,6 +367,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		if(hasActionErrors()) {
 			setProject(retrieveSelectedProject());
+			studiesForSelection = retrieveStudies();
 			setInstCertification(instCert);
 			prepareDisplay(instCert);
 			setDocId(getDocId());
@@ -796,19 +786,19 @@ public class IcSubmissionAction extends ManageSubmission {
 		return SUCCESS;
 	}
 
-	public List<Study> getStudiesForSelection() {
-		return studiesForSelection;
-	}
-
-	public void setStudiesForSelection(List<Study> studiesForSelection) {
-		this.studiesForSelection = studiesForSelection;
-	}
-
 	public String getStudyIds() {
 		return studyIds;
 	}
 
 	public void setStudyIds(String studyIds) {
 		this.studyIds = studyIds;
+	}
+
+	public Boolean getNewIC() {
+		return newIC;
+	}
+
+	public void setNewIC(Boolean newIC) {
+		this.newIC = newIC;
 	}
 }

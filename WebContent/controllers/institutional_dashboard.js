@@ -103,6 +103,11 @@ $(document).ready(function() {
     $('#myModal').data('id', id).modal('show');
 });
   
+  $('.btnDeleteIc').on('click', function (e) {
+	    e.preventDefault();
+	    var id = $(this).closest('tr').data('id');
+	    $('#myModalIc').data('id', id).modal('show');
+	});
   
   $('.icDetails').on('click', function(e) {
 	  e.preventDefault();
@@ -122,7 +127,7 @@ $(document).ready(function() {
   
 
 $('#btnDelteYes').click(function () {
-    var id = $('#myModal').data('id');
+    var id = $('#myModalIc').data('id');
     var projId = $('#projectId').val();
     
   $.ajax({
@@ -140,7 +145,7 @@ $('#btnDelteYes').click(function () {
  
     $('[data-id=' + id + ']').remove();
     $("." + "remove" + id).remove();
-    $('#myModal').modal('hide');
+    $('#myModalIc').modal('hide');
     
     var listSize = $("#icListSize").val() - 1;
     $("#icListSize").val(listSize);

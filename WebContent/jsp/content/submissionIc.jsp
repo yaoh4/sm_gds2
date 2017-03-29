@@ -1,7 +1,7 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
-    
+<div id="submissionIcSection">
     <!--Begin Form -->
     <s:form id="institutional_form" name="instititional_form" cssClass="dirty-check" namespace="manage"
     enctype="multipart/form-data" data-toggle="validator" action="saveIc" method="post" role="form">  
@@ -14,7 +14,7 @@
       <div class="pageNav">
        <s:submit action="navigateToIcMain" value=" Cancel " class="saved btn btn-default"/>	 
      
-        <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
+        <s:submit action="saveIc" value=" Save Institutional Certification " onclick="enableStudy()" class="saved btn btn-project-primary"/>
       </div>
 
 
@@ -51,11 +51,9 @@
 				<s:include value="/jsp/content/submissionIcFile.jsp" />
 			</div>
 		
-			  <div class="form-group row">
-
 			  <!--Begin STUDY SECTION-->
 			
-              <div class="form-group row col-xs-12" id="sections">
+              <div style="display: block;" class="form-group row col-xs-12" id="sections">
 								
                 <div id="entry" class="cloneStudyInput">
 					  								
@@ -111,7 +109,7 @@
                               		value="${study.studyName}" disabled />
                               	  <div class="input-group-btn">
                                     <a href="#">
-                                    <button class="btn btn-default" type="button" title="Search" style=" margin-left: -2px; height: 34px;">
+                                    <button onClick="openStudy(this, 'single')" class="btn btn-default" type="button" title="Search" style=" margin-left: -2px; height: 34px;">
                                       <i class="fa fa-search" aria-hidden="true"></i>
                                     </button></a> 
                 				  </div>
@@ -178,15 +176,18 @@
                       </s:iterator>
                       
                       </div>  <!--  cloneStudyInput -->
-								
+
+       		  <s:if test="!studiesForSelection.isEmpty">	
                 <div>
-                      <input type="button" id="btnAdd" value="Select Additional Studies" onClick="addStudy()"class="btn btn-default">
+                      <input type="button" id="btnAdd" value="Select Additional Studies" onClick="openStudy(this, 'multiple')" class="btn btn-default">
                 </div>	
-													
+			  </s:if>
+			  								
               </div> <!--  End Study Section -->	
               </div> <!--  end qSpacing> -->
-			   <p>&nbsp;</p>
+			  <p>&nbsp;</p>
 			   
+			  <div class="form-group row" style="display: block;">
 			   <div class="col-xs-3">
                   <label for="Provisional or Final?">Provisional or Final? </label>
                   &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
@@ -226,7 +227,7 @@
               </div>
 	
 			  <!--  IC comments -->
-	 		  <div class="form-group row  col-xs-12">
+	 		  <div class="form-group row  col-xs-12" style="display: block;">
                 <label for="comment">Comments (2000 Characters):</label><br/>
                 <s:textarea class="col-md-12 form-control commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="instCertComments" value="%{instCertification.comments}" name="instCertification.comments" ></s:textarea>
                 <div id="charNum6" style="text-align: right; font-style: italic;">
@@ -234,6 +235,13 @@
 			    </div>
 			  </div>
 				
+			  <s:if test="studiesForSelection.isEmpty">
+			   <div class="form-group row  col-xs-12" style="display: block;">
+      			<div class="alert alert-warning" role="alert" style="margin-left: 0px;">
+        		<p><strong>Please Note:</strong> No studies have been entered that can be associated with this Institutional Certification.  Studies must be entered first and then associated with this Institutioanl Certifcation. Select the "Save and Add Study" button to begin adding studies.  After studies have been entered return to this Institutional Certification and associate the studies with it.</p>
+        		</div>
+        	   </div>
+       		  </s:if>
           </div> <!--  panel body -->
         </div> <!--  Panel -->
       </div>  
@@ -242,10 +250,14 @@
 	  <!--SAVE & NEXT BUTTONS-->
       <div class="pageNav">
         <s:submit action="navigateToIcMain" value=" Cancel " class="saved btn btn-default"/>	      
-        <s:submit action="saveIc" value=" Save Institutional Certification " class="saved btn btn-project-primary"/>
+        <s:submit action="saveIc" value=" Save Institutional Certification " onclick="enableStudy()" class="saved btn btn-project-primary"/>
 	  </div>
         
     </s:form>
+</div>
+<div id="reselectStudySection" style="display: none;">
+	<s:include value="/jsp/content/submissionStudySelect.jsp" />
+</div>
 
 <s:include value="/jsp/content/dulSetTemplate.jsp"/>
 <script type="text/javascript"

@@ -74,7 +74,7 @@
                       <a class="btnEdit"  href="/gds/manage/editIc.action?instCertId=${cert.id}&projectId=${project.id}">
                         <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit"></i>&nbsp;
                       </a>&nbsp;&nbsp;&nbsp;
-                      <a class="btnDelete" href="#" >
+                      <a class="btnDeleteIc" href="#" >
                         <i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="Delete"></i>
                       </a>                   
                 </td>
@@ -195,13 +195,13 @@
 </table>
 
  <!-- start: Delete Coupon Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModalIc" tabindex="-1" role="dialog" aria-labelledby="myModalLabelIc" aria-hidden="true">
 	<div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                  <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true" title="warning sign"></i>&nbsp;&nbsp;
-                 <h3 class="modal-title" id="myModalLabel">Are You Sure You Want to Delete?</h3>
+                 <h3 class="modal-title" id="myModalLabelIc">Are You Sure You Want to Delete?</h3>
 
             </div>
             <div class="modal-body">

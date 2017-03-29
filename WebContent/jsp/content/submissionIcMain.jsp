@@ -44,9 +44,11 @@
         <div style="display:inline" id="addICBtn">
            <s:submit action="addEditStudy" id="addStudy" value=" Add Study " class="saved btn btn-project-primary"/>
         </div>
-        <div style="display: inline;" id="addICBtn">
+        <s:if test="!studiesForSelection.isEmpty">
+         <div style="display: inline;" id="addICBtn">
           <s:submit action="addIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
-        </div>
+         </div>
+        </s:if>
        
         <br>
         <br/>&nbsp; 

@@ -122,6 +122,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 		
 		setProject(storedProject);
 		setProjectId(storedProject.getId().toString());
+		studiesForSelection = retrieveStudies();
 		return forward;
 	}
 	
