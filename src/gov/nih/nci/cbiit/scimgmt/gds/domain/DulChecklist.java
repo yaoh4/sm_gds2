@@ -29,6 +29,9 @@ public class DulChecklist implements java.io.Serializable {
 	private String createdBy;
 	private Date lastChangedDate;
 	private String lastChangedBy;
+	private String abbreviation;
+
+
 	private List<DulChecklistSelection> dulChecklistSelections = new ArrayList<DulChecklistSelection>();
 
 	public DulChecklist() {
@@ -144,6 +147,15 @@ public class DulChecklist implements java.io.Serializable {
 		this.lastChangedBy = lastChangedBy;
 	}
 
+	@Column(name = "ABBREVIATION", length = 120)
+	public String getAbbreviation() {
+		return abbreviation;
+	}
+
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
+	}
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "dulChecklist")
 	public List<DulChecklistSelection> getDulChecklistSelections() {
 		return this.dulChecklistSelections;
