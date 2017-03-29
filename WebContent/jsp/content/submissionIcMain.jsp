@@ -10,7 +10,7 @@
   <s:hidden name="projectId" id="projectId" value="%{project.id}"/>
   
     <div class="pageNav">
-    <s:submit action="saveIcList" value=" Save " class="saved btn btn-default"/>
+    <s:submit action="saveIcList" value="Save" class="saved btn btn-default"/>
     <s:submit type="button" action="saveIcListAndNext" class="saved btn btn-project-primary">
       Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>
     </s:submit>	  
@@ -42,7 +42,14 @@
             <br>
       
         <div style="display:inline" id="addICBtn">
-           <s:submit action="addEditStudy" id="addStudy" value=" Add Study " class="saved btn btn-project-primary"/>
+           <s:submit action="addEditStudy" type="button" id="addStudy"  class="saved btn btn-project-primary">
+            Add Study &nbsp;<a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" 
+            data-content="Studies that are providing samples (i.e. expecting an institutional certification). &lt;br&gt;
+            More information at:&lt;a href=&quot; https://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/submission#institutional-certification &quot;target=&quot;_blank &quot;&gt;
+            https://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/submission#institutional-certification.
+            &lt;/a&gt;" data-html="true" style="font-size: 12px;">
+                            <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
+                            </s:submit>
         </div>
         <s:if test="!studiesForSelection.isEmpty">
          <div style="display: inline;" id="addICBtn">

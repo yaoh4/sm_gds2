@@ -172,7 +172,7 @@ $('#btnDelteYes').click(function () {
 		});
 	    
 	    $('[data-id=' + id + ']').remove();
-	   // $("." + "remove" + id).remove();
+	    $("." + "removeStudy" + id).remove();
 	    $('#myModal').modal('hide');
   });
 

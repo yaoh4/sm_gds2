@@ -1,6 +1,13 @@
  <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
+
+<s:if test="%{project.studies.size == 0}">
+<p>&nbsp;</p>
+<p> There are currently no studies added.</p>
+<br/>
+</s:if>
+<s:else>
        <table style="width: 100%; font-size: 14px" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody><tr class="modalTheader">
                 <th  class="tableHeader"  align="center" width="25%">Study Name</th>                      
@@ -12,21 +19,55 @@
                 <th id="actionColumnStudy" class="tableHeader" style="display:none;"align="center" width="1%">Actions</th>
               </tr> 
               
-              <s:iterator status="studies" var="study" value="project.studies">
+              <s:iterator status="studiesStat" var="study" value="project.studies">
               <div class="studyDetailsDiv">
               <s:set name="studyIdx" value="%{#study.id}" />
                <tr  data-id="${study.id}">
-              <td> <a href="#" class="studyDetails" id="studyDetails${study.id}">
-                      <i class="expand fa fa-plus-square fa-lg" id="${study.id}expand" aria-hidden="true" alt="Details" title="Details"></i> </a>&nbsp;&nbsp;&nbsp;
-                      <s:property value="%{#study.studyName}" /></td>
+              <td> 
+              <s:if test="%{#study.institutionalCertification.id != null}">
+              <a href="#" class="studyDetails" id="studyDetails${study.id}">
+              <i class="expand fa fa-plus-square fa-lg" id="${study.id}expand" aria-hidden="true" alt="Details" title="Details"></i></a>&nbsp;&nbsp;&nbsp;
+              </s:if> 
+              <s:property value="%{#study.studyName}" />
+              </td>
               <td > <s:property value="%{#study.institution}" /></td> 
-              <td >Yes</td>
-              <td  style="text-align: center;"><a href="#" onclick="openMissingDataReport(415, '/gds/manage/viewMissingIcData.action?instCertId=432&amp;')"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a> </td>                    
-              <td> N/A </td>
-              <td style="text-align: center;"><div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
+              <td>
+              <s:if test="%{#study.institutionalCertification.id != null}">
+              Yes
+              </s:if>
+              <s:else>
+              No
+              </s:else>
+              </td>
+              <td  style="text-align: center;">
+              <s:if test="%{#study.institutionalCertification.id != null}">
+              <s:a href="javascript:openDocument(%{#study.institutionalCertification.documents[0].id})">
+                     <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i>
+                     </s:a>
+              </s:if>
+              <s:else>
+               None
+              </s:else>
+              </td>                    
+              <td>
+               <s:if test="%{#study.institutionalCertification.id != null}">
+               <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #study.institutionalCertification.gpaApprovalCode)}"/>
+               </s:if>
+               <s:else>
+                N/A
+               </s:else>
+                </td>
+              <td style="text-align: center;">
+                <s:if test="%{#study.institutionalCertification.id != null}">
+              <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
               <h4 class="title">Comments</h4>
-              <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque purus lorem, sagittis vitae lacus id, dictum malesuada magna.</p>
-            </div><!-- @end .details-pane --></div></td> 
+              <p class="desc"><s:property value="%{#study.comments}" /></p>
+              </div></div>
+              </s:if>
+              <s:else>
+              None
+              </s:else>
+              </td>
               <td width="2%"  class="editDeleteBtns" style="white-space: nowrap;">
                     <!--  Do not show edit and delete for sub-project -->
                       <a class="btnEdit" href="/gds/manage/editStudy.action?studyId=${study.id}&projectId=${project.id}">
@@ -48,19 +89,54 @@
 		<tr class="removeStudy${study.id}">
 			<td colspan="7">
             <div id="dulContent${study.id}" style="display: none">
-					<table width="50%" class="tableStudy table-bordered table-striped" style="table-layout:fixed; align:center" cellspacing="3">
-                        <tr class="modalTheader">
+					<table width="50%" class="tableStudy table table-bordered table-striped" style="table-layout:fixed; align:center" cellspacing="3">
+                       <!--   <tr class="modalTheader">-->
+                       <tr>
                           <th width="20%" align="center">Type</th>
-                          <th width="20%" align="center">Appendix</th>
+                          <th width="10%" align="center">Appendix</th>
 						  <th width="10%" align="center">DUL Verified?</th>
                         </tr>
-                        <s:iterator status="duls" var="dul" value="project.studies">
+                        <s:iterator status="dulSetStat" var="studiesDulSet" value="project.studies[#studiesStat.index].studiesDulSets"> 
                          <tr>
-                          <td style="text-align: center;">na</td>
-                          <td style="text-align: center;">na</td>
-						  <td style="text-align: center;">na</td>
+                          <td> 
+                           <span class="question">
+                            ${studiesDulSet.parentDulChecklist.displayText}
+                                                            <s:if test="%{#studiesDulSet.additionalText != null}">
+                                                              - ${studiesDulSet.additionalText}
+                                                            </s:if>
+                                                          </span>
+                                                          <s:if test="%{#studiesDulSet.dulChecklistSelections.size > 0 && 
+                                                          			(#studiesDulSet.dulChecklistSelections.size != 1 || 
+                                                          			#studiesDulSet.dulChecklistSelections[0].dulChecklist.parentDulId != null)}">
+                                                            (
+                                                          <s:iterator status="dulStat" var="dul" value="%{#studiesDulSet.dulChecklistSelections}">
+                                                            <!-- Dont show the parent DUL in the bullet list -->
+                                                            <s:if test="%{#dul.dulChecklist.parentDulId != null}">
+                                                              ${dul.dulChecklist.abbreviation}
+                                                              <s:if test="%{#dulStat.index < (#studiesDulSet.dulChecklistSelections.size - 1)}">
+                                                                ;
+                                                              </s:if>
+                                                            </s:if>
+                                                          </s:iterator> 
+                                                          )
+                                                          </s:if>      
+                          </td>
+                          <td>
+                          <s:if test="%{#studiesDulSet.comments != null}">
+                          <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
+                           <h4 class="title">DUL Appendix</h4>
+                     <p class="desc"><s:property value="%{#studiesDulSet.comments}"/></p>
+                     </div></div>
+                     </s:if>
+                     <s:else>
+                     None
+                     </s:else>
+                          </td>
+						  <td>
+						  <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/>
+						  </td>
                         </tr>
-                        </s:iterator>    
+                       </s:iterator>
 					</table> <!-- for class tBorder2 -->
 				</div> <!-- for contentDivImg -->
 			</td> <!-- for colspan 3 -->
@@ -68,6 +144,7 @@
                 
                   </s:iterator>           
                 </table>
+                </s:else>
                 
                  <!-- start: Delete Coupon Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
