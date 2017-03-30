@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -26,7 +28,7 @@ import javax.persistence.Transient;
 public class Study implements java.io.Serializable {
 
 	private Long id;
-	private InstitutionalCertification institutionalCertification;
+	private List<InstitutionalCertification> institutionalCertifications = new ArrayList<InstitutionalCertification>();
 	private Project project;
 	private String studyName;
 	private String institution;
@@ -40,19 +42,19 @@ public class Study implements java.io.Serializable {
 	public Study() {
 	}
 
-	public Study(Long id, InstitutionalCertification institutionalCertification, String studyName,
+	public Study(Long id, List<InstitutionalCertification> institutionalCertifications, String studyName,
 			String createdBy) {
 		this.id = id;
-		this.institutionalCertification = institutionalCertification;
+		this.institutionalCertifications = institutionalCertifications;
 		this.studyName = studyName;
 		this.createdBy = createdBy;
 	}
 
-	public Study(Long id, InstitutionalCertification institutionalCertification, String studyName,
+	public Study(Long id, List<InstitutionalCertification> institutionalCertifications, String studyName,
 			String institution, Long dulVerificationId, String createdBy,
 			String lastChangedBy, List<StudiesDulSet> studiesDulSets) {
 		this.id = id;
-		this.institutionalCertification = institutionalCertification;
+		this.institutionalCertifications = institutionalCertifications;
 		this.studyName = studyName;
 		this.institution = institution;
 		this.dulVerificationId = dulVerificationId;
@@ -73,14 +75,18 @@ public class Study implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "CERTIFICATION_ID")
-	public InstitutionalCertification getInstitutionalCertification() {
-		return this.institutionalCertification;
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="ic_studies_mapping_t", joinColumns=@JoinColumn(name="study_id"), inverseJoinColumns=@JoinColumn(name="certification_id"))
+	public List<InstitutionalCertification> getInstitutionalCertifications() {
+		return this.institutionalCertifications;
 	}
 
-	public void setInstitutionalCertification(InstitutionalCertification institutionalCertification) {
-		this.institutionalCertification = institutionalCertification;
+	public void setInstitutionalCertifications(List<InstitutionalCertification> institutionalCertifications) {
+		this.institutionalCertifications = institutionalCertifications;
+	}
+	
+	public void addInstitutionalCertification(InstitutionalCertification ic) {
+		institutionalCertifications.add(ic);
 	}
 	
 	@ManyToOne

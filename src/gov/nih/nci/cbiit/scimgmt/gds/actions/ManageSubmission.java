@@ -974,7 +974,7 @@ public class ManageSubmission extends BaseAction {
 		List<Study> studies = new ArrayList<Study>();
 		
 		for(Study study: getProject().getStudies()) {
-			if (study.getInstitutionalCertification() == null) {
+			if (CollectionUtils.isEmpty(study.getInstitutionalCertifications())) {
 				studies.add(study);
 			}
 		}

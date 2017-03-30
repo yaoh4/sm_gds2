@@ -502,6 +502,7 @@ function selectStudy() {
 		studyInst = $(".radioSelected:checked").parent().parent().next('td').next('td').text();
 		$("#studyName-" + index).val(studyName);
 		$("#institution-" + index).val(studyInst);
+		$("#studyId-" + index).val(studyPk);
 	} else {
 		$(".checkboxSelected:checked").each(function(){
 			studyPk = $(this).val();

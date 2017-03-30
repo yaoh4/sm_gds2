@@ -1074,6 +1074,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/domain/EmailNotification.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/GdsGrantsContracts.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/GdsPd.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/HelpText.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/IcStudiesMapping.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/InstitutionalCertification.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Lookup.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.java -text

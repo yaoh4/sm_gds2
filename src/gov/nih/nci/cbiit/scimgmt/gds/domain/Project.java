@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -708,8 +707,7 @@ public class Project implements java.io.Serializable {
 		this.repositoryStatuses = repositoryStatuses;
 	}
 
-	@ManyToMany
-	@JoinTable(name="projects_ic_mapping_t", joinColumns=@JoinColumn(name="project_id"), inverseJoinColumns=@JoinColumn(name="certification_id"))	
+	@ManyToMany(mappedBy="projects")
 	public List<InstitutionalCertification> getInstitutionalCertifications() {
 		return this.institutionalCertifications;
 	}

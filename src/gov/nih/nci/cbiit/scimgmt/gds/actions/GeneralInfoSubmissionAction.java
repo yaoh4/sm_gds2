@@ -19,7 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
@@ -36,7 +35,6 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
-import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 
@@ -331,7 +329,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						BeanUtils.copyProperties(currentStudy, study);
 						study.setId(null);
 						study.setComments(null);
-						study.setInstitutionalCertification(ic);
+						study.addInstitutionalCertification(ic);
 						study.setStudiesDulSets(new ArrayList<StudiesDulSet>());
 						List<StudiesDulSet> currentDulSets = currentStudy.getStudiesDulSets();
 						if(!CollectionUtils.isEmpty(currentDulSets)) {

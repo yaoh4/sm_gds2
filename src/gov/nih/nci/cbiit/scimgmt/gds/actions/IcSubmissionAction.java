@@ -292,6 +292,8 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		//validate the DULs in each Study
 		Iterator<Study> studies = instCert.getStudies().iterator();
+		Project project = retrieveSelectedProject();
+		instCert.addProject(project);
 				
 		while(studies.hasNext()) {
 					
@@ -303,7 +305,8 @@ public class IcSubmissionAction extends ManageSubmission {
 				continue;
 			}
 			processStudyAttributes(study);
-			study.setInstitutionalCertification(instCert);
+			study.addInstitutionalCertification(instCert);
+			study.setProject(project);
 			int studyIndex = Long.valueOf(study.getDisplayId()).intValue();
 			boolean atLeastOneDULSelected = false;
 			
@@ -498,7 +501,6 @@ public class IcSubmissionAction extends ManageSubmission {
 	public String saveIc() {
 		logger.info("Saving IC.");
 		
-		Project project = retrieveSelectedProject();
 		Long docId = null;
 		
 		InstitutionalCertification instCert = getInstCertification();
@@ -522,14 +524,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		//Save the IC
 		instCert = manageProjectService.saveOrUpdateIc(instCert);
 		
-		if(storedCertId == null) {
-			//This is a new ic, so add it to the project
-			project.getInstitutionalCertifications().add(instCert);
-			project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC,false);
-		} else {
-		project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
-		}
-		setProject(project);
+		Project project = retrieveSelectedProject();
 		
 		// Update CertId
 		if(docId != null) {
@@ -546,6 +541,14 @@ public class IcSubmissionAction extends ManageSubmission {
 			fileUploadService.updateCertId(docId, icList.get(0).getId());
 		}
 		
+		if(storedCertId == null) {
+			//This is a new ic, so add it to the project
+			//project.getInstitutionalCertifications().add(instCert);
+			project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC,false);
+		} else {
+		project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
+		}
+		setProject(project);
 		
 		setProjectId(project.getId().toString());
 		return SUCCESS;

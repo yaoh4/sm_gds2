@@ -14,7 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.xml.sax.SAXException;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
@@ -236,7 +235,7 @@ public class GdsMissingDataUtil {
 		if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
 			MissingData missingDataIc = new MissingData("The following Studies do not have IC:");
 			for(Study study: studies) {
-				if(study.getInstitutionalCertification() == null) {			
+				if(CollectionUtils.isEmpty(study.getInstitutionalCertifications())) {			
 					missingDataIc.addChild(new MissingData(study.getStudyName()));
 				}
 			} 

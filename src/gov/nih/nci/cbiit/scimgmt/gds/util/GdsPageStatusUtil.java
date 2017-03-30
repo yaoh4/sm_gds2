@@ -198,7 +198,7 @@ public class GdsPageStatusUtil {
 		
 		//All studies have not received ICs
 		for(Study study: studies) {
-			if(study.getInstitutionalCertification() == null) {
+			if(CollectionUtils.isEmpty(study.getInstitutionalCertifications())) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
 			}
 		}
