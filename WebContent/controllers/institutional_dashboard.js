@@ -87,6 +87,7 @@ $(document).ready(function() {
 	$(".projectColumn").show();
  } else {
 	 //Show the checkbox select column only for subprojects
+	 $("#addStudyBtn").hide();
 	 $("#subprojectColumn").show();
 	 $(".subprojectSelect").show();
 	 $(".projectColumn").hide();

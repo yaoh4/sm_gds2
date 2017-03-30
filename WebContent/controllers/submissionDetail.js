@@ -110,4 +110,12 @@ $('.icDetails').on('click', function(e) {
 	  var expandId = $(this).attr("id").replace("icDetails", "");
 	  $("#" + id).slideToggle('500');
 	  $("#" + expandId + "expand").toggleClass('fa-plus-square fa-minus-square');
-})
+});
+
+$('.studyDetails').on('click', function(e) {
+	  e.preventDefault();
+	  var id = $(this).attr("id").replace("studyDetails", "dulContent");
+	  var expandId = $(this).attr("id").replace("studyDetails", "");
+	  $("#" + id).slideToggle('500');
+	  $("#" + expandId + "expand").toggleClass('fa-plus-square fa-minus-square');
+});
