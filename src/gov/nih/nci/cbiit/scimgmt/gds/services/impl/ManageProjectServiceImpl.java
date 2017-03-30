@@ -214,6 +214,14 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 			documentsDao.delete(doc);		
 		}
 		
+		// Remove the ic mapping from all the associated studies
+		// and remove the DULs from associated studies
+		for(Study stud: ic.getStudies()) {
+			stud.getInstitutionalCertifications().clear();
+			stud.getStudiesDulSets().clear();
+			saveStudy(stud);
+		}
+		
 		//Then remove the IC mapping from all the associated projects
 		List<Project> projects = ic.getProjects();
 		for(Project proj: projects) {

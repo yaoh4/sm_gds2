@@ -141,7 +141,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 		this.documents.add(document);
 	}
 
-	@ManyToMany(cascade=CascadeType.ALL, mappedBy="institutionalCertifications")
+	@ManyToMany(cascade=CascadeType.MERGE, mappedBy="institutionalCertifications")
 	public List<Study> getStudies() {
 		return this.studies;
 	}

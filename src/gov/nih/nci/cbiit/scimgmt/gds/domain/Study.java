@@ -75,7 +75,7 @@ public class Study implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.MERGE)
 	@JoinTable(name="ic_studies_mapping_t", joinColumns=@JoinColumn(name="study_id"), inverseJoinColumns=@JoinColumn(name="certification_id"))
 	public List<InstitutionalCertification> getInstitutionalCertifications() {
 		return this.institutionalCertifications;
