@@ -42,6 +42,10 @@ public class SubmissionStudyListAction extends ManageSubmission  {
 		 Project storedProject = retrieveSelectedProject();
 			List<Study> studies = storedProject.getStudies();
 			
+			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
+				studies = retrieveParentProject().getStudies();
+			}
+			storedProject.setStudies(studies);
 			setProject(storedProject);
 			setProjectId(storedProject.getId().toString());
 		 

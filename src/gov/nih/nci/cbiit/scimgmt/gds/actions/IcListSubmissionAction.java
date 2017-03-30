@@ -99,9 +99,11 @@ public class IcListSubmissionAction extends ManageSubmission {
 					}
 				}
 			displayProjectId = storedProject.getParentProjectId();
+			storedProject.setStudies(retrieveParentProject().getStudies());
 		}
 		
 		storedProject.setInstitutionalCertifications(icList);
+		
 				
 		List<Document> docs = 
 			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, displayProjectId);
