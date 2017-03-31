@@ -85,7 +85,7 @@
 					
 					<div class="form-group row">
 						<div class="col-xs-4">
-							<label for="selectFrom">Submission from:</label> &nbsp; <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" data-content="&lt;ul&gt; &lt;li&gt;&lt;b&gt;All: &lt;/b&gt;Available to user with GPA role. The system will retrieve all NCI submissions. &lt;/li&gt;
+							<label for="selectFrom">Submission from:</label> &nbsp; <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" data-content="&lt;ul class =&quot;noIndent&quot; style=&quot;padding-left:3px;&quot;&gt; &lt;li&gt;&lt;b&gt;All: &lt;/b&gt;Available to user with GPA role. The system will retrieve all NCI submissions. &lt;/li&gt;
 						            &lt;li&gt;&lt;b&gt;My Submissions: &lt;/b&gt;Available to user with Program Director role. The system will retrieve all submissions where the logged in user is the Program Director. Default value for logged in user with PD role. &lt;/li&gt;
 									&lt;li&gt;&lt;b&gt;My Created Submissions: &lt;/b&gt; Available to all roles other than Read Only user. The system will retrieve all submissions where the logged in user is the creator. Default value for logged in user with Edit role. &lt;/li&gt;
 									&lt;li&gt;&lt;b&gt;Submissions from my DOC: &lt;/b&gt;Available to all roles.The system will retrieve all submissions for the DOC of the logged in user. Default value for logged in user with GPA role and Read Only role. &lt;/li&gt;&lt;/ul&gt;" data-html="true" style="font-size: 12px;">
