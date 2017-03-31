@@ -68,7 +68,7 @@
 					  <s:hidden name="instCertification.studies[%{#studiesStat.index}].createdBy"/>
 					     
 					  <!--  This is read and passed back to so the existing ids are updated and not replaced -->
-					  <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" id="studyId-%{#studiesIdx}"/> 
+					  <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" class="studySelectedStudyId" id="studyId-%{#studiesIdx}"/> 
 				  		
 					  <div class="panel-group" id="accordion">
 				        <div class="panel panel-default">
@@ -177,11 +177,11 @@
                       
                       </div>  <!--  cloneStudyInput -->
 
-       		  <s:if test="!studiesForSelection.isEmpty">	
-                <div>
-                      <input type="button" id="btnAdd" value="Select Additional Studies" onClick="openStudy(this, 'multiple')" class="btn btn-default">
-                </div>	
-			  </s:if>
+	
+              <div>
+              	<input type="button" id="btnAdd" value="Select Additional Studies" onClick="openStudy(this, 'multiple')" class="btn btn-default">
+              </div>	
+
 			  								
               </div> <!--  End Study Section -->	
               </div> <!--  end qSpacing> -->
@@ -235,13 +235,6 @@
 			    </div>
 			  </div>
 				
-			  <s:if test="studiesForSelection.isEmpty">
-			   <div class="form-group row  col-xs-12" style="display: block;">
-      			<div class="alert alert-warning" role="alert" style="margin-left: 0px;">
-        		<p><strong>Please Note:</strong> No studies have been entered that can be associated with this Institutional Certification.  Studies must be entered first and then associated with this Institutioanl Certifcation. Select the "Save and Add Study" button to begin adding studies.  After studies have been entered return to this Institutional Certification and associate the studies with it.</p>
-        		</div>
-        	   </div>
-       		  </s:if>
           </div> <!--  panel body -->
         </div> <!--  Panel -->
       </div>  

@@ -35,7 +35,12 @@ table.dataTable tbody th, table.dataTable tbody td {
 <script>
 $(function() {
 	initializeStudyTable();
-	$("#select_study_form").parent().before('<div id="messages" class="container"><div class="container">'+
+});
+</script>
+</s:if>
+<script>
+$(function() {
+	$("#select_study_form").parent().before('<div id="messages" class="noStudy container" style="display:none"><div class="container">'+
 		'<div class="col-md-12">'+
 			'<div class="alert alert-danger">'+
 			 	'<h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error Status</h3>'+
@@ -47,7 +52,6 @@ $(function() {
 	'</div>');
 });
 </script>
-</s:if>
 <!--Begin Form -->
 <s:hidden id="studyIndex"/>
 <s:hidden id="selectType"/>
@@ -66,7 +70,7 @@ $(function() {
     	<s:submit value=" Next " class="saved btn btn-project-primary"/>  
       </s:if>
       <s:else>
-    	<input onclick="selectStudy()" value=" Next " class="saved btn btn-project-primary" type="button">
+    	<input onclick="selectStudy()" value=" Next " class="saved btn btn-project-primary nextButton" type="button">
       </s:else>
     </s:if>
   </div>
@@ -80,13 +84,13 @@ $(function() {
       </div><!--end header-->
       
       <div class="panel-body">
-       <s:if test="studiesForSelection.isEmpty">
+       <div id="noStudyAvailable" style="display:none">
       	<div class="alert alert-warning" role="alert" style="margin-left: 15px;">
         <p><strong>Please Note:</strong> No studies have been entered that can be associated with this Institutional Certification.  Studies must be entered first and then associated with this Institutioanl Certifcation. Select the "Save and Add Study" button to begin adding studies.  After studies have been entered return to this Institutional Certification and associate the studies with it.</p>
         </div>
-       </s:if>
+       </div>
       
-       <s:else>
+       <div id="studyAvailable">
         <div class="well">
            <h3>Selected Studies</h3>
            <div id="message">Select Studies from table below.</div>
@@ -105,7 +109,7 @@ $(function() {
         
         <tbody>
           <s:iterator value="studiesForSelection" var="s" status="stat">
-        	<tr>
+        	<tr class="studySelectRow" id="studySelectRow-${s.id}">
               <td style="text-align: center;">
               	<div class="checkboxSelect" style="display:block">
               		<input class="checkboxSelected" type="checkbox" name="studyIds" value="<s:property value="#s.id" />">
@@ -120,7 +124,7 @@ $(function() {
           </s:iterator>
         </tbody>
         </table>
-       </s:else>
+       </div>
       </div><!--end panel body-->
     </div>
   </div>
@@ -138,7 +142,7 @@ $(function() {
     	<s:submit value=" Next " class="saved btn btn-project-primary"/>  
       </s:if>
       <s:else>
-    	<input onclick="selectStudy()" value=" Next " class="saved btn btn-project-primary" type="button">
+    	<input onclick="selectStudy()" value=" Next " class="saved btn btn-project-primary nextButton" type="button">
       </s:else>
     </s:if>
   </div>

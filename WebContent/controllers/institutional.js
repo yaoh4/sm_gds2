@@ -1,6 +1,19 @@
   
 //for institutional.htm page
 
+$(document).ready(function () {
+		$(".checkboxSelected").on("change", function(){
+			$("#message").attr("style", "display:none");
+		    var studies = [];
+		    $('.checkboxSelected:checked').each(function(){        
+		        var studyTypes = $(this).parent().parent().next().text();
+		        studies.push(studyTypes);
+		    });
+		    $("#log").html(studies.join("<br/> "));
+
+
+		});
+});
 
 $(document).ready(function () {
 	
@@ -97,6 +110,7 @@ $(document).ready(function () {
 			var commentsElem = $("#comments-" + i);
 			showCharCount(commentsElem, '#count-' + i);
 		}
+		
 });
 
 //comments kep up function
@@ -466,25 +480,52 @@ function initializeStudyTable() {
 function openStudy(element, type) {
 	
 	$("#selectType").val(type);
+	$(".radioSelected").removeAttr('checked');
+	$(".checkboxSelected").removeAttr('checked');
+	$("#messages.noStudy").hide();
+	
 	if(type === "single") {
 		index = $(element).parent().parent().parent().children(':first').attr('id').replace('studyName-','');
 		$("#studyIndex").val(index);
-		$(".radioSelected").removeAttr('checked');
 		$(".radioSelect").show();
 		$(".checkboxSelect").hide();
 	} else {
 		$(".radioSelect").hide();
-		$(".checkboxSelected").removeAttr('checked');
 		$(".checkboxSelect").show();
 	}
+	$(".studySelectRow").show();
+	$(".studySelectedStudyId").each(function(){
+		id = $(this).val();
+		$("#studySelectRow-" + id).hide();
+	});
+	
 	$("#submissionIcSection").hide();
 	$("#reselectStudySection").show();
-	initializeStudyTable();
+	$("#studyAvailable").show();
+	
+	//If there are studies to select, initialize the table
+	if($(".studySelectRow:visible").length != 0) {
+		$("#studyAvailable").show();
+		$("#noStudyAvailable").hide();
+		$(".nextButton").show();
+		if($.fn.DataTable.isDataTable('#studySelectTable')) {
+			table.destroy();
+		}
+		initializeStudyTable();
+	} else {
+		//If there are no more studies to show, show the message instead.
+		$("#studyAvailable").hide();
+		$("#noStudyAvailable").show();
+		$(".nextButton").hide();
+	}
 }
 
 function cancelStudy() {
 	
-	table.destroy();
+	if($.fn.DataTable.isDataTable('#studySelectTable')) {
+		table.destroy();
+	}
+	$("#messages.noStudy").hide();
 	$("#submissionIcSection").show();
 	$("#reselectStudySection").hide();
 	
@@ -492,8 +533,16 @@ function cancelStudy() {
 
 function selectStudy() {
 	
+	//If nothing is select, show error
+	if($(".radioSelected:checked").length === 0 && $(".checkboxSelected:checked").length === 0) {
+		$("#messages.noStudy").show();
+		return;
+	}
 	type = $("#selectType").val();
 	index = $("#studyIndex").val();
+	
+	//show everything first
+	$("#submissionIcSection").show();
 	
 	if(type === "single") {
 		studyPk = $(".radioSelected:checked").val();
@@ -511,8 +560,10 @@ function selectStudy() {
 		});
 	}
 	
-	table.destroy();
-	$("#submissionIcSection").show();
+	if($.fn.DataTable.isDataTable('#studySelectTable')) {
+		table.destroy();
+	}
+	$("#messages.noStudy").hide();
 	$("#reselectStudySection").hide();
 
 

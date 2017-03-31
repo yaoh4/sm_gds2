@@ -102,6 +102,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			studyIds = StringUtils.deleteWhitespace(studyIds);
 			if(StringUtils.isEmpty(studyIds)) {
 				addActionError("Select a Study");
+				newIC = true;
 				return INPUT;
 			}
 			for(String studyId: Arrays.asList(StringUtils.split(studyIds, ","))) {
