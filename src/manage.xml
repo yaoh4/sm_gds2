@@ -116,6 +116,11 @@
 			 <result name="success" type="tiles">submissionIcMain</result>
 		</action>
 		<action name="saveIc" method="saveIc" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
+			 <result name="success" type="tiles">submissionIc</result>
+			 <result name="input" type="tiles">submissionIc</result>
+			 <param name="projectId">${project.id}</param>
+		</action>
+		<action name="saveIcAndGotoDashboard" method="saveIcAndGotoDashboard" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			<result name="success" type="redirect-action">
 			 	<param name="actionName">listIc</param>
 			 	<param name="projectId">${project.id}</param>
@@ -123,7 +128,6 @@
 			 <result name="input" type="tiles">submissionIc</result>
 			 <param name="projectId">${project.id}</param>
 		</action>
-		
 		<action name="deleteStudy" method="deleteStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SubmissionStudyAction">
 			 <result name="success" type="tiles">submissionIcMain</result>
 		</action>

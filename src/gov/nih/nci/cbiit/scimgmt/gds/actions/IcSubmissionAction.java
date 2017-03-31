@@ -68,6 +68,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	private Document doc = null; // json object to be returned for UI refresh after upload
 		
 	private Boolean newIC = false;
+	
+	private Boolean navigateToDash = false;
 	/**
 	 * Retrieves all data associated with the specified IC and redirects the user to the
 	 * Edit/Add IC page. If no IC is present, then a new one is created. Invoked from:
@@ -281,11 +283,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		}
 		
 		if(getDocId() == null) {
-			setProject(retrieveSelectedProject());
-			studiesForSelection = retrieveStudies();
-			prepareDisplay(instCert);
 			this.addActionError(getText("error.doc.required"));
-			return;
 		}
 		
 		logger.info("No. of Studies in IC = " + instCert.getStudies().size());
@@ -380,6 +378,7 @@ public class IcSubmissionAction extends ManageSubmission {
 				}//End while-loop for iterating through dulSets				
 			} 
 			if(!atLeastOneDULSelected 
+				&& !ApplicationConstants.IC_DUL_VERIFIED_NOT_APPLICABLE_ID.equals(study.getDulVerificationId())
 				&& ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(instCert.getGpaApprovalCode())
 				&& ApplicationConstants.IC_PROV_FINAL_ID_FINAL.equals(instCert.getProvisionalFinalCode())) {
 				addActionError(getText("error.ic.study.dulTypes.required", new String[]{study.getStudyName()}));
@@ -569,9 +568,24 @@ public class IcSubmissionAction extends ManageSubmission {
 		setProject(project);
 		
 		setProjectId(project.getId().toString());
+		
+		if (navigateToDash == false) {
+			addActionMessage(getText("project.save.success"));
+			setInstCertification(instCert);
+			prepareDisplay(instCert);
+			setDocId(getDocId());
+		}
 		return SUCCESS;
 	}
 	
+	public String saveIcAndGotoDashboard() {
+		navigateToDash = true;
+		return saveIc();
+	}
+	
+	public void validateSaveIcAndGotoDashboard() {
+		validateSaveIc();
+	}
 	
 	/**
 	 * Upload IC Document
