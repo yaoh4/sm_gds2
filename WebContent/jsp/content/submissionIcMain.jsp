@@ -8,6 +8,7 @@
   action="navigateToIcMain"  role="form">
   
   <s:hidden name="projectId" id="projectId" value="%{project.id}"/>
+  <s:hidden name="project.subprojectFlag" id="subprojectFlag" value="%{project.subprojectFlag}"/>
   
     <div class="pageNav">
     <s:submit action="saveIcList" value="Save" class="saved btn btn-default"/>
@@ -39,9 +40,9 @@
                 <i class="fa fa-external-link" aria-hidden="true"></i>
               </a>
             </div>
-            <br>
-      
-        <div style="display:inline" id="addICBtn">
+      <s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_NO)}">
+                  <br>
+        <div style="display:inline" id="addStudyBtn">
            <s:submit action="addEditStudy" type="button" id="addStudy"  class="saved btn btn-project-primary">
             Add Study &nbsp;<a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" 
             data-content="Studies that are providing samples (i.e. expecting an institutional certification). &lt;br&gt;
@@ -58,6 +59,7 @@
         </s:if>
        
         <br>
+        </s:if>
         <br/>&nbsp; 
 
         <div class="container" style="width: 100%; padding-left: 0px;">
@@ -120,6 +122,7 @@
 
 <script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
 <script type="text/javascript" src="<s:url value="/controllers/institutional_dashboard.js" />"></script> 
+<!-- <link href="<s:url value="/stylesheets/demo.css" />" rel="stylesheet" type="text/css" media="screen"> -->
 <script type="text/javascript">
 $(function($){
 	$('[data-toggle="tooltip"]').tooltip({

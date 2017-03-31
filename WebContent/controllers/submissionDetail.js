@@ -119,3 +119,16 @@ $('.studyDetails').on('click', function(e) {
 	  $("#" + id).slideToggle('500');
 	  $("#" + expandId + "expand").toggleClass('fa-plus-square fa-minus-square');
 });
+
+
+//Show and hide Studies
+$('body').on('click', '.studiesTab', function() {
+  $(".studiesTable").slideToggle('500');
+  $("i.expandStudies.fa").toggleClass('fa-plus-square fa-minus-square');
+});
+
+//Show and hide IC
+$('body').on('click', '.icTab', function() {
+    $(".icTable").slideToggle('500');
+    $("i.expandIc.fa").toggleClass('fa-plus-square fa-minus-square');
+});

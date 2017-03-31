@@ -384,4 +384,5 @@
 
 </div>
 <script src="<s:url value="/controllers/gds.js" />"></script>
-<script src="<s:url value="/controllers/submissionDetail.js" />"></script>       
+<script src="<s:url value="/controllers/submissionDetail.js" />"></script> 
+<link href="<s:url value="/stylesheets/demo.css" />" rel="stylesheet" type="text/css" media="screen">      

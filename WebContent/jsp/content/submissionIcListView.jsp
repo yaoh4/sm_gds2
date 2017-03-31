@@ -25,23 +25,6 @@
         </s:if>
          <s:else>
           <table width="100%" border="0" cellpadding="3">
-            <tr>
-              <td width="30%" style="white-space: nowrap"><strong>All Institutional Certifications received?</strong></td>
-              <td style="padding-left: 20px;"><s:property value="%{getDisplayNameByFlag(project.certificationCompleteFlag)}"/></td>
-            </tr>
-            <s:if test="%{project.studiesComments != null}">
-              <tr>
-                <td style="white-space: nowrap">&nbsp;</td>
-                <td colspan="4">&nbsp;</td>
-              </tr>
-              <tr>
-               <tr>
-                 <td colspan="4" class="question">Studies awaiting ICs:</td>
-               </tr>           
-              <tr>  
-                <td colspan="4"><textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${project.studiesComments}</textarea></td>
-              </tr>
-            </s:if>
             <s:if test="%{project.additionalIcComments != null}">
             <tr>
                <td style="white-space: nowrap">&nbsp;</td>
@@ -56,7 +39,142 @@
             </tr>
             </s:if>
           </table>
-          <p>&nbsp;</p>
+          <!-- Studies Table -->
+          <s:if test="%{project.studies.size == 0}">
+           </s:if>
+           <s:else>
+        <p class="question">
+      <a href="javascript:void"
+        class="studiesTab"><i class="expandStudies fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;&nbsp;Studies</p>
+             <div class="studiesTable" style="display: none;"> 
+          <table style="width: 100%; font-size: 14px" cellpadding="0px" cellspacing="0" style="table-layout:fixed;" class="table table-bordered table-striped">
+              <tbody><tr class="modalTheader">
+                <th  class="tableHeader"  align="center" width="25%">Study Name</th>                      
+                <th class="tableHeader" align="center" width="25%">Institution</th>
+                <th>Received</th>
+                <th>Document</th>
+                <th>Approved by GPA</th>
+                <th align="center">Comments</th>
+              </tr> 
+              
+              <s:iterator status="studiesStat" var="study" value="project.studies">
+              <div class="studyDetailsDiv">
+              <s:set name="studyIdx" value="%{#study.id}" />
+               <tr  data-id="${study.id}">
+              <td> 
+              <s:if test="%{#study.institutionalCertifications[0].id != null}">
+              <a href="#" class="studyDetails" id="studyDetails${study.id}">
+              <i class="expand fa fa-plus-square fa-lg" id="${study.id}expand" aria-hidden="true" alt="Details" title="Details"></i></a>&nbsp;&nbsp;&nbsp;
+              </s:if> 
+              <s:property value="%{#study.studyName}" />
+              </td>
+              <td > <s:property value="%{#study.institution}" /></td> 
+              <td>
+              <s:if test="%{#study.institutionalCertifications[0].id != null}">
+              Yes
+              </s:if>
+              <s:else>
+              No
+              </s:else>
+              </td>
+              <td  style="text-align: center;">
+              <s:if test="%{#study.institutionalCertifications[0].id != null}">
+              <s:a href="javascript:openDocument(%{#study.institutionalCertifications[0].documents[0].id})">
+                     <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i>
+                     </s:a>
+              </s:if>
+              <s:else>
+               None
+              </s:else>
+              </td>                    
+              <td>
+               <s:if test="%{#study.institutionalCertifications[0].id != null}">
+               <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #study.institutionalCertifications[0].gpaApprovalCode)}"/>
+               </s:if>
+               <s:else>
+                N/A
+               </s:else>
+                </td>
+              <td style="text-align: center;">
+                <s:if test="%{#study.institutionalCertifications[0].id != null}">
+              <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
+              <h3 class="title">Comments:</h3>
+              <p class="desc"><s:property value="%{#study.comments}" /></p>
+              </div></div>
+              </s:if>
+              <s:else>
+              None
+              </s:else>
+              </td>
+                </tr>
+                </div>
+                <!--Begin view details-->
+		   <tr class="removeStudy${study.id}">
+			<td colspan="6">
+            <div id="dulContent${study.id}" style="display: none">
+					<table width="50%" class="tableStudy table table-bordered table-striped" style="table-layout:fixed; align:center" cellspacing="3">
+                       <!--   <tr class="modalTheader">-->
+                       <tr>
+                          <th width="20%" align="center">Type</th>
+                          <th width="10%" align="center">Appendix</th>
+						  <th width="10%" align="center">DUL Verified?</th>
+                        </tr>
+                        <s:iterator status="dulSetStat" var="studiesDulSet" value="project.studies[#studiesStat.index].studiesDulSets"> 
+                         <tr>
+                          <td> 
+                           <span class="question">
+                            ${studiesDulSet.parentDulChecklist.displayText}
+                                                            <s:if test="%{#studiesDulSet.additionalText != null}">
+                                                              - ${studiesDulSet.additionalText}
+                                                            </s:if>
+                                                          </span>
+                                                          <s:if test="%{#studiesDulSet.dulChecklistSelections.size > 0 && 
+                                                          			(#studiesDulSet.dulChecklistSelections.size != 1 || 
+                                                          			#studiesDulSet.dulChecklistSelections[0].dulChecklist.parentDulId != null)}">
+                                                            (
+                                                          <s:iterator status="dulStat" var="dul" value="%{#studiesDulSet.dulChecklistSelections}">
+                                                            <!-- Dont show the parent DUL in the bullet list -->
+                                                            <s:if test="%{#dul.dulChecklist.parentDulId != null}">
+                                                              ${dul.dulChecklist.abbreviation}
+                                                              <s:if test="%{#dulStat.index < (#studiesDulSet.dulChecklistSelections.size - 1)}">
+                                                                ;
+                                                              </s:if>
+                                                            </s:if>
+                                                          </s:iterator> 
+                                                          )
+                                                          </s:if>      
+                          </td>
+                          <td>
+                          <s:if test="%{#studiesDulSet.comments != null}">
+                          <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
+                           <h3 class="title">DUL Appendix:</h3>
+                     <p class="desc"><s:property value="%{#studiesDulSet.comments}"/></p>
+                     </div></div>
+                     </s:if>
+                     <s:else>
+                     None
+                     </s:else>
+                          </td>
+						  <td>
+						  <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/>
+						  </td>
+                        </tr>
+                       </s:iterator>
+					</table> <!-- for class tBorder2 -->
+				</div> <!-- for contentDivImg -->
+			</td> <!-- for colspan 3 -->
+		</tr>  <!--end view H view details-->
+                
+                  </s:iterator>           
+                </table>
+                </div>
+                </s:else>
+          <!-- End Studies Table -->
+                    <p>&nbsp;</p>
+                    <p class="question">
+      <a href="javascript:void"
+        class="icTab"><i class="expandIc fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;&nbsp;Institutional Certification</p>
+         <div class="icTable" style="display: none;">
           <table width="100%" cellpadding="0px" cellspacing="0" style="table-layout:fixed;" class="table table-bordered">
             <tbody>
               <tr class="modalTheader">
@@ -234,6 +352,7 @@
               </s:iterator><!-- ics -->              
             </tbody>
           </table>
+          </div>
          </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->

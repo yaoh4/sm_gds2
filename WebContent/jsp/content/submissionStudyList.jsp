@@ -24,7 +24,7 @@
               <s:set name="studyIdx" value="%{#study.id}" />
                <tr  data-id="${study.id}">
               <td> 
-              <s:if test="%{#study.institutionalCertification.id != null}">
+              <s:if test="%{#study.institutionalCertifications[0].id != null}">
               <a href="#" class="studyDetails" id="studyDetails${study.id}">
               <i class="expand fa fa-plus-square fa-lg" id="${study.id}expand" aria-hidden="true" alt="Details" title="Details"></i></a>&nbsp;&nbsp;&nbsp;
               </s:if> 
@@ -32,7 +32,7 @@
               </td>
               <td > <s:property value="%{#study.institution}" /></td> 
               <td>
-              <s:if test="%{#study.institutionalCertification.id != null}">
+              <s:if test="%{#study.institutionalCertifications[0].id != null}">
               Yes
               </s:if>
               <s:else>
@@ -40,8 +40,8 @@
               </s:else>
               </td>
               <td  style="text-align: center;">
-              <s:if test="%{#study.institutionalCertification.id != null}">
-              <s:a href="javascript:openDocument(%{#study.institutionalCertification.documents[0].id})">
+              <s:if test="%{#study.institutionalCertifications[0].id != null}">
+              <s:a href="javascript:openDocument(%{#study.institutionalCertifications[0].documents[0].id})">
                      <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i>
                      </s:a>
               </s:if>
@@ -50,17 +50,17 @@
               </s:else>
               </td>                    
               <td>
-               <s:if test="%{#study.institutionalCertification.id != null}">
-               <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #study.institutionalCertification.gpaApprovalCode)}"/>
+               <s:if test="%{#study.institutionalCertifications[0].gpaApprovalCode != null}">
+               <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #study.institutionalCertifications[0].gpaApprovalCode)}"/>
                </s:if>
                <s:else>
                 N/A
                </s:else>
                 </td>
               <td style="text-align: center;">
-                <s:if test="%{#study.institutionalCertification.id != null}">
+                <s:if test="%{#study.institutionalCertifications[0].id != null}">
               <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
-              <h4 class="title">Comments</h4>
+              <h3 class="title">Comments:</h3>
               <p class="desc"><s:property value="%{#study.comments}" /></p>
               </div></div>
               </s:if>
@@ -68,14 +68,14 @@
               None
               </s:else>
               </td>
-              <td width="2%"  class="editDeleteBtns" style="white-space: nowrap;">
+              <td width="2%"  class="editDeleteBtns" style="white-space: nowrap; display:none;">
                     <!--  Do not show edit and delete for sub-project -->
                       <a class="btnEdit" href="/gds/manage/editStudy.action?studyId=${study.id}&projectId=${project.id}">
                        <s:hidden name ="studyid" id="studyid" value="%{#study.id}"/>
                         <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit"></i>&nbsp;
                   </a> &nbsp;&nbsp;&nbsp;
-                  <s:hidden id="val" value="%{#study.institutionalCertification.id}"/>
-                  <s:if test="%{#study.institutionalCertification.id != null}">
+                  <s:hidden id="val" value="%{#study.institutionalCertifications[0].id}"/>
+                  <s:if test="%{#study.institutionalCertifications[0].id != null}">
                    </s:if>  
                    <s:else>
                       <a class="btnDelete" href="#" >
@@ -124,7 +124,7 @@
                           <td>
                           <s:if test="%{#studiesDulSet.comments != null}">
                           <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
-                           <h4 class="title">DUL Appendix</h4>
+                           <h3 class="title">DUL Appendix:</h3>
                      <p class="desc"><s:property value="%{#studiesDulSet.comments}"/></p>
                      </div></div>
                      </s:if>

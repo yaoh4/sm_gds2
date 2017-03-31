@@ -7,7 +7,8 @@
     <s:hidden name="projectId" value="%{project.id}"/>
     <s:hidden name="study.id" value="%{study.id}"/>
     <s:hidden name="study.createdBy" value="%{study.createdBy}"/>
-
+    <s:hidden name="study.dulVerificationId" value="%{study.dulVerificationId}"/>
+     <s:hidden name="study.comments" value="%{study.comments}"/>
   <div id="messages" class="container">
     
   </div>
@@ -17,7 +18,11 @@
     
          <div class="pageNav">
           <s:submit action="navigateToIcMain" value=" Cancel " class="saved btn btn-default"/>	
+           <s:if test="%{study.id != null}">
+           </s:if>
+           <s:else>
           <s:submit action="saveAndAddStudy" value="Save And Add Another Study " class="saved btn btn-default add_field_button"/>
+          </s:else>
            <s:submit type="button" action="saveStudy" class="saved btn btn-project-primary">Save Study &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>
             </s:submit>
         </div>   
@@ -91,7 +96,11 @@
               <!--SAVE & NEXT BUTTONS-->
         <div class="pageNav">
           <s:submit action="navigateToIcMain" value=" Cancel " class="saved btn btn-default"/>	
+          <s:if test="%{study.id != null}">
+           </s:if>
+           <s:else>
           <s:submit action="saveAndAddStudy" value="Save And Add Another Study " class="saved btn btn-default add_field_button"/>
+          </s:else>
            <s:submit type="button" action="saveStudy" class="saved btn btn-project-primary">Save Study &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>
             </s:submit>
 
@@ -99,3 +108,4 @@
   </div>
   </s:form>
   <!-- end Content -->
+  <link href="<s:url value="/stylesheets/demo.css" />" rel="stylesheet" type="text/css" media="screen">
