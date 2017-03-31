@@ -570,6 +570,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		setProjectId(project.getId().toString());
 		
 		if (navigateToDash == false) {
+			studiesForSelection = retrieveStudies();
 			addActionMessage(getText("project.save.success"));
 			setInstCertification(instCert);
 			prepareDisplay(instCert);

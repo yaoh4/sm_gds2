@@ -40,7 +40,7 @@ $(function() {
 </s:if>
 <script>
 $(function() {
-	$("#select_study_form").parent().before('<div id="messages" class="noStudy container" style="display:none"><div class="container">'+
+	$("#select_study_form").parent().before('<div class="noStudy container" style="display:none"><div class="container">'+
 		'<div class="col-md-12">'+
 			'<div class="alert alert-danger">'+
 			 	'<h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Error Status</h3>'+

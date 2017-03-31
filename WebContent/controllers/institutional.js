@@ -479,10 +479,13 @@ function initializeStudyTable() {
 
 function openStudy(element, type) {
 	
+	//Remove Action message if any
+	$("#messages").hide();
+	
 	$("#selectType").val(type);
 	$(".radioSelected").removeAttr('checked');
 	$(".checkboxSelected").removeAttr('checked');
-	$("#messages.noStudy").hide();
+	$("div.noStudy").hide();
 	
 	if(type === "single") {
 		index = $(element).parent().parent().parent().children(':first').attr('id').replace('studyName-','');
@@ -525,7 +528,7 @@ function cancelStudy() {
 	if($.fn.DataTable.isDataTable('#studySelectTable')) {
 		table.destroy();
 	}
-	$("#messages.noStudy").hide();
+	$("div.noStudy").hide();
 	$("#submissionIcSection").show();
 	$("#reselectStudySection").hide();
 	
@@ -535,7 +538,7 @@ function selectStudy() {
 	
 	//If nothing is select, show error
 	if($(".radioSelected:checked").length === 0 && $(".checkboxSelected:checked").length === 0) {
-		$("#messages.noStudy").show();
+		$("div.noStudy").show();
 		return;
 	}
 	type = $("#selectType").val();
@@ -563,7 +566,7 @@ function selectStudy() {
 	if($.fn.DataTable.isDataTable('#studySelectTable')) {
 		table.destroy();
 	}
-	$("#messages.noStudy").hide();
+	$("div.noStudy").hide();
 	$("#reselectStudySection").hide();
 
 
