@@ -51,7 +51,7 @@ $(function() {
 <!--Begin Form -->
 <s:hidden id="studyIndex"/>
 <s:hidden id="selectType"/>
-<s:form action="editIc" namespace="/manage" id="select_study_form" cssClass="dirty-check" >
+<s:form action="editIc" namespace="/manage" id="select_study_form" >
   <s:hidden name="projectId" value="%{project.id}"/>
   <!--Cancel & Next Buttons-->
   <div class="pageNav">

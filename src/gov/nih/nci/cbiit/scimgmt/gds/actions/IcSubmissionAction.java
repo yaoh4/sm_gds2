@@ -11,8 +11,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -290,11 +293,25 @@ public class IcSubmissionAction extends ManageSubmission {
 			addActionError(getText("error.comments.size.exceeded"));
 		}
 		
+		
 		//validate the DULs in each Study
 		Iterator<Study> studies = instCert.getStudies().iterator();
 		Project project = retrieveSelectedProject();
 		instCert.addProject(project);
-				
+		
+		//If any Study is replaced or removed, remove the association to this IC and DULs associated with this Study
+		Set<Long> newStudies = new HashSet<Long>();
+		for(Study s: instCert.getStudies()) {
+			if(s != null)
+				newStudies.add(s.getId());
+		}
+		for(Study s: project.getStudies()) {
+			if(!newStudies.contains(s.getId()) && !CollectionUtils.isEmpty(s.getInstitutionalCertifications())
+					&& s.getInstitutionalCertifications().get(0).getId().equals(instCert.getId())) {
+				s.getInstitutionalCertifications().clear();
+			}
+		}
+		
 		while(studies.hasNext()) {
 					
 			Study study = studies.next();

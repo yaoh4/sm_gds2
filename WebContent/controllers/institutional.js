@@ -251,8 +251,7 @@ function addStudy(studyPk, studyName, studyInst) {
 	
 	//Remove values
 	newStudySectionDiv.find("#studyDisplayId-" + newStudySectionIndex).attr("value", newStudySectionIndex);
-	newStudySectionDiv.find("#studyId-" + newStudySectionIndex).removeAttr("value");
-	//newStudySectionDiv.find("#studyPk-" + newStudySectionIndex).val(studyPk);
+	newStudySectionDiv.find("#studyId-" + newStudySectionIndex).val(studyPk);
 	newStudySectionDiv.find("#studyName-" + newStudySectionIndex).val(studyName);
 	newStudySectionDiv.find("#institution-" + newStudySectionIndex).val(studyInst);
 	newStudySectionDiv.find("#dulVerificationId-" + newStudySectionIndex).val(-1);
