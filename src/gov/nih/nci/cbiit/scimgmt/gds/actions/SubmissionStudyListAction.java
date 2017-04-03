@@ -40,12 +40,32 @@ public class SubmissionStudyListAction extends ManageSubmission  {
 
 	 public String getStudiesList(){
 		 Project storedProject = retrieveSelectedProject();
+		 Long displayProjectId = storedProject.getId();
 			List<Study> studies = storedProject.getStudies();
 			
 			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
+				displayProjectId = storedProject.getParentProjectId();
 				studies = retrieveParentProject().getStudies();
+				
 			}
 			storedProject.setStudies(studies);
+			
+			List<Document> docs = 
+					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, displayProjectId);
+				
+				if(docs != null && !docs.isEmpty()) {
+					for(Study stu : studies) {
+						if(!CollectionUtils.isEmpty(stu.getInstitutionalCertifications())) {
+					for(InstitutionalCertification ic: stu.getInstitutionalCertifications()) {
+						for(Document doc: docs) {
+							if(doc.getInstitutionalCertificationId() != null && 
+									doc.getInstitutionalCertificationId().equals(ic.getId()))
+								ic.addDocument(doc);								
+						}	
+					}
+				}
+				}
+				}
 			setProject(storedProject);
 			setProjectId(storedProject.getId().toString());
 		 

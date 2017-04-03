@@ -95,32 +95,39 @@ public class SubmissionStudyAction  extends ManageSubmission {
 			setStudy(study);
 		}
 	}
+	
 	public String saveStudy(){
 		
 		Project project = retrieveSelectedProject();
-		Study study = getStudy();
-		Long storedStudyId = study.getId();
-		if(storedStudyId != null) {
+		if(getStudy().getId() != null) {
+			if(!CollectionUtils.isEmpty(getStudy().getInstitutionalCertifications())) {
+			Study study = project.getStudyById(Long.valueOf(getStudy().getId()));
+				study.setStudyName(getStudy().getStudyName());
+				study.setInstitution(getStudy().getInstitution());
+				study.setLastChangedBy(loggedOnUser.getAdUserId());
+				study.setProject(project);
+			    project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
+			}
+			else {
+			Study study = getStudy();
 			study.setLastChangedBy(loggedOnUser.getAdUserId());
+			study.setProject(project);
+			//Save the study
+			study = manageProjectService.saveStudy(study);
+			project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
+			}
 		} else {
+			Study study = getStudy();
 			study.setCreatedBy(loggedOnUser.getAdUserId());
+			study.setProject(project);
+			//Save the study
+			study = manageProjectService.saveStudy(study);
+			project.getStudies().add(study);
+			project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC,false);
 		}
-
-		study.setProject(project);
-		//Save the study
-		study = manageProjectService.saveStudy(study);
-				
-				if(storedStudyId == null) {
-					//This is a new study, so add it to the project
-					project.getStudies().add(study);
-					project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC,false);
-				} 
-				else {
-					project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
-				}
+		
 		setProject(project);
 		setProjectId(project.getId().toString());
-
 	 return SUCCESS;
 		
 	}
@@ -138,8 +145,6 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		setProject(retrieveSelectedProject());	
         List<Study> studies = retrieveSelectedProject().getStudies();
 		if(CollectionUtils.isEmpty(studies)) {
-			//We don't save subprojects here because we have to do that anyways in the
-			//next step since the certification complete flag has to be changed.
 			super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_IC, true);
 		}
 			
