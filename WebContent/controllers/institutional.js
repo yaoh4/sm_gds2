@@ -554,6 +554,7 @@ function selectStudy() {
 		$("#studyName-" + index).val(studyName);
 		$("#institution-" + index).val(studyInst);
 		$("#studyId-" + index).val(studyPk);
+		$("[id^=dulSetId" + index + "]").val('');
 	} else {
 		$(".checkboxSelected:checked").each(function(){
 			studyPk = $(this).val();
