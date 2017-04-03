@@ -308,6 +308,7 @@ public class IcSubmissionAction extends ManageSubmission {
 			if(!newStudies.contains(s.getId()) && !CollectionUtils.isEmpty(s.getInstitutionalCertifications())
 					&& s.getInstitutionalCertifications().get(0).getId().equals(instCert.getId())) {
 				s.getInstitutionalCertifications().clear();
+				s.getStudiesDulSets().clear();
 			}
 		}
 		
