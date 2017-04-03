@@ -7,8 +7,14 @@
     <s:hidden name="projectId" value="%{project.id}"/>
     <s:hidden name="study.id" value="%{study.id}"/>
     <s:hidden name="study.createdBy" value="%{study.createdBy}"/>
-    <s:hidden name="study.dulVerificationId" value="%{study.dulVerificationId}"/>
-     <s:hidden name="study.comments" value="%{study.comments}"/>
+    <s:if test="%{study.institutionalCertifications[0].id != null}">
+    <s:hidden name="study.institutionalCertifications[0].id" value="%{study.institutionalCertifications[0].id}"/>
+    <s:hidden name="study.institutionalCertifications[0].documents[0].id" value="%{study.institutionalCertifications[0].documents[0].id}"/>
+       <s:hidden name="study.institutionalCertifications[0].createdBy" value="%{study.institutionalCertifications[0].createdBy}"/>
+       <s:hidden name="study.dulVerificationId" value="%{study.dulVerificationId}"/>
+            <s:hidden name="study.comments" value="%{study.comments}"/>
+</s:if>
+    
   <div id="messages" class="container">
     
   </div>
