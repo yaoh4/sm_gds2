@@ -12,6 +12,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
@@ -84,6 +85,20 @@ public class SubmissionDetailsAction extends ManageSubmission {
 					}
 				}		
 			}
+			
+			//load studies
+			
+			for(Study stu : project.getStudies()) {
+				if(!CollectionUtils.isEmpty(stu.getInstitutionalCertifications())) {
+			for(InstitutionalCertification ic: stu.getInstitutionalCertifications()) {
+				for(Document doc: docs) {
+					if(doc.getInstitutionalCertificationId() != null && 
+							doc.getInstitutionalCertificationId().equals(ic.getId()))
+						ic.addDocument(doc);								
+				}	
+			}
+		}
+		}
 		}
 		
 		setProject(project);
