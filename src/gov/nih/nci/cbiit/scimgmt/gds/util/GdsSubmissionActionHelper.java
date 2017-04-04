@@ -411,13 +411,14 @@ public class GdsSubmissionActionHelper {
 	 * @return
 	 */
 	public static String isProjectEligibleForVersion(Project project) {
+		
 		Set<RepositoryStatus> repositoryStatuses = new HashSet(0);
 		for(PlanAnswerSelection answer: project.getPlanAnswerSelections()) {
 			if(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(answer.getPlanQuestionsAnswer().getQuestionId())) {
 				repositoryStatuses = answer.getRepositoryStatuses();
 			}
 		}
-		//List<RepositoryStatus> repoStatuses = project.getRepositoryStatuses();
+		
 		if(!CollectionUtils.isEmpty(repositoryStatuses)) {
 			for(RepositoryStatus repoStatus: repositoryStatuses) {
 				if(project.getSubprojectFlag().equalsIgnoreCase("N") || project.getSubprojectFlag().equalsIgnoreCase("Y") && repoStatus.isSelected()) {
