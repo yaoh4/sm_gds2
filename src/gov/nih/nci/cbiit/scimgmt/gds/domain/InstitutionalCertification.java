@@ -155,8 +155,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 		studies.add(study);
 	}
 
-	@ManyToMany
-	@JoinTable(name="projects_ic_mapping_t", joinColumns=@JoinColumn(name="certification_id"), inverseJoinColumns=@JoinColumn(name="project_id"))	
+	@ManyToMany(mappedBy="institutionalCertifications")
 	public List<Project> getProjects() {
 		return projects;
 	}

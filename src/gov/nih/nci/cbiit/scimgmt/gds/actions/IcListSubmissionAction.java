@@ -225,9 +225,7 @@ public class IcListSubmissionAction extends ManageSubmission {
 		
 		//If this is a sub-project, save only the ICs selected from the parent
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
-			for(InstitutionalCertification ic: getSubProjectIcs(storedProject)) {
-				ic.addProject(storedProject);
-			}
+			storedProject.setInstitutionalCertifications(getSubProjectIcs(storedProject));
 		}		
 		setProject(super.saveProject(storedProject, ApplicationConstants.PAGE_CODE_IC,false));
 	}

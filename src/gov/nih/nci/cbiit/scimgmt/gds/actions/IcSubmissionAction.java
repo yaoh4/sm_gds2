@@ -296,8 +296,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		//validate the DULs in each Study
 		Iterator<Study> studies = instCert.getStudies().iterator();
 		Project project = retrieveSelectedProject();
-		instCert.addProject(project);
-		
+
 		//If any Study is replaced or removed, remove the association to this IC and DULs associated with this Study
 		Set<Long> newStudies = new HashSet<Long>();
 		for(Study s: instCert.getStudies()) {
@@ -518,7 +517,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public String saveIc() {
 		logger.info("Saving IC.");
-		
+
+		Project project = retrieveSelectedProject();
 		Long docId = null;
 		
 		InstitutionalCertification instCert = getInstCertification();
@@ -542,7 +542,14 @@ public class IcSubmissionAction extends ManageSubmission {
 		//Save the IC
 		instCert = manageProjectService.saveOrUpdateIc(instCert);
 		
-		Project project = retrieveSelectedProject();
+		if(storedCertId == null) {
+			//This is a new ic, so add it to the project
+			project.getInstitutionalCertifications().add(instCert);
+			project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC,false);
+		} else {
+		project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
+		}
+		setProject(project);
 		
 		// Update CertId
 		if(docId != null) {
@@ -558,15 +565,6 @@ public class IcSubmissionAction extends ManageSubmission {
 			Collections.sort(icList, new InstitutionalCertificationComparator());
 			fileUploadService.updateCertId(docId, icList.get(0).getId());
 		}
-		
-		if(storedCertId == null) {
-			//This is a new ic, so add it to the project
-			//project.getInstitutionalCertifications().add(instCert);
-			project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC,false);
-		} else {
-		project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
-		}
-		setProject(project);
 		
 		setProjectId(project.getId().toString());
 		
