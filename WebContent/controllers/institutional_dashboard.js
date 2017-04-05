@@ -138,6 +138,7 @@ $('#btnDelteYes').click(function () {
 		async : false,
 		success : function(msg) {
 			result = $.trim(msg);
+			$('img[src="' + '../images/complete.png' + '"]').attr('src', '../images/inprogress.png');
 		},
 		error : function() {
 			alert("Could not delete file");

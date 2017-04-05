@@ -293,23 +293,8 @@ public class IcListSubmissionAction extends ManageSubmission {
 		getProject().setCertificationCompleteFlag(null);
 		getProject().setAdditionalIcComments(null);
 		getProject().setStudiesComments(null);
-        List<InstitutionalCertification> icList = retrieveSelectedProject().getInstitutionalCertifications();
-		if(CollectionUtils.isEmpty(icList)) {
-			//We don't save subprojects here because we have to do that anyways in the
-			//next step since the certification complete flag has to be changed.
-			super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_IC, false);
-		}
-		
-		List<Project> subprojects = manageProjectService.getSubprojects(project.getId(), true);
-		for(Project subproject: subprojects) {
-			if(CollectionUtils.isEmpty(subproject.getInstitutionalCertifications())) {
-				//Reset this to 'No' if it was 'Yes' since there is no IC now
-				if(!StringUtils.isEmpty(subproject.getCertificationCompleteFlag())){
-					subproject.setCertificationCompleteFlag(ApplicationConstants.FLAG_NO);
-				}
-				super.saveProject(subproject, ApplicationConstants.PAGE_CODE_IC, false);
-			}
-		}
+
+		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_IC, true);
 		
 		setProject(retrieveSelectedProject());
 		return SUCCESS;
