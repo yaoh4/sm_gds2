@@ -413,7 +413,7 @@ public class GdsSubmissionActionHelper {
 	public static String isProjectEligibleForVersion(Project project) {
 		
 	Set<RepositoryStatus> repositoryStatuses = new HashSet(0);
-	  if(project.getId() != null) {
+	 if(project.getId() != null) {
 		  for(PlanAnswerSelection answer: project.getPlanAnswerSelections()) {
 			if(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID.equals(answer.getPlanQuestionsAnswer().getQuestionId())) {
 				if(!CollectionUtils.isEmpty(answer.getRepositoryStatuses())) {
@@ -425,16 +425,14 @@ public class GdsSubmissionActionHelper {
 				}
 			}
 		 }
-		}
+	 }
 		
-		if(!CollectionUtils.isEmpty(repositoryStatuses)) {
+		if(repositoryStatuses.size() > 0) {
 			for(RepositoryStatus repoStatus: repositoryStatuses) {
-				if(project.getSubprojectFlag().equalsIgnoreCase("N") || project.getSubprojectFlag().equalsIgnoreCase("Y") && repoStatus.isSelected()) {
 					if(!ApplicationConstants.PROJECT_STUDY_RELEASED_YES_ID.equals(
 							repoStatus.getLookupTByStudyReleasedId().getId())) {
 						return ApplicationConstants.FLAG_NO;
 					}
-				}
 			}
 		} else {
 			return ApplicationConstants.FLAG_NO;
