@@ -48,8 +48,9 @@ $(document).ready(function() {
   
     $("#all").change(function() {
 	  var checked_status = this.checked;
-	 $('input[name="ic-selected"]').each(function(){
-		  this.checked =  checked_status;
+	 $('input[name="ic-selected"]').each(function() {
+		  this.checked =  checked_status;	
+		  $(this).parent().children().eq(1).val(checked_status);
 	  });
   });
   
