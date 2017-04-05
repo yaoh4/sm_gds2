@@ -271,7 +271,7 @@ public class GdsPageStatusUtil {
 	 * @param project
 	 * @return String The status if present.
 	 */
-	public String computeRepositoryStatus(Project project) {
+public String computeRepositoryStatus(Project project) {
 		
 		// If there are no repositories selected, status should be not started.
 		if (project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).isEmpty()) {
@@ -287,7 +287,9 @@ public class GdsPageStatusUtil {
 			}		
 		}
 		
-		String status = ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		String status = ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		Boolean studyReleasedYesFlag = true;
+		Boolean regStatusNotStartedFlag = true;
 		
 		List<RepositoryStatus> repositoryStatuses = repositoryStatuses1;
 		for(RepositoryStatus repoStatus: repositoryStatuses) {
@@ -296,32 +298,19 @@ public class GdsPageStatusUtil {
 			Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
 			Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
 			
-			if(ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID.equals(registrationStatus.getId())) {
-				//No need to check this repository further, since the submission status
-				//and study released fields will be disabled in this case
-				if(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equals(status)) {
-					//If previous repository is in complete status, then we are now
-					//in in-progress state
-					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-				}
-				continue;
+			if(!ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID.equals(registrationStatus.getId())) {
+				regStatusNotStartedFlag = false;
 			}
 			
-			//If we get here, then the page status is either in progress or completed.
-			//Check in progress first
-			
-			//Registration Status In Progress, OR Submission Status Not Started or In Progress  
-			//OR Study Released is No.
-			if(ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID.equals(registrationStatus.getId())
-			||	(ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID.equals(submissionStatus.getId())
-				|| ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID.equals(submissionStatus.getId())) 
-			|| (ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId()))) {
-				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			if(ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId())) {
+				studyReleasedYesFlag = false;
 			}
-			
-			//Neither not started, nor in in-progress status.Hence, completed
-			status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
-			
+		}
+		
+		    if(studyReleasedYesFlag) {
+			    status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		    } else if(regStatusNotStartedFlag) {
+			    status = ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
 		if(project.getAnticipatedSubmissionDate() != null &&
