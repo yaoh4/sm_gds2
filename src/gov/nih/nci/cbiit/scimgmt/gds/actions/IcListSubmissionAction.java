@@ -84,10 +84,13 @@ public class IcListSubmissionAction extends ManageSubmission {
 		//Retrieve IC list. If sub-project, retrieve parent IC list
 		Project storedProject = retrieveSelectedProject();
 		List<InstitutionalCertification> icList = storedProject.getInstitutionalCertifications();
+		List<Study> studies = storedProject.getStudies();
 		icComments = storedProject.getStudiesComments();
 		additionalComments =  storedProject.getAdditionalIcComments();
 		Long displayProjectId = storedProject.getId();
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
+			
+			studies = retrieveParentProject().getStudies();
 			prepareIcListDisplay(icList);
 			icList = retrieveParentProject().getInstitutionalCertifications();
 			if(!CollectionUtils.isEmpty(icList)) {
@@ -99,12 +102,10 @@ public class IcListSubmissionAction extends ManageSubmission {
 					}
 				}
 			displayProjectId = storedProject.getParentProjectId();
-			storedProject.setStudies(retrieveParentProject().getStudies());
 		}
-		
+		storedProject.setStudies(studies);
 		storedProject.setInstitutionalCertifications(icList);
 		
-				
 		List<Document> docs = 
 			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, displayProjectId);
 			
@@ -120,6 +121,18 @@ public class IcListSubmissionAction extends ManageSubmission {
 						ic.addDocument(doc);								
 				}	
 			}
+			
+			for(Study stu : studies) {
+				if(!CollectionUtils.isEmpty(stu.getInstitutionalCertifications())) {
+			for(InstitutionalCertification ic: stu.getInstitutionalCertifications()) {
+				for(Document doc: docs) {
+					if(doc.getInstitutionalCertificationId() != null && 
+							doc.getInstitutionalCertificationId().equals(ic.getId()))
+						ic.addDocument(doc);								
+				}	
+			}
+		}
+		}
 		}
 		
 		setProject(storedProject);
