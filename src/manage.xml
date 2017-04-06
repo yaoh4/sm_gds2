@@ -38,8 +38,7 @@
 				<param name="parse">true</param>
 			 </result>
 			 <result name="showIc" type="redirect-action">
-			 	<param name="actionName">listIc</param>
-			 	<param name="actionName">listStudies</param>
+			 	<param name="actionName">navigateToIcMain</param>
 				<param name="projectId">${project.id}</param>
 			 </result>
 			 <result name="showBsi" type="redirect-action">
@@ -72,8 +71,7 @@
 		<action name="saveGdsPlanAndNext" method="saveAndNext" class="gov.nih.nci.cbiit.scimgmt.gds.actions.GDSPlanSubmissionAction">
 			 <result name="input" type="tiles">submissionGdsPlan</result>
 			 <result name="ic" type="redirect-action">
-			 	<param name="actionName">listIc</param>
-			 	<param name="actionName">listStudies</param>
+			 	<param name="actionName">navigateToIcMain</param>
 				<param name="projectId">${project.id}</param>
 				<param name="parse">true</param>
 			 </result>
@@ -122,7 +120,7 @@
 		</action>
 		<action name="saveIcAndGotoDashboard" method="saveIcAndGotoDashboard" class="gov.nih.nci.cbiit.scimgmt.gds.actions.IcSubmissionAction">
 			<result name="success" type="redirect-action">
-			 	<param name="actionName">listIc</param>
+			 	<param name="actionName">navigateToIcMain</param>
 			 	<param name="projectId">${project.id}</param>
 			 </result>
 			 <result name="input" type="tiles">submissionIc</result>
@@ -139,7 +137,7 @@
 		
 		<action name="saveStudy" method="saveStudy" class="gov.nih.nci.cbiit.scimgmt.gds.actions.SubmissionStudyAction">
 		<result name="success" type="redirect-action">
-			 	<param name="actionName">listStudies</param>
+			 	<param name="actionName">navigateToIcMain</param>
 			 	<param name="projectId">${project.id}</param>
 			 </result>
 			 <result name="input" type="tiles">submissionStudy</result>
