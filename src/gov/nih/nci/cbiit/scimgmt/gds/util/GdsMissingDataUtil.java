@@ -221,14 +221,16 @@ public class GdsMissingDataUtil {
 		//There are no studies
 		if(CollectionUtils.isEmpty(studies)) {
 			String displayText="";
-			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag())) {
+			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag()) && CollectionUtils.isEmpty(icList)) {
 				displayText="At least one Institutional Certification must be selected";
-			} else {
+			} else if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
 				//TBD - Confirm with Catherine
 				displayText="At least one Study and Institutional Certification must be present";
 			}
-			MissingData missingDataIc = new MissingData(displayText);
-			missingDataList.add(missingDataIc);
+			if(!displayText.isEmpty()) {
+				MissingData missingDataIc = new MissingData(displayText);
+				missingDataList.add(missingDataIc);
+			}
 		}
 		
 		//Check if there are studies without IC - at project level only
