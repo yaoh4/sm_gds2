@@ -19,6 +19,7 @@
                 <th id="actionColumnStudy" class="tableHeader" style="display:none;"align="center" width="1%">Actions</th>
               </tr> 
               
+              <s:hidden id="studyListSize" value="%{project.studies.size}"/>  
               <s:iterator status="studiesStat" var="study" value="project.studies">
               <div class="studyDetailsDiv">
               <s:set name="studyIdx" value="%{#study.id}" />
@@ -58,7 +59,7 @@
                </s:else>
                 </td>
               <td style="text-align: center;">
-                <s:if test="%{#study.institutionalCertifications[0].id != null}">
+                <s:if test="%{#study.comments != null}">
               <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
               <h3 class="title">Comments:</h3>
               <p class="desc"><s:property value="%{#study.comments}" /></p>
@@ -99,7 +100,7 @@
                         <s:iterator status="dulSetStat" var="studiesDulSet" value="project.studies[#studiesStat.index].studiesDulSets"> 
                          <tr>
                           <td> 
-                           <span class="question">
+                           <span>
                             ${studiesDulSet.parentDulChecklist.displayText}
                                                             <s:if test="%{#studiesDulSet.additionalText != null}">
                                                               - ${studiesDulSet.additionalText}
@@ -133,7 +134,12 @@
                      </s:else>
                           </td>
 						  <td>
+						  <s:if test="%{#study.dulVerificationId != null}">
 						  <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/>
+						  </s:if>
+						  <s:else>
+						  None
+						  </s:else>
 						  </td>
                         </tr>
                        </s:iterator>

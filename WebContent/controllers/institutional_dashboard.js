@@ -176,6 +176,9 @@ $('#btnDelteYes').click(function () {
 	    $('[data-id=' + id + ']').remove();
 	    $("." + "removeStudy" + id).remove();
 	    $('#myModal').modal('hide');
+	    
+
+	   $('#ic_dashboard_form').submit();
   });
 
 
