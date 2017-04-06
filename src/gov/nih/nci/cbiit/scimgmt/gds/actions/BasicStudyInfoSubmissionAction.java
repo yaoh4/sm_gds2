@@ -94,7 +94,7 @@ public class BasicStudyInfoSubmissionAction extends ManageSubmission {
 		getProject().setBsiReviewedId(bsiReviewedId);
 		getProject().setBsiComments(comments); 
 
-		if(getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
+		if(getProject().getSubprojectFlag().equalsIgnoreCase(ApplicationConstants.FLAG_NO) && getProject().getSubmissionReasonId().equals(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND)) {
 			populateSelectedRemovedSets(false); // Re-populate the new and old set for save.
 			populatePlanAnswerSelection();
 			setupRepositoryStatuses(getProject());
