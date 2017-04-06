@@ -122,7 +122,7 @@
 
 <script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
 <script type="text/javascript" src="<s:url value="/controllers/institutional_dashboard.js" />"></script> 
-<!-- <link href="<s:url value="/stylesheets/demo.css" />" rel="stylesheet" type="text/css" media="screen"> -->
+<link href="<s:url value="/stylesheets/demo.css" />" rel="stylesheet" type="text/css" media="screen">
 <script type="text/javascript">
 $(function($){
 	$('[data-toggle="tooltip"]').tooltip({

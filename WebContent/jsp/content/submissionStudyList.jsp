@@ -25,7 +25,7 @@
               <s:set name="studyIdx" value="%{#study.id}" />
                <tr  data-id="${study.id}">
               <td> 
-              <s:if test="%{#study.institutionalCertifications[0].id != null}">
+              <s:if test="%{#study.studiesDulSets.size > 0}">
               <a href="#" class="studyDetails" id="studyDetails${study.id}">
               <i class="expand fa fa-plus-square fa-lg" id="${study.id}expand" aria-hidden="true" alt="Details" title="Details"></i></a>&nbsp;&nbsp;&nbsp;
               </s:if> 
@@ -59,14 +59,20 @@
                </s:else>
                 </td>
               <td style="text-align: center;">
-                <s:if test="%{#study.comments != null}">
+                <s:if test="%{#study.comments == null && #study.institutionalCertifications[0].comments == null}">
+                None
+                </s:if>
+                <s:else>
               <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
-              <h3 class="title">Comments:</h3>
+              <s:if test="%{#study.comments != null}">
+              <h3 class="title">Study Comments:</h3>
               <p class="desc"><s:property value="%{#study.comments}" /></p>
-              </div></div>
               </s:if>
-              <s:else>
-              None
+              <s:if test="%{#study.institutionalCertifications[0].comments != null}">
+              <h3 class="title">IC Comments:</h3>
+              <p class="desc"><s:property value="%{#study.institutionalCertifications[0].comments}" /></p>
+              </s:if>
+              </div></div>
               </s:else>
               </td>
               <td width="2%"  class="editDeleteBtns" style="white-space: nowrap; display:none;">

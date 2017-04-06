@@ -62,7 +62,7 @@
               <s:set name="studyIdx" value="%{#study.id}" />
                <tr  data-id="${study.id}">
               <td> 
-              <s:if test="%{#study.institutionalCertifications[0].id != null}">
+              <s:if test="%{#study.studiesDulSets.size > 0}">
               <a href="#" class="studyDetails" id="studyDetails${study.id}">
               <i class="expand fa fa-plus-square fa-lg" id="${study.id}expand" aria-hidden="true" alt="Details" title="Details"></i></a>&nbsp;&nbsp;&nbsp;
               </s:if> 
@@ -87,27 +87,33 @@
                None
               </s:else>
               </td>                    
-              <td>
-               <s:if test="%{#study.institutionalCertifications[0].id != null}">
+               <td>
+               <s:if test="%{#study.institutionalCertifications[0].gpaApprovalCode != null}">
                <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #study.institutionalCertifications[0].gpaApprovalCode)}"/>
                </s:if>
                <s:else>
                 N/A
                </s:else>
                 </td>
-              <td style="text-align: center;">
-                <s:if test="%{#study.institutionalCertifications[0].id != null}">
+               <td style="text-align: center;">
+                <s:if test="%{#study.comments == null && #study.institutionalCertifications[0].comments == null}">
+                None
+                </s:if>
+                <s:else>
               <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
-              <h3 class="title">Comments:</h3>
+              <s:if test="%{#study.comments != null}">
+              <h3 class="title">Study Comments:</h3>
               <p class="desc"><s:property value="%{#study.comments}" /></p>
-              </div></div>
               </s:if>
-              <s:else>
-              None
+              <s:if test="%{#study.institutionalCertifications[0].comments != null}">
+              <h3 class="title">IC Comments:</h3>
+              <p class="desc"><s:property value="%{#study.institutionalCertifications[0].comments}" /></p>
+              </s:if>
+              </div></div>
               </s:else>
               </td>
-                </tr>
-                </div>
+              </tr>
+              </div>
                 <!--Begin view details-->
 		   <tr class="removeStudy${study.id}">
 			<td colspan="6">
@@ -155,8 +161,13 @@
                      None
                      </s:else>
                           </td>
-						  <td>
+						   <td>
+						  <s:if test="%{#study.dulVerificationId != null}">
 						  <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/>
+						  </s:if>
+						  <s:else>
+						  None
+						  </s:else>
 						  </td>
                         </tr>
                        </s:iterator>
