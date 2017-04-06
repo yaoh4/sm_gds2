@@ -187,31 +187,36 @@ public class GdsPageStatusUtil {
 		}
 		
 		//There are no studies
-		if(CollectionUtils.isEmpty(studies) ) {
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag()) && CollectionUtils.isEmpty(studies) ) {
 			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
 		//There are studies but no ICSs
 		if(CollectionUtils.isEmpty(icList) ) {
-			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;		
+			if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag()))
+				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			else
+				return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
-		//All studies have not received ICs
-		for(Study study: studies) {
-			if(CollectionUtils.isEmpty(study.getInstitutionalCertifications())) {
-				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
+			//All studies have not received ICs
+			for(Study study: studies) {
+				if(CollectionUtils.isEmpty(study.getInstitutionalCertifications())) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
 			}
-		}
 				
 		
-		//All studies have received ICs. So proceed to check if 
-		//the ICs are all ok.This check is only for projects
-		for(InstitutionalCertification ic: icList) {
-			if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
-				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			//All studies have received ICs. So proceed to check if 
+			//the ICs are all ok.This check is only for projects
+			for(InstitutionalCertification ic: icList) {
+				if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
 			}
 		}
-		
 		
 		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 	}
