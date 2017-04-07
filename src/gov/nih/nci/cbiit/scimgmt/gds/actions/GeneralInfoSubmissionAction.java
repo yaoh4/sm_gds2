@@ -312,7 +312,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		List<Document> icDocs = new ArrayList<Document>();	
 		
 		//Copy ICs 
-		if(!subprojectClone) {
+	/*	if(!subprojectClone) {
 		List<InstitutionalCertification> currentIcs = currentLatestVersion.getInstitutionalCertifications();
 		if(!CollectionUtils.isEmpty(currentIcs)) {
 			List<InstitutionalCertification> ics = new ArrayList<InstitutionalCertification>();			
@@ -324,6 +324,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				ic.setStudies(new ArrayList<Study>());
 				List<Study> currentStudies = currentIc.getStudies();
 				if(!CollectionUtils.isEmpty(currentStudies)) {
+					List<Study> versionStudies = new ArrayList<Study>();
 					for(Study currentStudy: currentStudies) {
 						Study study= new Study();
 						BeanUtils.copyProperties(currentStudy, study);
@@ -351,9 +352,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 								}
 								study.addStudiesDulSet(dulSet);
 							}
-						}
+						}	
+						study.setProject(project);
+						versionStudies.add(study);
 						ic.addStudy(study);
+						//study = manageProjectService.saveStudy(study);
 					}
+					 project.setStudies(versionStudies);
 				}
 				
 				ic = manageProjectService.saveOrUpdateIc(ic);
@@ -371,14 +376,86 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				ics.add(ic);
 			}
 		 if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
+			
 			project.setInstitutionalCertifications(ics);
 			}
 		}
 		} else {
 			//This is a subprojectClone, so do not create new ICs
 			project = copyICsForClonedSubproject(project, currentLatestVersion);
-		}
+		}*/
 		
+		//copy studies
+		
+		if(!subprojectClone) {
+			
+			List<Study> currentStudies = currentLatestVersion.getStudies();
+			if(!CollectionUtils.isEmpty(currentStudies)) {
+				List<Study> versionStudies = new ArrayList<Study>();	
+				List<InstitutionalCertification> versionIcs = new ArrayList<InstitutionalCertification>();
+				for(Study study: currentStudies) {
+					Study stu = new Study();
+					BeanUtils.copyProperties(study, stu);
+					stu.setId(null);
+					//stu.setProject(project);
+					stu.setInstitutionalCertifications(new ArrayList<InstitutionalCertification>());
+					List<InstitutionalCertification> ics = study.getInstitutionalCertifications();
+					if(!CollectionUtils.isEmpty(ics)) {
+						ics.get(0).setComments(null);
+						List<Document> currentIcDocs = fileUploadService.retrieveFileByIcId(ics.get(0).getId(), currentLatestVersion.getId());
+						if(!CollectionUtils.isEmpty(currentIcDocs)) {
+							for(Document currentIcDoc: currentIcDocs) {
+								Document icDoc = new Document();
+								BeanUtils.copyProperties(currentIcDoc, icDoc);
+								icDoc.setInstitutionalCertificationId(ics.get(0).getId());
+								icDocs.add(icDoc);
+							}
+							ics.get(0).setDocuments(icDocs);
+						}
+						stu.addInstitutionalCertification(ics.get(0));
+					}
+					stu.setStudiesDulSets(new ArrayList<StudiesDulSet>());
+					List<StudiesDulSet> currentDulSets = study.getStudiesDulSets();
+					if(!CollectionUtils.isEmpty(currentDulSets)) {
+					for(StudiesDulSet currentDulSet: currentDulSets) {
+					StudiesDulSet dulSet = new StudiesDulSet();
+					BeanUtils.copyProperties(currentDulSet, dulSet);
+					dulSet.setId(null);
+					dulSet.setStudy(stu);
+					dulSet.setDulChecklistSelections(new ArrayList<DulChecklistSelection>());
+					List<DulChecklistSelection> currentDulSelections = currentDulSet.getDulChecklistSelections();
+					if(!CollectionUtils.isEmpty(currentDulSelections)) {
+					for(DulChecklistSelection currentDulSelection: currentDulSelections) {
+					DulChecklistSelection dulSelection = new DulChecklistSelection();
+					BeanUtils.copyProperties(currentDulSelection, dulSelection);
+					dulSelection.setId(null);
+					dulSelection.setStudiesDulSet(dulSet);
+					dulSet.addDulChecklistSelection(dulSelection);
+				}
+			}
+				stu.addStudiesDulSet(dulSet);
+			}
+		}
+					stu.setProject(project);
+					versionStudies.add(stu);
+					//if(!CollectionUtils.isEmpty(stu.getInstitutionalCertifications())) {
+						//versionIcs.add(study.getInstitutionalCertifications().get(0));
+					//}	
+			   }
+				   project.setStudies(versionStudies);
+				  // if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
+						
+						// project.setInstitutionalCertifications(versionIcs);
+					//}
+			}
+		} else {
+				//This is a subprojectClone, so do not create new ic`s
+			//project = copyStudiesForClonedSubproject(project, currentLatestVersion);
+			project = copyICsForClonedSubproject(project, currentLatestVersion);
+			}
+		
+		//End copy studies
+
 		
 		//Copy planAnswerSelections 
 		Set<PlanAnswerSelection> currentPlanAnswers = currentLatestVersion.getPlanAnswerSelections();
@@ -512,9 +589,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		return project;
 	}
-	
-	
-	
 	
 	/**
 	 * Opens Create new submission page.
