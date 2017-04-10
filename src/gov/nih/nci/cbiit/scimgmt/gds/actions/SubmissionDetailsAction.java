@@ -85,21 +85,34 @@ public class SubmissionDetailsAction extends ManageSubmission {
 					}
 				}		
 			}
-			
-			//load studies
-			
-			for(Study stu : project.getStudies()) {
-				if(!CollectionUtils.isEmpty(stu.getInstitutionalCertifications())) {
-			for(InstitutionalCertification ic: stu.getInstitutionalCertifications()) {
-				for(Document doc: docs) {
-					if(doc.getInstitutionalCertificationId() != null && 
-							doc.getInstitutionalCertificationId().equals(ic.getId()))
-						ic.addDocument(doc);								
-				}	
+		}
+		
+		
+		//load studies
+		List<Document> docs = 
+				fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, projectId);
+		List<Study> studies = project.getStudies();
+		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag())) {
+			studies = retrieveParentProject().getStudies();
+			project.setStudies(studies);
+		}
+		for(Study stu : studies) {
+			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag())) {
+				stu.setComments(null);
 			}
+			if(!CollectionUtils.isEmpty(stu.getInstitutionalCertifications())) {
+		for(InstitutionalCertification ic: stu.getInstitutionalCertifications()) {
+			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag())) {
+				ic.setComments(null);
+			}
+			for(Document doc: docs) {
+				if(doc.getInstitutionalCertificationId() != null && 
+						doc.getInstitutionalCertificationId().equals(ic.getId()))
+					ic.addDocument(doc);								
+			}	
 		}
-		}
-		}
+	}
+	}
 		
 		setProject(project);
 				
