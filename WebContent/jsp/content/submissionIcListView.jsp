@@ -24,25 +24,8 @@
           No data entered.
         </s:if>
          <s:else>
-          <table width="100%" border="0" cellpadding="3">
-            <s:if test="%{project.additionalIcComments != null}">
-            <tr>
-               <td style="white-space: nowrap">&nbsp;</td>
-               <td colspan="4">&nbsp;</td>
-            </tr>
-            <tr>
-            <tr>
-              <td colspan="4" class="question">Additional Comments:</td>
-            </tr>       
-            <tr>
-              <td colspan="4"><textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${project.additionalIcComments}</textarea></td>
-            </tr>
-            </s:if>
-          </table>
           <!-- Studies Table -->
-          <s:if test="%{project.studies.size == 0}">
-           </s:if>
-           <s:else>
+          <s:if test="%{project.studies.size > 0}">
         <p class="question">
       <a href="javascript:void"
         class="studiesTab"><i class="expandStudies fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;&nbsp;Studies</p>
@@ -179,7 +162,7 @@
                   </s:iterator>           
                 </table>
                 </div>
-                </s:else>
+                </s:if>
           <!-- End Studies Table -->
                     <p>&nbsp;</p>
                     <p class="question">
@@ -364,6 +347,22 @@
             </tbody>
           </table>
           </div>
+          <!-- Comments table -->
+          <table width="100%" border="0" cellpadding="3">
+            <s:if test="%{project.additionalIcComments != null}">
+            <tr>
+               <td style="white-space: nowrap">&nbsp;</td>
+               <td colspan="4">&nbsp;</td>
+            </tr>
+            <tr>
+            <tr>
+              <td colspan="4" class="question">Additional Comments:</td>
+            </tr>       
+            <tr>
+              <td colspan="4"><textarea class="commentsClass" style="width: 100%; border: 0px solid #000000; overflow-y: scroll; resize: none;" readonly="readonly">${project.additionalIcComments}</textarea></td>
+            </tr>
+            </s:if>
+          </table>
          </s:else>
         </div><!--end panel body-->
       </div><!--end panel-->
