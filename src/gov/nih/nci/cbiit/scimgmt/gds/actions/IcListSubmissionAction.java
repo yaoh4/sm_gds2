@@ -98,9 +98,9 @@ public class IcListSubmissionAction extends ManageSubmission {
 					ic.setComments(null);
 					for(Study study: ic.getStudies()) {
 						study.setComments(null);
-						}
 					}
 				}
+			}
 			displayProjectId = storedProject.getParentProjectId();
 		}
 		storedProject.setStudies(studies);
@@ -123,16 +123,16 @@ public class IcListSubmissionAction extends ManageSubmission {
 			}
 			
 			for(Study stu : studies) {
-				if(!CollectionUtils.isEmpty(stu.getInstitutionalCertifications())) {
-			for(InstitutionalCertification ic: stu.getInstitutionalCertifications()) {
-				for(Document doc: docs) {
-					if(doc.getInstitutionalCertificationId() != null && 
-							doc.getInstitutionalCertificationId().equals(ic.getId()))
-						ic.addDocument(doc);								
-				}	
-			}
-		}
-		}
+			    if(!CollectionUtils.isEmpty(stu.getInstitutionalCertifications())) {
+			        for(InstitutionalCertification ic: stu.getInstitutionalCertifications()) {
+				         for(Document doc: docs) {
+					        if(doc.getInstitutionalCertificationId() != null && 
+							   doc.getInstitutionalCertificationId().equals(ic.getId()))
+						       ic.addDocument(doc);								
+				         }	
+			        }
+		        }
+		    }
 		}
 		
 		setProject(storedProject);

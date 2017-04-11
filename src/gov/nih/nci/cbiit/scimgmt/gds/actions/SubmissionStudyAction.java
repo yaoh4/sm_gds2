@@ -1,37 +1,24 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
-import org.json.JSONArray;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
-import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
-import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
-import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
-
 import org.springframework.util.CollectionUtils;
 
+
+/**
+ * @author gantam2
+ *
+ */
+@SuppressWarnings("serial")
 public class SubmissionStudyAction  extends ManageSubmission {
 	
+	private static final Logger logger = LogManager.getLogger(GeneralInfoSubmissionAction.class);	
 	
 	private String studyname;
 	
@@ -41,8 +28,12 @@ public class SubmissionStudyAction  extends ManageSubmission {
 
 	private String studyInstitution;
 	
-	
+	/**
+	 * Navigate to Studies List.
+	 * @return forward string
+	 */
 	public String execute() throws Exception {
+		
 		setProject(retrieveSelectedProject());
 		Study study = null;
 		if(studyId != null) {
@@ -56,13 +47,15 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		setStudy(study);
         return SUCCESS;
 	}
+	
 	/**
 	 * Retrieve the project based on the projectId indicated in the request
 	 * 
 	 * @return
 	 */
 	private Study retrieveStudy(Long studyId) {
-	
+		logger.info("Retreives the study based on study Id.");
+		
 		if(studyId != null) {
 			
 			Project project = getProject();
@@ -82,6 +75,10 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		return null;
 	}
 	
+	/**
+	 * validates save study
+	 * 
+	 */
 	public void validateSaveStudy() {
 		this.clearActionErrors();
 		Study study = getStudy();
@@ -96,48 +93,64 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		}
 	}
 	
-	public String saveStudy(){
+	/**
+	 * saves the study
+	 * @return forward string
+	 */
+	public String saveStudy() {
+		logger.info("Saving the study.");
 		
 		Project project = retrieveSelectedProject();
 		if(getStudy().getId() != null) {
 			if(!CollectionUtils.isEmpty(getStudy().getInstitutionalCertifications())) {
-			Study study = project.getStudyById(Long.valueOf(getStudy().getId()));
+			    Study study = project.getStudyById(Long.valueOf(getStudy().getId()));
 				study.setStudyName(getStudy().getStudyName());
 				study.setInstitution(getStudy().getInstitution());
 				study.setLastChangedBy(loggedOnUser.getAdUserId());
 				study.setProject(project);
 			    project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
-			}
-			else {
-			Study study = getStudy();
-			study.setLastChangedBy(loggedOnUser.getAdUserId());
-			study.setProject(project);
-			//Save the study
-			study = manageProjectService.saveStudy(study);
-			project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
-			}
-		} else {
-			Study study = getStudy();
-			study.setCreatedBy(loggedOnUser.getAdUserId());
-			study.setProject(project);
-			//Save the study
-			study = manageProjectService.saveStudy(study);
-			project.getStudies().add(study);
-			project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC,false);
-		}
+			} else {
+			    Study study = getStudy();
+			    study.setLastChangedBy(loggedOnUser.getAdUserId());
+			    study.setProject(project);
+			    //Save the study
+			    study = manageProjectService.saveStudy(study);
+			    project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
+			  }
+		    } else {
+			    Study study = getStudy();
+			    study.setCreatedBy(loggedOnUser.getAdUserId());
+			    study.setProject(project);
+			    //Save the study
+			    study = manageProjectService.saveStudy(study);
+			    project.getStudies().add(study);
+			    project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC,false);
+		      }
 		
 		setProject(project);
 		setProjectId(project.getId().toString());
-	 return SUCCESS;
+	    return SUCCESS;
 		
 	}
 	
+	/**
+	 * saves and add another study
+	 * 
+	 * @return forward string
+	 */
 	public String saveAndAddStudy() {
+		logger.info("Saving the study and returns to the Add study.");
 		saveStudy();
 		return SUCCESS;
 	}
 	
+	/**
+	 * deletes the study not associated iwth IC
+	 * 
+	 * @return forward string
+	 */
 	public String deleteStudy() {
+		logger.info("Deleting the study.");
 
 		Long studyId = Long.valueOf(getStudyId());
 		Project project = retrieveSelectedProject();		
@@ -153,43 +166,76 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		
 	}
 	
-	
+	/**
+	 * gets the study
+	 * 
+	 * @return study
+	 */
 	public Study getStudy() {
-		return study;
-      }
-
-
+	   return study;
+    }
+    
+	/**
+	 * sets the study
+	 * 
+	 * @param study
+	 */
     public void setStudy(Study study) {
 	   this.study = study;
-     }
-
+    }
+    
+    /**
+     * gets the study id
+     * 
+     * @return study id
+     */
     public String getStudyId() {
 	   return studyId;
     }
 
-
+    /**
+     * sets the study ID
+     * 
+     * @param studyId
+     */
     public void setStudyId(String studyId) {
-	  this.studyId = studyId;
+	   this.studyId = studyId;
     }
 
-
+    /**
+     * gets the study name
+     * 
+     * @return study name
+     */
     public String getStudyname() {
-	  return studyname;
+	   return studyname;
     }
 
-
+    /**
+     * sets the study name
+     * 
+     * @param studyname
+     */
     public void setStudyname(String studyname) {
 	   this.studyname = studyname;
     }
 
-
+    /**
+     * gets the study Institution
+     * 
+     * @return study institution
+     */
     public String getStudyInstitution() {
-	 return studyInstitution;
-   }
+	   return studyInstitution;
+    }
 
-
-   public void setStudyInstitution(String studyInstitution) {
-	 this.studyInstitution = studyInstitution;
-   }
+    /**
+     * sets the study institution
+     * 
+     * @param studyInstitution
+     */
+    public void setStudyInstitution(String studyInstitution) {
+	   this.studyInstitution = studyInstitution;
+    }
 
 }

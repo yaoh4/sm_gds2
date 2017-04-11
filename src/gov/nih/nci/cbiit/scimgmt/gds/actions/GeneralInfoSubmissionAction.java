@@ -426,42 +426,40 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					stu.setStudiesDulSets(new ArrayList<StudiesDulSet>());
 					List<StudiesDulSet> currentDulSets = study.getStudiesDulSets();
 					if(!CollectionUtils.isEmpty(currentDulSets)) {
-					for(StudiesDulSet currentDulSet: currentDulSets) {
-					StudiesDulSet dulSet = new StudiesDulSet();
-					BeanUtils.copyProperties(currentDulSet, dulSet);
-					dulSet.setId(null);
-					dulSet.setStudy(stu);
-					dulSet.setDulChecklistSelections(new ArrayList<DulChecklistSelection>());
-					List<DulChecklistSelection> currentDulSelections = currentDulSet.getDulChecklistSelections();
-					if(!CollectionUtils.isEmpty(currentDulSelections)) {
-					for(DulChecklistSelection currentDulSelection: currentDulSelections) {
-					DulChecklistSelection dulSelection = new DulChecklistSelection();
-					BeanUtils.copyProperties(currentDulSelection, dulSelection);
-					dulSelection.setId(null);
-					dulSelection.setStudiesDulSet(dulSet);
-					dulSet.addDulChecklistSelection(dulSelection);
-				}
-			}
-				stu.addStudiesDulSet(dulSet);
-			}
-		}
+					   for(StudiesDulSet currentDulSet: currentDulSets) {
+					      StudiesDulSet dulSet = new StudiesDulSet();
+					      BeanUtils.copyProperties(currentDulSet, dulSet);
+					      dulSet.setId(null);
+					      dulSet.setStudy(stu);
+					      dulSet.setDulChecklistSelections(new ArrayList<DulChecklistSelection>());
+					      List<DulChecklistSelection> currentDulSelections = currentDulSet.getDulChecklistSelections();
+					         if(!CollectionUtils.isEmpty(currentDulSelections)) {
+					            for(DulChecklistSelection currentDulSelection: currentDulSelections) {
+					               DulChecklistSelection dulSelection = new DulChecklistSelection();
+					               BeanUtils.copyProperties(currentDulSelection, dulSelection);
+					               dulSelection.setId(null);
+					               dulSelection.setStudiesDulSet(dulSet);
+					               dulSet.addDulChecklistSelection(dulSelection);
+				                }
+			                 }
+				           stu.addStudiesDulSet(dulSet);
+			           }
+		            }
 					stu.setProject(project);
 					versionStudies.add(stu);
-			   }
+			    }
 				   project.setStudies(versionStudies);
-				  if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
-						
+				  
+				 if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
 						project.setInstitutionalCertifications(versionIcs);
-					}
+				 }
 			}
-		}
-		else {
+		} else {
 			//This is a subprojectClone, so do not create new ICs
 			project = copyICsForClonedSubproject(project, currentLatestVersion);
 		}
 		//End copy studies
 
-		
 		//Copy planAnswerSelections 
 		Set<PlanAnswerSelection> currentPlanAnswers = currentLatestVersion.getPlanAnswerSelections();
 		Set<RepositoryStatus> subprojectClonedRepoStatus = new HashSet<RepositoryStatus>();
