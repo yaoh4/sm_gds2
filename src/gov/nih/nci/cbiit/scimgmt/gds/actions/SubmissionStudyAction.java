@@ -18,7 +18,7 @@ import org.springframework.util.CollectionUtils;
 @SuppressWarnings("serial")
 public class SubmissionStudyAction  extends ManageSubmission {
 	
-	private static final Logger logger = LogManager.getLogger(GeneralInfoSubmissionAction.class);	
+	private static final Logger logger = LogManager.getLogger(SubmissionStudyAction.class);	
 	
 	private String studyname;
 	
@@ -57,7 +57,6 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		logger.info("Retreives the study based on study Id.");
 		
 		if(studyId != null) {
-			
 			Project project = getProject();
 			if(project == null) {
 				project = retrieveSelectedProject();
@@ -108,16 +107,16 @@ public class SubmissionStudyAction  extends ManageSubmission {
 				study.setInstitution(getStudy().getInstitution());
 				study.setLastChangedBy(loggedOnUser.getAdUserId());
 				study.setProject(project);
-			    project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
 			} else {
 			    Study study = getStudy();
 			    study.setLastChangedBy(loggedOnUser.getAdUserId());
 			    study.setProject(project);
 			    //Save the study
 			    study = manageProjectService.saveStudy(study);
-			    project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
 			  }
-		    } else {
+			project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC);
+		    
+		} else {
 			    Study study = getStudy();
 			    study.setCreatedBy(loggedOnUser.getAdUserId());
 			    study.setProject(project);
@@ -125,7 +124,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 			    study = manageProjectService.saveStudy(study);
 			    project.getStudies().add(study);
 			    project = super.saveProject(project, ApplicationConstants.PAGE_CODE_IC,false);
-		      }
+		  }
 		
 		setProject(project);
 		setProjectId(project.getId().toString());
