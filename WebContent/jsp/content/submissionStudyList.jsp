@@ -62,7 +62,7 @@
                 <s:if test="%{#study.comments == null && #study.institutionalCertifications[0].comments == null}">
                 None
                 </s:if>
-                <s:else>
+                <s:elseif test="%{#study.comments != null || #study.institutionalCertifications[0].comments != null}">
               <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
               <s:if test="%{#study.comments != null}">
               <h3 class="title">Study Comments:</h3>
@@ -72,7 +72,10 @@
               <h3 class="title">IC Comments:</h3>
               <p class="desc"><s:property value="%{#study.institutionalCertifications[0].comments}" /></p>
               </s:if>
-              </div></div>
+              </div></div>      
+                </s:elseif>
+              <s:else>
+              None
               </s:else>
               </td>
               <td width="2%"  class="editDeleteBtns" style="white-space: nowrap; display:none;">
