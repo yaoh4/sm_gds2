@@ -582,6 +582,7 @@ WebContent/stylesheets/bootstrap-datepicker-1.6.1.min.css -text
 WebContent/stylesheets/custom.css -text
 WebContent/stylesheets/datatable.css -text
 WebContent/stylesheets/datatables-1.10.12.min.css -text
+WebContent/stylesheets/demo.css -text
 WebContent/stylesheets/font-awesome-4.6.3.min.css -text
 WebContent/stylesheets/non-responsive.css -text
 WebContent/stylesheets/styles.css -text
