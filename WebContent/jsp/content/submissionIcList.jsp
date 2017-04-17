@@ -7,7 +7,13 @@
 <s:hidden name="project.subprojectFlag" id="subprojectFlag" value="%{project.subprojectFlag}"/>
 <s:hidden name="project.parentProjectId" value="%{project.parentProjectId}"/>
 <s:hidden name="project.createdBy" value="%{project.createdBy}"/>
-      
+
+<s:if test="%{project.institutionalCertifications.size == 0}">
+<p>&nbsp;</p>
+<p> There are currently no Institutional Certifications added.</p>
+<br/>
+</s:if>
+<s:else> 
 <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
 	<tr class="modalTheader">
 		<!--  Show this column header only for subproject -->
@@ -193,7 +199,7 @@
 	</s:iterator> <!-- ics -->
                       
 </table>
-
+</s:else>
  <!-- start: Delete Coupon Modal -->
 <div class="modal fade" id="myModalIc" tabindex="-1" role="dialog" aria-labelledby="myModalLabelIc" aria-hidden="true">
 	<div class="modal-dialog">
