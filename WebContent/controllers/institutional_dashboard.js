@@ -6,7 +6,8 @@ $(document).ready(function() {
 		 $("#certFlag").val("Y");  
 	      }
 	
-
+	//set the correct length for text areas
+	showCharCount('#additionalComments', '#charNum2');
   if($("#icIds") != null && $("#icIds").val().length > 0) {
     var icIdArray = JSON.parse($("#icIds").val());
 	
@@ -198,9 +199,6 @@ $(document).on('click', '.header', function () {
 
 //set the correct length for text areas
 showCharCount('#icComments', '#charNum');
-
-//set the correct length for text areas
-showCharCount('#additionalComments', '#charNum2');
 
 });
 
