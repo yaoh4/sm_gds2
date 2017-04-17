@@ -8,15 +8,15 @@
 <br/>
 </s:if>
 <s:else>
-       <table style="width: 100%; font-size: 14px" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
+       <table style="width: 100%; font-size: 14px; table-layout:fixed;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody><tr class="modalTheader">
                 <th  class="tableHeader"  align="center" width="25%">Study Name</th>                      
                 <th class="tableHeader" align="center" width="25%">Institution</th>
-                <th>Received</th>
-                <th>Document</th>
-                <th>Approved by GPA</th>
-                <th align="center">Comments</th>         
-                <th id="actionColumnStudy" class="tableHeader" style="display:none;"align="center" width="1%">Actions</th>
+                <th width="10%">Received</th>
+                <th width="10%">Document</th>
+                <th width="10%">Approved by GPA</th>
+                <th align="center" width="10%">Comments</th>         
+                <th id="actionColumnStudy" class="tableHeader" style="display:none;"align="center" width="10%">Actions</th>
               </tr> 
               
               <s:hidden id="studyListSize" value="%{project.studies.size}"/>  
@@ -24,14 +24,14 @@
               <div class="studyDetailsDiv">
               <s:set name="studyIdx" value="%{#study.id}" />
                <tr  data-id="${study.id}">
-              <td> 
+              <td style="word-wrap:break-word;" > 
               <s:if test="%{#study.studiesDulSets.size > 0}">
               <a href="#" class="studyDetails" id="studyDetails${study.id}">
               <i class="expand fa fa-plus-square fa-lg" id="${study.id}expand" aria-hidden="true" alt="Details" title="Details"></i></a>&nbsp;&nbsp;&nbsp;
               </s:if> 
               <s:property value="%{#study.studyName}" />
               </td>
-              <td > <s:property value="%{#study.institution}" /></td> 
+              <td style="word-wrap:break-word;"> <s:property value="%{#study.institution}" /></td> 
               <td>
               <s:if test="%{#study.institutionalCertifications[0].id != null}">
               Yes
@@ -63,7 +63,7 @@
                 None
                 </s:if>
                 <s:elseif test="%{#study.comments != null || #study.institutionalCertifications[0].comments != null}">
-              <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
+              <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div style="word-wrap:break-word;" class="details-pane">
               <s:if test="%{#study.comments != null}">
               <h3 class="title">Study Comments:</h3>
               <p class="desc"><s:property value="%{#study.comments}" /></p>
@@ -133,7 +133,7 @@
                           </td>
                           <td>
                           <s:if test="%{#studiesDulSet.comments != null}">
-                          <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
+                          <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div style="word-wrap:break-word;" class="details-pane">
                            <h3 class="title">DUL Appendix:</h3>
                      <p class="desc"><s:property value="%{#studiesDulSet.comments}"/></p>
                      </div></div>
@@ -171,9 +171,6 @@
                        <h3 class="modal-title" id="myModalLabel">Are You Sure You Want to Delete?</h3>
 
                  </div>
-            <div class="modal-body">
-                 <h5>Deleting the Study.</h5>
-            </div>
             <!--/modal-body-collapse -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="btnDelteYesStudy">Delete</button>
