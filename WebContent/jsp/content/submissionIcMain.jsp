@@ -54,7 +54,7 @@
         </div>
         <s:if test="!studiesForSelection.isEmpty">
          <div style="display: inline;" id="addICBtn">
-          <s:submit action="addIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
+          <s:submit action="addIc" id="addIC" value=" Add Institutional Certification " class="saved btn btn-project-primary"/>
          </div>
         </s:if>
        
