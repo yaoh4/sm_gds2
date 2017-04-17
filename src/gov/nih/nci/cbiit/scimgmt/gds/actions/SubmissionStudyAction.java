@@ -140,6 +140,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 	public String saveAndAddStudy() {
 		logger.info("Saving the study and returns to the Add study.");
 		saveStudy();
+		getStudy().setInstitution(null);
 		return SUCCESS;
 	}
 	
