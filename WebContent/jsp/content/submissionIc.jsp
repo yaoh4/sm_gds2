@@ -103,7 +103,7 @@
                                 </label>
                                 <div class="input-group">
                                   <input type="text" class="form-control input_sn" placeholder="Full Name of Study" 
-                              	    id="studyName-${studiesIdx}"  maxlength="100"
+                              	    id="studyName-${studiesIdx}"  maxlength="150"
                               		name="instCertification.studies[<s:property value='#studiesStat.index'/>].studyName" 
                               		value="${study.studyName}" disabled />
                               	  <div class="input-group-btn">
@@ -122,7 +122,7 @@
 						 style="font-size: 12px;"><s:hidden id="IC_INSTITUTION_KEY" value="%{getHelpText('IC_INSTITUTION_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></label>
                                 <div class="input_fields_wrap">
                                   <input type="text" class="form-control input_in" placeholder="Full Name of Institution"
-                              		id="institution-${studiesIdx}" maxlength="120"
+                              		id="institution-${studiesIdx}" maxlength="150"
 									name="instCertification.studies[<s:property value='#studiesStat.index'/>].institution"
 									value="${study.institution}" disabled />
 								</div>
