@@ -153,9 +153,8 @@ $('#btnDelteYes').click(function () {
     
     var listSize = $("#icListSize").val() - 1;
     $("#icListSize").val(listSize);
-    if(listSize === 0) {
+    
     	$('#ic_dashboard_form').submit();
-    }
     
 });
   
