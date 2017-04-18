@@ -219,6 +219,8 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		for(Study stud: ic.getStudies()) {
 			stud.getInstitutionalCertifications().clear();
 			stud.getStudiesDulSets().clear();
+			stud.setDulVerificationId(null);
+			stud.setComments(null);
 			saveStudy(stud);
 		}
 		
