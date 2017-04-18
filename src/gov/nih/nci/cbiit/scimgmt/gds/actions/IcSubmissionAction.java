@@ -399,11 +399,11 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		if(study.getStudyName() == null || study.getStudyName().isEmpty()) {
 			addActionError(getText("error.ic.study.studyName.required") );
-		} else if(study.getStudyName().length() > 100) {
+		} else if(study.getStudyName().length() > 150) {
 			addActionError(getText("error.studyName.size.exceeded"));
 		}
 		
-		if(study.getInstitution() != null && study.getInstitution().length() > 120) {
+		if(study.getInstitution() != null && study.getInstitution().length() > 150) {
 			addActionError(getText("error.institution.size.exceeded", new String[]{study.getStudyName()}));
 		}
 		
