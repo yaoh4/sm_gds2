@@ -139,7 +139,7 @@
                         			value="instCertification.studies[#studiesStat.index].dulVerificationId"
                         			class="c-select form-control"
                         			list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST)}"
-                        			listKey="optionKey" listValue="optionValue" id="dulVerificationId%-{#studiesIdx}"
+                        			listKey="optionKey" listValue="optionValue" id="dulVerificationId-%{#studiesIdx}"
                        				emptyOption="true"/>
                               </div>
 		
