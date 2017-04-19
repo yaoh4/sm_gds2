@@ -308,6 +308,8 @@ public class IcSubmissionAction extends ManageSubmission {
 					&& s.getInstitutionalCertifications().get(0).getId().equals(instCert.getId())) {
 				s.getInstitutionalCertifications().clear();
 				s.getStudiesDulSets().clear();
+				s.setComments(null);
+				s.setDulVerificationId(null);
 			}
 		}
 		
