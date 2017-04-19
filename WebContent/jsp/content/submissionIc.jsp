@@ -108,8 +108,8 @@
                               		value="${study.studyName}" disabled />
                               	  <div class="input-group-btn">
                                     <a href="#">
-                                    <button onClick="openStudy(this, 'single')" class="btn btn-default" type="button" title="Search" style=" margin-left: -2px; height: 34px;">
-                                      <i class="fa fa-search" aria-hidden="true"></i>
+                                    <button onClick="openStudy(this, 'single')" class="btn btn-default" type="button" title="Edit" style=" margin-left: -2px; height: 34px;">
+                                      <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </button></a> 
                 				  </div>
                 				</div>
