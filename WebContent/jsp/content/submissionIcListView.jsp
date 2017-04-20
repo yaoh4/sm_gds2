@@ -30,7 +30,7 @@
       <a href="javascript:void"
         class="studiesTab"><i class="expandStudies fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;&nbsp;Studies</p>
              <div class="studiesTable" style="display: none;"> 
-          <table style="width: 100%; font-size: 14px" cellpadding="0px" cellspacing="0" style="table-layout:fixed;" class="table table-bordered table-striped">
+          <table style="width: 100%; font-size: 14px; table-layout:fixed;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody><tr class="modalTheader">
                 <th  class="tableHeader"  align="center" width="25%">Study Name</th>                      
                 <th class="tableHeader" align="center" width="25%">Institution</th>
@@ -44,14 +44,14 @@
               <div class="studyDetailsDiv">
               <s:set name="studyIdx" value="%{#study.id}" />
                <tr  data-id="${study.id}">
-              <td> 
+              <td style="word-wrap:break-word;"> 
               <s:if test="%{#study.studiesDulSets.size > 0}">
               <a href="#" class="studyDetails" id="studyDetails${study.id}">
               <i class="expand fa fa-plus-square fa-lg" id="${study.id}expand" aria-hidden="true" alt="Details" title="Details"></i></a>&nbsp;&nbsp;&nbsp;
               </s:if> 
               <s:property value="%{#study.studyName}" />
               </td>
-              <td > <s:property value="%{#study.institution}" /></td> 
+              <td style="word-wrap:break-word;"> <s:property value="%{#study.institution}" /></td> 
               <td>
               <s:if test="%{#study.institutionalCertifications[0].id != null}">
               Yes
@@ -83,7 +83,7 @@
                 None
                 </s:if>
                 <s:elseif test="%{#study.comments != null || #study.institutionalCertifications[0].comments != null}">
-              <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
+              <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div style="word-wrap:break-word;" class="details-pane">
               <s:if test="%{#study.comments != null}">
               <h3 class="title">Study Comments:</h3>
               <p class="desc"><s:property value="%{#study.comments}" /></p>
@@ -138,7 +138,7 @@
                           </td>
                           <td>
                           <s:if test="%{#studiesDulSet.comments != null}">
-                          <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div class="details-pane">
+                          <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div style="word-wrap:break-word;" class="details-pane">
                            <h3 class="title">DUL Appendix:</h3>
                      <p class="desc"><s:property value="%{#studiesDulSet.comments}"/></p>
                      </div></div>
@@ -265,15 +265,17 @@
                                           <tbody>
                                             <tr>
                                               <td>
-                                               <table width="100%" cellspacing="5">
+                                               <table style="table-layout:fixed;" width="100%" cellspacing="5">
                                                  <tbody>
                                                    <tr>
-                                                     <td><span class="question">Study Name: </span>${study.studyName}</td>
+                                                     <td width="35%" style="word-wrap:break-word;"><span class="question">Study Name: </span>${study.studyName}</td>
+                                                     <td>&nbsp;</td>
                                                      <s:if test="%{#study.institution != null}">
-                                                       <td><span class="question">Institution(s): </span>${study.institution}</td>
+                                                       <td width="35%" style="word-wrap:break-word;"><span class="question">Institution(s): </span>${study.institution}</td>
                                                      </s:if>
+                                                     <td>&nbsp;</td>
                                                       <s:if test="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId) != null}">
-                                                       <td><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/></td>
+                                                       <td width="20%"><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/></td>
                                                      </s:if>
                                                    </tr>
                                                     <s:if test="%{#study.comments != null}">
@@ -291,7 +293,7 @@
                                                      </tr>       
                                               
                                                      <tr>
-                                                       <td colspan="4">
+                                                       <td colspan="6">
                                                          <table class="table table-striped">
                                                           <s:iterator status="dulSetStat" var="studiesDulSet" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets">
                                                             <s:set name="dulSetIdx" value="#dulSetStat.index" />                                                  

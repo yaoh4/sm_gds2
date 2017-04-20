@@ -120,12 +120,14 @@
                                       <table class="table table-bordered" width="100%" class="study">
                                         <tr>
                                           <td>
-                                            <table width="100%" cellspacing="5">
+                                            <table style="table-layout:fixed;" width="100%" cellspacing="5">
                                               <tr>
-                                                <td><span class="question">Study Name: </span>${study.studyName}</td>
+                                                <td width="35%" style="word-wrap:break-word;"><span class="question">Study Name:</span>${study.studyName}</td>
 					                         <!--    <td align="left" valign="top">&nbsp;</td> -->
-					                            <td><span class="question">Institution(s): </span>${study.institution}</td>
-                                                <td><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/></td>
+					                               <td>&nbsp;</td>
+					                            <td width="35%" style="word-wrap:break-word;"><span class="question">Institution(s): </span>${study.institution}</td>
+                                                <td>&nbsp;</td>
+                                                <td width="20%"><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/></td>
                                               </tr>
                                                                                     
                                               <s:if test="%{#study.comments != null}">
@@ -142,7 +144,7 @@
                                               </tr>       
                                               
                                               <tr>
-                                                <td colspan="4">
+                                                <td colspan="6">
                                                   <table class="table table-striped">
                                                     <s:iterator status="dulSetStat" var="studiesDulSet" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets">
                                                       <s:set name="dulSetIdx" value="#dulSetStat.index" />

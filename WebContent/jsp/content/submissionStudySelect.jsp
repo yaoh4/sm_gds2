@@ -94,7 +94,7 @@ $(function() {
         <div class="well">
            <h3>Selected Studies</h3>
            <div id="message">Select Studies from table below.</div>
-           <div id="log"></div>
+           <div style="word-wrap:break-word;" id="log"></div>
         </div>
         
         <table id="studySelectTable" class="table table-striped table-bordered" cellspacing="3" width="100%" style="font-size: 16px;">
