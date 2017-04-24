@@ -19,6 +19,7 @@ import org.springframework.util.CollectionUtils;
 public class SubmissionStudyAction  extends ManageSubmission {
 	
 	private static final Logger logger = LogManager.getLogger(SubmissionStudyAction.class);	
+	private static SubmissionStudyAction instance;
 	
 	private String studyname;
 	
@@ -27,6 +28,12 @@ public class SubmissionStudyAction  extends ManageSubmission {
 	private Study study;
 
 	private String studyInstitution;
+	
+	
+	public static SubmissionStudyAction getInstance() {
+		return instance;
+	}
+	
 	
 	/**
 	 * Navigate to Studies List.
@@ -48,12 +55,13 @@ public class SubmissionStudyAction  extends ManageSubmission {
         return SUCCESS;
 	}
 	
+
 	/**
 	 * Retrieve the project based on the projectId indicated in the request
 	 * 
-	 * @return
+	 * @return Study
 	 */
-	private Study retrieveStudy(Long studyId) {
+	public Study retrieveStudy(Long studyId) {
 		logger.info("Retreives the study based on study Id.");
 		
 		if(studyId != null) {
