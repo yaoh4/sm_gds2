@@ -102,8 +102,8 @@
 					<table width="50%" class="tableStudy table table-bordered table-striped" style="table-layout:fixed; align:center" cellspacing="3">
                        <!--   <tr class="modalTheader">-->
                        <tr>
-                          <th width="20%" align="center">Type</th>
-                          <th width="10%" align="center">Appendix</th>
+                          <th width="20%" align="center">DUL Type</th>
+                          <th width="10%" align="center">DUL Appendix</th>
 						  <th width="10%" align="center">DUL Verified?</th>
                         </tr>
                         <s:iterator status="dulSetStat" var="studiesDulSet" value="project.studies[#studiesStat.index].studiesDulSets"> 
