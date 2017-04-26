@@ -141,6 +141,24 @@ public class SubmissionStudyAction  extends ManageSubmission {
 	}
 	
 	/**
+	 * validates save and Add another  study
+	 * 
+	 */
+	public void validateSaveAndAddStudy() {
+		this.clearActionErrors();
+		Study study = getStudy();
+		
+		if(StringUtils.isEmpty(study.getStudyName())) {
+			addActionError(getText("error.studyName.required"));
+		}
+		
+		if(hasActionErrors()) {
+			setProject(retrieveSelectedProject());
+			setStudy(study);
+		}
+	}
+	
+	/**
 	 * saves and add another study
 	 * 
 	 * @return forward string
