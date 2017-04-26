@@ -109,6 +109,7 @@
                         <s:iterator status="dulSetStat" var="studiesDulSet" value="project.studies[#studiesStat.index].studiesDulSets"> 
                          <tr>
                           <td> 
+                          <s:if test="%{#studiesDulSet.parentDulChecklist.displayText != null}">
                            <span>
                             ${studiesDulSet.parentDulChecklist.displayText}
                                                             <s:if test="%{#studiesDulSet.additionalText != null}">
@@ -129,7 +130,11 @@
                                                             </s:if>
                                                           </s:iterator> 
                                                           )
-                                                          </s:if>      
+                                                          </s:if> 
+                          </s:if>    
+                          <s:else>
+                          None
+                          </s:else> 
                           </td>
                           <td>
                           <s:if test="%{#studiesDulSet.comments != null}">
