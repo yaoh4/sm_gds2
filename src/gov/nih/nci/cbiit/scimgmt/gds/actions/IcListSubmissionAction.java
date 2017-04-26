@@ -214,7 +214,9 @@ public class IcListSubmissionAction extends ManageSubmission {
 			if(StringUtils.isNotBlank(getProjectId())){
 				getProject().setId(Long.valueOf(getProjectId()));
 			}
+			String storedComments = additionalComments;
 			getIcList();
+			additionalComments = storedComments;
 			icIds="";
 		}
 	}
