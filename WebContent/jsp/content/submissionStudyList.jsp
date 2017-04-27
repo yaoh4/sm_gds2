@@ -25,7 +25,7 @@
               <s:set name="studyIdx" value="%{#study.id}" />
                <tr  data-id="${study.id}">
               <td style="word-wrap:break-word;" > 
-              <s:if test="%{#study.institutionalCertifications[0].id != null}">
+              <s:if test="%{#study.studiesDulSets.size > 0}">
               <a href="#" class="studyDetails" id="studyDetails${study.id}">
               <i class="expand fa fa-plus-square fa-lg" id="${study.id}expand" aria-hidden="true" alt="Details" title="Details"></i></a>&nbsp;&nbsp;&nbsp;
               </s:if> 
