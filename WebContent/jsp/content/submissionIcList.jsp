@@ -93,7 +93,7 @@
 					<table width="100%" class="tBorder2" cellspacing="3">
                         <tr>
                           <td><span class="question">Provisional or Final? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_PROV_OR_FINAL_LIST, #cert.provisionalFinalCode)}"/></td>
-                          <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #cert.gpaApprovalCode)}"/></td>
+                          <td><span class="question">Approved by GPA? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #cert.gpaApprovalCode)}"/></td>
 						  <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_FOR_FUTURE_USE_LIST, #cert.futureProjectUseCode)}"/></td>
                         </tr>
                         

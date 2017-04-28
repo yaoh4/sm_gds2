@@ -200,7 +200,7 @@
                 </div>
                 
                 <div class="col-xs-3">
-                  <label for="Approved by GPA">Approved by GPA</label>
+                  <label for="Approved by GPA">Approved by GPA?</label>
                   &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
 						 style="font-size: 12px;"><s:hidden id="IC_APPROVED_BY_GPA_KEY" value="%{getHelpText('IC_APPROVED_BY_GPA_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
                   <s:select name="instCertification.gpaApprovalCode"

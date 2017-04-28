@@ -234,7 +234,7 @@
                               <td><span class="question">Provisional or Final? </span></span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_PROV_OR_FINAL_LIST, #ic.provisionalFinalCode)}"/></td>
                             </s:if>
                             <s:if test="%{#ic.gpaApprovalCode != null}">
-                              <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #ic.gpaApprovalCode)}"/></td>
+                              <td><span class="question">Approved by GPA? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #ic.gpaApprovalCode)}"/></td>
                             </s:if>
                              <s:if test="%{#ic.futureProjectUseCode != null}">
                               <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_FOR_FUTURE_USE_LIST, #ic.futureProjectUseCode)}"/></td>
