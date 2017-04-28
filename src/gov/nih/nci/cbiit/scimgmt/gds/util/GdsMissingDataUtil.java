@@ -446,7 +446,7 @@ public class GdsMissingDataUtil {
 		
 		//Check GPA Approval Code
 		if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(ic.getGpaApprovalCode())) {
-			String text = "GPA approval code must be 'Yes'.";
+			String text = "GPA approval code must be 'Approved'.";
 			missingIcData.addChild(new MissingData(text));	
 		}
 		
