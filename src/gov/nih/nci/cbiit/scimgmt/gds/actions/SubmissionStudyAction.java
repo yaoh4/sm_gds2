@@ -167,6 +167,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		logger.info("Saving the study and returns to the Add study.");
 		saveStudy();
 		getStudy().setInstitution(null);
+		addActionMessage(getText("project.save.success"));
 		return SUCCESS;
 	}
 	
