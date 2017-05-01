@@ -13,7 +13,7 @@
       <!-- Page navbar -->
       <div class="pageNav">
         <s:submit action="saveIc" value=" Save " onclick="enableStudy()" class="saved btn btn-project-primary" />
-        <s:submit action="saveIcAndGotoDashboard" value=" Save and go to Dashboard " onclick="enableStudy()" class="saved btn btn-project-primary" />
+        <s:submit action="saveIcAndGotoDashboard" value=" Save & go to Dashboard " onclick="enableStudy()" class="saved btn btn-project-primary" />
       </div>
 
 
@@ -242,7 +242,7 @@
 	  <!--SAVE & NEXT BUTTONS-->
       <div class="pageNav">
         <s:submit action="saveIc" value=" Save " onclick="enableStudy()" class="saved btn btn-project-primary"/>
-        <s:submit action="saveIcAndGotoDashboard" value=" Save and go to Dashboard " onclick="enableStudy()" class="saved btn btn-project-primary" />
+        <s:submit action="saveIcAndGotoDashboard" value=" Save & go to Dashboard " onclick="enableStudy()" class="saved btn btn-project-primary" />
 	  </div>
         
     </s:form>
