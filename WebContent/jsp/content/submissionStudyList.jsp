@@ -55,7 +55,6 @@
                <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #study.institutionalCertifications[0].gpaApprovalCode)}"/>
                </s:if>
                <s:else>
-                N/A
                </s:else>
                 </td>
               <td style="text-align: center;">
@@ -63,7 +62,7 @@
                 None
                 </s:if>
                 <s:elseif test="%{#study.comments != null || #study.institutionalCertifications[0].comments != null}">
-              <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div style="word-wrap:break-word;" class="details-pane">
+              <div style="position: relative;"><a href="#" class="hvrlink">View</a><div style="word-wrap:break-word;" class="details-pane">
               <s:if test="%{#study.comments != null}">
               <h3 class="title">Study Comments:</h3>
               <p class="desc"><s:property value="%{#study.comments}" /></p>
@@ -138,7 +137,7 @@
                           </td>
                           <td>
                           <s:if test="%{#studiesDulSet.comments != null}">
-                          <div style="position: relative;"><a href="#" class="hvrlink" target="_blank">View</a><div style="word-wrap:break-word;" class="details-pane">
+                          <div style="position: relative;"><a href="#" class="hvrlink">View</a><div style="word-wrap:break-word;" class="details-pane">
                            <h3 class="title">DUL Appendix:</h3>
                      <p class="desc"><s:property value="%{#studiesDulSet.comments}"/></p>
                      </div></div>
