@@ -86,7 +86,7 @@ $(function() {
       <div class="panel-body">
        <div id="noStudyAvailable" style="display:none">
       	<div class="alert alert-warning" role="alert" style="margin-left: 15px;">
-        <p><strong>Please Note:</strong> No studies have been entered that can be associated with this Institutional Certification.Studies must be entered first and then associated with this Institutioanl Certifcation. Select the "Add Study" button to begin adding studies.After studies have been entered return to this Institutional Certification and associate the studies with it.</p>
+        <p><strong>Please Note:</strong> No studies have been entered that can be associated with this Institutional Certification. Studies must be entered first and then associated with this Institutional Certification. Select the "Add Study" button to begin adding studies. After studies have been entered return to this Institutional Certification and associate the studies with it.</p>
         </div>
        </div>
       
