@@ -75,7 +75,6 @@
                <s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #study.institutionalCertifications[0].gpaApprovalCode)}"/>
                </s:if>
                <s:else>
-                N/A
                </s:else>
                 </td>
                <td style="text-align: center;">
