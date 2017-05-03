@@ -13,7 +13,9 @@
       <!-- Page navbar -->
       <div class="pageNav">
         <s:submit action="saveIc" value=" Save " onclick="enableStudy()" class="saved btn btn-project-primary" />
-        <s:submit action="saveIcAndGotoDashboard" value="Save & Go to Dashboard" onclick="enableStudy()" class="saved btn btn-project-primary" />
+       <s:submit type="button" action="saveIcAndGotoDashboard" onclick="enableStudy()" class="saved btn btn-project-primary">
+      Save &amp; Go to Dashboard &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>
+    </s:submit>
       </div>
 
 
@@ -242,7 +244,9 @@
 	  <!--SAVE & NEXT BUTTONS-->
       <div class="pageNav">
         <s:submit action="saveIc" value=" Save " onclick="enableStudy()" class="saved btn btn-project-primary"/>
-        <s:submit action="saveIcAndGotoDashboard" value="Save & Go to Dashboard" onclick="enableStudy()" class="saved btn btn-project-primary" />
+        <s:submit type="button" action="saveIcAndGotoDashboard" onclick="enableStudy()" class="saved btn btn-project-primary">
+      Save &amp; Go to Dashboard &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>
+    </s:submit>
 	  </div>
         
     </s:form>
