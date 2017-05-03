@@ -42,22 +42,21 @@
             </div>
       <s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_NO)}">
                   <br>
-        <div style="display:inline" id="addStudyBtn">
-           <s:submit action="addEditStudy" type="button" id="addStudy"  class="saved btn btn-project-primary">
-            Add Study &nbsp;<a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" 
+        <div style="display:inline;" class="btn btn-project-primary" id="addStudyBtn">
+           <s:submit action="addEditStudy" value="Add Study" id="addStudy" class="saved">
+           </s:submit>
+           <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" 
             data-content="Studies that are providing samples (i.e. expecting an institutional certification). &lt;br&gt;
             More information at:&lt;a href=&quot; https://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/submission#institutional-certification &quot;target=&quot;_blank &quot;&gt;
             https://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data/submission#institutional-certification.
             &lt;/a&gt;" data-html="true" style="font-size: 12px;">
-                            <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
-                            </s:submit>
-        </div>
+            <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
+        </div> &nbsp;
         <s:if test="!studiesForSelection.isEmpty">
-         <div style="display: inline;" id="addICBtn">
-          <s:submit action="addIc" id="addIC" value=" Add Institutional Certification " class="saved btn btn-project-primary"/>
+         <div style="display: inline;" class="btn btn-project-primary" id="addICBtn">
+          <s:submit action="addIc" id="addIC" value=" Add Institutional Certification " class="saved"/>
          </div>
         </s:if>
-       
         <br>
         </s:if>
         <br/>&nbsp; 

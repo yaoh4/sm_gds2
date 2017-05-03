@@ -1672,3 +1672,21 @@ html[xmlns] .clearfix { display: block; }
   margin-top: 0px;
 }
 
+
+#addStudy {
+background-color: Transparent;
+background-repeat: no-repeat;
+border: none;
+cursor: pointer;
+overflow: hidden;
+outline: none;
+}
+
+#addIC{
+background-color: Transparent;
+background-repeat: no-repeat;
+border: none;
+cursor: pointer;
+overflow: hidden;
+outline: none;
+}
