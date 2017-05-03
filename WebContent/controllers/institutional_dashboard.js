@@ -94,7 +94,7 @@ $(document).ready(function() {
 	 $(".subprojectSelect").show();
 	 $(".projectColumn").hide();
 	 $('#showSpan').show().css('display', 'inline'); 
-	 
+	 $(".displaySubProject").attr('colspan','6');
  }
 
 //delete modal///

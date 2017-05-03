@@ -96,7 +96,7 @@
                 </div>
                 <!--Begin view details-->
 		<tr class="removeStudy${study.id}">
-			<td colspan="7">
+			<td class="displaySubProject" colspan="7">
             <div id="dulContent${study.id}" style="display: none">
 					<table width="50%" class="tableStudy table table-bordered table-striped" style="table-layout:fixed; align:center" cellspacing="3">
                        <!--   <tr class="modalTheader">-->
