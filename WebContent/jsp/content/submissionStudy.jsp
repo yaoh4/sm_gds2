@@ -27,7 +27,7 @@
            <s:if test="%{study.id != null}">
            </s:if>
            <s:else>
-          <s:submit action="saveAndAddStudy" value="Save And Add Another Study " class="saved btn btn-default add_field_button"/>
+          <s:submit action="saveAndAddStudy" value="Save & Add Another Study " class="saved btn btn-default add_field_button"/>
           </s:else>
            <s:submit type="button" action="saveStudy" class="saved btn btn-project-primary">Save Study &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>
             </s:submit>
@@ -105,7 +105,7 @@
           <s:if test="%{study.id != null}">
            </s:if>
            <s:else>
-          <s:submit action="saveAndAddStudy" value="Save And Add Another Study " class="saved btn btn-default add_field_button"/>
+          <s:submit action="saveAndAddStudy" value="Save & Add Another Study " class="saved btn btn-default add_field_button"/>
           </s:else>
            <s:submit type="button" action="saveStudy" class="saved btn btn-project-primary">Save Study &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>
             </s:submit>
