@@ -398,12 +398,11 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 					BeanUtils.copyProperties(study, stu);
 					stu.setId(null);
 					stu.setComments(null);
-					//stu.setProject(project);
 					stu.setInstitutionalCertifications(new ArrayList<InstitutionalCertification>());
 					List<InstitutionalCertification> ics = study.getInstitutionalCertifications();
 					if(!CollectionUtils.isEmpty(ics)) {
+						InstitutionalCertification ic = new InstitutionalCertification();
 							for(InstitutionalCertification currentIc: ics) {
-								InstitutionalCertification ic = new InstitutionalCertification();
 								BeanUtils.copyProperties(currentIc, ic);
 								ic.setId(null);
 								ic.setComments(null);
@@ -415,13 +414,14 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						if(!CollectionUtils.isEmpty(currentIcDocs)) {
 							for(Document currentIcDoc: currentIcDocs) {
 								Document icDoc = new Document();
+								icDoc.setId(null);
 								BeanUtils.copyProperties(currentIcDoc, icDoc);
-								icDoc.setInstitutionalCertificationId(versionIcs.get(0).getId());
+								icDoc.setInstitutionalCertificationId(ic.getId());
 								icDocs.add(icDoc);
 							}
-							versionIcs.get(0).setDocuments(icDocs);
+							ic.setDocuments(icDocs);
 						}
-						stu.addInstitutionalCertification(versionIcs.get(0));
+						stu.addInstitutionalCertification(ic);
 					}
 					stu.setStudiesDulSets(new ArrayList<StudiesDulSet>());
 					List<StudiesDulSet> currentDulSets = study.getStudiesDulSets();
