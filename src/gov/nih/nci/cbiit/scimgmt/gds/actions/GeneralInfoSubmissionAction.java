@@ -416,10 +416,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 								Document icDoc = new Document();
 								icDoc.setId(null);
 								BeanUtils.copyProperties(currentIcDoc, icDoc);
-								icDoc.setCreatedBy(currentIcDoc.getCreatedBy());
-								icDoc.setUploadedBy(currentIcDoc.getUploadedBy());
-								icDoc.setUploadedDate(currentIcDoc.getUploadedDate());
-								icDoc.setLastChangedDate(currentIcDoc.getLastChangedDate());
 								icDoc.setInstitutionalCertificationId(ic.getId());
 								icDocs.add(icDoc);
 							}
