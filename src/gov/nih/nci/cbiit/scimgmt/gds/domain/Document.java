@@ -32,6 +32,7 @@ public class Document implements java.io.Serializable {
 	private String activeFlag;
 	private String createdBy;
 	private String lastChangedBy;
+	private String lastChangedDate;
 	private byte[] doc;
 	private String contentType;
 	private String docTitle;
@@ -160,13 +161,23 @@ public class Document implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	@Column(name = "LAST_CHANGED_BY", length = 120)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_CHANGED_DATE", nullable = false, length = 7)
 	public String getLastChangedBy() {
 		return this.lastChangedBy;
 	}
 
 	public void setLastChangedBy(String lastChangedBy) {
 		this.lastChangedBy = lastChangedBy;
+	}
+
+	@Column(name = "LAST_CHANGED_BY", length = 120)
+	public String getLastChangedDate() {
+		return lastChangedDate;
+	}
+
+	public void setLastChangedDate(String lastChangedDate) {
+		this.lastChangedDate = lastChangedDate;
 	}
 
 	@Column(name = "DOC", nullable = false)
