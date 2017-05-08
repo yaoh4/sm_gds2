@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.services;
 
 import java.io.File;
+import java.sql.Date;
 import java.util.List;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
@@ -48,6 +49,19 @@ public interface FileUploadService {
 	 * @throws Exception
 	 */
 	public Document storeFile(Long projectId, String docType, byte[] data, String fileName, Long certId) throws Exception;
+	
+	/**
+	 * Stores byte stream in DB. Used for file copy operation.
+	 * 
+	 * @param projectId
+	 * @param docType
+	 * @param data
+	 * @param fileName
+	 * @param certId
+	 * @return
+	 * @throws Exception
+	 */
+	public Document copyFile(Long projectId, String docType, byte[] data, String fileName, Long certId, java.util.Date date) throws Exception;
 	
 	/**
 	 * Stores user input text as a row in DB

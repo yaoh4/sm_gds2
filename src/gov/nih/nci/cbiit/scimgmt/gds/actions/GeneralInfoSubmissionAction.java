@@ -414,7 +414,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						if(!CollectionUtils.isEmpty(currentIcDocs)) {
 							for(Document currentIcDoc: currentIcDocs) {
 								Document icDoc = new Document();
-								icDoc.setId(null);
+								//icDoc.setId(null);
 								BeanUtils.copyProperties(currentIcDoc, icDoc);
 								icDoc.setInstitutionalCertificationId(ic.getId());
 								icDocs.add(icDoc);
@@ -538,8 +538,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		//for subprojects we only point to parent's IC
 		if(!subprojectClone && !ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
 			for(Document doc: icDocs) {
-				fileUploadService.storeFile(
-					project.getId(), ApplicationConstants.DOC_TYPE_IC, doc.getDoc(), doc.getFileName(), doc.getInstitutionalCertificationId());
+				fileUploadService.copyFile(
+					project.getId(), ApplicationConstants.DOC_TYPE_IC, doc.getDoc(), doc.getFileName(), doc.getInstitutionalCertificationId(), doc.getUploadedDate());
 			}
 		}
 		
