@@ -548,10 +548,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(!CollectionUtils.isEmpty(currentDocs)) {
 			for(Document currentDoc: currentDocs) {
 				if(currentDoc.getInstitutionalCertificationId() == null && (!ApplicationConstants.DOC_TYPE_BSI.equals(currentDoc.getDocType().getCode()))) {
-					fileUploadService.storeFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null);
+					fileUploadService.copyFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null,currentDoc.getUploadedDate());
 				}
 				if(ApplicationConstants.DOC_TYPE_BSI.equals(currentDoc.getDocType().getCode()) && subprojectClone) {
-					fileUploadService.storeFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null);
+					fileUploadService.copyFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null,currentDoc.getUploadedDate());
 				}
 			}
 		}
