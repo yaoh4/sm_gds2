@@ -195,7 +195,6 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 			populatePlanAnswerSelection();
 			uiControlMap = uIRuleUtil.getUiRuleMap(getProject());
 		}
-		
 	}
 
 	/**
@@ -343,7 +342,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 	@SuppressWarnings("unused")
 	private void deleteIcs() throws Exception {
 		List<InstitutionalCertification> icList = getProject().getInstitutionalCertifications();
-		if (icList != null){
+		if (icList != null) {
 			InstitutionalCertification icdup = null;
 			for(Iterator<InstitutionalCertification> i= getProject().getInstitutionalCertifications().iterator(); i.hasNext();) {
 				icdup = i.next();
@@ -352,13 +351,23 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				i = getProject().getInstitutionalCertifications().iterator();
 			}
 		}
-	    getProject().setCertificationCompleteFlag(null);
+	   
+		//Deleting the studies associated with the project
+		List<Study> studies = getProject().getStudies();
+		if (studies != null) {
+			Study study = null;
+			for(Iterator<Study> i= getProject().getStudies().iterator(); i.hasNext();) {
+				study = i.next();
+				manageProjectService.deleteStudy(study.getId(), retrieveSelectedProject());
+				setProject(retrieveSelectedProject());	
+				i = getProject().getStudies().iterator();
+			}
+		}
+		
 	    getProject().setAdditionalIcComments("");
-	    getProject().setStudiesComments("");
 		super.saveProject(retrieveSelectedProject(), ApplicationConstants.PAGE_CODE_GDSPLAN);
 		setProject(retrieveSelectedProject());
 	}
-	
 	
 	/**
 	 * This method sets up all data for Genomic Data Sharing Plan page.
@@ -463,7 +472,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
 				if(getProject().getInstitutionalCertifications() != null && !getProject().getInstitutionalCertifications().isEmpty())
 					sb.append("All Institutional Certifications and Data Use Limitations. <br>");
 			} else {
-					// Deleting all the ICs permanently.
+					// Deleting all the ICs and studies permanently.
 				deleteIcs();
 			}
 			
@@ -577,7 +586,7 @@ public class GDSPlanSubmissionAction extends ManageSubmission {
                 if(getProject().getInstitutionalCertifications() != null && !getProject().getInstitutionalCertifications().isEmpty())
                        sb1.append("All Institutional Certifications and Data Use Limitations. <br>");
           } else {
-                // Delete the ICs
+                // Delete the ICs and Studies permanently.
         	  deleteIcs();
           }
         }      
