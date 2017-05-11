@@ -233,7 +233,7 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		
 		//Now delete the IC
 		icCertsDao.delete(ic);
-		
+
 		return true;
 	}
 	
@@ -245,7 +245,13 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 	public boolean deleteStudy(Long studyId, Project project) {
 		
 		Study study = icCertsDao.findStudyById(studyId);
+		
+		project.getStudies().remove(study);
+		saveOrUpdate(project);
+		
+		// delete the study
 		icCertsDao.delete(study);
+		
 		return true;
 		
 	}
