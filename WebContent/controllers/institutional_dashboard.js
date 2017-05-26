@@ -120,7 +120,7 @@ $(document)
 						$(
 							$('#' + tr.data('child-name')).html()
 						), 
-				          row.node().className + " removeStudy" + row.data().id
+				          row.node().className + " removeStudy" + tr.data('id')
 						).show();
 
 						$(this).find("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');

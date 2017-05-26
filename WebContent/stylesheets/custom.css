@@ -1555,6 +1555,11 @@ table.dataTable tbody tr td.even {
  
 }
 
+table.dataTable tbody tr td.odd {
+  border-top: 0px !important ;
+ 
+}
+
 .subtable tbody tr td {
   border-top: 1px !important ;
 }

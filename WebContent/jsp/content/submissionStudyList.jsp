@@ -28,22 +28,22 @@
 			<s:iterator status="studiesStat" var="study" value="project.studies">
 				<s:set name="studyIdx" value="%{#study.id}" />
 				<tr data-id="${study.id}" data-child-name="dulContent${study.id}">
-					<td style="word-wrap: break-word;"><s:if
+					<td style="word-wrap: break-word; border: 1px solid #ddd;"><s:if
 							test="%{#study.studiesDulSets.size > 0}">
 							<a href="#" class="studyDetails" id="studyDetails${study.id}">
 								<i class="expand fa fa-plus-square fa-lg" id="${study.id}expand"
 								aria-hidden="true" title="Details"></i>
 							</a>&nbsp;&nbsp;&nbsp;
               </s:if> <s:property value="%{#study.studyName}" /></td>
-					<td style="word-wrap: break-word;"><s:property
+					<td style="word-wrap: break-word; border: 1px solid #ddd;"><s:property
 							value="%{#study.institution}" /></td>
-					<td><s:if
+					<td style="border: 1px solid #ddd;"><s:if
 							test="%{#study.institutionalCertifications[0].id != null}">
               Yes
               </s:if> <s:else>
               No
               </s:else></td>
-					<td style="text-align: center;"><s:if
+					<td style="text-align: center; border: 1px solid #ddd;"><s:if
 							test="%{#study.institutionalCertifications[0].id != null}">
 							<s:a
 								href="javascript:openDocument(%{#study.institutionalCertifications[0].documents[0].id})">
@@ -53,13 +53,13 @@
 						</s:if> <s:else>
                None
               </s:else></td>
-					<td><s:if
+					<td style="border: 1px solid #ddd;"><s:if
 							test="%{#study.institutionalCertifications[0].gpaApprovalCode != null}">
 							<s:property
 								value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #study.institutionalCertifications[0].gpaApprovalCode)}" />
 						</s:if> <s:else>
 						</s:else></td>
-					<td style="text-align: center;"><s:if
+					<td style="text-align: center; border: 1px solid #ddd;"><s:if
 							test="%{#study.comments == null && #study.institutionalCertifications[0].comments == null}">
                 None
                 </s:if> <s:elseif
@@ -87,7 +87,7 @@
               None
               </s:else></td>
 					<td width="2%" class="editDeleteBtns"
-						style="white-space: nowrap; display: none;">
+						style="white-space: nowrap; display: none; border: 1px solid #ddd;">
 						<!--  Do not show edit and delete for sub-project --> <a
 						class="btnEdit"
 						href="/gds/manage/editStudy.action?studyId=${study.id}&projectId=${project.id}">
@@ -150,7 +150,7 @@
 			<s:iterator status="dulSetStat" var="studiesDulSet"
 				value="project.studies[#studiesStat.index].studiesDulSets">
 				<tr>
-					<td><s:if
+					<td style="border: 1px solid #ddd;"><s:if
 							test="%{#studiesDulSet.parentDulChecklist.displayText != null}">
 							<span> ${studiesDulSet.parentDulChecklist.displayText} <s:if
 									test="%{#studiesDulSet.additionalText != null}">
@@ -179,7 +179,7 @@
 						</s:if> <s:else>
                           None
                           </s:else></td>
-					<td><s:if test="%{#studiesDulSet.comments != null}">
+					<td style="border: 1px solid #ddd;"><s:if test="%{#studiesDulSet.comments != null}">
 							<div style="position: relative;">
 								<a href="#" class="hvrlink">View</a>
 								<div style="word-wrap: break-word;" class="details-pane">
@@ -192,7 +192,7 @@
 						</s:if> <s:else>
                      None
                      </s:else></td>
-					<td><s:if test="%{#study.dulVerificationId != null}">
+					<td style="border: 1px solid #ddd;"><s:if test="%{#study.dulVerificationId != null}">
 							<s:property
 								value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}" />
 						</s:if> <s:else>
