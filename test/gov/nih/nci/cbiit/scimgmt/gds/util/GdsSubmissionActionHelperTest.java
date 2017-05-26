@@ -123,8 +123,8 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 			Project project = new Project();
 			project.setId(2L);
 			
-			//submission reason id is changed from nih funded to gds policy
-			project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NIHFUND);
+			//submission reason id is changed from non nih funded to gds policy
+			project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NONNIHFUND);
 			Project updatedProject = new Project();
 			updatedProject.setId(3L);
 			updatedProject.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_GDSPOLICY);

@@ -301,31 +301,9 @@
 		<classpath refid="project.classpath" />
 		<classpath location="${java.classes.dir}" />
 	   	<classpath location="${test.classes.dir}" />
-	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmissionTest" haltonfailure="no" outfile="${distribution.dir}/result">		  		
+	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.RunGDSTestSuite" haltonfailure="no" outfile="${distribution.dir}/result">		  		
 	  		<formatter type="plain" />
 	  		<formatter type="xml" />
-	  	</test>
-	  	
-	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.actions.SubmissionStudyTest" haltonfailure="no" outfile="${distribution.dir}/result">		  		
-	  		 <formatter type="plain" />
-	  		 <formatter type="xml" />
-	  	</test>
-	  		
-	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionTest" haltonfailure="no" outfile="${distribution.dir}/result">		  		
-	  		 <formatter type="plain" />
-	  		 <formatter type="xml" />
-	    </test>
-	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsPageStatusUtilTest" haltonfailure="no" outfile="${distribution.dir}/result">		  		
-	  		<formatter type="plain" />
-	  		<formatter type="xml" />
-	  	</test>
-	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtilTest" haltonfailure="no" outfile="${distribution.dir}/result">		  		
-	  		  		<formatter type="plain" />
-	  		  		<formatter type="xml" />
-	  	</test>
-	  	<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelperTest" haltonfailure="no" outfile="${distribution.dir}/result">		  		
-	  		  		  		<formatter type="plain" />
-	  		  		  		<formatter type="xml" />
 	  	</test>
 	  </junit>
    </target>
@@ -337,23 +315,8 @@
 				<classpath refid="project.classpath" />
 				<classpath location="${java.classes.dir}" />
 				<classpath location="${test.classes.dir}" />
-				<test name="gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmissionTest">
+				<test name="gov.nih.nci.cbiit.scimgmt.gds.RunGDSTestSuite">
 					<formatter type="xml" />
-				</test>
-				<test name="gov.nih.nci.cbiit.scimgmt.gds.actions.SubmissionStudyTest">
-									<formatter type="xml" />
-								</test>
-				<test name="gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionTest">	
-									<formatter type="xml" />
-								</test>
-				<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsPageStatusUtilTest">	
-					<formatter type="xml" />
-				</test>
-				<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtilTest">	
-									<formatter type="xml" />
-				</test>
-				<test name="gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelperTest">	
-													<formatter type="xml" />
 				</test>
 			</junit>
 		</jacoco:coverage>

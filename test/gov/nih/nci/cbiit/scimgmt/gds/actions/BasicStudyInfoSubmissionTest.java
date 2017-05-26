@@ -1,5 +1,8 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -11,7 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 import junit.framework.Assert;
@@ -34,19 +39,20 @@ public class BasicStudyInfoSubmissionTest {
 		
       System.out.println("Starting junit for computePageStatusTest");
 		//Initial setup
-		Project project = new Project();
+      	List<Document> docs = new ArrayList<Document> ();
+      	Project project = new Project();
 		project.setId(2L);
 		project.setSubprojectFlag(ApplicationConstants.FLAG_NO);
 		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NIHFUND);
 		project.setBsiReviewedId(ApplicationConstants.BSI_NO);
 		
-		ManageProjectService manageProjectServiceMock = Mockito.mock(ManageProjectService.class);
-		Mockito.when(manageProjectServiceMock.findById(2L)).thenReturn(project);
+		FileUploadService fileUploadServiceMock = Mockito.mock(FileUploadService.class);
+		Mockito.when(fileUploadServiceMock.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, 1L)).thenReturn(docs);
 		BasicStudyInfoSubmissionAction basicStudyInfoSubmission = new BasicStudyInfoSubmissionAction();
-		basicStudyInfoSubmission.manageProjectService = manageProjectServiceMock;
+		basicStudyInfoSubmission.fileUploadService = fileUploadServiceMock;
 		
 		String projectStatus = basicStudyInfoSubmission.computePageStatus(project);
-		//Assert.assertEquals(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS, projectStatus);
+		Assert.assertEquals(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS, projectStatus);
 		
 	}
 

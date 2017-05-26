@@ -1129,6 +1129,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/util/UIRuleUtil.java -text
 src/manage.xml -text
 src/search.xml -text
 src/struts.xml -text
+test/gov/nih/nci/cbiit/scimgmt/gds/RunGDSTestSuite.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/actions/BasicStudyInfoSubmissionTest.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmissionTest.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/actions/SubmissionStudyTest.java -text
