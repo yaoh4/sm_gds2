@@ -28,7 +28,7 @@
           <s:if test="%{project.studies.size > 0}">
         <p class="question">
       <a href="javascript:void"
-        class="studiesTab"><i class="expandStudies fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;&nbsp;Studies</p>
+        class="studiesTab"><i class="expandStudies fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;&nbsp;Studies (<s:property value="project.studies.size" />)</p>
              <div class="studiesTable" style="display: none;"> 
           <table style="width: 100%; font-size: 14px; table-layout:fixed;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
               <tbody><tr class="modalTheader">
@@ -174,7 +174,7 @@
                     <p>&nbsp;</p>
                     <p class="question">
       <a href="javascript:void"
-        class="icTab"><i class="expandIc fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;&nbsp;Institutional Certification</p>
+        class="icTab"><i class="expandIc fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;&nbsp;Institutional Certification (<s:property value="project.institutionalCertifications.size" />)</p>
          <div class="icTable" style="display: none;">
           <table width="100%" cellpadding="0px" cellspacing="0" style="table-layout:fixed;" class="table table-bordered">
             <tbody>

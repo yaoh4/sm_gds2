@@ -63,8 +63,8 @@
 
         <div class="container" style="width: 100%; padding-left: 0px;">
           <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#studies">Studies</a></li>
-            <li><a data-toggle="tab"  href="#IC">Institutional Certifications</a></li>
+            <li class="active"><a data-toggle="tab" href="#studies">Studies (<s:property value="project.studies.size" />)</a></li>
+            <li><a data-toggle="tab"  href="#IC">Institutional Certifications (<s:property value="project.institutionalCertifications.size" />)</a></li>
           </ul>
 
 
@@ -96,7 +96,7 @@
           </div> <!--  end tab content -->
         </div><!--end tabs container-->
       	
-	    <div>
+	    <div style="padding-top: 20px;">
 		  <p class="question">Additional Comments (2000 Characters):</p>
 		  <s:textarea class="form-control input_other commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="additionalComments" name="additionalComments" placeholder=""></s:textarea>
 		  <div id="charNum2" style="text-align: right; font-style: italic;">
