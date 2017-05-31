@@ -283,6 +283,8 @@ function edit(elem) {
 var table;
 function initializeStudyTable() {
 	table = $('#studyDataTable').DataTable({
+		"dom": 't',
+		
 		"bPaginate" : false,
 
 		columnDefs : [ {
