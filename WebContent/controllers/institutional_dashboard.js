@@ -10,7 +10,7 @@ $(document)
 
 					// set the correct length for text areas
 					showCharCount('#additionalComments', '#charNum2');
-					if ($("#icIds") != null && $("#icIds").val().length > 0) {
+					if ($("#icIds").length && $("#icIds") != null && $("#icIds").val().length > 0) {
 						var icIdArray = JSON.parse($("#icIds").val());
 
 						// Set all selected ics to checked
@@ -105,10 +105,12 @@ $(document)
 						$(".displaySubProject").attr('colspan', '6');
 					}
 
-					initializeStudyTable();
+					if( $('#studyDataTable').length ) {
+
+						initializeStudyTable();
 					
 					 // Add event listener for opening and closing row details
-					$('#studyDataTable tbody').on('click', 'a.studyDetails', function() {
+					 $('#studyDataTable tbody').on('click', 'a.studyDetails', function() {
 					  var tr = $(this).closest('tr');
 					  var row = table.row(tr);
 					  if (row.child.isShown()) {
@@ -125,8 +127,8 @@ $(document)
 
 						$(this).find("i.expand.fa").toggleClass('fa-plus-square fa-minus-square');
 					  }
-					});
-					
+					 });
+					}
 
 					// delete modal///
 
@@ -237,7 +239,9 @@ $(document)
 							});
 
 					// set the correct length for text areas
-					showCharCount('#icComments', '#charNum');
+					if($("#icComments").length) {
+						showCharCount('#icComments', '#charNum');
+					}
 
 				});
 
@@ -298,8 +302,5 @@ function initializeStudyTable() {
 
 	$("#no-sorting").removeClass('sorting_asc').addClass('sorting_disabled');
 
-	$('.dataTables_filter')
-			.append(
-					"<div class='searchHelp'>(Enter at least 2 characters to search)</div>");
 
 }

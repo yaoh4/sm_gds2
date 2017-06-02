@@ -61,10 +61,13 @@
         </s:if>
         <br/>&nbsp; 
 
+		<s:if test="%{project.studies.size > 0}">
         <div class="container" style="width: 100%; padding-left: 0px;">
           <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#studies">Studies (<s:property value="project.studies.size" />)</a></li>
-            <li><a data-toggle="tab"  href="#IC">Institutional Certifications (<s:property value="project.institutionalCertifications.size" />)</a></li>
+          	<li class="active"><a data-toggle="tab" href="#studies">Studies (<s:property value="project.studies.size" />)</a></li>
+            <s:if test="%{project.institutionalCertifications.size > 0}">
+            	<li><a data-toggle="tab"  href="#IC">Institutional Certifications (<s:property value="project.institutionalCertifications.size" />)</a></li>
+            </s:if>
           </ul>
 
 
@@ -74,15 +77,15 @@
             
             
 <!----------------------------------------------------------------------------------------->
-			  <!--  REPLACE THE BELOW SECTION WITH NEW STUDIES TABLE by including submissionStudyList.jsp 
+			 <!--  REPLACE THE BELOW SECTION WITH NEW STUDIES TABLE by including submissionStudyList.jsp 
 <!----------------------------------------------------------------------------------------------->
              <s:include value="/jsp/content/submissionStudyList.jsp" />
  <!--------------------------------END REPLACE TABLE------------------------------------------------------ -->            
               
             </div> <!--  end studies div -->
 
-
-            <div id="IC" class="tab-pane fade in">
+			<s:if test="%{project.institutionalCertifications.size > 0}">
+            	<div id="IC" class="tab-pane fade in">
      
      
  <!-- ------------------------------------------------------------------------------------------------>
@@ -91,10 +94,12 @@
   				<s:include value="/jsp/content/submissionIcList.jsp" />
 <!-- ----------------------------END REPLACE TABLE----------------------------------------------------------------------------------- -->
 
-            </div>  <!-- END IC div-->
+            	</div>  <!-- END IC div-->
+            </s:if>
     
           </div> <!--  end tab content -->
         </div><!--end tabs container-->
+        </s:if>
       	
 	    <div style="padding-top: 20px;">
 		  <p class="question">Additional Comments (2000 Characters):</p>
