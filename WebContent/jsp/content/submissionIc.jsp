@@ -71,15 +71,15 @@
 					  <!--  This is read and passed back to so the existing ids are updated and not replaced -->
 					  <s:hidden name="instCertification.studies[%{#studiesStat.index}].id" class="studySelectedStudyId" id="studyId-%{#studiesIdx}"/> 
 				  		
-					  <div class="panel-group" id="accordion">
+					  <div class="panel-group" id="accordion-${studiesIdx}">
 				        <div class="panel panel-default">
 					  	
 					    <!--  STUDY SECTION HEADER  -->
 					  
                         <div class="studyHeadingPanel panel-heading header">
                           <h4 class="panel-title ">
-                            <a class="studyHeading" href="#collapseOne">
-                             <i class="fa fa-minus-square fa-lg" aria-hidden="true"></i>&nbsp;
+                            <a class="studyHeading" data-toggle="collapse" data-target="#collapse-${studiesIdx}">
+                             <i class="fa fa-minus-square fa-lg" aria-expanded="true"></i>&nbsp;
                               Study
                             </a>
                             <s:if test="%{instCertification.studies.size > 1}"> 
@@ -93,7 +93,7 @@
 												
 						<!--  STUDY SECTION BODY -->
 									
-                        <div id="collapseOne" class="content">
+                        <div id="collapse-${studiesIdx}" class="content panel-collapse collapse in">
                           <div class="panel-body">
                           				
                             <div class="form-group row" style="display: block;">

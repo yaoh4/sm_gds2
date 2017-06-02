@@ -419,14 +419,19 @@ $(document).ready(function () {
 	});
 
 	
-
-$(document).on('click', '.header', function () {
-
-    $(this).next(".content").slideToggle(400);
-    $(this).find('.fa').toggleClass('fa-plus-square fa-minus-square');
-    $(this).show();
-    $("#collapseOne").focus();
-
+$(document).on('shown.bs.collapse', '.collapse', function() {
+             $(this)
+                 .parent()
+                 .find('.fa:first')
+                 .removeClass("fa-plus-square")
+                 .addClass("fa-minus-square");
+});
+$(document).on('hidden.bs.collapse', '.collapse', function() {
+             $(this)
+                 .parent()
+                 .find('.fa:first')
+                 .removeClass("fa-minus-square")
+                 .addClass("fa-plus-square");
 });
 
 $(".helpfile").click(function() {
