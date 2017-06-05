@@ -69,16 +69,11 @@
 								<div style="word-wrap: break-word;" class="details-pane">
 									<s:if test="%{#study.comments != null}">
 										<h3 class="title">Study Comments:</h3>
-										<p class="desc">
-											<s:property value="%{#study.comments}" />
-										</p>
+										<p class="desc"><s:property value="%{#study.comments}" /></p>
 									</s:if>
 									<s:if test="%{#study.institutionalCertifications[0].comments != null}">
 										<h3 class="title">IC Comments:</h3>
-										<p class="desc">
-											<s:property
-												value="%{#study.institutionalCertifications[0].comments}" />
-										</p>
+										<p class="desc"><s:property value="%{#study.institutionalCertifications[0].comments}" /></p>
 									</s:if>
 								</div>
 							</div>
@@ -187,9 +182,7 @@
 								<a href="#" class="hvrlink">View</a>
 								<div style="word-wrap: break-word;" class="details-pane">
 									<h3 class="title">DUL Appendix:</h3>
-									<p class="desc">
-										<s:property value="%{#studiesDulSet.comments}" />
-									</p>
+									<p class="desc"><s:property value="%{#studiesDulSet.comments}" /></p>
 								</div>
 							</div>
 						</s:if> <s:else>

@@ -1647,6 +1647,7 @@ ul.actionMessage {
 .details-pane .desc {
   font-size: 1em;
   margin-bottom: 6px;
+  white-space: pre;
 }
 
 
