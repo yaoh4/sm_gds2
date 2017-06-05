@@ -84,7 +84,7 @@
         <i class="fa fa-clone fa-lg" aria-hidden="true" title="Add IC" alt="Add IC" style="color: #2d699e;"></i>
       	</td>
       	<td style="text-align: center; width:55px;">
-      	<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit IC" title="Edit IC" style="color: #2d699e;"></i>
+      	<i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" alt="Edit IC" title="Edit IC" style="color: #2d699e;"></i>
       	</td>
       	</tr>
       	<tr>

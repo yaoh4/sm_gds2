@@ -97,7 +97,7 @@
 							value="%{#study.institutionalCertifications[0].id}" /> <s:if
 							test="%{#study.institutionalCertifications[0].id != null}">
 							 <a class="btnEdit"  href="/gds/manage/editIc.action?instCertId=${study.institutionalCertifications[0].id}&projectId=${project.id}">
-                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit Ic"></i>&nbsp;
+                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" alt="edit" title="Edit Ic"></i>&nbsp;
                       </a>
 						</s:if> <s:else>
 						 <a class="btnEdit" href="/gds/manage/editIc.action?studyIds=${study.id}&projectId=${project.id}">
