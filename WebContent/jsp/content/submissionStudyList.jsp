@@ -73,8 +73,7 @@
 											<s:property value="%{#study.comments}" />
 										</p>
 									</s:if>
-									<s:if
-										test="%{#study.institutionalCertifications[0].comments != null}">
+									<s:if test="%{#study.institutionalCertifications[0].comments != null}">
 										<h3 class="title">IC Comments:</h3>
 										<p class="desc">
 											<s:property
@@ -97,10 +96,14 @@
 					</a> &nbsp;&nbsp;&nbsp; <s:hidden id="val"
 							value="%{#study.institutionalCertifications[0].id}" /> <s:if
 							test="%{#study.institutionalCertifications[0].id != null}">
+							 <a class="btnEdit"  href="/gds/manage/editIc.action?instCertId=${study.institutionalCertifications[0].id}&projectId=${project.id}">
+                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit Ic"></i>&nbsp;
+                      </a>
 						</s:if> <s:else>
-							<a class="btnDelete" href="#"> <i class="fa fa-trash fa-lg"
-								aria-hidden="true" title="Delete"></i>
-							</a>
+						 <a class="btnEdit" href="/gds/manage/editIc.action?studyIds=${study.id}&projectId=${project.id}">
+                        <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="add" title="Add Ic"></i> &nbsp;&nbsp;&nbsp; </a>
+						<a class="btnDelete" href="#"> <i class="fa fa-trash fa-lg"
+						aria-hidden="true" title="Delete"></i></a>
 						</s:else>
 					</td>
 				</tr>

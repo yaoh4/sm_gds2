@@ -68,9 +68,36 @@
             <s:if test="%{project.institutionalCertifications.size > 0}">
             	<li><a data-toggle="tab"  href="#IC">Institutional Certifications (<s:property value="project.institutionalCertifications.size" />)</a></li>
             </s:if>
+            
+      	<div style="display:inline;float:right;">
+      	<table style="margin-bottom: 10px; margin-right: 10px;">
+      	<tbody>
+      	<tr>
+      	<td style="text-align:right; font-weight:bold;">Legend:</td>
+      	<td style="text-align: center; width:55px;">
+      	<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit" title="Edit" style="color: #2d699e;"></i>
+      	</td>
+      	<td style="text-align: center; width:55px;">
+      	<i class="fa fa-trash fa-lg" aria-hidden="true" alt="Delete" title="Delete" style="color: #990000;"></i>
+      	</td>
+      	<td style="text-align: center; width:55px;">
+        <i class="fa fa-clone fa-lg" aria-hidden="true" title="Add IC" alt="Add IC" style="color: #2d699e;"></i>
+      	</td>
+      	<td style="text-align: center; width:55px;">
+      	<i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="Edit IC" title="Edit IC" style="color: #2d699e;"></i>
+      	</td>
+      	</tr>
+      	<tr>
+      	<td>&nbsp;</td>
+      	<td class="legendText">Edit</td>
+      	<td class="legendText">Delete</td>
+      	<td class="legendText">Add IC</td>
+      	<td class="legendText">Edit IC</td>
+      	</tr>
+      	</tbody>
+      	</table>
+      	</div>
           </ul>
-
-
           <div class="tab-content">
             
             <div id="studies" class="tab-pane fade in active" >
@@ -100,7 +127,7 @@
           </div> <!--  end tab content -->
         </div><!--end tabs container-->
         </s:if>
-      	
+
 	    <div style="padding-top: 20px;">
 		  <p class="question">Additional Comments (2000 Characters):</p>
 		  <s:textarea class="form-control input_other commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="additionalComments" name="additionalComments" placeholder=""></s:textarea>
