@@ -1,10 +1,13 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
@@ -28,7 +31,10 @@ public class SubmissionStudyAction  extends ManageSubmission {
 	private Study study;
 
 	private String studyInstitution;
+	
+	private List<Study> listStudies = new ArrayList<Study>();
 
+	
 	public static SubmissionStudyAction getInstance() {
 		return instance;
 	}
@@ -51,6 +57,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		}
 		
 		setStudy(study);
+		listStudies = retrieveSelectedProject().getStudies();
         return SUCCESS;
 	}
 	
@@ -97,6 +104,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		if(hasActionErrors()) {
 			setProject(retrieveSelectedProject());
 			setStudy(study);
+			listStudies = retrieveSelectedProject().getStudies();
 		}
 	}
 	
@@ -155,6 +163,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		if(hasActionErrors()) {
 			setProject(retrieveSelectedProject());
 			setStudy(study);
+			listStudies = retrieveSelectedProject().getStudies();
 		}
 	}
 	
@@ -166,6 +175,11 @@ public class SubmissionStudyAction  extends ManageSubmission {
 	public String saveAndAddStudy() {
 		logger.info("Saving the study and returns to the Add study.");
 		saveStudy();
+		listStudies = retrieveSelectedProject().getStudies();
+		Set<Study> hs = new HashSet<>();
+		hs.addAll(listStudies);
+		listStudies.clear();
+		listStudies.addAll(hs);
 		getStudy().setStudyName(null);
 		getStudy().setInstitution(null);
 		addActionMessage(getText("project.save.success"));
@@ -265,5 +279,21 @@ public class SubmissionStudyAction  extends ManageSubmission {
     public void setStudyInstitution(String studyInstitution) {
 	   this.studyInstitution = studyInstitution;
     }
+    
+    /**
+     * 
+     * @return list of studies
+     */
+    public List<Study> getListStudies() {
+		return listStudies;
+	}
+
+    /**
+     * 
+     * @param listStudies
+     */
+	public void setListStudies(List<Study> listStudies) {
+		this.listStudies = listStudies;
+	}
 
 }
