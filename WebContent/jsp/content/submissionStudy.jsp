@@ -54,15 +54,11 @@
               <!--  STUDY SECTION HEADER  -->
             
                         <div class="studyHeadingPanel panel-heading header">
-                          <h4 class="panel-title ">
-                        
-                              Study</h4>
+                          <h4 class="panel-title ">Study</h4>
+                          <p style="font-size:11px;">For multi-site studies in which each site is providing their own certification, please enter a separate entry for each site/institution (using the same study name).</p>
                         </div>  
-                                  
-                        
-            <!--  STUDY SECTION BODY -->
-                  
-                       
+                                   
+            <!--  STUDY SECTION BODY -->            
           <div class="panel-body" >
                                   
             <div style="display: block;" class="form-group row">
@@ -117,7 +113,7 @@
   
      <!-- Existing studies List --> 
                   <!-- Studies Table -->
-          <s:if test="%{project.studies.size > 0}">
+          <s:if test="%{listStudies.size > 0}">
           <div class="col-md-10">
         <p class="question">
       <a href="javascript:void"
@@ -130,7 +126,7 @@
                 <th>Received</th>
               </tr> 
               
-              <s:iterator status="studiesStat" var="stu" value="project.studies">
+              <s:iterator status="studiesStat" var="stu" value="listStudies">
               <div class="studyDetailsDiv">
               <s:set name="studyIdx" value="%{#stu.id}" />
                <tr data-id="${stu.id}">
