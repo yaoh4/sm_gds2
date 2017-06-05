@@ -275,6 +275,12 @@ $('#additionalComments').keyup(function() {
 	showCharCount(this, '#charNum2');
 });
 
+//Show and hide Studies
+$('body').on('click', '.studiesTabl', function() {
+  $(".studiesTables").slideToggle('500');
+  $("i.expandStudies.fa").toggleClass('fa-plus-square fa-minus-square');
+});
+
 //Edit Study
 function edit(elem) {
 	var id = $(elem).first().children().val();
