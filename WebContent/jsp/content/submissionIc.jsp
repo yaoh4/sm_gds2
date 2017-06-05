@@ -45,14 +45,61 @@
             <p>&nbsp;</p>
             
             <div class="qSpacing">
-            
-           
 			<!--  File Upload -->
 			<div class="qSpacing" style="margin-left: 30px;" id="icDiv" style="${map['icDiv'].style}">
 				<s:include value="/jsp/content/submissionIcFile.jsp" />
 			</div>
 		
-			  <!--Begin STUDY SECTION-->
+			  <div class="form-group row">
+			   <div class="col-xs-3">
+                  <label for="Provisional or Final?">Provisional or Final? </label>
+                  &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_PROV_FINAL_KEY" value="%{getHelpText('IC_PROV_FINAL_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
+                  <s:select name="instCertification.provisionalFinalCode"
+                    value="instCertification.provisionalFinalCode"
+                    class="c-select form-control"
+                    list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_PROV_OR_FINAL_LIST)}"
+                    listKey="optionKey" listValue="optionValue" id="finalprov"
+                    emptyOption="true"/>
+                </div>
+                
+                <div class="col-xs-3">
+                  <label for="Approved by GPA">Approved by GPA</label>
+                  &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_APPROVED_BY_GPA_KEY" value="%{getHelpText('IC_APPROVED_BY_GPA_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
+                  <s:select name="instCertification.gpaApprovalCode"
+                  	value="instCertification.gpaApprovalCode"
+                    class="c-select form-control"
+                    list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST)}"
+                    listKey="optionKey" listValue="optionValue" id="gpa"
+                    emptyOption="true"/>
+                 
+                </div>
+             
+                <div id="memo" class="col-xs-3 fixWidth">
+                   <label for="Project Submission Status">IC Memo for Use in Future Projects?</label>
+                  &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
+						 style="font-size: 12px;"><s:hidden id="IC_MEMO_KEY" value="%{getHelpText('IC_MEMO_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
+                  <s:select name="instCertification.futureProjectUseCode"
+                    value="instCertification.futureProjectUseCode"
+                    class="c-select form-control"
+                    list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_FOR_FUTURE_USE_LIST)}"
+                    listKey="optionKey" listValue="optionValue"
+                    emptyOption="true"/>
+                </div>
+              </div>
+	
+			  <!--  IC comments -->
+	 		  <div class="form-group row  col-xs-12">
+                <label for="comment">Comments (2000 Characters):</label><br/>
+                <s:textarea class="col-md-12 form-control commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="instCertComments" value="%{instCertification.comments}" name="instCertification.comments" ></s:textarea>
+                <div id="charNum6" style="text-align: right; font-style: italic;">
+				   <span style="color: #990000;">2000</span> Character limits
+			    </div>
+			  </div>
+        <p>&nbsp;</p>
+	
+			   <!--Begin STUDY SECTION-->
 			
               <div style="display: block;" class="form-group row col-xs-12" id="sections">
 								
@@ -186,62 +233,13 @@
 			  								
               </div> <!--  End Study Section -->	
               </div> <!--  end qSpacing> -->
-			  <p>&nbsp;</p>
-			   
-			  <div class="form-group row" style="display: block;">
-			   <div class="col-xs-3">
-                  <label for="Provisional or Final?">Provisional or Final? </label>
-                  &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="IC_PROV_FINAL_KEY" value="%{getHelpText('IC_PROV_FINAL_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
-                  <s:select name="instCertification.provisionalFinalCode"
-                    value="instCertification.provisionalFinalCode"
-                    class="c-select form-control"
-                    list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_PROV_OR_FINAL_LIST)}"
-                    listKey="optionKey" listValue="optionValue" id="finalprov"
-                    emptyOption="true"/>
-                </div>
-                
-                <div class="col-xs-3">
-                  <label for="Approved by GPA">Approved by GPA?</label>
-                  &nbsp; &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="IC_APPROVED_BY_GPA_KEY" value="%{getHelpText('IC_APPROVED_BY_GPA_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
-                  <s:select name="instCertification.gpaApprovalCode"
-                  	value="instCertification.gpaApprovalCode"
-                    class="c-select form-control"
-                    list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST)}"
-                    listKey="optionKey" listValue="optionValue" id="gpa"
-                    emptyOption="true"/>
-                 
-                </div>
-             
-                <div id="memo" class="col-xs-3 fixWidth">
-                   <label for="Project Submission Status">IC Memo for Use in Future Projects?</label>
-                  &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="IC_MEMO_KEY" value="%{getHelpText('IC_MEMO_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
-                  <s:select name="instCertification.futureProjectUseCode"
-                    value="instCertification.futureProjectUseCode"
-                    class="c-select form-control"
-                    list="%{@gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper@getLookupDropDownList(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_FOR_FUTURE_USE_LIST)}"
-                    listKey="optionKey" listValue="optionValue"
-                    emptyOption="true"/>
-                </div>
-              </div>
-	
-			  <!--  IC comments -->
-	 		  <div class="form-group row  col-xs-12" style="display: block;">
-                <label for="comment">Comments (2000 Characters):</label><br/>
-                <s:textarea class="col-md-12 form-control commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="instCertComments" value="%{instCertification.comments}" name="instCertification.comments" ></s:textarea>
-                <div id="charNum6" style="text-align: right; font-style: italic;">
-				   <span style="color: #990000;">2000</span> Character limits
-			    </div>
-			  </div>
 				
           </div> <!--  panel body -->
         </div> <!--  Panel -->
       </div>  
       <!-- Adding dummy hidden field as a workaround for IE bug that corrupts data from the last input field -->
 		<s:hidden name="ie_Upload"/>
-	  <!--SAVE & NEXT BUTTONS-->
+	 <!--SAVE & NEXT BUTTONS-->
       <div class="pageNav">
         <s:submit action="saveIc" value=" Save " onclick="enableStudy()" class="saved btn btn-project-primary"/>
         <s:submit type="button" action="saveIcAndGotoDashboard" onclick="enableStudy()" class="saved btn btn-project-primary">
@@ -254,7 +252,6 @@
 <div id="reselectStudySection" style="display: none;">
 	<s:include value="/jsp/content/submissionStudySelect.jsp" />
 </div>
-
 <s:include value="/jsp/content/dulSetTemplate.jsp"/>
 <script type="text/javascript"
 	src="<s:url value="/controllers/gds.js" />"></script>
