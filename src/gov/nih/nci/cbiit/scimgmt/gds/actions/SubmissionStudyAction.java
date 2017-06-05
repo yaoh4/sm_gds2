@@ -28,8 +28,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 	private Study study;
 
 	private String studyInstitution;
-	
-	
+
 	public static SubmissionStudyAction getInstance() {
 		return instance;
 	}
@@ -50,7 +49,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		if(study == null) {
 			study = new Study();
 		}
-        
+		
 		setStudy(study);
         return SUCCESS;
 	}
@@ -81,6 +80,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		
 		return null;
 	}
+	
 	
 	/**
 	 * validates save study
@@ -166,6 +166,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 	public String saveAndAddStudy() {
 		logger.info("Saving the study and returns to the Add study.");
 		saveStudy();
+		getStudy().setStudyName(null);
 		getStudy().setInstitution(null);
 		addActionMessage(getText("project.save.success"));
 		return SUCCESS;
