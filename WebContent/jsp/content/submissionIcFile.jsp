@@ -17,7 +17,10 @@
 		</label>
 	</div>
 </div>
-
+<div>
+<table style="width: 80%;">
+</table>
+</div>
 <div id="loadIcFileHistory">
 	<s:if test="%{icFileDocs.size > 0}">
 		<p></p>
