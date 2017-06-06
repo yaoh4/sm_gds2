@@ -89,7 +89,7 @@
       	</tr>
       	<tr>
       	<td>&nbsp;</td>
-      	<td class="legendText">Edit</td>
+      	<td class="legendText">Edit<br> Study</td>
       	<td class="legendText">Delete</td>
       	<td class="legendText">Add IC</td>
       	<td class="legendText">Edit IC</td>

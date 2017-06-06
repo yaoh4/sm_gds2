@@ -96,7 +96,7 @@
                       </a>
 						</s:if> <s:else>
 						 <a class="btnEdit" href="/gds/manage/editIc.action?studyIds=${study.id}&projectId=${project.id}">
-                        <i class="fa fa-file-text fa-lg" aria-hidden="true" alt="add" title="Add Ic"></i> &nbsp;&nbsp;&nbsp; </a>
+                        <i class="fa fa-clone fa-lg" aria-hidden="true" alt="add" title="Add Ic"></i> &nbsp;&nbsp;&nbsp; </a>
 						<a class="btnDelete" href="#"> <i class="fa fa-trash fa-lg"
 						aria-hidden="true" title="Delete"></i></a>
 						</s:else>
