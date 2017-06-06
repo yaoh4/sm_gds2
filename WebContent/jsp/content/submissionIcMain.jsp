@@ -70,7 +70,7 @@
             </s:if>
             
       	<div style="display:inline;float:right;">
-      	<table style="margin-bottom: 10px; margin-right: 10px;">
+      	<table style="margin-right: 10px;">
       	<tbody>
       	<tr>
       	<td style="text-align:right; font-weight:bold;">Legend:</td>
@@ -89,7 +89,7 @@
       	</tr>
       	<tr>
       	<td>&nbsp;</td>
-      	<td class="legendText">Edit<br> Study</td>
+      	<td class="legendText" style="line-height: 90%;">Edit<br> Study</td>
       	<td class="legendText">Delete</td>
       	<td class="legendText">Add IC</td>
       	<td class="legendText">Edit IC</td>
