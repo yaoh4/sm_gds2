@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import gov.nih.nci.cbiit.scimgmt.gds.actions.BasicStudyInfoSubmissionTest;
+import gov.nih.nci.cbiit.scimgmt.gds.actions.IcListSubmissionActionTest;
 import gov.nih.nci.cbiit.scimgmt.gds.actions.ManageSubmissionTest;
 import gov.nih.nci.cbiit.scimgmt.gds.actions.SubmissionStudyTest;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtilTest;
@@ -51,6 +52,14 @@ public class RunGDSTestSuite {
 		gdsSubmissionActionHelperTest.isProjectEligibleForVersionTest();
 		gdsSubmissionActionHelperTest.isSubmissionUpdatedTest();
 
+		IcListSubmissionActionTest icListSubmissionActionTest = new IcListSubmissionActionTest();
+		icListSubmissionActionTest.testExecute();
+		icListSubmissionActionTest.testDeleteIc();
+		icListSubmissionActionTest.testValidateIcListSubmission();
+		icListSubmissionActionTest.testValidateSave();
+		icListSubmissionActionTest.testSave();
+		icListSubmissionActionTest.testGetMissingIcListData();
+		icListSubmissionActionTest.testGetPageStatusCode();
 	}
 
 }

@@ -18,7 +18,6 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
-import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 import junit.framework.Assert;
 
 

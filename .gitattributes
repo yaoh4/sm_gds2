@@ -1131,6 +1131,7 @@ src/search.xml -text
 src/struts.xml -text
 test/gov/nih/nci/cbiit/scimgmt/gds/RunGDSTestSuite.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/actions/BasicStudyInfoSubmissionTest.java -text
+test/gov/nih/nci/cbiit/scimgmt/gds/actions/IcListSubmissionActionTest.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmissionTest.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/actions/SubmissionStudyTest.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/applicationContext.xml -text

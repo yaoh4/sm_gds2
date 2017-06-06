@@ -33,39 +33,26 @@ public class IcListSubmissionAction extends ManageSubmission {
 
 	static Logger logger = LogManager.getLogger(IcSubmissionAction.class);
 	
-	
 	private InstitutionalCertification instCertification;
 	
 	private String instCertId;
 	
-	private String dulIds;
-	
 	private String icIds = "";
-	
-	private File ic;
-	
-	private String icFileName;
-
-	private String icContentType;
-	
-	private List<Document> icFileDocs = new ArrayList<Document>();
-	
+		
 	private String certFlag;
 	
 	private boolean ifIcSelected;
-	
-	private Document doc = null; // json object to be returned for UI refresh after upload
-	
-   private String icComments;
-   
-   private String additionalComments;
 
-   /**
-    * Display the main IC page
-    */
-   public String execute() {
-	   return getIcList();
-   }
+	private String icComments;
+   
+   	private String additionalComments;
+
+   	/**
+   	 * Display the main IC page
+   	 */
+	public String execute() {
+		return getIcList();
+	}
    
 	/**
 	 * Invoked for the Track IC Status page. Invoked from
@@ -343,24 +330,6 @@ public class IcListSubmissionAction extends ManageSubmission {
 		this.instCertId = instCertId;
 	}
 
-
-
-	/**
-	 * @return the dulIds
-	 */
-	public String getDulIds() {
-		return dulIds;
-	}
-
-
-	/**
-	 * @param dulIds the dulIds to set
-	 */
-	public void setDulIds(String dulIds) {
-		this.dulIds = dulIds;
-	}
-
-
 	
 	
 	/**
@@ -376,38 +345,6 @@ public class IcListSubmissionAction extends ManageSubmission {
 	 */
 	public void setIcIds(String icIds) {
 		this.icIds = icIds;
-	}
-
-
-	/**
-	 * @return the icFile
-	 */
-	public File getIc() {
-		return ic;
-	}
-
-
-	/**
-	 * @param icFile the icFile to set
-	 */
-	public void setIc(File ic) {
-		this.ic = ic;
-	}
-
-
-	/**
-	 * @return the icFileName
-	 */
-	public String getIcFileName() {
-		return icFileName;
-	}
-
-
-	/**
-	 * @param icFileName the icFileName to set
-	 */
-	public void setIcFileName(String icFileName) {
-		this.icFileName = icFileName;
 	}
     
 	/**
@@ -440,47 +377,6 @@ public class IcListSubmissionAction extends ManageSubmission {
      */
 	public void setIcComments(String icComments) {
 		this.icComments = icComments;
-	}
-
-	/**
-	 * @param icFileContentType the icFileContentType to set
-	 */
-	public void setIcContentType(String icContentType) {
-		this.icContentType = icContentType;
-	}
-
-
-	/**
-	 * @return the icFileDocs
-	 */
-	public List<Document> getIcFileDocs() {
-		return icFileDocs;
-	}
-
-
-	/**
-	 * @return the icFileContentType
-	 */
-	public String getIcContentType() {
-		return icContentType;
-	}
-
-
-	/**
-	 * @param icFileDocs the icFileDocs to set
-	 */
-	public void setIcFileDocs(List<Document> icFileDocs) {
-		this.icFileDocs = icFileDocs;
-	}
-
-
-	public Document getDoc() {
-		return doc;
-	}
-
-
-	public void setDoc(Document doc) {
-		this.doc = doc;
 	}
 	
 	public boolean isIfIcSelected() {
