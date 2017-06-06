@@ -1,20 +1,19 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
- <!--Begin Form -->
-    <s:form id="study_form" name="study_form" cssClass="dirty-check" namespace="manage"
+<!--Begin Form -->
+<s:form id="study_form" name="study_form" cssClass="dirty-check" namespace="manage"
     enctype="multipart/form-data" data-toggle="validator" action="saveStudy" method="post" role="form">  
     
     <s:hidden name="projectId" value="%{project.id}"/>
     <s:hidden name="study.id" value="%{study.id}"/>
     <s:hidden name="study.createdBy" value="%{study.createdBy}"/>
     <s:if test="%{study.institutionalCertifications[0].id != null}">
-    <s:hidden name="study.institutionalCertifications[0].id" value="%{study.institutionalCertifications[0].id}"/>
-    <s:hidden name="study.institutionalCertifications[0].documents[0].id" value="%{study.institutionalCertifications[0].documents[0].id}"/>
-    <s:hidden name="study.institutionalCertifications[0].createdBy" value="%{study.institutionalCertifications[0].createdBy}"/>
-    <s:hidden name="study.dulVerificationId" value="%{study.dulVerificationId}"/>
-    <s:hidden name="study.comments" value="%{study.comments}"/>
-
-</s:if>
+    	<s:hidden name="study.institutionalCertifications[0].id" value="%{study.institutionalCertifications[0].id}"/>
+    	<s:hidden name="study.institutionalCertifications[0].documents[0].id" value="%{study.institutionalCertifications[0].documents[0].id}"/>
+    	<s:hidden name="study.institutionalCertifications[0].createdBy" value="%{study.institutionalCertifications[0].createdBy}"/>
+    	<s:hidden name="study.dulVerificationId" value="%{study.dulVerificationId}"/>
+    	<s:hidden name="study.comments" value="%{study.comments}"/>
+	</s:if>
     
   <div id="messages" class="container">
     
@@ -109,47 +108,50 @@
 
         </div>       
   </div> 
-  </s:form>
-  
-     <!-- Existing studies List --> 
-                  <!-- Studies Table -->
-          <s:if test="%{listStudies.size > 0}">
-          <div class="col-md-10">
-        <p class="question">
-      <a href="javascript:void"
-        class="studiesTabl"><i class="expandStudies fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;&nbsp;Studies (<s:property value="project.studies.size" />)</p>
-             <div class="studiesTables" style="display: none;"> 
-          <table style="width: 100%; font-size: 14px; table-layout:fixed;" cellpadding="0px" cellspacing="0" class="table table-bordered table-striped">
-              <tbody><tr class="modalTheader">
-                <th  class="tableHeader"  align="center" width="25%">Study Name</th>                      
-                <th class="tableHeader" align="center" width="25%">Institution</th>
-                <th>Received</th>
-              </tr> 
-              
-              <s:iterator status="studiesStat" var="stu" value="listStudies">
-              <div class="studyDetailsDiv">
-              <s:set name="studyIdx" value="%{#stu.id}" />
-               <tr data-id="${stu.id}">
-              <td style="word-wrap:break-word;"> 
-              <s:property value="%{#stu.studyName}" />
-              </td>
-              <td style="word-wrap:break-word;"> <s:property value="%{#stu.institution}" /></td> 
-              <td>
-              <s:if test="%{#stu.institutionalCertifications[0].id != null}">
-              Yes
-              </s:if>
-              <s:else>
-              No
-              </s:else>
-              </td>
-              </tr>
-              </div>
-                  </s:iterator>           
-                </table>
-                </div>
-                </div>
-                </s:if> 
-  
-  <!-- end Content -->
+</s:form>
+
+<!-- Existing studies List --> 
+<!-- Studies Table -->
+<s:if test="%{listStudies.size > 0}">
+	<div class="col-md-10">
+		<div class="container">
+			<p class="question">
+      		<a href="javascript:void"
+        		class="studiesTabl"><i class="expandStudies fa fa-plus-square" aria-hidden="true"></i></a>&nbsp;&nbsp;Studies (<s:property value="project.studies.size" />)</p>
+            <div class="studiesTables" style="display: none;"> 
+          		<table style="width: 97%; font-size: 14px; table-layout:fixed;" class="table table-bordered table-striped">
+              	<thead>
+              		<tr class="modalTheader">
+                		<th  class="tableHeader"  align="center" width="25%">Study Name</th>                      
+                		<th class="tableHeader" align="center" width="25%">Institution</th>
+                		<th>Received</th>
+              		</tr>
+              	</thead>
+              	<tbody>
+              	<s:iterator status="studiesStat" var="stu" value="listStudies">
+              		<s:set name="studyIdx" value="%{#stu.id}" />
+               		<tr data-id="${stu.id}">
+              			<td style="word-wrap:break-word;"> 
+              				<s:property value="%{#stu.studyName}" />
+              			</td>
+              			<td style="word-wrap:break-word;"> <s:property value="%{#stu.institution}" /></td> 
+              			<td>
+              				<s:if test="%{#stu.institutionalCertifications[0].id != null}">
+              				Yes
+              				</s:if>
+              				<s:else>
+              				No
+              				</s:else>
+              			</td>
+              		</tr>
+               	</s:iterator>
+               	</tbody>           
+				</table>
+			</div>
+		</div>
+	</div>
+</s:if> 
+
+<!-- end Content -->
   <link href="<s:url value="/stylesheets/demo.css" />" rel="stylesheet" type="text/css" media="screen">
  <script type="text/javascript" src="<s:url value="/controllers/institutional_dashboard.js" />"></script> 
