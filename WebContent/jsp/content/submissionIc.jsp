@@ -12,6 +12,7 @@
       
       <!-- Page navbar -->
       <div class="pageNav">
+      <s:submit action="navigateToIcMain" value="Cancel" class="saved btn btn-project-primary"/>	
         <s:submit action="saveIc" value=" Save " onclick="enableStudy()" class="saved btn btn-project-primary" />
        <s:submit type="button" action="saveIcAndGotoDashboard" onclick="enableStudy()" class="saved btn btn-project-primary">
       Save &amp; Go to Dashboard &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>
@@ -241,6 +242,7 @@
 		<s:hidden name="ie_Upload"/>
 	 <!--SAVE & NEXT BUTTONS-->
       <div class="pageNav">
+      <s:submit action="navigateToIcMain" value="Cancel" class="saved btn btn-project-primary"/>	
         <s:submit action="saveIc" value=" Save " onclick="enableStudy()" class="saved btn btn-project-primary"/>
         <s:submit type="button" action="saveIcAndGotoDashboard" onclick="enableStudy()" class="saved btn btn-project-primary">
       Save &amp; Go to Dashboard &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i>
