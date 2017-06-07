@@ -62,7 +62,7 @@
         <br/>&nbsp; 
 
 		<s:if test="%{project.studies.size > 0}">
-        <div class="container" style="width: 100%; padding-left: 0px;">
+        <div style="width: 100%; padding-left: 0px;">
           <ul class="nav nav-tabs">
           	<li class="active"><a data-toggle="tab" href="#studies">Studies (<s:property value="project.studies.size" />)</a></li>
             <s:if test="%{project.institutionalCertifications.size > 0}">

@@ -9,7 +9,7 @@
 	<br />
 </s:if>
 <s:else>
-	<table id="studyDataTable" style="width: 100%; font-size: 14px; table-layout: fixed; border-bottom: 1px solid #ddd;"
+	<table id="studyDataTable" style="width: auto; font-size: 14px; table-layout: fixed; border-bottom: 1px solid #ddd;"
 		class="table table-bordered table-striped">
 		<thead>
 			<tr class="modalTheader">
