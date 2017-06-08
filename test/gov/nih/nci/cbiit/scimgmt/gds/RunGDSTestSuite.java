@@ -28,9 +28,16 @@ public class RunGDSTestSuite {
 		//call test cases in BaseActionTest
 		ManageSubmissionTest manageSubmissionTest = new ManageSubmissionTest();
 		manageSubmissionTest.testGetProjectStatusCode();
-		
+	
 		SubmissionStudyTest submissionStudyTest = new SubmissionStudyTest();
 		submissionStudyTest.testRetrieveStudy();
+		submissionStudyTest.testDeleteStudy();
+		submissionStudyTest.testValidateSaveStudy();
+		submissionStudyTest.testSaveStudy();
+		submissionStudyTest.testValidateSaveAndAddStudy();
+		submissionStudyTest.testSaveAndAddStudy();
+		submissionStudyTest.testExecute();
+		submissionStudyTest.testSetListStudies();
 		
 		BasicStudyInfoSubmissionTest basicStudyInfoSubmissionTest = new BasicStudyInfoSubmissionTest();
 		basicStudyInfoSubmissionTest.computePageStatusTest();
@@ -61,5 +68,6 @@ public class RunGDSTestSuite {
 		icListSubmissionActionTest.testGetMissingIcListData();
 		icListSubmissionActionTest.testGetPageStatusCode();
 	}
+	
 
 }
