@@ -22,23 +22,13 @@ import org.springframework.util.CollectionUtils;
 public class SubmissionStudyAction  extends ManageSubmission {
 	
 	private static final Logger logger = LogManager.getLogger(SubmissionStudyAction.class);	
-	private static SubmissionStudyAction instance;
-	
-	private String studyname;
 	
 	private String studyId;
 	
 	private Study study;
 
-	private String studyInstitution;
-	
 	private List<Study> listStudies = new ArrayList<Study>();
 
-	
-	public static SubmissionStudyAction getInstance() {
-		return instance;
-	}
-	
 	
 	/**
 	 * Navigate to Studies List.
@@ -244,42 +234,6 @@ public class SubmissionStudyAction  extends ManageSubmission {
 	   this.studyId = studyId;
     }
 
-    /**
-     * gets the study name
-     * 
-     * @return study name
-     */
-    public String getStudyname() {
-	   return studyname;
-    }
-
-    /**
-     * sets the study name
-     * 
-     * @param studyname
-     */
-    public void setStudyname(String studyname) {
-	   this.studyname = studyname;
-    }
-
-    /**
-     * gets the study Institution
-     * 
-     * @return study institution
-     */
-    public String getStudyInstitution() {
-	   return studyInstitution;
-    }
-
-    /**
-     * sets the study institution
-     * 
-     * @param studyInstitution
-     */
-    public void setStudyInstitution(String studyInstitution) {
-	   this.studyInstitution = studyInstitution;
-    }
-    
     /**
      * 
      * @return list of studies
