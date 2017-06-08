@@ -9,11 +9,12 @@
 	<br />
 </s:if>
 <s:else>
-	<table id="studyDataTable" style="width: auto; font-size: 14px; table-layout: fixed; border-bottom: 1px solid #ddd;"
+	<table id="studyDataTable" style="font-size: 14px; table-layout: fixed; border-bottom: 1px solid #ddd;"
 		class="table table-bordered table-striped">
 		<thead>
 			<tr class="modalTheader">
 				<th class="tableHeader" align="center" width="25%">Study Name</th>
+				<th width="0%" class="tableHeader">Study Name Only</th>
 				<th class="tableHeader" align="center" width="25%">Institution</th>
 				<th width="10%">Received</th>
 				<th width="10%" class="no-sort sorting_disabled">Document</th>
@@ -35,6 +36,7 @@
 								aria-hidden="true" title="Details"></i>
 							</a>&nbsp;&nbsp;&nbsp;
               </s:if> <s:property value="%{#study.studyName}" /></td>
+              		<td><s:property value="%{#study.studyName}" /></td>
 					<td style="word-wrap: break-word; border: 1px solid #ddd;"><s:property
 							value="%{#study.institution}" /></td>
 					<td style="border: 1px solid #ddd;"><s:if

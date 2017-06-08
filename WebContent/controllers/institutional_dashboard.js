@@ -294,7 +294,7 @@ var table;
 function initializeStudyTable() {
 	table = $('#studyDataTable').DataTable({
 		"dom": 't',
-		
+		"autoWidth": false,
 		"bPaginate" : false,
 
 		columnDefs : [ {
@@ -303,6 +303,12 @@ function initializeStudyTable() {
 		}, {
 			targets : 'no-sort',
 			orderable : false
+		}, { 
+			targets : 0,
+			orderData : 1
+		}, {
+			targets: 1,
+			visible: false
 		} ]
 	});
 
