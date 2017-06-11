@@ -94,11 +94,11 @@
 							value="%{#study.institutionalCertifications[0].id}" /> <s:if
 							test="%{#study.institutionalCertifications[0].id != null}">
 							 <a class="btnEdit"  href="/gds/manage/editIc.action?instCertId=${study.institutionalCertifications[0].id}&projectId=${project.id}">
-                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" alt="edit" title="Edit Ic"></i>&nbsp;
+                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" alt="edit" title="Edit IC"></i>&nbsp;
                       </a>
 						</s:if> <s:else>
 						 <a class="btnEdit" href="/gds/manage/editIc.action?studyIds=${study.id}&projectId=${project.id}">
-                        <i class="fa fa-files-o fa-lg" aria-hidden="true" alt="add" title="Add Ic"></i> &nbsp;&nbsp;&nbsp; </a>
+                        <i class="fa fa-files-o fa-lg" aria-hidden="true" alt="add" title="Add IC"></i> &nbsp;&nbsp;&nbsp; </a>
 						<a class="btnDelete" href="#"> <i class="fa fa-trash fa-lg"
 						aria-hidden="true" title="Delete"></i></a>
 						</s:else>
