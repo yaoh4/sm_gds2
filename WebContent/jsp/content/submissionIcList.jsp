@@ -78,7 +78,7 @@
                     
                     <!--  Do not show edit and delete for sub-project -->
                       <a class="btnEdit"  href="/gds/manage/editIc.action?instCertId=${cert.id}&projectId=${project.id}">
-                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" alt="edit" title="Edit"></i>&nbsp;
+                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" alt="edit" title="Edit IC"></i>&nbsp;
                       </a>&nbsp;&nbsp;&nbsp;
                       <a class="btnDeleteIc" href="#" >
                         <i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="Delete"></i>

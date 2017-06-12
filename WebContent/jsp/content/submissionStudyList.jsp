@@ -89,7 +89,7 @@
 						href="/gds/manage/editStudy.action?studyId=${study.id}&projectId=${project.id}">
 							<s:hidden name="studyid" id="studyid" value="%{#study.id}" /> <i
 							class="fa fa-pencil-square fa-lg" aria-hidden="true" 
-							title="Edit"></i>&nbsp;
+							title="Edit Study"></i>&nbsp;
 					</a> &nbsp;&nbsp;&nbsp; <s:hidden id="val"
 							value="%{#study.institutionalCertifications[0].id}" /> <s:if
 							test="%{#study.institutionalCertifications[0].id != null}">
