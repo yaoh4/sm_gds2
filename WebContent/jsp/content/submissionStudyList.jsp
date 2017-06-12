@@ -18,7 +18,7 @@
 				<th class="tableHeader" align="center" width="25%">Institution</th>
 				<th width="10%">Received</th>
 				<th width="10%" class="no-sort sorting_disabled">Document</th>
-				<th width="10%" class="no-sort sorting_disabled">Approved by GPA</th>
+				<th width="10%">Approved by GPA</th>
 				<th class="no-sort sorting_disabled" align="center" width="10%">Comments</th>
 				<th id="actionColumnStudy" class="tableHeader no-sort sorting_disabled"
 					style="display: none;" align="center" width="10%">Actions</th>
