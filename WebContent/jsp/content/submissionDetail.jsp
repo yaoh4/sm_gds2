@@ -221,7 +221,7 @@
             <tr>
               <td>${subproject.projectSubmissionTitle}</td>
               
-              <td>${subproject.extPiFullName}<br>${subProject.intPiFullName}</td>
+              <td>${subproject.extPiFullName}<br>${subproject.intPiFullName}</td>
               
               <td style="white-space: nowrap;" align="center">
               <s:if test="%{getProjectStatusCode(#subproject.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
