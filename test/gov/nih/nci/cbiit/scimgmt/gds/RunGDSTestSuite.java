@@ -41,6 +41,13 @@ public class RunGDSTestSuite {
 		
 		BasicStudyInfoSubmissionTest basicStudyInfoSubmissionTest = new BasicStudyInfoSubmissionTest();
 		basicStudyInfoSubmissionTest.computePageStatusTest();
+		basicStudyInfoSubmissionTest.testSave();
+		basicStudyInfoSubmissionTest.testValidateSave();
+		basicStudyInfoSubmissionTest.testExecute();
+		basicStudyInfoSubmissionTest.testSaveAndNext();
+		basicStudyInfoSubmissionTest.testMissingBsiData();
+		basicStudyInfoSubmissionTest.testuploadBasicStudyInfo();
+		
 		
 		GdsPageStatusUtilTest gdsPageStatusUtilTest = new GdsPageStatusUtilTest();
 		gdsPageStatusUtilTest.computeBsiStudyInfoStatusTest();
