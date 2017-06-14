@@ -5,7 +5,6 @@ import static org.mockito.Matchers.any;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
@@ -32,7 +29,6 @@ import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
-import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 import junit.framework.Assert;
 
 
@@ -139,6 +135,26 @@ public class BasicStudyInfoSubmissionTest {
 		Mockito.when(manageSubmission.validateUploadFile(content, "application/msword")).thenReturn(true);
 		mockServices(basicStudyInfo, project);
 		basicStudyInfo.uploadBasicStudyInfo();
+	}
+	
+	@Test
+	@Transactional
+	public void testDeleteBsiFile() {
+		System.out.println("Starting Junit for delete bsi file");
+		List<Document> docs = new ArrayList<Document> ();
+		Document doc = new Document();
+      	Project project = new Project();
+		project.setId(1L);
+		project.setSubprojectFlag(ApplicationConstants.FLAG_NO);
+		project.setSubmissionReasonId(ApplicationConstants.SUBMISSION_REASON_NIHFUND);
+		project.setBsiReviewedId(ApplicationConstants.BSI_NO);
+		FileUploadService fileUploadServiceMock = Mockito.mock(FileUploadService.class);
+		Mockito.when(fileUploadServiceMock.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, 1L)).thenReturn(docs);
+		BasicStudyInfoSubmissionAction basicStudyInfoSubmission = new BasicStudyInfoSubmissionAction();
+		basicStudyInfoSubmission.fileUploadService = fileUploadServiceMock;
+		basicStudyInfoSubmission.setProject(project);
+		mockServices(basicStudyInfoSubmission, project);
+		basicStudyInfoSubmission.setDocId(null);
 	}
 	
 	@Test

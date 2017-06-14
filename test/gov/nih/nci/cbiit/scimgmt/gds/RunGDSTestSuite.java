@@ -47,6 +47,7 @@ public class RunGDSTestSuite {
 		basicStudyInfoSubmissionTest.testSaveAndNext();
 		basicStudyInfoSubmissionTest.testMissingBsiData();
 		basicStudyInfoSubmissionTest.testuploadBasicStudyInfo();
+		basicStudyInfoSubmissionTest.testDeleteBsiFile();
 		
 		
 		GdsPageStatusUtilTest gdsPageStatusUtilTest = new GdsPageStatusUtilTest();
@@ -65,6 +66,17 @@ public class RunGDSTestSuite {
 		gdsSubmissionActionHelperTest.isEligibleForSubprojectTest();
 		gdsSubmissionActionHelperTest.isProjectEligibleForVersionTest();
 		gdsSubmissionActionHelperTest.isSubmissionUpdatedTest();
+		gdsSubmissionActionHelperTest.willThereBeAnyDataSubmittedInGdsPlanTest();
+		gdsSubmissionActionHelperTest.testGetLookupDropDownList();
+		gdsSubmissionActionHelperTest.testGetDocDropDownList();
+		gdsSubmissionActionHelperTest.testPopulateDocDropDownList();
+		gdsSubmissionActionHelperTest.testPopulateProgDropDownList();
+		gdsSubmissionActionHelperTest.testRemovelookUpFromDropDownList();
+		gdsSubmissionActionHelperTest.testGetLookUpDropDownCodeList();
+		gdsSubmissionActionHelperTest.testGetDulCheckList();
+		gdsSubmissionActionHelperTest.testGetLoggedOnOsersDOC();
+		gdsSubmissionActionHelperTest.testPopolateProjectProperties();
+		gdsSubmissionActionHelperTest.testGetDulChecklistsSets();
 
 		IcListSubmissionActionTest icListSubmissionActionTest = new IcListSubmissionActionTest();
 		icListSubmissionActionTest.testExecute();
