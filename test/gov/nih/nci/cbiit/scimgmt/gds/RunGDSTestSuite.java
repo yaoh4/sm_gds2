@@ -61,6 +61,8 @@ public class RunGDSTestSuite {
 		gdsMissingDataUtilTest.getMissingIcListDataTest();
 		gdsMissingDataUtilTest.getMissingGdsPlanDataTest();
 		gdsMissingDataUtilTest.getMissingRepositoryListDataTest();
+		gdsMissingDataUtilTest.testGetMissingIcData();
+		gdsMissingDataUtilTest.testGetMissingrepositoryData();
 
 		GdsSubmissionActionHelperTest gdsSubmissionActionHelperTest = new GdsSubmissionActionHelperTest();
 		gdsSubmissionActionHelperTest.isEligibleForSubprojectTest();
