@@ -3,6 +3,7 @@ package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.PersonRole;
 import gov.nih.nci.cbiit.scimgmt.gds.services.UserRoleService;
 
 import org.apache.commons.lang.StringUtils;
@@ -38,6 +39,13 @@ public class ChangeUserAction extends BaseAction {
 			if (nedPerson == null) {
 				return ApplicationConstants.NOT_AUTHORIZED;
 			}
+			
+			//if the change user is not in the user_roles_t table.
+			PersonRole personrole =  userRoleService.findPersonRoleByUserId(user);
+			if (personrole == null) {
+				return ApplicationConstants.NOT_AUTHORIZED;
+			}
+			
 			nedPerson.setEmail(loggedOnUserEmail);
 			BeanUtils.copyProperties(nedPerson, loggedOnUser);				
 		}
