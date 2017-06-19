@@ -1,6 +1,8 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,9 +50,18 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		
 		setStudy(study);
 		listStudies = retrieveSelectedProject().getStudies();
+		Collections.sort(listStudies,StuNameComparator);
         return SUCCESS;
 	}
 	
+	 public static Comparator<Study> StuNameComparator = new Comparator<Study>() {
+
+			public int compare(Study s1, Study s2) {
+			   String StudentName1 = s1.getStudyName().toUpperCase();
+			   String StudentName2 = s2.getStudyName().toUpperCase();
+			   //ascending order
+			   return StudentName1.compareTo(StudentName2);
+		    }};
 
 	/**
 	 * Retrieve the project based on the projectId indicated in the request
@@ -95,6 +106,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 			setProject(retrieveSelectedProject());
 			setStudy(study);
 			listStudies = retrieveSelectedProject().getStudies();
+			Collections.sort(listStudies,StuNameComparator);
 		}
 	}
 	
@@ -154,6 +166,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 			setProject(retrieveSelectedProject());
 			setStudy(study);
 			listStudies = retrieveSelectedProject().getStudies();
+			Collections.sort(listStudies,StuNameComparator);
 		}
 	}
 	
@@ -170,6 +183,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
 		hs.addAll(listStudies);
 		listStudies.clear();
 		listStudies.addAll(hs);
+		Collections.sort(listStudies,StuNameComparator);
 		getStudy().setStudyName(null);
 		getStudy().setInstitution(null);
 		addActionMessage(getText("project.save.success"));
