@@ -122,9 +122,9 @@
           		<table style="width: 97%; font-size: 14px; table-layout:fixed;" class="table table-bordered table-striped">
               	<thead>
               		<tr class="modalTheader">
-                		<th  class="tableHeader"  align="center" width="25%">Study Name</th>                      
-                		<th class="tableHeader" align="center" width="25%">Institution</th>
-                		<th>Received</th>
+                		<th  class="tableHeader"  align="center" width="45%">Study Name</th>                      
+                		<th class="tableHeader" align="center" width="45%">Institution</th>
+                		<th width="10%">Received</th>
               		</tr>
               	</thead>
               	<tbody>
