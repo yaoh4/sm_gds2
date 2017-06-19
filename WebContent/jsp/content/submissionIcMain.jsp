@@ -40,6 +40,21 @@
                 <i class="fa fa-external-link" aria-hidden="true"></i>
               </a>
             </div>
+            
+      <s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_YES)}">
+       <div>
+        <s:if test="%{project.institutionalCertifications.size > 0}">
+        <br>
+        <span>Make sure to select the Institutional Certifications that apply to this sub-project by clicking on the Institutional Certifications view below.</span>
+        <p>You will be able to add/edit Studies and Institutional Certifications only at the parent project level. Changes will then be reflected in this sub-project. </p>
+        </s:if>
+        <s:else>
+        <br>
+        <span>You will be able to add/edit Institutional Certification and/or DUL only at the parent project level. Changes will then be reflected in this sub-project. </span>
+        </s:else>
+       </div>
+      </s:if>
+      
       <s:if test="%{project.subprojectFlag.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@FLAG_NO)}">
                   <br>
         <div style="display:inline;" class="btn btn-project-primary" id="addStudyBtn">
