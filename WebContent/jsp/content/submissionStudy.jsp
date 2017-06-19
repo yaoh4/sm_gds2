@@ -54,7 +54,7 @@
             
                         <div class="studyHeadingPanel panel-heading header">
                           <h4 class="panel-title ">Study</h4>
-                          <p style="font-size:11px;">For multi-site studies in which each site is providing their own certification, please enter a separate entry for each site/institution (using the same study name).</p>
+                          <p style="font-size:14px;">For multi-site studies in which each site is providing their own certification, please enter a separate entry for each site/institution (using the same study name).</p>
                         </div>  
                                    
             <!--  STUDY SECTION BODY -->            
