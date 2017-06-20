@@ -248,17 +248,17 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	}
 	
 	
-	 public static Comparator<Study> StuNameComparator = new Comparator<Study>() {
+	public static Comparator<Study> StuInstIdComparator = new Comparator<Study>() {
 
-			public int compare(Study s1, Study s2) {
-				if((!CollectionUtils.isEmpty(s1.getInstitutionalCertifications())) && (!CollectionUtils.isEmpty(s2.getInstitutionalCertifications()))) {
-			   Long StudentName1 = s1.getInstitutionalCertifications().get(0).getId();
-			   Long StudentName2 = s2.getInstitutionalCertifications().get(0).getId();
-			   //ascending order
-			   return StudentName1.compareTo(StudentName2);
-				}
-				return -1;
-		    }};
+	     public int compare(Study s1, Study s2) {
+			if((!CollectionUtils.isEmpty(s1.getInstitutionalCertifications())) && (!CollectionUtils.isEmpty(s2.getInstitutionalCertifications()))) {
+			   Long IcId1 = s1.getInstitutionalCertifications().get(0).getId();
+			   Long IcId2 = s2.getInstitutionalCertifications().get(0).getId();
+			     return IcId1.compareTo(IcId2);
+			}
+				 return -1;
+	     }
+	};
 	
 	public Project initializeNewVersion(Project project, Project currentLatestVersion)
 		throws Exception {
@@ -405,7 +405,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			List<Study> currentStudies = currentLatestVersion.getStudies();
 			Long certId = null;
 			Long originalId = null;
-			Collections.sort(currentStudies,StuNameComparator );
+			Collections.sort(currentStudies,StuInstIdComparator );
 			if(!CollectionUtils.isEmpty(currentStudies)) {
 				List<Study> versionStudies = new ArrayList<Study>();	
 				List<InstitutionalCertification> versionIcs = new ArrayList<InstitutionalCertification>();
@@ -422,9 +422,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 								BeanUtils.copyProperties(currentIc, ic);
 								if(originalId != null && study.getInstitutionalCertifications().get(0).getId().equals(originalId)) {
 									InstitutionalCertification existingIc = manageProjectService.findIcById(certId);
-									if(existingIc != null) {
+									   if(existingIc != null) {
 										stu.addInstitutionalCertification(existingIc);
-									}
+									   }
 								} else {
 								ic.setId(null);
 								ic.setComments(null);

@@ -59,9 +59,9 @@ public class SubmissionStudyAction  extends ManageSubmission {
 			public int compare(Study s1, Study s2) {
 			   String StudentName1 = s1.getStudyName().toUpperCase();
 			   String StudentName2 = s2.getStudyName().toUpperCase();
-			   //ascending order
 			   return StudentName1.compareTo(StudentName2);
-		    }};
+		    }
+	 };
 
 	/**
 	 * Retrieve the project based on the projectId indicated in the request
