@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -246,6 +248,18 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	}
 	
 	
+	 public static Comparator<Study> StuNameComparator = new Comparator<Study>() {
+
+			public int compare(Study s1, Study s2) {
+				if((!CollectionUtils.isEmpty(s1.getInstitutionalCertifications())) && (!CollectionUtils.isEmpty(s2.getInstitutionalCertifications()))) {
+			   Long StudentName1 = s1.getInstitutionalCertifications().get(0).getId();
+			   Long StudentName2 = s2.getInstitutionalCertifications().get(0).getId();
+			   //ascending order
+			   return StudentName1.compareTo(StudentName2);
+				}
+				return -1;
+		    }};
+	
 	public Project initializeNewVersion(Project project, Project currentLatestVersion)
 		throws Exception {
 		
@@ -388,8 +402,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		//copy studies
 		
 		if(!subprojectClone) {
-			
 			List<Study> currentStudies = currentLatestVersion.getStudies();
+			Long certId = null;
+			Long originalId = null;
+			Collections.sort(currentStudies,StuNameComparator );
 			if(!CollectionUtils.isEmpty(currentStudies)) {
 				List<Study> versionStudies = new ArrayList<Study>();	
 				List<InstitutionalCertification> versionIcs = new ArrayList<InstitutionalCertification>();
@@ -404,10 +420,20 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 						InstitutionalCertification ic = new InstitutionalCertification();
 							for(InstitutionalCertification currentIc: ics) {
 								BeanUtils.copyProperties(currentIc, ic);
+								if(originalId != null && study.getInstitutionalCertifications().get(0).getId().equals(originalId)) {
+									InstitutionalCertification existingIc = manageProjectService.findIcById(certId);
+									if(existingIc != null) {
+										stu.addInstitutionalCertification(existingIc);
+									}
+								} else {
 								ic.setId(null);
 								ic.setComments(null);
 								ic = manageProjectService.saveOrUpdateIc(ic);
+								stu.addInstitutionalCertification(ic);
+								certId = ic.getId();
+								originalId = ics.get(0).getId();
 								versionIcs.add(ic);
+								}
 							}
 
 						List<Document> currentIcDocs = fileUploadService.retrieveFileByIcId(ics.get(0).getId(), currentLatestVersion.getId());
@@ -421,7 +447,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 							}
 							ic.setDocuments(icDocs);
 						}
-						stu.addInstitutionalCertification(ic);
+
 					}
 					stu.setStudiesDulSets(new ArrayList<StudiesDulSet>());
 					List<StudiesDulSet> currentDulSets = study.getStudiesDulSets();
