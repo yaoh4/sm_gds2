@@ -235,13 +235,15 @@ public class GdsMissingDataUtil {
 		
 		//Check if there are studies without IC - at project level only
 		if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
-			MissingData missingDataIc = new MissingData("The following Studies are not yet associated with an Institutional Certification:");
+			MissingData missingDataStudy = new MissingData("The following Studies are not yet associated with an Institutional Certification:");
 			for(Study study: studies) {
 				if(CollectionUtils.isEmpty(study.getInstitutionalCertifications())) {			
-					missingDataIc.addChild(new MissingData(study.getStudyName()));
+					missingDataStudy.addChild(new MissingData(study.getStudyName()));
 				}
 			} 
-			missingDataList.add(missingDataIc);
+			if(!CollectionUtils.isEmpty(missingDataStudy.getChildList())) {
+			missingDataList.add(missingDataStudy);
+			}
 		}
 			
 		
