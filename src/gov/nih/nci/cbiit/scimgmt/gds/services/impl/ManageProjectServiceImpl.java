@@ -23,6 +23,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 
 /**
  * Class to support management of Projects (save, update and delete etc...)
@@ -185,6 +186,15 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		return result;
 	}
 	
+	/**
+	 * saves study
+	 * 
+	 * returns saved study
+	 */
+	public Study saveStudy( Study study) {
+		Study result = icCertsDao.mergeStudy(study);
+		return result;
+	}
 	
 	/**
 	 * Deletes an IC from DB by icId
@@ -204,6 +214,16 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 			documentsDao.delete(doc);		
 		}
 		
+		// Remove the ic mapping from all the associated studies
+		// and remove the DULs from associated studies
+		for(Study stud: ic.getStudies()) {
+			stud.getInstitutionalCertifications().clear();
+			stud.getStudiesDulSets().clear();
+			stud.setDulVerificationId(null);
+			stud.setComments(null);
+			saveStudy(stud);
+		}
+		
 		//Then remove the IC mapping from all the associated projects
 		List<Project> projects = ic.getProjects();
 		for(Project proj: projects) {
@@ -213,8 +233,27 @@ public class ManageProjectServiceImpl implements ManageProjectService {
 		
 		//Now delete the IC
 		icCertsDao.delete(ic);
+
+		return true;
+	}
+	
+	/**
+	 * deletes the study
+	 * 
+	 * return boolean
+	 */
+	public boolean deleteStudy(Long studyId, Project project) {
+		
+		Study study = icCertsDao.findStudyById(studyId);
+		
+		project.getStudies().remove(study);
+		saveOrUpdate(project);
+		
+		// delete the study
+		icCertsDao.delete(study);
 		
 		return true;
+		
 	}
 	
 	

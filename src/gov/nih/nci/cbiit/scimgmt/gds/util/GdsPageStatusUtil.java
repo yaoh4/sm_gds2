@@ -24,6 +24,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 
@@ -156,6 +157,7 @@ public class GdsPageStatusUtil {
 	public String computeIcListStatus(Project project) {
 		
 		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
+		List<Study> studies = project.getStudies();
 		
 		//If user selects "Non-human" only,
 		//OR if the answer to "Will there be any data submitted?" is No.
@@ -184,32 +186,38 @@ public class GdsPageStatusUtil {
 			}
 		}
 		
-		if(CollectionUtils.isEmpty(icList)) {
-			if(ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
-				if(StringUtils.isEmpty(project.getCertificationCompleteFlag())) {
-					return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
-				} else {
-					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-				}		
-			} else{
-				return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
-			}
-		}
-			
-		if(!ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getCertificationCompleteFlag())) { 
-			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		//There are no studies
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag()) && CollectionUtils.isEmpty(studies) ) {
+			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
-		//There is at least one IC and IC certification flag says done. So proceed to
-		//check if the ICs are all ok.This check is only for projects
-		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
-		for(InstitutionalCertification ic: icList) {
-			if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
+		//There are studies but no ICSs
+		if(CollectionUtils.isEmpty(icList) ) {
+			if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag()))
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			else
+				return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		}
+		
+		
+		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
+			//All studies have not received ICs
+			for(Study study: studies) {
+				if(CollectionUtils.isEmpty(study.getInstitutionalCertifications())) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
+			}
+				
+		
+			//All studies have received ICs. So proceed to check if 
+			//the ICs are all ok.This check is only for projects
+			for(InstitutionalCertification ic: icList) {
+				if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equals(ic.getStatus())) {
+					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+				}
 			}
 		}
-		}
-			
+		
 		return ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
 	}
 	
@@ -271,7 +279,7 @@ public class GdsPageStatusUtil {
 	 * @param project
 	 * @return String The status if present.
 	 */
-	public String computeRepositoryStatus(Project project) {
+public String computeRepositoryStatus(Project project) {
 		
 		// If there are no repositories selected, status should be not started.
 		if (project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_REPOSITORY_ID).isEmpty()) {
@@ -287,7 +295,9 @@ public class GdsPageStatusUtil {
 			}		
 		}
 		
-		String status = ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
+		String status = ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		Boolean studyReleasedYesFlag = true;
+		Boolean regStatusNotStartedFlag = true;
 		
 		List<RepositoryStatus> repositoryStatuses = repositoryStatuses1;
 		for(RepositoryStatus repoStatus: repositoryStatuses) {
@@ -296,32 +306,19 @@ public class GdsPageStatusUtil {
 			Lookup submissionStatus = repoStatus.getLookupTBySubmissionStatusId();
 			Lookup studyReleased = repoStatus.getLookupTByStudyReleasedId();
 			
-			if(ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID.equals(registrationStatus.getId())) {
-				//No need to check this repository further, since the submission status
-				//and study released fields will be disabled in this case
-				if(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equals(status)) {
-					//If previous repository is in complete status, then we are now
-					//in in-progress state
-					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-				}
-				continue;
+			if(!ApplicationConstants.REGISTRATION_STATUS_NOTSTARTED_ID.equals(registrationStatus.getId())) {
+				regStatusNotStartedFlag = false;
 			}
 			
-			//If we get here, then the page status is either in progress or completed.
-			//Check in progress first
-			
-			//Registration Status In Progress, OR Submission Status Not Started or In Progress  
-			//OR Study Released is No.
-			if(ApplicationConstants.REGISTRATION_STATUS_INPROGRESS_ID.equals(registrationStatus.getId())
-			||	(ApplicationConstants.PROJECT_SUBMISSION_STATUS_NOTSTARTED_ID.equals(submissionStatus.getId())
-				|| ApplicationConstants.PROJECT_SUBMISSION_STATUS_INPROGRESS_ID.equals(submissionStatus.getId())) 
-			|| (ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId()))) {
-				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+			if(ApplicationConstants.PROJECT_STUDY_RELEASED_NO_ID.equals(studyReleased.getId())) {
+				studyReleasedYesFlag = false;
 			}
-			
-			//Neither not started, nor in in-progress status.Hence, completed
-			status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
-			
+		}
+		
+		    if(studyReleasedYesFlag) {
+			    status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		    } else if(regStatusNotStartedFlag) {
+			    status = ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
 		}
 		
 		if(project.getAnticipatedSubmissionDate() != null &&

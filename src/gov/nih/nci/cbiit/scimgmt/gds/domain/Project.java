@@ -77,10 +77,8 @@ public class Project implements java.io.Serializable {
 	private List<RepositoryStatus> repositoryStatuses = new ArrayList<RepositoryStatus>(0);
 	private List<InstitutionalCertification> institutionalCertifications = new ArrayList<InstitutionalCertification>();
 	private List<ProjectGrantContract> projectGrantsContracts = new ArrayList<ProjectGrantContract>();
+	private List<Study> studies = new ArrayList<Study>();
 
-
-	
-	
 	private Long subprojectCount;
 	private Long repoCount;
 	private Project parent;
@@ -476,7 +474,7 @@ public class Project implements java.io.Serializable {
 		this.anticipatedSubmissionDate = anticipatedSubmissionDate;
 	}
 	
-	@Column(name = "PROJECT_SUBMISSION_TITLE", length = 100)
+	@Column(name = "PROJECT_SUBMISSION_TITLE", length = 200)
 	public String getSubmissionTitle() {
 		return submissionTitle;
 	}
@@ -548,6 +546,15 @@ public class Project implements java.io.Serializable {
 	
 	public void addProjectGrantContract(ProjectGrantContract projectGrantContract) {
 		projectGrantsContracts.add(projectGrantContract);
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval = true)
+	public List<Study> getStudies() {
+		return studies;
+	}
+
+	public void setStudies(List<Study> studies) {
+		this.studies = studies;
 	}
 	
 	@Transient
@@ -751,6 +758,15 @@ public class Project implements java.io.Serializable {
 	
 	public void setDataLinkFlag(String dataLinkFlag) {
 		this.dataLinkFlag = dataLinkFlag;
+	}
+	
+	@Transient
+	public Study getStudyById(Long id) {
+		for(Study s: getStudies()) {
+			if(s.getId().longValue() == id.longValue())
+				return s;
+		}
+		return null;
 	}
 
 }

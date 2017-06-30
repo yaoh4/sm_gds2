@@ -83,13 +83,19 @@ $(document).ready(function(){
             },
             "columnDefs": [
                {
-            	"targets": [ 0, 4, 5, 10, 11, 12, 13, 14, 15 ],
+            	"targets": [ 0, 4, 5, 7, 10, 11, 12, 13, 14, 15 ],
             	"visible": false
 			   },
                {
                 "targets": 1, // Second visible column, view project id link on submission title
                 "render": function (data, type, row, meta) {
                 	if(type === 'display') {
+                		fullText = data + ' (v' + row.versionNum + ')';
+                		if(data.length > 100) {
+                			data = '<span class="hoverOverText" style="font-weight: bold; color:#2d699e;font-size: 14px;" title="' + fullText + '">' + data.substring(0,97) + '...' + '</span>';
+                		} else {
+                			data = '<span class="hoverOverText" style="font-weight: bold; color:#2d699e;font-size: 14px;">' + fullText + '</span>';
+                		}
                 		if(row.subprojectCount != null && row.subprojectCount > 0) {
                 			if(row.expandSubproject || row.expandRepository) {
                 				cssClass = 'detail-control match';
@@ -97,9 +103,9 @@ $(document).ready(function(){
                 				cssClass = 'detail-control';
                 			}
                 			return '<a style="margin-right: 5px;" class="' + cssClass + '" href="javascript: void(0)"><i class="expand fa fa-plus-square" aria-hidden="true"></i></a>' +
-            				'<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + ' (v' + row.versionNum + ')' + '</a>';
+                			data;
                 		}
-                		return '<a style="font-weight: bold; font-size: 14px;" href="../manage/navigateToSubmissionDetail.action?projectId=' + row.id + '">' + data + ' (v' + row.versionNum + ')' + '</a>';
+                		return data;
                 	}
                 	return data;
                 } },

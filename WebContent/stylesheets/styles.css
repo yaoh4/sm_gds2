@@ -126,3 +126,13 @@ ul.frm_readonly div input {
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
+.textonly {
+	width:116%;
+}
+
+.tableStudy{
+	width:100%;
+	max-width:95%;
+	margin-bottom:20px;
+	margin-left:7px;
+}

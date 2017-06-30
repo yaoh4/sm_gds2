@@ -18,6 +18,8 @@ import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsMissingDataUtil;
 
 import org.springframework.util.CollectionUtils;
@@ -31,33 +33,27 @@ public class IcListSubmissionAction extends ManageSubmission {
 
 	static Logger logger = LogManager.getLogger(IcSubmissionAction.class);
 	
-	
 	private InstitutionalCertification instCertification;
 	
 	private String instCertId;
 	
-	private String dulIds;
-	
 	private String icIds = "";
-	
-	private File ic;
-	
-	private String icFileName;
-
-	private String icContentType;
-	
-	private List<Document> icFileDocs = new ArrayList<Document>();
-	
+		
 	private String certFlag;
 	
 	private boolean ifIcSelected;
-	
-	private Document doc = null; // json object to be returned for UI refresh after upload
-	
-   private String icComments;
-   
-   private String additionalComments;
 
+	private String icComments;
+   
+   	private String additionalComments;
+
+   	/**
+   	 * Display the main IC page
+   	 */
+	public String execute() {
+		return getIcList();
+	}
+   
 	/**
 	 * Invoked for the Track IC Status page. Invoked from
 	 * 1. ICs tab (if at least one IC is present in the submission (else, user will
@@ -75,17 +71,28 @@ public class IcListSubmissionAction extends ManageSubmission {
 		//Retrieve IC list. If sub-project, retrieve parent IC list
 		Project storedProject = retrieveSelectedProject();
 		List<InstitutionalCertification> icList = storedProject.getInstitutionalCertifications();
+		List<Study> studies = storedProject.getStudies();
 		icComments = storedProject.getStudiesComments();
 		additionalComments =  storedProject.getAdditionalIcComments();
 		Long displayProjectId = storedProject.getId();
 		if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(storedProject.getSubprojectFlag())) {
+			
+			studies = retrieveParentProject().getStudies();
 			prepareIcListDisplay(icList);
 			icList = retrieveParentProject().getInstitutionalCertifications();
+			if(!CollectionUtils.isEmpty(icList)) {
+				for(InstitutionalCertification ic: icList) {
+					ic.setComments(null);
+					for(Study study: ic.getStudies()) {
+						study.setComments(null);
+					}
+				}
+			}
 			displayProjectId = storedProject.getParentProjectId();
 		}
-		
+		storedProject.setStudies(studies);
 		storedProject.setInstitutionalCertifications(icList);
-				
+		
 		List<Document> docs = 
 			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, displayProjectId);
 			
@@ -101,10 +108,23 @@ public class IcListSubmissionAction extends ManageSubmission {
 						ic.addDocument(doc);								
 				}	
 			}
+			
+			for(Study stu : studies) {
+			    if(!CollectionUtils.isEmpty(stu.getInstitutionalCertifications())) {
+			        for(InstitutionalCertification ic: stu.getInstitutionalCertifications()) {
+				         for(Document doc: docs) {
+					        if(doc.getInstitutionalCertificationId() != null && 
+							   doc.getInstitutionalCertificationId().equals(ic.getId()))
+						       ic.addDocument(doc);								
+				         }	
+			        }
+		        }
+		    }
 		}
 		
 		setProject(storedProject);
 		setProjectId(storedProject.getId().toString());
+		studiesForSelection = retrieveStudies();
 		return forward;
 	}
 	
@@ -181,7 +201,9 @@ public class IcListSubmissionAction extends ManageSubmission {
 			if(StringUtils.isNotBlank(getProjectId())){
 				getProject().setId(Long.valueOf(getProjectId()));
 			}
+			String storedComments = additionalComments;
 			getIcList();
+			additionalComments = storedComments;
 			icIds="";
 		}
 	}
@@ -273,23 +295,8 @@ public class IcListSubmissionAction extends ManageSubmission {
 		getProject().setCertificationCompleteFlag(null);
 		getProject().setAdditionalIcComments(null);
 		getProject().setStudiesComments(null);
-        List<InstitutionalCertification> icList = retrieveSelectedProject().getInstitutionalCertifications();
-		if(CollectionUtils.isEmpty(icList)) {
-			//We don't save subprojects here because we have to do that anyways in the
-			//next step since the certification complete flag has to be changed.
-			super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_IC, false);
-		}
-		
-		List<Project> subprojects = manageProjectService.getSubprojects(project.getId(), true);
-		for(Project subproject: subprojects) {
-			if(CollectionUtils.isEmpty(subproject.getInstitutionalCertifications())) {
-				//Reset this to 'No' if it was 'Yes' since there is no IC now
-				if(!StringUtils.isEmpty(subproject.getCertificationCompleteFlag())){
-					subproject.setCertificationCompleteFlag(ApplicationConstants.FLAG_NO);
-				}
-				super.saveProject(subproject, ApplicationConstants.PAGE_CODE_IC, false);
-			}
-		}
+
+		super.saveProject(getProject(), ApplicationConstants.PAGE_CODE_IC, true);
 		
 		setProject(retrieveSelectedProject());
 		return SUCCESS;
@@ -323,24 +330,6 @@ public class IcListSubmissionAction extends ManageSubmission {
 		this.instCertId = instCertId;
 	}
 
-
-
-	/**
-	 * @return the dulIds
-	 */
-	public String getDulIds() {
-		return dulIds;
-	}
-
-
-	/**
-	 * @param dulIds the dulIds to set
-	 */
-	public void setDulIds(String dulIds) {
-		this.dulIds = dulIds;
-	}
-
-
 	
 	
 	/**
@@ -356,38 +345,6 @@ public class IcListSubmissionAction extends ManageSubmission {
 	 */
 	public void setIcIds(String icIds) {
 		this.icIds = icIds;
-	}
-
-
-	/**
-	 * @return the icFile
-	 */
-	public File getIc() {
-		return ic;
-	}
-
-
-	/**
-	 * @param icFile the icFile to set
-	 */
-	public void setIc(File ic) {
-		this.ic = ic;
-	}
-
-
-	/**
-	 * @return the icFileName
-	 */
-	public String getIcFileName() {
-		return icFileName;
-	}
-
-
-	/**
-	 * @param icFileName the icFileName to set
-	 */
-	public void setIcFileName(String icFileName) {
-		this.icFileName = icFileName;
 	}
     
 	/**
@@ -420,47 +377,6 @@ public class IcListSubmissionAction extends ManageSubmission {
      */
 	public void setIcComments(String icComments) {
 		this.icComments = icComments;
-	}
-
-	/**
-	 * @param icFileContentType the icFileContentType to set
-	 */
-	public void setIcContentType(String icContentType) {
-		this.icContentType = icContentType;
-	}
-
-
-	/**
-	 * @return the icFileDocs
-	 */
-	public List<Document> getIcFileDocs() {
-		return icFileDocs;
-	}
-
-
-	/**
-	 * @return the icFileContentType
-	 */
-	public String getIcContentType() {
-		return icContentType;
-	}
-
-
-	/**
-	 * @param icFileDocs the icFileDocs to set
-	 */
-	public void setIcFileDocs(List<Document> icFileDocs) {
-		this.icFileDocs = icFileDocs;
-	}
-
-
-	public Document getDoc() {
-		return doc;
-	}
-
-
-	public void setDoc(Document doc) {
-		this.doc = doc;
 	}
 	
 	public boolean isIfIcSelected() {

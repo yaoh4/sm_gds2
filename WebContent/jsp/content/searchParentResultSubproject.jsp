@@ -34,9 +34,17 @@
 				<tbody>
 					<s:iterator value="subprojectList" var="s" status="stat">
 						<tr>
-							<td><s:a href="../manage/navigateToSubmissionDetail.action?projectId=%{#s.id}">
-									<s:property value="#s.projectSubmissionTitle" /> (v<s:property value="#s.versionNum" />)
-								</s:a></td>
+							<td>
+								<s:if test="%{#s.projectSubmissionTitle.length() > 100}">
+								  <span class="hoverOverText" title="<s:property value="%{#s.projectSubmissionTitle + ' (v' + #s.versionNum + ')'}" />" style="color:#2d699e;">
+									<s:property value="%{#s.projectSubmissionTitle.substring(0, 97) + '...'}" />
+								  </span>
+								</s:if>
+								<s:else>
+								  <span class="hoverOverText" title="" style="color:#2d699e;">
+									<s:property value="%{#s.projectSubmissionTitle + ' (v' + #s.versionNum + ')'}" />
+								  </span>
+								</s:else>
 							<td>
 								<s:if test="%{#s.extGrantContractNum == '' || #s.extGrantContractNum == null}">
 									<s:property value="#s.intGrantContractNum" />

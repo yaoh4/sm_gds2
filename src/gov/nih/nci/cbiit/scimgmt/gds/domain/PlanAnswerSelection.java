@@ -31,7 +31,7 @@ public class PlanAnswerSelection implements java.io.Serializable {
 
 	private Long id;
 	private PlanQuestionsAnswer planQuestionsAnswer;
-	private List<Project> projects = new ArrayList();;
+	private List<Project> projects = new ArrayList();
 	private String createdBy;
 	private String lastChangedBy;
 	private String otherText;

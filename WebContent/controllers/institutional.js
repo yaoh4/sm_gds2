@@ -1,9 +1,23 @@
   
 //for institutional.htm page
 
+$(document).ready(function () {
+		$(".checkboxSelected").on("change", function(){
+			$("#message").attr("style", "display:none");
+		    var studies = [];
+		    $('.checkboxSelected:checked').each(function(){        
+		        var studyTypes = $(this).parent().parent().next().text();
+		        studies.push(studyTypes);
+		    });
+		    $("#log").html(studies.join("<br/> "));
+
+
+		});
+});
 
 $(document).ready(function () {
 	
+
 	//var myDulIdArray = "input[id$=" + dulIds + "]";
 	//var dulIdArray = $(myDulIdArray).val();
 	var dulIdArray = JSON.parse($("#dulIds").val());
@@ -80,12 +94,12 @@ $(document).ready(function () {
 	
 
 	  //Do not show any sections if no file uploaded.
-	  if( !$.trim( $("#loadIcFileHistory").html() ).length ) {
+	  /*if( !$.trim( $("#loadIcFileHistory").html() ).length ) {
 		  $(".form-group").hide();
 	  } else {
 		  $(".form-group").show();
 	  } 
-	  
+	  */
 	  
 	  //set the correct length for text areas
 	  showCharCount('#instCertComments', '#charNum6');
@@ -96,6 +110,7 @@ $(document).ready(function () {
 			var commentsElem = $("#comments-" + i);
 			showCharCount(commentsElem, '#count-' + i);
 		}
+		
 });
 
 //comments kep up function
@@ -203,7 +218,7 @@ function deleteDulSet(studiesIdx, dulSetIdx) {
 };
 
 
-function addStudy() {
+function addStudy(studyPk, studyName, studyInst) {
 	
 	var studyItems = $(".studySections").length;
 	
@@ -250,9 +265,9 @@ function addStudy() {
 	
 	//Remove values
 	newStudySectionDiv.find("#studyDisplayId-" + newStudySectionIndex).attr("value", newStudySectionIndex);
-	newStudySectionDiv.find("#studyId-" + newStudySectionIndex).removeAttr("value");
-	newStudySectionDiv.find("#studyName-" + newStudySectionIndex).removeAttr("value");
-	newStudySectionDiv.find("#institution-" + newStudySectionIndex).removeAttr("value");
+	newStudySectionDiv.find("#studyId-" + newStudySectionIndex).val(studyPk);
+	newStudySectionDiv.find("#studyName-" + newStudySectionIndex).val(studyName);
+	newStudySectionDiv.find("#institution-" + newStudySectionIndex).val(studyInst);
 	newStudySectionDiv.find("#dulVerificationId-" + newStudySectionIndex).val(-1);
 	newStudySectionDiv.find("#comments-" + newStudySectionIndex).val("").removeAttr("value");
 	newStudySectionDiv.find("#count-" + newStudySectionIndex).text("2000 Character limits")
@@ -364,8 +379,12 @@ $('#finalprov').on('change', function() {
 $(document).ready(function () {
 
 	// IC file upload Ajax
-	$("#institutional_form").on('change', '#ic', function () {
+	$("#institutional_form").on('change', '#icUploadFile', function () {
 
+		if ($('#icUploadFile').get(0).files.length === 0) {
+		    return;
+		}
+		
 		$("#messages").empty();
 		
 		var result = "";
@@ -400,14 +419,19 @@ $(document).ready(function () {
 	});
 
 	
-
-$(document).on('click', '.header', function () {
-
-    $(this).next(".content").slideToggle(400);
-    $(this).find('.fa').toggleClass('fa-plus-square fa-minus-square');
-    $(this).show();
-    $("#collapseOne").focus();
-
+$(document).on('shown.bs.collapse', '.collapse', function() {
+             $(this)
+                 .parent()
+                 .find('.fa:first')
+                 .removeClass("fa-plus-square")
+                 .addClass("fa-minus-square");
+});
+$(document).on('hidden.bs.collapse', '.collapse', function() {
+             $(this)
+                 .parent()
+                 .find('.fa:first')
+                 .removeClass("fa-minus-square")
+                 .addClass("fa-plus-square");
 });
 
 $(".helpfile").click(function() {
@@ -436,9 +460,125 @@ $("a.pop").hover(function() {
 	$(this).attr('data-content', value);
 });
 
-//comments kep up function
+//comments key up function
 $('#instCertComments').keyup(function() {
 	//set the correct length for text areas
 	showCharCount(this, '#charNum6');
 });
 
+var table;
+function initializeStudyTable() {
+	table = $('#studySelectTable').DataTable({
+		 "bPaginate": false,
+			
+	      columnDefs: [
+	         { targets: ['status'], type: 'alt-string'},
+	         { targets: 'no-sort', orderable: false }]
+	});
+	
+	$("#no-sorting").removeClass('sorting_asc').addClass('sorting_disabled');
+
+	$('.dataTables_filter').append("<div class='searchHelp'>(Enter at least 2 characters to search)</div>"); 
+	   
+}
+
+function openStudy(element, type) {
+	
+	//Remove Action message if any
+	$("#messages").hide();
+	
+	$("#selectType").val(type);
+	$(".radioSelected").removeAttr('checked');
+	$(".checkboxSelected").removeAttr('checked');
+	$("div.noStudy").hide();
+	
+	if(type === "single") {
+		index = $(element).parent().parent().parent().children(':first').attr('id').replace('studyName-','');
+		$("#studyIndex").val(index);
+		$(".radioSelect").show();
+		$(".checkboxSelect").hide();
+	} else {
+		$(".radioSelect").hide();
+		$(".checkboxSelect").show();
+	}
+	$(".studySelectRow").show();
+	$(".studySelectedStudyId").each(function(){
+		id = $(this).val();
+		$("#studySelectRow-" + id).hide();
+	});
+	
+	$("#submissionIcSection").hide();
+	$("#reselectStudySection").show();
+	$("#studyAvailable").show();
+	
+	//If there are studies to select, initialize the table
+	if($(".studySelectRow:visible").length != 0) {
+		$("#studyAvailable").show();
+		$("#noStudyAvailable").hide();
+		$(".nextButton").show();
+		if($.fn.DataTable.isDataTable('#studySelectTable')) {
+			table.destroy();
+		}
+		initializeStudyTable();
+	} else {
+		//If there are no more studies to show, show the message instead.
+		$("#studyAvailable").hide();
+		$("#noStudyAvailable").show();
+		$(".nextButton").hide();
+	}
+}
+
+function cancelStudy() {
+	
+	if($.fn.DataTable.isDataTable('#studySelectTable')) {
+		table.destroy();
+	}
+	$("div.noStudy").hide();
+	$("#submissionIcSection").show();
+	$("#reselectStudySection").hide();
+	
+}
+
+function selectStudy() {
+	
+	//If nothing is select, show error
+	if($(".radioSelected:checked").length === 0 && $(".checkboxSelected:checked").length === 0) {
+		$("div.noStudy").show();
+		return;
+	}
+	type = $("#selectType").val();
+	index = $("#studyIndex").val();
+	
+	//show everything first
+	$("#submissionIcSection").show();
+	
+	if(type === "single") {
+		studyPk = $(".radioSelected:checked").val();
+		studyName = $(".radioSelected:checked").parent().parent().next('td').text();
+		studyInst = $(".radioSelected:checked").parent().parent().next('td').next('td').text();
+		$("#studyName-" + index).val(studyName);
+		$("#institution-" + index).val(studyInst);
+		$("#studyId-" + index).val(studyPk);
+		$("[id^=dulSetId" + index + "]").val('');
+	} else {
+		$(".checkboxSelected:checked").each(function(){
+			studyPk = $(this).val();
+			studyName = $(this).parent().parent().next('td').text();
+			studyInst = $(this).parent().parent().next('td').next('td').text();
+			addStudy(studyPk, studyName, studyInst);
+		});
+	}
+	
+	if($.fn.DataTable.isDataTable('#studySelectTable')) {
+		table.destroy();
+	}
+	$("div.noStudy").hide();
+	$("#reselectStudySection").hide();
+
+
+}
+
+function enableStudy() {
+	$(".input_sn").prop('disabled', false);
+	$(".input_in").prop('disabled', false);
+}

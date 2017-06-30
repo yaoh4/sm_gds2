@@ -54,9 +54,12 @@
 				<div id="20" style="${map['20'].style}" class="qSpacing">
 					
 					<p class="question"><s:property
-							value="%{getQuestionById(20).getDisplayText()}" /> &nbsp; &nbsp; <a href="#" id="popover" style="font-size: 12px;">
-                         <i class="helpfile fa fa-question-circle fa-1x"
-							aria-hidden="true"></i></a></p>
+							value="%{getQuestionById(20).getDisplayText()}" /> &nbsp; &nbsp; <a href="#" class="pop" data-container="body" data-toggle="popover" data-placement="right" data-content="&lt;b&gt;dbGaP :&lt;/b&gt;&lt;a href=&quot; http://www.ncbi.nlm.nih.gov/gap&quot;target=&quot;_blank &quot;&gt; http://www.ncbi.nlm.nih.gov/gap&lt;/a&gt; &lt;br&gt;
+                            &lt;b&gt;SRA :&lt;/b&gt;&lt;a href=&quot;  http://www.ncbi.nlm.nih.gov/sra&quot;target=&quot;_blank &quot; &gt; http://www.ncbi.nlm.nih.gov/sra &lt;/a&gt; &lt;br&gt;
+                            &lt;b&gt;GDC :&lt;/b&gt;&lt;a href=&quot;  https://gdc.nci.nih.gov/&quot;target=&quot;_blank &quot; &gt; https://gdc.nci.nih.gov/&lt;/a&gt;  &lt;br&gt;
+                            &lt;b&gt;GEO :&lt;/b&gt;&lt;a href=&quot;http://www.ncbi.nlm.nih.gov/geo/&quot;target=&quot;_blank &quot; &gt; http://www.ncbi.nlm.nih.gov/geo/ &lt;/a&gt;  &lt;br&gt;
+                            &lt;b&gt;Other:&lt;/b&gt; If you are planning on submitting data to another repository, please be sure to discuss with your Genomic Program Administrator (GPA) to make sure it is appropriate." data-html="true" style="font-size: 12px;">
+                            <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a></p>
                           
 					<s:iterator value="%{getAnswerListByQuestionId(20)}" var="ans"
 						status="stat">

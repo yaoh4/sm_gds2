@@ -110,4 +110,25 @@ $('.icDetails').on('click', function(e) {
 	  var expandId = $(this).attr("id").replace("icDetails", "");
 	  $("#" + id).slideToggle('500');
 	  $("#" + expandId + "expand").toggleClass('fa-plus-square fa-minus-square');
-})
+});
+
+$('.studyDetails').on('click', function(e) {
+	  e.preventDefault();
+	  var id = $(this).attr("id").replace("studyDetails", "dulContent");
+	  var expandId = $(this).attr("id").replace("studyDetails", "");
+	  $("#" + id).slideToggle('500');
+	  $("#" + expandId + "expand").toggleClass('fa-plus-square fa-minus-square');
+});
+
+
+//Show and hide Studies
+$('body').on('click', '.studiesTab', function() {
+  $(".studiesTable").slideToggle('500');
+  $("i.expandStudies.fa").toggleClass('fa-plus-square fa-minus-square');
+});
+
+//Show and hide IC
+$('body').on('click', '.icTab', function() {
+    $(".icTable").slideToggle('500');
+    $("i.expandIc.fa").toggleClass('fa-plus-square fa-minus-square');
+});

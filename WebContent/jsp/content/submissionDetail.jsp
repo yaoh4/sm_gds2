@@ -90,7 +90,7 @@
 		  <s:if test="%{showPage('IC')}">
             <tr >
               <td colspan="2">
-              <s:if test="!isReadOnlyUser() && project.latestVersionFlag.equals(\"Y\")"><a href="/gds/manage/listIc.action?projectId=${project.id}">Institutional Certification</a>
+              <s:if test="!isReadOnlyUser() && project.latestVersionFlag.equals(\"Y\")"><a href="/gds/manage/navigateToIcMain.action?projectId=${project.id}">Institutional Certification</a>
               </s:if><s:else>Institutional Certification</s:else></td>
               <td>
                <s:hidden id="ic" value="%{getPageStatus('IC').status.code}"/>
@@ -221,7 +221,7 @@
             <tr>
               <td>${subproject.projectSubmissionTitle}</td>
               
-              <td>${subproject.extPiFullName}<br>${subProject.intPiFullName}</td>
+              <td>${subproject.extPiFullName}<br>${subproject.intPiFullName}</td>
               
               <td style="white-space: nowrap;" align="center">
               <s:if test="%{getProjectStatusCode(#subproject.id).equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_IN_PROGRESS)}">
@@ -384,4 +384,5 @@
 
 </div>
 <script src="<s:url value="/controllers/gds.js" />"></script>
-<script src="<s:url value="/controllers/submissionDetail.js" />"></script>       
+<script src="<s:url value="/controllers/submissionDetail.js" />"></script> 
+<link href="<s:url value="/stylesheets/demo.css" />" rel="stylesheet" type="text/css" media="screen">      

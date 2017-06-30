@@ -1,9 +1,12 @@
 package gov.nih.nci.cbiit.scimgmt.gds.actions;
 
 import java.io.ByteArrayInputStream;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -18,7 +21,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
@@ -35,7 +37,6 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
-import gov.nih.nci.cbiit.scimgmt.gds.services.SearchProjectService;
 import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import gov.nih.nci.cbiit.scimgmt.gds.util.GdsSubmissionActionHelper;
 
@@ -52,6 +53,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	private String preSelectedDOC;
 	private String grantContractNum;
 	private String linkedGrantContractNum;
+	private String linkedCayCode;
+	private String linkedProjectTitle;
+	private Date linkedProjectStartDate;
+	private Date linkedProjectEndDate;
 	private String selectedTypeOfProject;
 	private String applId;
 	private String valueSelected;
@@ -243,6 +248,18 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	}
 	
 	
+	public static Comparator<Study> StuInstIdComparator = new Comparator<Study>() {
+
+	     public int compare(Study s1, Study s2) {
+			if((!CollectionUtils.isEmpty(s1.getInstitutionalCertifications())) && (!CollectionUtils.isEmpty(s2.getInstitutionalCertifications()))) {
+			   Long IcId1 = s1.getInstitutionalCertifications().get(0).getId();
+			   Long IcId2 = s2.getInstitutionalCertifications().get(0).getId();
+			     return IcId1.compareTo(IcId2);
+			}
+				 return -1;
+	     }
+	};
+	
 	public Project initializeNewVersion(Project project, Project currentLatestVersion)
 		throws Exception {
 		
@@ -258,11 +275,9 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		project.setParent(currentLatestVersion.getParent());
 		project.setVersionNum(currentLatestVersion.getVersionNum() + 1);
 		project.setProjectGroupId(currentLatestVersion.getProjectGroupId());
-		project.setAdditionalIcComments(currentLatestVersion.getAdditionalIcComments());
-		project.setStudiesComments(currentLatestVersion.getStudiesComments());
-		project.setPlanComments(currentLatestVersion.getPlanComments());
 		GdsSubmissionActionHelper.popoulateProjectProperties(getProject(), project);
-		
+		//project.setComments(null);
+		project.setPlanComments(null);
 		project.setCertificationCompleteFlag(null);
 		project.setBsiComments(null);
 		project.setBsiReviewedId(null);
@@ -311,7 +326,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		List<Document> icDocs = new ArrayList<Document>();	
 		
 		//Copy ICs 
-		if(!subprojectClone) {
+		/*if(!subprojectClone) {
 		List<InstitutionalCertification> currentIcs = currentLatestVersion.getInstitutionalCertifications();
 		if(!CollectionUtils.isEmpty(currentIcs)) {
 			List<InstitutionalCertification> ics = new ArrayList<InstitutionalCertification>();			
@@ -319,14 +334,17 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				InstitutionalCertification ic = new InstitutionalCertification();
 				BeanUtils.copyProperties(currentIc, ic);
 				ic.setId(null);
+				ic.setComments(null);
 				ic.setStudies(new ArrayList<Study>());
 				List<Study> currentStudies = currentIc.getStudies();
 				if(!CollectionUtils.isEmpty(currentStudies)) {
+					List<Study> versionStudies = new ArrayList<Study>();
 					for(Study currentStudy: currentStudies) {
 						Study study= new Study();
 						BeanUtils.copyProperties(currentStudy, study);
 						study.setId(null);
-						study.setInstitutionalCertification(ic);
+						study.setComments(null);
+						study.addInstitutionalCertification(ic);
 						study.setStudiesDulSets(new ArrayList<StudiesDulSet>());
 						List<StudiesDulSet> currentDulSets = currentStudy.getStudiesDulSets();
 						if(!CollectionUtils.isEmpty(currentDulSets)) {
@@ -348,9 +366,13 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 								}
 								study.addStudiesDulSet(dulSet);
 							}
-						}
+						}	
+						study.setProject(project);
+						versionStudies.add(study);
 						ic.addStudy(study);
+						//study = manageProjectService.saveStudy(study);
 					}
+					 project.setStudies(versionStudies);
 				}
 				
 				ic = manageProjectService.saveOrUpdateIc(ic);
@@ -368,15 +390,102 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				ics.add(ic);
 			}
 		 if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
+			
 			project.setInstitutionalCertifications(ics);
 			}
 		}
 		} else {
 			//This is a subprojectClone, so do not create new ICs
 			project = copyICsForClonedSubproject(project, currentLatestVersion);
+		}*/
+		
+		//copy studies
+		
+		if(!subprojectClone) {
+			List<Study> currentStudies = currentLatestVersion.getStudies();
+			Long certId = null;
+			Long originalId = null;
+			Collections.sort(currentStudies,StuInstIdComparator );
+			if(!CollectionUtils.isEmpty(currentStudies)) {
+				List<Study> versionStudies = new ArrayList<Study>();	
+				List<InstitutionalCertification> versionIcs = new ArrayList<InstitutionalCertification>();
+				for(Study study: currentStudies) {
+					Study stu = new Study();
+					BeanUtils.copyProperties(study, stu);
+					stu.setId(null);
+					stu.setComments(null);
+					stu.setInstitutionalCertifications(new ArrayList<InstitutionalCertification>());
+					List<InstitutionalCertification> ics = study.getInstitutionalCertifications();
+					if(!CollectionUtils.isEmpty(ics)) {
+						InstitutionalCertification ic = new InstitutionalCertification();
+							for(InstitutionalCertification currentIc: ics) {
+								BeanUtils.copyProperties(currentIc, ic);
+								if(originalId != null && study.getInstitutionalCertifications().get(0).getId().equals(originalId)) {
+									InstitutionalCertification existingIc = manageProjectService.findIcById(certId);
+									   if(existingIc != null) {
+										stu.addInstitutionalCertification(existingIc);
+									   }
+								} else {
+								ic.setId(null);
+								ic.setComments(null);
+								ic = manageProjectService.saveOrUpdateIc(ic);
+								stu.addInstitutionalCertification(ic);
+								certId = ic.getId();
+								originalId = ics.get(0).getId();
+								versionIcs.add(ic);
+								}
+							}
+
+						List<Document> currentIcDocs = fileUploadService.retrieveFileByIcId(ics.get(0).getId(), currentLatestVersion.getId());
+						if(!CollectionUtils.isEmpty(currentIcDocs)) {
+							for(Document currentIcDoc: currentIcDocs) {
+								Document icDoc = new Document();
+								//icDoc.setId(null);
+								BeanUtils.copyProperties(currentIcDoc, icDoc);
+								icDoc.setInstitutionalCertificationId(ic.getId());
+								icDocs.add(icDoc);
+							}
+							ic.setDocuments(icDocs);
+						}
+
+					}
+					stu.setStudiesDulSets(new ArrayList<StudiesDulSet>());
+					List<StudiesDulSet> currentDulSets = study.getStudiesDulSets();
+					if(!CollectionUtils.isEmpty(currentDulSets)) {
+					   for(StudiesDulSet currentDulSet: currentDulSets) {
+					      StudiesDulSet dulSet = new StudiesDulSet();
+					      BeanUtils.copyProperties(currentDulSet, dulSet);
+					      dulSet.setId(null);
+					      dulSet.setStudy(stu);
+					      dulSet.setDulChecklistSelections(new ArrayList<DulChecklistSelection>());
+					      List<DulChecklistSelection> currentDulSelections = currentDulSet.getDulChecklistSelections();
+					         if(!CollectionUtils.isEmpty(currentDulSelections)) {
+					            for(DulChecklistSelection currentDulSelection: currentDulSelections) {
+					               DulChecklistSelection dulSelection = new DulChecklistSelection();
+					               BeanUtils.copyProperties(currentDulSelection, dulSelection);
+					               dulSelection.setId(null);
+					               dulSelection.setStudiesDulSet(dulSet);
+					               dulSet.addDulChecklistSelection(dulSelection);
+				                }
+			                 }
+				           stu.addStudiesDulSet(dulSet);
+			           }
+		            }
+					stu.setProject(project);
+					versionStudies.add(stu);
+			    }
+				   project.setStudies(versionStudies);
+				  
+				 if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
+						project.setInstitutionalCertifications(versionIcs);
+				 }
+			}
+		} else {
+			//This is a subprojectClone, so do not create new ICs
+			project = copyICsForClonedSubproject(project, currentLatestVersion);
 		}
-		
-		
+		//End copy studies
+
 		//Copy planAnswerSelections 
 		Set<PlanAnswerSelection> currentPlanAnswers = currentLatestVersion.getPlanAnswerSelections();
 		Set<RepositoryStatus> subprojectClonedRepoStatus = new HashSet<RepositoryStatus>();
@@ -455,8 +564,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		//for subprojects we only point to parent's IC
 		if(!subprojectClone && !ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
 			for(Document doc: icDocs) {
-				fileUploadService.storeFile(
-					project.getId(), ApplicationConstants.DOC_TYPE_IC, doc.getDoc(), doc.getFileName(), doc.getInstitutionalCertificationId());
+				fileUploadService.copyFile(
+					project.getId(), ApplicationConstants.DOC_TYPE_IC, doc.getDoc(), doc.getFileName(), doc.getInstitutionalCertificationId(), doc.getUploadedDate());
 			}
 		}
 		
@@ -465,10 +574,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		if(!CollectionUtils.isEmpty(currentDocs)) {
 			for(Document currentDoc: currentDocs) {
 				if(currentDoc.getInstitutionalCertificationId() == null && (!ApplicationConstants.DOC_TYPE_BSI.equals(currentDoc.getDocType().getCode()))) {
-					fileUploadService.storeFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null);
+					fileUploadService.copyFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null,currentDoc.getUploadedDate());
 				}
 				if(ApplicationConstants.DOC_TYPE_BSI.equals(currentDoc.getDocType().getCode()) && subprojectClone) {
-					fileUploadService.storeFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null);
+					fileUploadService.copyFile(project.getId(), currentDoc.getDocType().getCode(), currentDoc.getDoc(), currentDoc.getFileName(), null,currentDoc.getUploadedDate());
 				}
 			}
 		}
@@ -510,9 +619,6 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		return project;
 	}
 	
-	
-	
-	
 	/**
 	 * Opens Create new submission page.
 	 * 
@@ -521,7 +627,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	public String createNewSubmission() throws Exception {  	
 	
 		logger.info("Navigating to create new submission.");
-		
+		//Clear search criteria for navigation
+		session.remove(ApplicationConstants.SEARCH_CRITERIA);
 		projectTypes = GdsSubmissionActionHelper.getLookupDropDownList(ApplicationConstants.PROJECT_TYPE_LIST.toUpperCase());		
 		return SUCCESS;
 	}	
@@ -595,13 +702,15 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		
 		subProject.setParentProjectId(subProject.getId());	
 		subProject.setId(null);
+		subProject.setComments(null);
 		subProject.setBsiComments(null);
+		subProject.setAdditionalIcComments(null);
+		subProject.setStudiesComments(null);
 		subProject.setBsiReviewedId(null);
 		subProject.setRepositoryStatuses(new ArrayList<RepositoryStatus>());
 		subProject.setAnticipatedSubmissionDate(null);
 		subProject.setPlanComments(null);
 		subProject.setPlanAnswerSelections(new HashSet());
-										
 	}
 	
 	
@@ -625,6 +734,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 			logger.error("Error occured while creating a new version of an existing project", e);
 		}		
 		newVersion.setId(null);
+		newVersion.setComments(null);
 		setProject(newVersion);
 		loadGrantInfo();
 		setGrantSelection(newVersion.getGrantSelection());
@@ -992,6 +1102,10 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 				|| ApplicationConstants.GRANT_CONTRACT_TYPE_BOTH.equals(grantSelection)) {
 			//Retrieve extramural data from UI	
 			getExtramuralGrant().setGrantContractNum(getLinkedGrantContractNum());
+			getExtramuralGrant().setCayCode(getLinkedCayCode());
+			getExtramuralGrant().setProjectTitle(getLinkedProjectTitle());
+			getExtramuralGrant().setProjectStartDate(getLinkedProjectStartDate());
+			getExtramuralGrant().setProjectEndDate(getLinkedProjectEndDate());
 			getProject().setPrimaryGrant(ApplicationConstants.GRANT_CONTRACT_TYPE_EXTRAMURAL, getExtramuralGrant());
 			//validate grant data
 			validateGrantData(getExtramuralGrant());
@@ -1443,8 +1557,8 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 		this.valueSelected = valueSelected;
 	}
 
-public List<DropDownOption> getProgList() {
-		return progList;
+    public List<DropDownOption> getProgList() {
+ 		return progList;
 	}
 
 	public void setProgList(List<DropDownOption> progList) {
@@ -1481,8 +1595,6 @@ public List<DropDownOption> getProgList() {
 		this.secondaryGrantNum = secondaryGrantNum;
 	}
 	
-
-	
 	public String getGrantsAdditional() {
 		return grantsAdditional;
 	}
@@ -1498,5 +1610,37 @@ public List<DropDownOption> getProgList() {
 	public void setParentGrantSelection(String parentGrantSelection) {
 		this.parentGrantSelection = parentGrantSelection;
 	}
+	
+	public Date getLinkedProjectStartDate() {
+		return linkedProjectStartDate;
+	}
 
+	public void setLinkedProjectStartDate(Date linkedProjectStartDate) {
+		this.linkedProjectStartDate = linkedProjectStartDate;
+	}
+
+	public Date getLinkedProjectEndDate() {
+		return linkedProjectEndDate;
+	}
+
+	public void setLinkedProjectEndDate(Date linkedProjectEndDate) {
+		this.linkedProjectEndDate = linkedProjectEndDate;
+	}
+	
+	public String getLinkedCayCode() {
+		return linkedCayCode;
+	}
+
+	public void setLinkedCayCode(String linkedCayCode) {
+		this.linkedCayCode = linkedCayCode;
+	}
+
+	public String getLinkedProjectTitle() {
+		return linkedProjectTitle;
+	}
+
+	public void setLinkedProjectTitle(String linkedProjectTitle) {
+		this.linkedProjectTitle = linkedProjectTitle;
+	}
+	
 }

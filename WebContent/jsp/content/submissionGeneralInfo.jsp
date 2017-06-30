@@ -51,9 +51,8 @@
 					<div class="form-group row has-feedback">
 						<div class="col-xs-10">
 							<label for="submissionTitle"><i
-								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project Submission Title [Max 100 char]</label> 
-								<s:textfield name="project.submissionTitle" cssClass="form-control" id="submissionTitle" placeholder="" value="%{project.submissionTitle}" maxLength="100"/>
-						</div>
+								class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Project Submission Title [Max 200 char]</label> 
+						<s:textarea name="project.submissionTitle" cssClass="form-control textonly" id="submissionTitle" placeholder="" value="%{project.submissionTitle}" maxLength="200"/></div>
 					</div>
 
 					<div class="form-group row has-feedback" id="submissionReason">
@@ -127,7 +126,7 @@
 								<s:hidden name="extramuralGrant.primaryGrantContractFlag"  value="%{extramuralGrant.primaryGrantContractFlag}"/> -->
 								
 								<div class="input-group ">
-								  <s:textfield name="extrmuralGrant.grantContractNum"  maxlength="271" cssClass="form-control unlink-group" id="extramural_grantsContractNum" placeholder="Click on Edit Icon" value="%{extramuralGrant.grantContractNum}"/>
+								  <s:textfield name="extrmuralGrant.grantContractNum"  maxlength="271" cssClass="form-control disabled-group" id="extramural_grantsContractNum" placeholder="Click on Edit Icon" value="%{extramuralGrant.grantContractNum}"/>
 								  <div class="input-group-btn">
                                     <a href="#" onclick="openGrantsContractsSearchPage('extramural', 'extramural')">
 																		<button class="btn btn-default" type="button" title="Edit" style=" margin-left: -2px;">
@@ -162,9 +161,10 @@
 					<div class="row has-feedback extConditionalDisplay">
                        <div class="col-xs-5">
                            <label for="Cancer Activity"><i class="fa fa-asterisk asterisk" aria-hidden="true">&nbsp;</i>Cancer Activity</label>
-                           <s:textfield name="extramuralGrant.cayCode" cssClass="form-control unlink-group"  id="cancerActivity" value="%{extramuralGrant.cayCode}" placeholder="" maxlength="3">
+                           <s:textfield name="extramuralGrant.cayCode" cssClass="form-control disabled-group"  id="cancerActivity" value="%{extramuralGrant.cayCode}" placeholder="" maxlength="3">
                            </s:textfield>
                            </div>
+                           <s:hidden name="linkedCayCode" id="linkedCayCode" value="%{extramuralGrant.cayCode}"/>
                            </div>
                     </div>
                         
@@ -172,8 +172,9 @@
 					<div class="row has-feedback extConditionalDisplay">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Extramural or Contract Project Title</label> 
-							<s:textfield name="extramuralGrant.projectTitle" cssClass="form-control unlink-group" id="extramural_projectTitle" placeholder="" value="%{extramuralGrant.projectTitle}"  maxLength="200"/>
+							<s:textarea name="extramuralGrant.projectTitle" cssClass="form-control disabled-group" id="extramural_projectTitle" placeholder="" value="%{extramuralGrant.projectTitle}"  maxLength="200"/>
 						</div>
+						        <s:hidden name="linkedProjectTitle" id="linkedProjectTitle" value="%{extramuralGrant.projectTitle}"/>
 					</div>
 					</div>
 
@@ -260,12 +261,13 @@
 							Start Date</label>
 						<div class="input-group date">
 						
-						<s:textfield name="extramuralGrant.projectStartDate" cssClass="form-control unlink-group" id="projectStartDate" value="%{extramuralGrant.formattedStartDate}" />	
+						<s:textfield name="extramuralGrant.projectStartDate" cssClass="form-control disabled-group" id="projectStartDate" value="%{extramuralGrant.formattedStartDate}" />	
 						<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>
-
+                            <s:hidden name="linkedProjectStartDate" id="linkedProjectStartDate" value="%{extramuralGrant.formattedStartDate}"/>
 						</div>
+						
 					</div>
 
 					<div id="pEndDate"
@@ -274,12 +276,13 @@
 							class="fa fa-asterisk eAsterisk" aria-hidden="true">&nbsp;</i>Project
 							End Date</label>
 						<div class="input-group date">
-						<s:textfield name="extramuralGrant.projectEndDate" cssClass="form-control unlink-group" id="projectEndDate" value="%{extramuralGrant.formattedEndDate}" />	
+						<s:textfield name="extramuralGrant.projectEndDate" cssClass="form-control disabled-group" id="projectEndDate" value="%{extramuralGrant.formattedEndDate}" />	
 							<span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-th"></i></span>
-
+                          <s:hidden name="linkedProjectEndDate" id="linkedProjectEndDate" value="%{extramuralGrant.formattedEndDate}"/>
 						</div>
+						
 					</div>
 				</div>
 
@@ -324,7 +327,7 @@
 					<div class="row has-feedback">
 						<div class="col-xs-10">
 							<label for="Project Title" id="projectTitleLabel">Intramural or Contract Project Title</label> 
-							<s:textfield name="intramuralGrant.projectTitle" cssClass="form-control" id="intramural_projectTitle" placeholder="" value="%{intramuralGrant.projectTitle}"  maxLength="200"/>
+							<s:textarea name="intramuralGrant.projectTitle" cssClass="form-control" id="intramural_projectTitle" placeholder="" value="%{intramuralGrant.projectTitle}"  maxLength="200"/>
 						</div>
 					</div>
 					</div>

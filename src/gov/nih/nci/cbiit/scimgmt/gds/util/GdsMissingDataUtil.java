@@ -14,7 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.xml.sax.SAXException;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
@@ -216,66 +215,68 @@ public class GdsMissingDataUtil {
 		}
 			
 		List<InstitutionalCertification> icList = project.getInstitutionalCertifications();
-			
-		if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag()) ||
-					CollectionUtils.isEmpty(icList)) {
+		List<Study> studies = project.getStudies();
+		
+		
+		//There are no studies
+		if(CollectionUtils.isEmpty(studies)) {
 			String displayText="";
-			String icText="";
-			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag())) {
-				if(CollectionUtils.isEmpty(icList)) {
-					displayText="At least one Institutional Certification must be selected";
-				}
-				if(!ApplicationConstants.FLAG_YES.equals(project.getCertificationCompleteFlag())) {
-					icText = "Institutional Certifications Reviewed flag must be 'Yes'";
-				}
-			} else {
-				 displayText = "Institutional Certifications Reviewed flag must be 'Yes'";
-				}
-			if(!StringUtils.isEmpty(icText)) {
-			MissingData missingDataIc = new MissingData(icText);
-			missingDataList.add(missingDataIc);
+			if(ApplicationConstants.FLAG_YES.equalsIgnoreCase(project.getSubprojectFlag()) && CollectionUtils.isEmpty(icList)) {
+				displayText="At least one Institutional Certification must be selected";
+			} else if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
+				//TBD - Confirm with Catherine
+				displayText="At least one Study and Institutional Certification must be present";
 			}
-			if(!StringUtils.isEmpty(displayText)) {
-			MissingData missingData = new MissingData(displayText);
-			missingDataList.add(missingData);
+			if(!displayText.isEmpty()) {
+				MissingData missingDataIc = new MissingData(displayText);
+				missingDataList.add(missingDataIc);
+			}
+		}
+		
+		//Check if there are studies without IC - at project level only
+		if(ApplicationConstants.FLAG_NO.equalsIgnoreCase(project.getSubprojectFlag())) {
+			MissingData missingDataStudy = new MissingData("The following Studies are not yet associated with an Institutional Certification:");
+			for(Study study: studies) {
+				if(CollectionUtils.isEmpty(study.getInstitutionalCertifications())) {			
+					missingDataStudy.addChild(new MissingData(study.getStudyName()));
+				}
+			} 
+			if(!CollectionUtils.isEmpty(missingDataStudy.getChildList())) {
+			missingDataList.add(missingDataStudy);
 			}
 		}
 			
-		//Get the file list
-		//check the Ic status only for project level
+		
+		//Check each Ic status - at project level only
 		if(ApplicationConstants.FLAG_NO.equals(project.getSubprojectFlag())) {
-		Project docParent = project;
-		Long parentProjectId = project.getParentProjectId();
-		if(parentProjectId != null) {
-			docParent =  manageProjectService.findById(parentProjectId);
-		} 
-		HashMap<Long, Document> docMap = new HashMap<Long, Document>();
-		List<Document> docs = 
-			fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, docParent.getId());
-		if(docs != null && !docs.isEmpty()) {
-			for(Document doc: docs) {
-				if(doc.getInstitutionalCertificationId() != null) {
-					docMap.put(doc.getInstitutionalCertificationId(), doc);
-				}			
+			
+			//Get the file list first
+			HashMap<Long, Document> docMap = new HashMap<Long, Document>();
+			List<Document> docs = 
+					fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_IC, project.getId());
+			if(docs != null && !docs.isEmpty()) {
+				for(Document doc: docs) {
+					if(doc.getInstitutionalCertificationId() != null) {
+						docMap.put(doc.getInstitutionalCertificationId(), doc);
+					}			
+				}
 			}
-		}
 			
-		//There is at least one IC. So proceed to check if the ICs are all ok.
-		MissingData missingData = new MissingData("The following ICs have incomplete data:");
-			
-		for(InstitutionalCertification ic: icList) {
-			Document document = docMap.get(ic.getId());
-			MissingData missingIcData = computeMissingIcData(ic, document);
+			//Check if the ICs are all ok.
+			MissingData missingData = new MissingData("The following ICs have incomplete data:");
+			for(InstitutionalCertification ic: icList) {
+				Document document = docMap.get(ic.getId());
+				MissingData missingIcData = computeMissingIcData(ic, document);
 									
-			if(missingIcData.getChildList().size() > 0) {
-				missingIcData.setDisplayText(document.getFileName());
-				missingData.addChild(missingIcData);
+				if(missingIcData.getChildList().size() > 0) {
+					missingIcData.setDisplayText(document.getFileName());
+					missingData.addChild(missingIcData);
+				}
 			}
-		}
 		
 		
-		if(missingData.getChildList().size() > 0) {
-			missingDataList.add(missingData);
+			if(missingData.getChildList().size() > 0) {
+				missingDataList.add(missingData);
 			} 
 		}
 		
@@ -447,7 +448,7 @@ public class GdsMissingDataUtil {
 		
 		//Check GPA Approval Code
 		if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(ic.getGpaApprovalCode())) {
-			String text = "GPA approval code must be 'Yes'.";
+			String text = "GPA approval code must be 'Approved'.";
 			missingIcData.addChild(new MissingData(text));	
 		}
 		

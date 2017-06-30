@@ -43,7 +43,7 @@
 						<li class="active"><a href="javascript: void(0)">Institutional Certification(s)</a></li>
 					</s:if>
 					<s:else>
-						<s:url namespace="/manage" var="icUrl" action="listIc">
+						<s:url namespace="/manage" var="icUrl" action="navigateToIcMain">
 							<s:param name="projectId" value="%{projectId}" />
 						</s:url>
 						<li><s:a href="%{icUrl}">Institutional Certification(s)</s:a></li>
@@ -106,4 +106,11 @@
 	</div>
 </div>
 </div>
+<s:if test="%{'newSubmission' eq #attr['navtab'] && project.id != null}">
+	<s:if test="%{savedCriteria != null}">
+		<div class="container"><div style="margin-top: 15px;" class="col-md-12">
+			<a href="../search/returnToSearch.action">Return to Find Submissions</a>
+		</div></div>
+	</s:if>
+</s:if>
 </div>

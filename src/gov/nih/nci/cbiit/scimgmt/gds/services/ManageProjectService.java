@@ -7,6 +7,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 
 public interface ManageProjectService {
 
@@ -75,6 +76,14 @@ public interface ManageProjectService {
 	 * @return saved IC
 	 */
 	public InstitutionalCertification saveOrUpdateIc(InstitutionalCertification ic);
+	
+     /**
+      * inserts and updates study
+      * @param study
+      * @return saved study
+      */
+
+	public Study saveStudy(Study study);
 
 	/**
 	 * Deletes the IC given an ID and parent project
@@ -84,7 +93,14 @@ public interface ManageProjectService {
 	 */
 	public boolean deleteIc(Long icId, Project project);
 
-
+      /**
+	   * Deletes the Study given an ID and parent project
+	   * 
+	   * @param studyId
+	   * @param project
+	   */
+	public boolean deleteStudy(Long studyId, Project project);
+	
 	/**
 	 * This method retrieves Intramural / Grant / Contract List
 	 * @return

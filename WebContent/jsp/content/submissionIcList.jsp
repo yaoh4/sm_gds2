@@ -4,127 +4,53 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 <s:hidden id="icIds" name="icIds"/>
-	
-<!--Begin Form -->
-    <s:form id="ic_dashboard_form" name="ic_dashboard_form" namespace="manage" method="post"
-       action="listIc"  role="form">
-      
-      <div class="pageNav">
-          <s:submit action="saveIcList" value=" Save " class="saved btn btn-default"/>
-          <s:submit type="button" action="saveIcListAndNext" class="saved btn btn-project-primary">
-          Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>	
-      </div>
-      
-      <s:hidden name="projectId" id="projectId" value="%{project.id}"/>
-      <s:hidden name="project.subprojectFlag" id="subprojectFlag" value="%{project.subprojectFlag}"/>
-      <s:hidden name="project.parentProjectId" value="%{project.parentProjectId}"/>
-      <s:hidden name="project.createdBy" value="%{project.createdBy}"/>
-      
-      
-      <!-- Begin Panel -->
-      <div class="col-md-12">
-        <div class="panel  project-panel-primary">
-          
-          <div class="panel-heading">
-            <div class="pheader"><h4>Institutional Certification Status</h4></div>
-            <div class="statusWrapper">
-              <s:if test="%{!pageStatusCode.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED)}">         		           		      
-    		    <div class="status">
-    		      <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcListData.action?')" class="statusLink">Generate Missing Data Report</a> &nbsp; &nbsp;
-    		    </div>
-    		  </s:if>
-              <s:include value="/jsp/content/pageStatus.jsp"/>           	
-            </div>
-             
-          </div><!--end header-->   
-          
-          <div class="panel-body">
-           
-            <div style="float: right;" class="question">
-              <a href="https://gds.nih.gov/Institutional_Certifications.html" target="_blank">Institutional Certifications&nbsp;
-                <i class="fa fa-external-link" aria-hidden="true"></i>
-              </a>
-            </div><br/>
-          
-          <div style="display:none" id="showSpan">
-               <span>You will be able to add/edit Institutional Certification and/or DUL only at the parent project level. Changes will then be reflected in this sub-project. </span>
-             <br/><br/></div> 
-            <p class="question" style="display:inline;">Have all final (not provisional) institutional certifications for this project been received and reviewed by the GPA?
-            <s:if test= "%{subprojectFlag} == 'N'">
-            &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="IC_REVIEWED_KEY" value="%{getHelpText('IC_REVIEWED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
-		     </s:if>
-		     <s:else>
-		     &nbsp; <a href="#" class="hoverOver" data-toggle="tooltip" data-placement="right"  data-html="true"
-						 style="font-size: 12px;"><s:hidden id="IC_REVIEWED_KEY" value="%{getHelpText('IC_REVIEWED_KEY')}"/> <i class="fa fa-question-circle fa-1x" aria-hidden="true"></i></a>
-		     </s:else>
-               &nbsp;
-              <div style="display:none" id="addICBtn">
-                <s:submit action="editIc" id="addIC" value=" Add Another Institutional Certification " class="saved btn btn-project-primary"/>
-              </div>
-            </p>
-             
-           <div class="radio form-group">   
-              <s:radio id="radioCertComplete" list="#{'Y':'Yes','N':'No'}"
-				name="project.certificationCompleteFlag" value="project.certificationCompleteFlag"
-				template="radiomap-div.ftl" />
-			</div> 
-          <s:hidden id="certFlag" name="certFlag" />
-            <p>&nbsp;</p>
-              
-              <div>
-				<p class="question">Studies awaiting ICs (2000 Characters):</p>
-				<s:textarea class="form-control input_other commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="icComments" name="icComments" placeholder="List Studies awaiting Institutional Certifications to be received"></s:textarea>
-			    <div id="charNum" style="text-align: right; font-style: italic;">
-				<span style="color: #990000;">2000</span> Character limits
-			   </div>
-			</div>
-			
-			 <div>
-				<p class="question">Additional Comments (2000 Characters):</p>
-				<s:textarea class="form-control input_other commentsClass" style="overflow-y: scroll;" rows="3" maxlength="2000" id="additionalComments" name="additionalComments" placeholder=""></s:textarea>
-			    <div id="charNum2" style="text-align: right; font-style: italic;">
-				<span style="color: #990000;">2000</span> Character limits
-			    </div>
-			</div>
-			<br>
-            <table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
-              <tr class="modalTheader">
-               <!--  Show this column header only for subproject -->
-                <th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select All
-                <input type="checkbox" id="all"> </th>                                   
-                <th class="tableHeader" align="center" width="40%">Institutional Certification Document</th>
-                <th  class="tableHeader projectColumn" align="center" width="10%">Status</th>
-                <th  class="tableHeader projectColumn" align="center" width="10%">Missing Data</th>
-                <th class="tableHeader" align="center" width="20%">Date Uploaded</th>
-                <th class="tableHeader" align="center" width="20%">Uploaded By</th>                 
-                <th id="actionColumn" class="tableHeader" style="display:none;" align="center" width="10%">Actions</th>
-              </tr>
+<s:hidden name="project.subprojectFlag" id="subprojectFlag" value="%{project.subprojectFlag}"/>
+<s:hidden name="project.parentProjectId" value="%{project.parentProjectId}"/>
+<s:hidden name="project.createdBy" value="%{project.createdBy}"/>
+
+<s:if test="%{project.institutionalCertifications.size == 0}">
+<p>&nbsp;</p>
+<p> There are currently no Institutional Certifications added.</p>
+<br/>
+</s:if>
+<s:else> 
+<table style="width: 100%;" cellpadding="0px" cellspacing="0" class="table table-bordered">
+	<tr class="modalTheader">
+		<!--  Show this column header only for subproject -->
+		<th id="subprojectColumn" class="tableHeader" style="display:none;" align="center" width="10%">Select All
+			<input type="checkbox" id="all"> </th>                                   
+		<th class="tableHeader" align="center" width="40%">Institutional Certification Document</th>
+		<th  class="tableHeader projectColumn" align="center" width="10%">Status</th>
+		<th  class="tableHeader projectColumn" align="center" width="10%">Missing Data</th>
+		<th class="tableHeader" align="center" width="20%">Date Uploaded</th>
+		<th class="tableHeader" align="center" width="20%">Uploaded By</th>                 
+		<th id="actionColumnIC" class="tableHeader" style="display:none;" align="center" width="10%">Actions</th>
+	</tr>
                
-              <s:hidden id="icListSize" value="%{project.institutionalCertifications.size}"/>     
-              <s:iterator status="icStat" var="cert" value="project.institutionalCertifications">
-               <div class="icCountList">
+	<s:hidden id="icListSize" value="%{project.institutionalCertifications.size}"/>     
+	<s:iterator status="icStat" var="cert" value="project.institutionalCertifications">
+		<div class="icCountList">
               
-                <s:set name="icIdx" value="#icStat.index" />
+			<s:set name="icIdx" value="#icStat.index" />
                 
-                <!--  FILE DISPLAY AND ICONS ROW -->    
-                <tr  data-id="${cert.id}">
+			<!--  FILE DISPLAY AND ICONS ROW -->    
+			<tr  data-id="${cert.id}">
                  
-                 <!--  Show this column only for subproject -->
-                    <td class="subprojectSelect" style="white-space: nowrap;display:none;">                 
-		                <input class="icSelect" type="checkbox" 
+				<!--  Show this column only for subproject -->
+				<td class="subprojectSelect" style="white-space: nowrap;display:none;">                 
+					<input class="icSelect" type="checkbox" 
 	                      name="ic-selected" id="ic${cert.id}" value="${cert.id}">	
-	                      <s:hidden id="selectIcs" name="ifIcSelected"/>		 
-                    </td>
+	                <s:hidden id="selectIcs" name="ifIcSelected"/>		 
+                </td>
 
                 
-                  <td style="white-space: nowrap">
+                <td style="white-space: nowrap">
                     <a href="#" class="icDetails" id="icDetails${cert.id}">
                       <i class="expand fa fa-plus-square fa-lg" id="${cert.id}expand" aria-hidden="true" alt="Details" title="Details"></i>
                     </a>&nbsp;&nbsp;&nbsp;<s:a href="javascript:openDocument(%{#cert.documents[0].id})">
                       <s:property value="%{#cert.documents[0].fileName}" />
                      </s:a>
-                  </td>
+                </td>
                   
                     
                 <td class= "projectColumn" style="white-space: nowrap">
@@ -132,42 +58,42 @@
               	<div id="icDiv${icStat.index}" class="searchProgess">
         		  <img src="../images/inprogress.png" alt="In Progress" width="18px" height="18px" title="In Progress" />
         	  	</div>
-                  </td>
+                </td>
                   
-                  <td class="projectColumn" style="white-space: nowrap">
+                <td class="projectColumn" style="white-space: nowrap">
                    <s:if test="%{!(#cert.status.equals(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@PAGE_STATUS_CODE_COMPLETED))}">
                    <a href="#" onclick="openMissingDataReport(${project.id}, '/gds/manage/viewMissingIcData.action?instCertId=${cert.id}&')"><i class="fa fa-file-text fa-lg" aria-hidden="true" alt="view" title="view"></i></a> &nbsp; &nbsp;
                   </s:if>
-                  </td>
+                </td>
                 
-                  <td style="white-space: nowrap"> 
+                <td style="white-space: nowrap"> 
                     <s:date name="%{#cert.documents[0].uploadedDate}" format="MMM dd yyyy hh:mm:ss a" />
-                  </td>
+                </td>
                   
-                  <td style="white-space: nowrap"> 
+                <td style="white-space: nowrap"> 
                      <s:property value="%{#cert.documents[0].uploadedBy}" />
-                  </td>
+                </td>
                       
-                  <td class="editDeleteBtns" style="white-space: nowrap; display:none;">
+                <td class="editDeleteBtns" style="white-space: nowrap; display:none;">
                     
                     <!--  Do not show edit and delete for sub-project -->
                       <a class="btnEdit"  href="/gds/manage/editIc.action?instCertId=${cert.id}&projectId=${project.id}">
-                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true" alt="edit" title="Edit"></i>&nbsp;
+                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" alt="edit" title="Edit IC"></i>&nbsp;
                       </a>&nbsp;&nbsp;&nbsp;
-                      <a class="btnDelete" href="#" >
+                      <a class="btnDeleteIc" href="#" >
                         <i class="fa fa-trash fa-lg" aria-hidden="true" alt="delete" title="Delete"></i>
                       </a>                   
-                  </td>
-                </tr>
-                </div>    
-                <!--Begin view details-->
-               <tr class="remove${cert.id}">
-			      <td colspan="6">
-                    <div id="contentDivImg${cert.id}" style="display: none">
-                      <table width="100%" class="tBorder2" cellspacing="3">
+                </td>
+        	</tr>
+		</div>    
+		<!--Begin view details-->
+		<tr class="remove${cert.id}">
+			<td colspan="6">
+				<div id="contentDivImg${cert.id}" style="display: none">
+					<table width="100%" class="tBorder2" cellspacing="3">
                         <tr>
                           <td><span class="question">Provisional or Final? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_PROV_OR_FINAL_LIST, #cert.provisionalFinalCode)}"/></td>
-                          <td><span class="question">Approved by GPA: </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #cert.gpaApprovalCode)}"/></td>
+                          <td><span class="question">Approved by GPA? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_APPROVED_BY_GPA_LIST, #cert.gpaApprovalCode)}"/></td>
 						  <td><span class="question">Study for use in Future Projects? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_FOR_FUTURE_USE_LIST, #cert.futureProjectUseCode)}"/></td>
                         </tr>
                         
@@ -194,12 +120,14 @@
                                       <table class="table table-bordered" width="100%" class="study">
                                         <tr>
                                           <td>
-                                            <table width="100%" cellspacing="5">
+                                            <table style="table-layout:fixed;" width="100%" cellspacing="5">
                                               <tr>
-                                                <td><span class="question">Study Name: </span>${study.studyName}</td>
+                                                <td width="35%" style="word-wrap:break-word;"><span class="question">Study Name:</span>${study.studyName}</td>
 					                         <!--    <td align="left" valign="top">&nbsp;</td> -->
-					                            <td><span class="question">Institution(s): </span>${study.institution}</td>
-                                                <td><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/></td>
+					                               <td>&nbsp;</td>
+					                            <td width="35%" style="word-wrap:break-word;"><span class="question">Institution(s): </span>${study.institution}</td>
+                                                <td>&nbsp;</td>
+                                                <td width="20%"><span class="question">DUL(s) Verified? </span><s:property value="%{getLookupDisplayNamebyId(@gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants@IC_DUL_VERIFIED_LIST, #study.dulVerificationId)}"/></td>
                                               </tr>
                                                                                     
                                               <s:if test="%{#study.comments != null}">
@@ -216,7 +144,7 @@
                                               </tr>       
                                               
                                               <tr>
-                                                <td colspan="4">
+                                                <td colspan="6">
                                                   <table class="table table-striped">
                                                     <s:iterator status="dulSetStat" var="studiesDulSet" value="project.institutionalCertifications[#icStat.index].studies[#studiesStat.index].studiesDulSets">
                                                       <s:set name="dulSetIdx" value="#dulSetStat.index" />
@@ -265,41 +193,23 @@
                               </s:iterator> <!-- for studies -->                      	        
                           </td> <!-- for colspan 6-->
 					    </tr>
-                      </table> <!-- for class tBorder2 -->
-				    </div> <!-- for contentDivImg -->
-                  </td> <!-- for colspan 3 -->
-                </tr>  <!--end view H view details-->
-                         
-                
-                
-                
-                
-                
-                    
-                
-              </s:iterator> <!-- ics -->
+					</table> <!-- for class tBorder2 -->
+				</div> <!-- for contentDivImg -->
+			</td> <!-- for colspan 3 -->
+		</tr>  <!--end view H view details-->
+
+	</s:iterator> <!-- ics -->
                       
-            </table>
-          </div> <!--end panel body-->
-        </div> <!--end panel-->
-      </div> 
-              
-              <!--SAVE & NEXT BUTTONS-->
-        <div class="pageNav">
-          <s:submit action="saveIcList" value=" Save " class="saved btn btn-default"/>
-          <s:submit type="button" action="saveIcListAndNext" class="saved btn btn-project-primary">
-          Save &amp; Next &nbsp;&nbsp;<i class="fa fa-caret-right" style="color:#ffffff;"></i></s:submit>	  
-        </div>
-              
-            
+</table>
+</s:else>
  <!-- start: Delete Coupon Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+<div class="modal fade" id="myModalIc" tabindex="-1" role="dialog" aria-labelledby="myModalLabelIc" aria-hidden="true">
+	<div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                  <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true" title="warning sign"></i>&nbsp;&nbsp;
-                 <h3 class="modal-title" id="myModalLabel">Are You Sure You Want to Delete?</h3>
+                 <h3 class="modal-title" id="myModalLabelIc">Are You Sure You Want to Delete?</h3>
 
             </div>
             <div class="modal-body">
@@ -318,15 +228,4 @@
 </div>
 <!-- /.modal -->
 
-    </s:form>
-
-<script type="text/javascript" src="<s:url value="/controllers/gds.js" />"></script>
-<script type="text/javascript" src="<s:url value="/controllers/institutional_dashboard.js" />"></script> 
-<script type="text/javascript">
-$(function($){
-	$('[data-toggle="tooltip"]').tooltip({
-	    container : 'body'
-	  });
-});
-</script> 
 

@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.GdsPd;
@@ -70,6 +73,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
     
     private int length; // Number of records the table can display
     
+    private boolean returnToSearch = false;
+    
     private List<RepositoryStatus> repoList = new ArrayList<RepositoryStatus>();
     
     private List<ProjectsVw> subprojectList = new ArrayList<ProjectsVw>();
@@ -87,6 +92,23 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		return SUCCESS;
 	}
 
+	/**
+	 * Navigate back to Search Project with previous search criteria.
+	 * @return forward string
+	 */
+	public String returnToSearch() throws Exception {      
+
+		logger.debug("returnToSearch");
+		// Populate "Submission from" and "PD" lists
+		setUpLists();
+
+		criteria = (SubmissionSearchCriteria) session.get(ApplicationConstants.SEARCH_CRITERIA);
+		
+		returnToSearch = true;
+		
+		return SUCCESS;
+	}
+	
 	/**
 	 * Navigate to Search Parent Project.
 	 * @return forward string
@@ -109,6 +131,8 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		logger.debug("search");
 		
 		logger.debug(criteria.toString());
+		
+		session.put(ApplicationConstants.SEARCH_CRITERIA, criteria);
 		
 		populateCriteria();
 		
@@ -205,6 +229,7 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	private List<ExportRow> prepareExportData() {
 	       // Prepare rows of the export data
 	     	List<ExportRow> rows = new ArrayList<>();
@@ -213,18 +238,23 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 	     	ExportRow exportRow = new ExportRow();
 			List<String> header = new ArrayList<String>();
 			header.add("Project Submission Title");
+			header.add("Program/Branch/Laboratory");
 			header.add("Grant/Intramural/Contract #");
+			header.add("Activity Code");
 			header.add("Principal Investigator Name");
 			header.add("Principal Investigator Email");
 			header.add("Secondary Contact Name");
 			header.add("Secondary Contact Email");
+			header.add("Program Director Name");
 			header.add("Project Start Date");
 			header.add("Project End Date");
 			header.add("Genomic DSP");
-			header.add("GDSP Exception");
+			//header.add("GDSP Exception");
 			header.add("IC");
 			header.add("BSI");
+			header.add("Repository Names");
 			header.add("Submission Status");
+			header.add("Overall Submission Status");
 			exportRow.setRow(header);
 			exportRow.setHeader(true);
 			rows.add(exportRow);
@@ -234,43 +264,97 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 				for(Submission submission : jsonResult.getData()) {
 					exportRow = new ExportRow();
 					List<String> row = new ArrayList<>();
+					String extActivityCode = null;
+					String intActivityCode = null;
 					String extPiName = (submission.getExtPiLastName() == null ? "" : submission.getExtPiLastName() + ", " + submission.getExtPiFirstName());
 					String intPiName = (submission.getIntPiLastName() == null ? "" : submission.getIntPiLastName() + ", " + submission.getIntPiFirstName());
 					String extPocName = (submission.getExtPocLastName() == null ? "" : submission.getExtPocLastName() + ", " + submission.getExtPocFirstName());
 					String intPocName = (submission.getIntPocLastName() == null ? "" : submission.getIntPocLastName() + ", " + submission.getIntPocFirstName());
+					String extPdName= (submission.getExtPdLastName() == null ? "" : submission.getExtPdLastName() + ", " + submission.getExtPdFirstName());
+					String repositories = "";
+					
+					ProjectsVw project =  manageProjectService.findProjectsVwById(submission.getId());
+					String overallSttaus = project.getProjectStatusCode();
+					if(ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS.equalsIgnoreCase(overallSttaus)) {
+						overallSttaus = "In Progress";
+					} else if(ApplicationConstants.PAGE_STATUS_CODE_COMPLETED.equalsIgnoreCase(overallSttaus)) {
+						overallSttaus = "Completed";
+					}
+					List<RepositoryStatus> repoList = project.getRepositoryStatuses();	
+					if(!CollectionUtils.isEmpty(repoList)) {
+						Collections.sort(repoList,new RepositoryStatusComparator());
+							for(RepositoryStatus repo : repoList) {
+								if(repo.getPlanAnswerSelectionTByRepositoryId().getOtherText() != null) {
+									repositories += repo.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText() + "-" + repo.getPlanAnswerSelectionTByRepositoryId().getOtherText();
+								} else {
+								repositories += repo.getPlanAnswerSelectionTByRepositoryId().getPlanQuestionsAnswer().getDisplayText();
+								} if(!StringUtils.isBlank(repo.getAccessionNumber())) {
+									repositories+= ":" + repo.getAccessionNumber();
+								}
+								repositories += ";";
+							}
+							repositories = repositories.substring(0, repositories.length()-1);
+					}
+					if(!StringUtils.isBlank(submission.getExtGrantContractNum())) {
+					String extGrantNum = submission.getExtGrantContractNum();
+					Pattern p = Pattern.compile("\\p{L}");
+					Matcher m = p.matcher(extGrantNum);
+					if (m.find()) {
+						extActivityCode = extGrantNum.substring(m.start(),m.start()+3);
+					}
+					}
+					if(!StringUtils.isBlank(submission.getIntGrantContractNum())) {
+					String intGrantNum = submission.getIntGrantContractNum();
+					Pattern pattern = Pattern.compile("\\p{L}");
+					Matcher match = pattern.matcher(intGrantNum);
+					if (match.find()) {
+						intActivityCode =  intGrantNum.substring(match.start(),match.start()+3);
+					}
+					}
 					row.add(submission.getProjectSubmissionTitle());
+					row.add((StringUtils.isBlank(submission.getProgramBranch())) ? "": submission.getProgramBranch());
 					row.add((StringUtils.isBlank(submission.getExtGrantContractNum()))
 						? submission.getIntGrantContractNum()
 						: (StringUtils.isBlank(submission.getIntGrantContractNum()))
 								? submission.getExtGrantContractNum()
-								: submission.getExtGrantContractNum() + ", " + submission.getIntGrantContractNum());
+								: submission.getExtGrantContractNum() + "; " + submission.getIntGrantContractNum());
+					row.add((StringUtils.isBlank(extActivityCode))
+							? intActivityCode
+							: (StringUtils.isBlank(intActivityCode))
+									? extActivityCode
+									: extActivityCode + "; " + intActivityCode);
 					row.add((StringUtils.isBlank(extPiName))
 							? intPiName
 							: (StringUtils.isBlank(intPiName))
 									? extPiName
-									: extPiName + ", " + intPiName);
+									: extPiName + "; " + intPiName);
 					row.add((StringUtils.isBlank(submission.getExtPiEmailAddress()))
 							? submission.getIntPiEmailAddress()
 							: (StringUtils.isBlank(submission.getIntPiEmailAddress()))
 									? submission.getExtPiEmailAddress()
-									: submission.getExtPiEmailAddress() + ", " + submission.getIntPiEmailAddress());
+									: submission.getExtPiEmailAddress() + "; " + submission.getIntPiEmailAddress());
 					row.add((StringUtils.isBlank(extPocName))
 							? intPocName
 							: (StringUtils.isBlank(intPocName))
 									? extPocName
-									: extPocName + ", " + intPocName);
+									: extPocName + "; " + intPocName);
 					row.add((StringUtils.isBlank(submission.getExtPocEmailAddress()))
 							? submission.getIntPocEmailAddress()
 							: (StringUtils.isBlank(submission.getIntPocEmailAddress()))
 									? submission.getExtPocEmailAddress()
-									: submission.getExtPocEmailAddress() + ", " + submission.getIntPocEmailAddress());
+									: submission.getExtPocEmailAddress() + "; " + submission.getIntPocEmailAddress());
+					
+					row.add((StringUtils.isBlank(extPdName)) ? "": extPdName);
+					
 					row.add(submission.getProjectStartDateString());
 					row.add(submission.getProjectEndDateString());
 					row.add((StringUtils.isBlank(submission.getGdsPlanPageStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getGdsPlanPageStatusCode()).getDescription()));
-					row.add((StringUtils.isBlank(submission.getDataSharingExcepStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getDataSharingExcepStatusCode()).getDescription()));
+					//row.add((StringUtils.isBlank(submission.getDataSharingExcepStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getDataSharingExcepStatusCode()).getDescription()));
 					row.add((StringUtils.isBlank(submission.getIcPageStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getIcPageStatusCode()).getDescription()));
 					row.add((StringUtils.isBlank(submission.getBsiPageStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getBsiPageStatusCode()).getDescription()));
+					row.add((StringUtils.isBlank(repositories)) ? "N/A": repositories);
 					row.add((submission.getRepoCount() == null || StringUtils.isBlank(submission.getRepositoryPageStatusCode()) ? "N/A" : getLookupByCode(ApplicationConstants.PAGE_STATUS_TYPE, submission.getRepositoryPageStatusCode()).getDescription()));
+					row.add(StringUtils.isBlank(overallSttaus) ? "N/A" : overallSttaus);
 					exportRow.setRow(row);
 					rows.add(exportRow);
 				
@@ -516,5 +600,13 @@ public class SearchSubmissionAction extends BaseAction implements ServletRequest
 
 	public void setSubprojectList(List<ProjectsVw> subprojectList) {
 		this.subprojectList = subprojectList;
+	}
+
+	public boolean isReturnToSearch() {
+		return returnToSearch;
+	}
+
+	public void setReturnToSearch(boolean returnToSearch) {
+		this.returnToSearch = returnToSearch;
 	}
 }

@@ -1,6 +1,7 @@
 package gov.nih.nci.cbiit.scimgmt.gds.dao;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Component;
 
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.NedPerson;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsIcMapping;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 
 
 /**
@@ -53,6 +56,26 @@ public class InstitutionalCertificationsDao {
 		}
 	}
 	
+	/**
+	 * deletes the study
+	 * 
+	 * @param persistentInstance
+	 */
+	public void delete(Study persistentInstance) {
+		
+		Long id = persistentInstance.getId();
+		logger.info("Deleting Study instance " + id);
+		try {
+			sessionFactory.getCurrentSession().delete(persistentInstance);
+			logger.info("Delete successful for Study " + id);
+			logger.info("Deletion performed by user: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());						
+		} catch (RuntimeException re) {
+			logger.error("delete failed for Study " + id, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());
+			throw re;
+		}
+		
+	}
 	
 	/**
 	 * Delete the ProjectsIcMapping
@@ -110,6 +133,24 @@ public class InstitutionalCertificationsDao {
 		}
 	}
 	
+	/**
+	 * gets the study by id
+	 * 
+	 * @param studyId
+	 * @return
+	 */
+	public Study findStudyById(Long studyId) {
+	
+		try {
+			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Study.class);
+			criteria.add(Restrictions.eq("id", studyId));
+			 Study study = (Study) criteria.uniqueResult();
+			return study;
+		} catch (RuntimeException re) {
+			logger.error("Unable to find Study by id " + studyId, re);
+			throw re;
+		}
+	}
 	public InstitutionalCertification merge(InstitutionalCertification detachedInstance) {
 		Long id = detachedInstance.getId();
 		logger.info("Merging IC instance " + id);
@@ -130,6 +171,39 @@ public class InstitutionalCertificationsDao {
 			return result;
 		} catch (RuntimeException re) {
 			logger.error("Merge failed for IC " + id, re);
+			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
+			throw re;
+		}
+	}
+	
+	/**
+	 * saves the study
+	 * 
+	 * @param detachedInstance
+	 * @return
+	 */
+	public Study mergeStudy(Study detachedInstance) {
+		Long id = detachedInstance.getId();
+		logger.info("Merging Study instance " + id);
+		try {
+			if(id != null){
+				//Already saved submission				
+				sessionFactory.getCurrentSession().evict(sessionFactory.getCurrentSession().get(Study.class, id));
+				detachedInstance.setLastChangedBy(loggedOnUser.getAdUserId());	
+				
+			}
+			else{
+				//New submission
+				detachedInstance.setCreatedBy(loggedOnUser.getAdUserId());
+				
+			}
+			Study result = (Study) sessionFactory.getCurrentSession().merge(detachedInstance);
+			logger.info("Merge successful for Study "  + result.getId());
+			logger.info("Merge performed by user: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
+			
+			return result;
+		} catch (RuntimeException re) {
+			logger.error("Merge failed for Study " + id, re);
 			logger.error("user ID: " + loggedOnUser.getAdUserId() + "/" + loggedOnUser.getFullName());			
 			throw re;
 		}

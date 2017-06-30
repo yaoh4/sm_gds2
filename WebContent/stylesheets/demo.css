@@ -1,3 +1,15 @@
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #ddd;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+
+table.dataTable td {
+    font-size: 14px;
+}
+
 body { 
  position: relative;
   
@@ -38,6 +50,7 @@ h3 {
   font-size: 2rem;
   font-weight: 700; 
    display: inline-block;
+       margin-top: 0px;
  
 }
 
@@ -431,7 +444,7 @@ font-weight:600;
 
 .site-footer {
   
- margin-top: 40px;
+ margin-top: 80px;
 height: 220px;
 clear: both;
 background: #123e57;
@@ -575,7 +588,7 @@ a {
 }
 
 #wrap {
-   min-height: 100%;
+   min-height: 830px;
   height: auto;
   /* Negative indent footer by its height */
   margin: 0 auto -60px;
@@ -737,17 +750,11 @@ i.fa.fa-circle.fa-stack-2x {padding:0px; margin:0px;  position:relative; font-si
 
 }
 
-table.dataTable tbody th, table.dataTable tbody td {
-  padding: 3px;
-}
 
-table.dataTable td {
-  font-size: 12px;
-}
 
-th.sorting_asc {padding:12px !important;}
- th.sorting {padding: 3px 3px !important;}
-td.sorting {padding: 12px 12px !important;}
+
+
+
 
 .dropmid a li {
   font-size: 12px;
@@ -1530,44 +1537,14 @@ ul.actionMessage {
 
 
 /**********Search Results Datatable ***********/
-.table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
-    /* border-top: 0; */
-    border-bottom: 0px;
-}
-
-.subrow {
-border-top: 0px !important;  
-border-bottom: 0px !important;
-}
-
-table.dataTable {
-  table-layout: fixed; 
-  word-wrap:break-word; 
-}
-
-table.dataTable tbody tr td {
-  border-top: 2px solid #14819B;
- 
-}
-
-table.dataTable tbody tr td.even {
-  border-top: 0px !important ;
- 
-}
-
-table.dataTable tbody tr td.odd {
-  border-top: 0px !important ;
- 
-}
-
-.subtable tbody tr td {
-  border-top: 1px !important ;
-}
 
 
-div.dataTables_scrollBody thead th {
-  visibility: collapse;
-}
+
+
+
+
+
+
 
 .alert {
    
@@ -1589,4 +1566,128 @@ div.dataTables_scrollBody thead th {
 }
 
 
+.table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
+    border-top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
 
+.form-control2 {
+    
+    width: 380px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.searchHelp {
+  font-size: 10px;
+  
+}
+
+.form-control2[disabled], .form-control2[readonly], fieldset[disabled] .form-control2 {
+    background-color: #eee;
+    opacity: 1;
+}
+
+/** detail panel **/
+.details-pane {
+  display: none;
+  color: #414141;
+  background: #f1f1f1;
+  border: 1px solid #a9a9a9;
+  position: absolute;
+
+  top: -50;
+  right: 40px;
+  z-index: 99999;
+  width: 730px;
+  padding: 6px 8px;
+  text-align: left;
+  -webkit-box-shadow: 1px 3px 3px rgba(0,0,0,0.4);
+  -moz-box-shadow: 1px 3px 3px rgba(0,0,0,0.4);
+  box-shadow: 1px 3px 3px rgba(0,0,0,0.4);
+}
+.details-pane.rightside {
+  left: -529px;
+}
+
+.details-pane h3 {
+  font-size: 15px;
+  line-height: 1.1em;
+  margin-bottom: 4px;
+}
+
+.details-pane h4 {
+  font-size: 16px;
+  line-height: 1.1em;
+  margin-bottom: 4px;
+}
+
+.details-pane h3 span {
+  font-size: 0.75em;
+  font-style: italic;
+  color: #555;
+  padding-left: 15px;
+}
+
+.details-pane .desc {
+  font-size: 1em;
+  margin-bottom: 6px;
+  white-space: pre-wrap;
+}
+
+
+/** hover styles **/
+a.hvrlink:hover + .details-pane {
+  display: block;
+}
+.details-pane:hover {
+  display: block;
+}
+
+/** clearfix **/
+.clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+.clearfix { display: inline-block; }
+ 
+html[xmlns] .clearfix { display: block; }
+* html .clearfix { height: 1%; }
+
+.DUL {
+  font-size: 12px;
+  padding: 2px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+
+#addStudy {
+background-color: Transparent;
+background-repeat: no-repeat;
+border: none;
+cursor: pointer;
+overflow: hidden;
+outline: none;
+}
+
+#addIC{
+background-color: Transparent;
+background-repeat: no-repeat;
+border: none;
+cursor: pointer;
+overflow: hidden;
+outline: none;
+}

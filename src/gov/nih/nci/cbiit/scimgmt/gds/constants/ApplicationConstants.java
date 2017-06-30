@@ -192,5 +192,7 @@ public interface ApplicationConstants {
 	 public static final Long BSI_NO = 56L;
 	 public static final Long BSI_NA = 57L;
 	 
+	 //Session
+	 public static String SEARCH_CRITERIA = "searchCriteria";
 	 
 }

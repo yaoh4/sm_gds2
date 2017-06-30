@@ -30,6 +30,7 @@ public class ProjectsVw implements java.io.Serializable {
 
 	private Long id;
 	private String docAbbreviation;
+	private String programBranch;
 	private String parentAccessionNum;
 	private Long versionNum;
 	private String subprojectFlag;
@@ -174,6 +175,16 @@ public class ProjectsVw implements java.io.Serializable {
 	public void setDocAbbreviation(String docAbbreviation) {
 		this.docAbbreviation = docAbbreviation;
 	}
+	
+	@Column(name = "PROGRAM_BRANCH", length = 120)
+	public String getProgramBranch() {
+		return programBranch;
+	}
+
+	public void setProgramBranch(String programBranch) {
+		this.programBranch = programBranch;
+	}
+
 
 	@Column(name = "PARENT_ACCESSION_NUM", length = 120)
 	public String getParentAccessionNum() {

@@ -218,8 +218,12 @@ WebContent/jsp/content/submissionIc.jsp -text
 WebContent/jsp/content/submissionIcFile.jsp -text
 WebContent/jsp/content/submissionIcList.jsp -text
 WebContent/jsp/content/submissionIcListView.jsp -text
+WebContent/jsp/content/submissionIcMain.jsp -text
 WebContent/jsp/content/submissionRepositoryStatus.jsp -text
 WebContent/jsp/content/submissionStatusView.jsp -text
+WebContent/jsp/content/submissionStudy.jsp -text
+WebContent/jsp/content/submissionStudyList.jsp -text
+WebContent/jsp/content/submissionStudySelect.jsp -text
 WebContent/jsp/error/errorMessages.jsp -text
 WebContent/jsp/error/exception.jsp -text
 WebContent/jsp/error/notAuthorized.jsp -text
@@ -578,6 +582,7 @@ WebContent/stylesheets/bootstrap-datepicker-1.6.1.min.css -text
 WebContent/stylesheets/custom.css -text
 WebContent/stylesheets/datatable.css -text
 WebContent/stylesheets/datatables-1.10.12.min.css -text
+WebContent/stylesheets/demo.css -text
 WebContent/stylesheets/font-awesome-4.6.3.min.css -text
 WebContent/stylesheets/non-responsive.css -text
 WebContent/stylesheets/styles.css -text
@@ -1050,6 +1055,8 @@ src/gov/nih/nci/cbiit/scimgmt/gds/actions/RepositoryStatusSubmissionAction.java 
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SearchSubmissionAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/StatusAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SubmissionDetailsAction.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/actions/SubmissionStudyAction.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/actions/SubmissionStudyListAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/actions/SysAdminAction.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/ApplicationConstants.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/constants/PlanQuestionList.java -text
@@ -1068,6 +1075,7 @@ src/gov/nih/nci/cbiit/scimgmt/gds/domain/EmailNotification.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/GdsGrantsContracts.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/GdsPd.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/HelpText.java -text
+src/gov/nih/nci/cbiit/scimgmt/gds/domain/IcStudiesMapping.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/InstitutionalCertification.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/Lookup.java -text
 src/gov/nih/nci/cbiit/scimgmt/gds/domain/MailTemplate.java -text
@@ -1121,7 +1129,11 @@ src/gov/nih/nci/cbiit/scimgmt/gds/util/UIRuleUtil.java -text
 src/manage.xml -text
 src/search.xml -text
 src/struts.xml -text
+test/gov/nih/nci/cbiit/scimgmt/gds/RunGDSTestSuite.java -text
+test/gov/nih/nci/cbiit/scimgmt/gds/actions/BasicStudyInfoSubmissionTest.java -text
+test/gov/nih/nci/cbiit/scimgmt/gds/actions/IcListSubmissionActionTest.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/actions/ManageSubmissionTest.java -text
+test/gov/nih/nci/cbiit/scimgmt/gds/actions/SubmissionStudyTest.java -text
 test/gov/nih/nci/cbiit/scimgmt/gds/applicationContext.xml -text
 test/gov/nih/nci/cbiit/scimgmt/gds/ehcache.xml -text
 test/gov/nih/nci/cbiit/scimgmt/gds/junit/HibernateMappingTest.java -text

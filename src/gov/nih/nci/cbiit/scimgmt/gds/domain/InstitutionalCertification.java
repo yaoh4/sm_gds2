@@ -8,17 +8,15 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.springframework.util.CollectionUtils;
 
 import gov.nih.nci.cbiit.scimgmt.gds.constants.ApplicationConstants;
 
@@ -143,7 +141,7 @@ public class InstitutionalCertification implements java.io.Serializable {
 		this.documents.add(document);
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "institutionalCertification", orphanRemoval=true)
+	@ManyToMany(cascade=CascadeType.MERGE, mappedBy="institutionalCertifications")
 	public List<Study> getStudies() {
 		return this.studies;
 	}
@@ -185,6 +183,10 @@ public class InstitutionalCertification implements java.io.Serializable {
 	@Transient
 	public String getStatus() {
 		String status = ApplicationConstants.PAGE_STATUS_CODE_COMPLETED;
+		
+		if(!ApplicationConstants.IC_PROV_FINAL_ID_FINAL.equals(getProvisionalFinalCode())) {
+			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
+		}
 					
 		if(!ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(getGpaApprovalCode())) {
 			return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
@@ -194,12 +196,6 @@ public class InstitutionalCertification implements java.io.Serializable {
 			if(!ApplicationConstants.IC_DUL_VERIFIED_YES_ID.equals(study.getDulVerificationId())
 				&& !ApplicationConstants.IC_DUL_VERIFIED_NOT_APPLICABLE_ID.equals(study.getDulVerificationId())) {
 				return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-			}
-			
-			if(ApplicationConstants.IC_PROV_FINAL_ID_FINAL.equals(getProvisionalFinalCode())) {
-				if(CollectionUtils.isEmpty(study.getStudiesDulSets())) {
-					return ApplicationConstants.PAGE_STATUS_CODE_IN_PROGRESS;
-				}
 			}
 		}		
 		return status;

@@ -39,6 +39,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectGrantContract;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.ProjectsVw;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
+import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
 import gov.nih.nci.cbiit.scimgmt.gds.model.MissingData;
 import gov.nih.nci.cbiit.scimgmt.gds.services.FileUploadService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
@@ -93,7 +94,8 @@ public class ManageSubmission extends BaseAction {
 	private ProjectGrantContract intramuralGrant = new ProjectGrantContract(ApplicationConstants.GRANT_CONTRACT_TYPE_INTRAMURAL, ApplicationConstants.FLAG_YES);
 	private List<ProjectGrantContract> associatedSecondaryGrants =new ArrayList<ProjectGrantContract>(); 
 	
-	
+	protected List<Study> studiesForSelection = new ArrayList<Study>();
+
 
 	
 
@@ -954,5 +956,30 @@ public class ManageSubmission extends BaseAction {
 		return null;
 	}
 	
+	public List<Study> getStudiesForSelection() {
+		return studiesForSelection;
+	}
+
+	public void setStudiesForSelection(List<Study> studiesForSelection) {
+		this.studiesForSelection = studiesForSelection;
+	}
 	
+	/**
+	 * Filter out the list of studies that are not tied to any IC from project.studies
+	 * 
+	 * @return
+	 */
+	protected List<Study> retrieveStudies() {
+
+		List<Study> studies = new ArrayList<Study>();
+		
+		for(Study study: getProject().getStudies()) {
+			if (CollectionUtils.isEmpty(study.getInstitutionalCertifications())) {
+				studies.add(study);
+			}
+		}
+		
+		return studies;
+	}
+
 }

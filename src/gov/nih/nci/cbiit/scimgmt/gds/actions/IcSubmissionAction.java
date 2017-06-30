@@ -7,11 +7,15 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +27,6 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.Document;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.DulChecklistSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.InstitutionalCertification;
-import gov.nih.nci.cbiit.scimgmt.gds.domain.PageStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Project;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.StudiesDulSet;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.Study;
@@ -50,6 +53,8 @@ public class IcSubmissionAction extends ManageSubmission {
 	
 	private String icIds = "";
 	
+	private String studyIds = "";
+	
 	private List<ParentDulChecklist> parentDulChecklists = new ArrayList<ParentDulChecklist>();
 	
 	private File ic;
@@ -61,8 +66,10 @@ public class IcSubmissionAction extends ManageSubmission {
 	private List<Document> icFileDocs = new ArrayList<Document>();
 	
 	private Document doc = null; // json object to be returned for UI refresh after upload
+		
+	private Boolean newIC = false;
 	
-	
+	private Boolean navigateToDash = false;
 	/**
 	 * Retrieves all data associated with the specified IC and redirects the user to the
 	 * Edit/Add IC page. If no IC is present, then a new one is created. Invoked from:
@@ -79,7 +86,10 @@ public class IcSubmissionAction extends ManageSubmission {
 						
 		logger.debug("execute");
 		
+		logger.debug("Studies selected: " + studyIds);
+		
 		setProject(retrieveSelectedProject());
+		studiesForSelection = retrieveStudies();
 		
 		InstitutionalCertification instCert = null;
 		if(instCertId != null) {
@@ -90,11 +100,19 @@ public class IcSubmissionAction extends ManageSubmission {
 			loadFiles(instCert);
 		} else {
 			instCert = new InstitutionalCertification();
-			Study study = new Study();
-			StudiesDulSet studiesDulSet = new StudiesDulSet();
-			study.addStudiesDulSet(studiesDulSet);
-			//setTestData(study);
-			instCert.addStudy(study);
+			//Retrieve and populate studies that were selected
+			studyIds = StringUtils.deleteWhitespace(studyIds);
+			if(StringUtils.isEmpty(studyIds)) {
+				addActionError("Select a Study");
+				newIC = true;
+				return INPUT;
+			}
+			for(String studyId: Arrays.asList(StringUtils.split(studyIds, ","))) {
+				Study study = getProject().getStudyById(Long.parseLong(studyId));
+				StudiesDulSet studiesDulSet = new StudiesDulSet();
+				study.addStudiesDulSet(studiesDulSet);
+				instCert.addStudy(study);
+			}		
 		}
         
 		setInstCertification(instCert);
@@ -102,6 +120,23 @@ public class IcSubmissionAction extends ManageSubmission {
         return SUCCESS;
 	}
 	
+	/**
+	 * Called when the user clicks Add Institutional Certificate button from IC page
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String retrieveStudiesForSelection() throws Exception {
+		logger.debug("retrieveStudiesForSelection");
+		
+		newIC = true;
+		
+		setProject(retrieveSelectedProject());
+		
+		studiesForSelection = retrieveStudies();
+		
+		return SUCCESS;
+	}
 	
 	private void loadFiles(InstitutionalCertification instCert) {
 		if(instCert != null) {
@@ -241,16 +276,14 @@ public class IcSubmissionAction extends ManageSubmission {
 				//If no file has been uploaded yet, then we do not
 				//show any more fields to enter
 				setProject(retrieveSelectedProject());
+				studiesForSelection = retrieveStudies();
 				prepareDisplay(instCert);
 				return;
 			}
 		}
 		
 		if(getDocId() == null) {
-			setProject(retrieveSelectedProject());
-			prepareDisplay(instCert);
 			this.addActionError(getText("error.doc.required"));
-			return;
 		}
 		
 		logger.info("No. of Studies in IC = " + instCert.getStudies().size());
@@ -259,9 +292,27 @@ public class IcSubmissionAction extends ManageSubmission {
 			addActionError(getText("error.comments.size.exceeded"));
 		}
 		
+		
 		//validate the DULs in each Study
 		Iterator<Study> studies = instCert.getStudies().iterator();
-				
+		Project project = retrieveSelectedProject();
+
+		//If any Study is replaced or removed, remove the association to this IC and DULs associated with this Study
+		Set<Long> newStudies = new HashSet<Long>();
+		for(Study s: instCert.getStudies()) {
+			if(s != null)
+				newStudies.add(s.getId());
+		}
+		for(Study s: project.getStudies()) {
+			if(!newStudies.contains(s.getId()) && !CollectionUtils.isEmpty(s.getInstitutionalCertifications())
+					&& s.getInstitutionalCertifications().get(0).getId().equals(instCert.getId())) {
+				s.getInstitutionalCertifications().clear();
+				s.getStudiesDulSets().clear();
+				s.setComments(null);
+				s.setDulVerificationId(null);
+			}
+		}
+		
 		while(studies.hasNext()) {
 					
 			Study study = studies.next();
@@ -272,7 +323,8 @@ public class IcSubmissionAction extends ManageSubmission {
 				continue;
 			}
 			processStudyAttributes(study);
-			study.setInstitutionalCertification(instCert);
+			study.addInstitutionalCertification(instCert);
+			study.setProject(project);
 			int studyIndex = Long.valueOf(study.getDisplayId()).intValue();
 			boolean atLeastOneDULSelected = false;
 			
@@ -328,6 +380,7 @@ public class IcSubmissionAction extends ManageSubmission {
 				}//End while-loop for iterating through dulSets				
 			} 
 			if(!atLeastOneDULSelected 
+				&& !ApplicationConstants.IC_DUL_VERIFIED_NOT_APPLICABLE_ID.equals(study.getDulVerificationId())
 				&& ApplicationConstants.IC_GPA_APPROVED_YES_ID.equals(instCert.getGpaApprovalCode())
 				&& ApplicationConstants.IC_PROV_FINAL_ID_FINAL.equals(instCert.getProvisionalFinalCode())) {
 				addActionError(getText("error.ic.study.dulTypes.required", new String[]{study.getStudyName()}));
@@ -336,6 +389,7 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		if(hasActionErrors()) {
 			setProject(retrieveSelectedProject());
+			studiesForSelection = retrieveStudies();
 			setInstCertification(instCert);
 			prepareDisplay(instCert);
 			setDocId(getDocId());
@@ -347,11 +401,11 @@ public class IcSubmissionAction extends ManageSubmission {
 		
 		if(study.getStudyName() == null || study.getStudyName().isEmpty()) {
 			addActionError(getText("error.ic.study.studyName.required") );
-		} else if(study.getStudyName().length() > 100) {
+		} else if(study.getStudyName().length() > 150) {
 			addActionError(getText("error.studyName.size.exceeded"));
 		}
 		
-		if(study.getInstitution() != null && study.getInstitution().length() > 120) {
+		if(study.getInstitution() != null && study.getInstitution().length() > 150) {
 			addActionError(getText("error.institution.size.exceeded", new String[]{study.getStudyName()}));
 		}
 		
@@ -465,7 +519,7 @@ public class IcSubmissionAction extends ManageSubmission {
 	 */
 	public String saveIc() {
 		logger.info("Saving IC.");
-		
+
 		Project project = retrieveSelectedProject();
 		Long docId = null;
 		
@@ -514,11 +568,26 @@ public class IcSubmissionAction extends ManageSubmission {
 			fileUploadService.updateCertId(docId, icList.get(0).getId());
 		}
 		
-		
 		setProjectId(project.getId().toString());
+		
+		if (navigateToDash == false) {
+			studiesForSelection = retrieveStudies();
+			addActionMessage(getText("project.save.success"));
+			setInstCertification(instCert);
+			prepareDisplay(instCert);
+			setDocId(getDocId());
+		}
 		return SUCCESS;
 	}
 	
+	public String saveIcAndGotoDashboard() {
+		navigateToDash = true;
+		return saveIc();
+	}
+	
+	public void validateSaveIcAndGotoDashboard() {
+		validateSaveIc();
+	}
 	
 	/**
 	 * Upload IC Document
@@ -752,5 +821,21 @@ public class IcSubmissionAction extends ManageSubmission {
 		setMissingDataList(GdsMissingDataUtil.getInstance().getMissingIcData(project, Long.valueOf(instCertId)));		
 			
 		return SUCCESS;
+	}
+
+	public String getStudyIds() {
+		return studyIds;
+	}
+
+	public void setStudyIds(String studyIds) {
+		this.studyIds = studyIds;
+	}
+
+	public Boolean getNewIC() {
+		return newIC;
+	}
+
+	public void setNewIC(Boolean newIC) {
+		this.newIC = newIC;
 	}
 }
