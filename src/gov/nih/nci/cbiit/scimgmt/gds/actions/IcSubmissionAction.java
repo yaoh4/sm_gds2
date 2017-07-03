@@ -271,17 +271,6 @@ public class IcSubmissionAction extends ManageSubmission {
 		this.clearActionErrors();
 		InstitutionalCertification instCert = getInstCertification();
 		
-		if(ic != null) {
-			if(getDocId() == null) {
-				//If no file has been uploaded yet, then we do not
-				//show any more fields to enter
-				setProject(retrieveSelectedProject());
-				studiesForSelection = retrieveStudies();
-				prepareDisplay(instCert);
-				return;
-			}
-		}
-		
 		if(getDocId() == null) {
 			this.addActionError(getText("error.doc.required"));
 		}
