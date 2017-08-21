@@ -54,7 +54,7 @@ public class SubmissionStudyAction  extends ManageSubmission {
         return SUCCESS;
 	}
 	
-	 public static Comparator<Study> StuNameComparator = new Comparator<Study>() {
+	 public static final Comparator<Study> StuNameComparator = new Comparator<Study>() {
 
 			public int compare(Study s1, Study s2) {
 			   String StudentName1 = s1.getStudyName().toUpperCase();

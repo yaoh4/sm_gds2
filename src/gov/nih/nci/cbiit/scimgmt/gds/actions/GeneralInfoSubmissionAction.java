@@ -248,7 +248,7 @@ public class GeneralInfoSubmissionAction extends ManageSubmission {
 	}
 	
 	
-	public static Comparator<Study> StuInstIdComparator = new Comparator<Study>() {
+	public static final Comparator<Study> StuInstIdComparator = new Comparator<Study>() {
 
 	     public int compare(Study s1, Study s2) {
 			if((!CollectionUtils.isEmpty(s1.getInstitutionalCertifications())) && (!CollectionUtils.isEmpty(s2.getInstitutionalCertifications()))) {
