@@ -2,9 +2,9 @@
 <pmd-cpd>
    <duplication lines="23" tokens="255">
       <file line="262"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
       <file line="403"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
       <codefragment><![CDATA[			subprojectCriteria.add(Restrictions.eq("docAbbreviation", searchCriteria.getDoc()));
 		}
 		
@@ -31,9 +31,9 @@
    </duplication>
    <duplication lines="63" tokens="245">
       <file line="280"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
       <file line="216"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
       <codefragment><![CDATA[	}
 
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
@@ -100,11 +100,11 @@
    </duplication>
    <duplication lines="63" tokens="241">
       <file line="280"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
       <file line="216"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
       <file line="154"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
       <codefragment><![CDATA[	}
 
 	@Column(name = "CREATED_BY", nullable = false, length = 120)
@@ -170,10 +170,10 @@
 	@Column(name = "SUBPROJECT_FLAG", length = 4)]]></codefragment>
    </duplication>
    <duplication lines="34" tokens="226">
-      <file line="755"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
+      <file line="764"
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
       <file line="87"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
       <codefragment><![CDATA[		if(StringUtils.isBlank(project.getPlanComments()) && 
 			CollectionUtils.isEmpty(project.getPlanAnswerSelections())) {
 			return ApplicationConstants.PAGE_STATUS_CODE_NOT_STARTED;
@@ -211,13 +211,13 @@
    </duplication>
    <duplication lines="48" tokens="189">
       <file line="98"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\PageStatus.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\PageStatus.java"/>
       <file line="282"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
       <file line="219"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
       <file line="156"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
       <codefragment><![CDATA[	@Column(name = "CREATED_BY", length = 120)
 	public String getCreatedBy() {
 		
@@ -268,10 +268,10 @@
 			try {]]></codefragment>
    </duplication>
    <duplication lines="41" tokens="175">
-      <file line="105"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\DulChecklist.java"/>
+      <file line="108"
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\DulChecklist.java"/>
       <file line="112"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\MailTemplate.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\MailTemplate.java"/>
       <codefragment><![CDATA[	public void setActiveFlag(String activeFlag) {
 		this.activeFlag = activeFlag;
 	}
@@ -316,9 +316,9 @@
    </duplication>
    <duplication lines="41" tokens="168">
       <file line="64"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\HelpText.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\HelpText.java"/>
       <file line="65"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Property.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Property.java"/>
       <codefragment><![CDATA[	}
 
 	@Temporal(TemporalType.DATE)
@@ -363,9 +363,9 @@
    </duplication>
    <duplication lines="41" tokens="168">
       <file line="114"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\MailTemplate.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\MailTemplate.java"/>
       <file line="85"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectPlanAnswersMapping.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectPlanAnswersMapping.java"/>
       <codefragment><![CDATA[	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -409,10 +409,10 @@
 }]]></codefragment>
    </duplication>
    <duplication lines="39" tokens="167">
-      <file line="107"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\DulChecklist.java"/>
+      <file line="110"
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\DulChecklist.java"/>
       <file line="85"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectPlanAnswersMapping.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectPlanAnswersMapping.java"/>
       <codefragment><![CDATA[	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -455,11 +455,11 @@
    </duplication>
    <duplication lines="39" tokens="167">
       <file line="64"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\HelpText.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\HelpText.java"/>
       <file line="98"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Lookup.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Lookup.java"/>
       <file line="65"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Property.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Property.java"/>
       <codefragment><![CDATA[	}
 
 	@Temporal(TemporalType.DATE)
@@ -502,9 +502,9 @@
    </duplication>
    <duplication lines="10" tokens="154">
       <file line="318"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
       <file line="444"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\dao\ProjectSearchDao.java"/>
       <codefragment><![CDATA[			subprojectCriteria.add(Restrictions.ilike("projectSubmissionTitle", searchCriteria.getProjectTitle().trim(), MatchMode.ANYWHERE));
 		}
 		
@@ -517,10 +517,10 @@
 			dc.add(Restrictions.ilike("intPiLastName", searchCriteria.getPiFirstOrLastName().trim(), MatchMode.ANYWHERE));]]></codefragment>
    </duplication>
    <duplication lines="21" tokens="144">
-      <file line="787"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
+      <file line="796"
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
       <file line="120"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
       <codefragment><![CDATA[					(project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SHARING_EXCEPTION_NO_ID) != null
 					  || project.getPlanAnswerSelectionByAnswerId(ApplicationConstants.PLAN_QUESTION_ANSWER_DATA_SUBMITTED_YES_ID) != null 
 					)) {
@@ -544,10 +544,10 @@
 					|| CollectionUtils.isEmpty(project.getPlanAnswerSelectionByQuestionId(ApplicationConstants.PLAN_QUESTION_ANSWER_ACCESS_ID)))  {]]></codefragment>
    </duplication>
    <duplication lines="17" tokens="132">
-      <file line="198"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsMissingDataUtil.java"/>
+      <file line="197"
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsMissingDataUtil.java"/>
       <file line="170"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\util\GdsPageStatusUtil.java"/>
       <codefragment><![CDATA[		}
 		
 		if(ApplicationConstants.FLAG_YES.equals(project.getSubprojectFlag())) {
@@ -567,10 +567,10 @@
 				return missingDataList;]]></codefragment>
    </duplication>
    <duplication lines="30" tokens="114">
-      <file line="104"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\InstitutionalCertification.java"/>
+      <file line="102"
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\InstitutionalCertification.java"/>
       <file line="145"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
       <codefragment><![CDATA[	}
 
 	@Column(name = "COMMENTS", length = 4000)
@@ -604,11 +604,11 @@
    </duplication>
    <duplication lines="33" tokens="105">
       <file line="403"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\Project.java"/>
       <file line="340"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\ProjectGrantContract.java"/>
       <file line="214"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
       <codefragment><![CDATA[	}
 
 	
@@ -644,10 +644,10 @@
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project", orphanRemoval = true)]]></codefragment>
    </duplication>
    <duplication lines="24" tokens="104">
-      <file line="162"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\InstitutionalCertification.java"/>
+      <file line="160"
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\InstitutionalCertification.java"/>
       <file line="90"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\PlanAnswerSelection.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\PlanAnswerSelection.java"/>
       <codefragment><![CDATA[		return projects;
 	}
 
@@ -675,9 +675,9 @@
    </duplication>
    <duplication lines="30" tokens="103">
       <file line="166"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\PageStatus.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\PageStatus.java"/>
       <file line="210"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\domain\RepositoryStatus.java"/>
       <codefragment><![CDATA[		} catch (Exception e) {
 		
 		return createdBy;
@@ -711,11 +711,11 @@
    </duplication>
    <duplication lines="25" tokens="100">
       <file line="177"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\actions\BasicStudyInfoSubmissionAction.java"/>
-      <file line="247"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
-      <file line="280"
-            path="c:\dev\Releases\Non I2E\gds-v1.2_sprint2\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\actions\BasicStudyInfoSubmissionAction.java"/>
+      <file line="246"
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
+      <file line="279"
+            path="C:\dev\workspace\gds\src\gov\nih\nci\cbiit\scimgmt\gds\actions\GDSPlanSubmissionAction.java"/>
       <codefragment><![CDATA[			bsiFile = fileUploadService.retrieveFileByDocType(ApplicationConstants.DOC_TYPE_BSI, Long.valueOf(getProjectId()));
 		
 		} catch (Exception e) {
