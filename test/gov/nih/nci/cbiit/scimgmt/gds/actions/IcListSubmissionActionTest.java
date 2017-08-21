@@ -13,10 +13,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.mockito.runners.MockitoJUnitRunner;
 import com.opensymphony.xwork2.ActionContext;
 
 import static org.mockito.Matchers.any;
@@ -35,8 +32,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanAnswerSelection;
 import gov.nih.nci.cbiit.scimgmt.gds.domain.PlanQuestionsAnswer;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"../applicationContext.xml"})
+@RunWith(MockitoJUnitRunner.class)
 public class IcListSubmissionActionTest {
 	
   static Logger logger = LogManager.getLogger(IcListSubmissionActionTest.class);
@@ -56,7 +52,6 @@ public class IcListSubmissionActionTest {
 	};
   
 	@Test
-	@Transactional
 	public void testExecute() {
 		System.out.println("Starting junit for execute");
 		
@@ -115,7 +110,6 @@ public class IcListSubmissionActionTest {
 	}
 
 	@Test
-	@Transactional
 	public void testDeleteIc() {
 		System.out.println("Starting junit for deleteIc");
 		
@@ -134,7 +128,6 @@ public class IcListSubmissionActionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testValidateIcListSubmission() {
 		System.out.println("Starting junit for validateIcListSubmission");
 		
@@ -174,7 +167,6 @@ public class IcListSubmissionActionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testValidateSave() {
 		System.out.println("Starting junit for validateSave");
 		
@@ -199,7 +191,6 @@ public class IcListSubmissionActionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testSave() {
 		System.out.println("Starting junit for save");
 		
@@ -256,7 +247,6 @@ public class IcListSubmissionActionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testGetMissingIcListData() {
 		System.out.println("Starting junit for getMissingIcListData");
 		
@@ -278,7 +268,6 @@ public class IcListSubmissionActionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testGetPageStatusCode() {
 		System.out.println("Starting junit for getPageStatusCode");
 		

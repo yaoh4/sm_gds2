@@ -10,12 +10,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.mockito.runners.MockitoJUnitRunner;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -32,8 +29,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.util.DropDownOption;
 import junit.framework.Assert;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"../applicationContext.xml"})
+@RunWith(MockitoJUnitRunner.class)
 public class BasicStudyInfoSubmissionTest {
 	
   static Logger logger = LogManager.getLogger(BasicStudyInfoSubmissionTest.class);
@@ -57,11 +53,10 @@ public class BasicStudyInfoSubmissionTest {
 		};
 	
  
-	@Autowired
+	@Mock
 	LookupService lookupService;
 	
 	@Test
-	@Transactional
 	public void computePageStatusTest() {
 		
       System.out.println("Starting junit for computePageStatusTest");
@@ -104,7 +99,6 @@ public class BasicStudyInfoSubmissionTest {
 	}
 
 	@Test
-	@Transactional
 	public void testuploadBasicStudyInfo() throws Exception{
 		System.out.println("Starting junit for upload basic study info");
 		List<Document> docs = new ArrayList<Document> ();
@@ -138,7 +132,6 @@ public class BasicStudyInfoSubmissionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testDeleteBsiFile() {
 		System.out.println("Starting Junit for delete bsi file");
 		List<Document> docs = new ArrayList<Document> ();
@@ -158,7 +151,6 @@ public class BasicStudyInfoSubmissionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testValidateSave() throws Exception {
 	        System.out.println("Starting junit for validateSave");
 			
@@ -183,7 +175,6 @@ public class BasicStudyInfoSubmissionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testSave() throws Exception {
 		    System.out.println("Starting junit for save");
 		
@@ -202,7 +193,6 @@ public class BasicStudyInfoSubmissionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testExecute() throws Exception {
 		   System.out.println("Starting junit for execute");
 			
@@ -235,7 +225,6 @@ public class BasicStudyInfoSubmissionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testSaveAndNext() throws Exception {
 		   System.out.println("Starting junit for save and next");
 			
@@ -253,7 +242,6 @@ public class BasicStudyInfoSubmissionTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testMissingBsiData() {
 		System.out.println("Starting junit missing bsi data");
 		

@@ -4,10 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.mockito.runners.MockitoJUnitRunner;
 import com.opensymphony.xwork2.ActionContext;
 
 import static org.mockito.Matchers.any;
@@ -36,8 +33,7 @@ import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"../applicationContext.xml"})
+@RunWith(MockitoJUnitRunner.class)
 public class SubmissionStudyTest {
 	
 	static Logger logger = LogManager.getLogger(SubmissionStudyTest.class);
@@ -59,7 +55,6 @@ public class SubmissionStudyTest {
 		};
 
 	@Test
-	@Transactional
 	public void testRetrieveStudy() {
 	
 		Project project = new Project();
@@ -87,7 +82,6 @@ public class SubmissionStudyTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testDeleteStudy() {
        System.out.println("Starting junit for deleteStudy");
 		
@@ -105,7 +99,6 @@ public class SubmissionStudyTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testValidateSaveStudy() {
        System.out.println("Starting junit for validateSaveStudy");
 		
@@ -147,7 +140,6 @@ public class SubmissionStudyTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testValidateSaveAndAddStudy() {
        System.out.println("Starting junit for validateSaveStudy");
 		
@@ -187,7 +179,6 @@ public class SubmissionStudyTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testSaveStudy() {
        System.out.println("Starting junit for saveStudy");
 		
@@ -253,7 +244,6 @@ public class SubmissionStudyTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testSaveAndAddStudy() {
 		System.out.println("Starting junit for saveAndAddStudy");
 		
@@ -274,7 +264,6 @@ public class SubmissionStudyTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testExecute() throws Exception {
 		System.out.println("Starting junit for execute");
 		
@@ -294,7 +283,6 @@ public class SubmissionStudyTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testSetListStudies() {
        System.out.println("Starting junit for execute");
 		

@@ -9,7 +9,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,17 +31,17 @@ import gov.nih.nci.cbiit.scimgmt.gds.domain.RepositoryStatus;
 import gov.nih.nci.cbiit.scimgmt.gds.model.ParentDulChecklist;
 import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 
+@RunWith(MockitoJUnitRunner.class)
 public class GdsSubmissionActionHelperTest {
 	
 private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHelperTest.class);
 	
-	@Autowired
+	@Mock
 	protected LookupService lookupService;
    	
    	GdsSubmissionActionHelper gdsSubmissionHelper = new GdsSubmissionActionHelper();
 	
 	@Test
-	@Transactional
 	public void isProjectEligibleForVersionTest() {
 		
 		System.out.println("Starting junit for isProjectEligibleForVersionTest");
@@ -101,7 +104,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
   
 	@Test
-	@Transactional
 	public void isEligibleForSubprojectTest() {
 		
 		System.out.println("Starting junit for isEligibleForSubprojectTest");
@@ -150,7 +152,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void willThereBeAnyDataSubmittedInGdsPlanTest() {
 		
         System.out.println("Starting junit for willThereBeAnyDataSubmittedInGdsPlanTest");
@@ -179,7 +180,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void isSubmissionUpdatedTest() {
 		
 		 System.out.println("Starting junit for isSubmissionUpdatedTest");
@@ -245,7 +245,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void testGetLookupDropDownList() {
 		List<Lookup> lookupList = new ArrayList<Lookup>();
 		Lookup lookup = new Lookup();
@@ -267,7 +266,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void testGetDocDropDownList() {
 		List<Organization> orgList = new ArrayList<Organization>();
 		Organization org = new Organization();
@@ -292,7 +290,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void testPopulateDocDropDownList() {
 		List<DropDownOption> dropdownList = new ArrayList<DropDownOption>();
 		
@@ -315,7 +312,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void testPopulateProgDropDownList() {
 		
 		List<DropDownOption> dropdownList = new ArrayList<DropDownOption>();
@@ -329,7 +325,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void testRemovelookUpFromDropDownList() {
 		
 		List<DropDownOption> dropdownList = new ArrayList<DropDownOption>();
@@ -344,7 +339,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void testGetLookUpDropDownCodeList() {
 		
 		List<Lookup> lookupList = new ArrayList<Lookup>();
@@ -367,7 +361,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void testGetDulCheckList() {
 		List<DulChecklist> checklist = new ArrayList<DulChecklist>();
 		DulChecklist dul = new DulChecklist();
@@ -383,7 +376,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void testGetLoggedOnOsersDOC() {
 		List<Organization> orgList = new ArrayList<Organization>();
 		Organization org1 = new Organization();
@@ -407,7 +399,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void testPopolateProjectProperties() {
 		  System.out.println("Starting junit for populateProject properties");
 			
@@ -452,7 +443,6 @@ private static final Logger logger = LogManager.getLogger(GdsSubmissionActionHel
 	}
 	
 	@Test
-	@Transactional
 	public void testGetDulChecklistsSets() {
 		
 		Project project = new Project();

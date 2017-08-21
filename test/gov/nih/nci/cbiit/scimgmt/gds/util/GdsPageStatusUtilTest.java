@@ -17,7 +17,9 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -37,25 +39,23 @@ import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
  * @author menons2
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"../applicationContext.xml"})
+@RunWith(MockitoJUnitRunner.class)
 public class GdsPageStatusUtilTest {
 	
 	private static final Logger logger = LogManager.getLogger(GdsPageStatusUtil.class);
 	
-	@Autowired
+	@Mock
 	protected FileUploadService fileUploadService;
 	
-	@Autowired
+	@Mock
 	protected ManageProjectService manageProjectService;
 	
-	@Autowired
+	@Mock
 	protected NedPerson loggedOnUser;
 
 	
    	
 	@Test
-	@Transactional
 	public void testComputeGdsPlanStatus() {
 		System.out.println("Starting junit for testComputeGdsPlanStatus");
 		GdsPageStatusUtil gdsPageStatusUtil = GdsPageStatusUtil.getInstance();
@@ -191,7 +191,6 @@ public class GdsPageStatusUtilTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testComputeIcListStatus() {
 		System.out.println("Starting junit for testComputeIcListStatus");
 		GdsPageStatusUtil gdsPageStatusUtil = GdsPageStatusUtil.getInstance();
@@ -233,7 +232,6 @@ public class GdsPageStatusUtilTest {
 	}
 	
 	@Test
-	@Transactional
 	public void computeBsiStudyInfoStatusTest() {
 		System.out.println("Starting junit for testComputeIcListStatus");
 		GdsPageStatusUtil gdsPageStatusUtil = GdsPageStatusUtil.getInstance();
@@ -314,7 +312,6 @@ public class GdsPageStatusUtilTest {
 	}
 	
 	@Test
-	@Transactional
 	public void computeRepositoryStatusTest() throws ParseException {
 		
 		System.out.println("Starting junit for computeRepositoryStatusTest");

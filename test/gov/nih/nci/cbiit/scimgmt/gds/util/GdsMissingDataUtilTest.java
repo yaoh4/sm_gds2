@@ -13,7 +13,9 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -37,29 +39,27 @@ import gov.nih.nci.cbiit.scimgmt.gds.services.LookupService;
 import gov.nih.nci.cbiit.scimgmt.gds.services.ManageProjectService;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"../applicationContext.xml"})
+@RunWith(MockitoJUnitRunner.class)
 public class GdsMissingDataUtilTest {
 	
 	private static final Logger logger = LogManager.getLogger(GdsMissingDataUtil.class);
 	
-	@Autowired
+	@Mock
 	protected LookupService lookupService;
 	
-	@Autowired
+	@Mock
 	protected ManageProjectService manageProjectService;
 	
-	@Autowired
+	@Mock
 	protected FileUploadService fileUploadService;
 	
-	@Autowired
+	@Mock
 	protected NedPerson loggedOnUser;
 	
 	private static GdsMissingDataUtil instance;
    	private static boolean loaded = false;
    	
    	@Test
-	@Transactional
 	public void getMissingGdsPlanDataTest(){
    		
    		System.out.println("Starting junit for getMissingGdsPlanDataTest");
@@ -153,7 +153,6 @@ public class GdsMissingDataUtilTest {
    	
    	
    	@Test
-	@Transactional
 	public void getMissingIcListDataTest() {
    		
    		System.out.println("Starting junit for getMissingIcListDataTest");
@@ -250,7 +249,6 @@ public class GdsMissingDataUtilTest {
    	
    	
    	@Test
-	@Transactional
 	public void getMissingBsiDataTest() {
    		
    		System.out.println("Starting junit for getMissingBsiDataTest");
@@ -274,7 +272,6 @@ public class GdsMissingDataUtilTest {
    	}
    	
    	@Test
-	@Transactional
 	public void getMissingRepositoryListDataTest() {
    		
    		System.out.println("Starting junit for getMissingRepositoryListDataTest");
@@ -356,7 +353,6 @@ public class GdsMissingDataUtilTest {
    	}
    	
    	@Test
-   	@Transactional
    	public void testGetMissingrepositoryData() {
    		
    		GdsMissingDataUtil gdsMissingDataUtil = GdsMissingDataUtil.getInstance();
@@ -408,7 +404,6 @@ public class GdsMissingDataUtilTest {
    	}
    	
    	@Test
-   	@Transactional
    	public void testGetMissingIcData() {
    		System.out.println("Starting Junit test caes for getMissingICData");
    		GdsMissingDataUtil gdsMissingDataUtil = GdsMissingDataUtil.getInstance();
